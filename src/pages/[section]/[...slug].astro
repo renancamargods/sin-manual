@@ -2,7 +2,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import RoutineList from '../../components/RoutineList.astro';
-import { getModule } from '../../data/modules';
+import { getModule, tecnicoPages } from '../../data/modules';
 
 export async function getStaticPaths() {
   const entries = await getCollection('docs');
@@ -37,6 +37,12 @@ if (data.pageType === 'routine') {
     { label: 'Módulo', value: data.moduleLabel ?? data.title },
     { label: 'Rotinas', value: String(mod?.routines.length ?? 0) },
   ];
+} else if (data.pageType === 'tecnico') {
+  const b: { label: string; value: string }[] = [];
+  if (data.moduleLabel) b.push({ label: 'Área', value: data.moduleLabel });
+  if (data.routineType) b.push({ label: 'Tipo', value: data.routineType });
+  if (data.impact) b.push({ label: 'Impacto', value: data.impact });
+  badges = b;
 }
 
 // Breadcrumb
@@ -55,7 +61,13 @@ if (data.section === 'modulos') {
 } else if (data.section === 'manual') {
   breadcrumb.push({ label: data.title });
 } else if (data.section === 'tecnico') {
-  breadcrumb.push({ label: 'Doc. Técnicas e Configurações', href: '/tecnico/fluxos' });
+  breadcrumb.push({ label: 'Doc. Técnicas e Configurações' });
+  const parts = data.routeSlug.split('/');
+  if (parts.length > 1) {
+    // Subpágina de um grupo (ex.: fluxos/romaneio): mostra o grupo pai.
+    const group = tecnicoPages.find((g) => g.slug === parts[0]);
+    breadcrumb.push({ label: group?.title ?? parts[0], href: `/tecnico/${parts[0]}` });
+  }
   breadcrumb.push({ label: data.title });
 }
 

@@ -38,7 +38,14 @@ export const manualPages: StaticPage[] = [
 ];
 
 export const tecnicoPages: TecnicoGroup[] = [
-  { title: 'Fluxos', slug: 'fluxos', description: 'Como os principais processos se conectam entre módulos.', pages: [] },
+  {
+    title: 'Fluxos',
+    slug: 'fluxos',
+    description: 'Como os principais processos se conectam entre módulos.',
+    pages: [
+      { title: 'Romaneio', slug: 'romaneio', description: 'Fluxo de separação, etiquetagem, romaneio e coleta de remessas.' },
+    ],
+  },
   { title: 'APIs', slug: 'apis', description: 'Integrações disponíveis para troca de informações com outros sistemas.', pages: [] },
   { title: 'Migrations', slug: 'migrations', description: 'Controle de versões de estrutura de dados do sistema.', pages: [] },
   { title: 'Parâmetros', slug: 'parametros', description: 'Parâmetros gerais de configuração do sistema.', pages: [] },
