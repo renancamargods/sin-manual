@@ -1,0 +1,129 @@
+---
+section: modulos
+routeSlug: autenticador/usuario
+pageType: routine
+module: autenticador
+moduleLabel: Autenticador
+title: Usuário
+description: Cadastro de usuários que acessam o sistema, com perfil e permissões associados.
+routineType: Cadastro
+permission: Sim
+impact: Alto — controla o acesso de pessoas ao sistema
+keywords: [usuário, cadastro de usuário, acesso, perfil, permissões]
+tags: [modulo-autenticador, cadastro]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+
+## Visão geral
+
+A tela **Usuário** reúne o cadastro das pessoas que acessam o S.I.N Implant System, associando cada uma a um perfil de acesso, um departamento e, quando aplicável, um ou mais grupos.
+
+É por meio deste cadastro que se define quem pode entrar no sistema e, em conjunto com o Perfil, o que cada pessoa pode ver e fazer.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de usuários', text: 'Centraliza os dados de acesso das pessoas que utilizam o sistema.' },
+    { label: 'Uso', title: 'Controle de acesso', text: 'Define, junto com o perfil, o que cada usuário pode ver e fazer no sistema.' },
+    { label: 'Cuidado', title: 'Segurança de acesso', text: 'Cadastre apenas pessoas autorizadas e mantenha perfis e situação sempre atualizados.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo usuário.
+- Consultar os dados de acesso de um usuário existente.
+- Alterar o perfil, o departamento ou o grupo de um usuário.
+- Bloquear ou inativar o acesso de um usuário.
+
+## Como acessar
+
+Autenticador → Usuário
+
+## Antes de começar
+
+- Confirme o perfil de acesso adequado para a função da pessoa.
+- Verifique se a pessoa já não possui cadastro de usuário.
+- Tenha em mãos o e-mail corporativo válido, usado para login e recuperação de senha.
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código', 'Identifica o usuário no sistema.'],
+    ['Nome', 'Nome completo do usuário.'],
+    ['E-mail', 'Usado para login e recuperação de senha.'],
+    ['Perfil', 'Conjunto de permissões atribuído ao usuário.'],
+    ['Departamento', 'Área da empresa à qual o usuário pertence.'],
+    ['Grupo', 'Agrupamento adicional usado para organizar usuários.'],
+    ['Situação', 'Indica se o usuário está ativo ou inativo.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Cadastrar novo usuário** — preencha os dados obrigatórios, associe um perfil e salve.
+2. **Consultar usuário** — utilize a busca para localizar pelo nome ou e-mail.
+3. **Alterar usuário** — atualize perfil, departamento ou grupo conforme necessário.
+4. **Inativar usuário** — altere a situação para inativo quando a pessoa deixar de precisar de acesso.
+
+## Relações com outros cadastros ou processos
+
+Este cadastro depende de um perfil já configurado na tela Perfil e pode ser organizado por departamento e grupo. O histórico de acessos pode ser consultado na tela Tentativa de Login.
+
+<Callout type="cuidado" title="Impacto direto no acesso">
+Alterar o perfil de um usuário muda imediatamente o que ele consegue ver e fazer no sistema.
+</Callout>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['USUARIO.VISUALIZAR', 'Acesso à tela', 'Permite abrir e consultar o cadastro de usuários.'],
+    ['USUARIO.EDITAR', 'Cadastro e alteração', 'Permite criar e alterar dados do usuário, incluindo o perfil associado.'],
+    ['USUARIO.INATIVAR', 'Situação do cadastro', 'Permite bloquear ou inativar o acesso de um usuário.'],
+  ]}
+/>
+
+## Parâmetros e comportamentos importantes
+
+- O usuário precisa estar ativo para conseguir acessar o sistema.
+- A alteração de perfil passa a valer no próximo acesso do usuário.
+- Usuários inativos não conseguem realizar login, mas seu histórico é mantido.
+
+## Regras e cuidados
+
+- Cadastre apenas pessoas autorizadas pela empresa.
+- Evite duplicar cadastros para a mesma pessoa.
+- Prefira inativar em vez de excluir um usuário que já tenha histórico de uso.
+- Revise o perfil atribuído sempre que a função da pessoa mudar.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+    ['Usuário não consegue fazer login', 'Usuário inativo ou bloqueado', 'Verifique a situação do cadastro e o histórico em Tentativa de Login.'],
+    ['Usuário não vê um módulo esperado', 'Perfil sem permissão para o módulo', 'Revise as permissões do perfil associado ao usuário.'],
+    ['E-mail de recuperação de senha não chega', 'E-mail cadastrado incorreto', 'Confirme e corrija o e-mail cadastrado.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar e gerenciar as pessoas que têm acesso ao sistema.' },
+    { question: 'Posso excluir um usuário em uso?', answer: 'Não é recomendado. Prefira inativar o cadastro para preservar o histórico de ações realizadas por ele.' },
+    { question: 'Alterar o perfil afeta o acesso imediatamente?', answer: 'Sim, a mudança passa a valer no próximo acesso do usuário.' },
+    { question: 'Preciso de permissão para acessar esta tela?', answer: 'Sim. É necessário ter a permissão correspondente liberada no seu perfil de acesso.' },
+    { question: 'Onde essa informação é usada?', answer: 'No controle de login e nas permissões aplicadas em todos os módulos do sistema.' },
+  ]}
+/>

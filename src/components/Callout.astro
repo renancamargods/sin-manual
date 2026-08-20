@@ -1,0 +1,30 @@
+---
+// Alerta/callout para observações, avisos e cuidados dentro do conteúdo do manual.
+import Icon from './Icon.astro';
+
+interface Props {
+  type?: 'info' | 'atencao' | 'cuidado' | 'dica';
+  title?: string;
+}
+
+const { type = 'info', title } = Astro.props;
+
+const config = {
+  info: { icon: 'info' as const, label: title ?? 'Observação', classes: 'border-gray-200 bg-gray-50', iconClasses: 'text-gray-500' },
+  dica: { icon: 'check-circle' as const, label: title ?? 'Dica', classes: 'border-brand-orange/25 bg-brand-orange/5', iconClasses: 'text-brand-orange-dark' },
+  atencao: { icon: 'alert-triangle' as const, label: title ?? 'Atenção', classes: 'border-amber-200 bg-amber-50', iconClasses: 'text-amber-600' },
+  cuidado: { icon: 'alert-triangle' as const, label: title ?? 'Cuidado', classes: 'border-brand-red/25 bg-brand-red/5', iconClasses: 'text-brand-red' },
+};
+
+const { icon, label, classes, iconClasses } = config[type];
+---
+
+<div class:list={['not-prose my-5 flex gap-3 rounded-lg border px-4 py-3.5 text-gray-700', classes]}>
+  <Icon name={icon} class:list={['mt-0.5 h-5 w-5 flex-shrink-0', iconClasses]} />
+  <div class="text-sm leading-6">
+    <p class="mb-1 font-semibold text-gray-900">{label}</p>
+    <div class="[&>p]:mb-0 [&>p:not(:last-child)]:mb-2">
+      <slot />
+    </div>
+  </div>
+</div>

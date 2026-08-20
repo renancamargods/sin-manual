@@ -1,0 +1,134 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  size?: 'md' | 'lg';
+  placeholder?: string;
+}
+
+const { size = 'md', placeholder = 'Buscar tela, módulo ou dúvida frequente...' } = Astro.props;
+---
+
+<div class="relative w-full" data-search>
+  <div class="relative">
+    <Icon name="search" class:list={['pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400', size === 'lg' ? 'h-5 w-5' : 'h-4 w-4']} />
+    <input
+      type="search"
+      autocomplete="off"
+      placeholder={placeholder}
+      data-search-input
+      class:list={[
+        'w-full rounded-lg border border-gray-200 bg-white text-gray-800 shadow-card outline-none transition placeholder:text-gray-400 focus:border-brand-red/50 focus:ring-2 focus:ring-brand-red/15',
+        size === 'lg' ? 'py-3.5 pl-11 pr-4 text-base' : 'py-2 pl-9 pr-3 text-sm',
+      ]}
+    />
+  </div>
+  <div
+    data-search-results
+    class="absolute left-0 right-0 top-full z-30 mt-2 hidden max-h-96 overflow-y-auto rounded-xl2 border border-gray-200 bg-white p-2 shadow-card-hover"
+  ></div>
+</div>
+
+<script>
+  type SearchItem = {
+    title: string;
+    description: string;
+    href: string;
+    module: string;
+    keywords: string[];
+  };
+
+  let index: SearchItem[] | null = null;
+  let loading: Promise<SearchItem[]> | null = null;
+
+  function loadIndex(): Promise<SearchItem[]> {
+    if (index) return Promise.resolve(index);
+    if (!loading) {
+      loading = fetch('/search-index.json')
+        .then((r) => r.json())
+        .then((data: SearchItem[]) => {
+          index = data;
+          return data;
+        });
+    }
+    return loading;
+  }
+
+  const DIACRITICS_RANGE = String.fromCharCode(0x0300) + '-' + String.fromCharCode(0x036f);
+  const diacriticsPattern = new RegExp('[' + DIACRITICS_RANGE + ']', 'g');
+
+  function normalize(value: string): string {
+    return value
+      .normalize('NFD')
+      .replace(diacriticsPattern, '')
+      .toLowerCase();
+  }
+
+  function highlightMatch(item: SearchItem, query: string) {
+    return normalize(item.title).includes(query) ? 3 : 0;
+  }
+
+  function search(items: SearchItem[], rawQuery: string): SearchItem[] {
+    const query = normalize(rawQuery.trim());
+    if (!query) return [];
+    return items
+      .map((item) => {
+        const haystack = normalize(
+          [item.title, item.description, item.module, ...(item.keywords ?? [])].join(' '),
+        );
+        const score = highlightMatch(item, query) + (haystack.includes(query) ? 1 : 0);
+        return { item, score };
+      })
+      .filter((r) => r.score > 0)
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 8)
+      .map((r) => r.item);
+  }
+
+  function renderResults(container: HTMLElement, results: SearchItem[], query: string) {
+    if (!query.trim()) {
+      container.classList.add('hidden');
+      container.innerHTML = '';
+      return;
+    }
+    if (results.length === 0) {
+      container.innerHTML = `<p class="px-3 py-4 text-sm text-gray-500">Nenhum resultado para "${query}".</p>`;
+      container.classList.remove('hidden');
+      return;
+    }
+    container.innerHTML = results
+      .map(
+        (item) => `
+        <a href="${item.href}" class="block rounded-lg px-3 py-2.5 hover:bg-gray-50">
+          <p class="text-xs font-semibold uppercase tracking-wide text-brand-red">${item.module}</p>
+          <p class="text-sm font-semibold text-gray-900">${item.title}</p>
+          <p class="mt-0.5 line-clamp-1 text-xs text-gray-500">${item.description}</p>
+        </a>`,
+      )
+      .join('');
+    container.classList.remove('hidden');
+  }
+
+  document.querySelectorAll<HTMLElement>('[data-search]').forEach((wrapper) => {
+    const input = wrapper.querySelector<HTMLInputElement>('[data-search-input]');
+    const results = wrapper.querySelector<HTMLElement>('[data-search-results]');
+    if (!input || !results) return;
+
+    input.addEventListener('focus', () => loadIndex());
+    input.addEventListener('input', async () => {
+      const items = await loadIndex();
+      renderResults(results, search(items, input.value), input.value);
+    });
+    document.addEventListener('click', (e) => {
+      if (!wrapper.contains(e.target as Node)) {
+        results.classList.add('hidden');
+      }
+    });
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        results.classList.add('hidden');
+        input.blur();
+      }
+    });
+  });
+</script>

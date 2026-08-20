@@ -1,0 +1,36 @@
+---
+import Icon from './Icon.astro';
+
+interface Crumb {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  items: Crumb[];
+  dark?: boolean;
+}
+
+const { items, dark = true } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class="flex flex-wrap items-center gap-1.5 text-xs">
+  {items.map((item, i) => (
+    <Fragment>
+      {i > 0 && <Icon name="chevron-right" class:list={['h-3 w-3', dark ? 'text-white/30' : 'text-gray-300']} />}
+      {item.href ? (
+        <a
+          href={item.href}
+          class:list={[
+            'transition',
+            dark ? 'text-white/60 hover:text-white' : 'text-gray-500 hover:text-brand-red',
+          ]}
+        >
+          {item.label}
+        </a>
+      ) : (
+        <span class:list={[dark ? 'text-white' : 'text-gray-700', 'font-medium']}>{item.label}</span>
+      )}
+    </Fragment>
+  ))}
+</nav>

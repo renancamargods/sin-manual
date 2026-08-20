@@ -1,0 +1,135 @@
+---
+import Icon from './Icon.astro';
+import { manualPages, modules, tecnicoPages } from '../data/modules';
+
+interface Props {
+  currentPath: string;
+  availableModuleSlugs: Record<string, string[]>;
+  availableManualSlugs: string[];
+  availableTecnicoSlugs: string[];
+}
+
+const { currentPath, availableModuleSlugs, availableManualSlugs, availableTecnicoSlugs } = Astro.props;
+
+const isActive = (href: string) => currentPath === href || currentPath === `${href}/`;
+const linkBase =
+  'block rounded-md px-2.5 py-1.5 text-sm transition truncate';
+const activeClasses = 'bg-brand-red/10 text-brand-red font-semibold';
+const inactiveClasses = 'text-gray-600 hover:bg-gray-100 hover:text-gray-900';
+const mutedClasses = 'text-gray-400 cursor-default';
+---
+
+<nav class="text-sm" aria-label="Navegação do manual">
+  <div class="mb-6">
+    <p class="mb-2 px-2.5 text-xs font-semibold uppercase tracking-wider text-gray-400">Manual do Sistema SIN</p>
+    <ul class="space-y-0.5">
+      {manualPages.map((p) => {
+        const href = `/manual/${p.slug}`;
+        const available = availableManualSlugs.includes(p.slug);
+        return (
+          <li>
+            {available ? (
+              <a href={href} class:list={[linkBase, isActive(href) ? activeClasses : inactiveClasses]}>{p.title}</a>
+            ) : (
+              <span class:list={[linkBase, mutedClasses]}>{p.title}</span>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+
+  <div class="mb-6">
+    <p class="mb-2 px-2.5 text-xs font-semibold uppercase tracking-wider text-gray-400">Módulos</p>
+    <ul class="space-y-0.5">
+      {modules.map((mod) => {
+        const moduleHref = `/modulos/${mod.id}`;
+        const activeModule = currentPath.startsWith(`${moduleHref}/`) || isActive(moduleHref);
+        const available = availableModuleSlugs[mod.id] ?? [];
+        return (
+          <li>
+            <details open={activeModule || undefined} class="group">
+              <summary class="flex cursor-pointer list-none items-center justify-between rounded-md px-2.5 py-1.5 text-sm font-medium text-gray-700 marker:content-none hover:bg-gray-100">
+                <a
+                  href={moduleHref}
+                  class:list={['truncate', isActive(moduleHref) ? 'text-brand-red font-semibold' : '']}
+                  onclick="event.stopPropagation()"
+                >
+                  {mod.label}
+                </a>
+                <Icon name="chevron-right" class="h-3.5 w-3.5 flex-shrink-0 text-gray-400 transition-transform duration-150 group-open:rotate-90" />
+              </summary>
+              {mod.routines.length > 0 && (
+                <ul class="mt-0.5 space-y-0.5 border-l border-gray-200 pl-3">
+                  {mod.routines.map((r) => {
+                    const href = `${moduleHref}/${r.slug}`;
+                    const isAvailable = available.includes(r.slug);
+                    return (
+                      <li>
+                        {isAvailable ? (
+                          <a href={href} class:list={[linkBase, isActive(href) ? activeClasses : inactiveClasses]}>{r.title}</a>
+                        ) : (
+                          <span class:list={[linkBase, mutedClasses, 'flex items-center justify-between']}>
+                            {r.title}
+                            <span class="text-[10px] uppercase tracking-wide text-gray-300">em breve</span>
+                          </span>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </details>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+
+  <div>
+    <p class="mb-2 px-2.5 text-xs font-semibold uppercase tracking-wider text-gray-400">Doc. Técnicas e Configurações</p>
+    <ul class="space-y-0.5">
+      {tecnicoPages.map((group) => {
+        const groupHref = `/tecnico/${group.slug}`;
+        const activeGroup = currentPath.startsWith(`${groupHref}/`) || isActive(groupHref);
+        const pages = group.pages ?? [];
+        return (
+          <li>
+            <details open={activeGroup || undefined} class="group">
+              <summary class="flex cursor-pointer list-none items-center justify-between rounded-md px-2.5 py-1.5 text-sm font-medium text-gray-700 marker:content-none hover:bg-gray-100">
+                <a
+                  href={groupHref}
+                  class:list={['truncate', isActive(groupHref) ? 'text-brand-red font-semibold' : '']}
+                  onclick="event.stopPropagation()"
+                >
+                  {group.title}
+                </a>
+                <Icon name="chevron-right" class="h-3.5 w-3.5 flex-shrink-0 text-gray-400 transition-transform duration-150 group-open:rotate-90" />
+              </summary>
+              {pages.length > 0 && (
+                <ul class="mt-0.5 space-y-0.5 border-l border-gray-200 pl-3">
+                  {pages.map((sub) => {
+                    const href = `${groupHref}/${sub.slug}`;
+                    const isAvailable = availableTecnicoSlugs.includes(`${group.slug}/${sub.slug}`);
+                    return (
+                      <li>
+                        {isAvailable ? (
+                          <a href={href} class:list={[linkBase, isActive(href) ? activeClasses : inactiveClasses]}>{sub.title}</a>
+                        ) : (
+                          <span class:list={[linkBase, mutedClasses, 'flex items-center justify-between']}>
+                            {sub.title}
+                            <span class="text-[10px] uppercase tracking-wide text-gray-300">em breve</span>
+                          </span>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              )}
+            </details>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+</nav>

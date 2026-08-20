@@ -1,0 +1,44 @@
+---
+section: manual
+routeSlug: visao-geral
+pageType: manual
+title: Visão geral do sistema
+description: Como o S.I.N Implant System está organizado em módulos e o que cada um deles cobre.
+keywords: [visão geral, módulos, estrutura do sistema, organização]
+tags: [manual]
+order: 3
+---
+
+import Callout from '../../../components/Callout.astro';
+import Icon from '../../../components/Icon.astro';
+import { modules } from '../../../data/modules';
+
+## Visão geral
+
+O S.I.N Implant System é organizado por **módulos**. Cada módulo reúne as telas e rotinas relacionadas a um mesmo tema — por exemplo, o módulo Clientes concentra os cadastros ligados aos clientes, e o módulo Pedidos concentra tudo relacionado a pedidos de venda.
+
+Essa organização ajuda a encontrar rapidamente onde cadastrar, consultar ou acompanhar uma informação, mesmo sem saber o nome exato da tela.
+
+<Callout type="info" title="Acesso por perfil">
+Nem todos os usuários enxergam todos os módulos. O que aparece disponível depende do perfil de acesso configurado para o seu usuário.
+</Callout>
+
+## Módulos do sistema
+
+<div class="not-prose my-6 grid gap-3 sm:grid-cols-2">
+  {modules.map((mod) => (
+    <a href={`/modulos/${mod.id}`} class="group flex items-start justify-between gap-3 rounded-xl2 border border-gray-200 bg-white px-4 py-3.5 shadow-card transition hover:border-brand-red/30 hover:shadow-card-hover">
+      <div>
+        <p class="text-sm font-semibold text-gray-900 group-hover:text-brand-red">{mod.label}</p>
+        <p class="mt-1 text-xs leading-5 text-gray-500">{mod.description}</p>
+      </div>
+      <Icon name="arrow-right" class="mt-1 h-4 w-4 flex-shrink-0 text-gray-300 group-hover:text-brand-red" />
+    </a>
+  ))}
+</div>
+
+## Como navegar
+
+- Use o **menu lateral** para abrir um módulo e ver suas telas.
+- Use a **busca** no topo da página para localizar uma tela pelo nome.
+- Cada tela indica, logo no início, o módulo ao qual pertence e se exige permissão específica.

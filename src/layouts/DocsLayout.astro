@@ -1,0 +1,86 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from './BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import Sidebar from '../components/Sidebar.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+
+interface Crumb {
+  label: string;
+  href?: string;
+}
+interface InfoBadge {
+  label: string;
+  value: string;
+}
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow?: string;
+  badges?: InfoBadge[];
+  breadcrumb: Crumb[];
+  headings?: Heading[];
+}
+
+const { title, description, eyebrow, badges = [], breadcrumb, headings = [] } = Astro.props;
+
+const allDocs = await getCollection('docs');
+
+const availableModuleSlugs: Record<string, string[]> = {};
+const availableManualSlugs: string[] = [];
+const availableTecnicoSlugs: string[] = [];
+
+for (const doc of allDocs) {
+  if (doc.data.section === 'modulos' && doc.data.pageType === 'routine' && doc.data.module) {
+    const routineSlug = doc.data.routeSlug.split('/').slice(1).join('/');
+    availableModuleSlugs[doc.data.module] ??= [];
+    availableModuleSlugs[doc.data.module].push(routineSlug);
+  }
+  if (doc.data.section === 'manual') availableManualSlugs.push(doc.data.routeSlug);
+  if (doc.data.section === 'tecnico') availableTecnicoSlugs.push(doc.data.routeSlug);
+}
+
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<BaseLayout title={title} description={description} showSidebarToggle={true}>
+  <Hero title={title} description={description} eyebrow={eyebrow} badges={badges}>
+    <Fragment slot="breadcrumb">
+      <Breadcrumb items={breadcrumb} dark={true} />
+    </Fragment>
+  </Hero>
+
+  <div class="flex w-full gap-8 px-4 py-8 sm:px-6 lg:px-8 xl:px-10">
+    <div
+      id="docs-sidebar-overlay"
+      class="fixed inset-0 z-30 hidden bg-black/30 lg:hidden"
+    ></div>
+
+    <aside
+      id="docs-sidebar"
+      class="fixed inset-y-0 left-0 z-30 w-72 -translate-x-full overflow-y-auto border-r border-gray-200 bg-white px-4 py-6 transition-transform duration-200 lg:sticky lg:top-16 lg:h-[calc(100vh-4rem)] lg:w-64 lg:flex-shrink-0 lg:translate-x-0 lg:border-r-0 lg:bg-transparent lg:px-0 lg:py-0"
+    >
+      <Sidebar
+        currentPath={currentPath}
+        availableModuleSlugs={availableModuleSlugs}
+        availableManualSlugs={availableManualSlugs}
+        availableTecnicoSlugs={availableTecnicoSlugs}
+      />
+    </aside>
+
+    <main class="flex min-w-0 flex-1 justify-center">
+      <div class="doc-prose w-full max-w-3xl">
+        <slot />
+      </div>
+    </main>
+
+    <TableOfContents headings={headings} />
+  </div>
+</BaseLayout>

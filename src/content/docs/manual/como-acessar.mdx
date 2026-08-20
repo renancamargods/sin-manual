@@ -1,0 +1,57 @@
+---
+section: manual
+routeSlug: como-acessar
+pageType: manual
+title: Como acessar o sistema
+description: Passo a passo para fazer login, recuperar a senha e resolver problemas comuns de acesso.
+keywords: [login, acesso, senha, primeiro acesso, recuperar senha]
+tags: [manual, acesso]
+order: 2
+---
+
+import Callout from '../../../components/Callout.astro';
+import DocTable from '../../../components/DocTable.astro';
+import FaqAccordion from '../../../components/FaqAccordion.astro';
+
+## Visão geral
+
+O acesso ao S.I.N Implant System é feito com um usuário e uma senha cadastrados pelo administrador do sistema. Cada usuário tem um perfil de acesso, que define quais módulos e telas ele pode utilizar.
+
+## Antes de começar
+
+- Tenha em mãos o usuário e a senha fornecidos pela empresa.
+- Verifique se você já possui um perfil de acesso cadastrado. Caso contrário, procure o administrador do sistema.
+- Utilize um navegador atualizado para melhor compatibilidade.
+
+## Fluxos principais
+
+1. Acesse o endereço do sistema informado pela empresa.
+2. Informe o usuário e a senha cadastrados.
+3. Clique em **Entrar**.
+4. No primeiro acesso, o sistema pode solicitar a troca da senha inicial.
+
+<Callout type="dica" title="Esqueceu a senha?">
+Utilize a opção de recuperação de senha na tela de login. Um link de redefinição será enviado para o e-mail cadastrado.
+</Callout>
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não consigo entrar no sistema', 'Usuário ou senha incorretos', 'Confira os dados digitados e tente novamente.'],
+    ['Mensagem de usuário bloqueado', 'Excesso de tentativas de login incorretas', 'Aguarde alguns minutos ou solicite desbloqueio ao administrador.'],
+    ['Não recebo o e-mail de redefinição de senha', 'E-mail cadastrado desatualizado', 'Confirme com o administrador se o e-mail cadastrado está correto.'],
+    ['Consigo entrar, mas não vejo um módulo esperado', 'Perfil de acesso sem permissão para o módulo', 'Solicite ao administrador a liberação do módulo no seu perfil.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Quem pode criar um novo usuário?', answer: 'Apenas o administrador do sistema, pela tela de Usuário no módulo Autenticador.' },
+    { question: 'Posso acessar o sistema em mais de um dispositivo?', answer: 'Sim, desde que use o mesmo usuário e senha e tenha conexão com a internet.' },
+    { question: 'O que fazer se meu usuário estiver bloqueado?', answer: 'Entre em contato com o administrador do sistema para verificar o motivo e liberar o acesso.' },
+  ]}
+/>

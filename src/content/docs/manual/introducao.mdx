@@ -1,0 +1,44 @@
+---
+section: manual
+routeSlug: introducao
+pageType: manual
+title: Introdução
+description: O que é este manual, como ele está organizado e como aproveitá-lo melhor.
+keywords: [introdução, manual, sobre, ajuda, documentação]
+tags: [manual]
+order: 1
+---
+
+import Callout from '../../../components/Callout.astro';
+import QuickCards from '../../../components/QuickCards.astro';
+
+## Sobre este manual
+
+Este manual reúne, em um só lugar, orientações sobre como usar as telas e rotinas do **S.I.N Implant System**. Ele foi escrito para o usuário final: quem cadastra, consulta, aprova e acompanha informações no dia a dia, sem precisar de conhecimento técnico.
+
+Cada módulo do sistema tem sua própria seção, com as telas e rotinas relacionadas. Cada tela, por sua vez, segue sempre a mesma estrutura, para que você encontre rapidamente o que precisa: como acessar, o que a tela faz, quais campos preencher, os principais fluxos de uso e as dúvidas mais comuns.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Guia de uso do sistema', text: 'Explica de forma simples o que cada tela faz e como utilizá-la corretamente.' },
+    { label: 'Uso', title: 'Consulta no dia a dia', text: 'Use como referência antes de cadastrar, alterar ou consultar uma informação.' },
+    { label: 'Cuidado', title: 'Conteúdo em evolução', text: 'Novas telas e rotinas são adicionadas conforme o sistema evolui.' },
+  ]}
+/>
+
+## Como o manual está organizado
+
+- **Manual do Sistema SIN** — introdução, como acessar e visão geral do sistema.
+- **Módulos** — cada módulo do sistema (Clientes, Produtos, Pedidos, entre outros) com suas telas e rotinas.
+- **Doc. Técnicas e Configurações** — conteúdo de apoio para times de configuração e integração.
+
+<Callout type="dica" title="Como encontrar o que você precisa">
+Use a busca no topo da página para localizar uma tela pelo nome, pelo módulo ou por uma palavra-chave. O menu lateral também permite navegar diretamente pelos módulos.
+</Callout>
+
+## Convenções usadas neste manual
+
+- **Campos principais** — lista os campos mais importantes de cada tela e para que servem.
+- **Fluxos principais** — passo a passo dos usos mais comuns da tela.
+- **Regras e cuidados** — pontos de atenção antes de cadastrar, alterar ou excluir um registro.
+- **Problemas comuns** — situações frequentes e o que verificar para resolvê-las.

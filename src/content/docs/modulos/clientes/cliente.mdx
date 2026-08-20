@@ -1,0 +1,132 @@
+---
+section: modulos
+routeSlug: clientes/cliente
+pageType: routine
+module: clientes
+moduleLabel: Clientes
+title: Cliente
+description: Cadastro central de dados comerciais e fiscais do cliente.
+routineType: Cadastro
+permission: Sim
+impact: Alto — usado em pedidos, contratos e faturamento
+keywords: [cliente, cadastro de cliente, dados fiscais, dados comerciais]
+tags: [modulo-clientes, cadastro]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+
+## Visão geral
+
+A tela **Cliente** centraliza os dados cadastrais, comerciais e fiscais de cada cliente da empresa. É a partir deste cadastro que outras rotinas — como pedidos, contratos e faturamento — identificam e aplicam as informações corretas para cada cliente.
+
+Manter este cadastro completo e atualizado evita retrabalho e problemas em processos posteriores, como emissão de nota fiscal e aplicação de políticas comerciais.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de clientes', text: 'Centraliza os dados cadastrais, comerciais e fiscais dos clientes.' },
+    { label: 'Uso', title: 'Vendas e financeiro', text: 'As informações cadastradas podem ser usadas em pedidos, faturamento e cobrança.' },
+    { label: 'Cuidado', title: 'Dados fiscais', text: 'Revise documentos, endereços e informações tributárias antes de usar o cadastro em operações.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo cliente.
+- Consultar dados comerciais e fiscais de um cliente já cadastrado.
+- Alterar informações de contato, endereço ou dados fiscais.
+- Acompanhar a situação (ativo ou inativo) de um cliente.
+
+## Como acessar
+
+Clientes → Cliente
+
+## Antes de começar
+
+- Tenha em mãos os documentos e dados fiscais do cliente (CNPJ ou CPF, inscrição estadual, endereço).
+- Verifique se o cliente já não possui cadastro, para evitar duplicidade.
+- Confirme com o time comercial a classificação e o canal corretos para o cliente.
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código', 'Identifica o cliente no sistema.'],
+    ['Razão social / Nome', 'Nome oficial do cliente usado em documentos.'],
+    ['Nome fantasia', 'Nome usado no dia a dia para identificar o cliente.'],
+    ['CNPJ / CPF', 'Documento fiscal usado em notas fiscais e contratos.'],
+    ['Inscrição estadual', 'Identificação do cliente perante o fisco estadual, quando aplicável.'],
+    ['Endereço', 'Endereço usado para entrega e correspondência.'],
+    ['Canal', 'Canal de venda associado ao cliente.'],
+    ['Classificação comercial', 'Classificação usada em políticas e relatórios comerciais.'],
+    ['Situação', 'Indica se o cadastro está ativo ou inativo.'],
+    ['Observação', 'Campo livre para informações complementares.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Cadastrar novo cliente** — preencha os dados obrigatórios e salve o cadastro.
+2. **Consultar cliente** — utilize a busca para localizar pelo nome, código ou documento.
+3. **Alterar cliente** — abra o cadastro, atualize os campos necessários e salve.
+4. **Inativar cliente** — altere a situação para inativo quando o cliente não estiver mais em operação.
+
+## Relações com outros cadastros ou processos
+
+Este cadastro pode ser usado em pedidos, contratos, políticas comerciais e faturamento. Alterações nos dados fiscais do cliente podem impactar a emissão de notas fiscais futuras.
+
+<Callout type="info" title="Cadastros relacionados">
+Informações como agrupamento, rede de cliente e regime especial complementam este cadastro e ficam disponíveis em telas específicas do módulo Clientes.
+</Callout>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['CLIENTE.VISUALIZAR', 'Acesso à tela', 'Permite abrir e consultar o cadastro de clientes.'],
+    ['CLIENTE.EDITAR', 'Cadastro e alteração', 'Permite criar e alterar dados do cliente.'],
+    ['CLIENTE.INATIVAR', 'Situação do cadastro', 'Permite inativar um cliente.'],
+  ]}
+/>
+
+## Parâmetros e comportamentos importantes
+
+- O cadastro precisa estar ativo para ser usado em novos pedidos.
+- Alterações nos dados fiscais passam a valer para novas operações, sem alterar documentos já emitidos.
+- Alguns campos podem variar conforme o país ou o regime tributário do cliente.
+
+## Regras e cuidados
+
+- Revise os dados fiscais antes de gravar o cadastro.
+- Evite cadastrar o mesmo cliente mais de uma vez; utilize a busca antes de criar um novo registro.
+- Prefira inativar o cadastro em vez de excluí-lo quando já houver pedidos ou contratos vinculados.
+- Verifique suas permissões antes de tentar alterar dados fiscais.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+    ['Cliente não aparece na busca', 'Situação inativa ou filtro aplicado', 'Revise os filtros e a situação do cadastro.'],
+    ['Erro ao salvar dados fiscais', 'Documento inválido ou incompleto', 'Confira o documento informado e tente novamente.'],
+    ['Não consigo inativar o cliente', 'Cliente com pedidos ou contratos em aberto', 'Verifique se há vínculos ativos antes de inativar.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar e manter atualizados os dados comerciais e fiscais dos clientes da empresa.' },
+    { question: 'Posso excluir um cliente já usado em pedidos?', answer: 'Não é recomendado. Prefira inativar o cadastro para preservar o histórico de operações.' },
+    { question: 'Alterar este cadastro muda pedidos antigos?', answer: 'Não. As alterações passam a valer apenas para novas operações.' },
+    { question: 'Preciso de permissão para acessar esta tela?', answer: 'Sim. É necessário ter a permissão correspondente liberada no seu perfil de acesso.' },
+    { question: 'Onde essa informação é usada?', answer: 'Em pedidos, contratos, políticas comerciais e faturamento.' },
+  ]}
+/>

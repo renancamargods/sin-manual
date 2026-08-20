@@ -1,0 +1,26 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  label: string;
+  description: string;
+  href: string;
+  count: number;
+}
+
+const { label, description, href, count } = Astro.props;
+---
+
+<a href={href} class="card group flex flex-col justify-between">
+  <div>
+    <div class="mb-3 flex h-9 w-9 items-center justify-center rounded-lg bg-brand-gradient text-white">
+      <Icon name="book" class="h-4 w-4" />
+    </div>
+    <p class="text-sm font-semibold text-gray-900 group-hover:text-brand-red">{label}</p>
+    <p class="mt-1 text-xs leading-5 text-gray-500">{description}</p>
+  </div>
+  <div class="mt-4 flex items-center justify-between text-xs text-gray-400">
+    <span>{count > 0 ? `${count} rotinas` : 'Visão geral'}</span>
+    <Icon name="arrow-right" class="h-3.5 w-3.5 transition group-hover:translate-x-0.5 group-hover:text-brand-red" />
+  </div>
+</a>

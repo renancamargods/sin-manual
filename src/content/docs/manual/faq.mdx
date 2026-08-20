@@ -1,0 +1,33 @@
+---
+section: manual
+routeSlug: faq
+pageType: manual
+title: Perguntas frequentes
+description: Dúvidas gerais sobre o uso do S.I.N Implant System, permissões e navegação pelo manual.
+keywords: [faq, dúvidas, perguntas frequentes, ajuda]
+tags: [manual, faq]
+order: 4
+---
+
+import FaqAccordion from '../../../components/FaqAccordion.astro';
+
+## Dúvidas gerais
+
+<FaqAccordion
+  items={[
+    { question: 'Como sei em qual módulo encontrar uma informação?', answer: 'Consulte a Visão geral do sistema ou use a busca no topo da página para localizar a tela pelo nome.' },
+    { question: 'Por que não vejo determinado módulo ou tela?', answer: 'O acesso aos módulos e telas depende do perfil configurado para o seu usuário. Solicite ao administrador a liberação, se necessário.' },
+    { question: 'Onde vejo quem alterou um cadastro pela última vez?', answer: 'A maioria das telas exibe informações de cadastro e alteração no próprio registro. Consulte a seção correspondente na tela específica.' },
+    { question: 'Posso sugerir melhorias para este manual?', answer: 'Sim. Encaminhe sua sugestão para a equipe responsável pela documentação do sistema.' },
+    { question: 'O manual cobre todas as telas do sistema?', answer: 'O conteúdo é ampliado gradualmente. Telas ainda não detalhadas aparecem como "Em breve" no menu do módulo correspondente.' },
+  ]}
+/>
+
+## Sobre permissões
+
+<FaqAccordion
+  items={[
+    { question: 'O que significa uma tela "exigir permissão"?', answer: 'Significa que, além de acessar o sistema, o usuário precisa ter uma permissão específica liberada em seu perfil para abrir ou usar aquela tela.' },
+    { question: 'Quem libera permissões?', answer: 'O administrador do sistema, pelas telas de Perfil e Usuário no módulo Autenticador.' },
+  ]}
+/>

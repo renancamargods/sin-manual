@@ -1,0 +1,127 @@
+---
+section: modulos
+routeSlug: contratos/contrato
+pageType: routine
+module: contratos
+moduleLabel: Contratos
+title: Contrato
+description: Cadastro central de contratos comerciais firmados com clientes.
+routineType: Cadastro
+permission: Sim
+impact: Alto — base para metas de consumo e políticas comerciais
+keywords: [contrato, cadastro de contrato, contratos comerciais]
+tags: [modulo-contratos, cadastro]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+
+## Visão geral
+
+A tela **Contrato** reúne o cadastro dos contratos comerciais firmados com os clientes, incluindo vigência, metas de consumo previstas e políticas específicas aplicadas ao contrato.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de contratos', text: 'Centraliza os dados do contrato firmado com o cliente.' },
+    { label: 'Uso', title: 'Comercial e financeiro', text: 'As informações do contrato apoiam o acompanhamento de metas e políticas comerciais.' },
+    { label: 'Cuidado', title: 'Vigência do contrato', text: 'Revise datas e condições antes de vincular o contrato a novas operações.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo contrato.
+- Consultar dados e vigência de um contrato existente.
+- Alterar condições ou anexar documentos ao contrato.
+- Acompanhar metas de consumo vinculadas ao contrato.
+
+## Como acessar
+
+Contratos → Contrato
+
+## Antes de começar
+
+- Confirme se o cliente já está cadastrado no módulo Clientes.
+- Tenha em mãos as condições comerciais e a vigência acordada.
+- Verifique se há política de contrato específica a ser aplicada.
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código', 'Identifica o contrato no sistema.'],
+    ['Cliente', 'Cliente vinculado ao contrato.'],
+    ['Data de início', 'Início da vigência do contrato.'],
+    ['Data de término', 'Fim da vigência do contrato.'],
+    ['Política de contrato', 'Regras comerciais aplicadas ao contrato.'],
+    ['Situação', 'Indica se o contrato está ativo, encerrado ou inativo.'],
+    ['Observação', 'Campo livre para informações complementares.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Cadastrar novo contrato** — selecione o cliente, defina a vigência e salve.
+2. **Consultar contrato** — utilize a busca para localizar pelo cliente ou código.
+3. **Alterar contrato** — atualize condições, vigência ou anexos.
+4. **Encerrar contrato** — altere a situação quando o contrato chegar ao fim.
+
+## Relações com outros cadastros ou processos
+
+Este cadastro depende de um cliente já cadastrado no módulo Clientes. As metas de consumo e as políticas de contrato ficam vinculadas a este cadastro.
+
+<Callout type="info" title="Cadastros relacionados">
+Anexos, metas de consumo e políticas específicas do contrato ficam disponíveis em telas complementares do módulo Contratos.
+</Callout>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['CONTRATO.VISUALIZAR', 'Acesso à tela', 'Permite abrir e consultar o cadastro de contratos.'],
+    ['CONTRATO.EDITAR', 'Cadastro e alteração', 'Permite criar e alterar dados do contrato.'],
+    ['CONTRATO.ENCERRAR', 'Situação do contrato', 'Permite encerrar um contrato vigente.'],
+  ]}
+/>
+
+## Parâmetros e comportamentos importantes
+
+- O contrato precisa estar ativo para ser considerado em metas e políticas vinculadas.
+- Alterações na vigência passam a valer a partir da data informada.
+- Encerrar um contrato não apaga o histórico de metas já registradas.
+
+## Regras e cuidados
+
+- Revise cliente, vigência e condições antes de gravar o contrato.
+- Evite cadastrar contratos duplicados para o mesmo cliente e período.
+- Prefira encerrar em vez de excluir um contrato que já tenha movimentações vinculadas.
+- Verifique suas permissões antes de alterar um contrato vigente.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+    ['Contrato não aparece na busca', 'Situação inativa ou filtro aplicado', 'Revise os filtros e a situação do contrato.'],
+    ['Meta de consumo não está sendo considerada', 'Contrato fora da vigência', 'Verifique as datas de início e término do contrato.'],
+    ['Erro ao encerrar contrato', 'Movimentações pendentes vinculadas', 'Verifique pendências antes de encerrar o contrato.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar e acompanhar os contratos comerciais firmados com os clientes.' },
+    { question: 'Posso excluir um contrato em uso?', answer: 'Não é recomendado. Prefira encerrar o contrato para preservar o histórico de metas e movimentações.' },
+    { question: 'Alterar este contrato afeta períodos já encerrados?', answer: 'Não. As alterações passam a valer a partir da data informada.' },
+    { question: 'Preciso de permissão para acessar esta tela?', answer: 'Sim. É necessário ter a permissão correspondente liberada no seu perfil de acesso.' },
+    { question: 'Onde essa informação é usada?', answer: 'No acompanhamento de metas de consumo e na aplicação de políticas comerciais específicas.' },
+  ]}
+/>

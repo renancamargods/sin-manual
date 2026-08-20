@@ -1,0 +1,130 @@
+---
+section: modulos
+routeSlug: produtos/produto
+pageType: routine
+module: produtos
+moduleLabel: Produtos
+title: Produto
+description: Cadastro central dos produtos comercializados pela empresa.
+routineType: Cadastro
+permission: Sim
+impact: Alto — usado em pedidos, faturamento, regulatórios e qualidade
+keywords: [produto, cadastro de produto, hierarquia de produto, estoque]
+tags: [modulo-produtos, cadastro]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+
+## Visão geral
+
+A tela **Produto** centraliza o cadastro dos produtos comercializados pela empresa, incluindo dados de identificação, hierarquia, embalagem e informações usadas por outros módulos, como regulatório e qualidade.
+
+Um cadastro de produto completo é essencial para que pedidos, faturamento e controles regulatórios funcionem corretamente.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de produtos', text: 'Centraliza os dados de identificação, hierarquia e embalagem dos produtos.' },
+    { label: 'Uso', title: 'Vendas, estoque e regulatório', text: 'As informações cadastradas são usadas em pedidos, faturamento, estoque e registros regulatórios.' },
+    { label: 'Cuidado', title: 'Consistência de dados', text: 'Alterações nos dados do produto podem afetar processos que já utilizam esse cadastro.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo produto.
+- Consultar informações de um produto já cadastrado.
+- Alterar dados de identificação, hierarquia ou embalagem.
+- Consultar o saldo de estoque disponível para o produto.
+
+## Como acessar
+
+Produtos → Produto
+
+## Antes de começar
+
+- Confirme a família, o grupo e a hierarquia corretos para o novo produto.
+- Verifique se o produto já não está cadastrado, para evitar duplicidade.
+- Tenha em mãos as informações de embalagem, código de barras (GTIN) e imagens, se disponíveis.
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código', 'Identifica o produto no sistema.'],
+    ['Descrição', 'Nome usado para localizar e identificar o produto.'],
+    ['Família de produto', 'Agrupamento usado para organizar produtos semelhantes.'],
+    ['Marca', 'Marca associada ao produto.'],
+    ['Tipo de produto', 'Classificação do tipo de produto.'],
+    ['GTIN', 'Código de barras usado na identificação do produto.'],
+    ['Situação', 'Indica se o produto está ativo ou inativo.'],
+    ['Observação', 'Campo livre para informações complementares.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Cadastrar novo produto** — preencha os dados obrigatórios e salve o cadastro.
+2. **Consultar produto** — utilize a busca para localizar pelo código ou descrição.
+3. **Alterar produto** — abra o cadastro, atualize os campos necessários e salve.
+4. **Consultar saldo de estoque** — acesse a informação de estoque disponível para o produto.
+
+## Relações com outros cadastros ou processos
+
+Este cadastro pode ser usado em pedidos, faturamento, inventários, qualidade e registros regulatórios. Alterações na hierarquia ou classificação do produto podem impactar relatórios que utilizam esse agrupamento.
+
+<Callout type="info" title="Cadastros relacionados">
+Informações complementares, como imagens, impostos e conjuntos de fresa, ficam disponíveis em telas específicas do módulo Produtos.
+</Callout>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['PRODUTO.VISUALIZAR', 'Acesso à tela', 'Permite abrir e consultar o cadastro de produtos.'],
+    ['PRODUTO.EDITAR', 'Cadastro e alteração', 'Permite criar e alterar dados do produto.'],
+    ['PRODUTO.INATIVAR', 'Situação do cadastro', 'Permite inativar um produto.'],
+  ]}
+/>
+
+## Parâmetros e comportamentos importantes
+
+- O produto precisa estar ativo para ser usado em novos pedidos.
+- Alterações no cadastro passam a valer para novas operações.
+- Alguns campos podem aparecer conforme a linha regulatória do produto.
+
+## Regras e cuidados
+
+- Revise os dados antes de gravar o cadastro.
+- Evite cadastrar o mesmo produto mais de uma vez; utilize a busca antes de criar um novo registro.
+- Prefira inativar o produto em vez de excluí-lo quando já houver uso em pedidos ou estoque.
+- Verifique suas permissões antes de alterar dados do produto.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+    ['Produto não aparece na busca', 'Situação inativa ou filtro aplicado', 'Revise os filtros e a situação do cadastro.'],
+    ['Erro ao salvar o cadastro', 'Campo obrigatório não preenchido', 'Confira se todos os campos obrigatórios foram informados.'],
+    ['Não consigo inativar o produto', 'Produto com uso em pedidos ou estoque', 'Verifique se há vínculos ativos antes de inativar.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar e manter atualizados os dados dos produtos comercializados pela empresa.' },
+    { question: 'Posso excluir um produto em uso?', answer: 'Não é recomendado. Prefira inativar o cadastro para preservar o histórico de operações.' },
+    { question: 'Alterar este cadastro muda pedidos antigos?', answer: 'Não. As alterações passam a valer apenas para novas operações.' },
+    { question: 'Preciso de permissão para acessar esta tela?', answer: 'Sim. É necessário ter a permissão correspondente liberada no seu perfil de acesso.' },
+    { question: 'Onde essa informação é usada?', answer: 'Em pedidos, faturamento, estoque, qualidade e registros regulatórios.' },
+  ]}
+/>

@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-gray-50 text-gray-800 antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  ::selection {
+    @apply bg-brand-orange/25 text-gray-900;
+  }
+}
+
+@layer components {
+  /* Prosa das páginas MDX */
+  .doc-prose h2 {
+    @apply mt-10 mb-4 text-xl font-semibold text-gray-900 scroll-mt-24;
+  }
+  .doc-prose h3 {
+    @apply mt-8 mb-3 text-lg font-semibold text-gray-900 scroll-mt-24;
+  }
+  .doc-prose p {
+    @apply mb-4 leading-7 text-gray-700;
+  }
+  .doc-prose ul {
+    @apply mb-4 ml-5 list-disc space-y-1.5 text-gray-700;
+  }
+  .doc-prose ol {
+    @apply mb-4 ml-5 list-decimal space-y-1.5 text-gray-700;
+  }
+  .doc-prose a {
+    @apply text-brand-red underline decoration-brand-red/30 underline-offset-2 hover:decoration-brand-red;
+  }
+  .doc-prose strong {
+    @apply font-semibold text-gray-900;
+  }
+  .doc-prose code {
+    @apply rounded bg-gray-100 px-1.5 py-0.5 text-[0.85em] text-gray-800;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-brand-gradient px-4 py-2.5 text-sm font-semibold text-white shadow-card transition hover:shadow-card-hover hover:brightness-105 active:brightness-95;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-700 shadow-card transition hover:border-gray-300 hover:text-gray-900;
+  }
+
+  .card {
+    @apply rounded-xl2 border border-gray-200 bg-white p-5 shadow-card transition hover:shadow-card-hover;
+  }
+}

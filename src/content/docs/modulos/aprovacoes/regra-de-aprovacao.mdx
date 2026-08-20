@@ -1,0 +1,123 @@
+---
+section: modulos
+routeSlug: aprovacoes/regra-de-aprovacao
+pageType: routine
+module: aprovacoes
+moduleLabel: Aprovações
+title: Regra de Aprovação
+description: Define quem aprova cada tipo de solicitação e em quais condições.
+routineType: Configuração
+permission: Sim
+impact: Alto — afeta o andamento de pedidos, contratos e outras solicitações
+keywords: [regra de aprovação, aprovação, fluxo de aprovação, aprovador]
+tags: [modulo-aprovacoes, configuracao]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+
+## Visão geral
+
+A tela **Regra de Aprovação** define quem deve aprovar uma solicitação — como um pedido ou um contrato — e em quais condições essa aprovação é exigida. Cada regra é aplicada sobre uma entidade de aprovação previamente cadastrada.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Configuração de aprovadores', text: 'Define quem aprova cada tipo de solicitação e sob quais condições.' },
+    { label: 'Uso', title: 'Pedidos e contratos', text: 'As regras cadastradas passam a valer para as solicitações que exigem aprovação.' },
+    { label: 'Cuidado', title: 'Fluxo de aprovação', text: 'Regras mal configuradas podem travar ou liberar solicitações indevidamente.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova regra de aprovação.
+- Consultar as regras já configuradas para uma entidade.
+- Alterar o aprovador ou a condição de uma regra existente.
+
+## Como acessar
+
+Aprovações → Regra de Aprovação
+
+## Antes de começar
+
+- Confirme qual entidade de aprovação a regra irá utilizar.
+- Defina previamente quem serão os aprovadores responsáveis.
+- Verifique se já não existe uma regra semelhante configurada.
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código', 'Identifica a regra no sistema.'],
+    ['Entidade de aprovação', 'Define o que a regra passa a exigir aprovação.'],
+    ['Condição', 'Situação em que a regra é aplicada, como um valor mínimo.'],
+    ['Aprovador', 'Usuário ou perfil responsável por aprovar a solicitação.'],
+    ['Situação', 'Indica se a regra está ativa ou inativa.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Cadastrar nova regra** — selecione a entidade, defina a condição e o aprovador.
+2. **Consultar regras** — utilize a busca para localizar regras por entidade.
+3. **Alterar regra** — atualize condição ou aprovador conforme necessário.
+4. **Inativar regra** — desative uma regra que não deve mais ser aplicada.
+
+## Relações com outros cadastros ou processos
+
+Esta tela depende de uma entidade cadastrada em Entidade de Aprovação. As regras configuradas aqui afetam diretamente o andamento de pedidos, contratos e outras solicitações que exigem aprovação.
+
+<Callout type="cuidado" title="Efeito imediato">
+Alterações em uma regra de aprovação passam a valer para novas solicitações a partir do momento em que forem salvas.
+</Callout>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['REGRA_APROVACAO.VISUALIZAR', 'Acesso à tela', 'Permite abrir e consultar as regras de aprovação.'],
+    ['REGRA_APROVACAO.EDITAR', 'Cadastro e alteração', 'Permite criar e alterar regras de aprovação.'],
+  ]}
+/>
+
+## Parâmetros e comportamentos importantes
+
+- A regra precisa estar ativa para ser aplicada em novas solicitações.
+- Alterações não afetam solicitações que já estão em andamento no fluxo de aprovação.
+- Mais de uma regra pode ser aplicada à mesma entidade, dependendo da condição configurada.
+
+## Regras e cuidados
+
+- Revise a condição da regra antes de salvar, para evitar aprovações desnecessárias ou ausentes.
+- Evite cadastrar regras conflitantes para a mesma entidade.
+- Prefira inativar em vez de excluir uma regra que já tenha sido utilizada.
+- Verifique suas permissões antes de alterar uma regra em uso.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+    ['Regra não aparece na busca', 'Situação inativa ou filtro aplicado', 'Revise os filtros e a situação da regra.'],
+    ['Solicitação não está exigindo aprovação', 'Regra inativa ou condição não atendida', 'Revise a situação e a condição configurada na regra.'],
+    ['Solicitação travada aguardando aprovação', 'Aprovador não configurado corretamente', 'Verifique se o aprovador definido na regra está correto.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para definir quem aprova cada tipo de solicitação e em quais condições.' },
+    { question: 'Posso excluir uma regra em uso?', answer: 'Não é recomendado. Prefira inativar a regra para preservar o histórico de aprovações já realizadas.' },
+    { question: 'Alterar esta regra muda solicitações já enviadas para aprovação?', answer: 'Não. A alteração passa a valer apenas para novas solicitações.' },
+    { question: 'Preciso de permissão para acessar esta tela?', answer: 'Sim. É necessário ter a permissão correspondente liberada no seu perfil de acesso.' },
+    { question: 'Onde essa informação é usada?', answer: 'Nos fluxos de aprovação de pedidos, contratos e outras solicitações configuradas no sistema.' },
+  ]}
+/>

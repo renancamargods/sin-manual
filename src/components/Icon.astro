@@ -1,0 +1,50 @@
+---
+interface Props {
+  name:
+    | 'search'
+    | 'menu'
+    | 'close'
+    | 'chevron-down'
+    | 'chevron-right'
+    | 'check-circle'
+    | 'alert-triangle'
+    | 'info'
+    | 'shield'
+    | 'external'
+    | 'book'
+    | 'arrow-right'
+    | 'lock';
+  class?: string;
+}
+
+const { name, class: className = 'h-4 w-4' } = Astro.props;
+
+const paths: Record<Props['name'], string> = {
+  search: 'M21 21l-4.35-4.35m1.35-5.15a7.5 7.5 0 11-15 0 7.5 7.5 0 0115 0z',
+  menu: 'M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5',
+  close: 'M6 18L18 6M6 6l12 12',
+  'chevron-down': 'M19.5 8.25l-7.5 7.5-7.5-7.5',
+  'chevron-right': 'M8.25 4.5l7.5 7.5-7.5 7.5',
+  'check-circle': 'M9 12.75l2.25 2.25 6-6M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  'alert-triangle':
+    'M12 9v3.75m0 3h.008v.008H12v-.008zM10.29 3.86l-8.18 14.18A1.5 1.5 0 003.5 20.5h17a1.5 1.5 0 001.39-2.46L13.71 3.86a1.5 1.5 0 00-2.42 0z',
+  info: 'M11.25 11.25h.75v4.5h.75M12 7.5h.008v.008H12V7.5z M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  shield: 'M12 3l7.5 3v5.5c0 4.8-3.2 8.9-7.5 9.9-4.3-1-7.5-5.1-7.5-9.9V6l7.5-3z',
+  external: 'M13.5 6H18m0 0v4.5M18 6l-8 8M6 12v6h6M6 12a2 2 0 002 2',
+  book: 'M4 19.5A2.5 2.5 0 016.5 17H20M4 19.5A2.5 2.5 0 006.5 22H20V4H6.5A2.5 2.5 0 004 6.5v13z',
+  'arrow-right': 'M4.5 12h15m0 0l-6-6m6 6l-6 6',
+  lock: 'M7.5 10.5V7.5a4.5 4.5 0 119 0v3m-10.5 0h12A1.5 1.5 0 0119.5 12v7.5A1.5 1.5 0 0118 21H6a1.5 1.5 0 01-1.5-1.5V12A1.5 1.5 0 016 10.5z',
+};
+---
+
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  fill="none"
+  viewBox="0 0 24 24"
+  stroke-width="1.75"
+  stroke="currentColor"
+  class={className}
+  aria-hidden="true"
+>
+  <path stroke-linecap="round" stroke-linejoin="round" d={paths[name]}></path>
+</svg>

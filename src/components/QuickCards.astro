@@ -1,0 +1,36 @@
+---
+import Icon from './Icon.astro';
+
+interface QuickCard {
+  label: string;
+  title: string;
+  text: string;
+}
+
+interface Props {
+  cards: QuickCard[];
+}
+
+const { cards } = Astro.props;
+
+const iconFor: Record<string, 'book' | 'shield' | 'alert-triangle'> = {
+  FINALIDADE: 'book',
+  USO: 'shield',
+  CUIDADO: 'alert-triangle',
+};
+---
+
+<div class="not-prose my-6 grid gap-4 sm:grid-cols-3">
+  {cards.map((card) => (
+    <div class="card">
+      <div class="mb-3 flex items-center gap-2">
+        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-gradient text-white">
+          <Icon name={iconFor[card.label.toUpperCase()] ?? 'info'} class="h-4 w-4" />
+        </span>
+        <span class="text-xs font-semibold uppercase tracking-wider text-gray-400">{card.label}</span>
+      </div>
+      <p class="mb-1 text-sm font-semibold text-gray-900">{card.title}</p>
+      <p class="text-sm leading-6 text-gray-600">{card.text}</p>
+    </div>
+  ))}
+</div>

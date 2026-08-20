@@ -1,0 +1,77 @@
+---
+import SearchBox from './SearchBox.astro';
+import Icon from './Icon.astro';
+
+interface Props {
+  showSidebarToggle?: boolean;
+}
+
+const { showSidebarToggle = false } = Astro.props;
+---
+
+<header class="sticky top-0 z-40 border-b border-white/10 bg-brand-hero-to/95 backdrop-blur">
+  <div class="flex w-full items-center gap-4 px-4 py-3 sm:px-6 lg:px-8 xl:px-10">
+    {showSidebarToggle && (
+      <button
+        type="button"
+        id="sidebar-toggle"
+        class="rounded-md p-1.5 text-white/80 hover:bg-white/10 lg:hidden"
+        aria-label="Abrir menu"
+        aria-controls="docs-sidebar"
+        aria-expanded="false"
+      >
+        <Icon name="menu" class="h-5 w-5" />
+      </button>
+    )}
+
+    <a href="/" class="flex flex-shrink-0 items-center" aria-label="S.I.N. — Manual do Usuário">
+      <img src="/logo-sin.png" alt="S.I.N. — Manual do Usuário" class="h-9 w-auto sm:h-10" width="430" height="160" />
+    </a>
+
+    <div class="mx-auto hidden max-w-md flex-1 md:block">
+      <SearchBox size="md" />
+    </div>
+
+    <nav class="ml-auto hidden items-center gap-5 text-sm font-medium text-white/70 md:flex">
+      <a href="/manual/introducao" class="transition hover:text-white">Manual</a>
+      <a href="/#modulos" class="transition hover:text-white">Módulos</a>
+      <a href="/manual/faq" class="transition hover:text-white">FAQ</a>
+    </nav>
+
+    <a href="/#modulos" class="ml-auto rounded-md p-1.5 text-white/80 hover:bg-white/10 md:hidden" aria-label="Buscar">
+      <Icon name="search" class="h-5 w-5" />
+    </a>
+  </div>
+
+  <div class="border-t border-white/10 px-4 py-2.5 md:hidden">
+    <SearchBox size="md" />
+  </div>
+</header>
+
+{showSidebarToggle && (
+  <script>
+    // Elementos consultados sob demanda: o cabeçalho é renderizado antes do
+    // menu lateral no documento, então buscá-los no carregamento do script
+    // retornaria null.
+    function close() {
+      document.getElementById('docs-sidebar')?.classList.add('-translate-x-full');
+      document.getElementById('docs-sidebar-overlay')?.classList.add('hidden');
+      document.getElementById('sidebar-toggle')?.setAttribute('aria-expanded', 'false');
+    }
+    function open() {
+      document.getElementById('docs-sidebar')?.classList.remove('-translate-x-full');
+      document.getElementById('docs-sidebar-overlay')?.classList.remove('hidden');
+      document.getElementById('sidebar-toggle')?.setAttribute('aria-expanded', 'true');
+    }
+
+    document.getElementById('sidebar-toggle')?.addEventListener('click', function () {
+      const isOpen = this.getAttribute('aria-expanded') === 'true';
+      isOpen ? close() : open();
+    });
+
+    document.addEventListener('click', (e) => {
+      const overlay = document.getElementById('docs-sidebar-overlay');
+      if (overlay && e.target === overlay) close();
+    });
+  </script>
+)}

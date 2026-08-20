@@ -1,0 +1,129 @@
+---
+section: modulos
+routeSlug: pedidos/pedido
+pageType: routine
+module: pedidos
+moduleLabel: Pedidos
+title: Pedido
+description: Cadastro e acompanhamento de pedidos de venda, do orçamento ao faturamento.
+routineType: Cadastro e processo
+permission: Sim
+impact: Alto — inicia o ciclo comercial de venda
+keywords: [pedido, pedido de venda, orçamento, faturamento, nota fiscal]
+tags: [modulo-pedidos, cadastro, processo]
+order: 16
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+
+## Visão geral
+
+A tela **Pedido** é usada para criar e acompanhar pedidos de venda, do momento em que os itens são incluídos até a aprovação, o faturamento e a emissão da nota fiscal. É uma das telas mais utilizadas no dia a dia comercial.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Registro do pedido de venda', text: 'Reúne cliente, itens, valores e condições de uma venda.' },
+    { label: 'Uso', title: 'Comercial, logística e financeiro', text: 'O pedido segue por aprovação, separação, frete e faturamento.' },
+    { label: 'Cuidado', title: 'Processo com etapas', text: 'Alterações após a aprovação podem exigir nova análise, dependendo da regra configurada.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Criar um novo pedido de venda.
+- Incluir, alterar ou remover itens de um pedido.
+- Acompanhar o andamento e a situação do pedido.
+- Consultar pedidos já faturados.
+
+## Como acessar
+
+Pedidos → Pedido
+
+## Antes de começar
+
+- Confirme que o cliente já está cadastrado e ativo.
+- Verifique a lista de preço e a condição de pagamento aplicáveis.
+- Confirme se o pedido depende de aprovação, conforme as regras configuradas.
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código', 'Identifica o pedido no sistema.'],
+    ['Cliente', 'Cliente para o qual o pedido é feito.'],
+    ['Lista de preço', 'Referência de preços usada para calcular os itens.'],
+    ['Condição de pagamento', 'Prazo e forma de pagamento acordados.'],
+    ['Itens do pedido', 'Produtos, quantidades e valores incluídos no pedido.'],
+    ['Transportadora', 'Empresa responsável pela entrega do pedido.'],
+    ['Situação', 'Etapa atual do pedido no fluxo comercial.'],
+    ['Observação', 'Campo livre para informações complementares.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Criar pedido** — selecione o cliente, inclua os itens e defina condição de pagamento e frete.
+2. **Enviar para aprovação** — quando exigido, o pedido segue para a fila de aprovações.
+3. **Acompanhar faturamento** — após aprovado, o pedido segue para faturamento e emissão da nota fiscal.
+4. **Consultar histórico** — utilize a busca para localizar pedidos por cliente, período ou situação.
+
+## Relações com outros cadastros ou processos
+
+O pedido depende do cadastro do cliente e dos produtos, e pode exigir aprovação conforme as regras configuradas no módulo Aprovações. Após o faturamento, o pedido gera a nota fiscal correspondente.
+
+<Callout type="cuidado" title="Impacto em outros módulos">
+Um pedido pode acionar rotinas de aprovação, cálculo de frete e faturamento. Revise os dados antes de enviar o pedido para as próximas etapas.
+</Callout>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['PEDIDO.VISUALIZAR', 'Acesso à tela', 'Permite abrir e consultar pedidos.'],
+    ['PEDIDO.EDITAR', 'Cadastro e alteração', 'Permite criar e alterar pedidos.'],
+    ['PEDIDO.APROVAR', 'Fluxo de aprovação', 'Permite aprovar pedidos enviados para análise.'],
+    ['PEDIDO.CANCELAR', 'Situação do pedido', 'Permite cancelar um pedido em andamento.'],
+  ]}
+/>
+
+## Parâmetros e comportamentos importantes
+
+- O pedido só avança para faturamento após concluir as aprovações exigidas.
+- Alterações em itens após a aprovação podem exigir nova análise, conforme a regra configurada.
+- Alguns campos podem variar conforme a unidade de negócio selecionada.
+
+## Regras e cuidados
+
+- Revise cliente, itens e condições antes de enviar o pedido para aprovação.
+- Evite alterar itens já faturados; utilize as rotinas de troca e devolução quando necessário.
+- Verifique a regra de frete aplicável antes de confirmar o pedido.
+- Verifique suas permissões antes de tentar aprovar ou cancelar um pedido.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+    ['Pedido não aparece na busca', 'Filtro de situação ou período aplicado', 'Revise os filtros utilizados na busca.'],
+    ['Pedido parado aguardando aprovação', 'Regra de aprovação configurada para o valor ou cliente', 'Verifique a fila de aprovações e o aprovador responsável.'],
+    ['Erro ao calcular frete', 'Regra de frete não configurada para o destino', 'Verifique a regra de frete cadastrada para a transportadora e o destino.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para criar e acompanhar pedidos de venda, do cadastro dos itens até o faturamento.' },
+    { question: 'Posso cancelar um pedido já aprovado?', answer: 'Depende da etapa em que o pedido está. Verifique a situação atual e as permissões necessárias.' },
+    { question: 'Alterar o pedido depois de aprovado exige nova aprovação?', answer: 'Pode exigir, dependendo da regra de aprovação configurada para o tipo de alteração.' },
+    { question: 'Preciso de permissão para acessar esta tela?', answer: 'Sim. É necessário ter a permissão correspondente liberada no seu perfil de acesso.' },
+    { question: 'Onde essa informação é usada?', answer: 'No faturamento, na emissão de notas fiscais e nos relatórios comerciais e logísticos.' },
+  ]}
+/>

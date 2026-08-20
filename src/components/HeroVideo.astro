@@ -1,0 +1,143 @@
+---
+// Área de vídeo do hero da home, em modo "vídeo de fundo":
+// toca sozinho, sem áudio, em loop, sem controles, sem legenda e sem a
+// interface do YouTube. Uma camada por cima bloqueia a interface que o
+// player mostra ao passar o mouse.
+// Passe a URL ou o ID do vídeo (YouTube/Vimeo). Vazio = "Vídeo em breve".
+interface Props {
+  provider?: 'youtube' | 'vimeo';
+  video?: string; // URL completa ou apenas o ID
+  title?: string;
+}
+
+const { provider = 'youtube', video = '', title = 'Conheça o sistema em poucos minutos' } = Astro.props;
+
+function extractId(input: string, prov: 'youtube' | 'vimeo'): string {
+  const value = input.trim();
+  if (!value) return '';
+  // Se não parecer URL, assume que já é o ID.
+  if (!value.includes('/') && !value.includes('.')) return value;
+  try {
+    const url = new URL(value.startsWith('http') ? value : `https://${value}`);
+    if (prov === 'youtube') {
+      if (url.searchParams.get('v')) return url.searchParams.get('v') as string;
+      const parts = url.pathname.split('/').filter(Boolean);
+      return parts[parts.length - 1] ?? '';
+    }
+    const parts = url.pathname.split('/').filter(Boolean);
+    return parts[parts.length - 1] ?? '';
+  } catch {
+    return value;
+  }
+}
+
+const id = extractId(video, provider);
+const hasVideo = id.length > 0;
+
+const embed =
+  provider === 'youtube'
+    ? `https://www.youtube-nocookie.com/embed/${id}?` +
+      new URLSearchParams({
+        autoplay: '1',
+        mute: '1', // sem áudio
+        loop: '1',
+        playlist: id, // necessário para o loop funcionar
+        controls: '0', // sem barra de controles/progresso
+        modestbranding: '1', // reduz a marca do YouTube
+        rel: '0', // sem vídeos relacionados de outros canais
+        iv_load_policy: '3', // sem anotações
+        cc_load_policy: '0', // sem legendas por padrão
+        disablekb: '1', // sem atalhos de teclado
+        fs: '0', // sem botão de tela cheia
+        playsinline: '1',
+      }).toString()
+    : `https://player.vimeo.com/video/${id}?` +
+      new URLSearchParams({
+        background: '1', // modo de fundo do Vimeo: sem controles, sem áudio, loop
+        autoplay: '1',
+        muted: '1',
+        loop: '1',
+      }).toString();
+---
+
+<div
+  class="hero-video relative aspect-video w-full overflow-hidden rounded-xl2 border border-white/15 bg-[#140609] shadow-card-hover"
+>
+  {hasVideo ? (
+    <>
+      <iframe
+        class="video-cover pointer-events-none absolute left-1/2 top-1/2 h-full w-full -translate-x-1/2 -translate-y-1/2"
+        src={embed}
+        title={title}
+        frameborder="0"
+        allow="autoplay; encrypted-media; picture-in-picture"
+        loading="lazy"
+      ></iframe>
+      {/* Camada transparente: impede que a interface do player apareça ao passar o mouse. */}
+      <div class="absolute inset-0 z-10" aria-hidden="true"></div>
+    </>
+  ) : (
+    <>
+      <div class="pointer-events-none absolute inset-0">
+        <span class="blob blob-a"></span>
+        <span class="blob blob-b"></span>
+      </div>
+      <div class="relative flex h-full w-full flex-col items-center justify-center gap-4 px-6 text-center">
+        <span class="flex h-16 w-16 items-center justify-center rounded-full bg-brand-gradient text-white shadow-card-hover">
+          <svg viewBox="0 0 24 24" fill="currentColor" class="ml-1 h-7 w-7">
+            <path d="M8 5v14l11-7z"></path>
+          </svg>
+        </span>
+        <div>
+          <p class="text-sm font-semibold text-white/90">{title}</p>
+          <p class="mt-1 text-xs font-medium uppercase tracking-wider text-white/40">Vídeo em breve</p>
+        </div>
+      </div>
+    </>
+  )}
+</div>
+
+<style>
+  /* Amplia o vídeo para recortar as bordas onde o player mostra título,
+     legendas e botões — deixando só a imagem. */
+  .video-cover {
+    transform: translate(-50%, -50%) scale(1.34);
+    transform-origin: center;
+  }
+
+  .blob {
+    position: absolute;
+    border-radius: 9999px;
+    filter: blur(40px);
+  }
+  .blob-a {
+    left: -2.5rem;
+    top: -2.5rem;
+    height: 11rem;
+    width: 11rem;
+    background: rgba(204, 9, 59, 0.35);
+    animation: heroFloat 7s ease-in-out infinite;
+  }
+  .blob-b {
+    right: -3rem;
+    bottom: -3rem;
+    height: 12rem;
+    width: 12rem;
+    background: rgba(241, 136, 0, 0.28);
+    animation: heroFloat 9s ease-in-out infinite reverse;
+  }
+  @keyframes heroFloat {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(0, -12px, 0) scale(1.08);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .blob {
+      animation: none;
+    }
+  }
+</style>

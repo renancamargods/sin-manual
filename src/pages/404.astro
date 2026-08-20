@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SearchBox from '../components/SearchBox.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<BaseLayout title="Página não encontrada" description="A página que você procura não foi encontrada.">
+  <section class="flex min-h-[60vh] items-center justify-center px-4 py-16">
+    <div class="w-full max-w-lg text-center">
+      <p class="text-sm font-semibold uppercase tracking-wider text-brand-red">Erro 404</p>
+      <h1 class="mt-2 text-2xl font-bold text-gray-900 sm:text-3xl">Página não encontrada</h1>
+      <p class="mt-3 text-sm leading-6 text-gray-600">
+        O endereço pode ter mudado ou a página ainda não foi criada. Use a busca abaixo ou volte para o início do manual.
+      </p>
+
+      <div class="mx-auto mt-6 max-w-md">
+        <SearchBox size="lg" placeholder="Buscar módulo, tela ou dúvida frequente..." />
+      </div>
+
+      <a href="/" class="btn-primary mt-6">
+        <Icon name="arrow-right" class="h-4 w-4 rotate-180" />
+        Voltar para o início
+      </a>
+    </div>
+  </section>
+</BaseLayout>
