@@ -5,11 +5,11 @@ pageType: routine
 module: clientes
 moduleLabel: Clientes
 title: Cliente
-description: Cadastro central de dados comerciais e fiscais do cliente.
+description: Cadastro de clientes (PF, PJ e estrangeiro) e envio para aprovação, do pré-cadastro à integração com o SAP.
 routineType: Cadastro
 permission: Sim
-impact: Alto — usado em pedidos, contratos e faturamento
-keywords: [cliente, cadastro de cliente, dados fiscais, dados comerciais]
+impact: Alto — base para aprovação de crédito e integração com o SAP
+keywords: [cliente, cadastro de cliente, criação de cliente, pré-cadastro, pulse credit, aprovação, alçada, sap, pessoa física, pessoa jurídica, estrangeiro]
 tags: [modulo-clientes, cadastro]
 order: 1
 ---
@@ -18,104 +18,168 @@ import Callout from '../../../../components/Callout.astro';
 import QuickCards from '../../../../components/QuickCards.astro';
 import DocTable from '../../../../components/DocTable.astro';
 import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
 
 ## Visão geral
 
-A tela **Cliente** centraliza os dados cadastrais, comerciais e fiscais de cada cliente da empresa. É a partir deste cadastro que outras rotinas — como pedidos, contratos e faturamento — identificam e aplicam as informações corretas para cada cliente.
+A tela **Cliente** é onde os clientes são cadastrados no sistema, nos tipos **Pessoa Física (PF)**, **Pessoa Jurídica (PJ)** e **Estrangeiro**. A partir dela, o cliente é preenchido, salvo e enviado para a análise das alçadas de aprovação.
 
-Manter este cadastro completo e atualizado evita retrabalho e problemas em processos posteriores, como emissão de nota fiscal e aplicação de políticas comerciais.
+O cadastro começa por um **pré-cadastro** (integração com o Pulse Credit) e segue para o **cadastro completo**, com os dados obrigatórios. Depois de salvo, o cliente pode ser enviado para aprovação; quando aprovado, passa a **ATIVO** e recebe o **código SAP** automaticamente.
+
+Esta tela é o ponto de partida do [Fluxo de Criação e Aprovação de Cliente](/tecnico/fluxos/criacao-de-cliente).
 
 <QuickCards
   cards={[
-    { label: 'Finalidade', title: 'Cadastro de clientes', text: 'Centraliza os dados cadastrais, comerciais e fiscais dos clientes.' },
-    { label: 'Uso', title: 'Vendas e financeiro', text: 'As informações cadastradas podem ser usadas em pedidos, faturamento e cobrança.' },
-    { label: 'Cuidado', title: 'Dados fiscais', text: 'Revise documentos, endereços e informações tributárias antes de usar o cadastro em operações.' },
+    { label: 'Finalidade', title: 'Cadastro de clientes', text: 'Cria clientes PF, PJ e estrangeiro e os envia para aprovação.' },
+    { label: 'Uso', title: 'Cadastro e crédito', text: 'É o ponto de partida do processo de criação e aprovação de clientes.' },
+    { label: 'Cuidado', title: 'Salvar antes de enviar', text: 'O envio para aprovação só é liberado após salvar os dados obrigatórios.' },
   ]}
 />
 
 ## Quando usar esta tela
 
-- Cadastrar um novo cliente.
-- Consultar dados comerciais e fiscais de um cliente já cadastrado.
-- Alterar informações de contato, endereço ou dados fiscais.
-- Acompanhar a situação (ativo ou inativo) de um cliente.
+- Cadastrar um novo cliente (PF, PJ ou estrangeiro).
+- Consultar ou alterar os dados de um cliente.
+- Enviar um cliente para a análise das alçadas de aprovação.
+- Acompanhar o status do cadastro até a ativação.
 
 ## Como acessar
 
-Clientes → Cliente
+Módulo Cliente → Tela de Cliente
 
 ## Antes de começar
 
-- Tenha em mãos os documentos e dados fiscais do cliente (CNPJ ou CPF, inscrição estadual, endereço).
-- Verifique se o cliente já não possui cadastro, para evitar duplicidade.
-- Confirme com o time comercial a classificação e o canal corretos para o cliente.
+- Tenha o documento do cliente (CPF ou CNPJ) e saiba o **tipo de pessoa** e o **tipo de cadastro**.
+- Reúna os dados obrigatórios: nome, endereço, telefone, e-mail e credencial.
+- Confirme que o seu perfil (Master ou Comum) permite criar o cliente.
+
+## Diferenças importantes
+
+<DocTable
+  headers={['Comparação', 'Diferença', 'Orientação']}
+  rows={[
+    ['Tela de Cliente x Fila de Aprovações', 'A tela de Cliente cria e envia o cadastro; a decisão de aprovar ou reprovar acontece na Fila de Aprovações de Cadastro.', 'Use a Fila de Aprovações para aprovar; a tela de Cliente é só para cadastrar e enviar.'],
+    ['Salvar x Enviar Cliente', 'Salvar guarda o cadastro; "Enviar Cliente" encaminha o cliente para a análise das alçadas.', 'Salve primeiro; o botão "Enviar Cliente" só habilita depois.'],
+    ['Pré-cadastro x Cadastro completo', 'O pré-cadastro define tipo de pessoa, tipo de cadastro e documento; o cadastro completo reúne os demais dados obrigatórios.', 'Conclua o pré-cadastro (Avançar) antes de preencher o cadastro completo.'],
+  ]}
+/>
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pré-cadastro (Pulse Credit)', 'Tipo de pessoa, tipo de cadastro e documento (CPF/CNPJ).', 'Etapa inicial; clique em "Avançar" para prosseguir.'],
+    ['Aba Dados Cadastrais', 'Dados obrigatórios do cliente: nome, contatos, endereço e credencial.', 'Todos os campos obrigatórios precisam ser preenchidos para salvar.'],
+    ['Botões de ação', '"+ Novo Cliente", "Salvar", "Salvar e Continuar" e "Enviar Cliente".', 'O botão "Enviar Cliente" só habilita após salvar com sucesso.'],
+  ]}
+/>
 
 ## Campos principais
+
+### Pré-cadastro
 
 <DocTable
   headers={['Campo', 'Para que serve']}
   rows={[
-    ['Código', 'Identifica o cliente no sistema.'],
-    ['Razão social / Nome', 'Nome oficial do cliente usado em documentos.'],
-    ['Nome fantasia', 'Nome usado no dia a dia para identificar o cliente.'],
-    ['CNPJ / CPF', 'Documento fiscal usado em notas fiscais e contratos.'],
-    ['Inscrição estadual', 'Identificação do cliente perante o fisco estadual, quando aplicável.'],
-    ['Endereço', 'Endereço usado para entrega e correspondência.'],
-    ['Canal', 'Canal de venda associado ao cliente.'],
-    ['Classificação comercial', 'Classificação usada em políticas e relatórios comerciais.'],
-    ['Situação', 'Indica se o cadastro está ativo ou inativo.'],
-    ['Observação', 'Campo livre para informações complementares.'],
+    ['Tipo de Pessoa', 'Define se o cliente é Física, Jurídica ou Estrangeira.'],
+    ['Tipo de Cadastro', 'Classifica o cadastro: Aluno, Avalista, Estrangeiro, Paciente ou Varejo.'],
+    ['CPF / CNPJ', 'Documento do cliente (CPF para pessoa física, CNPJ para pessoa jurídica).'],
+  ]}
+/>
+
+### Dados cadastrais (obrigatórios)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Nome completo do cliente.'],
+    ['Nome Fantasia', 'Nome fantasia ou razão social.'],
+    ['Aceita Contato de MKT', 'Consentimento para marketing (Sim ou Não).'],
+    ['Consultor FVE', 'Consultor responsável pelo cliente.'],
+    ['Endereço Principal', 'Ao menos um endereço principal.'],
+    ['Telefone Principal', 'Ao menos um telefone principal.'],
+    ['E-mail', 'Ao menos um e-mail cadastrado.'],
+    ['UF da Credencial', 'Estado emissor da credencial.'],
+    ['Credencial', 'Número da credencial.'],
+    ['Tipo Credencial', 'Tipo do documento de credencial.'],
+    ['Responsável da Credencial', 'Nome do responsável pela credencial.'],
+    ['Data Nascimento / Abertura', 'Data de nascimento (PF) ou de abertura (PJ).'],
   ]}
 />
 
 ## Fluxos principais
 
-1. **Cadastrar novo cliente** — preencha os dados obrigatórios e salve o cadastro.
-2. **Consultar cliente** — utilize a busca para localizar pelo nome, código ou documento.
-3. **Alterar cliente** — abra o cadastro, atualize os campos necessários e salve.
-4. **Inativar cliente** — altere a situação para inativo quando o cliente não estiver mais em operação.
+1. **Criar cliente** — clique em **"+ Novo Cliente"**, preencha o pré-cadastro e clique em **Avançar**; preencha os dados obrigatórios e clique em **Salvar** (ou **Salvar e Continuar**).
+2. **Enviar para aprovação** — clique em **"Enviar Cliente"** e confirme no popup (**SIM**). O cliente vai para a fila de aprovação conforme o tipo de pessoa.
+3. **Acompanhar** — o cliente fica com o status **"Em Análise pela Área de Cadastro/Crédito"** até a decisão da alçada.
 
-## Relações com outros cadastros ou processos
-
-Este cadastro pode ser usado em pedidos, contratos, políticas comerciais e faturamento. Alterações nos dados fiscais do cliente podem impactar a emissão de notas fiscais futuras.
-
-<Callout type="info" title="Cadastros relacionados">
-Informações como agrupamento, rede de cliente e regime especial complementam este cadastro e ficam disponíveis em telas específicas do módulo Clientes.
+<Callout type="cuidado" title="Salvar antes de enviar">
+O botão "Enviar Cliente" só fica disponível após salvar o cadastro com todos os campos obrigatórios preenchidos.
 </Callout>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['+ Novo Cliente', 'Para iniciar um novo cadastro.', 'Abre a tela de pré-cadastro.'],
+    ['Salvar / Salvar e Continuar', 'Para guardar os dados preenchidos.', 'Necessário antes de enviar o cliente.'],
+    ['Enviar Cliente', 'Para encaminhar o cliente à análise das alçadas.', 'Confirme no popup ("SIM"); a alçada depende do tipo de pessoa.'],
+  ]}
+/>
 
 ## Permissões principais
 
 <DocTable
-  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  headers={['Perfil', 'Acesso', 'O que pode fazer']}
   rows={[
-    ['CLIENTE.VISUALIZAR', 'Acesso à tela', 'Permite abrir e consultar o cadastro de clientes.'],
-    ['CLIENTE.EDITAR', 'Cadastro e alteração', 'Permite criar e alterar dados do cliente.'],
-    ['CLIENTE.INATIVAR', 'Situação do cadastro', 'Permite inativar um cliente.'],
+    ['Usuário Master (Administrador)', 'Total', 'Criar clientes e acessar as configurações gerais.'],
+    ['Usuário Comum (ex.: Consultor)', 'Restrito', 'Criar clientes vinculados ao seu perfil.'],
   ]}
 />
 
-## Parâmetros e comportamentos importantes
+<Callout type="info" title="Aprovação por alçada">
+A aprovação do cliente não é feita nesta tela: ela acontece na Fila de Aprovações de Cadastro, pelas alçadas de Crédito, Fiscal e Crédito Internacional, conforme o tipo de pessoa.
+</Callout>
 
-- O cadastro precisa estar ativo para ser usado em novos pedidos.
-- Alterações nos dados fiscais passam a valer para novas operações, sem alterar documentos já emitidos.
-- Alguns campos podem variar conforme o país ou o regime tributário do cliente.
+## Comportamentos importantes
 
-## Regras e cuidados
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Envio só após salvar', 'O botão "Enviar Cliente" só habilita depois de salvar com sucesso.', 'Preencha e salve os dados obrigatórios antes de enviar.'],
+    ['Alçada por tipo de pessoa', 'PF vai para Crédito; PJ para Crédito e Fiscal; Estrangeiro para Crédito Internacional e Fiscal.', 'Confira o tipo de pessoa antes de enviar.'],
+    ['Código SAP na aprovação', 'O código SAP é gerado automaticamente quando o cliente é aprovado (ATIVO).', 'Confira a atualização mais recente após a aprovação.'],
+  ]}
+/>
 
-- Revise os dados fiscais antes de gravar o cadastro.
-- Evite cadastrar o mesmo cliente mais de uma vez; utilize a busca antes de criar um novo registro.
-- Prefira inativar o cadastro em vez de excluí-lo quando já houver pedidos ou contratos vinculados.
-- Verifique suas permissões antes de tentar alterar dados fiscais.
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Fila de Aprovações de Cadastro', 'Recebe o cliente enviado e registra a decisão (aprovar, reprovar ou avaliar).', 'A aprovação não é feita na tela de Cliente.'],
+    ['Integração com o SAP', 'Gera o código SAP automaticamente quando o cliente é aprovado.', 'O código não aparece antes da aprovação.'],
+    ['Fluxo de Criação e Aprovação de Cliente', 'A tela de Cliente é o ponto de partida do processo completo.', 'Consulte o fluxo para o passo a passo de ponta a ponta.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não aprova o cliente — a decisão acontece na Fila de Aprovações de Cadastro.
+- Não gera o código SAP diretamente — ele é criado quando o cliente é aprovado.
+- Não envia o cliente antes de salvar — o botão "Enviar Cliente" só habilita após o salvamento.
 
 ## Problemas comuns
 
 <DocTable
   headers={['Problema', 'Possível causa', 'O que verificar']}
   rows={[
-    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
-    ['Cliente não aparece na busca', 'Situação inativa ou filtro aplicado', 'Revise os filtros e a situação do cadastro.'],
-    ['Erro ao salvar dados fiscais', 'Documento inválido ou incompleto', 'Confira o documento informado e tente novamente.'],
-    ['Não consigo inativar o cliente', 'Cliente com pedidos ou contratos em aberto', 'Verifique se há vínculos ativos antes de inativar.'],
+    ['O botão "Enviar Cliente" não habilita', 'Cadastro não salvo ou campo obrigatório faltando', 'Preencha todos os campos obrigatórios e salve o cadastro.'],
+    ['O cliente ficou "Em Análise" e não avança', 'Aguardando decisão da alçada', 'A aprovação é feita na Fila de Aprovações de Cadastro pela alçada responsável.'],
+    ['O cliente não tem código SAP', 'Cadastro ainda não aprovado', 'O código SAP só é gerado após a aprovação (status ATIVO).'],
+    ['Não consigo criar determinado cliente', 'Perfil sem acesso suficiente', 'Verifique se o seu perfil (Master ou Comum) permite a operação.'],
   ]}
 />
 
@@ -123,10 +187,23 @@ Informações como agrupamento, rede de cliente e regime especial complementam e
 
 <FaqAccordion
   items={[
-    { question: 'Para que serve esta tela?', answer: 'Para cadastrar e manter atualizados os dados comerciais e fiscais dos clientes da empresa.' },
-    { question: 'Posso excluir um cliente já usado em pedidos?', answer: 'Não é recomendado. Prefira inativar o cadastro para preservar o histórico de operações.' },
-    { question: 'Alterar este cadastro muda pedidos antigos?', answer: 'Não. As alterações passam a valer apenas para novas operações.' },
-    { question: 'Preciso de permissão para acessar esta tela?', answer: 'Sim. É necessário ter a permissão correspondente liberada no seu perfil de acesso.' },
-    { question: 'Onde essa informação é usada?', answer: 'Em pedidos, contratos, políticas comerciais e faturamento.' },
+    { question: 'Para que serve a tela de Cliente?', answer: 'Para cadastrar clientes (PF, PJ e estrangeiro) e enviá-los para aprovação.' },
+    { question: 'Por que o botão "Enviar Cliente" está desabilitado?', answer: 'Porque o cadastro ainda não foi salvo; ele habilita após salvar com os campos obrigatórios preenchidos.' },
+    { question: 'A aprovação é feita nesta tela?', answer: 'Não. A tela de Cliente cria e envia; a decisão acontece na Fila de Aprovações de Cadastro.' },
+    { question: 'Quando o cliente recebe o código SAP?', answer: 'Automaticamente, quando é aprovado e fica com status ATIVO.' },
+    { question: 'Preciso de permissão para criar cliente?', answer: 'Sim; o acesso depende do seu perfil (Master ou Comum).' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'QA', date: 'Março/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: 'Março/2026', author: 'QA', description: 'Emissão inicial da documentação da tela de Cliente.' },
   ]}
 />

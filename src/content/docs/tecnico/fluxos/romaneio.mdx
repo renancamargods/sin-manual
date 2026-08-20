@@ -16,6 +16,7 @@ import Callout from '../../../../components/Callout.astro';
 import QuickCards from '../../../../components/QuickCards.astro';
 import DocTable from '../../../../components/DocTable.astro';
 import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
 
 ## Visão geral
 
@@ -198,5 +199,18 @@ Enquanto a integração automática com o SimuleFrete está temporariamente indi
     { question: 'Por que aparece o botão "Enviar para SimuleFrete"?', answer: 'Ele funciona como alternativa enquanto a integração automática está indisponível, sempre que o romaneio está no status Coletado e ainda não foi enviado.' },
     { question: 'Posso excluir um romaneio?', answer: 'Sim, enquanto ele estiver no status Em Conferência.' },
     { question: 'O que significa o padrão VOL-NNN-REMESSA?', answer: 'É o formato do código de barras de cada volume: VOL, seguido do número da etiqueta e do número da remessa.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Equipe de Qualidade / QA', date: '10/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '10/08/2026', author: 'Equipe de Qualidade / QA', description: 'Emissão inicial do manual de processo do módulo de Romaneio.' },
   ]}
 />

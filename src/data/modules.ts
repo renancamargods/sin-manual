@@ -44,6 +44,7 @@ export const tecnicoPages: TecnicoGroup[] = [
     description: 'Como os principais processos se conectam entre módulos.',
     pages: [
       { title: 'Romaneio', slug: 'romaneio', description: 'Fluxo de separação, etiquetagem, romaneio e coleta de remessas.' },
+      { title: 'Criação de Cliente', slug: 'criacao-de-cliente', description: 'Criação, cadastro e aprovação de clientes (PF, PJ e estrangeiro).' },
     ],
   },
   { title: 'APIs', slug: 'apis', description: 'Integrações disponíveis para troca de informações com outros sistemas.', pages: [] },

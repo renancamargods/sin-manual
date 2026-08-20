@@ -1,0 +1,220 @@
+---
+section: tecnico
+routeSlug: fluxos/criacao-de-cliente
+pageType: tecnico
+title: Fluxo de Criação e Aprovação de Cliente
+description: Processo completo de criação, cadastro e aprovação de clientes (PF, PJ e estrangeiro), do pré-cadastro à integração com o SAP.
+moduleLabel: Módulo Cliente
+routineType: Fluxo de processo
+impact: Cadastro e aprovação de clientes
+keywords: [cliente, criação de cliente, aprovação, alçada, crédito, fiscal, pré-cadastro, pulse credit, sap, pessoa física, pessoa jurídica, estrangeiro]
+tags: [tecnico, fluxo, cliente]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+O fluxo de **Criação e Aprovação de Cliente** descreve o processo completo de cadastro de clientes no sistema, para os tipos **Pessoa Física (PF)**, **Pessoa Jurídica (PJ)** e **Estrangeiro**. O processo vai desde o pré-cadastro, passando pelo preenchimento dos dados, até o envio para as alçadas de aprovação e a integração automática com o SAP quando o cliente é aprovado.
+
+O fluxo acontece no **Módulo Cliente**, principalmente nas telas **Cliente** e **Fila de Aprovações de Cadastro**, e envolve dois tipos de usuário: quem cria o cliente (Master ou Comum) e quem aprova (alçadas de Crédito, Fiscal e Crédito Internacional).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro e aprovação de clientes', text: 'Padroniza a criação de clientes PF, PJ e estrangeiro e o encaminhamento para as alçadas de aprovação.' },
+    { label: 'Uso', title: 'Cadastro e crédito', text: 'Usado pelos consultores para criar clientes e pelas alçadas para aprovar ou reprovar o cadastro.' },
+    { label: 'Cuidado', title: 'Dados obrigatórios e alçadas', text: 'O envio só é liberado após salvar os dados obrigatórios, e a aprovação depende da alçada correta por tipo de pessoa.' },
+  ]}
+/>
+
+## Quando usar este fluxo
+
+- Cadastrar um novo cliente (PF, PJ ou estrangeiro).
+- Enviar um cliente recém-cadastrado para análise das alçadas.
+- Aprovar, reprovar ou avaliar um cliente na fila de aprovações.
+- Acompanhar o status do cadastro até a ativação e a geração do código SAP.
+
+## Como acessar
+
+- Módulo Cliente → Tela de Cliente
+- Módulo Cliente → Fila de Aprovações de Cadastro
+
+## As etapas do processo
+
+<DocTable
+  headers={['Etapa', 'O que acontece']}
+  rows={[
+    ['1. Login', 'Acesso ao sistema com o perfil adequado (Master ou Comum).'],
+    ['2. Novo cliente', 'Abertura de um novo cadastro pela tela de Cliente.'],
+    ['3. Pré-cadastro', 'Informação do tipo de pessoa, tipo de cadastro e documento (integração com o Pulse Credit).'],
+    ['4. Cadastro completo', 'Preenchimento dos dados obrigatórios do cliente na aba Dados Cadastrais.'],
+    ['5. Envio para análise', 'Cliente encaminhado à fila de aprovação conforme o tipo de pessoa.'],
+    ['6. Aprovação', 'Análise e decisão na Fila de Aprovações de Cadastro.'],
+    ['7. Resultado e SAP', 'Cliente aprovado passa a ATIVO e gera o código SAP automaticamente.'],
+  ]}
+/>
+
+## Antes de começar
+
+- Tenha o usuário e a senha do perfil desejado (Master ou Comum).
+- Saiba o **tipo de pessoa** (Física, Jurídica ou Estrangeira) e o **tipo de cadastro** (Aluno, Avalista, Estrangeiro, Paciente ou Varejo).
+- Tenha em mãos o documento do cliente (CPF ou CNPJ) e os dados obrigatórios (endereço, telefone, e-mail e credencial).
+
+## Passo a passo do processo
+
+### 1. Login e acesso ao Módulo Cliente
+
+1. **Login** — acesse o sistema e informe o usuário e a senha do perfil desejado (Master ou Comum). Clique em **Entrar**.
+2. **Novo cadastro** — no menu, vá em **Módulo Cliente → Tela de Cliente** e clique em **"+ Novo Cliente"**. O sistema abre a tela de pré-cadastro.
+
+<Callout type="dica" title="Teste com os dois perfis">
+Ao validar o processo, execute os testes tanto com o **Usuário Master** quanto com o **Usuário Comum** (ex.: Consultor), para garantir que as permissões estão corretas.
+</Callout>
+
+### 2. Pré-cadastro (integração com o Pulse Credit)
+
+Na tela de pré-cadastro, preencha:
+
+<DocTable
+  headers={['Campo', 'Opções / instrução']}
+  rows={[
+    ['Tipo de Pessoa', 'Física, Jurídica ou Estrangeira.'],
+    ['Tipo de Cadastro', 'Aluno, Avalista, Estrangeiro, Paciente ou Varejo.'],
+    ['CPF / CNPJ', 'CPF para pessoa física; CNPJ para pessoa jurídica.'],
+  ]}
+/>
+
+Clique em **Avançar** para prosseguir para o cadastro completo.
+
+### 3. Cadastro completo — aba Dados Cadastrais
+
+Preencha os campos obrigatórios do cliente:
+
+<DocTable
+  headers={['Campo obrigatório', 'Descrição']}
+  rows={[
+    ['Nome', 'Nome completo do cliente.'],
+    ['Nome Fantasia', 'Nome fantasia ou razão social.'],
+    ['Aceita Contato de MKT', 'Consentimento para marketing (Sim ou Não).'],
+    ['Consultor FVE', 'Consultor responsável pelo cliente.'],
+    ['Endereço Principal', 'Ao menos um endereço principal cadastrado.'],
+    ['Telefone Principal', 'Ao menos um telefone principal cadastrado.'],
+    ['E-mail', 'Ao menos um e-mail cadastrado.'],
+    ['UF da Credencial', 'Estado emissor da credencial.'],
+    ['Credencial', 'Número da credencial.'],
+    ['Tipo Credencial', 'Tipo do documento de credencial.'],
+    ['Responsável da Credencial', 'Nome do responsável pela credencial.'],
+    ['Data Nascimento / Abertura', 'Data de nascimento (PF) ou de abertura (PJ).'],
+  ]}
+/>
+
+Após preencher tudo, clique em **Salvar** ou **Salvar e Continuar**. O botão **"Enviar Cliente"** passa a ficar habilitado.
+
+### 4. Envio para análise
+
+1. Clique em **"Enviar Cliente"**.
+2. No popup de confirmação, clique em **SIM**.
+
+O cliente é encaminhado para a fila de aprovação conforme o tipo de pessoa:
+
+<DocTable
+  headers={['Tipo de pessoa', 'Fila(s) de aprovação', 'Responsável']}
+  rows={[
+    ['Pessoa Física (PF)', 'Crédito', 'Alçada de Crédito.'],
+    ['Pessoa Jurídica (PJ)', 'Crédito + Fiscal', 'Alçada de Crédito e alçada Fiscal.'],
+    ['Estrangeiro', 'Crédito Internacional + Fiscal', 'Alçada de Crédito Internacional (Comex) e alçada Fiscal.'],
+  ]}
+/>
+
+### 5. Acompanhamento do status
+
+Após o envio, o cliente fica na tela de clientes com o status **"Em Análise pela Área de Cadastro/Crédito"**.
+
+### 6. Aprovação na Fila de Aprovações de Cadastro
+
+1. Faça login com o usuário responsável pela alçada correspondente.
+2. Acesse **Módulo Cliente → Fila de Aprovações de Cadastro** e busque o cliente.
+3. Escolha uma das ações disponíveis:
+
+- **Aprovar** — aprova o cadastro do cliente.
+- **Reprovar** — reprova o cadastro do cliente.
+- **Analisar Cliente** — análise detalhada antes de decidir.
+- **Enviar para Avaliação** — encaminha para revisão adicional na aba Clientes em Avaliação.
+- **Adicionar Observação** — registra uma nota no cadastro.
+
+### 7. Resultado da aprovação e integração com o SAP
+
+<DocTable
+  headers={['Decisão', 'Status na tela de Clientes', 'Observação']}
+  rows={[
+    ['Aprovado', 'ATIVO', 'Integração automática com o SAP e geração do código SAP. Visível na atualização mais recente.'],
+    ['Reprovado', 'Negado Análise de Crédito', 'Cadastro negado; retorna para o consultor verificar.'],
+    ['Em Avaliação', 'Cliente em Avaliação de Crédito', 'Na aba Clientes em Avaliação, o status é exibido em detalhe.'],
+  ]}
+/>
+
+<Callout type="info" title="Integração com o SAP">
+O código SAP é gerado automaticamente e apenas quando o cliente é aprovado (status ATIVO). Confira sempre a atualização mais recente do cadastro.
+</Callout>
+
+## Regras e cuidados
+
+- Todos os campos obrigatórios devem ser preenchidos antes de salvar; o botão **"Enviar Cliente"** só fica disponível após salvar com sucesso.
+- A alçada de aprovação varia conforme o tipo de pessoa — confira a tabela do envio para análise.
+- O código SAP só é gerado na aprovação (status ATIVO).
+- Cada perfil deve ter acesso apenas ao necessário para sua função; credenciais de alçada não devem ser compartilhadas.
+
+## Responsabilidades
+
+<DocTable
+  headers={['Perfil', 'Acesso', 'Responsabilidade']}
+  rows={[
+    ['Administrador (Master)', 'Total', 'Criação de clientes e configurações gerais.'],
+    ['Usuário Comum (ex.: Consultor)', 'Restrito', 'Criação de clientes vinculados ao seu perfil.'],
+    ['Alçada de Crédito', 'Fila de aprovação', 'Aprovação/reprovação de crédito (PF e PJ).'],
+    ['Alçada Fiscal', 'Fila de aprovação', 'Aprovação/reprovação fiscal (PJ e estrangeiro).'],
+    ['Alçada de Crédito Internacional (Comex)', 'Fila de aprovação', 'Aprovação de crédito internacional (estrangeiro).'],
+  ]}
+/>
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O botão "Enviar Cliente" não habilita', 'Cadastro ainda não salvo ou campo obrigatório faltando', 'Preencha todos os campos obrigatórios e salve o cadastro.'],
+    ['O cliente não aparece na fila de aprovação', 'Cliente ainda não enviado ou alçada incorreta', 'Confirme o envio e a alçada correspondente ao tipo de pessoa.'],
+    ['O cliente não gerou código SAP', 'Cadastro ainda não aprovado', 'O código SAP só é gerado após a aprovação (status ATIVO).'],
+    ['Cadastro voltou como negado', 'Reprovação na análise de crédito', 'Verifique com a alçada o motivo e ajuste o cadastro antes de reenviar.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Quais tipos de cliente este fluxo cobre?', answer: 'Pessoa Física (PF), Pessoa Jurídica (PJ) e Estrangeiro.' },
+    { question: 'Por que o botão "Enviar Cliente" está desabilitado?', answer: 'Porque o cadastro ainda não foi salvo. Ele só habilita após salvar com todos os campos obrigatórios preenchidos.' },
+    { question: 'Quem aprova cada tipo de cliente?', answer: 'PF vai para a alçada de Crédito; PJ para Crédito e Fiscal; Estrangeiro para Crédito Internacional e Fiscal.' },
+    { question: 'Quando o código SAP é gerado?', answer: 'Automaticamente, apenas quando o cliente é aprovado e fica com status ATIVO.' },
+    { question: 'O que acontece se o cliente for reprovado?', answer: 'O cadastro fica com status "Negado Análise de Crédito" e retorna ao consultor para verificação.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'QA', date: 'Março/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: 'Março/2026', author: 'QA', description: 'Emissão inicial do processo de criação e aprovação de clientes.' },
+  ]}
+/>
