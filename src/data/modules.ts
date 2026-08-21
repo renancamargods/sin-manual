@@ -64,6 +64,7 @@ export const modules: ModuleDef[] = [
     order: 1,
     routines: [
       { title: 'Log de Execução de Serviço', slug: 'log-de-execucao-de-servico', description: 'Consulta e registro das execuções de serviços e integrações do sistema.' },
+      { title: 'Mensagem Personalizada', slug: 'mensagem-personalizada', description: 'Cadastro e consulta das mensagens padronizadas por tipo de mensagem.' },
     ],
   },
   {

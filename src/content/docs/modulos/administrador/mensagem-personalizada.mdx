@@ -1,0 +1,222 @@
+---
+section: modulos
+routeSlug: administrador/mensagem-personalizada
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+title: Mensagem Personalizada
+description: Cadastro e consulta das mensagens padronizadas usadas nas rotinas de pedidos e ocorrências, organizadas por tipo de mensagem.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Mensagens padronizadas usadas em pedidos e ocorrências
+keywords: [mensagem personalizada, tipo de mensagem, recusa de pedido, aprovação de pedido, cancelamento, mensagem padrão, administrador]
+tags: [modulo-administrador, cadastro]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Mensagem Personalizada** permite cadastrar e consultar as mensagens padronizadas que o sistema usa em rotinas como recusa, aprovação e cancelamento de pedidos. Cada mensagem é vinculada a um **Tipo de Mensagem** (por exemplo, RecusaPedidoCredito ou AprovacaoPedidoPadraoAdm).
+
+Ao criar uma mensagem, você escolhe o Tipo de Mensagem e escreve o texto. Também é possível cadastrar um **novo Tipo de Mensagem** (com Código e Descrição) diretamente pela tela, sem sair do cadastro da mensagem.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Mensagens padronizadas', text: 'Centraliza os textos padrão usados em recusas, aprovações e cancelamentos de pedidos.' },
+    { label: 'Uso', title: 'Pedidos e ocorrências', text: 'As mensagens são reutilizadas nas rotinas conforme o tipo de mensagem.' },
+    { label: 'Cuidado', title: 'Vínculo com o tipo', text: 'Cada mensagem precisa estar associada ao Tipo de Mensagem correto.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova mensagem padronizada.
+- Consultar ou filtrar mensagens por tipo ou período.
+- Editar ou excluir uma mensagem existente.
+- Cadastrar um novo Tipo de Mensagem.
+
+## Como acessar
+
+Administrador → Mensagem Personalizada
+
+## Antes de começar
+
+- Saiba a qual **Tipo de Mensagem** a mensagem pertence.
+- Tenha o texto da mensagem pronto.
+- Se o tipo ainda não existir, cadastre-o (Código e Descrição) pelo botão de novo tipo.
+
+## Diferenças importantes
+
+<DocTable
+  headers={['Comparação', 'Diferença', 'Orientação']}
+  rows={[
+    ['Mensagem x Tipo de Mensagem', 'A Mensagem é o texto padrão; o Tipo de Mensagem é a categoria que agrupa as mensagens (ex.: RecusaPedidoCredito).', 'Cada mensagem pertence a um Tipo de Mensagem.'],
+    ['Botão "+ Novo" x botão "+" do tipo', 'O "+ Novo" cria uma mensagem; o "+" ao lado de "ID Tipo de Mensagem" cadastra um novo Tipo de Mensagem.', 'Use o "+" do tipo apenas quando o tipo ainda não existir.'],
+  ]}
+/>
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Mensagem, Data De, Data Até e Tipo de Mensagem, com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use o período e o tipo para restringir os resultados.'],
+    ['Resultados', 'Lista das mensagens com Mensagem, Data do Cadastro, Usuário Criação e Tipo de Mensagem, além das ações por linha.', 'Cada linha tem Visualizar/Detalhe, Editar e Excluir.'],
+    ['Cadastro / edição da mensagem', 'Janela com "ID Tipo de Mensagem" (com o botão "+" para novo tipo) e "Mensagem", e os botões "Salvar" e "Fechar".', 'Aberta por "+ Novo" (criar) ou pelo ícone Editar (alterar).'],
+    ['Cadastro de Tipo de Mensagem', 'Janela com "Código" e "Descrição", e os botões "Salvar e Continuar", "Salvar" e "Fechar".', 'Aberta pelo "+" ao lado de "ID Tipo de Mensagem".'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Mensagem', 'Busca pelo texto da mensagem.'],
+    ['Data De', 'Data inicial do cadastro.'],
+    ['Data Até', 'Data final do cadastro.'],
+    ['Tipo de Mensagem', 'Filtra pelo tipo da mensagem (ex.: RecusaPedidoCredito).'],
+  ]}
+/>
+
+<Callout type="info" title="Tipos de mensagem mais comuns">
+Entre os tipos disponíveis estão: CancelamentoOcorrencia, CancelamentoPedido, AprovacaoPedidoPadraoCobranca, AprovacaoPedidoPadraoCredito, AprovacaoPedidoPadraoAdm, AprovacaoPedidoAposRecusaCobranca, AprovacaoPedidoAposRecusaCredito, AprovacaoPedidoAposRecusaAdministrativo, RecusaPedidoCobranca, RecusaPedidoCredito, RecusaPedidoAdministrativo, VoltarContagem e VoltarContagemSemItens.
+</Callout>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Mensagem', 'Texto padrão da mensagem.'],
+    ['Data do Cadastro', 'Data em que a mensagem foi cadastrada.'],
+    ['Usuário Criação', 'Usuário que cadastrou a mensagem.'],
+    ['Tipo de Mensagem', 'Tipo ao qual a mensagem pertence.'],
+  ]}
+/>
+
+### Cadastro / edição da mensagem
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['ID Tipo de Mensagem', 'Tipo ao qual a mensagem será vinculada. O botão "+" ao lado permite cadastrar um novo tipo.'],
+    ['Mensagem', 'Texto padrão da mensagem.'],
+  ]}
+/>
+
+### Cadastro de Tipo de Mensagem
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código', 'Código que identifica o tipo de mensagem.'],
+    ['Descrição', 'Descrição do tipo de mensagem.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe os filtros (Mensagem, período e Tipo de Mensagem) e clique em **"Pesquisar"**.
+2. **Ver detalhes** — clique no ícone de **Visualizar/Detalhe** da linha.
+3. **Cadastrar mensagem** — clique em **"+ Novo"**, selecione o **ID Tipo de Mensagem**, escreva a **Mensagem** e clique em **"Salvar"**.
+4. **Cadastrar novo Tipo de Mensagem** — na janela da mensagem, clique no **"+"** ao lado de "ID Tipo de Mensagem", informe **Código** e **Descrição** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+5. **Editar mensagem** — clique no ícone de **Editar**, altere os campos e clique em **"Salvar"**.
+6. **Excluir mensagem** — clique no ícone de **Excluir** da linha.
+7. **Limpar filtros** — clique em **"Limpar Filtros"** para recomeçar a busca.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as mensagens conforme os filtros.', 'O período e o tipo ajudam a filtrar.'],
+    ['+ Novo', 'Para cadastrar uma nova mensagem.', 'Abre a janela de cadastro da mensagem.'],
+    ['+ (ao lado do tipo)', 'Para cadastrar um novo Tipo de Mensagem.', 'Abre a janela de tipo (Código e Descrição).'],
+    ['Salvar e Continuar', 'Para salvar o tipo e seguir cadastrando.', 'Disponível no cadastro de Tipo de Mensagem.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Visualizar / Detalhe', 'Para ver uma mensagem sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar uma mensagem existente.', 'Abre a janela com os dados preenchidos.'],
+    ['Excluir', 'Para remover uma mensagem.', 'Ação sem retorno; remove a mensagem.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Mensagem Personalizada', 'Acesso à tela', 'Permite abrir e utilizar a tela de Mensagem Personalizada.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Vínculo obrigatório ao tipo', 'Cada mensagem é associada a um Tipo de Mensagem.', 'Selecione o tipo correto ao cadastrar a mensagem.'],
+    ['Reuso nas rotinas', 'As mensagens padronizadas são reutilizadas nas rotinas conforme o tipo (recusa, aprovação, cancelamento).', 'Revise o texto antes de salvar, pois ele será exibido aos usuários.'],
+    ['Novo tipo pela própria tela', 'É possível cadastrar um novo Tipo de Mensagem sem sair do cadastro da mensagem.', 'Use apenas quando o tipo ainda não existir.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Pedidos (aprovação, recusa e cancelamento)', 'As mensagens são usadas nas rotinas de pedido conforme o tipo.', 'Mantenha os textos coerentes com a política vigente.'],
+    ['Ocorrências', 'Tipos como CancelamentoOcorrencia indicam uso em ocorrências.', 'Confira o tipo correto ao cadastrar.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não aplica a mensagem sozinha — ela é usada pelas rotinas conforme o tipo.
+- Não define a política ou a regra — apenas o texto padrão que será exibido.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A mensagem não aparece na rotina', 'Tipo de Mensagem incorreto', 'Confirme o tipo vinculado à mensagem.'],
+    ['Não encontro uma mensagem', 'Filtros ou período muito restritos', 'Ajuste os filtros e o período; revise o Tipo de Mensagem.'],
+    ['Não consigo selecionar o tipo', 'Tipo ainda não cadastrado', 'Cadastre o tipo pelo "+" ao lado de "ID Tipo de Mensagem".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar e consultar as mensagens padronizadas usadas nas rotinas de pedidos e ocorrências.' },
+    { question: 'O que é o Tipo de Mensagem?', answer: 'É a categoria que agrupa as mensagens (ex.: RecusaPedidoCredito). Cada mensagem pertence a um tipo.' },
+    { question: 'Como cadastro um novo tipo?', answer: 'Na janela de cadastro da mensagem, clique no "+" ao lado de "ID Tipo de Mensagem" e informe Código e Descrição.' },
+    { question: 'Posso excluir uma mensagem?', answer: 'Sim, pelo ícone de Excluir da linha.' },
+    { question: 'Onde as mensagens são usadas?', answer: 'Nas rotinas de pedido (aprovação, recusa e cancelamento) e ocorrências, conforme o tipo.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '21/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '21/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Mensagem Personalizada.' },
+  ]}
+/>
