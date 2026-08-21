@@ -6,7 +6,7 @@ module: administrador
 moduleLabel: Administrator
 title: Log de Execução de Serviço
 description: Consulta e registro das execuções de serviços e integrações do sistema, com resultado e mensagem de retorno.
-routineType: Consulta e cadastro
+routineType: Consulta e edição
 permission: Sim
 impact: Monitoramento de execuções de serviços e integrações
 keywords: [log, execução de serviço, integração, sap, sucesso, mensagem, monitoramento, administrador]
@@ -24,7 +24,7 @@ import DocControl from '../../../../components/DocControl.astro';
 
 A tela **Log de Execução de Serviço** registra as execuções de serviços e integrações do sistema — por exemplo, consultas enviadas ao **SAP**. Para cada execução, mostra a data, o tipo, se teve sucesso, os parâmetros enviados e a mensagem de retorno.
 
-Os logs de integração são **preenchidos automaticamente** conforme o sistema executa os serviços, nos pontos configurados para registrar. A tela também permite **criar** e **editar** registros manualmente. É útil para acompanhar integrações e identificar falhas (por exemplo, um produto que não está cadastrado no CRM).
+Os logs de integração são **preenchidos automaticamente** conforme o sistema executa os serviços, nos pontos configurados para registrar. A tela permite **consultar** e **editar** os registros existentes. É útil para acompanhar integrações e identificar falhas (por exemplo, um produto que não está cadastrado no CRM).
 
 <QuickCards
   cards={[
@@ -39,7 +39,7 @@ Os logs de integração são **preenchidos automaticamente** conforme o sistema 
 - Consultar as execuções de serviço em um período.
 - Filtrar por tipo (ex.: SAP) ou por sucesso (Sim/Não).
 - Verificar a mensagem de retorno de uma execução que falhou.
-- Criar ou editar um registro de log manualmente.
+- Editar um registro de log existente.
 
 ## Como acessar
 
@@ -56,7 +56,7 @@ Administrador → Log de Execução de Serviço
 <DocTable
   headers={['Comparação', 'Diferença', 'Orientação']}
   rows={[
-    ['Registro automático x cadastro manual', 'Os logs de integração são preenchidos automaticamente conforme o sistema executa, nos pontos configurados; a tela também permite criar e editar manualmente.', 'Use o cadastro manual apenas quando necessário, para não misturar com o histórico automático.'],
+    ['Registro automático x edição manual', 'Os logs de integração são preenchidos automaticamente conforme o sistema executa, nos pontos configurados; a tela permite editar registros existentes, mas não criar novos manualmente.', 'Edite manualmente apenas quando necessário, para preservar o histórico automático.'],
     ['Sucesso = Sim x Não', '"Não" indica que a execução não foi concluída com sucesso.', 'Leia a coluna Mensagem para entender o motivo da falha.'],
   ]}
 />
@@ -66,9 +66,9 @@ Administrador → Log de Execução de Serviço
 <DocTable
   headers={['Área', 'Conteúdo', 'Cuidado']}
   rows={[
-    ['Pesquisa (filtros)', 'Data - Início, Data - Término, Tipo e Sucesso, com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use o período para restringir os resultados.'],
+    ['Pesquisa (filtros)', 'Data - Início, Data - Término, Tipo e Sucesso, com os botões "Pesquisar" e "Limpar Filtros".', 'Use o período para restringir os resultados.'],
     ['Resultados', 'Lista dos registros com Data, Tipo, Sucesso, Parâmetros de Envio e Mensagem, além das ações por linha.', 'Cada linha tem Visualizar/Detalhe, Editar e Excluir.'],
-    ['Cadastro / edição', 'Janela com Data, Tipo, Sucesso, Parâmetros de Envio e Mensagem, e os botões "Salvar" e "Fechar".', 'Aberta por "+ Novo" (criar) ou pelo ícone Editar (alterar).'],
+    ['Edição do registro', 'Janela com Data, Tipo, Sucesso, Parâmetros de Envio e Mensagem, e os botões "Salvar" e "Fechar".', 'Aberta pelo ícone Editar para alterar um registro.'],
   ]}
 />
 
@@ -103,7 +103,7 @@ Entre os tipos com os quais o sistema integra e armazena log estão: SAP, Portal
   ]}
 />
 
-### Cadastro / edição
+### Edição do registro
 
 <DocTable
   headers={['Campo', 'Para que serve']}
@@ -120,10 +120,9 @@ Entre os tipos com os quais o sistema integra e armazena log estão: SAP, Portal
 
 1. **Consultar** — informe o período (e, se quiser, Tipo e Sucesso) e clique em **"Pesquisar"**.
 2. **Ver detalhes** — clique no ícone de **Visualizar/Detalhe** da linha.
-3. **Criar registro** — clique em **"+ Novo"**, preencha os campos e clique em **"Salvar"**.
-4. **Editar registro** — clique no ícone de **Editar**, altere os campos e clique em **"Salvar"**.
-5. **Excluir registro** — clique no ícone de **Excluir** da linha.
-6. **Limpar filtros** — clique em **"Limpar Filtros"** para recomeçar a busca.
+3. **Editar registro** — clique no ícone de **Editar**, altere os campos e clique em **"Salvar"**.
+4. **Excluir registro** — clique no ícone de **Excluir** da linha.
+5. **Limpar filtros** — clique em **"Limpar Filtros"** para recomeçar a busca.
 
 ## Ações principais
 
@@ -131,7 +130,6 @@ Entre os tipos com os quais o sistema integra e armazena log estão: SAP, Portal
   headers={['Ação', 'Quando usar', 'Cuidado']}
   rows={[
     ['Pesquisar', 'Para listar os registros conforme os filtros.', 'O período é o principal critério de busca.'],
-    ['+ Novo', 'Para criar um registro manualmente.', 'Abre a janela de cadastro.'],
     ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
     ['Visualizar / Detalhe', 'Para ver um registro sem alterar.', 'Somente leitura.'],
     ['Editar', 'Para alterar um registro existente.', 'Abre a janela com os dados preenchidos.'],
@@ -153,7 +151,7 @@ Entre os tipos com os quais o sistema integra e armazena log estão: SAP, Portal
 <DocTable
   headers={['Comportamento', 'Efeito', 'Orientação']}
   rows={[
-    ['Origem dos registros', 'Os logs de integração são preenchidos automaticamente conforme o sistema executa os serviços, nos pontos configurados para registrar.', 'A tela também permite criar e editar manualmente quando necessário.'],
+    ['Origem dos registros', 'Os logs de integração são preenchidos automaticamente conforme o sistema executa os serviços, nos pontos configurados para registrar.', 'A tela permite editar registros existentes quando necessário, mas não criar novos manualmente.'],
     ['Indicação de falha', 'Sucesso = Não indica que a execução não foi concluída com sucesso.', 'Leia a coluna Mensagem para entender o motivo.'],
     ['Filtro por período', 'Os resultados dependem do período informado.', 'Ajuste Data - Início e Data - Término para encontrar o registro.'],
   ]}
@@ -171,6 +169,7 @@ Entre os tipos com os quais o sistema integra e armazena log estão: SAP, Portal
 
 ## O que a tela não faz
 
+- Não permite criar registros manualmente — os logs são gerados pelas execuções configuradas.
 - Não executa o serviço em si — apenas registra e consulta as execuções.
 - Não corrige a causa da falha — a correção é feita no cadastro ou na integração correspondente.
 
@@ -191,7 +190,7 @@ Entre os tipos com os quais o sistema integra e armazena log estão: SAP, Portal
 <FaqAccordion
   items={[
     { question: 'Para que serve esta tela?', answer: 'Para consultar e registrar as execuções de serviços e integrações do sistema, com o resultado e a mensagem de cada uma.' },
-    { question: 'Os registros são criados automaticamente?', answer: 'Sim. Os logs de integração são preenchidos automaticamente conforme o sistema executa, nos pontos configurados para registrar; a tela também permite criar e editar manualmente.' },
+    { question: 'Os registros são criados automaticamente?', answer: 'Sim. Os logs de integração são preenchidos automaticamente conforme o sistema executa, nos pontos configurados para registrar. A tela não cria registros manualmente, mas permite editar os existentes.' },
     { question: 'O que significa Sucesso = Não?', answer: 'Que a execução não foi concluída com sucesso; a coluna Mensagem explica o motivo.' },
     { question: 'Posso excluir um registro?', answer: 'Sim, pelo ícone de Excluir da linha. Faça isso com cuidado, pois remove o histórico.' },
     { question: 'Como encontro uma execução específica?', answer: 'Ajuste o período e use os filtros de Tipo e Sucesso, depois clique em "Pesquisar".' },
