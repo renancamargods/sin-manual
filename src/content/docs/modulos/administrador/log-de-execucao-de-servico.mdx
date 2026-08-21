@@ -1,0 +1,212 @@
+---
+section: modulos
+routeSlug: administrador/log-de-execucao-de-servico
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+title: Log de Execução de Serviço
+description: Consulta e registro das execuções de serviços e integrações do sistema, com resultado e mensagem de retorno.
+routineType: Consulta e cadastro
+permission: Sim
+impact: Monitoramento de execuções de serviços e integrações
+keywords: [log, execução de serviço, integração, sap, sucesso, mensagem, monitoramento, administrador]
+tags: [modulo-administrador, consulta]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Log de Execução de Serviço** registra as execuções de serviços e integrações do sistema — por exemplo, consultas enviadas ao **SAP**. Para cada execução, mostra a data, o tipo, se teve sucesso, os parâmetros enviados e a mensagem de retorno.
+
+Os logs de integração são **preenchidos automaticamente** conforme o sistema executa os serviços, nos pontos configurados para registrar. A tela também permite **criar** e **editar** registros manualmente. É útil para acompanhar integrações e identificar falhas (por exemplo, um produto que não está cadastrado no CRM).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Registro de execuções de serviço', text: 'Guarda as execuções de serviços e integrações, com o resultado e a mensagem de retorno.' },
+    { label: 'Uso', title: 'Monitoramento de integrações', text: 'Usado para acompanhar execuções (ex.: consultas ao SAP) e identificar falhas.' },
+    { label: 'Cuidado', title: 'Registros de origem automática', text: 'Os logs normalmente nascem das execuções; edite ou exclua com cuidado para não perder o histórico.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar as execuções de serviço em um período.
+- Filtrar por tipo (ex.: SAP) ou por sucesso (Sim/Não).
+- Verificar a mensagem de retorno de uma execução que falhou.
+- Criar ou editar um registro de log manualmente.
+
+## Como acessar
+
+Administrador → Log de Execução de Serviço
+
+## Antes de começar
+
+- Defina o período que deseja consultar (Data - Início e Data - Término).
+- Se quiser, informe o Tipo (ex.: SAP) e o filtro de Sucesso.
+- Confirme que você tem a permissão de acesso à tela.
+
+## Diferenças importantes
+
+<DocTable
+  headers={['Comparação', 'Diferença', 'Orientação']}
+  rows={[
+    ['Registro automático x cadastro manual', 'Os logs de integração são preenchidos automaticamente conforme o sistema executa, nos pontos configurados; a tela também permite criar e editar manualmente.', 'Use o cadastro manual apenas quando necessário, para não misturar com o histórico automático.'],
+    ['Sucesso = Sim x Não', '"Não" indica que a execução não foi concluída com sucesso.', 'Leia a coluna Mensagem para entender o motivo da falha.'],
+  ]}
+/>
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Data - Início, Data - Término, Tipo e Sucesso, com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use o período para restringir os resultados.'],
+    ['Resultados', 'Lista dos registros com Data, Tipo, Sucesso, Parâmetros de Envio e Mensagem, além das ações por linha.', 'Cada linha tem Visualizar/Detalhe, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela com Data, Tipo, Sucesso, Parâmetros de Envio e Mensagem, e os botões "Salvar" e "Fechar".', 'Aberta por "+ Novo" (criar) ou pelo ícone Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Data - Início', 'Data e hora inicial do período consultado.'],
+    ['Data - Término', 'Data e hora final do período consultado.'],
+    ['Tipo', 'Tipo de serviço com o qual o sistema integra e armazena log (ex.: SAP).'],
+    ['Sucesso', 'Filtra pelo resultado da execução (Sim ou Não); o X limpa a seleção.'],
+  ]}
+/>
+
+<Callout type="info" title="Tipos de serviço mais comuns">
+Entre os tipos com os quais o sistema integra e armazena log estão: SAP, Portal KA, DataFrete, Crivo, Freshdesk, Freshsales, Portatou, Paygo, Máquina de Cartão de Crédito, Efí Gerencianet, Pagar Me, Serviço CRM, Cancelado CRM, Vcom, Phc e Serasa.
+</Callout>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Data', 'Data e hora da execução do serviço.'],
+    ['Tipo', 'Tipo de serviço com o qual o sistema integra e armazena log (ex.: SAP).'],
+    ['Sucesso', 'Se a execução teve sucesso (Sim/Não).'],
+    ['Parâmetros de Envio', 'O que foi enviado na execução.'],
+    ['Mensagem', 'Retorno ou resposta da execução.'],
+  ]}
+/>
+
+### Cadastro / edição
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Data', 'Data e hora do registro.'],
+    ['Tipo', 'Tipo de serviço com o qual o sistema integra e armazena log (ex.: SAP).'],
+    ['Sucesso', 'Resultado da execução (Sim ou Não).'],
+    ['Parâmetros de Envio', 'Texto do que foi enviado na execução.'],
+    ['Mensagem', 'Texto do retorno da execução.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe o período (e, se quiser, Tipo e Sucesso) e clique em **"Pesquisar"**.
+2. **Ver detalhes** — clique no ícone de **Visualizar/Detalhe** da linha.
+3. **Criar registro** — clique em **"+ Novo"**, preencha os campos e clique em **"Salvar"**.
+4. **Editar registro** — clique no ícone de **Editar**, altere os campos e clique em **"Salvar"**.
+5. **Excluir registro** — clique no ícone de **Excluir** da linha.
+6. **Limpar filtros** — clique em **"Limpar Filtros"** para recomeçar a busca.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os registros conforme os filtros.', 'O período é o principal critério de busca.'],
+    ['+ Novo', 'Para criar um registro manualmente.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Visualizar / Detalhe', 'Para ver um registro sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um registro existente.', 'Abre a janela com os dados preenchidos.'],
+    ['Excluir', 'Para remover um registro.', 'Ação sem retorno; remove o registro do histórico.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Log de Execução de Serviço', 'Acesso à tela', 'Permite abrir e utilizar a tela de Log de Execução de Serviço.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Origem dos registros', 'Os logs de integração são preenchidos automaticamente conforme o sistema executa os serviços, nos pontos configurados para registrar.', 'A tela também permite criar e editar manualmente quando necessário.'],
+    ['Indicação de falha', 'Sucesso = Não indica que a execução não foi concluída com sucesso.', 'Leia a coluna Mensagem para entender o motivo.'],
+    ['Filtro por período', 'Os resultados dependem do período informado.', 'Ajuste Data - Início e Data - Término para encontrar o registro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / sistema', 'Relação', 'Cuidado']}
+  rows={[
+    ['Integração com o SAP', 'As execuções do tipo SAP registram as consultas enviadas ao SAP.', 'A mensagem traz o retorno da integração.'],
+    ['Cadastro no CRM', 'Falhas podem indicar dados ausentes no CRM (ex.: produto não cadastrado).', 'Verifique o cadastro citado na mensagem.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não executa o serviço em si — apenas registra e consulta as execuções.
+- Não corrige a causa da falha — a correção é feita no cadastro ou na integração correspondente.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro um registro', 'Período ou filtros muito restritos', 'Amplie o período (Data - Início/Término) e revise Tipo e Sucesso.'],
+    ['Muitos registros com Sucesso = Não', 'Falhas recorrentes na integração', 'Leia a Mensagem para identificar a causa (ex.: cadastro ausente no CRM).'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+    ['A mensagem indica produto não cadastrado no CRM', 'Produto usado na execução não existe no CRM', 'Cadastre ou valide o produto no CRM e execute novamente.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para consultar e registrar as execuções de serviços e integrações do sistema, com o resultado e a mensagem de cada uma.' },
+    { question: 'Os registros são criados automaticamente?', answer: 'Sim. Os logs de integração são preenchidos automaticamente conforme o sistema executa, nos pontos configurados para registrar; a tela também permite criar e editar manualmente.' },
+    { question: 'O que significa Sucesso = Não?', answer: 'Que a execução não foi concluída com sucesso; a coluna Mensagem explica o motivo.' },
+    { question: 'Posso excluir um registro?', answer: 'Sim, pelo ícone de Excluir da linha. Faça isso com cuidado, pois remove o histórico.' },
+    { question: 'Como encontro uma execução específica?', answer: 'Ajuste o período e use os filtros de Tipo e Sucesso, depois clique em "Pesquisar".' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '21/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '21/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Log de Execução de Serviço.' },
+  ]}
+/>

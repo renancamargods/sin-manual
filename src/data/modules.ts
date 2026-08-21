@@ -45,6 +45,7 @@ export const tecnicoPages: TecnicoGroup[] = [
     pages: [
       { title: 'Romaneio', slug: 'romaneio', description: 'Fluxo de separação, etiquetagem, romaneio e coleta de remessas.' },
       { title: 'Criação de Cliente', slug: 'criacao-de-cliente', description: 'Criação, cadastro e aprovação de clientes (PF, PJ e estrangeiro).' },
+      { title: 'Configuração de Produtos no Lounge', slug: 'configuracao-de-produtos-no-lounge', description: 'Parametrização de produtos por localidade e roteamento dos itens para o Lounge/Centro correto.' },
     ],
   },
   { title: 'APIs', slug: 'apis', description: 'Integrações disponíveis para troca de informações com outros sistemas.', pages: [] },
@@ -61,7 +62,9 @@ export const modules: ModuleDef[] = [
     label: 'Administrator',
     description: 'Configurações administrativas gerais do sistema.',
     order: 1,
-    routines: [],
+    routines: [
+      { title: 'Log de Execução de Serviço', slug: 'log-de-execucao-de-servico', description: 'Consulta e registro das execuções de serviços e integrações do sistema.' },
+    ],
   },
   {
     id: 'aprovacoes',

@@ -1,0 +1,244 @@
+---
+section: tecnico
+routeSlug: fluxos/configuracao-de-produtos-no-lounge
+pageType: tecnico
+title: Fluxo de Configuração de Produtos no Lounge
+description: Parametrização de produtos por localização e roteamento dos itens do pedido para o Lounge correto, até a geração das Ordens de Venda no SAP.
+moduleLabel: Pedidos
+routineType: Fluxo de processo
+impact: Roteamento de itens e geração de Ordens de Venda
+keywords: [lounge, configuração de produtos, roteamento, localização, país, estado, cidade, centro, ordem de venda, sap, pedidos, sku]
+tags: [tecnico, fluxo, lounge]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+O fluxo de **Configuração de Produtos no Lounge** permite configurar um **Produto (SKU)**, associando-o a uma **Família**, um **Grupo**, um **Lounge de atendimento** e uma **Localização** (País, Estado e Cidade). Com base nessa parametrização, ao criar um pedido o sistema direciona cada item para o Lounge correto de acordo com a localização do cliente.
+
+Cada Lounge corresponde a um **Centro no SAP**. Por isso, a configuração influencia diretamente quantas **Ordens de Venda** o pedido gera: itens que vão para Centros diferentes geram Ordens de Venda separadas, e itens que vão para o mesmo Centro são reunidos em uma única Ordem de Venda.
+
+A parametrização é feita na tela **Parâmetros Pedidos Produtos no Lounge** (Módulo Pedidos) e seu efeito aparece na criação, aprovação e integração dos pedidos ao SAP.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Roteamento por localização', text: 'Direciona cada item do pedido ao Lounge certo conforme a localização do cliente.' },
+    { label: 'Uso', title: 'Pedidos e integração SAP', text: 'Define o Lounge/Centro de cada item e, com isso, as Ordens de Venda geradas no SAP.' },
+    { label: 'Cuidado', title: 'Impacto nas Ordens de Venda', text: 'Mudar a parametrização muda o roteamento e a quantidade de Ordens de Venda do pedido.' },
+  ]}
+/>
+
+## Quando usar este fluxo
+
+- Cadastrar ou consultar a parametrização de um produto por localidade e Lounge.
+- Definir para qual Lounge um item deve ir conforme a localização do cliente.
+- Entender por que um pedido gerou uma ou mais Ordens de Venda no SAP.
+
+## Como acessar
+
+- Pedidos → Parâmetros Pedidos Produtos no Lounge
+- Pedidos → Pedidos
+- Aprovações → Nova Fila de Aprovação – Pedidos
+- SAP → VA03 (conferência das Ordens de Venda)
+
+## As etapas do processo
+
+<DocTable
+  headers={['Etapa', 'Onde', 'O que acontece']}
+  rows={[
+    ['1. Parametrização', 'Pedidos → Parâmetros Pedidos Produtos no Lounge', 'Cadastro dos parâmetros de produto por localidade e Lounge.'],
+    ['2. Criação do pedido', 'Pedidos → Pedidos', 'Criação do pedido com os itens; o sistema roteia cada item conforme a configuração.'],
+    ['3. Aprovação', 'Aprovações → Nova Fila de Aprovação – Pedidos', 'Aprovação do pedido (bloqueio de Crédito).'],
+    ['4. Integração', 'Pedidos → Pedidos', 'Confirmação da integração ao SAP e das Ordens de Venda geradas.'],
+    ['5. Conferência', 'SAP → VA03', 'Conferência das Ordens de Venda, itens e Centros.'],
+  ]}
+/>
+
+## Antes de começar
+
+- Tenha acesso ao Módulo Pedidos e à tela **Parâmetros Pedidos Produtos no Lounge**.
+- Tenha perfil habilitado no fluxo de aprovação (Nova Fila de Aprovação – Pedidos), incluindo a alçada de Crédito.
+- Confirme que os produtos (SKUs) estão cadastrados e disponíveis para venda.
+- Confirme que os clientes têm a localização (Cidade/Estado) definida.
+- Para conferir as Ordens de Venda, tenha acesso ao SAP (transação VA03).
+
+## Como o roteamento funciona
+
+Durante a criação do pedido, para **cada item** o sistema verifica se existe uma configuração **ativa** cuja localização seja compatível com a do cliente:
+
+- **Há configuração compatível** → o item vai para o **Lounge configurado**.
+- **Não há configuração aplicável** → o item permanece no **Lounge do pedido** (o informado no cabeçalho).
+
+<Callout type="info" title="Conceito-chave: Lounge configurado x Lounge do pedido">
+A parametrização por localidade tem precedência para os itens com configuração compatível; os demais itens seguem o Lounge do cabeçalho do pedido. O número de Ordens de Venda geradas é igual ao número de **Centros distintos** resultantes do roteamento dos itens.
+</Callout>
+
+**Exemplo A — cliente em SP** (Lounge do pedido: Tatuapé):
+
+<DocTable
+  headers={['Item', 'Configuração aplicável', 'Compatível?', 'Lounge resultante']}
+  rows={[
+    ['Produto A', 'Lounge Vitória (SP)', 'Sim (SP)', 'Lounge Vitória'],
+    ['Produto B', 'Lounge Rio de Janeiro (RJ)', 'Não (cliente é de SP)', 'Lounge do pedido (Tatuapé)'],
+    ['Produto C', 'Sem configuração', '—', 'Lounge do pedido (Tatuapé)'],
+  ]}
+/>
+
+Resultado: 2 Centros distintos → **2 Ordens de Venda**.
+
+**Exemplo B — cliente em Macaé/RJ** (Lounge do pedido: Rio de Janeiro):
+
+<DocTable
+  headers={['Item', 'Configuração aplicável', 'Compatível?', 'Lounge resultante']}
+  rows={[
+    ['Produto A', 'Lounge Rio de Janeiro (RJ / Macaé)', 'Sim (RJ / Macaé)', 'Lounge Rio de Janeiro'],
+    ['Produto B', 'Lounge Rio de Janeiro (RJ)', 'Sim (RJ)', 'Lounge Rio de Janeiro'],
+    ['Produto C', 'Sem configuração', '—', 'Lounge do pedido (Rio de Janeiro)'],
+  ]}
+/>
+
+Resultado: 1 Centro → **1 Ordem de Venda**.
+
+## Passo a passo do processo
+
+### 1. Cadastrar os parâmetros
+
+Módulo Pedidos → **Parâmetros Pedidos Produtos no Lounge**. A tela tem a área de **Pesquisa** (filtros), os botões **Pesquisar**, **+ Novo** e **Limpar Filtros**, e a listagem de **Resultados**.
+
+Filtros de pesquisa disponíveis:
+
+<DocTable
+  headers={['Campo', 'Obrigatório', 'Descrição']}
+  rows={[
+    ['Família', 'Não', 'Busca por nome ou pelo código da família (formato x.x).'],
+    ['Grupo', 'Não', 'Busca por nome ou pelo código do grupo (formato x.x.x).'],
+    ['Produtos', 'Não', 'Busca pelo produto (SKU).'],
+    ['País', 'Não', 'Filtra pela localização de país.'],
+    ['Estado', 'Condicional', 'Habilitado somente após preencher o País.'],
+    ['Cidade', 'Condicional', 'Habilitado somente após preencher o Estado.'],
+    ['Ordem de Busca', 'Não', 'Filtra pela ordem/prioridade de busca definida na configuração.'],
+  ]}
+/>
+
+Para cadastrar, clique em **"+ Novo"**. Abre a janela **"Configuração de Produtos no Lounge"** com os campos:
+
+<DocTable
+  headers={['Campo', 'Obrigatório', 'Descrição']}
+  rows={[
+    ['Código (SKU)', 'Sim', 'Produto ao qual a configuração será aplicada.'],
+    ['Ordem de Busca', 'Não', 'Ordem/prioridade de busca da configuração.'],
+    ['País', 'Condicional', 'Localização de país da configuração.'],
+    ['Estado', 'Condicional', 'Habilitado somente se o País for preenchido.'],
+    ['Cidade', 'Condicional', 'Habilitado somente se o Estado for preenchido.'],
+    ['Nome do Lounge', 'Sim', 'Lounge de atendimento para onde o item será direcionado (corresponde a um Centro no SAP).'],
+    ['Status', 'Sim', 'Situação do parâmetro: Ativo ou Inativo.'],
+  ]}
+/>
+
+Ao final, use **"Salvar"** ou **"Salvar e Continuar"**.
+
+<Callout type="info" title="O que a configuração associa">
+Cada configuração associa o **Produto (SKU)** a uma **Família**, um **Grupo**, um **Lounge** e uma **Localização** (País, Estado e Cidade). É essa combinação que define para qual Lounge o item será direcionado.
+</Callout>
+
+<Callout type="dica" title="Selecionar TODOS por nível">
+Nos campos País, Estado e Cidade há uma caixa de seleção "TODOS". Quando marcada, seleciona todos os itens daquele nível (todos os países, todos os estados ou todas as cidades), ampliando a abrangência da configuração.
+</Callout>
+
+### 2. Criar o pedido
+
+Módulo Pedidos → **Pedidos**. Crie o pedido normalmente, com o cliente e os itens. Ao criar, o sistema roteia cada item conforme a parametrização e a localização do cliente. Os pedidos ficam com o status **"Aguardando Aprovações"**.
+
+### 3. Aprovar o pedido
+
+Módulo Aprovações → **Nova Fila de Aprovação – Pedidos**. Pedidos com motivo de bloqueio **"Crédito"** são tratados na aba **"Pedidos a Liberar"**. Aprove o pedido pela alçada correspondente.
+
+### 4. Confirmar a integração
+
+De volta em **Pedidos**, o pedido aprovado passa para o status **"Integrado"** e recebe o número do **Pedido SAP**. No histórico de status ("Atualizações de Status"), cada integração corresponde a uma **Ordem de Venda** — um pedido pode ter mais de um registro, um por Centro.
+
+### 5. Conferir no SAP (VA03)
+
+No SAP, na transação **VA03**, pesquise pelo número do pedido e confira as **Ordens de Venda**, seus **itens** e os **Centros** correspondentes a cada Lounge.
+
+## Regras de negócio
+
+<DocTable
+  headers={['ID', 'Regra', 'Descrição']}
+  rows={[
+    ['RN001', 'Habilitação condicional de Estado', 'O campo Estado (na pesquisa e no cadastro) é habilitado somente após preencher o País.'],
+    ['RN002', 'Habilitação condicional de Cidade', 'O campo Cidade é habilitado somente após preencher o Estado.'],
+    ['RN003', 'Seleção "TODOS" por nível', 'A caixa "TODOS" em País, Estado ou Cidade seleciona todos os itens daquele nível.'],
+    ['RN004', 'Roteamento por localização', 'Item com configuração ativa compatível com a localização do cliente é direcionado ao Lounge configurado.'],
+    ['RN005', 'Retorno ao Lounge do pedido', 'Item sem configuração aplicável permanece no Lounge informado no cabeçalho do pedido.'],
+    ['RN006', 'Produto sem configuração', 'Produto sem configuração é vendável em qualquer localidade e segue o Lounge do pedido.'],
+    ['RN007', 'Agrupamento por Centro', 'Itens que resolvem para o mesmo Centro são reunidos em uma única Ordem de Venda.'],
+    ['RN008', 'Múltiplas Ordens de Venda', 'Itens direcionados a Centros distintos geram Ordens de Venda separadas (nº de OVs = nº de Centros distintos).'],
+    ['RN009', 'Aprovação prévia obrigatória', 'O pedido passa pela Fila de Aprovações (bloqueio de Crédito) antes de integrar ao SAP.'],
+    ['RN010', 'Integração ao SAP', 'Após aprovado, o pedido é integrado ao SAP, gerando o Pedido SAP e as Ordens de Venda.'],
+    ['RN011', 'Ordem de Busca', 'Define a prioridade de resolução quando houver mais de uma configuração aplicável ao mesmo item.'],
+    ['RN012', 'Status Ativo/Inativo', 'Apenas configurações com Status "Ativo" são consideradas no roteamento.'],
+  ]}
+/>
+
+## Status e mensagens do sistema
+
+<DocTable
+  headers={['Status / mensagem', 'Contexto']}
+  rows={[
+    ['Rascunho → Aguardando Aprovações → Liberado → Integrado', 'Ciclo de status do pedido.'],
+    ['"Pedido integrado com sucesso. OV: <número>"', 'Integração concluída (Ordem de Venda gerada).'],
+    ['"Pedido integrado para centro <número>. OV: <número>"', 'Integração com direcionamento a um Centro específico.'],
+    ['Motivo de bloqueio: "Crédito" / "Análise de Crédito"', 'Bloqueio que direciona o pedido à fila de aprovação.'],
+  ]}
+/>
+
+## Regras e cuidados
+
+- A quantidade de Ordens de Venda depende da diversidade de Centros do roteamento; mudar a parametrização muda o número de Ordens de Venda.
+- A hierarquia de localização (País → Estado → Cidade) determina a compatibilidade; confira a precedência de configurações mais específicas (com Cidade).
+- Apenas configurações **Ativas** são consideradas no roteamento.
+- O comportamento exato da **Ordem de Busca** (desempate entre configurações) é um ponto a validar com a equipe responsável.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O item foi para o Lounge do pedido em vez do Lounge esperado', 'Não há configuração compatível com a localização do cliente', 'Verifique se existe configuração ativa do produto para o País/Estado/Cidade do cliente.'],
+    ['O pedido não integrou ao SAP', 'Pedido aguardando aprovação (bloqueio de Crédito) ou falha de integração', 'Verifique a Fila de Aprovações e a mensagem de integração do pedido.'],
+    ['Gerou mais Ordens de Venda que o esperado', 'Itens roteados para Centros distintos', 'Confira o roteamento de cada item; o número de Ordens de Venda é igual ao de Centros distintos.'],
+    ['Uma configuração não está sendo aplicada', 'Configuração com Status "Inativo"', 'Confirme que a configuração do produto está Ativa.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a configuração de produtos no Lounge?', answer: 'Para direcionar cada item do pedido a um Lounge de atendimento conforme a localização do cliente.' },
+    { question: 'O que acontece com um produto sem configuração?', answer: 'Ele segue o Lounge informado no cabeçalho do pedido, em qualquer localidade.' },
+    { question: 'Por que um pedido gerou mais de uma Ordem de Venda?', answer: 'Porque seus itens foram roteados para Centros diferentes; cada Centro distinto gera uma Ordem de Venda separada.' },
+    { question: 'O que é o "Lounge do pedido"?', answer: 'É o Lounge informado no cabeçalho do pedido, usado para os itens que não têm configuração compatível.' },
+    { question: 'A configuração precisa estar ativa?', answer: 'Sim; apenas configurações com Status "Ativo" são consideradas no roteamento.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '21/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '21/08/2026', author: 'Renan Camargo', description: 'Elaboração inicial da documentação da funcionalidade "Configuração de Produtos no Lounge".' },
+  ]}
+/>
