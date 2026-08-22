@@ -1,0 +1,208 @@
+---
+section: modulos
+routeSlug: aprovacoes/entidade-de-aprovacao
+pageType: routine
+module: aprovacoes
+moduleLabel: Aprovações
+title: Entidade de Aprovação
+description: "Cadastro das entidades que utilizam o modelo genérico de aprovação do sistema (ex.: Cliente, Pedido)."
+routineType: Cadastro e consulta
+permission: Sim
+impact: Base do modelo genérico de aprovação
+keywords: [entidade de aprovação, aprovação, modelo genérico, cliente, pedido, contrato, configurável, status]
+tags: [modulo-aprovacoes, cadastro]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Entidade de Aprovação** é onde se cadastram as entidades que utilizam o **modelo genérico de aprovação** do sistema. Cada entidade representa um tipo de item que pode ser submetido a aprovação — por exemplo, **Cliente** e **Pedido**.
+
+Depois de cadastrada, a entidade recebe suas **regras de aprovação** (na tela Regra de Aprovação), que definem quem aprova e em quais condições. Hoje estão cadastrados Cliente e Pedido; Contratos está previsto para entrar.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Entidades aprováveis', text: 'Cadastra os itens que usam o modelo genérico de aprovação (ex.: Cliente, Pedido).' },
+    { label: 'Uso', title: 'Base da aprovação', text: 'Cada entidade cadastrada aqui pode receber regras de aprovação.' },
+    { label: 'Cuidado', title: 'Status da entidade', text: 'Uma entidade inativa deixa de ser considerada no fluxo de aprovação.' },
+  ]}
+/>
+
+<Callout type="dica" title="Modelo genérico de aprovação">
+Com esse modelo, tornar um novo item aprovável ficou mais simples e configurável: basta cadastrar a entidade aqui e depois definir suas regras de aprovação — sem precisar de uma implementação específica para cada caso.
+</Callout>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova entidade de aprovação.
+- Consultar as entidades já cadastradas.
+- Ativar ou inativar uma entidade.
+- Editar o nome ou o status de uma entidade.
+
+## Como acessar
+
+Aprovações → Entidade de Aprovação
+
+## Antes de começar
+
+- Defina o nome da entidade que será submetida a aprovação.
+- Verifique se a entidade já não está cadastrada.
+- Após cadastrar, configure as regras de aprovação da entidade na tela Regra de Aprovação.
+
+## Diferenças importantes
+
+<DocTable
+  headers={['Comparação', 'Diferença', 'Orientação']}
+  rows={[
+    ['Entidade de Aprovação x Regra de Aprovação', 'A Entidade define o que pode ser aprovado; a Regra de Aprovação define quem aprova e em quais condições.', 'Cadastre a entidade aqui e depois configure suas regras.'],
+    ['Status Ativo x Inativo', 'A entidade ativa participa do fluxo de aprovação; a inativa não é considerada.', 'Prefira inativar em vez de excluir uma entidade em uso.'],
+  ]}
+/>
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Nome e Status, com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use o Nome e o Status para restringir os resultados.'],
+    ['Resultados', 'Lista das entidades com Código da Entidade de Aprovação, Nome, Data de Criação e Data da Última Alteração, além das ações por linha.', 'Cada linha tem Histórico, Visualizar/Detalhe, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela "Dados da Entidade de Aprovação" com Nome e Status Sistema, e os botões "Salvar" e "Fechar".', 'Aberta por "+ Novo" (criar) ou pelo ícone Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Busca pelo nome da entidade.'],
+    ['Status', 'Filtra por Ativo ou Inativo; o X limpa a seleção.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Código da Entidade de Aprovação', 'Código que identifica a entidade.'],
+    ['Nome', 'Nome da entidade (ex.: Cliente, Pedido).'],
+    ['Data de Criação', 'Data em que a entidade foi cadastrada.'],
+    ['Data da Última Alteração', 'Data e hora da última alteração.'],
+  ]}
+/>
+
+### Cadastro / edição
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Nome da entidade de aprovação.'],
+    ['Status Sistema', 'Situação da entidade: Ativo ou Inativo.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe o Nome e/ou o Status e clique em **"Pesquisar"**.
+2. **Ver detalhes** — clique no ícone de **Visualizar/Detalhe** da linha.
+3. **Cadastrar entidade** — clique em **"+ Novo"**, informe o **Nome**, defina o **Status Sistema** e clique em **"Salvar"**.
+4. **Editar entidade** — clique no ícone de **Editar**, altere os campos e clique em **"Salvar"**.
+5. **Ativar / inativar** — no cadastro, ajuste o **Status Sistema** e salve.
+6. **Excluir entidade** — clique no ícone de **Excluir** da linha.
+7. **Ver histórico** — clique no ícone de **Histórico** para acompanhar as alterações da entidade.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as entidades conforme os filtros.', 'Nome e Status ajudam a filtrar.'],
+    ['+ Novo', 'Para cadastrar uma nova entidade.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Histórico', 'Para acompanhar as alterações da entidade.', 'Somente leitura.'],
+    ['Visualizar / Detalhe', 'Para ver a entidade sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar uma entidade existente.', 'Abre a janela com os dados preenchidos.'],
+    ['Excluir', 'Para remover uma entidade.', 'Prefira inativar se a entidade já estiver em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Entidade de Aprovação', 'Acesso à tela', 'Permite abrir e utilizar a tela de Entidade de Aprovação.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Base do modelo genérico', 'As entidades cadastradas aqui alimentam o modelo genérico de aprovação.', 'Cadastre a entidade antes de configurar suas regras.'],
+    ['Status controla a participação', 'Uma entidade inativa deixa de ser considerada no fluxo de aprovação.', 'Prefira inativar em vez de excluir quando já houver uso.'],
+    ['Registro de alterações', 'O sistema guarda a data de criação e a data da última alteração.', 'Use essas datas e o histórico para acompanhar as mudanças.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Regra de Aprovação', 'Cada entidade recebe regras que definem quem aprova e em quais condições.', 'Configure as regras após cadastrar a entidade.'],
+    ['Pedidos e Clientes', 'São as entidades que hoje usam o modelo de aprovação (Contratos está previsto).', 'Novas entidades podem ser adicionadas conforme a necessidade.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não define quem aprova nem as condições — isso é feito na tela Regra de Aprovação.
+- Não aprova itens — apenas cadastra as entidades que podem ser aprovadas.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A entidade não aparece no fluxo de aprovação', 'Entidade inativa', 'Verifique o Status Sistema da entidade.'],
+    ['Não encontro uma entidade', 'Filtro de Nome ou Status aplicado', 'Ajuste os filtros e clique em Pesquisar.'],
+    ['Não consigo excluir uma entidade', 'Entidade em uso por regras ou aprovações', 'Prefira inativar em vez de excluir.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as entidades que utilizam o modelo genérico de aprovação (ex.: Cliente, Pedido).' },
+    { question: 'Qual a diferença entre Entidade e Regra de Aprovação?', answer: 'A entidade define o que pode ser aprovado; a regra define quem aprova e em quais condições.' },
+    { question: 'Posso adicionar novos tipos além de Cliente e Pedido?', answer: 'Sim. O modelo é configurável; novas entidades podem ser cadastradas — Contratos, por exemplo, está previsto para entrar.' },
+    { question: 'O que acontece se eu inativar uma entidade?', answer: 'Ela deixa de ser considerada no fluxo de aprovação.' },
+    { question: 'Posso excluir uma entidade em uso?', answer: 'Não é recomendado; prefira inativar para preservar o histórico.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '21/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '21/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Entidade de Aprovação.' },
+  ]}
+/>
