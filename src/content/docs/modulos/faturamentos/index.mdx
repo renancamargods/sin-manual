@@ -12,6 +12,7 @@ order: 6
 ---
 
 import Callout from '../../../../components/Callout.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
 
 ## Visão geral
 
@@ -31,3 +32,45 @@ Menu lateral → Módulos → Faturamentos
 <Callout type="info" title="Uso combinado">
 As rotinas deste módulo costumam ser usadas em conjunto com o módulo Pedidos, especialmente na etapa de nota fiscal.
 </Callout>
+
+## FAQ
+
+### Separação e faturamento
+
+<FaqAccordion
+  items={[
+    { question: 'Como funciona a separação de um pedido para faturamento?', answer: 'Pedidos aprovados vão para a Fila de Separação (ou Fila de Remessas Aguardando Separação). A separação é feita bipando os itens (leitura do DataMatrix); ao concluir a leitura, o pedido pode ser enviado para faturamento.' },
+    { question: 'Por que não consigo enviar o pedido para faturamento?', answer: 'Em geral, o envio só é liberado após bipar todos os itens da remessa (leitura em 100%). Verifique se a leitura foi concluída. O faturamento parcial só é possível com o botão/permissão específico.' },
+    { question: 'O que é a Folha de Picking?', answer: 'É o documento gerado para orientar a separação física dos itens da remessa.' },
+    { question: 'Posso faturar um pedido parcialmente?', answer: 'Sim. Embora o envio para faturamento normalmente exija a leitura completa dos itens, existe um botão/permissão específico que permite o faturamento parcial.' },
+  ]}
+/>
+
+### Trocas e devoluções
+
+<FaqAccordion
+  items={[
+    { question: 'Como registro uma troca ou devolução?', answer: 'Na tela de Trocas e Devoluções, bipe os itens (DataMatrix) para montar um Protocolo e, a partir dele, gere o pedido de troca ou devolução.' },
+    { question: 'Qual a diferença entre troca e devolução?', answer: 'Na devolução, os itens retornam e geram crédito ao cliente; na troca, os itens são substituídos por outros, com eventual valor residual a pagar.' },
+    { question: 'Depois de gerar o pedido, posso alterar o protocolo?', answer: 'Não. Após gerar o pedido a partir do protocolo, incluir e excluir itens fica bloqueado.' },
+    { question: 'O que é o processo InCompany (Intercompany)?', answer: 'Ocorre quando a nota é de um centro ou empresa diferente do usuário; o sistema sinaliza e trata o pedido como intercompany.' },
+    { question: 'Posso cancelar um protocolo?', answer: 'Sim, há a opção de cancelar o protocolo.' },
+  ]}
+/>
+
+### Consignado
+
+<FaqAccordion
+  items={[
+    { question: 'Como faço o fechamento de consignado?', answer: 'Em Fechamento de Consignado, busque o cliente e as notas fiscais para montar o protocolo e, então, gere o pedido de fechamento.' },
+    { question: 'Onde acompanho os consignados?', answer: 'No Relatório de Consignado, com opção de relatório resumido ou completo e exportação em Excel.' },
+  ]}
+/>
+
+### Romaneio
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Romaneio?', answer: 'Para organizar as remessas em carga para transporte — incluindo transportadora, simulação de frete e checkout de etiquetas.' },
+  ]}
+/>

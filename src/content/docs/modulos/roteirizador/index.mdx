@@ -12,6 +12,7 @@ order: 19
 ---
 
 import Callout from '../../../../components/Callout.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
 
 ## Visão geral
 
@@ -30,3 +31,24 @@ Menu lateral → Módulos → Roteirizador
 <Callout type="info" title="Uso em campo">
 As informações deste módulo costumam ser usadas por equipes que realizam atendimentos presenciais.
 </Callout>
+
+## FAQ
+
+### Agenda e roteirização
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Agenda?', answer: 'Para planejar e registrar as visitas e atendimentos dos consultores em campo.' },
+    { question: 'O que é "Roteirizar"?', answer: 'É o cálculo automático da rota das visitas, feito pela integração com a GO.ON (software de roteirização).' },
+    { question: 'Posso editar uma agenda já integrada?', answer: 'Sim, desde que você tenha a permissão necessária. Sem ela, agendas já integradas ficam travadas para edição.' },
+    { question: 'Como registro uma ausência (férias ou folga)?', answer: 'Informe a ausência do consultor; o sistema alerta se houver algo já agendado no período.' },
+  ]}
+/>
+
+### Atendimento em campo
+
+<FaqAccordion
+  items={[
+    { question: 'Como o consultor registra a visita em campo?', answer: 'Pelo app GO.ON no celular (check-in, check-out e formulário de visita) ou pelo próprio CRM; as informações se integram entre os dois.' },
+  ]}
+/>

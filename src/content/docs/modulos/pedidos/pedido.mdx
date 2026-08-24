@@ -118,12 +118,45 @@ Um pedido pode acionar rotinas de aprovação, cálculo de frete e faturamento. 
 
 ## FAQ
 
+### Uso geral
+
 <FaqAccordion
   items={[
     { question: 'Para que serve esta tela?', answer: 'Para criar e acompanhar pedidos de venda, do cadastro dos itens até o faturamento.' },
-    { question: 'Posso cancelar um pedido já aprovado?', answer: 'Depende da etapa em que o pedido está. Verifique a situação atual e as permissões necessárias.' },
-    { question: 'Alterar o pedido depois de aprovado exige nova aprovação?', answer: 'Pode exigir, dependendo da regra de aprovação configurada para o tipo de alteração.' },
+    { question: 'Quais tipos de pedido existem?', answer: 'Além do pedido de venda, o sistema trabalha com tipos como Bonificação, Devolução, Troca, Consignado, Remessa de Armazenagem (OPL), Campanha e Internacional (COMEX). O tipo escolhido influencia preço, aprovação e frete.' },
+    { question: 'Como adiciono itens ao pedido?', answer: 'Há mais de uma forma: "Adicionar Item de Pedido" (item a item), "Digitação Rápida" (vários itens de uma vez) e a "Pesquisa Rápida de Produto". Use a opção mais prática para o volume de itens.' },
     { question: 'Preciso de permissão para acessar esta tela?', answer: 'Sim. É necessário ter a permissão correspondente liberada no seu perfil de acesso.' },
+  ]}
+/>
+
+### Aprovação e crédito
+
+<FaqAccordion
+  items={[
+    { question: 'Por que meu pedido parou na Fila de Aprovação?', answer: 'Conforme o valor, o cliente ou as regras configuradas, o pedido pode precisar de aprovação em uma ou mais alçadas (por exemplo, Administrativo e Crédito) antes de seguir para o faturamento. Acompanhe o andamento pela Fila de Aprovação.' },
+    { question: 'Por que o pedido foi para análise de Crédito?', answer: 'Pedidos podem passar pelo Motor de Crédito, que avalia o pedido automaticamente e pode consultar o Serasa conforme o valor e as regras configuradas. O resultado pode liberar o pedido, recusá-lo ou enviá-lo para a mesa de crédito.' },
+    { question: 'Alterar o pedido depois de aprovado exige nova aprovação?', answer: 'Pode exigir, dependendo da regra de aprovação configurada para o tipo de alteração.' },
+    { question: 'Posso cancelar um pedido já aprovado?', answer: 'Depende da etapa em que o pedido está. Verifique a situação atual e as permissões necessárias.' },
+  ]}
+/>
+
+### Pagamento
+
+<FaqAccordion
+  items={[
+    { question: 'Como funciona o link de pagamento por PIX ou cartão?', answer: 'Para pedidos com PIX ou cartão, o sistema gera um link de pagamento e o envia ao cliente por WhatsApp e e-mail. A situação do pedido acompanha a confirmação do pagamento.' },
+    { question: 'O link de pagamento expirou. E agora?', answer: 'O link tem prazo de validade. Se expirar, é possível gerar e reenviar um novo link pela própria tela do pedido.' },
+    { question: 'O que é Pagamento Misto?', answer: 'É a possibilidade de combinar mais de uma forma de pagamento no mesmo pedido (por exemplo, parte em PIX e parte em cartão), ativando a opção de combinar formas de pagamento ao montar o pedido.' },
+  ]}
+/>
+
+### Situação e faturamento
+
+<FaqAccordion
+  items={[
+    { question: 'O que significa a Situação (status) do pedido?', answer: 'A situação mostra a etapa atual do pedido no fluxo — por exemplo, aguardando aprovações, em processamento, aguardando pagamento, aguardando separação ou liberado. Cada etapa indica o que falta para o pedido avançar.' },
+    { question: 'O pedido está "Liberado" mas não foi faturado. O que verificar?', answer: 'Após a liberação, o pedido é integrado ao ERP (SAP) antes de seguir. Se não avançou, verifique a situação e as informações de integração na própria tela — erros de integração costumam ser sinalizados no pedido.' },
+    { question: 'Como filtro e exporto a listagem de pedidos?', answer: 'Na Listagem de Pedido é possível filtrar por cliente, período, situação e empresa, entre outros, e exportar o resultado em Excel ou PDF.' },
     { question: 'Onde essa informação é usada?', answer: 'No faturamento, na emissão de notas fiscais e nos relatórios comerciais e logísticos.' },
   ]}
 />

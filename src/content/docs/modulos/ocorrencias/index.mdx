@@ -12,6 +12,7 @@ order: 12
 ---
 
 import Callout from '../../../../components/Callout.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
 
 ## Visão geral
 
@@ -30,3 +31,25 @@ Menu lateral → Módulos → Ocorrências
 <Callout type="info" title="Encaminhamento">
 Cada ocorrência pode envolver diferentes áreas da empresa, dependendo do tipo de incidência selecionado.
 </Callout>
+
+## FAQ
+
+### Ocorrências PFCQ
+
+<FaqAccordion
+  items={[
+    { question: 'O que é uma ocorrência PFCQ?', answer: 'É o registro de uma ocorrência relacionada a produto, fornecedor, cliente ou qualidade.' },
+    { question: 'Posso gerar Carta e Laudo da ocorrência?', answer: 'Sim, há botões para gerar a Carta e o Laudo em PDF, conforme a sua permissão.' },
+    { question: 'Dá para gerar um pedido de bonificação a partir da ocorrência?', answer: 'Sim, é possível gerar o pedido de bonificação diretamente da ocorrência.' },
+    { question: 'Como exporto os dados das ocorrências?', answer: 'Pela opção de exportar em Excel.' },
+  ]}
+/>
+
+### Pesquisas e Hands On
+
+<FaqAccordion
+  items={[
+    { question: 'Para que servem as Pesquisas?', answer: 'Para registrar pesquisas (por exemplo, de satisfação); a partir de uma pesquisa é possível gerar uma ocorrência.' },
+    { question: 'O que são as Solicitações Hands On?', answer: 'São solicitações de treinamento prático (hands on).' },
+  ]}
+/>

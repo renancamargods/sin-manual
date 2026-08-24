@@ -185,13 +185,46 @@ A aprovação do cliente não é feita nesta tela: ela acontece na Fila de Aprov
 
 ## FAQ
 
+### Cadastro e preenchimento
+
 <FaqAccordion
   items={[
     { question: 'Para que serve a tela de Cliente?', answer: 'Para cadastrar clientes (PF, PJ e estrangeiro) e enviá-los para aprovação.' },
+    { question: 'O sistema preenche dados do cliente automaticamente?', answer: 'Sim. Ao informar o documento, se ele for localizado na consulta externa (VerifyID), dados como nome e endereço são preenchidos automaticamente. Se não for localizado, preencha os campos manualmente.' },
+    { question: 'Preciso anexar documentos ao cadastro?', answer: 'Sim. O anexo de documentos é obrigatório para o cadastro. Anexe os documentos exigidos antes de enviar o cliente.' },
+    { question: 'Como cadastro mais de um endereço ou telefone?', answer: 'É possível incluir vários endereços e telefones e definir qual é o principal.' },
+    { question: 'Posso vincular mais de um consultor ao cliente?', answer: 'Sim, o cadastro permite vincular múltiplos consultores.' },
+    { question: 'Preciso de permissão para criar cliente?', answer: 'Sim; o acesso depende do seu perfil (Master ou Comum).' },
+  ]}
+/>
+
+### Envio e aprovação
+
+<FaqAccordion
+  items={[
     { question: 'Por que o botão "Enviar Cliente" está desabilitado?', answer: 'Porque o cadastro ainda não foi salvo; ele habilita após salvar com os campos obrigatórios preenchidos.' },
     { question: 'A aprovação é feita nesta tela?', answer: 'Não. A tela de Cliente cria e envia; a decisão acontece na Fila de Aprovações de Cadastro.' },
+    { question: 'Se eu alterar um cliente já aprovado, ele volta para aprovação?', answer: 'Pode voltar, dependendo do parâmetro configurado: alterar determinados campos faz o cadastro retornar para a fila de aprovação.' },
     { question: 'Quando o cliente recebe o código SAP?', answer: 'Automaticamente, quando é aprovado e fica com status ATIVO.' },
-    { question: 'Preciso de permissão para criar cliente?', answer: 'Sim; o acesso depende do seu perfil (Master ou Comum).' },
+  ]}
+/>
+
+### Acompanhamento e financeiro
+
+<FaqAccordion
+  items={[
+    { question: 'Consigo ver os pedidos do cliente na própria tela?', answer: 'Sim. A aba Pedido, no cadastro do cliente, lista os pedidos vinculados a ele.' },
+    { question: 'Onde vejo o limite de crédito do cliente?', answer: 'Na aba Créditos do cadastro.' },
+    { question: 'Como filtro e exporto a listagem de clientes?', answer: 'Na Listagem de Clientes é possível filtrar por código, tipo de pessoa, empresa e data de cadastro, entre outros, e exportar o resultado em Excel.' },
+  ]}
+/>
+
+### Cliente internacional
+
+<FaqAccordion
+  items={[
+    { question: 'Como cadastro um cliente estrangeiro?', answer: 'No pré-cadastro, selecione o tipo de pessoa Estrangeiro. Esses cadastros têm campos próprios (documento sem máscara de CPF/CNPJ, país e moeda) e seguem as alçadas de Crédito Internacional e Fiscal.' },
+    { question: 'Cliente internacional pode ter mais de uma moeda?', answer: 'Sim. Há suporte a múltiplas moedas; na integração com o SAP, uma delas é definida como a moeda principal.' },
   ]}
 />
 

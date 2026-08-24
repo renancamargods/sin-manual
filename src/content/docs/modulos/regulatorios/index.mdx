@@ -12,6 +12,7 @@ order: 18
 ---
 
 import Callout from '../../../../components/Callout.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
 
 ## Visão geral
 
@@ -30,3 +31,15 @@ Menu lateral → Módulos → Regulatórios
 <Callout type="cuidado" title="Exigências por país">
 Alguns registros e etiquetas variam conforme o país de destino do produto. Confirme a exigência local antes de utilizar.
 </Callout>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Lista Geral de Produtos?', answer: 'Para consultar e manter os dados regulatórios dos produtos — registros, etiquetas e informações por país.' },
+    { question: 'Quais registros e países a lista cobre?', answer: 'Registros como ANVISA, FDA e Marcação CE, além de campos específicos por país. Atualmente a lista contempla todos os países atendidos.' },
+    { question: 'Como atualizo vários produtos de uma vez?', answer: 'Há uma rotina para importar os cadastros a partir de uma planilha em Excel.' },
+    { question: 'Como exporto os dados?', answer: 'Pela opção de exportar a tabela em Excel ou PDF.' },
+    { question: 'Como localizo um produto pelo registro?', answer: 'Use o filtro por Número do Registro (por exemplo, ANVISA).' },
+  ]}
+/>

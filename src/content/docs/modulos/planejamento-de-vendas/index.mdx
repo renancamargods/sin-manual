@@ -12,6 +12,7 @@ order: 14
 ---
 
 import Callout from '../../../../components/Callout.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
 
 ## Visão geral
 
@@ -29,3 +30,24 @@ Menu lateral → Módulos → Planejamento de Vendas
 <Callout type="info" title="Uso comparativo">
 O planejamento cadastrado aqui costuma ser usado como referência para comparar com o volume de vendas realizado.
 </Callout>
+
+## FAQ
+
+### Uso
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Planejamento de Vendas?', answer: 'Para acompanhar metas e a previsão de vendas por cliente ou carteira, servindo de referência ao trabalho comercial.' },
+    { question: 'As informações mudam conforme o meu perfil?', answer: 'Sim. Há visões por hierarquia (por exemplo, Executivo Varejo, Executivo KA, GR e GD), e cada uma exibe os clientes conforme as regras de visualização.' },
+    { question: 'O que é o Perfil de Consumo?', answer: 'É a projeção de consumo do cliente, usada para estimar a previsão de vendas.' },
+  ]}
+/>
+
+### Filtros e acesso
+
+<FaqAccordion
+  items={[
+    { question: 'Consigo salvar meus filtros?', answer: 'Sim, é possível gravar os filtros e as ordenações utilizados. Observação: a seleção de pessoas no primeiro filtro não fica salva.' },
+    { question: 'Consigo usar no tablet?', answer: 'Sim. O S.I.N é um sistema web, acessível pelo navegador — inclusive no tablet.' },
+  ]}
+/>

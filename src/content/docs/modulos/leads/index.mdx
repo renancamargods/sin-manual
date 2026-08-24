@@ -12,6 +12,7 @@ order: 11
 ---
 
 import Callout from '../../../../components/Callout.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
 
 ## Visão geral
 
@@ -30,3 +31,26 @@ Menu lateral → Módulos → Leads
 <Callout type="info" title="Fluxo comercial">
 Leads convertidos costumam originar um novo cadastro no módulo Clientes.
 </Callout>
+
+## FAQ
+
+### Indicação e cadastro
+
+<FaqAccordion
+  items={[
+    { question: 'O que é uma indicação de lead?', answer: 'É o registro de uma oportunidade comercial (potencial cliente) para que um executivo responsável trabalhe a venda.' },
+    { question: 'Quem pode alterar um lead depois de criado?', answer: 'Em geral, apenas o executivo responsável pelo lead, para evitar alterações por várias pessoas. Usuários com permissão específica também podem editar.' },
+    { question: 'Posso indicar um lead para qualquer executivo?', answer: 'Depende da configuração: há um modo que permite escolher o executivo livremente e outro que segue a hierarquia.' },
+  ]}
+/>
+
+### Acompanhamento e conversão
+
+<FaqAccordion
+  items={[
+    { question: 'Como acompanho o andamento dos leads?', answer: 'Pelo Quadro Kanban, que mostra os leads por status da pipeline de venda, ou pela Listagem de Leads.' },
+    { question: 'O que é o SLA no lead?', answer: 'É o prazo esperado em cada etapa; leads que ultrapassam o prazo recebem alerta visual (cor).' },
+    { question: 'Recebo aviso quando um lead é indicado para mim?', answer: 'Sim, o sistema notifica o executivo responsável sobre novos leads.' },
+    { question: 'O que acontece quando o lead é "Ganho"?', answer: 'Ele pode ser vinculado a um código de cliente; leads convertidos costumam originar um cadastro no módulo Clientes.' },
+  ]}
+/>
