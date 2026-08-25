@@ -2,18 +2,25 @@
 import Icon from './Icon.astro';
 
 const year = new Date().getFullYear();
+
+// Idioma da página (PT na raiz, EN sob /en) para rótulos e e-mail de feedback.
+const isEn = Astro.url.pathname === '/en' || Astro.url.pathname.startsWith('/en/');
+const copyright = isEn
+  ? `© ${year} S.I.N Implant System. User manual — internal use.`
+  : `© ${year} S.I.N Implant System. Manual do usuário — uso interno.`;
+const feedbackLabel = isEn ? 'Suggest improvement' : 'Sugerir melhoria';
 ---
 
 <footer class="border-t border-gray-200 bg-white">
   <div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-8 text-xs text-gray-400 sm:flex-row sm:items-center sm:justify-between sm:px-6">
-    <p>© {year} S.I.N Implant System. Manual do usuário — uso interno.</p>
+    <p>{copyright}</p>
     <a
       id="feedback-link"
-      href="mailto:renansinimplante@gmail.com?subject=Sugest%C3%A3o%20-%20Manual%20S.I.N"
+      href="mailto:renansinimplante@gmail.com"
       class="inline-flex w-fit items-center gap-1.5 rounded-md border border-gray-200 px-3 py-1.5 font-medium text-gray-600 transition hover:border-brand-red/30 hover:text-brand-red"
     >
       <Icon name="info" class="h-3.5 w-3.5" />
-      Sugerir melhoria
+      {feedbackLabel}
     </a>
   </div>
 
@@ -21,10 +28,23 @@ const year = new Date().getFullYear();
     (function () {
       var a = document.getElementById('feedback-link');
       if (!a) return;
-      var page = (document.title || '').replace(' · Manual S.I.N.', '').trim() || 'Manual';
-      var subject = 'Sugestão - Manual S.I.N: ' + page;
-      var body =
-        'Página: ' + page + '\nEndereço: ' + location.href + '\n\nMinha sugestão:\n';
+
+      var path = location.pathname;
+      var isEn = path === '/en' || path.indexOf('/en/') === 0;
+
+      // Nome da página: remove o sufixo do <title> em ambos os idiomas.
+      var page = (document.title || '').replace(' · Manual S.I.N.', '').trim();
+      if (!page) page = isEn ? 'Manual' : 'Manual';
+
+      var subject, body;
+      if (isEn) {
+        subject = 'Improvement suggestion - S.I.N Manual: ' + page;
+        body = 'Page: ' + page + '\nURL: ' + location.href + '\n\nMy suggestion:\n';
+      } else {
+        subject = 'Sugestão - Manual S.I.N: ' + page;
+        body = 'Página: ' + page + '\nEndereço: ' + location.href + '\n\nMinha sugestão:\n';
+      }
+
       a.href =
         'mailto:renansinimplante@gmail.com?subject=' +
         encodeURIComponent(subject) +
