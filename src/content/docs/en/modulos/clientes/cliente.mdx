@@ -76,6 +76,62 @@ Customer Module → Customer Screen
   ]}
 />
 
+## Registration tabs and header
+
+The customer registration is organized into **tabs**. Before saving the customer for the first time, only **4 tabs** appear; after saving, the other tabs become available and the top of the screen shows a customer summary.
+
+### Initial tabs (before saving)
+
+<DocTable
+  headers={['Tab', 'What it groups']}
+  rows={[
+    ['Registration Data', 'Required customer data: name, contacts, address, credential and dates.'],
+    ['Administrative Data', 'Administrative information of the customer. (Fields to be detailed.)'],
+    ['Tax Data', 'Tax information of the customer. (Fields to be detailed.)'],
+    ['Commercial Structure', 'Customer links to the commercial structure. (Fields to be detailed.)'],
+  ]}
+/>
+
+### Tabs available after saving
+
+<DocTable
+  headers={['Tab', 'What it groups']}
+  rows={[
+    ['Attachments', 'Documents attached to the customer.'],
+    ['Customer Contacts', 'Contacts linked to the customer.'],
+    ['Contracts', 'Contracts linked to the customer.'],
+    ['Additional Information', 'Complementary registration information.'],
+    ['Customer History', 'History of changes and events of the customer.'],
+    ['Lead Referrals', 'Customer referrals originated from leads.'],
+    ['Contract Partnerships', 'Partners linked to the customer’s contracts.'],
+    ['Special Parameters', 'Customer-specific settings.'],
+    ['Course Participations', 'Customer participation in courses and classes.'],
+    ['Order', 'Orders linked to the customer.'],
+    ['Commercial Policies', 'Commercial policies applied to the customer.'],
+    ['Freight Rules', 'Freight rules applicable to the customer.'],
+    ['Attribute Values', 'Customer attribute values.'],
+    ['Credits', 'Customer credits.'],
+    ['Clear Sale', 'Anti-fraud lookup (ClearSale) of the customer.'],
+  ]}
+/>
+
+<Callout type="info" title="Content being detailed">
+The fields of each complementary tab will be documented gradually. For now, this section lists the tabs available after saving the customer.
+</Callout>
+
+### Customer header (after saving)
+
+<DocTable
+  headers={['Information', 'What it shows']}
+  rows={[
+    ['Customer', 'Name of the registered customer.'],
+    ['Document', 'Customer’s CPF or CNPJ.'],
+    ['Economic Group', 'Economic group the customer belongs to.'],
+    ['Available Limit', 'Credit limit available for the customer.'],
+    ['System Status', 'Registration status: Active or Inactive.'],
+  ]}
+/>
+
 ## Main fields
 
 ### Pre-registration
@@ -106,6 +162,32 @@ Customer Module → Customer Screen
     ['Credential Type', 'Type of the credential document.'],
     ['Credential Holder', 'Name of the person responsible for the credential.'],
     ['Birth / Opening Date', 'Date of birth (individual) or opening (company).'],
+    ['State Registration', 'State tax registration of the customer (required for Company).'],
+    ['Currency', 'Customer currency (required for foreign customers).'],
+  ]}
+/>
+
+### Required fields by person type
+
+The fields required when saving vary according to the person type chosen in the pre-registration:
+
+<DocTable
+  headers={['Field', 'Individual', 'Company', 'Foreign']}
+  rows={[
+    ['Name', 'Yes', 'Yes', 'Yes'],
+    ['Trade Name', 'Yes', 'Yes', 'Yes'],
+    ['Accepts Marketing Contact', 'Yes', 'Yes', 'Yes'],
+    ['FVE Consultant', 'Yes', 'Yes', 'Yes'],
+    ['Main Address', 'Yes', 'Yes', 'Yes'],
+    ['Main Phone', 'Yes', 'Yes', 'Yes'],
+    ['Email', 'Yes', 'Yes', '—'],
+    ['Birth/Opening Date', 'Yes', 'Yes', '—'],
+    ['Credential State', 'Yes', 'Yes', '—'],
+    ['Credential', 'Yes', 'Yes', '—'],
+    ['Credential Type', 'Yes', 'Yes', '—'],
+    ['Credential Holder', 'Yes', 'Yes', '—'],
+    ['State Registration', '—', 'Yes', '—'],
+    ['Currency', '—', '—', 'Yes'],
   ]}
 />
 
@@ -149,6 +231,8 @@ Customer approval is not done on this screen: it happens in the Registration App
 <DocTable
   headers={['Behavior', 'Effect', 'Guidance']}
   rows={[
+    ['Tabs released after saving', 'Before the first save only 4 tabs appear (Registration Data, Administrative Data, Tax Data and Commercial Structure); after saving, the other tabs become available.', 'Save the registration to access the complementary tabs.'],
+    ['Required fields by person type', 'The required fields change according to the person type (e.g., State Registration for Company; Currency for Foreign; credential and email are not required for Foreign).', 'Check the "Required fields by person type" table.'],
     ['Send only after saving', 'The "Send Customer" button is only enabled after saving successfully.', 'Fill in and save the required data before sending.'],
     ['Level by person type', 'Individual goes to Credit; Company to Credit and Tax; Foreign to International Credit and Tax.', 'Check the person type before sending.'],
     ['SAP code on approval', 'The SAP code is generated automatically when the customer is approved (ACTIVE).', 'Check the most recent update after approval.'],

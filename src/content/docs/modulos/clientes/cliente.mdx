@@ -75,6 +75,62 @@ Módulo Cliente → Tela de Cliente
   ]}
 />
 
+## Abas e cabeçalho do cadastro
+
+O cadastro do cliente é organizado em **abas**. Antes de salvar o cliente pela primeira vez, aparecem apenas **4 abas**; depois de salvar, as demais abas ficam disponíveis e o topo da tela passa a exibir um resumo do cliente.
+
+### Abas iniciais (antes de salvar)
+
+<DocTable
+  headers={['Aba', 'O que reúne']}
+  rows={[
+    ['Dados Cadastrais', 'Dados obrigatórios do cliente: nome, contatos, endereço, credencial e datas.'],
+    ['Dados Administrativos', 'Informações administrativas do cliente. (Campos a detalhar.)'],
+    ['Dados Fiscais', 'Informações fiscais e tributárias do cliente. (Campos a detalhar.)'],
+    ['Estrutura Comercial', 'Vínculos do cliente com a estrutura comercial. (Campos a detalhar.)'],
+  ]}
+/>
+
+### Abas disponíveis após salvar
+
+<DocTable
+  headers={['Aba', 'O que reúne']}
+  rows={[
+    ['Anexos', 'Documentos anexados ao cliente.'],
+    ['Contatos de Cliente', 'Contatos vinculados ao cliente.'],
+    ['Contratos', 'Contratos vinculados ao cliente.'],
+    ['Informações Adicionais', 'Informações complementares do cadastro.'],
+    ['Histórico do Cliente', 'Histórico de alterações e eventos do cliente.'],
+    ['Indicações como Lead', 'Indicações do cliente originadas de leads.'],
+    ['Parcerias de Contrato', 'Parceiros vinculados aos contratos do cliente.'],
+    ['Parâmetros Especiais', 'Configurações específicas do cliente.'],
+    ['Participações em Curso', 'Participações do cliente em cursos e turmas.'],
+    ['Pedido', 'Pedidos vinculados ao cliente.'],
+    ['Políticas Comerciais', 'Políticas comerciais aplicadas ao cliente.'],
+    ['Regras de Fretes', 'Regras de frete aplicáveis ao cliente.'],
+    ['Valores de Atributos', 'Valores de atributos do cliente.'],
+    ['Créditos', 'Créditos do cliente.'],
+    ['Clear Sale', 'Consulta antifraude (ClearSale) do cliente.'],
+  ]}
+/>
+
+<Callout type="info" title="Conteúdo em detalhamento">
+Os campos de cada aba complementar serão documentados aos poucos. Por enquanto, esta seção lista as abas disponíveis após salvar o cliente.
+</Callout>
+
+### Cabeçalho do cliente (após salvar)
+
+<DocTable
+  headers={['Informação', 'O que mostra']}
+  rows={[
+    ['Cliente', 'Nome do cliente cadastrado.'],
+    ['Documento', 'CPF ou CNPJ do cliente.'],
+    ['Grupo Econômico', 'Grupo econômico ao qual o cliente pertence.'],
+    ['Limite Disponível', 'Limite de crédito disponível para o cliente.'],
+    ['Status Sistema', 'Situação do cadastro: Ativo ou Inativo.'],
+  ]}
+/>
+
 ## Campos principais
 
 ### Pré-cadastro
@@ -105,6 +161,32 @@ Módulo Cliente → Tela de Cliente
     ['Tipo Credencial', 'Tipo do documento de credencial.'],
     ['Responsável da Credencial', 'Nome do responsável pela credencial.'],
     ['Data Nascimento / Abertura', 'Data de nascimento (PF) ou de abertura (PJ).'],
+    ['Inscrição Estadual', 'Inscrição estadual do cliente (obrigatória para Pessoa Jurídica).'],
+    ['Moeda', 'Moeda do cliente (obrigatória para cliente Estrangeiro).'],
+  ]}
+/>
+
+### Campos obrigatórios por tipo de pessoa
+
+Os campos exigidos ao salvar variam conforme o tipo de pessoa escolhido no pré-cadastro:
+
+<DocTable
+  headers={['Campo', 'Pessoa Física', 'Pessoa Jurídica', 'Estrangeiro']}
+  rows={[
+    ['Nome', 'Sim', 'Sim', 'Sim'],
+    ['Nome Fantasia', 'Sim', 'Sim', 'Sim'],
+    ['Aceita contato de MKT', 'Sim', 'Sim', 'Sim'],
+    ['Consultor FVE', 'Sim', 'Sim', 'Sim'],
+    ['Endereço principal', 'Sim', 'Sim', 'Sim'],
+    ['Telefone principal', 'Sim', 'Sim', 'Sim'],
+    ['E-mail', 'Sim', 'Sim', '—'],
+    ['Data Nascimento/Abertura', 'Sim', 'Sim', '—'],
+    ['UF da Credencial', 'Sim', 'Sim', '—'],
+    ['Credencial', 'Sim', 'Sim', '—'],
+    ['Tipo Credencial', 'Sim', 'Sim', '—'],
+    ['Responsável da Credencial', 'Sim', 'Sim', '—'],
+    ['Inscrição Estadual', '—', 'Sim', '—'],
+    ['Moeda', '—', '—', 'Sim'],
   ]}
 />
 
@@ -148,6 +230,8 @@ A aprovação do cliente não é feita nesta tela: ela acontece na Fila de Aprov
 <DocTable
   headers={['Comportamento', 'Efeito', 'Orientação']}
   rows={[
+    ['Abas liberadas após salvar', 'Antes de salvar pela primeira vez aparecem apenas 4 abas (Dados Cadastrais, Dados Administrativos, Dados Fiscais e Estrutura Comercial); após salvar, as demais abas ficam disponíveis.', 'Salve o cadastro para acessar as abas complementares.'],
+    ['Campos obrigatórios por tipo de pessoa', 'Os campos exigidos mudam conforme o tipo de pessoa (ex.: Inscrição Estadual para PJ; Moeda para Estrangeiro; credencial e e-mail não são exigidos para Estrangeiro).', 'Confira a tabela "Campos obrigatórios por tipo de pessoa".'],
     ['Envio só após salvar', 'O botão "Enviar Cliente" só habilita depois de salvar com sucesso.', 'Preencha e salve os dados obrigatórios antes de enviar.'],
     ['Alçada por tipo de pessoa', 'PF vai para Crédito; PJ para Crédito e Fiscal; Estrangeiro para Crédito Internacional e Fiscal.', 'Confira o tipo de pessoa antes de enviar.'],
     ['Código SAP na aprovação', 'O código SAP é gerado automaticamente quando o cliente é aprovado (ATIVO).', 'Confira a atualização mais recente após a aprovação.'],
