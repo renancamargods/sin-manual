@@ -1,0 +1,209 @@
+---
+section: modulos
+routeSlug: aprovacoes/entidade-de-aprovacao
+pageType: routine
+module: aprovacoes
+moduleLabel: Approvals
+lang: en
+title: Approval Entity
+description: "Registration of the entities that use the system’s generic approval model (e.g., Customer, Order)."
+routineType: Registration and lookup
+permission: Yes
+impact: Basis of the generic approval model
+keywords: [approval entity, approval, generic model, customer, order, contract, configurable, status]
+tags: [modulo-aprovacoes, cadastro]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Approval Entity** screen is where you register the entities that use the system’s **generic approval model**. Each entity represents a type of item that can be submitted for approval — for example, **Customer** and **Order**.
+
+Once registered, the entity receives its **approval rules** (on the Approval Rule screen), which define who approves and under which conditions. Currently Customer and Order are registered; Contracts is planned to be added.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Approvable entities', text: 'Registers the items that use the generic approval model (e.g., Customer, Order).' },
+    { label: 'Usage', title: 'Basis of approval', text: 'Each entity registered here can receive approval rules.' },
+    { label: 'Caution', title: 'Entity status', text: 'An inactive entity is no longer considered in the approval flow.' },
+  ]}
+/>
+
+<Callout type="dica" title="Generic approval model">
+With this model, making a new item approvable is simpler and configurable: just register the entity here and then define its approval rules — without needing a specific implementation for each case.
+</Callout>
+
+## When to use this screen
+
+- Register a new approval entity.
+- Look up the entities already registered.
+- Activate or inactivate an entity.
+- Edit the name or status of an entity.
+
+## How to access
+
+Approvals → Approval Entity
+
+## Before you start
+
+- Define the name of the entity that will be submitted for approval.
+- Check whether the entity is not already registered.
+- After registering, configure the entity’s approval rules on the Approval Rule screen.
+
+## Important differences
+
+<DocTable
+  headers={['Comparison', 'Difference', 'Guidance']}
+  rows={[
+    ['Approval Entity x Approval Rule', 'The Entity defines what can be approved; the Approval Rule defines who approves and under which conditions.', 'Register the entity here and then configure its rules.'],
+    ['Active x Inactive status', 'An active entity takes part in the approval flow; an inactive one is not considered.', 'Prefer to inactivate rather than delete an entity in use.'],
+  ]}
+/>
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Name and Status, with the "Search", "+ New" and "Clear Filters" buttons.', 'Use the Name and Status to narrow down the results.'],
+    ['Results', 'List of entities with Approval Entity Code, Name, Creation Date and Last Change Date, plus the per-row actions.', 'Each row has History, View/Detail, Edit and Delete.'],
+    ['Registration / editing', '"Approval Entity Data" window with Name and System Status, and the "Save" and "Close" buttons.', 'Opened via "+ New" (create) or the Edit icon (change).'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Name', 'Searches by the entity name.'],
+    ['Status', 'Filters by Active or Inactive; the X clears the selection.'],
+  ]}
+/>
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Approval Entity Code', 'Code that identifies the entity.'],
+    ['Name', 'Entity name (e.g., Customer, Order).'],
+    ['Creation Date', 'Date the entity was registered.'],
+    ['Last Change Date', 'Date and time of the last change.'],
+  ]}
+/>
+
+### Registration / editing
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Name', 'Name of the approval entity.'],
+    ['System Status', 'Status of the entity: Active or Inactive.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Look up** — enter the Name and/or Status and click **"Search"**.
+2. **View details** — click the **View/Detail** icon on the row.
+3. **Register an entity** — click **"+ New"**, enter the **Name**, set the **System Status** and click **"Save"**.
+4. **Edit an entity** — click the **Edit** icon, change the fields and click **"Save"**.
+5. **Activate / inactivate** — in the registration, adjust the **System Status** and save.
+6. **Delete an entity** — click the **Delete** icon on the row.
+7. **View history** — click the **History** icon to track the entity’s changes.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the entities according to the filters.', 'Name and Status help to filter.'],
+    ['+ New', 'To register a new entity.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filters and redo the search.', '—'],
+    ['History', 'To track the entity’s changes.', 'Read only.'],
+    ['View / Detail', 'To view the entity without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing entity.', 'Opens the window with the data filled in.'],
+    ['Delete', 'To remove an entity.', 'Prefer to inactivate if the entity is already in use.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Approval Entity', 'Access to the screen', 'Allows opening and using the Approval Entity screen.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Basis of the generic model', 'The entities registered here feed the generic approval model.', 'Register the entity before configuring its rules.'],
+    ['Status controls participation', 'An inactive entity is no longer considered in the approval flow.', 'Prefer to inactivate rather than delete when it is already in use.'],
+    ['Change tracking', 'The system keeps the creation date and the last change date.', 'Use these dates and the history to track the changes.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Approval Rule', 'Each entity receives rules that define who approves and under which conditions.', 'Configure the rules after registering the entity.'],
+    ['Orders and Customers', 'They are the entities that currently use the approval model (Contracts is planned).', 'New entities can be added as needed.'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not define who approves nor the conditions — that is done on the Approval Rule screen.
+- It does not approve items — it only registers the entities that can be approved.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The entity does not appear in the approval flow', 'Inactive entity', 'Check the entity’s System Status.'],
+    ['I cannot find an entity', 'Name or Status filter applied', 'Adjust the filters and click Search.'],
+    ['I cannot delete an entity', 'Entity used by rules or approvals', 'Prefer to inactivate rather than delete.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the entities that use the generic approval model (e.g., Customer, Order).' },
+    { question: 'What is the difference between Entity and Approval Rule?', answer: 'The entity defines what can be approved; the rule defines who approves and under which conditions.' },
+    { question: 'Can I add new types besides Customer and Order?', answer: 'Yes. The model is configurable; new entities can be registered — Contracts, for example, is planned to be added.' },
+    { question: 'What happens if I inactivate an entity?', answer: 'It is no longer considered in the approval flow.' },
+    { question: 'Can I delete an entity in use?', answer: 'Not recommended; prefer to inactivate to preserve the history.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '21/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '21/08/2026', author: 'Renan Camargo', description: 'Initial release of the Approval Entity screen documentation.' },
+  ]}
+/>

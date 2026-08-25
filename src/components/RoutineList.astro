@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import { routineTitleEn } from '../data/modules';
 
 interface Routine {
   title: string;
@@ -14,6 +15,12 @@ interface Props {
 }
 
 const { routines, basePath, availableSlugs } = Astro.props;
+
+// Rótulos EN quando o basePath é de rota inglesa (ex.: /en/modulos/pedidos).
+const isEn = basePath.startsWith('/en');
+const moduleId = basePath.split('/').filter(Boolean).pop() ?? '';
+const routineLabel = (slug: string, fallback: string) =>
+  isEn ? routineTitleEn[`${moduleId}/${slug}`] ?? fallback : fallback;
 ---
 
 {routines.length === 0 ? (
@@ -38,7 +45,7 @@ const { routines, basePath, availableSlugs } = Astro.props;
         >
           <div>
             <p class:list={['text-sm font-semibold', available ? 'text-gray-900 group-hover:text-brand-red' : 'text-gray-500']}>
-              {r.title}
+              {routineLabel(r.slug, r.title)}
             </p>
             {r.description && <p class="mt-1 text-xs leading-5 text-gray-500">{r.description}</p>}
           </div>
@@ -46,7 +53,7 @@ const { routines, basePath, availableSlugs } = Astro.props;
             <Icon name="arrow-right" class="mt-1 h-4 w-4 flex-shrink-0 text-gray-300 transition group-hover:translate-x-0.5 group-hover:text-brand-red" />
           ) : (
             <span class="mt-0.5 flex-shrink-0 rounded-full bg-gray-200 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-gray-500">
-              Em breve
+              {isEn ? 'Coming soon' : 'Em breve'}
             </span>
           )}
         </Tag>

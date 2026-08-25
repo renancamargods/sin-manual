@@ -1,0 +1,177 @@
+---
+section: modulos
+routeSlug: pedidos/pedido
+pageType: routine
+module: pedidos
+moduleLabel: Orders
+lang: en
+title: Order
+description: Creating and tracking sales orders, from quote to invoicing.
+routineType: Registration and process
+permission: Yes
+impact: High — starts the sales cycle
+keywords: [order, sales order, quote, invoicing, invoice]
+tags: [modulo-pedidos, cadastro, processo]
+order: 16
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Order** screen is used to create and track sales orders, from the moment items are added until approval, invoicing and issuance of the invoice. It is one of the most used screens in day-to-day commercial work.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Sales order record', text: 'Brings together customer, items, values and terms of a sale.' },
+    { label: 'Usage', title: 'Sales, logistics and finance', text: 'The order moves through approval, picking, freight and invoicing.' },
+    { label: 'Caution', title: 'A multi-step process', text: 'Changes after approval may require a new review, depending on the configured rule.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Create a new sales order.
+- Add, change or remove items from an order.
+- Track the progress and status of an order.
+- Look up orders that have already been invoiced.
+
+## How to access
+
+Orders → Order
+
+## Before you start
+
+- Confirm the customer is already registered and active.
+- Check the applicable price list and payment terms.
+- Confirm whether the order requires approval, according to the configured rules.
+
+## Main fields
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Code', 'Identifies the order in the system.'],
+    ['Customer', 'Customer the order is placed for.'],
+    ['Price list', 'Price reference used to calculate the items.'],
+    ['Payment term', 'Agreed payment method and term.'],
+    ['Order items', 'Products, quantities and values included in the order.'],
+    ['Carrier', 'Company responsible for delivering the order.'],
+    ['Status', 'Current stage of the order in the commercial flow.'],
+    ['Notes', 'Free field for additional information.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Create order** — select the customer, add the items and set the payment term and freight.
+2. **Send for approval** — when required, the order goes to the approval queue.
+3. **Track invoicing** — once approved, the order moves to invoicing and issuance of the invoice.
+4. **Check history** — use the search to find orders by customer, period or status.
+
+## Relationships with other records or processes
+
+The order depends on the customer and product records, and may require approval according to the rules configured in the Approvals module. After invoicing, the order generates the corresponding invoice.
+
+<Callout type="cuidado" title="Impact on other modules">
+An order can trigger approval routines, freight calculation and invoicing. Review the data before sending the order to the next stages.
+</Callout>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['PEDIDO.VISUALIZAR', 'Access to the screen', 'Allows opening and viewing orders.'],
+    ['PEDIDO.EDITAR', 'Registration and changes', 'Allows creating and changing orders.'],
+    ['PEDIDO.APROVAR', 'Approval flow', 'Allows approving orders sent for review.'],
+    ['PEDIDO.CANCELAR', 'Order status', 'Allows cancelling an ongoing order.'],
+  ]}
+/>
+
+## Important parameters and behaviors
+
+- The order only moves to invoicing after completing the required approvals.
+- Changes to items after approval may require a new review, according to the configured rule.
+- Some fields may vary depending on the selected business unit.
+
+## Rules and cautions
+
+- Review customer, items and terms before sending the order for approval.
+- Avoid changing items that have already been invoiced; use the exchange and return routines when needed.
+- Check the applicable freight rule before confirming the order.
+- Check your permissions before trying to approve or cancel an order.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+    ['Order does not appear in the search', 'Status or period filter applied', 'Review the filters used in the search.'],
+    ['Order stuck awaiting approval', 'Approval rule configured for the value or customer', 'Check the approval queue and the responsible approver.'],
+    ['Error when calculating freight', 'Freight rule not configured for the destination', 'Check the freight rule set for the carrier and destination.'],
+  ]}
+/>
+
+## FAQ
+
+### General use
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To create and track sales orders, from adding items to invoicing.' },
+    { question: 'What order types are available?', answer: 'Besides the sales order, the system works with types such as Bonus, Return, Exchange, Consignment, Warehouse Remittance (OPL), Campaign and International (COMEX). The chosen type affects pricing, approval and freight.' },
+    { question: 'How do I add items to the order?', answer: 'There is more than one way: "Add Order Item" (one by one), "Quick Entry" (several items at once) and "Quick Product Search". Use whichever is most convenient for the number of items.' },
+    { question: 'Do I need permission to access this screen?', answer: 'Yes. You must have the corresponding permission enabled in your access profile.' },
+  ]}
+/>
+
+### Approval and credit
+
+<FaqAccordion
+  items={[
+    { question: 'Why did my order stop in the Approval Queue?', answer: 'Depending on the value, the customer or the configured rules, the order may need approval in one or more levels (for example, Administrative and Credit) before moving to invoicing. Track its progress in the Approval Queue.' },
+    { question: 'Why did the order go to Credit review?', answer: 'Orders may go through the Credit Engine, which reviews the order automatically and may query Serasa depending on the value and the configured rules. The result may release the order, reject it or send it to the credit desk.' },
+    { question: 'Does changing the order after approval require a new approval?', answer: 'It may, depending on the approval rule configured for the type of change.' },
+    { question: 'Can I cancel an order that is already approved?', answer: 'It depends on the stage the order is in. Check the current status and the required permissions.' },
+  ]}
+/>
+
+### Payment
+
+<FaqAccordion
+  items={[
+    { question: 'How does the PIX or card payment link work?', answer: 'For PIX or card orders, the system generates a payment link and sends it to the customer by WhatsApp and email. The order status tracks the payment confirmation.' },
+    { question: 'The payment link expired. What now?', answer: 'The link has an expiration time. If it expires, a new link can be generated and resent from the order screen itself.' },
+    { question: 'What is Mixed Payment?', answer: 'It is the option to combine more than one payment method in the same order (for example, part in PIX and part by card), by enabling the combine-payment-methods option when building the order.' },
+  ]}
+/>
+
+### Status and invoicing
+
+<FaqAccordion
+  items={[
+    { question: 'What does the order Status mean?', answer: 'The status shows the current stage of the order in the flow — for example, awaiting approvals, processing, awaiting payment, awaiting picking or released. Each stage indicates what is missing for the order to move forward.' },
+    { question: 'The order is "Released" but was not invoiced. What should I check?', answer: 'After release, the order is integrated with the ERP (SAP) before moving on. If it did not advance, check the status and the integration information on the screen — integration errors are usually flagged on the order.' },
+    { question: 'How do I filter and export the order list?', answer: 'In the Order List you can filter by customer, period, status and company, among others, and export the result to Excel or PDF.' },
+    { question: 'Where is this information used?', answer: 'In invoicing, invoice issuance and in commercial and logistics reports.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '25/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/08/2026', author: 'Renan Camargo', description: 'Initial release of the Order screen documentation.' },
+  ]}
+/>

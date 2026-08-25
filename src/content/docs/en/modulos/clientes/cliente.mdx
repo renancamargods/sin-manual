@@ -1,0 +1,243 @@
+---
+section: modulos
+routeSlug: clientes/cliente
+pageType: routine
+module: clientes
+moduleLabel: Customers
+lang: en
+title: Customer
+description: Customer registration (individual, company and foreign) and sending for approval, from pre-registration to SAP integration.
+routineType: Registration
+permission: Yes
+impact: High — basis for credit approval and SAP integration
+keywords: [customer, customer registration, pre-registration, pulse credit, approval, level, sap, individual, company, foreign]
+tags: [modulo-clientes, cadastro]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Customer** screen is where customers are registered in the system, in the types **Individual (PF)**, **Company (PJ)** and **Foreign**. From it, the customer is filled in, saved and sent for review by the approval levels.
+
+Registration starts with a **pre-registration** (integration with Pulse Credit) and moves on to the **full registration**, with the required data. After being saved, the customer can be sent for approval; when approved, it becomes **ACTIVE** and automatically receives the **SAP code**.
+
+This screen is the starting point of the [Customer Creation and Approval Flow](/en/tecnico/fluxos/criacao-de-cliente).
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Customer registration', text: 'Creates individual, company and foreign customers and sends them for approval.' },
+    { label: 'Usage', title: 'Registration and credit', text: 'It is the starting point of the customer creation and approval process.' },
+    { label: 'Caution', title: 'Save before sending', text: 'Sending for approval is only enabled after saving the required data.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new customer (individual, company or foreign).
+- Look up or change a customer’s data.
+- Send a customer for review by the approval levels.
+- Track the registration status until activation.
+
+## How to access
+
+Customer Module → Customer Screen
+
+## Before you start
+
+- Have the customer’s document (CPF or CNPJ) and know the **person type** and the **registration type**.
+- Gather the required data: name, address, phone, email and credential.
+- Confirm that your profile (Master or Common) allows creating the customer.
+
+## Important differences
+
+<DocTable
+  headers={['Comparison', 'Difference', 'Guidance']}
+  rows={[
+    ['Customer screen x Approvals Queue', 'The Customer screen creates and sends the registration; the decision to approve or reject happens in the Registration Approvals Queue.', 'Use the Approvals Queue to approve; the Customer screen is only for registering and sending.'],
+    ['Save x Send Customer', 'Save stores the registration; "Send Customer" forwards the customer for review by the levels.', 'Save first; the "Send Customer" button is only enabled afterwards.'],
+    ['Pre-registration x Full registration', 'The pre-registration defines person type, registration type and document; the full registration gathers the other required data.', 'Complete the pre-registration (Next) before filling in the full registration.'],
+  ]}
+/>
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Pre-registration (Pulse Credit)', 'Person type, registration type and document (CPF/CNPJ).', 'Initial step; click "Next" to continue.'],
+    ['Registration Data tab', 'Required customer data: name, contacts, address and credential.', 'All required fields must be filled in to save.'],
+    ['Action buttons', '"+ New Customer", "Save", "Save and Continue" and "Send Customer".', 'The "Send Customer" button is only enabled after saving successfully.'],
+  ]}
+/>
+
+## Main fields
+
+### Pre-registration
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Person Type', 'Defines whether the customer is Individual, Company or Foreign.'],
+    ['Registration Type', 'Classifies the registration: Student, Guarantor, Foreign, Patient or Retail.'],
+    ['CPF / CNPJ', 'Customer’s document (CPF for individuals, CNPJ for companies).'],
+  ]}
+/>
+
+### Registration data (required)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Name', 'Full name of the customer.'],
+    ['Trade Name', 'Trade name or company name.'],
+    ['Accepts Marketing Contact', 'Consent for marketing (Yes or No).'],
+    ['FVE Consultant', 'Consultant responsible for the customer.'],
+    ['Main Address', 'At least one main address.'],
+    ['Main Phone', 'At least one main phone.'],
+    ['Email', 'At least one registered email.'],
+    ['Credential State', 'State that issued the credential.'],
+    ['Credential', 'Credential number.'],
+    ['Credential Type', 'Type of the credential document.'],
+    ['Credential Holder', 'Name of the person responsible for the credential.'],
+    ['Birth / Opening Date', 'Date of birth (individual) or opening (company).'],
+  ]}
+/>
+
+## Main flows
+
+1. **Create customer** — click **"+ New Customer"**, fill in the pre-registration and click **Next**; fill in the required data and click **Save** (or **Save and Continue**).
+2. **Send for approval** — click **"Send Customer"** and confirm in the popup (**YES**). The customer goes to the approval queue according to the person type.
+3. **Track** — the customer stays with the status **"Under Review by Registration/Credit"** until the level’s decision.
+
+<Callout type="cuidado" title="Save before sending">
+The "Send Customer" button is only available after saving the registration with all required fields filled in.
+</Callout>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['+ New Customer', 'To start a new registration.', 'Opens the pre-registration screen.'],
+    ['Save / Save and Continue', 'To store the data entered.', 'Required before sending the customer.'],
+    ['Send Customer', 'To forward the customer for review by the levels.', 'Confirm in the popup ("YES"); the level depends on the person type.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Profile', 'Access', 'What it can do']}
+  rows={[
+    ['Master User (Administrator)', 'Full', 'Create customers and access the general settings.'],
+    ['Common User (e.g., Consultant)', 'Restricted', 'Create customers linked to their profile.'],
+  ]}
+/>
+
+<Callout type="info" title="Approval by level">
+Customer approval is not done on this screen: it happens in the Registration Approvals Queue, through the Credit, Tax and International Credit levels, according to the person type.
+</Callout>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Send only after saving', 'The "Send Customer" button is only enabled after saving successfully.', 'Fill in and save the required data before sending.'],
+    ['Level by person type', 'Individual goes to Credit; Company to Credit and Tax; Foreign to International Credit and Tax.', 'Check the person type before sending.'],
+    ['SAP code on approval', 'The SAP code is generated automatically when the customer is approved (ACTIVE).', 'Check the most recent update after approval.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Registration Approvals Queue', 'Receives the sent customer and records the decision (approve, reject or review).', 'Approval is not done on the Customer screen.'],
+    ['SAP integration', 'Generates the SAP code automatically when the customer is approved.', 'The code does not appear before approval.'],
+    ['Customer Creation and Approval Flow', 'The Customer screen is the starting point of the full process.', 'Check the flow for the end-to-end step by step.'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not approve the customer — the decision happens in the Registration Approvals Queue.
+- It does not generate the SAP code directly — it is created when the customer is approved.
+- It does not send the customer before saving — the "Send Customer" button is only enabled after saving.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The "Send Customer" button is not enabled', 'Registration not saved or a required field missing', 'Fill in all required fields and save the registration.'],
+    ['The customer is "Under Review" and does not move forward', 'Awaiting the level’s decision', 'Approval is done in the Registration Approvals Queue by the responsible level.'],
+    ['The customer has no SAP code', 'Registration not yet approved', 'The SAP code is only generated after approval (ACTIVE status).'],
+    ['I cannot create a certain customer', 'Profile without sufficient access', 'Check whether your profile (Master or Common) allows the operation.'],
+  ]}
+/>
+
+## FAQ
+
+### Registration and filling in
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Customer screen for?', answer: 'To register customers (individual, company and foreign) and send them for approval.' },
+    { question: 'Does the system fill in the customer data automatically?', answer: 'Yes. When you enter the document, if it is found in the external lookup (VerifyID), data such as name and address are filled in automatically. If it is not found, fill in the fields manually.' },
+    { question: 'Do I need to attach documents to the registration?', answer: 'Yes. Attaching documents is required for the registration. Attach the required documents before sending the customer.' },
+    { question: 'How do I register more than one address or phone?', answer: 'You can add several addresses and phones and set which one is the main one.' },
+    { question: 'Can I link more than one consultant to the customer?', answer: 'Yes, the registration allows linking multiple consultants.' },
+    { question: 'Do I need permission to create a customer?', answer: 'Yes; access depends on your profile (Master or Common).' },
+  ]}
+/>
+
+### Sending and approval
+
+<FaqAccordion
+  items={[
+    { question: 'Why is the "Send Customer" button disabled?', answer: 'Because the registration has not been saved yet; it is enabled after saving with the required fields filled in.' },
+    { question: 'Is approval done on this screen?', answer: 'No. The Customer screen creates and sends; the decision happens in the Registration Approvals Queue.' },
+    { question: 'If I change an already approved customer, does it go back for approval?', answer: 'It may go back, depending on the configured parameter: changing certain fields sends the registration back to the approval queue.' },
+    { question: 'When does the customer receive the SAP code?', answer: 'Automatically, when it is approved and becomes ACTIVE.' },
+  ]}
+/>
+
+### Tracking and finance
+
+<FaqAccordion
+  items={[
+    { question: 'Can I see the customer’s orders on the screen itself?', answer: 'Yes. The Orders tab, in the customer record, lists the orders linked to them.' },
+    { question: 'Where do I see the customer’s credit limit?', answer: 'On the Credit tab of the record.' },
+    { question: 'How do I filter and export the customer list?', answer: 'In the Customer List you can filter by code, person type, company and registration date, among others, and export the result to Excel.' },
+  ]}
+/>
+
+### Foreign customer
+
+<FaqAccordion
+  items={[
+    { question: 'How do I register a foreign customer?', answer: 'In the pre-registration, select the person type Foreign. These registrations have their own fields (document without CPF/CNPJ mask, country and currency) and follow the International Credit and Tax levels.' },
+    { question: 'Can an international customer have more than one currency?', answer: 'Yes. There is support for multiple currencies; in the SAP integration, one of them is set as the main currency.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'QA', date: 'March/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: 'March/2026', author: 'QA', description: 'Initial release of the Customer screen documentation.' },
+  ]}
+/>

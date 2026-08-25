@@ -1,0 +1,56 @@
+---
+section: modulos
+routeSlug: ocorrencias
+pageType: module-index
+module: ocorrencias
+moduleLabel: Occurrences
+lang: en
+title: Occurrences
+description: Recording and handling occurrences and requests.
+keywords: [occurrences, occurrence, surveys, handson, incidence]
+tags: [modulo]
+order: 12
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+
+## Overview
+
+The **Occurrences** module brings together the recording of occurrences related to product, supplier, customer or quality, as well as satisfaction surveys and practical training requests.
+
+## When to use this module
+
+- Register a new occurrence.
+- Classify the occurrence by incidence type.
+- Track surveys and hands-on requests.
+
+## How to access
+
+Side menu → Modules → Occurrences
+
+<Callout type="info" title="Routing">
+Each occurrence may involve different areas of the company, depending on the incidence type selected.
+</Callout>
+
+## FAQ
+
+### PFCQ occurrences
+
+<FaqAccordion
+  items={[
+    { question: 'What is a PFCQ occurrence?', answer: 'It is the record of an occurrence related to product, supplier, customer or quality.' },
+    { question: 'Can I generate a Letter and Report from the occurrence?', answer: 'Yes, there are buttons to generate the Letter and the Report as PDF, according to your permission.' },
+    { question: 'Can I generate a bonus order from the occurrence?', answer: 'Yes, it is possible to generate the bonus order directly from the occurrence.' },
+    { question: 'How do I export the occurrence data?', answer: 'Through the export to Excel option.' },
+  ]}
+/>
+
+### Surveys and Hands On
+
+<FaqAccordion
+  items={[
+    { question: 'What are Surveys for?', answer: 'To record surveys (for example, satisfaction); from a survey it is possible to generate an occurrence.' },
+    { question: 'What are Hands On requests?', answer: 'They are requests for practical training (hands on).' },
+  ]}
+/>

@@ -1,0 +1,77 @@
+---
+section: modulos
+routeSlug: faturamentos
+pageType: module-index
+module: faturamentos
+moduleLabel: Invoicing
+lang: en
+title: Invoicing
+description: Invoicing routines, consignment and related reports.
+keywords: [invoicing, consignment, exchanges and returns, reports]
+tags: [modulo]
+order: 6
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+
+## Overview
+
+The **Invoicing** module brings together the routines related to the invoicing process, consignment control and the reports used to track shipments, exchanges and returns.
+
+## When to use this module
+
+- Track the closing of consignment periods.
+- Look up shipments awaiting picking.
+- Register exchanges and returns.
+- Generate consignment, serial and logistics operator reports.
+
+## How to access
+
+Side menu → Modules → Invoicing
+
+<Callout type="info" title="Combined use">
+The routines in this module are usually used together with the Orders module, especially at the invoice stage.
+</Callout>
+
+## FAQ
+
+### Picking and invoicing
+
+<FaqAccordion
+  items={[
+    { question: 'How does picking an order for invoicing work?', answer: 'Approved orders go to the Picking Queue (or the Shipments Awaiting Picking Queue). Picking is done by scanning the items (reading the DataMatrix); once the reading is complete, the order can be sent for invoicing.' },
+    { question: 'Why can I not send the order for invoicing?', answer: 'In general, sending is only enabled after scanning all items in the shipment (reading at 100%). Check that the reading is complete. Partial invoicing is only possible with the specific button/permission.' },
+    { question: 'What is the Picking Sheet?', answer: 'It is the document generated to guide the physical picking of the shipment items.' },
+    { question: 'Can I invoice an order partially?', answer: 'Yes. Although sending for invoicing normally requires a full reading of the items, there is a specific button/permission that allows partial invoicing.' },
+  ]}
+/>
+
+### Exchanges and returns
+
+<FaqAccordion
+  items={[
+    { question: 'How do I register an exchange or return?', answer: 'On the Exchanges and Returns screen, scan the items (DataMatrix) to build a Protocol and, from it, generate the exchange or return order.' },
+    { question: 'What is the difference between an exchange and a return?', answer: 'In a return, items come back and generate credit to the customer; in an exchange, items are replaced by others, with any remaining balance to be paid.' },
+    { question: 'After generating the order, can I still change the protocol?', answer: 'No. Once the order has been generated from the protocol, adding and removing items is blocked.' },
+    { question: 'What is the InCompany (Intercompany) process?', answer: 'It happens when the invoice is from a center or company different from the user; the system flags it and treats the order as intercompany.' },
+    { question: 'Can I cancel a protocol?', answer: 'Yes, there is an option to cancel the protocol.' },
+  ]}
+/>
+
+### Consignment
+
+<FaqAccordion
+  items={[
+    { question: 'How do I close a consignment?', answer: 'In Consignment Closing, look up the customer and the invoices to build the protocol and then generate the closing order.' },
+    { question: 'Where do I track consignments?', answer: 'In the Consignment Report, with the option of a summary or full report and export to Excel.' },
+  ]}
+/>
+
+### Loading list (Romaneio)
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Loading List (Romaneio) for?', answer: 'To organize the shipments into a load for transport — including carrier, freight simulation and label checkout.' },
+  ]}
+/>

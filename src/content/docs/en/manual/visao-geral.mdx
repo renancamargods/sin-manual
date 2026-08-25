@@ -1,0 +1,45 @@
+---
+section: manual
+routeSlug: visao-geral
+pageType: manual
+lang: en
+title: System overview
+description: How the S.I.N Implant System is organized into modules and what each one covers.
+keywords: [overview, modules, system structure, organization]
+tags: [manual]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import Icon from '../../../../components/Icon.astro';
+import { modules, moduleEn } from '../../../../data/modules';
+
+## Overview
+
+The S.I.N Implant System is organized into **modules**. Each module brings together the screens and routines related to a single theme — for example, the Customers module concentrates the records related to customers, and the Orders module concentrates everything related to sales orders.
+
+This organization helps you quickly find where to register, look up or track information, even without knowing the exact screen name.
+
+<Callout type="info" title="Access by profile">
+Not all users see all modules. What appears available depends on the access profile configured for your user.
+</Callout>
+
+## System modules
+
+<div class="not-prose my-6 grid gap-3 sm:grid-cols-2">
+  {modules.map((mod) => (
+    <a href={`/en/modulos/${mod.id}`} class="group flex items-start justify-between gap-3 rounded-xl2 border border-gray-200 bg-white px-4 py-3.5 shadow-card transition hover:border-brand-red/30 hover:shadow-card-hover">
+      <div>
+        <p class="text-sm font-semibold text-gray-900 group-hover:text-brand-red">{moduleEn[mod.id]?.label ?? mod.label}</p>
+        <p class="mt-1 text-xs leading-5 text-gray-500">{moduleEn[mod.id]?.description ?? mod.description}</p>
+      </div>
+      <Icon name="arrow-right" class="mt-1 h-4 w-4 flex-shrink-0 text-gray-300 group-hover:text-brand-red" />
+    </a>
+  ))}
+</div>
+
+## How to navigate
+
+- Use the **side menu** to open a module and see its screens.
+- Use the **search** at the top of the page to find a screen by name.
+- Each screen indicates, right at the start, the module it belongs to and whether it requires a specific permission.

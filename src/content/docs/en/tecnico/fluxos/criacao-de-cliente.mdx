@@ -1,0 +1,221 @@
+---
+section: tecnico
+routeSlug: fluxos/criacao-de-cliente
+pageType: tecnico
+lang: en
+title: Customer Creation and Approval Flow
+description: Complete process of creating, registering and approving customers (individual, company and foreign), from pre-registration to SAP integration.
+moduleLabel: Customer Module
+routineType: Process flow
+impact: Customer registration and approval
+keywords: [customer, customer creation, approval, level, credit, tax, pre-registration, pulse credit, sap, individual, company, foreign]
+tags: [tecnico, fluxo, cliente]
+order: 2
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Customer Creation and Approval** flow describes the complete process of registering customers in the system, for the types **Individual (PF)**, **Company (PJ)** and **Foreign**. The process goes from pre-registration, through filling in the data, to sending for the approval levels and the automatic integration with SAP when the customer is approved.
+
+The flow happens in the **Customer Module**, mainly on the **Customer** and **Registration Approvals Queue** screens, and involves two types of user: the one who creates the customer (Master or Common) and the one who approves (Credit, Tax and International Credit levels).
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Customer registration and approval', text: 'Standardizes the creation of individual, company and foreign customers and the routing to the approval levels.' },
+    { label: 'Usage', title: 'Registration and credit', text: 'Used by consultants to create customers and by the levels to approve or reject the registration.' },
+    { label: 'Caution', title: 'Required data and levels', text: 'Sending is only enabled after saving the required data, and approval depends on the correct level per person type.' },
+  ]}
+/>
+
+## When to use this flow
+
+- Register a new customer (individual, company or foreign).
+- Send a newly registered customer for review by the levels.
+- Approve, reject or review a customer in the approval queue.
+- Track the registration status until activation and SAP code generation.
+
+## How to access
+
+- Customer Module → Customer Screen
+- Customer Module → Registration Approvals Queue
+
+## The process stages
+
+<DocTable
+  headers={['Stage', 'What happens']}
+  rows={[
+    ['1. Login', 'Access to the system with the appropriate profile (Master or Common).'],
+    ['2. New customer', 'Opening a new registration from the Customer screen.'],
+    ['3. Pre-registration', 'Entering the person type, registration type and document (Pulse Credit integration).'],
+    ['4. Full registration', 'Filling in the customer’s required data on the Registration Data tab.'],
+    ['5. Send for review', 'Customer routed to the approval queue according to the person type.'],
+    ['6. Approval', 'Review and decision in the Registration Approvals Queue.'],
+    ['7. Result and SAP', 'Approved customer becomes ACTIVE and generates the SAP code automatically.'],
+  ]}
+/>
+
+## Before you start
+
+- Have the username and password of the desired profile (Master or Common).
+- Know the **person type** (Individual, Company or Foreign) and the **registration type** (Student, Guarantor, Foreign, Patient or Retail).
+- Have at hand the customer’s document (CPF or CNPJ) and the required data (address, phone, email and credential).
+
+## Step by step of the process
+
+### 1. Login and access to the Customer Module
+
+1. **Login** — access the system and enter the username and password of the desired profile (Master or Common). Click **Sign in**.
+2. **New registration** — in the menu, go to **Customer Module → Customer Screen** and click **"+ New Customer"**. The system opens the pre-registration screen.
+
+<Callout type="dica" title="Test with both profiles">
+When validating the process, run the tests with both the **Master User** and the **Common User** (e.g., Consultant), to ensure the permissions are correct.
+</Callout>
+
+### 2. Pre-registration (Pulse Credit integration)
+
+On the pre-registration screen, fill in:
+
+<DocTable
+  headers={['Field', 'Options / instruction']}
+  rows={[
+    ['Person Type', 'Individual, Company or Foreign.'],
+    ['Registration Type', 'Student, Guarantor, Foreign, Patient or Retail.'],
+    ['CPF / CNPJ', 'CPF for individuals; CNPJ for companies.'],
+  ]}
+/>
+
+Click **Next** to proceed to the full registration.
+
+### 3. Full registration — Registration Data tab
+
+Fill in the customer’s required fields:
+
+<DocTable
+  headers={['Required field', 'Description']}
+  rows={[
+    ['Name', 'Full name of the customer.'],
+    ['Trade Name', 'Trade name or company name.'],
+    ['Accepts Marketing Contact', 'Consent for marketing (Yes or No).'],
+    ['FVE Consultant', 'Consultant responsible for the customer.'],
+    ['Main Address', 'At least one main address registered.'],
+    ['Main Phone', 'At least one main phone registered.'],
+    ['Email', 'At least one registered email.'],
+    ['Credential State', 'State that issued the credential.'],
+    ['Credential', 'Credential number.'],
+    ['Credential Type', 'Type of the credential document.'],
+    ['Credential Holder', 'Name of the person responsible for the credential.'],
+    ['Birth / Opening Date', 'Date of birth (individual) or opening (company).'],
+  ]}
+/>
+
+After filling everything in, click **Save** or **Save and Continue**. The **"Send Customer"** button becomes enabled.
+
+### 4. Send for review
+
+1. Click **"Send Customer"**.
+2. In the confirmation popup, click **YES**.
+
+The customer is routed to the approval queue according to the person type:
+
+<DocTable
+  headers={['Person type', 'Approval queue(s)', 'Responsible']}
+  rows={[
+    ['Individual (PF)', 'Credit', 'Credit level.'],
+    ['Company (PJ)', 'Credit + Tax', 'Credit level and Tax level.'],
+    ['Foreign', 'International Credit + Tax', 'International Credit level (Comex) and Tax level.'],
+  ]}
+/>
+
+### 5. Status tracking
+
+After sending, the customer stays on the customers screen with the status **"Under Review by Registration/Credit"**.
+
+### 6. Approval in the Registration Approvals Queue
+
+1. Log in with the user responsible for the corresponding level.
+2. Go to **Customer Module → Registration Approvals Queue** and find the customer.
+3. Choose one of the available actions:
+
+- **Approve** — approves the customer registration.
+- **Reject** — rejects the customer registration.
+- **Review Customer** — detailed review before deciding.
+- **Send for Evaluation** — forwards for additional review in the Customers Under Evaluation tab.
+- **Add Note** — records a note on the registration.
+
+### 7. Approval result and SAP integration
+
+<DocTable
+  headers={['Decision', 'Status on the Customers screen', 'Note']}
+  rows={[
+    ['Approved', 'ACTIVE', 'Automatic integration with SAP and SAP code generation. Visible in the most recent update.'],
+    ['Rejected', 'Credit Review Denied', 'Registration denied; returns to the consultant to check.'],
+    ['Under Evaluation', 'Customer Under Credit Evaluation', 'In the Customers Under Evaluation tab, the status is shown in detail.'],
+  ]}
+/>
+
+<Callout type="info" title="SAP integration">
+The SAP code is generated automatically and only when the customer is approved (ACTIVE status). Always check the most recent update of the registration.
+</Callout>
+
+## Rules and cautions
+
+- All required fields must be filled in before saving; the **"Send Customer"** button is only available after saving successfully.
+- The approval level varies according to the person type — check the send-for-review table.
+- The SAP code is only generated on approval (ACTIVE status).
+- Each profile should have access only to what is needed for its role; level credentials should not be shared.
+
+## Responsibilities
+
+<DocTable
+  headers={['Profile', 'Access', 'Responsibility']}
+  rows={[
+    ['Administrator (Master)', 'Full', 'Customer creation and general settings.'],
+    ['Common User (e.g., Consultant)', 'Restricted', 'Creation of customers linked to their profile.'],
+    ['Credit level', 'Approval queue', 'Credit approval/rejection (individual and company).'],
+    ['Tax level', 'Approval queue', 'Tax approval/rejection (company and foreign).'],
+    ['International Credit level (Comex)', 'Approval queue', 'International credit approval (foreign).'],
+  ]}
+/>
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The "Send Customer" button is not enabled', 'Registration not saved yet or a required field missing', 'Fill in all required fields and save the registration.'],
+    ['The customer does not appear in the approval queue', 'Customer not sent yet or incorrect level', 'Confirm the sending and the level corresponding to the person type.'],
+    ['The customer did not generate a SAP code', 'Registration not yet approved', 'The SAP code is only generated after approval (ACTIVE status).'],
+    ['Registration came back as denied', 'Rejection in the credit review', 'Check with the level the reason and adjust the registration before resending.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Which customer types does this flow cover?', answer: 'Individual (PF), Company (PJ) and Foreign.' },
+    { question: 'Why is the "Send Customer" button disabled?', answer: 'Because the registration has not been saved yet. It is only enabled after saving with all required fields filled in.' },
+    { question: 'Who approves each customer type?', answer: 'Individual goes to the Credit level; Company to Credit and Tax; Foreign to International Credit and Tax.' },
+    { question: 'When is the SAP code generated?', answer: 'Automatically, only when the customer is approved and becomes ACTIVE.' },
+    { question: 'What happens if the customer is rejected?', answer: 'The registration gets the status "Credit Review Denied" and returns to the consultant for checking.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'QA', date: 'March/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: 'March/2026', author: 'QA', description: 'Initial release of the customer creation and approval process.' },
+  ]}
+/>

@@ -1,0 +1,46 @@
+---
+section: modulos
+routeSlug: regulatorios
+pageType: module-index
+module: regulatorios
+moduleLabel: Regulatory
+lang: en
+title: Regulatory
+description: Regulatory records, labels and traceability.
+keywords: [regulatory, label, traceability, ce marking]
+tags: [modulo]
+order: 18
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+
+## Overview
+
+The **Regulatory** module brings together the records and settings required by regulatory agencies, including traceability and rework labels and the CE marking of products.
+
+## When to use this module
+
+- Look up the regulatory status of a product.
+- Configure label templates by country or process.
+- Track records with regulatory agencies.
+
+## How to access
+
+Side menu → Modules → Regulatory
+
+<Callout type="cuidado" title="Requirements by country">
+Some records and labels vary according to the product’s destination country. Confirm the local requirement before using.
+</Callout>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the General Product List for?', answer: 'To look up and maintain the products’ regulatory data — records, labels and information by country.' },
+    { question: 'Which records and countries does the list cover?', answer: 'Records such as ANVISA, FDA and CE Marking, plus country-specific fields. The list currently covers all served countries.' },
+    { question: 'How do I update several products at once?', answer: 'There is a routine to import the records from an Excel spreadsheet.' },
+    { question: 'How do I export the data?', answer: 'Through the option to export the table to Excel or PDF.' },
+    { question: 'How do I find a product by its registration?', answer: 'Use the filter by Registration Number (for example, ANVISA).' },
+  ]}
+/>

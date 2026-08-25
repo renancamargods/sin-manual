@@ -18,6 +18,7 @@ import Callout from '../../../../components/Callout.astro';
 import QuickCards from '../../../../components/QuickCards.astro';
 import DocTable from '../../../../components/DocTable.astro';
 import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
 
 ## Visão geral
 
@@ -139,5 +140,18 @@ Alterar o perfil de um usuário muda imediatamente o que ele consegue ver e faze
     { question: 'Como defino a empresa e os centros do usuário?', answer: 'Selecione a empresa; os centros disponíveis são carregados conforme a empresa escolhida.' },
     { question: 'O que é um "Usuário Gestor"?', answer: 'É uma marcação que identifica gestores, usada para vincular liderados e em filtros.' },
     { question: 'Existe log de alterações do usuário?', answer: 'Sim, o cadastro mantém o log das alterações.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '25/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Usuário.' },
   ]}
 />

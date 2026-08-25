@@ -1,0 +1,46 @@
+---
+section: modulos
+routeSlug: politicas
+pageType: module-index
+module: politicas
+moduleLabel: Policies
+lang: en
+title: Policies
+description: Commercial policies, payment terms and territories.
+keywords: [policies, commercial policy, payment term, territory, sales quota]
+tags: [modulo]
+order: 15
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+
+## Overview
+
+The **Policies** module brings together the commercial rules applied to customers and orders: payment terms and methods, territories, sales quotas and campaigns.
+
+## When to use this module
+
+- Configure a new commercial policy.
+- Look up available payment terms and methods.
+- Define territories and sales quotas.
+
+## How to access
+
+Side menu → Modules → Policies
+
+<Callout type="cuidado" title="Impact on orders">
+Changes to commercial policies apply to new orders and may not affect orders already created.
+</Callout>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Commercial Structure for?', answer: 'It defines the commercial hierarchy (consultants, managers, sales reps, finance, credit, among others) and each one’s customer portfolio.' },
+    { question: 'How do commercial policies affect an order?', answer: 'They define discounts, campaigns and rules applied automatically to the order, according to the customer and the items — all from what is registered in the policies.' },
+    { question: 'What is a Sales Restriction?', answer: 'A rule, registered in the policies, that prevents selling certain products to certain customers or situations.' },
+    { question: 'Where do I configure payment methods and terms?', answer: 'In the Policies module, under Payment Method and Payment Term.' },
+    { question: 'Does changing a policy affect orders already placed?', answer: 'Not necessarily; changes apply to new orders.' },
+  ]}
+/>

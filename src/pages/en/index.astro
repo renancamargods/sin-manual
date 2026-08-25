@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Hero from '../../components/Hero.astro';
+import HeroVideo from '../../components/HeroVideo.astro';
+import SearchBox from '../../components/SearchBox.astro';
+import ModuleCard from '../../components/ModuleCard.astro';
+import Icon from '../../components/Icon.astro';
+import { manualPages, modules, tecnicoPages, moduleEn, manualPageEn, tecnicoGroupEn } from '../../data/modules';
+
+const heroVideo = {
+  provider: 'youtube' as const,
+  video: 'https://www.youtube.com/watch?v=YxgQm0ALeqE',
+  title: 'Get to know the system in a few minutes',
+};
+
+const shortcuts = [
+  { title: 'How to access the system', href: '/en/manual/como-acessar', icon: 'lock' as const },
+  { title: 'System overview', href: '/en/manual/visao-geral', icon: 'book' as const },
+  { title: 'FAQ', href: '/en/manual/faq', icon: 'info' as const },
+  { title: 'Technical Docs & Settings', href: '/en/tecnico/fluxos', icon: 'shield' as const },
+];
+---
+
+<BaseLayout title="User Manual" description="User manual for the S.I.N Implant System: modules, screens, routines and FAQ.">
+  <Hero
+    eyebrow="S.I.N Implant System"
+    title="Web User Manual"
+    description="Quickly find how to use each screen and routine of the system: records, orders, invoicing, quality, regulatory and more."
+  >
+    <div class="mt-8 max-w-xl">
+      <SearchBox size="lg" placeholder="Search module, screen or FAQ..." />
+    </div>
+
+    <div class="mt-6 flex flex-wrap gap-2">
+      {shortcuts.map((s) => (
+        <a
+          href={s.href}
+          class="inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-white/80 transition hover:border-white/30 hover:bg-white/10 hover:text-white"
+        >
+          <Icon name={s.icon} class="h-3.5 w-3.5" />
+          {s.title}
+        </a>
+      ))}
+    </div>
+
+    <div slot="media">
+      <HeroVideo provider={heroVideo.provider} video={heroVideo.video} title={heroVideo.title} />
+    </div>
+  </Hero>
+
+  <section id="modulos" class="w-full px-4 py-14 sm:px-6 lg:px-8 xl:px-10 scroll-mt-20">
+    <div class="mb-8 flex items-end justify-between gap-4">
+      <div>
+        <h2 class="text-lg font-bold text-gray-900 sm:text-xl">System modules</h2>
+        <p class="mt-1 text-sm text-gray-500">Choose a module to see its screens and routines.</p>
+      </div>
+    </div>
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {modules.map((mod) => (
+        <ModuleCard
+          label={moduleEn[mod.id]?.label ?? mod.label}
+          description={moduleEn[mod.id]?.description ?? mod.description}
+          href={`/en/modulos/${mod.id}`}
+          count={mod.routines.length}
+        />
+      ))}
+    </div>
+  </section>
+
+  <section class="border-t border-gray-200 bg-white">
+    <div class="w-full px-4 py-14 sm:px-6 lg:px-8 xl:px-10">
+      <div class="grid gap-10 md:grid-cols-2">
+        <div>
+          <h2 class="mb-4 text-lg font-bold text-gray-900">System Manual</h2>
+          <ul class="space-y-2">
+            {manualPages.map((p) => (
+              <li>
+                <a href={`/en/manual/${p.slug}`} class="group flex items-center justify-between rounded-lg border border-gray-200 px-4 py-3 text-sm transition hover:border-brand-red/30 hover:shadow-card">
+                  <span>
+                    <span class="block font-medium text-gray-900 group-hover:text-brand-red">{manualPageEn[p.slug]?.title ?? p.title}</span>
+                    <span class="block text-xs text-gray-500">{manualPageEn[p.slug]?.description ?? p.description}</span>
+                  </span>
+                  <Icon name="arrow-right" class="h-4 w-4 flex-shrink-0 text-gray-300 group-hover:text-brand-red" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="mb-4 text-lg font-bold text-gray-900">Technical Docs & Settings</h2>
+          <ul class="space-y-2">
+            {tecnicoPages.map((p) => (
+              <li>
+                <a href={`/en/tecnico/${p.slug}`} class="group flex items-center justify-between rounded-lg border border-gray-200 px-4 py-3 text-sm transition hover:border-brand-red/30 hover:shadow-card">
+                  <span>
+                    <span class="block font-medium text-gray-900 group-hover:text-brand-red">{tecnicoGroupEn[p.slug]?.title ?? p.title}</span>
+                    <span class="block text-xs text-gray-500">{tecnicoGroupEn[p.slug]?.description ?? p.description}</span>
+                  </span>
+                  <Icon name="arrow-right" class="h-4 w-4 flex-shrink-0 text-gray-300 group-hover:text-brand-red" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

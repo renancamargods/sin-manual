@@ -1,0 +1,112 @@
+---
+section: manual
+routeSlug: glossario
+pageType: manual
+lang: en
+title: Glossary
+description: Terms, acronyms and concepts used in the S.I.N Implant System and this manual.
+keywords: [glossary, terms, acronyms, definitions, lounge, datamatrix, consignment, gtin]
+tags: [manual, glossário]
+order: 4
+---
+
+import DocTable from '../../../../components/DocTable.astro';
+import Callout from '../../../../components/Callout.astro';
+
+## About the glossary
+
+Here we bring together the terms, acronyms and concepts that appear frequently in the system and in this manual. Use the search at the top of the page to find a specific term.
+
+## Commercial and sales
+
+<DocTable
+  headers={['Term', 'Meaning']}
+  rows={[
+    ['Lead', 'Commercial opportunity (potential customer) recorded to be worked by a responsible executive.'],
+    ['Sales Pipeline', 'Sequence of stages (statuses) a lead goes through until it is converted.'],
+    ['SLA', 'Expected time for a stage; when exceeded, the item may receive a visual alert.'],
+    ['Commercial Structure', 'Commercial hierarchy (consultants, managers and other roles) and each one’s customer portfolio.'],
+    ['Commercial Policy', 'Set of rules (discounts, campaigns) applied automatically to orders.'],
+    ['Sales Restriction', 'Rule that prevents selling certain products to certain customers or situations.'],
+    ['Campaign', 'Commercial action with its own pricing and reward rules applied to order items.'],
+    ['KA (Key Account)', 'Strategic account or customer, with specific commercial treatment.'],
+    ['FVE, FVI, GR, GD', 'Acronyms for roles and hierarchies in the commercial structure.'],
+  ]}
+/>
+
+## Orders, payment and credit
+
+<DocTable
+  headers={['Term', 'Meaning']}
+  rows={[
+    ['Quick Entry', 'A way to add several items to an order at once.'],
+    ['Smart Operation', 'Automatic rules applied when creating certain orders.'],
+    ['Mixed Payment', 'Combining more than one payment method in the same order (e.g., PIX + card).'],
+    ['Payment link', 'PIX or card link sent to the customer by WhatsApp and email to pay the order.'],
+    ['Credit Engine', 'Automatic order review that may query Serasa and decide release, rejection or sending to the credit desk.'],
+    ['Approval level', 'Approval level (e.g., Administrative, Credit) the order may need to pass through.'],
+    ['Approval Queue', 'List of orders awaiting approval at the levels.'],
+    ['Proforma / Invoice', 'Documents used in international orders (COMEX).'],
+    ['COMEX', 'Foreign trade; international orders and customers.'],
+    ['Drawer Turn (Virada de Gaveta)', 'Internal process of making a lounge’s items available.'],
+  ]}
+/>
+
+## Logistics, stock and quality
+
+<DocTable
+  headers={['Term', 'Meaning']}
+  rows={[
+    ['DataMatrix', '2D barcode scanned to identify items in picking, inventory, exchanges and quality.'],
+    ['GTIN', 'Global product identification barcode (usually 13 digits).'],
+    ['Picking Sheet', 'Document generated to guide the physical picking of a shipment’s items.'],
+    ['Shipment', 'Set of items of an order prepared for picking and invoicing.'],
+    ['Picking', 'Stage of checking the items (by scanning) before invoicing.'],
+    ['Consignment', 'Products sent to the customer that are only invoiced when used.'],
+    ['Consignment Closing', 'Process of calculating and invoicing the consignment items actually used.'],
+    ['Protocol', 'Record that groups the items scanned in exchanges/returns or in consignment closing.'],
+    ['Exchanges and Returns', 'Return of items: a return generates credit; an exchange replaces them with other items.'],
+    ['InCompany / Intercompany', 'Operation where the invoice is from a center or company different from the user.'],
+    ['Loading List (Romaneio)', 'Organizing shipments into a load for transport (carrier, freight and labels).'],
+    ['Cyclic inventory', 'Periodic count of only some specific products.'],
+    ['Scrap (Refugo)', 'Record of materials rejected or discarded in the quality analysis.'],
+  ]}
+/>
+
+## Records and structure
+
+<DocTable
+  headers={['Term', 'Meaning']}
+  rows={[
+    ['Company', 'Legal entity of the group (e.g., company 01, 02 or 03).'],
+    ['Center', 'Stock and invoicing unit in SAP (e.g., 1033, 1027, 1000).'],
+    ['Lounge', 'Operational unit/store linked to a company and center (e.g., Lounge Tatuapé).'],
+    ['Fair Mode', 'Setting applied to users during a fair or event.'],
+    ['Profile', 'Set of permissions that defines what the user sees and does.'],
+    ['Group', 'Additional grouping of users, used for organization and submodule visibility.'],
+    ['Manager User', 'Flag that identifies managers, used to link subordinates and in filters.'],
+    ['Loan / Bailment (Comodato)', 'Items lent to the customer in a contract; may generate automatic orders after signing.'],
+  ]}
+/>
+
+## Integrations and systems
+
+<DocTable
+  headers={['Term', 'Meaning']}
+  rows={[
+    ['SAP', 'Corporate ERP the system integrates with for orders, invoicing and stock.'],
+    ['VerifyID', 'External lookup that fills in customer data automatically from the document.'],
+    ['Serasa', 'Credit lookup used by the Credit Engine.'],
+    ['ZapSign', 'Electronic signature service used in contracts.'],
+    ['ClearSale', 'Anti-fraud analysis service used in customer registration.'],
+    ['GO.ON', 'Field routing and visits software and app, integrated with the CRM.'],
+    ['Ignition', 'Indicator and operational tracking panel.'],
+    ['Pulse Credit', 'Integration used in the customer pre-registration step.'],
+    ['PFCQ', 'Occurrence classification: Product, Supplier, Customer or Quality.'],
+    ['Hands On', 'Practical training request.'],
+  ]}
+/>
+
+<Callout type="dica" title="Missing a term?">
+If you find a term that is not here, let the team responsible for the documentation know so we can add it.
+</Callout>

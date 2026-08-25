@@ -1,0 +1,55 @@
+---
+section: modulos
+routeSlug: roteirizador
+pageType: module-index
+module: roteirizador
+moduleLabel: Field Routing
+lang: en
+title: Field Routing
+description: Schedules, forms and field service journeys.
+keywords: [field routing, schedule, form, journey, field service]
+tags: [modulo]
+order: 19
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+
+## Overview
+
+The **Field Routing** module organizes schedules, forms and journeys used in field service, allowing you to plan visits and record collected information.
+
+## When to use this module
+
+- Register or look up a schedule.
+- Configure forms and their fields.
+- Track field service metrics.
+
+## How to access
+
+Side menu → Modules → Field Routing
+
+<Callout type="info" title="Field use">
+The information in this module is usually used by teams that carry out in-person visits.
+</Callout>
+
+## FAQ
+
+### Schedule and routing
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Schedule for?', answer: 'To plan and record the visits and services of field consultants.' },
+    { question: 'What does "Route" mean?', answer: 'It is the automatic calculation of the visit route, done through integration with GO.ON (routing software).' },
+    { question: 'Can I edit a schedule that has already been integrated?', answer: 'Yes, as long as you have the necessary permission. Without it, schedules that have already been integrated are locked for editing.' },
+    { question: 'How do I record an absence (vacation or day off)?', answer: 'Register the consultant’s absence; the system alerts you if there is already something scheduled in the period.' },
+  ]}
+/>
+
+### Field service
+
+<FaqAccordion
+  items={[
+    { question: 'How does the consultant record the visit in the field?', answer: 'Through the GO.ON app on the phone (check-in, check-out and visit form) or through the CRM itself; the information is integrated between the two.' },
+  ]}
+/>

@@ -14,6 +14,9 @@ const docs = defineCollection({
     section: z.enum(['manual', 'modulos', 'tecnico']),
     routeSlug: z.string(),
 
+    // Idioma do conteúdo. PT é o padrão (raiz); 'en' é a gêmea traduzida (/en/*).
+    lang: z.enum(['pt', 'en']).default('pt'),
+
     // Identificação / SEO / busca
     title: z.string(),
     description: z.string(),

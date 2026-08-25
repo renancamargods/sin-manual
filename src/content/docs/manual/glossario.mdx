@@ -1,0 +1,111 @@
+---
+section: manual
+routeSlug: glossario
+pageType: manual
+title: Glossário
+description: Termos, siglas e conceitos usados no S.I.N Implant System e neste manual.
+keywords: [glossário, termos, siglas, definições, lounge, datamatrix, consignado, gtin, comodato]
+tags: [manual, glossário]
+order: 4
+---
+
+import DocTable from '../../../components/DocTable.astro';
+import Callout from '../../../components/Callout.astro';
+
+## Sobre o glossário
+
+Reunimos aqui os termos, siglas e conceitos que aparecem com frequência no sistema e neste manual. Use a busca no topo da página para localizar um termo específico.
+
+## Comercial e vendas
+
+<DocTable
+  headers={['Termo', 'O que significa']}
+  rows={[
+    ['Lead', 'Oportunidade comercial (potencial cliente) registrada para ser trabalhada por um executivo.'],
+    ['Pipeline de Venda', 'Sequência de etapas (status) pelas quais um lead passa até ser convertido.'],
+    ['SLA', 'Prazo esperado para uma etapa; ao ser ultrapassado, o item pode receber alerta visual.'],
+    ['Estrutura Comercial', 'Hierarquia comercial (consultores, gerentes e demais funções) e a carteira de clientes de cada um.'],
+    ['Política Comercial', 'Conjunto de regras (descontos, campanhas) aplicadas automaticamente aos pedidos.'],
+    ['Restrição de Venda', 'Regra que impede a venda de determinados produtos a determinados clientes ou situações.'],
+    ['Campanha', 'Ação comercial com regras próprias de preço e premiação aplicadas a itens do pedido.'],
+    ['KA (Key Account)', 'Conta ou cliente estratégico, com tratamento comercial específico.'],
+    ['FVE, FVI, GR, GD', 'Siglas de funções e hierarquias da estrutura comercial.'],
+  ]}
+/>
+
+## Pedidos, pagamento e crédito
+
+<DocTable
+  headers={['Termo', 'O que significa']}
+  rows={[
+    ['Digitação Rápida', 'Forma de incluir vários itens no pedido de uma só vez.'],
+    ['Operação Inteligente', 'Regras automáticas aplicadas na criação de determinados pedidos.'],
+    ['Pagamento Misto', 'Combinação de mais de uma forma de pagamento no mesmo pedido (ex.: PIX + cartão).'],
+    ['Link de pagamento', 'Link de PIX ou cartão enviado ao cliente por WhatsApp e e-mail para quitar o pedido.'],
+    ['Motor de Crédito', 'Análise automática do pedido que pode consultar o Serasa e definir liberação, recusa ou envio à mesa de crédito.'],
+    ['Alçada', 'Nível de aprovação (ex.: Administrativo, Crédito) pelo qual o pedido pode precisar passar.'],
+    ['Fila de Aprovação', 'Lista de pedidos aguardando aprovação nas alçadas.'],
+    ['Proforma / Invoice', 'Documentos usados em pedidos internacionais (COMEX).'],
+    ['COMEX', 'Comércio exterior; pedidos e clientes internacionais.'],
+    ['Virada de Gaveta', 'Processo interno de disponibilização de itens de um lounge.'],
+  ]}
+/>
+
+## Logística, estoque e qualidade
+
+<DocTable
+  headers={['Termo', 'O que significa']}
+  rows={[
+    ['DataMatrix', 'Código de barras 2D lido (bipado) para identificar itens em separação, inventário, trocas e qualidade.'],
+    ['GTIN', 'Código de barras global de identificação do produto (normalmente 13 dígitos).'],
+    ['Folha de Picking', 'Documento gerado para orientar a separação física dos itens de uma remessa.'],
+    ['Remessa', 'Conjunto de itens de um pedido preparado para separação e faturamento.'],
+    ['Separação', 'Etapa de conferência dos itens (via bipagem) antes do faturamento.'],
+    ['Consignado', 'Produtos enviados ao cliente que só são faturados quando utilizados.'],
+    ['Fechamento de Consignado', 'Processo de apurar e faturar os itens consignados efetivamente utilizados.'],
+    ['Protocolo', 'Registro que agrupa os itens lidos em trocas/devoluções ou no fechamento de consignado.'],
+    ['Trocas e Devoluções', 'Retorno de itens: a devolução gera crédito; a troca substitui por outros itens.'],
+    ['InCompany / Intercompany', 'Operação em que a nota é de um centro ou empresa diferente do usuário.'],
+    ['Romaneio', 'Organização das remessas em carga para transporte (transportadora, frete e etiquetas).'],
+    ['Inventário cíclico', 'Contagem periódica de apenas alguns produtos específicos.'],
+    ['Refugo', 'Registro de materiais reprovados ou descartados na análise de qualidade.'],
+  ]}
+/>
+
+## Cadastros e estrutura
+
+<DocTable
+  headers={['Termo', 'O que significa']}
+  rows={[
+    ['Empresa', 'Pessoa jurídica do grupo (ex.: empresa 01, 02 ou 03).'],
+    ['Centro', 'Unidade de estoque e faturamento no SAP (ex.: 1033, 1027, 1000).'],
+    ['Lounge', 'Unidade operacional/loja vinculada a uma empresa e centro (ex.: Lounge Tatuapé).'],
+    ['Modo Feira', 'Configuração aplicada aos usuários durante uma feira ou evento.'],
+    ['Perfil', 'Conjunto de permissões que define o que o usuário vê e faz.'],
+    ['Grupo', 'Agrupamento adicional de usuários, usado na organização e na visualização de submódulos.'],
+    ['Usuário Gestor', 'Marcação que identifica gestores, usada para vincular liderados e em filtros.'],
+    ['Comodato', 'Itens cedidos ao cliente em contrato; podem gerar pedidos automáticos após a assinatura.'],
+  ]}
+/>
+
+## Integrações e sistemas
+
+<DocTable
+  headers={['Termo', 'O que significa']}
+  rows={[
+    ['SAP', 'ERP corporativo com o qual o sistema integra pedidos, faturamento e estoque.'],
+    ['VerifyID', 'Consulta externa que preenche dados do cliente automaticamente a partir do documento.'],
+    ['Serasa', 'Consulta de crédito usada pelo Motor de Crédito.'],
+    ['ZapSign', 'Serviço de assinatura eletrônica usado nos contratos.'],
+    ['ClearSale', 'Serviço de análise antifraude usado no cadastro de clientes.'],
+    ['GO.ON', 'Software e aplicativo de roteirização e visitas em campo, integrado ao CRM.'],
+    ['Ignition', 'Painel de indicadores e acompanhamento operacional.'],
+    ['Pulse Credit', 'Integração usada na etapa de pré-cadastro do cliente.'],
+    ['PFCQ', 'Classificação de ocorrências: Produto, Fornecedor, Cliente ou Qualidade.'],
+    ['Hands On', 'Solicitação de treinamento prático.'],
+  ]}
+/>
+
+<Callout type="dica" title="Faltou algum termo?">
+Se você encontrar um termo que não está aqui, avise a equipe responsável pela documentação para incluirmos.
+</Callout>

@@ -10,10 +10,13 @@ interface Props {
 }
 
 const { title, description, showSidebarToggle = false } = Astro.props;
+
+const path = Astro.url.pathname;
+const isEn = path === '/en' || path.startsWith('/en/');
 ---
 
 <!doctype html>
-<html lang="pt-BR">
+<html lang={isEn ? 'en' : 'pt-BR'}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />

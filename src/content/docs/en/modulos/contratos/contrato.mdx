@@ -1,0 +1,163 @@
+---
+section: modulos
+routeSlug: contratos/contrato
+pageType: routine
+module: contratos
+moduleLabel: Contracts
+lang: en
+title: Contract
+description: Central registration of commercial contracts signed with customers.
+routineType: Registration
+permission: Yes
+impact: High — basis for consumption targets and commercial policies
+keywords: [contract, contract registration, commercial contracts]
+tags: [modulo-contratos, cadastro]
+order: 2
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Contract** screen brings together the registration of commercial contracts signed with customers, including validity, expected consumption targets and specific policies applied to the contract.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Contract registration', text: 'Centralizes the data of the contract signed with the customer.' },
+    { label: 'Usage', title: 'Commercial and financial', text: 'The contract information supports the tracking of targets and commercial policies.' },
+    { label: 'Caution', title: 'Contract validity', text: 'Review dates and terms before linking the contract to new operations.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new contract.
+- Look up data and validity of an existing contract.
+- Change terms or attach documents to the contract.
+- Track consumption targets linked to the contract.
+
+## How to access
+
+Contracts → Contract
+
+## Before you start
+
+- Confirm the customer is already registered in the Customers module.
+- Have at hand the commercial terms and the agreed validity.
+- Check whether there is a specific contract policy to apply.
+
+## Main fields
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Code', 'Identifies the contract in the system.'],
+    ['Customer', 'Customer linked to the contract.'],
+    ['Start date', 'Start of the contract validity.'],
+    ['End date', 'End of the contract validity.'],
+    ['Contract policy', 'Commercial rules applied to the contract.'],
+    ['Status', 'Indicates whether the contract is active, ended or inactive.'],
+    ['Notes', 'Free field for additional information.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Register new contract** — select the customer, set the validity and save.
+2. **Look up contract** — use the search to find it by customer or code.
+3. **Change contract** — update terms, validity or attachments.
+4. **End contract** — change the status when the contract reaches its end.
+
+## Relationships with other records or processes
+
+This record depends on a customer already registered in the Customers module. Consumption targets and contract policies are linked to this record.
+
+<Callout type="info" title="Related records">
+Attachments, consumption targets and specific contract policies are available on complementary screens of the Contracts module.
+</Callout>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['CONTRATO.VISUALIZAR', 'Access to the screen', 'Allows opening and viewing the contract record.'],
+    ['CONTRATO.EDITAR', 'Registration and changes', 'Allows creating and changing contract data.'],
+    ['CONTRATO.ENCERRAR', 'Contract status', 'Allows ending an active contract.'],
+  ]}
+/>
+
+## Important parameters and behaviors
+
+- The contract must be active to be considered in linked targets and policies.
+- Changes to the validity apply from the informed date.
+- Ending a contract does not delete the history of targets already recorded.
+
+## Rules and cautions
+
+- Review customer, validity and terms before saving the contract.
+- Avoid registering duplicate contracts for the same customer and period.
+- Prefer to end rather than delete a contract that already has linked movements.
+- Check your permissions before changing an active contract.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+    ['Contract does not appear in the search', 'Inactive status or filter applied', 'Review the filters and the contract status.'],
+    ['Consumption target is not being considered', 'Contract out of validity', 'Check the start and end dates of the contract.'],
+    ['Error when ending the contract', 'Pending linked movements', 'Check pending items before ending the contract.'],
+  ]}
+/>
+
+## FAQ
+
+### General use
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register and track the commercial contracts signed with customers.' },
+    { question: 'Can I delete a contract in use?', answer: 'Not recommended. Prefer to end the contract to preserve the history of targets and movements.' },
+    { question: 'Does changing this contract affect periods already ended?', answer: 'No. Changes apply from the informed date.' },
+    { question: 'Do I need permission to access this screen?', answer: 'Yes. You must have the corresponding permission enabled in your access profile.' },
+    { question: 'Where is this information used?', answer: 'In tracking consumption targets and applying specific commercial policies.' },
+  ]}
+/>
+
+### Signature and validity
+
+<FaqAccordion
+  items={[
+    { question: 'How is the contract signed?', answer: 'The contract can be sent for electronic signature via ZapSign; after signing, the system runs the following routines.' },
+    { question: 'How do I register a renewal or amendment?', answer: 'There is a button on the contract where you choose between renewal and amendment.' },
+  ]}
+/>
+
+### Bailment and import
+
+<FaqAccordion
+  items={[
+    { question: 'What happens to the bailment items?', answer: 'After the signatures, the system may automatically generate bailment orders; some of the items are controlled and delivered via tickets or occurrences.' },
+    { question: 'How do I import targets, discounts and bailments?', answer: 'Through a standard contract import spreadsheet.' },
+    { question: 'Does the contract change according to the partner type?', answer: 'Yes, the format of the contract sent varies according to the partner type (for example, Key Account).' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '25/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/08/2026', author: 'Renan Camargo', description: 'Initial release of the Contract screen documentation.' },
+  ]}
+/>

@@ -1,0 +1,57 @@
+---
+section: modulos
+routeSlug: leads
+pageType: module-index
+module: leads
+moduleLabel: Leads
+lang: en
+title: Leads
+description: Commercial prospecting and opportunity tracking.
+keywords: [leads, lead, prospecting, kanban, sales pipeline]
+tags: [modulo]
+order: 11
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+
+## Overview
+
+The **Leads** module supports commercial prospecting, bringing together received referrals and the tracking of opportunities until conversion into a customer.
+
+## When to use this module
+
+- Register a new lead referral.
+- Track leads on the Kanban board.
+- Look up the sales pipeline stage of an opportunity.
+
+## How to access
+
+Side menu → Modules → Leads
+
+<Callout type="info" title="Commercial flow">
+Converted leads usually originate a new record in the Customers module.
+</Callout>
+
+## FAQ
+
+### Referral and registration
+
+<FaqAccordion
+  items={[
+    { question: 'What is a lead referral?', answer: 'It is the record of a commercial opportunity (potential customer) so that a responsible executive can work the sale.' },
+    { question: 'Who can change a lead after it is created?', answer: 'In general, only the executive responsible for the lead, to avoid changes by several people. Users with a specific permission can also edit it.' },
+    { question: 'Can I refer a lead to any executive?', answer: 'It depends on the configuration: there is a mode that allows freely choosing the executive and another that follows the hierarchy.' },
+  ]}
+/>
+
+### Tracking and conversion
+
+<FaqAccordion
+  items={[
+    { question: 'How do I track the progress of leads?', answer: 'Through the Kanban board, which shows leads by pipeline status, or through the Leads List.' },
+    { question: 'What is the SLA on a lead?', answer: 'It is the expected time at each stage; leads that exceed the time receive a visual alert (color).' },
+    { question: 'Do I get notified when a lead is referred to me?', answer: 'Yes, the system notifies the responsible executive about new leads.' },
+    { question: 'What happens when a lead is "Won"?', answer: 'It can be linked to a customer code; converted leads usually originate a record in the Customers module.' },
+  ]}
+/>

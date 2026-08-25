@@ -1,0 +1,245 @@
+---
+section: tecnico
+routeSlug: fluxos/configuracao-de-produtos-no-lounge
+pageType: tecnico
+lang: en
+title: Product Configuration in the Lounge Flow
+description: Product parameterization by location and routing of order items to the correct Lounge, up to the generation of Sales Orders in SAP.
+moduleLabel: Orders
+routineType: Process flow
+impact: Item routing and Sales Order generation
+keywords: [lounge, product configuration, routing, location, country, state, city, center, sales order, sap, orders, sku]
+tags: [tecnico, fluxo, lounge]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Product Configuration in the Lounge** flow lets you configure a **Product (SKU)**, associating it with a **Family**, a **Group**, a **service Lounge** and a **Location** (Country, State and City). Based on this parameterization, when creating an order the system routes each item to the correct Lounge according to the customer’s location.
+
+Each Lounge corresponds to a **Center in SAP**. Therefore, the configuration directly influences how many **Sales Orders** the order generates: items that go to different Centers generate separate Sales Orders, and items that go to the same Center are grouped into a single Sales Order.
+
+The parameterization is done on the **Order Product Lounge Parameters** screen (Orders module) and its effect appears in the creation, approval and integration of orders with SAP.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Routing by location', text: 'Routes each order item to the right Lounge according to the customer’s location.' },
+    { label: 'Usage', title: 'Orders and SAP integration', text: 'Defines the Lounge/Center of each item and, with that, the Sales Orders generated in SAP.' },
+    { label: 'Caution', title: 'Impact on Sales Orders', text: 'Changing the parameterization changes the routing and the number of Sales Orders in the order.' },
+  ]}
+/>
+
+## When to use this flow
+
+- Register or look up a product’s parameterization by location and Lounge.
+- Define which Lounge an item should go to according to the customer’s location.
+- Understand why an order generated one or more Sales Orders in SAP.
+
+## How to access
+
+- Orders → Order Product Lounge Parameters
+- Orders → Orders
+- Approvals → New Approval Queue – Orders
+- SAP → VA03 (checking the Sales Orders)
+
+## The process stages
+
+<DocTable
+  headers={['Stage', 'Where', 'What happens']}
+  rows={[
+    ['1. Parameterization', 'Orders → Order Product Lounge Parameters', 'Registration of the product parameters by location and Lounge.'],
+    ['2. Order creation', 'Orders → Orders', 'Creation of the order with the items; the system routes each item according to the configuration.'],
+    ['3. Approval', 'Approvals → New Approval Queue – Orders', 'Order approval (Credit block).'],
+    ['4. Integration', 'Orders → Orders', 'Confirmation of the SAP integration and the generated Sales Orders.'],
+    ['5. Checking', 'SAP → VA03', 'Checking the Sales Orders, items and Centers.'],
+  ]}
+/>
+
+## Before you start
+
+- Have access to the Orders module and the **Order Product Lounge Parameters** screen.
+- Have a profile enabled in the approval flow (New Approval Queue – Orders), including the Credit level.
+- Confirm that the products (SKUs) are registered and available for sale.
+- Confirm that the customers have their location (City/State) defined.
+- To check the Sales Orders, have access to SAP (transaction VA03).
+
+## How the routing works
+
+During order creation, for **each item** the system checks whether there is an **active** configuration whose location is compatible with the customer’s:
+
+- **There is a compatible configuration** → the item goes to the **configured Lounge**.
+- **There is no applicable configuration** → the item stays in the **order Lounge** (the one entered in the header).
+
+<Callout type="info" title="Key concept: configured Lounge x order Lounge">
+Parameterization by location takes precedence for items with a compatible configuration; the other items follow the order header Lounge. The number of Sales Orders generated equals the number of **distinct Centers** resulting from the item routing.
+</Callout>
+
+**Example A — customer in SP** (order Lounge: Tatuapé):
+
+<DocTable
+  headers={['Item', 'Applicable configuration', 'Compatible?', 'Resulting Lounge']}
+  rows={[
+    ['Product A', 'Lounge Vitória (SP)', 'Yes (SP)', 'Lounge Vitória'],
+    ['Product B', 'Lounge Rio de Janeiro (RJ)', 'No (customer is from SP)', 'Order Lounge (Tatuapé)'],
+    ['Product C', 'No configuration', '—', 'Order Lounge (Tatuapé)'],
+  ]}
+/>
+
+Result: 2 distinct Centers → **2 Sales Orders**.
+
+**Example B — customer in Macaé/RJ** (order Lounge: Rio de Janeiro):
+
+<DocTable
+  headers={['Item', 'Applicable configuration', 'Compatible?', 'Resulting Lounge']}
+  rows={[
+    ['Product A', 'Lounge Rio de Janeiro (RJ / Macaé)', 'Yes (RJ / Macaé)', 'Lounge Rio de Janeiro'],
+    ['Product B', 'Lounge Rio de Janeiro (RJ)', 'Yes (RJ)', 'Lounge Rio de Janeiro'],
+    ['Product C', 'No configuration', '—', 'Order Lounge (Rio de Janeiro)'],
+  ]}
+/>
+
+Result: 1 Center → **1 Sales Order**.
+
+## Step by step of the process
+
+### 1. Register the parameters
+
+Orders module → **Order Product Lounge Parameters**. The screen has the **Search** area (filters), the **Search**, **+ New** and **Clear Filters** buttons, and the **Results** list.
+
+Available search filters:
+
+<DocTable
+  headers={['Field', 'Required', 'Description']}
+  rows={[
+    ['Family', 'No', 'Searches by name or by the family code (x.x format).'],
+    ['Group', 'No', 'Searches by name or by the group code (x.x.x format).'],
+    ['Products', 'No', 'Searches by the product (SKU).'],
+    ['Country', 'No', 'Filters by the country location.'],
+    ['State', 'Conditional', 'Enabled only after filling in the Country.'],
+    ['City', 'Conditional', 'Enabled only after filling in the State.'],
+    ['Search Order', 'No', 'Filters by the search order/priority defined in the configuration.'],
+  ]}
+/>
+
+To register, click **"+ New"**. The **"Product Configuration in the Lounge"** window opens with the fields:
+
+<DocTable
+  headers={['Field', 'Required', 'Description']}
+  rows={[
+    ['Code (SKU)', 'Yes', 'Product the configuration will be applied to.'],
+    ['Search Order', 'No', 'Search order/priority of the configuration.'],
+    ['Country', 'Conditional', 'Country location of the configuration.'],
+    ['State', 'Conditional', 'Enabled only if the Country is filled in.'],
+    ['City', 'Conditional', 'Enabled only if the State is filled in.'],
+    ['Lounge Name', 'Yes', 'Service Lounge the item will be routed to (corresponds to a Center in SAP).'],
+    ['Status', 'Yes', 'Status of the parameter: Active or Inactive.'],
+  ]}
+/>
+
+At the end, use **"Save"** or **"Save and Continue"**.
+
+<Callout type="info" title="What the configuration associates">
+Each configuration associates the **Product (SKU)** with a **Family**, a **Group**, a **Lounge** and a **Location** (Country, State and City). It is this combination that defines which Lounge the item will be routed to.
+</Callout>
+
+<Callout type="dica" title="Select ALL by level">
+In the Country, State and City fields there is an "ALL" checkbox. When checked, it selects all items at that level (all countries, all states or all cities), broadening the scope of the configuration.
+</Callout>
+
+### 2. Create the order
+
+Orders module → **Orders**. Create the order normally, with the customer and the items. On creation, the system routes each item according to the parameterization and the customer’s location. The orders get the status **"Awaiting Approvals"**.
+
+### 3. Approve the order
+
+Approvals module → **New Approval Queue – Orders**. Orders with the block reason **"Credit"** are handled in the **"Orders to Release"** tab. Approve the order through the corresponding level.
+
+### 4. Confirm the integration
+
+Back in **Orders**, the approved order moves to the **"Integrated"** status and receives the **SAP Order** number. In the status history ("Status Updates"), each integration corresponds to a **Sales Order** — an order can have more than one record, one per Center.
+
+### 5. Check in SAP (VA03)
+
+In SAP, in transaction **VA03**, search by the order number and check the **Sales Orders**, their **items** and the **Centers** corresponding to each Lounge.
+
+## Business rules
+
+<DocTable
+  headers={['ID', 'Rule', 'Description']}
+  rows={[
+    ['RN001', 'Conditional State enabling', 'The State field (in the search and in the registration) is enabled only after filling in the Country.'],
+    ['RN002', 'Conditional City enabling', 'The City field is enabled only after filling in the State.'],
+    ['RN003', '"ALL" selection by level', 'The "ALL" checkbox in Country, State or City selects all items at that level.'],
+    ['RN004', 'Routing by location', 'An item with an active configuration compatible with the customer’s location is routed to the configured Lounge.'],
+    ['RN005', 'Return to the order Lounge', 'An item without an applicable configuration stays in the Lounge entered in the order header.'],
+    ['RN006', 'Product without configuration', 'A product without configuration is sellable in any location and follows the order Lounge.'],
+    ['RN007', 'Grouping by Center', 'Items that resolve to the same Center are grouped into a single Sales Order.'],
+    ['RN008', 'Multiple Sales Orders', 'Items routed to distinct Centers generate separate Sales Orders (number of SOs = number of distinct Centers).'],
+    ['RN009', 'Mandatory prior approval', 'The order goes through the Approval Queue (Credit block) before integrating with SAP.'],
+    ['RN010', 'SAP integration', 'After approval, the order is integrated with SAP, generating the SAP Order and the Sales Orders.'],
+    ['RN011', 'Search Order', 'Defines the resolution priority when there is more than one configuration applicable to the same item.'],
+    ['RN012', 'Active/Inactive status', 'Only configurations with the "Active" status are considered in the routing.'],
+  ]}
+/>
+
+## System statuses and messages
+
+<DocTable
+  headers={['Status / message', 'Context']}
+  rows={[
+    ['Draft → Awaiting Approvals → Released → Integrated', 'Order status cycle.'],
+    ['"Order integrated successfully. SO: <number>"', 'Integration completed (Sales Order generated).'],
+    ['"Order integrated for center <number>. SO: <number>"', 'Integration routed to a specific Center.'],
+    ['Block reason: "Credit" / "Credit Review"', 'Block that routes the order to the approval queue.'],
+  ]}
+/>
+
+## Rules and cautions
+
+- The number of Sales Orders depends on the diversity of Centers in the routing; changing the parameterization changes the number of Sales Orders.
+- The location hierarchy (Country → State → City) determines compatibility; check the precedence of more specific configurations (with City).
+- Only **Active** configurations are considered in the routing.
+- The exact behavior of the **Search Order** (tie-breaking between configurations) is a point to validate with the responsible team.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The item went to the order Lounge instead of the expected Lounge', 'There is no configuration compatible with the customer’s location', 'Check whether there is an active product configuration for the customer’s Country/State/City.'],
+    ['The order did not integrate with SAP', 'Order awaiting approval (Credit block) or integration failure', 'Check the Approval Queue and the order’s integration message.'],
+    ['Generated more Sales Orders than expected', 'Items routed to distinct Centers', 'Check the routing of each item; the number of Sales Orders equals the number of distinct Centers.'],
+    ['A configuration is not being applied', 'Configuration with "Inactive" status', 'Confirm the product configuration is Active.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the product configuration in the Lounge for?', answer: 'To route each order item to a service Lounge according to the customer’s location.' },
+    { question: 'What happens with a product without configuration?', answer: 'It follows the Lounge entered in the order header, in any location.' },
+    { question: 'Why did an order generate more than one Sales Order?', answer: 'Because its items were routed to different Centers; each distinct Center generates a separate Sales Order.' },
+    { question: 'What is the "order Lounge"?', answer: 'It is the Lounge entered in the order header, used for the items that have no compatible configuration.' },
+    { question: 'Does the configuration need to be active?', answer: 'Yes; only configurations with the "Active" status are considered in the routing.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '21/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '21/08/2026', author: 'Renan Camargo', description: 'Initial documentation of the "Product Configuration in the Lounge" feature.' },
+  ]}
+/>

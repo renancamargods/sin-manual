@@ -7,6 +7,19 @@ interface Props {
 }
 
 const { showSidebarToggle = false } = Astro.props;
+
+// Idioma ativo detectado pela URL. PT fica na raiz; EN sob /en.
+const path = Astro.url.pathname;
+const isEn = path === '/en' || path.startsWith('/en/');
+const L = (href: string) => (isEn ? `/en${href}` : href);
+const homeHref = isEn ? '/en' : '/';
+const modulesHref = isEn ? '/en#modulos' : '/#modulos';
+
+// Alvos do seletor de idioma (mesma página no outro idioma).
+const ptHref = isEn ? path.replace(/^\/en/, '') || '/' : path;
+const enHref = isEn ? path : `/en${path === '/' ? '' : path}`;
+
+const flagBase = 'text-base leading-none transition';
 ---
 
 <header class="sticky top-0 z-40 border-b border-white/10 bg-brand-hero-to/95 backdrop-blur">
@@ -24,7 +37,7 @@ const { showSidebarToggle = false } = Astro.props;
       </button>
     )}
 
-    <a href="/" class="flex flex-shrink-0 items-center" aria-label="S.I.N. — Manual do Usuário">
+    <a href={homeHref} class="flex flex-shrink-0 items-center" aria-label="S.I.N. — Manual do Usuário">
       <img src="/logo-sin.png" alt="S.I.N. — Manual do Usuário" class="h-9 w-auto sm:h-10" width="430" height="160" />
     </a>
 
@@ -33,14 +46,22 @@ const { showSidebarToggle = false } = Astro.props;
     </div>
 
     <nav class="ml-auto hidden items-center gap-5 text-sm font-medium text-white/70 md:flex">
-      <a href="/manual/introducao" class="transition hover:text-white">Manual</a>
-      <a href="/#modulos" class="transition hover:text-white">Módulos</a>
-      <a href="/manual/faq" class="transition hover:text-white">FAQ</a>
+      <a href={L('/manual/introducao')} class="transition hover:text-white">{isEn ? 'Manual' : 'Manual'}</a>
+      <a href={modulesHref} class="transition hover:text-white">{isEn ? 'Modules' : 'Módulos'}</a>
+      <a href={L('/manual/faq')} class="transition hover:text-white">FAQ</a>
+      <span class="h-4 w-px bg-white/20"></span>
+      <a href={ptHref} title="Português" aria-label="Português" class:list={[flagBase, isEn ? 'opacity-50 hover:opacity-100' : 'opacity-100']}>🇧🇷</a>
+      <a href={enHref} title="English" aria-label="English" class:list={[flagBase, isEn ? 'opacity-100' : 'opacity-50 hover:opacity-100']}>🇺🇸</a>
     </nav>
 
-    <a href="/#modulos" class="ml-auto rounded-md p-1.5 text-white/80 hover:bg-white/10 md:hidden" aria-label="Buscar">
-      <Icon name="search" class="h-5 w-5" />
-    </a>
+    <div class="ml-auto flex items-center gap-3 md:hidden">
+      <a href={isEn ? ptHref : enHref} title={isEn ? 'Português' : 'English'} class="text-base leading-none">
+        {isEn ? '🇧🇷' : '🇺🇸'}
+      </a>
+      <a href={modulesHref} class="rounded-md p-1.5 text-white/80 hover:bg-white/10" aria-label="Buscar">
+        <Icon name="search" class="h-5 w-5" />
+      </a>
+    </div>
   </div>
 
   <div class="border-t border-white/10 px-4 py-2.5 md:hidden">

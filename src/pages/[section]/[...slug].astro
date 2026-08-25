@@ -2,10 +2,10 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import RoutineList from '../../components/RoutineList.astro';
-import { getModule, tecnicoPages } from '../../data/modules';
+import { getModule, tecnicoPages, modules, manualPages } from '../../data/modules';
 
 export async function getStaticPaths() {
-  const entries = await getCollection('docs');
+  const entries = await getCollection('docs', ({ data }) => data.lang !== 'en');
   return entries.map((entry) => ({
     params: { section: entry.data.section, slug: entry.data.routeSlug },
     props: { entry },
@@ -20,7 +20,7 @@ const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
 const { data } = entry;
 
-const allDocs = await getCollection('docs');
+const allDocs = await getCollection('docs', ({ data }) => data.lang !== 'en');
 
 // Badges do hero conforme o tipo de página
 let badges: { label: string; value: string }[] = [];
@@ -78,6 +78,49 @@ const availableSlugs = moduleDef
       .filter((d) => d.data.section === 'modulos' && d.data.pageType === 'routine' && d.data.module === moduleDef.id)
       .map((d) => d.data.routeSlug.split('/').slice(1).join('/'))
   : [];
+
+// --- Navegação Anterior / Próximo (somente páginas já publicadas) ---
+const availModule: Record<string, string[]> = {};
+const availManual: string[] = [];
+const availTecnico: string[] = [];
+for (const d of allDocs) {
+  if (d.data.section === 'modulos' && d.data.pageType === 'routine' && d.data.module) {
+    (availModule[d.data.module] ??= []).push(d.data.routeSlug.split('/').slice(1).join('/'));
+  }
+  if (d.data.section === 'manual') availManual.push(d.data.routeSlug);
+  if (d.data.section === 'tecnico') availTecnico.push(d.data.routeSlug);
+}
+const moduleIndexAvailable = (id: string) =>
+  allDocs.some((d) => d.data.section === 'modulos' && d.data.pageType === 'module-index' && d.data.module === id);
+
+const flatPages: { href: string; title: string }[] = [];
+for (const p of manualPages) {
+  if (availManual.includes(p.slug)) flatPages.push({ href: `/manual/${p.slug}`, title: p.title });
+}
+for (const mod of [...modules].sort((a, b) => a.order - b.order)) {
+  if (moduleIndexAvailable(mod.id)) flatPages.push({ href: `/modulos/${mod.id}`, title: mod.label });
+  for (const r of mod.routines) {
+    if ((availModule[mod.id] ?? []).includes(r.slug)) {
+      flatPages.push({ href: `/modulos/${mod.id}/${r.slug}`, title: r.title });
+    }
+  }
+}
+for (const g of tecnicoPages) {
+  if (availTecnico.includes(g.slug)) flatPages.push({ href: `/tecnico/${g.slug}`, title: g.title });
+  for (const sub of g.pages ?? []) {
+    if (availTecnico.includes(`${g.slug}/${sub.slug}`)) {
+      flatPages.push({ href: `/tecnico/${g.slug}/${sub.slug}`, title: sub.title });
+    }
+  }
+}
+const currentHref = `/${data.section}/${data.routeSlug}`;
+const currentIdx = flatPages.findIndex((f) => f.href === currentHref);
+const prevPage = currentIdx > 0 ? flatPages[currentIdx - 1] : null;
+const nextPage = currentIdx >= 0 && currentIdx < flatPages.length - 1 ? flatPages[currentIdx + 1] : null;
+const backToModule =
+  data.section === 'modulos' && data.pageType === 'routine' && data.module
+    ? { href: `/modulos/${data.module}`, label: getModule(data.module)?.label ?? data.moduleLabel ?? 'módulo' }
+    : null;
 ---
 
 <DocsLayout
@@ -95,5 +138,38 @@ const availableSlugs = moduleDef
       <h2 id="rotinas-do-modulo">Rotinas do módulo</h2>
       <RoutineList routines={moduleDef.routines} basePath={`/modulos/${moduleDef.id}`} availableSlugs={availableSlugs} />
     </>
+  )}
+
+  {backToModule && (
+    <p class="not-prose mt-10">
+      <a href={backToModule.href} class="text-sm font-medium text-brand-red hover:underline">
+        ← Voltar para {backToModule.label}
+      </a>
+    </p>
+  )}
+
+  {(prevPage || nextPage) && (
+    <nav class="not-prose mt-8 grid gap-3 border-t border-gray-200 pt-6 sm:grid-cols-2" aria-label="Navegação entre páginas">
+      {prevPage ? (
+        <a
+          href={prevPage.href}
+          class="group flex flex-col rounded-xl2 border border-gray-200 bg-white px-4 py-3 shadow-card transition hover:border-brand-red/30 hover:shadow-card-hover"
+        >
+          <span class="text-xs text-gray-500">← Anterior</span>
+          <span class="mt-0.5 text-sm font-semibold text-gray-900 group-hover:text-brand-red">{prevPage.title}</span>
+        </a>
+      ) : (
+        <span class="hidden sm:block"></span>
+      )}
+      {nextPage && (
+        <a
+          href={nextPage.href}
+          class="group flex flex-col rounded-xl2 border border-gray-200 bg-white px-4 py-3 text-right shadow-card transition hover:border-brand-red/30 hover:shadow-card-hover sm:col-start-2"
+        >
+          <span class="text-xs text-gray-500">Próximo →</span>
+          <span class="mt-0.5 text-sm font-semibold text-gray-900 group-hover:text-brand-red">{nextPage.title}</span>
+        </a>
+      )}
+    </nav>
   )}
 </DocsLayout>

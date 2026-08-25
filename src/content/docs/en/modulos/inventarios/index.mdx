@@ -1,0 +1,46 @@
+---
+section: modulos
+routeSlug: inventarios
+pageType: module-index
+module: inventarios
+moduleLabel: Inventories
+lang: en
+title: Inventories
+description: Stock counting and inventory tracking.
+keywords: [inventories, inventory, stock counting]
+tags: [modulo]
+order: 10
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+
+## Overview
+
+The **Inventories** module organizes stock counting, allowing you to open an inventory, record counts and track which inventories are available for checking.
+
+## When to use this module
+
+- Open a new inventory.
+- Record the count of items.
+- Look up inventories available for counting.
+
+## How to access
+
+Side menu → Modules → Inventories
+
+<Callout type="cuidado" title="Impact on stock">
+The counts recorded here may generate adjustments to the products’ stock balance.
+</Callout>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'How do I count an inventory?', answer: 'Open the inventory and record the count by scanning the items (reading the DataMatrix).' },
+    { question: 'What are the 2nd and 3rd counts?', answer: 'They are recounts: the 2nd count is always done and, if there is a discrepancy, the 3rd count is opened for a new check.' },
+    { question: 'Can I revert a count that has already been finalized?', answer: 'Yes, there is a "Revert Count" option; finalizing the count may require a specific permission.' },
+    { question: 'What is a cyclic inventory?', answer: 'A type of inventory that checks only specific products, periodically.' },
+    { question: 'Does the count change the stock?', answer: 'Yes, the counts may generate adjustments to the products’ stock balance — but only after they are finalized.' },
+  ]}
+/>

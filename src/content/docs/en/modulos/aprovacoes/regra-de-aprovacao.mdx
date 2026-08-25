@@ -1,0 +1,124 @@
+---
+section: modulos
+routeSlug: aprovacoes/regra-de-aprovacao
+pageType: routine
+module: aprovacoes
+moduleLabel: Approvals
+lang: en
+title: Approval Rule
+description: Defines who approves each type of request and under which conditions.
+routineType: Configuration
+permission: Yes
+impact: High — affects the progress of orders, contracts and other requests
+keywords: [approval rule, approval, approval flow, approver]
+tags: [modulo-aprovacoes, configuracao]
+order: 2
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+
+## Overview
+
+The **Approval Rule** screen defines who should approve a request — such as an order or a contract — and under which conditions that approval is required. Each rule is applied to a previously registered approval entity.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Approver configuration', text: 'Defines who approves each type of request and under which conditions.' },
+    { label: 'Usage', title: 'Orders and contracts', text: 'The registered rules apply to the requests that require approval.' },
+    { label: 'Caution', title: 'Approval flow', text: 'Poorly configured rules may block or release requests improperly.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new approval rule.
+- Look up the rules already configured for an entity.
+- Change the approver or condition of an existing rule.
+
+## How to access
+
+Approvals → Approval Rule
+
+## Before you start
+
+- Confirm which approval entity the rule will use.
+- Define in advance who the responsible approvers will be.
+- Check whether a similar rule is not already configured.
+
+## Main fields
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Code', 'Identifies the rule in the system.'],
+    ['Approval entity', 'Defines what the rule will require approval for.'],
+    ['Condition', 'Situation in which the rule is applied, such as a minimum value.'],
+    ['Approver', 'User or profile responsible for approving the request.'],
+    ['Status', 'Indicates whether the rule is active or inactive.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Register a new rule** — select the entity, define the condition and the approver.
+2. **Look up rules** — use the search to find rules by entity.
+3. **Change a rule** — update the condition or approver as needed.
+4. **Inactivate a rule** — disable a rule that should no longer be applied.
+
+## Relationships with other records or processes
+
+This screen depends on an entity registered in Approval Entity. The rules configured here directly affect the progress of orders, contracts and other requests that require approval.
+
+<Callout type="cuidado" title="Immediate effect">
+Changes to an approval rule apply to new requests from the moment they are saved.
+</Callout>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['REGRA_APROVACAO.VISUALIZAR', 'Access to the screen', 'Allows opening and viewing the approval rules.'],
+    ['REGRA_APROVACAO.EDITAR', 'Registration and changes', 'Allows creating and changing approval rules.'],
+  ]}
+/>
+
+## Important parameters and behaviors
+
+- The rule must be active to be applied to new requests.
+- Changes do not affect requests already in progress in the approval flow.
+- More than one rule can be applied to the same entity, depending on the configured condition.
+
+## Rules and cautions
+
+- Review the rule condition before saving, to avoid unnecessary or missing approvals.
+- Avoid registering conflicting rules for the same entity.
+- Prefer to inactivate rather than delete a rule that has already been used.
+- Check your permissions before changing a rule in use.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+    ['Rule does not appear in the search', 'Inactive status or filter applied', 'Review the filters and the rule status.'],
+    ['Request is not requiring approval', 'Inactive rule or condition not met', 'Review the status and the condition configured in the rule.'],
+    ['Request stuck awaiting approval', 'Approver not configured correctly', 'Check that the approver defined in the rule is correct.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To define who approves each type of request and under which conditions.' },
+    { question: 'Can I delete a rule in use?', answer: 'Not recommended. Prefer to inactivate the rule to preserve the history of approvals already made.' },
+    { question: 'Does changing this rule affect requests already sent for approval?', answer: 'No. The change applies only to new requests.' },
+    { question: 'Do I need permission to access this screen?', answer: 'Yes. You must have the corresponding permission enabled in your access profile.' },
+    { question: 'Where is this information used?', answer: 'In the approval flows of orders, contracts and other requests configured in the system.' },
+  ]}
+/>

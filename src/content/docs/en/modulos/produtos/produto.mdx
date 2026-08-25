@@ -1,0 +1,145 @@
+---
+section: modulos
+routeSlug: produtos/produto
+pageType: routine
+module: produtos
+moduleLabel: Products
+lang: en
+title: Product
+description: Central registration of the products sold by the company.
+routineType: Registration
+permission: Yes
+impact: High — used in orders, invoicing, regulatory and quality
+keywords: [product, product registration, product hierarchy, stock]
+tags: [modulo-produtos, cadastro]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Product** screen centralizes the registration of the products sold by the company, including identification data, hierarchy, packaging and information used by other modules, such as regulatory and quality.
+
+A complete product record is essential for orders, invoicing and regulatory controls to work correctly.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Product registration', text: 'Centralizes the identification, hierarchy and packaging data of products.' },
+    { label: 'Usage', title: 'Sales, stock and regulatory', text: 'The registered information is used in orders, invoicing, stock and regulatory records.' },
+    { label: 'Caution', title: 'Data consistency', text: 'Changes to product data may affect processes that already use this record.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new product.
+- Look up information about an already registered product.
+- Change identification, hierarchy or packaging data.
+- Look up the available stock balance for the product.
+
+## How to access
+
+Products → Product
+
+## Before you start
+
+- Confirm the correct family, group and hierarchy for the new product.
+- Check whether the product is not already registered, to avoid duplicates.
+- Have at hand the packaging information, barcode (GTIN) and images, if available.
+
+## Main fields
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Code', 'Identifies the product in the system.'],
+    ['Description', 'Name used to find and identify the product.'],
+    ['Product family', 'Grouping used to organize similar products.'],
+    ['Brand', 'Brand associated with the product.'],
+    ['Product type', 'Classification of the product type.'],
+    ['GTIN', 'Barcode used to identify the product.'],
+    ['Status', 'Indicates whether the product is active or inactive.'],
+    ['Notes', 'Free field for additional information.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Register a new product** — fill in the required data and save the record.
+2. **Look up a product** — use the search to find it by code or description.
+3. **Change a product** — open the record, update the necessary fields and save.
+4. **Look up stock balance** — access the available stock information for the product.
+
+## Relationships with other records or processes
+
+This record can be used in orders, invoicing, inventories, quality and regulatory records. Changes to the product hierarchy or classification may impact reports that use this grouping.
+
+<Callout type="info" title="Related records">
+Additional information, such as images, taxes and milling sets, is available on specific screens of the Products module.
+</Callout>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['PRODUTO.VISUALIZAR', 'Access to the screen', 'Allows opening and viewing the product record.'],
+    ['PRODUTO.EDITAR', 'Registration and changes', 'Allows creating and changing product data.'],
+    ['PRODUTO.INATIVAR', 'Record status', 'Allows inactivating a product.'],
+  ]}
+/>
+
+## Important parameters and behaviors
+
+- The product must be active to be used in new orders.
+- Changes to the record apply to new operations.
+- Some fields may appear depending on the product’s regulatory line.
+
+## Rules and cautions
+
+- Review the data before saving the record.
+- Avoid registering the same product more than once; use the search before creating a new record.
+- Prefer to inactivate the product instead of deleting it when it is already used in orders or stock.
+- Check your permissions before changing product data.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+    ['Product does not appear in the search', 'Inactive status or filter applied', 'Review the filters and the record status.'],
+    ['Error when saving the record', 'Required field not filled in', 'Check that all required fields were provided.'],
+    ['I cannot inactivate the product', 'Product used in orders or stock', 'Check for active links before inactivating.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register and keep up to date the data of the products sold by the company.' },
+    { question: 'Can I delete a product in use?', answer: 'Not recommended. Prefer to inactivate the record to preserve the operation history.' },
+    { question: 'Does changing this record change old orders?', answer: 'No. Changes apply only to new operations.' },
+    { question: 'Do I need permission to access this screen?', answer: 'Yes. You must have the corresponding permission enabled in your access profile.' },
+    { question: 'Where is this information used?', answer: 'In orders, invoicing, stock, quality and regulatory records.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '25/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/08/2026', author: 'Renan Camargo', description: 'Initial release of the Product screen documentation.' },
+  ]}
+/>

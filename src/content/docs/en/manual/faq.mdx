@@ -1,0 +1,65 @@
+---
+section: manual
+routeSlug: faq
+pageType: manual
+lang: en
+title: FAQ
+description: Common questions about using the S.I.N Implant System, permissions and navigating the manual.
+keywords: [faq, questions, frequently asked, help]
+tags: [manual, faq]
+order: 5
+---
+
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+
+## General questions
+
+<FaqAccordion
+  items={[
+    { question: 'How do I know which module to find information in?', answer: 'Check the System overview or use the search at the top of the page to find the screen by name.' },
+    { question: 'Why don’t I see a certain module or screen?', answer: 'Access to modules and screens depends on the profile configured for your user. Ask the administrator to enable it, if needed.' },
+    { question: 'Where do I see who last changed a record?', answer: 'Most screens show registration and change information in the record itself. Check the corresponding section on the specific screen.' },
+    { question: 'Can I suggest improvements to this manual?', answer: 'Yes. Use the "Suggest improvement" button in the footer or send your suggestion to the team responsible for the system documentation.' },
+    { question: 'Does the manual cover all system screens?', answer: 'The content is expanded gradually. Screens not yet detailed appear as "coming soon" in the corresponding module menu.' },
+  ]}
+/>
+
+## About permissions
+
+<FaqAccordion
+  items={[
+    { question: 'What does it mean for a screen to "require permission"?', answer: 'It means that, besides accessing the system, the user needs a specific permission enabled in their profile to open or use that screen.' },
+    { question: 'Who grants permissions?', answer: 'The system administrator, through the Profile and User screens in the Authenticator module.' },
+  ]}
+/>
+
+## Access and login
+
+<FaqAccordion
+  items={[
+    { question: 'How do I reset my password?', answer: 'On the login screen, use the password reset option; the recovery link is sent to the registered email.' },
+    { question: 'What happens if I enter the wrong password several times?', answer: 'After 5 incorrect attempts, the system shows a security message.' },
+    { question: 'How do I switch the company I am viewing?', answer: 'Use the Company selector at the top to switch between the companies you have access to.' },
+    { question: 'Is there a shortcut to the modules I used recently?', answer: 'Yes, the menu shows the recently accessed modules.' },
+  ]}
+/>
+
+## Questions by module
+
+Screen-specific questions are in the FAQ at the bottom of each page. Shortcuts:
+
+- [Orders](/en/modulos/pedidos/pedido#faq)
+- [Customers](/en/modulos/clientes/cliente#faq)
+- [Invoicing](/en/modulos/faturamentos#faq)
+- [Contracts](/en/modulos/contratos/contrato#faq)
+- [Authenticator](/en/modulos/autenticador/usuario#faq)
+- [Leads](/en/modulos/leads#faq)
+- [Sales Planning](/en/modulos/planejamento-de-vendas#faq)
+- [Field Routing](/en/modulos/roteirizador#faq)
+- [Occurrences](/en/modulos/ocorrencias#faq)
+- [Regulatory](/en/modulos/regulatorios#faq)
+- [Administrator](/en/modulos/administrador#faq)
+- [Inventories](/en/modulos/inventarios#faq)
+- [Products](/en/modulos/produtos#faq)
+- [Policies](/en/modulos/politicas#faq)
+- [Quality](/en/modulos/qualidade#faq)

@@ -1,0 +1,202 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import DocsLayout from '../../../layouts/DocsLayout.astro';
+import RoutineList from '../../../components/RoutineList.astro';
+import { getModule, tecnicoPages, modules, manualPages, moduleEn, manualPageEn, tecnicoGroupEn } from '../../../data/modules';
+
+// Rotas em inglês. Geram uma URL /en/* para cada página PT (canônica).
+// Se existir uma gêmea traduzida (lang: 'en' com o mesmo section/routeSlug),
+// mostramos o conteúdo em inglês; senão, mostramos o PT com um aviso.
+export async function getStaticPaths() {
+  const entries = await getCollection('docs', ({ data }) => data.lang !== 'en');
+  return entries.map((entry) => ({
+    params: { section: entry.data.section, slug: entry.data.routeSlug },
+    props: { entry },
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'docs'>;
+}
+
+const { entry: ptEntry } = Astro.props;
+const enTwins = await getCollection('docs', ({ data }) => data.lang === 'en');
+const enTwin = enTwins.find(
+  (d) => d.data.section === ptEntry.data.section && d.data.routeSlug === ptEntry.data.routeSlug,
+);
+const source = enTwin ?? ptEntry;
+const { Content, headings } = await source.render();
+const data = source.data;
+const route = ptEntry.data; // chaves de roteamento (section, routeSlug, module)
+const isFallback = !enTwin;
+
+// Título exibido: em páginas de índice de módulo ainda sem tradução, usa o
+// rótulo EN do módulo para o cabeçalho ficar em inglês mesmo no fallback.
+const displayTitle =
+  route.pageType === 'module-index' && route.module && !enTwin
+    ? moduleEn[route.module]?.label ?? data.title
+    : data.title;
+
+const allDocs = await getCollection('docs', ({ data }) => data.lang !== 'en');
+const L = (href: string) => `/en${href}`;
+const modLabel = (id: string) => moduleEn[id]?.label ?? getModule(id)?.label ?? id;
+
+// Badges do hero (rótulos em inglês)
+let badges: { label: string; value: string }[] = [];
+if (route.pageType === 'routine') {
+  badges = [
+    { label: 'Module', value: data.moduleLabel ?? (route.module ? modLabel(route.module) : '—') },
+    { label: 'Routine type', value: data.routineType ?? 'Registration' },
+    { label: 'Permission', value: data.permission ?? 'No' },
+    { label: 'Impact', value: data.impact ?? 'Operational' },
+  ];
+} else if (route.pageType === 'module-index') {
+  const mod = route.module ? getModule(route.module) : undefined;
+  badges = [
+    { label: 'Module', value: route.module ? modLabel(route.module) : data.title },
+    { label: 'Routines', value: String(mod?.routines.length ?? 0) },
+  ];
+} else if (route.pageType === 'tecnico') {
+  const b: { label: string; value: string }[] = [];
+  if (data.moduleLabel) b.push({ label: 'Area', value: data.moduleLabel });
+  if (data.routineType) b.push({ label: 'Type', value: data.routineType });
+  if (data.impact) b.push({ label: 'Impact', value: data.impact });
+  badges = b;
+}
+
+// Breadcrumb (com prefixo /en, rótulos em inglês)
+type Crumb = { label: string; href?: string };
+const breadcrumb: Crumb[] = [{ label: 'Manual', href: '/en' }];
+
+if (route.section === 'modulos') {
+  breadcrumb.push({ label: 'Modules', href: '/en#modulos' });
+  if (route.pageType === 'module-index') {
+    breadcrumb.push({ label: displayTitle });
+  } else if (route.module) {
+    breadcrumb.push({ label: modLabel(route.module), href: L(`/modulos/${route.module}`) });
+    breadcrumb.push({ label: data.title });
+  }
+} else if (route.section === 'manual') {
+  breadcrumb.push({ label: data.title });
+} else if (route.section === 'tecnico') {
+  breadcrumb.push({ label: 'Technical Docs & Settings' });
+  const parts = route.routeSlug.split('/');
+  if (parts.length > 1) {
+    const group = tecnicoPages.find((g) => g.slug === parts[0]);
+    breadcrumb.push({ label: tecnicoGroupEn[parts[0]]?.title ?? group?.title ?? parts[0], href: L(`/tecnico/${parts[0]}`) });
+  }
+  breadcrumb.push({ label: data.title });
+}
+
+// Lista de rotinas para páginas de índice de módulo
+const moduleDef = route.pageType === 'module-index' && route.module ? getModule(route.module) : undefined;
+const availableSlugs = moduleDef
+  ? allDocs
+      .filter((d) => d.data.section === 'modulos' && d.data.pageType === 'routine' && d.data.module === moduleDef.id)
+      .map((d) => d.data.routeSlug.split('/').slice(1).join('/'))
+  : [];
+
+// Navegação Anterior / Próximo (com prefixo /en e rótulos EN)
+const availModule: Record<string, string[]> = {};
+const availManual: string[] = [];
+const availTecnico: string[] = [];
+for (const d of allDocs) {
+  if (d.data.section === 'modulos' && d.data.pageType === 'routine' && d.data.module) {
+    (availModule[d.data.module] ??= []).push(d.data.routeSlug.split('/').slice(1).join('/'));
+  }
+  if (d.data.section === 'manual') availManual.push(d.data.routeSlug);
+  if (d.data.section === 'tecnico') availTecnico.push(d.data.routeSlug);
+}
+const moduleIndexAvailable = (id: string) =>
+  allDocs.some((d) => d.data.section === 'modulos' && d.data.pageType === 'module-index' && d.data.module === id);
+
+const flatPages: { href: string; title: string }[] = [];
+for (const p of manualPages) {
+  if (availManual.includes(p.slug)) flatPages.push({ href: L(`/manual/${p.slug}`), title: manualPageEn[p.slug]?.title ?? p.title });
+}
+for (const mod of [...modules].sort((a, b) => a.order - b.order)) {
+  if (moduleIndexAvailable(mod.id)) flatPages.push({ href: L(`/modulos/${mod.id}`), title: moduleEn[mod.id]?.label ?? mod.label });
+  for (const r of mod.routines) {
+    if ((availModule[mod.id] ?? []).includes(r.slug)) {
+      flatPages.push({ href: L(`/modulos/${mod.id}/${r.slug}`), title: r.title });
+    }
+  }
+}
+for (const g of tecnicoPages) {
+  if (availTecnico.includes(g.slug)) flatPages.push({ href: L(`/tecnico/${g.slug}`), title: tecnicoGroupEn[g.slug]?.title ?? g.title });
+  for (const sub of g.pages ?? []) {
+    if (availTecnico.includes(`${g.slug}/${sub.slug}`)) {
+      flatPages.push({ href: L(`/tecnico/${g.slug}/${sub.slug}`), title: sub.title });
+    }
+  }
+}
+const currentHref = L(`/${route.section}/${route.routeSlug}`);
+const currentIdx = flatPages.findIndex((f) => f.href === currentHref);
+const prevPage = currentIdx > 0 ? flatPages[currentIdx - 1] : null;
+const nextPage = currentIdx >= 0 && currentIdx < flatPages.length - 1 ? flatPages[currentIdx + 1] : null;
+const backToModule =
+  route.section === 'modulos' && route.pageType === 'routine' && route.module
+    ? { href: L(`/modulos/${route.module}`), label: modLabel(route.module) }
+    : null;
+---
+
+<DocsLayout
+  title={displayTitle}
+  description={data.description}
+  eyebrow={route.pageType === 'routine' && route.module ? modLabel(route.module) : undefined}
+  badges={badges}
+  breadcrumb={breadcrumb}
+  headings={headings}
+>
+  {isFallback && (
+    <div class="not-prose mb-6 flex items-start gap-3 rounded-xl2 border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-800">
+      <span aria-hidden="true">🌐</span>
+      <p>
+        <strong>English version coming soon.</strong> This page is not translated yet, so the
+        Portuguese content is shown below.
+      </p>
+    </div>
+  )}
+
+  <Content />
+
+  {moduleDef && (
+    <>
+      <h2 id="module-routines">Module routines</h2>
+      <RoutineList routines={moduleDef.routines} basePath={L(`/modulos/${moduleDef.id}`)} availableSlugs={availableSlugs} />
+    </>
+  )}
+
+  {backToModule && (
+    <p class="not-prose mt-10">
+      <a href={backToModule.href} class="text-sm font-medium text-brand-red hover:underline">
+        ← Back to {backToModule.label}
+      </a>
+    </p>
+  )}
+
+  {(prevPage || nextPage) && (
+    <nav class="not-prose mt-8 grid gap-3 border-t border-gray-200 pt-6 sm:grid-cols-2" aria-label="Page navigation">
+      {prevPage ? (
+        <a
+          href={prevPage.href}
+          class="group flex flex-col rounded-xl2 border border-gray-200 bg-white px-4 py-3 shadow-card transition hover:border-brand-red/30 hover:shadow-card-hover"
+        >
+          <span class="text-xs text-gray-500">← Previous</span>
+          <span class="mt-0.5 text-sm font-semibold text-gray-900 group-hover:text-brand-red">{prevPage.title}</span>
+        </a>
+      ) : (
+        <span class="hidden sm:block"></span>
+      )}
+      {nextPage && (
+        <a
+          href={nextPage.href}
+          class="group flex flex-col rounded-xl2 border border-gray-200 bg-white px-4 py-3 text-right shadow-card transition hover:border-brand-red/30 hover:shadow-card-hover sm:col-start-2"
+        >
+          <span class="text-xs text-gray-500">Next →</span>
+          <span class="mt-0.5 text-sm font-semibold text-gray-900 group-hover:text-brand-red">{nextPage.title}</span>
+        </a>
+      )}
+    </nav>
+  )}
+</DocsLayout>

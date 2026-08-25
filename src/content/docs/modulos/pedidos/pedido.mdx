@@ -18,6 +18,7 @@ import Callout from '../../../../components/Callout.astro';
 import QuickCards from '../../../../components/QuickCards.astro';
 import DocTable from '../../../../components/DocTable.astro';
 import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
 
 ## Visão geral
 
@@ -158,5 +159,18 @@ Um pedido pode acionar rotinas de aprovação, cálculo de frete e faturamento. 
     { question: 'O pedido está "Liberado" mas não foi faturado. O que verificar?', answer: 'Após a liberação, o pedido é integrado ao ERP (SAP) antes de seguir. Se não avançou, verifique a situação e as informações de integração na própria tela — erros de integração costumam ser sinalizados no pedido.' },
     { question: 'Como filtro e exporto a listagem de pedidos?', answer: 'Na Listagem de Pedido é possível filtrar por cliente, período, situação e empresa, entre outros, e exportar o resultado em Excel ou PDF.' },
     { question: 'Onde essa informação é usada?', answer: 'No faturamento, na emissão de notas fiscais e nos relatórios comerciais e logísticos.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '25/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Pedido.' },
   ]}
 />

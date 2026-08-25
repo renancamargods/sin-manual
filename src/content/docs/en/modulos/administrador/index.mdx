@@ -1,0 +1,45 @@
+---
+section: modulos
+routeSlug: administrador
+pageType: module-index
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Administrator
+description: General administrative settings of the system.
+keywords: [administrator, general settings]
+tags: [modulo]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+
+## Overview
+
+The **Administrator** module brings together the general administrative settings of the S.I.N Implant System. It is mainly aimed at those who handle the configuration and maintenance of the environment.
+
+## When to use this module
+
+- Adjust general settings that affect the whole system.
+- Track administrative parameters of the environment.
+
+## How to access
+
+Side menu → Modules → Administrator
+
+<Callout type="info" title="Restricted access">
+The screens in this module are usually used only by system administrators.
+</Callout>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this module for?', answer: 'It brings together the general administrative settings (companies, centers, lounges and environment parameters), used by administrators.' },
+    { question: 'What is a Lounge?', answer: 'It is the operational unit/store where operations take place; it is used in orders, invoicing and inventory.' },
+    { question: 'What is the difference between Company, Center and Lounge?', answer: 'Company is the legal entity (e.g., company 01, 02 or 03); center is the stock and invoicing unit in SAP (e.g., 1033, 1027, 1000); lounge is the linked operational unit (e.g., Lounge Tatuapé, Lounge Brasília, Lounge Cuiabá).' },
+    { question: 'What is Fair Mode?', answer: 'A setting for when there is a fair or event, applied to the users who are at the fair.' },
+    { question: 'What happens when the system is "under maintenance"?', answer: 'A lock shows a message at login informing that the system is under maintenance.' },
+  ]}
+/>

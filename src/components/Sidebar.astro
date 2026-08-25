@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import { manualPages, modules, tecnicoPages } from '../data/modules';
+import { manualPages, modules, tecnicoPages, moduleEn, manualPageEn, tecnicoGroupEn, routineTitleEn, tecnicoSubEn } from '../data/modules';
 
 interface Props {
   currentPath: string;
@@ -11,27 +11,43 @@ interface Props {
 
 const { currentPath, availableModuleSlugs, availableManualSlugs, availableTecnicoSlugs } = Astro.props;
 
+// Idioma ativo: EN mantém o prefixo /en nos links e usa os rótulos traduzidos.
+const isEn = currentPath === '/en' || currentPath.startsWith('/en/');
+const L = (href: string) => (isEn ? `/en${href}` : href);
+const manualLabel = (slug: string, fallback: string) => (isEn ? manualPageEn[slug]?.title ?? fallback : fallback);
+const moduleLabel = (id: string, fallback: string) => (isEn ? moduleEn[id]?.label ?? fallback : fallback);
+const tecnicoLabel = (slug: string, fallback: string) => (isEn ? tecnicoGroupEn[slug]?.title ?? fallback : fallback);
+const routineLabel = (modId: string, slug: string, fallback: string) =>
+  isEn ? routineTitleEn[`${modId}/${slug}`] ?? fallback : fallback;
+const tecnicoSubLabel = (groupSlug: string, slug: string, fallback: string) =>
+  isEn ? tecnicoSubEn[`${groupSlug}/${slug}`] ?? fallback : fallback;
+
+const headManual = isEn ? 'System Manual' : 'Manual do Sistema SIN';
+const headModules = isEn ? 'Modules' : 'Módulos';
+const headTecnico = isEn ? 'Technical Docs & Settings' : 'Doc. Técnicas e Configurações';
+const soonLabel = isEn ? 'soon' : 'em breve';
+
 const isActive = (href: string) => currentPath === href || currentPath === `${href}/`;
 const linkBase =
   'block rounded-md px-2.5 py-1.5 text-sm transition truncate';
 const activeClasses = 'bg-brand-red/10 text-brand-red font-semibold';
 const inactiveClasses = 'text-gray-600 hover:bg-gray-100 hover:text-gray-900';
-const mutedClasses = 'text-gray-400 cursor-default';
+const mutedClasses = 'text-gray-500 cursor-default';
 ---
 
 <nav class="text-sm" aria-label="Navegação do manual">
   <div class="mb-6">
-    <p class="mb-2 px-2.5 text-xs font-semibold uppercase tracking-wider text-gray-400">Manual do Sistema SIN</p>
+    <p class="mb-2 px-2.5 text-xs font-semibold uppercase tracking-wider text-gray-400">{headManual}</p>
     <ul class="space-y-0.5">
       {manualPages.map((p) => {
-        const href = `/manual/${p.slug}`;
+        const href = L(`/manual/${p.slug}`);
         const available = availableManualSlugs.includes(p.slug);
         return (
           <li>
             {available ? (
-              <a href={href} class:list={[linkBase, isActive(href) ? activeClasses : inactiveClasses]}>{p.title}</a>
+              <a href={href} class:list={[linkBase, isActive(href) ? activeClasses : inactiveClasses]}>{manualLabel(p.slug, p.title)}</a>
             ) : (
-              <span class:list={[linkBase, mutedClasses]}>{p.title}</span>
+              <span class:list={[linkBase, mutedClasses]}>{manualLabel(p.slug, p.title)}</span>
             )}
           </li>
         );
@@ -40,10 +56,10 @@ const mutedClasses = 'text-gray-400 cursor-default';
   </div>
 
   <div class="mb-6">
-    <p class="mb-2 px-2.5 text-xs font-semibold uppercase tracking-wider text-gray-400">Módulos</p>
+    <p class="mb-2 px-2.5 text-xs font-semibold uppercase tracking-wider text-gray-400">{headModules}</p>
     <ul class="space-y-0.5">
       {modules.map((mod) => {
-        const moduleHref = `/modulos/${mod.id}`;
+        const moduleHref = L(`/modulos/${mod.id}`);
         const activeModule = currentPath.startsWith(`${moduleHref}/`) || isActive(moduleHref);
         const available = availableModuleSlugs[mod.id] ?? [];
         return (
@@ -55,7 +71,7 @@ const mutedClasses = 'text-gray-400 cursor-default';
                   class:list={['truncate', isActive(moduleHref) ? 'text-brand-red font-semibold' : '']}
                   onclick="event.stopPropagation()"
                 >
-                  {mod.label}
+                  {moduleLabel(mod.id, mod.label)}
                 </a>
                 <Icon name="chevron-right" class="h-3.5 w-3.5 flex-shrink-0 text-gray-400 transition-transform duration-150 group-open:rotate-90" />
               </summary>
@@ -64,14 +80,15 @@ const mutedClasses = 'text-gray-400 cursor-default';
                   {mod.routines.map((r) => {
                     const href = `${moduleHref}/${r.slug}`;
                     const isAvailable = available.includes(r.slug);
+                    const label = routineLabel(mod.id, r.slug, r.title);
                     return (
                       <li>
                         {isAvailable ? (
-                          <a href={href} class:list={[linkBase, isActive(href) ? activeClasses : inactiveClasses]}>{r.title}</a>
+                          <a href={href} class:list={[linkBase, isActive(href) ? activeClasses : inactiveClasses]}>{label}</a>
                         ) : (
                           <span class:list={[linkBase, mutedClasses, 'flex items-center justify-between']}>
-                            {r.title}
-                            <span class="text-[10px] uppercase tracking-wide text-gray-300">em breve</span>
+                            {label}
+                            <span class="text-[10px] uppercase tracking-wide text-gray-500">{soonLabel}</span>
                           </span>
                         )}
                       </li>
@@ -87,10 +104,10 @@ const mutedClasses = 'text-gray-400 cursor-default';
   </div>
 
   <div>
-    <p class="mb-2 px-2.5 text-xs font-semibold uppercase tracking-wider text-gray-400">Doc. Técnicas e Configurações</p>
+    <p class="mb-2 px-2.5 text-xs font-semibold uppercase tracking-wider text-gray-400">{headTecnico}</p>
     <ul class="space-y-0.5">
       {tecnicoPages.map((group) => {
-        const groupHref = `/tecnico/${group.slug}`;
+        const groupHref = L(`/tecnico/${group.slug}`);
         const activeGroup = currentPath.startsWith(`${groupHref}/`) || isActive(groupHref);
         const pages = group.pages ?? [];
         return (
@@ -102,7 +119,7 @@ const mutedClasses = 'text-gray-400 cursor-default';
                   class:list={['truncate', isActive(groupHref) ? 'text-brand-red font-semibold' : '']}
                   onclick="event.stopPropagation()"
                 >
-                  {group.title}
+                  {tecnicoLabel(group.slug, group.title)}
                 </a>
                 <Icon name="chevron-right" class="h-3.5 w-3.5 flex-shrink-0 text-gray-400 transition-transform duration-150 group-open:rotate-90" />
               </summary>
@@ -111,14 +128,15 @@ const mutedClasses = 'text-gray-400 cursor-default';
                   {pages.map((sub) => {
                     const href = `${groupHref}/${sub.slug}`;
                     const isAvailable = availableTecnicoSlugs.includes(`${group.slug}/${sub.slug}`);
+                    const label = tecnicoSubLabel(group.slug, sub.slug, sub.title);
                     return (
                       <li>
                         {isAvailable ? (
-                          <a href={href} class:list={[linkBase, isActive(href) ? activeClasses : inactiveClasses]}>{sub.title}</a>
+                          <a href={href} class:list={[linkBase, isActive(href) ? activeClasses : inactiveClasses]}>{label}</a>
                         ) : (
                           <span class:list={[linkBase, mutedClasses, 'flex items-center justify-between']}>
-                            {sub.title}
-                            <span class="text-[10px] uppercase tracking-wide text-gray-300">em breve</span>
+                            {label}
+                            <span class="text-[10px] uppercase tracking-wide text-gray-500">{soonLabel}</span>
                           </span>
                         )}
                       </li>

@@ -1,0 +1,58 @@
+---
+section: manual
+routeSlug: como-acessar
+pageType: manual
+lang: en
+title: How to access the system
+description: Step by step to log in, recover your password and solve common access problems.
+keywords: [login, access, password, first access, recover password]
+tags: [manual, acesso]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+
+## Overview
+
+Access to the S.I.N Implant System is done with a username and password registered by the system administrator. Each user has an access profile, which defines the modules and screens they can use.
+
+## Before you start
+
+- Have at hand the username and password provided by the company.
+- Check whether you already have an access profile registered. Otherwise, contact the system administrator.
+- Use an up-to-date browser for the best compatibility.
+
+## Main flows
+
+1. Go to the system address provided by the company.
+2. Enter the registered username and password.
+3. Click **Sign in**.
+4. On the first access, the system may ask you to change the initial password.
+
+<Callout type="dica" title="Forgot your password?">
+Use the password recovery option on the login screen. A reset link will be sent to the registered email.
+</Callout>
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot sign in', 'Incorrect username or password', 'Check the entered data and try again.'],
+    ['User blocked message', 'Too many incorrect login attempts', 'Wait a few minutes or request an unblock from the administrator.'],
+    ['I do not receive the password reset email', 'Outdated registered email', 'Confirm with the administrator whether the registered email is correct.'],
+    ['I can sign in, but do not see an expected module', 'Access profile without permission for the module', 'Ask the administrator to enable the module in your profile.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Who can create a new user?', answer: 'Only the system administrator, through the User screen in the Authenticator module.' },
+    { question: 'Can I access the system on more than one device?', answer: 'Yes, as long as you use the same username and password and have an internet connection.' },
+    { question: 'What should I do if my user is blocked?', answer: 'Contact the system administrator to check the reason and release the access.' },
+  ]}
+/>

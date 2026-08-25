@@ -1,0 +1,44 @@
+---
+section: modulos
+routeSlug: qualidade
+pageType: module-index
+module: qualidade
+moduleLabel: Quality
+lang: en
+title: Quality
+description: Quality analysis and control routines.
+keywords: [quality, quality analysis, quality control]
+tags: [modulo]
+order: 17
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+
+## Overview
+
+The **Quality** module brings together the recording and tracking of the quality analyses carried out on products.
+
+## When to use this module
+
+- Register a new quality analysis.
+- Look up the result of analyses already carried out.
+
+## How to access
+
+Side menu → Modules → Quality
+
+<Callout type="info" title="Relationship with Products">
+The analyses recorded here are linked to the corresponding product record.
+</Callout>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is Quality Analysis for?', answer: 'To record and track the quality analysis of products, with item reading (serial/DataMatrix) and transfer control.' },
+    { question: 'How do I record an analysis?', answer: 'Scan the items (reading the DataMatrix/serial) and save the analysis.' },
+    { question: 'What is Scrap?', answer: 'The record of materials rejected or discarded in the analysis.' },
+    { question: 'Does the analysis transfer the product?', answer: 'The analysis may involve the transfer and traceability of products, reflected in SAP.' },
+  ]}
+/>

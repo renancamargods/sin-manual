@@ -1,0 +1,212 @@
+---
+section: modulos
+routeSlug: administrador/log-de-execucao-de-servico
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Service Execution Log
+description: Look up and record the executions of system services and integrations, with the result and return message.
+routineType: Lookup and editing
+permission: Yes
+impact: Monitoring of service and integration executions
+keywords: [log, service execution, integration, sap, success, message, monitoring]
+tags: [modulo-administrador, consulta]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Service Execution Log** screen records the executions of system services and integrations — for example, queries sent to **SAP**. For each execution, it shows the date, the type, whether it succeeded, the parameters sent and the return message.
+
+Integration logs are **filled in automatically** as the system runs the services, at the configured recording points. The screen lets you **look up** and **edit** existing records. It is useful for tracking integrations and identifying failures (for example, a product that is not registered in the CRM).
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Service execution record', text: 'Stores service and integration executions, with the result and return message.' },
+    { label: 'Usage', title: 'Integration monitoring', text: 'Used to track executions (e.g., SAP queries) and identify failures.' },
+    { label: 'Caution', title: 'Automatically sourced records', text: 'Logs are usually created by executions; edit or delete carefully to avoid losing history.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Look up service executions in a period.
+- Filter by type (e.g., SAP) or by success (Yes/No).
+- Check the return message of a failed execution.
+- Edit an existing log record.
+
+## How to access
+
+Administrator → Service Execution Log
+
+## Before you start
+
+- Set the period you want to look up (Start Date and End Date).
+- If you wish, enter the Type (e.g., SAP) and the Success filter.
+- Confirm that you have permission to access the screen.
+
+## Important differences
+
+<DocTable
+  headers={['Comparison', 'Difference', 'Guidance']}
+  rows={[
+    ['Automatic record x manual editing', 'Integration logs are filled in automatically as the system runs, at configured points; the screen allows editing existing records, but not creating new ones manually.', 'Edit manually only when necessary, to preserve the automatic history.'],
+    ['Success = Yes x No', '"No" indicates that the execution was not completed successfully.', 'Read the Message column to understand the reason for the failure.'],
+  ]}
+/>
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Start Date, End Date, Type and Success, with the "Search" and "Clear Filters" buttons.', 'Use the period to narrow down the results.'],
+    ['Results', 'List of records with Date, Type, Success, Sent Parameters and Message, plus the per-row actions.', 'Each row has View/Detail, Edit and Delete.'],
+    ['Record editing', 'Window with Date, Type, Success, Sent Parameters and Message, and the "Save" and "Close" buttons.', 'Opened via the Edit icon to change a record.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Start Date', 'Start date and time of the period looked up.'],
+    ['End Date', 'End date and time of the period looked up.'],
+    ['Type', 'Type of service the system integrates with and stores a log for (e.g., SAP).'],
+    ['Success', 'Filters by the execution result (Yes or No); the X clears the selection.'],
+  ]}
+/>
+
+<Callout type="info" title="Most common service types">
+Among the types the system integrates with and stores a log for are: SAP, Portal KA, DataFrete, Crivo, Freshdesk, Freshsales, Portatou, Paygo, Credit Card Machine, Efí Gerencianet, Pagar Me, CRM Service, CRM Cancelled, Vcom, Phc and Serasa.
+</Callout>
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Date', 'Date and time of the service execution.'],
+    ['Type', 'Type of service the system integrates with and stores a log for (e.g., SAP).'],
+    ['Success', 'Whether the execution succeeded (Yes/No).'],
+    ['Sent Parameters', 'What was sent in the execution.'],
+    ['Message', 'Return or response of the execution.'],
+  ]}
+/>
+
+### Record editing
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Date', 'Date and time of the record.'],
+    ['Type', 'Type of service the system integrates with and stores a log for (e.g., SAP).'],
+    ['Success', 'Result of the execution (Yes or No).'],
+    ['Sent Parameters', 'Text of what was sent in the execution.'],
+    ['Message', 'Text of the execution return.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Look up** — enter the period (and, if you wish, Type and Success) and click **"Search"**.
+2. **View details** — click the **View/Detail** icon on the row.
+3. **Edit record** — click the **Edit** icon, change the fields and click **"Save"**.
+4. **Delete record** — click the **Delete** icon on the row.
+5. **Clear filters** — click **"Clear Filters"** to start the search over.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the records according to the filters.', 'The period is the main search criterion.'],
+    ['Clear Filters', 'To reset the filters and redo the search.', '—'],
+    ['View / Detail', 'To view a record without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing record.', 'Opens the window with the data filled in.'],
+    ['Delete', 'To remove a record.', 'Irreversible action; removes the record from the history.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Service Execution Log', 'Access to the screen', 'Allows opening and using the Service Execution Log screen.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Source of records', 'Integration logs are filled in automatically as the system runs the services, at the configured recording points.', 'The screen allows editing existing records when needed, but not creating new ones manually.'],
+    ['Failure indication', 'Success = No indicates the execution was not completed successfully.', 'Read the Message column to understand the reason.'],
+    ['Filter by period', 'Results depend on the period entered.', 'Adjust Start Date and End Date to find the record.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / system', 'Relationship', 'Caution']}
+  rows={[
+    ['SAP integration', 'SAP-type executions record the queries sent to SAP.', 'The message carries the integration return.'],
+    ['CRM registration', 'Failures may indicate missing data in the CRM (e.g., unregistered product).', 'Check the record mentioned in the message.'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not allow creating records manually — logs are generated by the configured executions.
+- It does not run the service itself — it only records and looks up the executions.
+- It does not fix the cause of the failure — the fix is made in the corresponding record or integration.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find a record', 'Period or filters too narrow', 'Widen the period (Start/End Date) and review Type and Success.'],
+    ['Many records with Success = No', 'Recurring integration failures', 'Read the Message to identify the cause (e.g., record missing in the CRM).'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+    ['The message indicates a product not registered in the CRM', 'Product used in the execution does not exist in the CRM', 'Register or validate the product in the CRM and run it again.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To look up and record the executions of system services and integrations, with the result and message of each one.' },
+    { question: 'Are the records created automatically?', answer: 'Yes. Integration logs are filled in automatically as the system runs, at the configured recording points. The screen does not create records manually, but allows editing existing ones.' },
+    { question: 'What does Success = No mean?', answer: 'That the execution was not completed successfully; the Message column explains the reason.' },
+    { question: 'Can I delete a record?', answer: 'Yes, via the Delete icon on the row. Do it carefully, as it removes the history.' },
+    { question: 'How do I find a specific execution?', answer: 'Adjust the period and use the Type and Success filters, then click "Search".' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '21/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '21/08/2026', author: 'Renan Camargo', description: 'Initial release of the Service Execution Log screen documentation.' },
+  ]}
+/>

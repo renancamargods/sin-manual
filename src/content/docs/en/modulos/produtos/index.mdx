@@ -1,0 +1,46 @@
+---
+section: modulos
+routeSlug: produtos
+pageType: module-index
+module: produtos
+moduleLabel: Products
+lang: en
+title: Products
+description: Product records, hierarchies, taxes and stock.
+keywords: [products, product, product registration, stock, product hierarchy]
+tags: [modulo]
+order: 16
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+
+## Overview
+
+The **Products** module centralizes the registration of the products sold, including hierarchy, packaging, taxes, images and stock balance.
+
+## When to use this module
+
+- Register a new product.
+- Look up or change product data.
+- Organize products by family, brand or hierarchy.
+- Look up the available stock balance.
+
+## How to access
+
+Side menu → Modules → Products
+
+<Callout type="cuidado" title="Use in other modules">
+The product record is used in orders, invoicing, regulatory and quality. Keep the information always up to date.
+</Callout>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Where do I look up a product’s stock balance?', answer: 'On the Stock Balance screen of the Products module, you can look up the available balance by center.' },
+    { question: 'What is GTIN?', answer: 'It is the global barcode used to identify the product, usually with 13 digits (the GTIN standard also allows 8, 12 or 14 digits).' },
+    { question: 'Why does a product not appear for selection in the order?', answer: 'Inactive products or products without a price/price list may not appear for selection.' },
+    { question: 'Where do I register or edit a product?', answer: 'On the Product screen (Products → Product).' },
+  ]}
+/>

@@ -1,0 +1,223 @@
+---
+section: modulos
+routeSlug: administrador/mensagem-personalizada
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Custom Message
+description: Register and look up the standardized messages used in order and occurrence routines, organized by message type.
+routineType: Registration and lookup
+permission: Yes
+impact: Standardized messages used in orders and occurrences
+keywords: [custom message, message type, order rejection, order approval, cancellation, standard message]
+tags: [modulo-administrador, cadastro]
+order: 2
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Custom Message** screen lets you register and look up the standardized messages the system uses in routines such as order rejection, approval and cancellation. Each message is linked to a **Message Type** (for example, RecusaPedidoCredito or AprovacaoPedidoPadraoAdm).
+
+When creating a message, you choose the Message Type and write the text. You can also register a **new Message Type** (with Code and Description) directly from the screen, without leaving the message registration.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Standardized messages', text: 'Centralizes the standard texts used in order rejections, approvals and cancellations.' },
+    { label: 'Usage', title: 'Orders and occurrences', text: 'The messages are reused in the routines according to the message type.' },
+    { label: 'Caution', title: 'Link to the type', text: 'Each message must be associated with the correct Message Type.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new standardized message.
+- Look up or filter messages by type or period.
+- Edit or delete an existing message.
+- Register a new Message Type.
+
+## How to access
+
+Administrator → Custom Message
+
+## Before you start
+
+- Know which **Message Type** the message belongs to.
+- Have the message text ready.
+- If the type does not exist yet, register it (Code and Description) via the new type button.
+
+## Important differences
+
+<DocTable
+  headers={['Comparison', 'Difference', 'Guidance']}
+  rows={[
+    ['Message x Message Type', 'The Message is the standard text; the Message Type is the category that groups the messages (e.g., RecusaPedidoCredito).', 'Each message belongs to a Message Type.'],
+    ['"+ New" button x the type "+" button', 'The "+ New" creates a message; the "+" next to "Message Type ID" registers a new Message Type.', 'Use the type "+" only when the type does not exist yet.'],
+  ]}
+/>
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Message, Date From, Date To and Message Type, with the "Search", "+ New" and "Clear Filters" buttons.', 'Use the period and the type to narrow down the results.'],
+    ['Results', 'List of messages with Message, Registration Date, Created By and Message Type, plus the per-row actions.', 'Each row has View/Detail, Edit and Delete.'],
+    ['Message registration / editing', 'Window with "Message Type ID" (with the "+" button for a new type) and "Message", and the "Save" and "Close" buttons.', 'Opened via "+ New" (create) or the Edit icon (change).'],
+    ['Message Type registration', 'Window with "Code" and "Description", and the "Save and Continue", "Save" and "Close" buttons.', 'Opened via the "+" next to "Message Type ID".'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Message', 'Searches by the message text.'],
+    ['Date From', 'Start date of the registration.'],
+    ['Date To', 'End date of the registration.'],
+    ['Message Type', 'Filters by the message type (e.g., RecusaPedidoCredito).'],
+  ]}
+/>
+
+<Callout type="info" title="Most common message types">
+Among the available types are: CancelamentoOcorrencia, CancelamentoPedido, AprovacaoPedidoPadraoCobranca, AprovacaoPedidoPadraoCredito, AprovacaoPedidoPadraoAdm, AprovacaoPedidoAposRecusaCobranca, AprovacaoPedidoAposRecusaCredito, AprovacaoPedidoAposRecusaAdministrativo, RecusaPedidoCobranca, RecusaPedidoCredito, RecusaPedidoAdministrativo, VoltarContagem and VoltarContagemSemItens.
+</Callout>
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Message', 'Standard text of the message.'],
+    ['Registration Date', 'Date the message was registered.'],
+    ['Created By', 'User who registered the message.'],
+    ['Message Type', 'Type the message belongs to.'],
+  ]}
+/>
+
+### Message registration / editing
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Message Type ID', 'Type the message will be linked to. The "+" button next to it allows registering a new type.'],
+    ['Message', 'Standard text of the message.'],
+  ]}
+/>
+
+### Message Type registration
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Code', 'Code that identifies the message type.'],
+    ['Description', 'Description of the message type.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Look up** — enter the filters (Message, period and Message Type) and click **"Search"**.
+2. **View details** — click the **View/Detail** icon on the row.
+3. **Register a message** — click **"+ New"**, select the **Message Type ID**, write the **Message** and click **"Save"**.
+4. **Register a new Message Type** — in the message window, click the **"+"** next to "Message Type ID", enter **Code** and **Description** and click **"Save"** (or **"Save and Continue"**).
+5. **Edit a message** — click the **Edit** icon, change the fields and click **"Save"**.
+6. **Delete a message** — click the **Delete** icon on the row.
+7. **Clear filters** — click **"Clear Filters"** to start the search over.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the messages according to the filters.', 'The period and type help to filter.'],
+    ['+ New', 'To register a new message.', 'Opens the message registration window.'],
+    ['+ (next to the type)', 'To register a new Message Type.', 'Opens the type window (Code and Description).'],
+    ['Save and Continue', 'To save the type and keep registering.', 'Available in the Message Type registration.'],
+    ['Clear Filters', 'To reset the filters and redo the search.', '—'],
+    ['View / Detail', 'To view a message without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing message.', 'Opens the window with the data filled in.'],
+    ['Delete', 'To remove a message.', 'Irreversible action; removes the message.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Custom Message', 'Access to the screen', 'Allows opening and using the Custom Message screen.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Mandatory link to the type', 'Each message is associated with a Message Type.', 'Select the correct type when registering the message.'],
+    ['Reuse in routines', 'Standardized messages are reused in the routines according to the type (rejection, approval, cancellation).', 'Review the text before saving, as it will be shown to users.'],
+    ['New type from the screen itself', 'You can register a new Message Type without leaving the message registration.', 'Use only when the type does not exist yet.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Orders (approval, rejection and cancellation)', 'Messages are used in order routines according to the type.', 'Keep the texts consistent with the current policy.'],
+    ['Occurrences', 'Types such as CancelamentoOcorrencia indicate use in occurrences.', 'Check the correct type when registering.'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not apply the message by itself — it is used by the routines according to the type.
+- It does not define the policy or rule — only the standard text that will be shown.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The message does not appear in the routine', 'Incorrect Message Type', 'Confirm the type linked to the message.'],
+    ['I cannot find a message', 'Filters or period too narrow', 'Adjust the filters and the period; review the Message Type.'],
+    ['I cannot select the type', 'Type not registered yet', 'Register the type via the "+" next to "Message Type ID".'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register and look up the standardized messages used in order and occurrence routines.' },
+    { question: 'What is the Message Type?', answer: 'It is the category that groups the messages (e.g., RecusaPedidoCredito). Each message belongs to a type.' },
+    { question: 'How do I register a new type?', answer: 'In the message registration window, click the "+" next to "Message Type ID" and enter Code and Description.' },
+    { question: 'Can I delete a message?', answer: 'Yes, via the Delete icon on the row.' },
+    { question: 'Where are the messages used?', answer: 'In order routines (approval, rejection and cancellation) and occurrences, according to the type.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '21/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '21/08/2026', author: 'Renan Camargo', description: 'Initial release of the Custom Message screen documentation.' },
+  ]}
+/>
