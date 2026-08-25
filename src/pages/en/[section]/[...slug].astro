@@ -2,7 +2,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import RoutineList from '../../../components/RoutineList.astro';
-import { getModule, tecnicoPages, modules, manualPages, moduleEn, manualPageEn, tecnicoGroupEn } from '../../../data/modules';
+import { getModule, tecnicoPages, modules, manualPages, moduleEn, manualPageEn, tecnicoGroupEn, routineTitleEn, tecnicoSubEn } from '../../../data/modules';
 
 // Rotas em inglês. Geram uma URL /en/* para cada página PT (canônica).
 // Se existir uma gêmea traduzida (lang: 'en' com o mesmo section/routeSlug),
@@ -118,7 +118,7 @@ for (const mod of [...modules].sort((a, b) => a.order - b.order)) {
   if (moduleIndexAvailable(mod.id)) flatPages.push({ href: L(`/modulos/${mod.id}`), title: moduleEn[mod.id]?.label ?? mod.label });
   for (const r of mod.routines) {
     if ((availModule[mod.id] ?? []).includes(r.slug)) {
-      flatPages.push({ href: L(`/modulos/${mod.id}/${r.slug}`), title: r.title });
+      flatPages.push({ href: L(`/modulos/${mod.id}/${r.slug}`), title: routineTitleEn[`${mod.id}/${r.slug}`] ?? r.title });
     }
   }
 }
@@ -126,7 +126,7 @@ for (const g of tecnicoPages) {
   if (availTecnico.includes(g.slug)) flatPages.push({ href: L(`/tecnico/${g.slug}`), title: tecnicoGroupEn[g.slug]?.title ?? g.title });
   for (const sub of g.pages ?? []) {
     if (availTecnico.includes(`${g.slug}/${sub.slug}`)) {
-      flatPages.push({ href: L(`/tecnico/${g.slug}/${sub.slug}`), title: sub.title });
+      flatPages.push({ href: L(`/tecnico/${g.slug}/${sub.slug}`), title: tecnicoSubEn[`${g.slug}/${sub.slug}`] ?? sub.title });
     }
   }
 }

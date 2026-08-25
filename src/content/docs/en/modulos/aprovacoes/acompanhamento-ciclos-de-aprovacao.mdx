@@ -1,0 +1,231 @@
+---
+section: modulos
+routeSlug: aprovacoes/acompanhamento-ciclos-de-aprovacao
+pageType: routine
+module: aprovacoes
+moduleLabel: Approvals
+lang: en
+title: Approval Cycles Tracking
+description: Look up and track approval cycles (of customers, orders and others), from start to completion, with the stages and decisions of each group.
+routineType: Lookup
+permission: Yes
+impact: Tracking of approval cycles and stages
+keywords: [approval cycle, tracking, stages, cycle status, sub-status, level, approval, rejection, approval entity]
+tags: [modulo-aprovacoes, consulta]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Approval Cycles Tracking** screen lets you **look up and track** the approval cycles opened in the system — for example, the approval of a **Customer** or an **Order**. For each cycle, you can see the overall status, the related record and, in the details, all the stages gone through with the responsible group, the decision and the date.
+
+It is a **tracking-only** screen: the approval or rejection of each stage is recorded by the responsible groups in the approval queues, not here.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Track approval cycles', text: 'Shows the status of each cycle and the progress of its stages.' },
+    { label: 'Usage', title: 'Lookup and tracking', text: 'Used to find a cycle and see who decided each stage and when.' },
+    { label: 'Caution', title: 'Read only', text: 'The screen does not create cycles nor approve/reject stages; it only tracks.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Track the progress of a customer or order approval cycle.
+- Check which stage the cycle is in and which group is responsible.
+- Look up the decision (approved or rejected), the user and the date of each stage.
+- Find cycles by status, period or requesting user.
+
+## How to access
+
+Approvals → Approval Cycles Tracking
+
+## Before you start
+
+- Decide how you want to find the cycle (by status, period, entity or requesting user).
+- Have at hand, if you know it, the cycle code or the related record (customer or order).
+- Confirm that you have permission to access the screen.
+
+## Important differences
+
+<DocTable
+  headers={['Comparison', 'Difference', 'Guidance']}
+  rows={[
+    ['Cycle Status x Sub-Status', 'The Cycle Status shows the overall progress (In Progress, Completed or Cancelled); the Sub-Status details the result (e.g., "Aprovado ADM Vendas", "Reprovado ADM Vendas").', 'Use the Status for the progress and the Sub-Status for the detail.'],
+    ['Cycle Status x Stage Status', 'The Status is for the whole cycle; the Stage Status is for each stage (responsible group).', 'Open the Details to see the status of each stage.'],
+    ['Track x decide', 'This screen only tracks; the approval or rejection is done by the responsible groups in the approval queues.', 'To decide a stage, use the approval queue of the responsible group.'],
+  ]}
+/>
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Approval Entity, Requesting Users, Cycle Status and the Start and Completion periods, with the "Search" and "Clear Filters" buttons.', 'Use the filters to narrow down the results.'],
+    ['Results', 'List of cycles with the main columns and, on each row, the Details icon. The results bar offers grid or list view, column selection and export.', 'Click the Details icon to open the cycle.'],
+    ['Details (window)', '"Approval Entity Data" tab with the "Information" block and the "Approval Cycle Stages" table. Each block can be hidden or shown via the eye icon.', 'It is a view; there is no editing.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Approval Entity', 'Filters by the cycle’s entity type (e.g., Customer, Order).'],
+    ['Requesting Users', 'Filters by the user who started the cycle.'],
+    ['Cycle Status', 'Filters by In Progress, Completed or Cancelled (options can be combined).'],
+    ['Cycle Start from / to', 'Cycle start period.'],
+    ['Cycle Completion from / to', 'Cycle completion period.'],
+  ]}
+/>
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Cycle Code', 'Number that identifies the cycle.'],
+    ['Name', 'User who requested the cycle.'],
+    ['Cycle Start', 'Cycle start date and time.'],
+    ['Cycle Completion', 'Completion date and time (when completed).'],
+    ['Cycle Status', 'Overall progress: In Progress, Completed or Cancelled.'],
+    ['Approval Entity', 'Approval entity of the record (e.g., Customer, Order).'],
+    ['Related Record', 'Number of the record linked to the cycle (the customer or the order).'],
+    ['Approval Cycle Sub-Status', 'Detailed result of the cycle (e.g., "Aprovado ADM Vendas", "Reprovado ADM Vendas").'],
+  ]}
+/>
+
+### Details — Information
+
+<DocTable
+  headers={['Field', 'What it shows']}
+  rows={[
+    ['Cycle Code', 'Number that identifies the cycle.'],
+    ['Approval Entity', 'Entity type of the cycle (e.g., Customer).'],
+    ['Related Record', 'Number of the record linked to the cycle.'],
+    ['Cycle Status', 'Overall progress of the cycle.'],
+    ['Approval Cycle Sub-Status', 'Detailed result of the cycle.'],
+    ['Requesting User', 'User who started the cycle.'],
+    ['Cycle Start', 'Start date and time.'],
+    ['Cycle Completion', 'Completion date and time (when applicable).'],
+  ]}
+/>
+
+### Details — Approval Cycle Stages
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Approval Responsible Group', 'Group responsible for deciding the stage (e.g., ADM de Vendas, Crédito).'],
+    ['Stage Status', 'Status of the stage: Approved, Rejected or Awaiting Completion of the Previous Stage.'],
+    ['Decision User', 'User who decided the stage.'],
+    ['Decision Date', 'Date and time of the decision.'],
+    ['Decision Detail', 'Note about the decision, when provided (e.g., "ANALISE ADM").'],
+    ['Stage Grouping', 'Grouping of the stage in the flow (e.g., Awaiting Release, Rejected).'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search cycles** — enter the desired filters and click **"Search"**.
+2. **Filter by status** — use the **Cycle Status** options (In Progress, Completed, Cancelled) to narrow the list.
+3. **Open the details** — click the **Details** icon on the row to see the cycle Information and the Approval Cycle Stages.
+4. **Track the stages** — in the details window, see the status, the responsible group, the user and the date of each stage.
+5. **Clear filters** — click **"Clear Filters"** to start the search over.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the cycles according to the filters.', 'Combine status and period to refine.'],
+    ['Clear Filters', 'To reset the filters and redo the search.', '—'],
+    ['Details', 'To open the cycle tracking (Information and Stages).', 'It is a view; there is no editing.'],
+    ['View and export', 'To switch between grid and list, choose columns and export the list.', 'Available in the results bar.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Approval Cycles Tracking', 'Access to the screen', 'Allows opening and viewing the approval cycles and their details.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Stages in sequence', 'A stage stays "Awaiting Completion of the Previous Stage" until the previous stage is completed.', 'Follow the order of the stages in the details.'],
+    ['Status x Sub-Status', 'The Status shows the overall progress and the Sub-Status details the result.', 'Check both to understand the cycle stage.'],
+    ['Cycle Completion', 'The Completion date is only filled in when the cycle is completed.', 'Cycles in progress or cancelled may have no completion date.'],
+    ['Read only', 'The screen does not allow approving, rejecting or changing the cycle.', 'The decision is made by the responsible groups in the approval queues.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Approval Entity and Approval Rule', 'They define what goes through approval and who decides each stage; the cycle follows these settings.', 'The stages shown reflect the configured rules.'],
+    ['Customers and Orders', 'They are the entities whose records generate approval cycles.', 'The Related Record points to the cycle’s customer or order.'],
+    ['Group approval queues', 'This is where the responsible groups approve or reject each stage.', 'The decisions made there appear here as tracking.'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not create approval cycles — they arise from the records (customer, order) according to the rules.
+- It does not approve or reject stages — the decision is recorded by the responsible groups in the approval queues.
+- It does not change the related record (customer or order).
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The cycle does not appear in the search', 'Filters or period too narrow', 'Review the Cycle Status and the start/completion periods.'],
+    ['I cannot approve or reject here', 'The screen is tracking only', 'Use the approval queue of the responsible group to decide the stage.'],
+    ['The stage is "Awaiting Completion of the Previous Stage"', 'The previous stage is not completed yet', 'Follow the previous stage; the next one only starts after it is completed.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To track approval cycles (of customers, orders and others), from start to completion, with the stages and decisions of each group.' },
+    { question: 'Can I approve or reject here?', answer: 'No. The screen is tracking only; the decision is recorded by the responsible groups in the approval queues.' },
+    { question: 'What is the difference between Cycle Status and Sub-Status?', answer: 'The Status shows the overall progress (In Progress, Completed or Cancelled); the Sub-Status details the result (e.g., "Aprovado ADM Vendas").' },
+    { question: 'What does "Awaiting Completion of the Previous Stage" mean?', answer: 'The stage only starts after the previous stage of the cycle is completed.' },
+    { question: 'How do I see who decided each stage?', answer: 'Open the Details: the "Approval Cycle Stages" table shows the Decision User and the Decision Date of each stage.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '25/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/08/2026', author: 'Renan Camargo', description: 'Initial release of the Approval Cycles Tracking screen documentation.' },
+  ]}
+/>

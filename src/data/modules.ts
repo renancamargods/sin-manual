@@ -60,7 +60,7 @@ export const tecnicoPages: TecnicoGroup[] = [
 export const modules: ModuleDef[] = [
   {
     id: 'administrador',
-    label: 'Administrator',
+    label: 'Administrador',
     description: 'Configurações administrativas gerais do sistema.',
     order: 1,
     routines: [
@@ -74,6 +74,7 @@ export const modules: ModuleDef[] = [
     description: 'Regras e fluxos de aprovação usados por outros módulos.',
     order: 2,
     routines: [
+      { title: 'Acompanhamento Ciclos de Aprovação', slug: 'acompanhamento-ciclos-de-aprovacao', description: 'Consulta e acompanhamento dos ciclos de aprovação e suas etapas.' },
       { title: 'Entidade de Aprovação', slug: 'entidade-de-aprovacao', description: 'Define o que pode ser submetido a aprovação.' },
       { title: 'Regra de Aprovação', slug: 'regra-de-aprovacao', description: 'Define quem aprova e em qual condição.' },
     ],
@@ -387,6 +388,7 @@ export const tecnicoGroupEn: Record<string, { title: string; description: string
 export const routineTitleEn: Record<string, string> = {
   'administrador/log-de-execucao-de-servico': 'Service Execution Log',
   'administrador/mensagem-personalizada': 'Custom Message',
+  'aprovacoes/acompanhamento-ciclos-de-aprovacao': 'Approval Cycles Tracking',
   'aprovacoes/entidade-de-aprovacao': 'Approval Entity',
   'aprovacoes/regra-de-aprovacao': 'Approval Rule',
   'autenticador/departamento-de-usuario': 'User Department',

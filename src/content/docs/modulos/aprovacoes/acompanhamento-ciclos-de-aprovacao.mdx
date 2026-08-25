@@ -1,0 +1,230 @@
+---
+section: modulos
+routeSlug: aprovacoes/acompanhamento-ciclos-de-aprovacao
+pageType: routine
+module: aprovacoes
+moduleLabel: Aprovações
+title: Acompanhamento Ciclos de Aprovação
+description: Consulta e acompanhamento dos ciclos de aprovação (de clientes, pedidos e outros), do início à conclusão, com as etapas e decisões de cada grupo.
+routineType: Consulta
+permission: Sim
+impact: Acompanhamento dos ciclos e etapas de aprovação
+keywords: [ciclo de aprovação, acompanhamento, etapas, situação do ciclo, sub-status, alçada, aprovação, recusa, entidade de aprovação]
+tags: [modulo-aprovacoes, consulta]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Acompanhamento Ciclos de Aprovação** permite **consultar e acompanhar** os ciclos de aprovação abertos no sistema — por exemplo, a aprovação de um **Cliente** ou de um **Pedido**. Para cada ciclo, é possível ver a situação geral, o registro relacionado e, nos detalhes, todas as etapas percorridas com o grupo responsável, a decisão e a data.
+
+É uma tela **somente de acompanhamento**: a aprovação ou a recusa de cada etapa é registrada pelos grupos responsáveis nas filas de aprovação, não por aqui.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Acompanhar ciclos de aprovação', text: 'Mostra a situação de cada ciclo e o andamento das suas etapas.' },
+    { label: 'Uso', title: 'Consulta e acompanhamento', text: 'Usada para localizar um ciclo e ver quem decidiu cada etapa e quando.' },
+    { label: 'Cuidado', title: 'Somente leitura', text: 'A tela não cria ciclos nem aprova/recusa etapas; apenas acompanha.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Acompanhar o andamento de um ciclo de aprovação de cliente ou pedido.
+- Verificar em qual etapa o ciclo está e qual grupo é o responsável.
+- Consultar a decisão (aprovado ou recusado), o usuário e a data de cada etapa.
+- Localizar ciclos por situação, período ou usuário solicitante.
+
+## Como acessar
+
+Aprovações → Acompanhamento Ciclos de Aprovação
+
+## Antes de começar
+
+- Defina como quer localizar o ciclo (por situação, período, entidade ou usuário solicitante).
+- Tenha em mãos, se souber, o código do ciclo ou o registro relacionado (cliente ou pedido).
+- Confirme que você tem a permissão de acesso à tela.
+
+## Diferenças importantes
+
+<DocTable
+  headers={['Comparação', 'Diferença', 'Orientação']}
+  rows={[
+    ['Situação do Ciclo x Sub-Status', 'A Situação do Ciclo mostra o andamento geral (Em Progresso, Concluído ou Cancelado); o Sub-Status detalha o resultado (ex.: "Aprovado ADM Vendas", "Reprovado ADM Vendas").', 'Use a Situação para o andamento e o Sub-Status para o detalhe.'],
+    ['Situação do Ciclo x Status da Etapa', 'A Situação é do ciclo inteiro; o Status da Etapa é de cada etapa (grupo responsável).', 'Abra os Detalhes para ver o status de cada etapa.'],
+    ['Acompanhar x decidir', 'Esta tela apenas acompanha; a aprovação ou recusa é feita pelos grupos responsáveis nas filas de aprovação.', 'Para decidir uma etapa, use a fila de aprovação do grupo responsável.'],
+  ]}
+/>
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Entidade de Aprovação, Usuários Solicitantes, Situação do Ciclo e os períodos de Início e de Conclusão, com os botões "Pesquisar" e "Limpar Filtros".', 'Use os filtros para restringir os resultados.'],
+    ['Resultados', 'Lista dos ciclos com as principais colunas e, em cada linha, o ícone de Detalhes. A barra de resultados oferece visualização em grade ou lista, seleção de colunas e exportação.', 'Clique no ícone de Detalhes para abrir o ciclo.'],
+    ['Detalhes (janela)', 'Aba "Dados da Entidade de Aprovação" com o bloco "Informações" e a tabela "Etapas do Ciclo de Aprovação". Cada bloco pode ser ocultado ou exibido pelo ícone de olho.', 'É uma visualização; não há edição.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Entidade de Aprovação', 'Filtra pelo tipo de entidade do ciclo (ex.: Cliente, Pedido).'],
+    ['Usuários Solicitantes', 'Filtra pelo usuário que iniciou o ciclo.'],
+    ['Situação do Ciclo', 'Filtra por Em Progresso, Concluído ou Cancelado (pode combinar as opções).'],
+    ['Início do Ciclo de / até', 'Período de início do ciclo.'],
+    ['Conclusão do Ciclo de / até', 'Período de conclusão do ciclo.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Código do Ciclo', 'Número que identifica o ciclo.'],
+    ['Nome', 'Usuário solicitante do ciclo.'],
+    ['Início do Ciclo', 'Data e hora de início do ciclo.'],
+    ['Conclusão do Ciclo', 'Data e hora de conclusão (quando concluído).'],
+    ['Situação do Ciclo', 'Andamento geral: Em Progresso, Concluído ou Cancelado.'],
+    ['Entidade de Aprovação', 'Entidade de aprovação do registro (ex.: Cliente, Pedido).'],
+    ['Registro Relacionado', 'Número do registro vinculado ao ciclo (o cliente ou o pedido).'],
+    ['Sub-Status Ciclo de Aprovação', 'Resultado detalhado do ciclo (ex.: "Aprovado ADM Vendas", "Reprovado ADM Vendas").'],
+  ]}
+/>
+
+### Detalhes — Informações
+
+<DocTable
+  headers={['Campo', 'O que mostra']}
+  rows={[
+    ['Código do Ciclo', 'Número que identifica o ciclo.'],
+    ['Entidade de Aprovação', 'Tipo de entidade do ciclo (ex.: Cliente).'],
+    ['Registro Relacionado', 'Número do registro vinculado ao ciclo.'],
+    ['Situação do Ciclo', 'Andamento geral do ciclo.'],
+    ['Sub-Status Ciclo de Aprovação', 'Resultado detalhado do ciclo.'],
+    ['Usuário Solicitante', 'Usuário que iniciou o ciclo.'],
+    ['Início do Ciclo', 'Data e hora de início.'],
+    ['Conclusão do Ciclo', 'Data e hora de conclusão (quando houver).'],
+  ]}
+/>
+
+### Detalhes — Etapas do Ciclo de Aprovação
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Grupo Responsável Aprovação', 'Grupo responsável por decidir a etapa (ex.: ADM de Vendas, Crédito).'],
+    ['Status da Etapa', 'Situação da etapa: Aprovado, Recusado ou Aguardando Conclusão da Etapa Anterior.'],
+    ['Usuário Decisão', 'Usuário que decidiu a etapa.'],
+    ['Data Decisão', 'Data e hora da decisão.'],
+    ['Detalhe Decisão', 'Observação da decisão, quando informada (ex.: "ANALISE ADM").'],
+    ['Agrupamento da Etapa', 'Agrupamento da etapa no fluxo (ex.: Aguardando Liberação, Recusado).'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Pesquisar ciclos** — informe os filtros desejados e clique em **"Pesquisar"**.
+2. **Filtrar por situação** — use as opções de **Situação do Ciclo** (Em Progresso, Concluído, Cancelado) para restringir a lista.
+3. **Abrir os detalhes** — clique no ícone de **Detalhes** da linha para ver as Informações do ciclo e as Etapas do Ciclo de Aprovação.
+4. **Acompanhar as etapas** — na janela de detalhes, veja o status, o grupo responsável, o usuário e a data de cada etapa.
+5. **Limpar filtros** — clique em **"Limpar Filtros"** para recomeçar a busca.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os ciclos conforme os filtros.', 'Combine situação e período para refinar.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Detalhes', 'Para abrir o acompanhamento do ciclo (Informações e Etapas).', 'É uma visualização; não há edição.'],
+    ['Visualização e exportação', 'Para alternar entre grade e lista, escolher colunas e exportar a lista.', 'Disponível na barra de resultados.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Acompanhamento Ciclos de Aprovação', 'Acesso à tela', 'Permite abrir e consultar os ciclos de aprovação e seus detalhes.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Etapas em sequência', 'Uma etapa fica "Aguardando Conclusão da Etapa Anterior" até a etapa anterior ser concluída.', 'Acompanhe a ordem das etapas nos detalhes.'],
+    ['Situação x Sub-Status', 'A Situação mostra o andamento geral e o Sub-Status detalha o resultado.', 'Consulte os dois para entender o estágio do ciclo.'],
+    ['Conclusão do Ciclo', 'A data de Conclusão só é preenchida quando o ciclo é concluído.', 'Ciclos em progresso ou cancelados podem não ter data de conclusão.'],
+    ['Somente leitura', 'A tela não permite aprovar, recusar ou alterar o ciclo.', 'A decisão é feita pelos grupos responsáveis nas filas de aprovação.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Entidade de Aprovação e Regra de Aprovação', 'Definem o que passa por aprovação e quem decide cada etapa; o ciclo segue essas configurações.', 'As etapas exibidas refletem as regras configuradas.'],
+    ['Clientes e Pedidos', 'São as entidades cujos registros geram ciclos de aprovação.', 'O Registro Relacionado aponta o cliente ou o pedido do ciclo.'],
+    ['Filas de aprovação dos grupos', 'É onde os grupos responsáveis aprovam ou recusam cada etapa.', 'As decisões tomadas lá aparecem aqui como acompanhamento.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cria ciclos de aprovação — eles nascem dos registros (cliente, pedido) conforme as regras.
+- Não aprova nem recusa etapas — a decisão é registrada pelos grupos responsáveis nas filas de aprovação.
+- Não altera o registro relacionado (cliente ou pedido).
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O ciclo não aparece na busca', 'Filtros ou período muito restritos', 'Revise a Situação do Ciclo e os períodos de início/conclusão.'],
+    ['Não consigo aprovar ou recusar por aqui', 'A tela é só de acompanhamento', 'Use a fila de aprovação do grupo responsável para decidir a etapa.'],
+    ['A etapa está "Aguardando Conclusão da Etapa Anterior"', 'A etapa anterior ainda não foi concluída', 'Acompanhe a etapa anterior; a próxima só inicia após a conclusão dela.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para acompanhar os ciclos de aprovação (de clientes, pedidos e outros), do início à conclusão, com as etapas e as decisões de cada grupo.' },
+    { question: 'Posso aprovar ou recusar por aqui?', answer: 'Não. A tela é somente de acompanhamento; a decisão é registrada pelos grupos responsáveis nas filas de aprovação.' },
+    { question: 'Qual a diferença entre Situação do Ciclo e Sub-Status?', answer: 'A Situação mostra o andamento geral (Em Progresso, Concluído ou Cancelado); o Sub-Status detalha o resultado (ex.: "Aprovado ADM Vendas").' },
+    { question: 'O que significa "Aguardando Conclusão da Etapa Anterior"?', answer: 'A etapa só inicia depois que a etapa anterior do ciclo for concluída.' },
+    { question: 'Como vejo quem decidiu cada etapa?', answer: 'Abra os Detalhes: na tabela "Etapas do Ciclo de Aprovação" aparecem o Usuário Decisão e a Data Decisão de cada etapa.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '25/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Acompanhamento Ciclos de Aprovação.' },
+  ]}
+/>
