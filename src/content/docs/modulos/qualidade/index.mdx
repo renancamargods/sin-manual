@@ -12,6 +12,7 @@ order: 17
 ---
 
 import Callout from '../../../../components/Callout.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
 
 ## Visão geral
 
@@ -29,3 +30,14 @@ Menu lateral → Módulos → Qualidade
 <Callout type="info" title="Relação com Produtos">
 As análises registradas aqui ficam vinculadas ao cadastro do produto correspondente.
 </Callout>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Análise de Qualidade?', answer: 'Registrar e acompanhar a análise de qualidade dos produtos, com leitura dos itens (serial/DataMatrix) e controle de transferência.' },
+    { question: 'Como registro uma análise?', answer: 'Bipe os itens (leitura do DataMatrix/serial) e salve a análise.' },
+    { question: 'O que é o Refugo?', answer: 'O registro de materiais reprovados ou descartados na análise.' },
+    { question: 'A análise transfere o produto?', answer: 'A análise pode envolver a transferência e a rastreabilidade dos produtos, refletida no SAP.' },
+  ]}
+/>

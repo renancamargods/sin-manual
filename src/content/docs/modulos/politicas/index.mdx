@@ -12,6 +12,7 @@ order: 15
 ---
 
 import Callout from '../../../../components/Callout.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
 
 ## Visão geral
 
@@ -30,3 +31,15 @@ Menu lateral → Módulos → Políticas
 <Callout type="cuidado" title="Impacto em pedidos">
 Alterações nas políticas comerciais passam a valer para novos pedidos e podem não afetar pedidos já criados.
 </Callout>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Estrutura Comercial?', answer: 'Define a hierarquia comercial (consultores, gerentes, vendedores, financeiro, crédito, entre outros) e a carteira de clientes de cada um.' },
+    { question: 'Como as políticas comerciais afetam o pedido?', answer: 'Definem descontos, campanhas e regras aplicadas automaticamente ao pedido, conforme o cliente e os itens — tudo a partir do que está cadastrado nas políticas.' },
+    { question: 'O que é uma Restrição de Venda?', answer: 'Uma regra, cadastrada nas políticas, que impede a venda de determinados produtos a determinados clientes ou situações.' },
+    { question: 'Onde configuro formas e condições de pagamento?', answer: 'No módulo Políticas, em Forma de Pagamento e Condição de Pagamento.' },
+    { question: 'Alterar uma política afeta pedidos já feitos?', answer: 'Não necessariamente; as alterações valem para novos pedidos.' },
+  ]}
+/>

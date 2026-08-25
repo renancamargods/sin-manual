@@ -12,6 +12,7 @@ order: 10
 ---
 
 import Callout from '../../../../components/Callout.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
 
 ## Visão geral
 
@@ -30,3 +31,15 @@ Menu lateral → Módulos → Inventários
 <Callout type="cuidado" title="Impacto no estoque">
 As contagens registradas aqui podem gerar ajustes no saldo de estoque dos produtos.
 </Callout>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Como faço a contagem de um inventário?', answer: 'Abra o inventário e registre a contagem bipando os itens (leitura do DataMatrix).' },
+    { question: 'O que são a 2ª e a 3ª contagem?', answer: 'São recontagens: a 2ª contagem é sempre feita e, havendo divergência, a 3ª contagem é aberta para nova conferência.' },
+    { question: 'Posso voltar uma contagem já finalizada?', answer: 'Sim, há a opção "Voltar Contagem"; finalizar a contagem pode exigir permissão específica.' },
+    { question: 'O que é o inventário cíclico?', answer: 'Um tipo de inventário que confere apenas produtos específicos, de forma periódica.' },
+    { question: 'A contagem altera o estoque?', answer: 'Sim, as contagens podem gerar ajustes no saldo de estoque dos produtos — mas somente após serem finalizadas.' },
+  ]}
+/>

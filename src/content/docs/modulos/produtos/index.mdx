@@ -12,6 +12,7 @@ order: 16
 ---
 
 import Callout from '../../../../components/Callout.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
 
 ## Visão geral
 
@@ -31,3 +32,14 @@ Menu lateral → Módulos → Produtos
 <Callout type="cuidado" title="Uso em outros módulos">
 O cadastro do produto é utilizado em pedidos, faturamento, regulatórios e qualidade. Mantenha as informações sempre atualizadas.
 </Callout>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Onde consulto o saldo de estoque de um produto?', answer: 'Na tela de Saldo de Estoque do módulo Produtos, é possível consultar o saldo disponível por centro.' },
+    { question: 'O que é o GTIN?', answer: 'É o código de barras global usado para identificar o produto, normalmente com 13 dígitos (o padrão GTIN também admite 8, 12 ou 14 dígitos).' },
+    { question: 'Por que um produto não aparece para seleção no pedido?', answer: 'Produtos inativos ou sem preço/lista de preço podem não aparecer para seleção.' },
+    { question: 'Onde cadastro ou edito um produto?', answer: 'Na tela Produto (Produtos → Produto).' },
+  ]}
+/>

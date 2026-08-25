@@ -12,6 +12,7 @@ order: 1
 ---
 
 import Callout from '../../../../components/Callout.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
 
 ## Visão geral
 
@@ -29,3 +30,15 @@ Menu lateral → Módulos → Administrator
 <Callout type="info" title="Acesso restrito">
 As telas deste módulo costumam ser usadas apenas por administradores do sistema.
 </Callout>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve este módulo?', answer: 'Reúne as configurações administrativas gerais (empresas, centros, lounges e parâmetros do ambiente), usadas por administradores.' },
+    { question: 'O que é um Lounge?', answer: 'É a unidade/loja onde as operações acontecem; é usado em pedidos, faturamento e inventário.' },
+    { question: 'Qual a diferença entre Empresa, Centro e Lounge?', answer: 'Empresa é a pessoa jurídica (ex.: empresa 01, 02 ou 03); centro é a unidade de estoque e faturamento no SAP (ex.: 1033, 1027, 1000); lounge é a unidade operacional vinculada (ex.: Lounge Tatuapé, Lounge Brasília, Lounge Cuiabá).' },
+    { question: 'O que é o Modo Feira?', answer: 'Uma configuração para quando há feira ou evento, aplicada aos usuários que estão na feira.' },
+    { question: 'O que acontece quando o sistema está "em manutenção"?', answer: 'Uma trava exibe uma mensagem ao logar informando que o sistema está em manutenção.' },
+  ]}
+/>
