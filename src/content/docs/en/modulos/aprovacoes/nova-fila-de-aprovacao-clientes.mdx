@@ -1,0 +1,234 @@
+---
+section: modulos
+routeSlug: aprovacoes/nova-fila-de-aprovacao-clientes
+pageType: routine
+module: aprovacoes
+moduleLabel: Approvals
+lang: en
+title: New Approval Queue - Customers
+description: Queue where the responsible groups approve, reject or send to evaluation the customers awaiting registration release.
+routineType: Lookup and process
+permission: Yes
+impact: Approval decision for customer registrations
+keywords: [approval queue, customers to release, customers under evaluation, approve customer, reject customer, evaluation, awaiting approvals, sub-status, approval cycle, level, customer registration]
+tags: [modulo-aprovacoes, processo]
+order: 4
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **New Approval Queue - Customers** screen is where the responsible groups **decide on the customer registrations** that were sent for approval. In it, each customer awaiting release appears in a list, with its status, the cycle progress and the actions to **approve**, **reject** or **send to evaluation**.
+
+It is the queue that receives the customers sent from the **Customer** screen. While the Customer screen creates and forwards the registration, this is where the approval levels record the decision that moves the customer forward (or back) in the approval cycle.
+
+The screen organizes the work into two tabs: **"Customers to Release"** (awaiting the decision) and **"Customers under Evaluation"** (sent for evaluation). See also the [Customer Creation and Approval Flow](/en/tecnico/fluxos/criacao-de-cliente).
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Approve customer registrations', text: 'Receives the sent customers and lets you approve, reject or send to evaluation.' },
+    { label: 'Usage', title: 'Approval level work', text: 'It is the queue used by the responsible groups to decide on each registration.' },
+    { label: 'Caution', title: 'The decision is definitive in the cycle', text: 'Approving, rejecting or evaluating moves the customer in the cycle; review the registration before deciding.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Look up the customers awaiting your approval.
+- Approve a customer so it moves forward in the approval cycle.
+- Reject a registration that does not meet the requirements.
+- Send a customer to evaluation when an analysis is needed before deciding.
+- Track the number of customers in the queue and the progress of each one.
+
+## How to access
+
+Approvals → New Approval Queue - Customers
+
+## Before you start
+
+- Confirm that your group is responsible for the cycle stage of these customers.
+- Have the analysis criteria at hand (registration, credit, tax, as per the level).
+- If you are going to reject, know the reason — it guides the consultant to fix the registration.
+
+## Key differences
+
+<DocTable
+  headers={['Comparison', 'Difference', 'Guidance']}
+  rows={[
+    ['Approval Queue vs. Customer screen', 'The Customer screen creates and sends the registration; the Approval Queue is where the decision to approve, reject or evaluate happens.', 'Use this queue to decide; the Customer screen is only to register and send.'],
+    ['Customers to Release vs. Customers under Evaluation', 'The "Customers to Release" tab holds those awaiting the decision; the "Customers under Evaluation" tab holds those sent for evaluation.', 'Track both tabs: sending to evaluation moves the customer between them.'],
+    ['Approval Queue vs. Approval Cycles Tracking', 'In this queue you decide the stages; Approval Cycles Tracking is read-only, to follow the progress.', 'To only look up the cycle history, use Tracking.'],
+  ]}
+/>
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Customer, Person Type (Individual, Company, Foreign) and Companies, with the "Refresh" and "Clear Filters" buttons.', 'Use the filters to narrow the queue; click "Refresh" to apply.'],
+    ['Totals', '"General Totals" and "Tab Totals" blocks with the number of customers awaiting approval.', 'They show the overall volume and the volume of the selected tab.'],
+    ['Tabs', '"Customers to Release" and "Customers under Evaluation".', 'The chosen tab defines which customers are listed.'],
+    ['Results', 'List of customers with the registration and cycle columns and, in each row, the action icons. The results bar offers grid or list view and column selection.', 'The action icons are on the right of each row.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Customer', 'Searches by the name or the desired customer ("Type to search").'],
+    ['Person Type', 'Filters by Individual, Company or Foreign (the "X" next to it clears the selection).'],
+    ['Companies', 'Filters by the registration company (the "Select" list).'],
+  ]}
+/>
+
+### Totals
+
+<DocTable
+  headers={['Total', 'What it shows']}
+  rows={[
+    ['General Totals', 'Total number of customers awaiting approval.'],
+    ['Tab Totals ("Customers to Release")', 'Number of customers awaiting approval in the selected tab.'],
+  ]}
+/>
+
+### Results columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Approval Submission Date', 'Date and time the customer was sent for approval.'],
+    ['Approval Cycle Sub-Status', 'Result of the stage already gone through in the cycle (e.g., "Sales ADM Approved").'],
+    ['Registration Date', 'Date the customer was registered.'],
+    ['Registration Status', 'Situation of the registration in the cycle (e.g., "Awaiting Approvals").'],
+    ['Customer Code', 'Code that identifies the customer.'],
+    ['Name', 'Customer name.'],
+    ['Line of Business', 'Customer line of business (e.g., Retail, Patient).'],
+    ['Document (CPF/CNPJ)', 'Customer document.'],
+    ['Customer in Lounge', 'Indicates whether the customer is in Lounge (Yes or No).'],
+    ['Customer with Draft Order', 'Indicates whether the customer has a draft order (Yes or No); when "Yes", it appears highlighted.'],
+    ['Companies', 'Company (or companies) of the customer registration (e.g., "1 - S.I.N Brasil").'],
+  ]}
+/>
+
+## Main flows
+
+1. **Find the customer** — enter the filters (Customer, Person Type, Companies) and click **"Refresh"**.
+2. **Choose the tab** — use **"Customers to Release"** for those awaiting a decision or **"Customers under Evaluation"** for those sent for evaluation.
+3. **Review the registration** — use the row's edit/view icon to check the data before deciding.
+4. **Decide** — in the customer's row, use **Approve**, **Reject** or **Send to evaluation**, as per the analysis.
+5. **Track** — the totals and the status of each row show the progress; once you decide, the customer moves forward in the cycle.
+
+<Callout type="cuidado" title="Check before deciding">
+Approving, rejecting or sending to evaluation moves the customer in the approval cycle. Review the registration before recording the decision.
+</Callout>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Refresh', 'To apply the filters and reload the queue.', 'Use after adjusting the search filters.'],
+    ['Clear Filters', 'To reset the filters and redo the search.', '—'],
+    ['Approve', 'To release the customer in your group\'s stage.', 'The customer moves forward to the next cycle stage.'],
+    ['Reject', 'To decline the registration that does not meet the requirements.', 'Provide the reason to guide the correction.'],
+    ['Send to evaluation', 'To forward the customer to evaluation before the decision.', 'The customer then appears in the "Customers under Evaluation" tab.'],
+    ['Edit / View registration', 'To review the customer data before deciding.', 'Opens the customer registration.'],
+  ]}
+/>
+
+<Callout type="info" title="Row action icons">
+Each row carries the icons to Approve, Reject, Edit/View and to look up the registration details. Hover over each icon to confirm the action before clicking.
+</Callout>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['New Approval Queue - Customers', 'Access to the screen', 'Allows opening the queue and looking up the customers awaiting approval.'],
+    ['Approve / Reject customer', 'Queue actions', 'Allows recording the decision of the responsible group\'s stage.'],
+  ]}
+/>
+
+<Callout type="info" title="Decision by approval level">
+The queue presents the customers according to the approval rules; each responsible group decides its stage. The levels follow the person type (e.g., Credit, Tax, International Credit).
+</Callout>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['The tab defines the list', 'The "Customers to Release" tab shows those awaiting a decision; the "Customers under Evaluation" tab shows those sent for evaluation.', 'Switch tabs to see both groups.'],
+    ['Totals per tab', 'The totals show the overall number and the number of the selected tab.', 'Check the number in the tab you are working on.'],
+    ['Cycle Sub-Status', 'The Sub-Status column shows the stage already gone through (e.g., "Sales ADM Approved").', 'Use the Sub-Status to know where the customer is in the cycle.'],
+    ['Draft order highlighted', 'When the customer has a draft order, the "Customer with Draft Order" column appears highlighted with "Yes".', 'Consider the draft order when deciding.'],
+    ['Sending to evaluation moves the customer', 'When sent to evaluation, the customer leaves "Customers to Release" and moves to "Customers under Evaluation".', 'Track the "Customers under Evaluation" tab to complete the decision.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Customer screen', 'Creates and sends the registration that reaches this queue.', 'Creation and sending are not done here.'],
+    ['Approval Cycles Tracking', 'Shows, in read-only mode, the history of the stages decided in this queue.', 'Use Tracking to look up; use this queue to decide.'],
+    ['Approval Entity and Approval Rule', 'Define which customers go through approval and who decides each stage.', 'The composition of the queue reflects these rules.'],
+    ['SAP integration', 'After the final approval, the customer is activated and receives the SAP code.', 'The SAP code is not generated in this queue; it comes with activation.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- Does not create or send customers — that is done on the Customer screen.
+- Does not generate the SAP code — it is created when the customer is activated after approval.
+- Does not change the approval rules nor define who the approval levels are.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The customer does not appear in the queue', 'Restrictive filters or a different tab', 'Review the filters, click "Refresh" and check both tabs.'],
+    ['I cannot approve or reject', 'Group not responsible for the stage or lack of permission', 'Confirm that your group is the level for the stage and check the permission.'],
+    ['The customer disappeared from "Customers to Release"', 'It was sent to evaluation', 'Check the "Customers under Evaluation" tab.'],
+    ['The approved customer did not become active', 'There are still pending stages in the cycle', 'Track the cycle; activation happens after the final approval of all stages.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'For the responsible groups to approve, reject or send to evaluation the customers awaiting registration release.' },
+    { question: 'What is the difference between the "Customers to Release" and "Customers under Evaluation" tabs?', answer: 'The "Customers to Release" tab holds the customers awaiting the decision; the "Customers under Evaluation" tab holds those sent for evaluation.' },
+    { question: 'What does the Sub-Status "Sales ADM Approved" mean?', answer: 'It is the result of a stage already gone through in the cycle: it indicates that the Sales ADM stage was approved and the customer moves on to the next stage.' },
+    { question: 'What is the "Customer with Draft Order" column?', answer: 'It indicates whether the customer has a draft order (Yes or No); when "Yes", the column appears highlighted to draw attention.' },
+    { question: 'When does the customer receive the SAP code?', answer: 'After the final approval of the cycle, when the customer is activated. The code is not generated in this queue.' },
+    { question: 'Where do I follow the cycle history?', answer: 'On the Approval Cycles Tracking screen, which is read-only and shows the stages and decisions.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '25/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/08/2026', author: 'Renan Camargo', description: 'Initial release of the New Approval Queue - Customers screen documentation.' },
+  ]}
+/>

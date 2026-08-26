@@ -75,6 +75,7 @@ export const modules: ModuleDef[] = [
     order: 2,
     routines: [
       { title: 'Acompanhamento Ciclos de Aprovação', slug: 'acompanhamento-ciclos-de-aprovacao', description: 'Consulta e acompanhamento dos ciclos de aprovação e suas etapas.' },
+      { title: 'Nova Fila de Aprovação - Clientes', slug: 'nova-fila-de-aprovacao-clientes', description: 'Fila para aprovar, reprovar ou avaliar os clientes aguardando liberação.' },
       { title: 'Entidade de Aprovação', slug: 'entidade-de-aprovacao', description: 'Define o que pode ser submetido a aprovação.' },
       { title: 'Regra de Aprovação', slug: 'regra-de-aprovacao', description: 'Define quem aprova e em qual condição.' },
     ],
@@ -389,6 +390,7 @@ export const routineTitleEn: Record<string, string> = {
   'administrador/log-de-execucao-de-servico': 'Service Execution Log',
   'administrador/mensagem-personalizada': 'Custom Message',
   'aprovacoes/acompanhamento-ciclos-de-aprovacao': 'Approval Cycles Tracking',
+  'aprovacoes/nova-fila-de-aprovacao-clientes': 'New Approval Queue - Customers',
   'aprovacoes/entidade-de-aprovacao': 'Approval Entity',
   'aprovacoes/regra-de-aprovacao': 'Approval Rule',
   'autenticador/departamento-de-usuario': 'User Department',

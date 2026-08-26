@@ -1,0 +1,233 @@
+---
+section: modulos
+routeSlug: aprovacoes/nova-fila-de-aprovacao-clientes
+pageType: routine
+module: aprovacoes
+moduleLabel: Aprovações
+title: Nova Fila de Aprovação - Clientes
+description: Fila onde os grupos responsáveis aprovam, reprovam ou enviam para avaliação os clientes que aguardam liberação de cadastro.
+routineType: Consulta e processo
+permission: Sim
+impact: Decisão de aprovação dos cadastros de clientes
+keywords: [fila de aprovação, clientes a liberar, clientes em avaliação, aprovar cliente, reprovar cliente, avaliação, aguardando aprovações, sub-status, ciclo de aprovação, alçada, cadastro de cliente]
+tags: [modulo-aprovacoes, processo]
+order: 4
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Nova Fila de Aprovação - Clientes** é onde os grupos responsáveis **decidem sobre os cadastros de clientes** que foram enviados para aprovação. Nela, cada cliente que aguarda liberação aparece em uma lista, com o seu status, o andamento do ciclo e as ações para **aprovar**, **reprovar** ou **enviar para avaliação**.
+
+É a fila que recebe os clientes enviados pela tela **Cliente**. Enquanto a tela de Cliente cria e encaminha o cadastro, é aqui que as alçadas registram a decisão que faz o cliente avançar (ou voltar) no ciclo de aprovação.
+
+A tela organiza o trabalho em duas abas: **"Clientes a Liberar"** (aguardando a decisão) e **"Clientes em Avaliação"** (enviados para avaliação). Consulte também o [Fluxo de Criação e Aprovação de Cliente](/tecnico/fluxos/criacao-de-cliente).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Aprovar cadastros de clientes', text: 'Recebe os clientes enviados e permite aprovar, reprovar ou enviar para avaliação.' },
+    { label: 'Uso', title: 'Trabalho da alçada', text: 'É a fila usada pelos grupos responsáveis para decidir sobre cada cadastro.' },
+    { label: 'Cuidado', title: 'A decisão é definitiva no ciclo', text: 'Aprovar, reprovar ou avaliar move o cliente no ciclo; confira o cadastro antes de decidir.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar os clientes que aguardam a sua aprovação.
+- Aprovar um cliente para que ele avance no ciclo de aprovação.
+- Reprovar um cadastro que não atende aos requisitos.
+- Enviar um cliente para avaliação quando for preciso uma análise antes de decidir.
+- Acompanhar a quantidade de clientes na fila e o andamento de cada um.
+
+## Como acessar
+
+Aprovações → Nova Fila de Aprovação - Clientes
+
+## Antes de começar
+
+- Confirme que o seu grupo é responsável pela etapa do ciclo desses clientes.
+- Tenha em mãos o critério de análise (cadastro, crédito, fiscal, conforme a alçada).
+- Se for reprovar, saiba o motivo — ele orienta o consultor a corrigir o cadastro.
+
+## Diferenças importantes
+
+<DocTable
+  headers={['Comparação', 'Diferença', 'Orientação']}
+  rows={[
+    ['Fila de Aprovação x tela de Cliente', 'A tela de Cliente cria e envia o cadastro; a Fila de Aprovação é onde a decisão de aprovar, reprovar ou avaliar acontece.', 'Use esta fila para decidir; a tela de Cliente é só para cadastrar e enviar.'],
+    ['Clientes a Liberar x Clientes em Avaliação', 'A aba "Clientes a Liberar" reúne os que aguardam a decisão; a aba "Clientes em Avaliação" reúne os que foram enviados para avaliação.', 'Acompanhe as duas abas: enviar para avaliação move o cliente entre elas.'],
+    ['Fila de Aprovação x Acompanhamento de Ciclos', 'Nesta fila você decide as etapas; o Acompanhamento Ciclos de Aprovação é somente leitura, para acompanhar o andamento.', 'Para apenas consultar o histórico do ciclo, use o Acompanhamento.'],
+  ]}
+/>
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Cliente, Tipo de Pessoa (Física, Jurídica, Estrangeiro) e Empresas, com os botões "Atualizar" e "Limpar Filtros".', 'Use os filtros para restringir a fila; clique em "Atualizar" para aplicar.'],
+    ['Totalizadores', 'Blocos "Totalizadores Gerais" e "Totalizadores da aba" com a quantidade de clientes aguardando aprovação.', 'Mostram o volume total e o da aba selecionada.'],
+    ['Abas', '"Clientes a Liberar" e "Clientes em Avaliação".', 'A aba escolhida define quais clientes são listados.'],
+    ['Resultados', 'Lista dos clientes com as colunas do cadastro e do ciclo e, em cada linha, os ícones de ação. A barra de resultados oferece visualização em grade ou lista e seleção de colunas.', 'Os ícones de ação ficam à direita de cada linha.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Cliente', 'Pesquisa pelo nome ou pelo cliente desejado ("Digite para pesquisar").'],
+    ['Tipo de Pessoa', 'Filtra por Física, Jurídica ou Estrangeiro (o "X" ao lado limpa a seleção).'],
+    ['Empresas', 'Filtra pela empresa do cadastro (lista "Selecione").'],
+  ]}
+/>
+
+### Totalizadores
+
+<DocTable
+  headers={['Totalizador', 'O que mostra']}
+  rows={[
+    ['Totalizadores Gerais', 'Quantidade total de clientes aguardando aprovação.'],
+    ['Totalizadores da aba "Clientes a Liberar"', 'Quantidade de clientes aguardando aprovação na aba selecionada.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Data Envio Aprovação', 'Data e hora em que o cliente foi enviado para aprovação.'],
+    ['Sub-Status Ciclo de Aprovação', 'Resultado da etapa já percorrida no ciclo (ex.: "Aprovado ADM Vendas").'],
+    ['Data de Cadastro', 'Data em que o cliente foi cadastrado.'],
+    ['Status de Cadastro', 'Situação do cadastro no ciclo (ex.: "Aguardando Aprovações").'],
+    ['Código do Cliente', 'Código que identifica o cliente.'],
+    ['Nome', 'Nome do cliente.'],
+    ['Ramo de Atividade', 'Ramo de atividade do cliente (ex.: Varejo, Paciente).'],
+    ['Documento (CPF/CNPJ)', 'Documento do cliente.'],
+    ['Cliente em Lounge', 'Indica se o cliente está em Lounge (Sim ou Não).'],
+    ['Cliente com Pedido em Rascunho', 'Indica se o cliente tem pedido em rascunho (Sim ou Não); quando "Sim", aparece destacado.'],
+    ['Empresas', 'Empresa(s) do cadastro do cliente (ex.: "1 - S.I.N Brasil").'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Localizar o cliente** — informe os filtros (Cliente, Tipo de Pessoa, Empresas) e clique em **"Atualizar"**.
+2. **Escolher a aba** — use **"Clientes a Liberar"** para os que aguardam decisão ou **"Clientes em Avaliação"** para os que foram enviados para avaliação.
+3. **Conferir o cadastro** — use o ícone de edição/visualização da linha para revisar os dados antes de decidir.
+4. **Decidir** — na linha do cliente, use **Aprovar**, **Reprovar** ou **Enviar para avaliação**, conforme a análise.
+5. **Acompanhar** — os totalizadores e o status de cada linha mostram o andamento; ao decidir, o cliente segue no ciclo.
+
+<Callout type="cuidado" title="Confira antes de decidir">
+Aprovar, reprovar ou enviar para avaliação move o cliente no ciclo de aprovação. Revise o cadastro antes de registrar a decisão.
+</Callout>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Atualizar', 'Para aplicar os filtros e recarregar a fila.', 'Use após ajustar os filtros de pesquisa.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Aprovar', 'Para liberar o cliente na etapa do seu grupo.', 'O cliente avança para a próxima etapa do ciclo.'],
+    ['Reprovar', 'Para recusar o cadastro que não atende aos requisitos.', 'Informe o motivo para orientar a correção.'],
+    ['Enviar para avaliação', 'Para encaminhar o cliente à avaliação antes da decisão.', 'O cliente passa a aparecer na aba "Clientes em Avaliação".'],
+    ['Editar / Visualizar cadastro', 'Para revisar os dados do cliente antes de decidir.', 'Abre o cadastro do cliente.'],
+  ]}
+/>
+
+<Callout type="info" title="Ícones de ação na linha">
+Cada linha traz os ícones para Aprovar, Reprovar, Editar/Visualizar e para consultar os detalhes do cadastro. Passe o mouse sobre cada ícone para confirmar a ação antes de clicar.
+</Callout>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Nova Fila de Aprovação - Clientes', 'Acesso à tela', 'Permite abrir a fila e consultar os clientes que aguardam aprovação.'],
+    ['Aprovar / Reprovar cliente', 'Ações da fila', 'Permite registrar a decisão da etapa do grupo responsável.'],
+  ]}
+/>
+
+<Callout type="info" title="Decisão por alçada">
+A fila apresenta os clientes conforme as regras de aprovação; cada grupo responsável decide a sua etapa. As alçadas seguem o tipo de pessoa (ex.: Crédito, Fiscal, Crédito Internacional).
+</Callout>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Aba define a lista', 'A aba "Clientes a Liberar" mostra os que aguardam decisão; a aba "Clientes em Avaliação" mostra os enviados para avaliação.', 'Alterne as abas para ver os dois grupos.'],
+    ['Totalizadores por aba', 'Os totalizadores mostram a quantidade geral e a da aba selecionada.', 'Confira o número na aba em que está trabalhando.'],
+    ['Sub-Status do ciclo', 'A coluna Sub-Status mostra a etapa já percorrida (ex.: "Aprovado ADM Vendas").', 'Use o Sub-Status para saber em que ponto do ciclo o cliente está.'],
+    ['Pedido em Rascunho destacado', 'Quando o cliente tem pedido em rascunho, a coluna "Cliente com Pedido em Rascunho" aparece destacada com "Sim".', 'Considere o pedido em rascunho ao decidir.'],
+    ['Enviar para avaliação move o cliente', 'Ao enviar para avaliação, o cliente deixa "Clientes a Liberar" e passa para "Clientes em Avaliação".', 'Acompanhe a aba "Clientes em Avaliação" para concluir a decisão.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Tela de Cliente', 'Cria e envia o cadastro que chega a esta fila.', 'A criação e o envio não são feitos aqui.'],
+    ['Acompanhamento Ciclos de Aprovação', 'Mostra, em modo somente leitura, o histórico das etapas decididas nesta fila.', 'Use o Acompanhamento para consultar; use esta fila para decidir.'],
+    ['Entidade de Aprovação e Regra de Aprovação', 'Definem quais clientes passam por aprovação e quem decide cada etapa.', 'A composição da fila reflete essas regras.'],
+    ['Integração com o SAP', 'Após a aprovação final, o cliente é ativado e recebe o código SAP.', 'O código SAP não é gerado nesta fila; ele vem com a ativação.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cria nem envia clientes — isso é feito na tela de Cliente.
+- Não gera o código SAP — ele é criado quando o cliente é ativado após a aprovação.
+- Não altera as regras de aprovação nem define quem são as alçadas.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O cliente não aparece na fila', 'Filtros restritos ou aba diferente', 'Revise os filtros, clique em "Atualizar" e confira as duas abas.'],
+    ['Não consigo aprovar ou reprovar', 'Grupo não responsável pela etapa ou falta de permissão', 'Confirme se o seu grupo é a alçada da etapa e verifique a permissão.'],
+    ['O cliente sumiu de "Clientes a Liberar"', 'Foi enviado para avaliação', 'Verifique a aba "Clientes em Avaliação".'],
+    ['O cliente aprovado não ficou ativo', 'Ainda há etapas pendentes no ciclo', 'Acompanhe o ciclo; a ativação ocorre após a aprovação final de todas as etapas.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para os grupos responsáveis aprovarem, reprovarem ou enviarem para avaliação os clientes que aguardam liberação de cadastro.' },
+    { question: 'Qual a diferença entre as abas "Clientes a Liberar" e "Clientes em Avaliação"?', answer: 'A aba "Clientes a Liberar" reúne os clientes que aguardam a decisão; a aba "Clientes em Avaliação" reúne os que foram enviados para avaliação.' },
+    { question: 'O que significa o Sub-Status "Aprovado ADM Vendas"?', answer: 'É o resultado de uma etapa já percorrida no ciclo: indica que a etapa da ADM de Vendas foi aprovada e o cliente segue para a próxima etapa.' },
+    { question: 'O que é a coluna "Cliente com Pedido em Rascunho"?', answer: 'Indica se o cliente tem pedido em rascunho (Sim ou Não); quando "Sim", a coluna aparece destacada para chamar a atenção.' },
+    { question: 'Quando o cliente recebe o código SAP?', answer: 'Após a aprovação final do ciclo, quando o cliente é ativado. O código não é gerado nesta fila.' },
+    { question: 'Onde acompanho o histórico do ciclo?', answer: 'Na tela Acompanhamento Ciclos de Aprovação, que é somente leitura e mostra as etapas e decisões.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '25/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Nova Fila de Aprovação - Clientes.' },
+  ]}
+/>
