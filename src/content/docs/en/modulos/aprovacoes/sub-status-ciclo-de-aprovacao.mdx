@@ -1,0 +1,249 @@
+---
+section: modulos
+routeSlug: aprovacoes/sub-status-ciclo-de-aprovacao
+pageType: routine
+module: aprovacoes
+moduleLabel: Approvals
+lang: en
+title: Sub-Status - Approval Cycle
+description: Registration of the approval cycle sub-statuses, applied by group and entity when approving, rejecting or sending to evaluation.
+routineType: Registration and lookup
+permission: Yes
+impact: Defines the sub-statuses used in the approval cycle decisions
+keywords: [sub-status, approval cycle, sub-status application, on approval, on rejection, on send to evaluation, approval entity, group, level, system status, customer, order]
+tags: [modulo-aprovacoes, cadastro]
+order: 5
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Sub-Status - Approval Cycle** screen is where the **sub-statuses** applied in the approval cycle decisions are registered. Each sub-status is linked to an **approval entity** (e.g., "Customer" or "Order"), to a **group** (the responsible level) and to an **application**, which defines when it is used: **on approval**, **on rejection** or **on send to evaluation**.
+
+These are the sub-statuses that appear, for example, in the "Approval Cycle Sub-Status" column of the decision and tracking screens (e.g., "Sales ADM Approved", "Sales ADM Rejected"). When recording the decision of a stage, the system applies the sub-status matching the group and the application.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Sub-status registration', text: 'Defines the sub-statuses applied on approval, rejection or send to evaluation.' },
+    { label: 'Usage', title: 'Cycle configuration', text: 'Links each sub-status to an entity, a group and a decision moment.' },
+    { label: 'Caution', title: 'Impact on decisions', text: 'The sub-status configured here is the one shown in the decision and tracking screens.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new sub-status for a group and an approval entity.
+- Look up the sub-statuses already registered.
+- Change the name, description, application or status of a sub-status.
+- Deactivate a sub-status that should no longer be applied.
+- Look up the change log of a sub-status.
+
+## How to access
+
+Approvals → Sub-Status - Approval Cycle
+
+## Before you start
+
+- Define the approval entity (e.g., "Customer", "Order") and the group (level) of the sub-status.
+- Choose the application: "On Approval", "On Rejection" or "On Send to Evaluation".
+- Have a clear name for the sub-status, as it appears in the decision and tracking screens.
+
+## Key differences
+
+<DocTable
+  headers={['Comparison', 'Difference', 'Guidance']}
+  rows={[
+    ['Sub-Status Application', 'Defines the decision moment when the sub-status is applied: "On Approval", "On Rejection" or "On Send to Evaluation".', 'Choose the application according to the decision that should generate the sub-status.'],
+    ['Sub-Status vs. Entity / Group', 'The entity indicates what is approved (e.g., "Customer"); the group is the level; the sub-status is the result applied by that level.', 'Each sub-status is specific to an entity, a group and an application.'],
+    ['Details vs. Edit', 'The "Details" window is read-only; editing lets you change the sub-status data.', 'Use "Details" to look up and "Edit" to change.'],
+  ]}
+/>
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', '"Sub-Status Name", "Description", "Group", "Approval Entity", "System Status" and "Sub-Status Application", with the "Search", "+ New" and "Clear Filters" buttons.', 'Use the filters to narrow the list.'],
+    ['Results', 'List of sub-statuses with the creation, status, entity, name, application and group columns and, in each row, the action icons. The results bar offers grid or list view, column selection and export.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', '"Approval Cycle Sub-Status Data" tab with the "Information" block and the sub-status fields.', 'Click "Save" to confirm the registration.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Sub-Status Name', 'Searches by the sub-status name.'],
+    ['Description', 'Searches by the sub-status description.'],
+    ['Group', 'Filters by the group (level) of the sub-status.'],
+    ['Approval Entity', 'Filters by the entity (e.g., "Customer", "Order").'],
+    ['System Status', 'Filters by "Active" or "Inactive".'],
+    ['Sub-Status Application', 'Filters by "On Approval", "On Rejection" or "On Send to Evaluation".'],
+  ]}
+/>
+
+### Results columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Creation Date', 'Date the sub-status was created.'],
+    ['System Status', 'Sub-status situation: "Active" or "Inactive".'],
+    ['Approval Entity', 'Linked entity (e.g., "Customer", "Order").'],
+    ['Sub-Status Name', 'Sub-status name (e.g., "Sales ADM Approved").'],
+    ['Sub-Status Application', 'Decision moment: "On Approval", "On Rejection" or "On Send to Evaluation".'],
+    ['Group', 'Group (level) linked to the sub-status.'],
+  ]}
+/>
+
+### Sub-status registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Sub-Status Name', 'Sub-status name, shown in the decision and tracking screens.'],
+    ['Approval Entity', 'Entity the sub-status applies to (e.g., "Customer", "Order").'],
+    ['Group', 'Group (level) responsible for the decision.'],
+    ['Sub-Status Application', 'Moment the sub-status is applied: "On Approval", "On Rejection" or "On Send to Evaluation".'],
+    ['System Status', 'Defines whether the sub-status is "Active" or "Inactive".'],
+    ['Description', 'Text explaining when the sub-status should be applied.'],
+  ]}
+/>
+
+### "Change log" window
+
+<DocTable
+  headers={['Information', 'What it shows']}
+  rows={[
+    ['Date and user', 'Date, time and user of each change.'],
+    ['Changed fields', 'The fields and values modified in each change (e.g., "Sub-Status Name", "System Status").'],
+    ['Creation data', 'Sub-Status Code, Creation User and Creation Date.'],
+  ]}
+/>
+
+### "Details" window
+
+<DocTable
+  headers={['Field', 'What it shows']}
+  rows={[
+    ['Code', 'Code that identifies the sub-status.'],
+    ['Creation Date', 'Date and time of creation.'],
+    ['Sub-Status Name', 'Sub-status name.'],
+    ['Sub-Status Application', 'Linked decision moment.'],
+    ['System Status', 'Situation: "Active" or "Inactive".'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search sub-statuses** — enter the desired filters and click **"Search"**.
+2. **Register a sub-status** — click **"+ New"**, enter the "Sub-Status Name", the "Approval Entity", the "Group", the "Sub-Status Application", the "System Status" and the "Description", and click **"Save"**.
+3. **Edit a sub-status** — use the row's **Edit** icon, adjust the fields and click **"Save"**.
+4. **Look up details** — use the **Details** icon to see the sub-status information.
+5. **Look up the log** — use the **Change log** icon to see who changed the sub-status and when.
+6. **Deactivate or delete** — set the "System Status" to "Inactive" in the edit window, or use the row's **Delete** icon (red X).
+
+<Callout type="cuidado" title="Reflects in the decision screens">
+The sub-status registered here is the one shown in the cycle decision and tracking screens. Check the entity, the group and the application before saving.
+</Callout>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the sub-statuses by the filters.', 'Combine entity, group and application to refine.'],
+    ['+ New', 'To register a new sub-status.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filters and redo the search.', '—'],
+    ['Change log', 'To see the change history of the sub-status.', 'It is a lookup; it does not change the sub-status.'],
+    ['Details', 'To look up the sub-status information.', 'It is read-only.'],
+    ['Edit', 'To change the sub-status data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the sub-status (red X icon).', 'Prefer deactivating when the sub-status has already been used.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Sub-Status - Approval Cycle', 'Access to the screen', 'Allows opening the screen and looking up the sub-statuses.'],
+    ['Sub-status registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting sub-statuses.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['The application defines the moment', 'The application ("On Approval", "On Rejection", "On Send to Evaluation") defines when the sub-status is used in the decision.', 'Choose the application according to the decision that should generate the sub-status.'],
+    ['Link by entity and group', 'Each sub-status is specific to an approval entity and a group (level).', 'Register one sub-status per combination of entity, group and application.'],
+    ['System Status', 'An "Inactive" sub-status stops being applied in the decisions.', 'Deactivate instead of deleting when the sub-status already has history.'],
+    ['Change log', 'The screen keeps the change history (user, date and changed fields).', 'Use the log to track the sub-status changes.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['New Approval Queue - Customers', 'When approving, rejecting or sending to evaluation, it applies the sub-status configured for the group and the application.', 'The decision uses the matching active sub-status.'],
+    ['Approval Cycles Tracking', 'Shows the applied sub-status in the "Approval Cycle Sub-Status" column.', 'The name shown is the one registered on this screen.'],
+    ['Approval Entity and Group', 'Provide the entity and the group the sub-status is linked to.', 'Register the entity and the group before the sub-status.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- Does not approve or reject records — it only defines the sub-statuses used in those decisions.
+- Does not create the approval entities or the groups — they are registered on their own screens.
+- Does not change the approval cycles in progress.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The sub-status does not appear in the decision', 'Inactive sub-status or linked to another group/application', 'Check the "System Status", the "Group" and the "Sub-Status Application".'],
+    ['The sub-status does not appear in the search', 'Filters too restrictive', 'Review the filters and click "Search".'],
+    ['I cannot delete a sub-status', 'Sub-status already used in decisions', 'Prefer deactivating (System Status "Inactive") to preserve the history.'],
+    ['I cannot access the screen', 'Lack of permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the approval cycle sub-statuses applied on approval, rejection or send to evaluation, by entity and group.' },
+    { question: 'What is the "Sub-Status Application"?', answer: 'It is the decision moment when the sub-status is applied: "On Approval", "On Rejection" or "On Send to Evaluation".' },
+    { question: 'Where does the sub-status registered here appear?', answer: 'In the "Approval Cycle Sub-Status" column of the decision screens (New Approval Queue) and tracking screens (Approval Cycles Tracking).' },
+    { question: 'Can I delete a sub-status already used?', answer: 'It is not recommended. Prefer deactivating it (System Status "Inactive") to preserve the decision history.' },
+    { question: 'Is there a change log for the sub-status?', answer: 'Yes. The "Change log" icon shows the user, the date and the changed fields.' },
+    { question: 'Does the "Details" window allow changing the sub-status?', answer: 'No. The "Details" window is read-only; to change, use the Edit icon.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '25/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/08/2026', author: 'Renan Camargo', description: 'Initial release of the Sub-Status - Approval Cycle screen documentation.' },
+  ]}
+/>

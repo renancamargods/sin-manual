@@ -1,0 +1,240 @@
+---
+section: modulos
+routeSlug: autenticador/grupo
+pageType: routine
+module: autenticador
+moduleLabel: Authenticator
+lang: en
+title: Group
+description: Registration of groups that gather users, link profiles and define access permissions by URL and module.
+routineType: Registration
+permission: Yes
+impact: User organization and access permission control
+keywords: [group, group registration, users, profiles, access permissions, define permissions, change log, authenticator, access control]
+tags: [modulo-autenticador, cadastro]
+order: 2
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Group** screen holds the registration of the system groups. A group **gathers users**, **links one or more profiles** and lets you **define access permissions** by URL, organized by module.
+
+Together with the Profile, the group is part of access control: it organizes users and defines, for each screen (URL), what the group can look up, add, delete and more.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Group registration', text: 'Gathers users, links profiles and defines access permissions by URL.' },
+    { label: 'Usage', title: 'Access control', text: 'Organizes users and defines what the group can do on each screen.' },
+    { label: 'Caution', title: 'Impact on access', text: 'Changing the group permissions changes what the linked users can do.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new group.
+- Look up the existing groups and their details.
+- Link or remove users and profiles from a group.
+- Define or review the group access permissions by URL and module.
+- Look up the change log of a group.
+
+## How to access
+
+Authenticator → Group
+
+## Before you start
+
+- Confirm which users and profiles should make up the group.
+- Know which screens (URLs) and permissions the group should have in each module.
+- Check whether an equivalent group already exists before creating a new one.
+
+## Key differences
+
+<DocTable
+  headers={['Comparison', 'Difference', 'Guidance']}
+  rows={[
+    ['Group vs. Profile', 'The profile is the set of permissions; the group gathers users, links profiles and also defines access permissions by URL.', 'Use the Profile for the set of permissions; use the Group to organize users and adjust access per screen.'],
+    ['Details vs. Edit', 'The "Details" window is read-only (shows Name and Profiles); the edit window lets you change Name, Users and Profiles.', 'Use "Details" to look up and "Edit" to change.'],
+    ['Define permissions vs. Profile', '"Define access permissions" adjusts the group access by URL/module; the Profile brings the linked set of permissions.', 'Adjust the fine-grained permissions through the "Define access permissions" window.'],
+  ]}
+/>
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', '"Name" field, with the "Search", "+ New" and "Clear Filters" buttons.', 'Use "Name" to find the group; "+ New" opens the registration.'],
+    ['Results', 'List of groups in the "Name" column and, in each row, the action icons. The results bar offers grid or list view, column selection and export.', 'The action icons are on the right of each row.'],
+    ['Icon windows', 'Change log, Define access permissions, Details and Edit, opened by the row icons.', 'Each icon opens a specific window.'],
+  ]}
+/>
+
+## Main fields
+
+### Search
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Name', 'Searches the group by name.'],
+  ]}
+/>
+
+### Group registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Name', 'Group name.'],
+    ['Users', 'Users linked to the group (selection with the "+" button to add).'],
+    ['Profiles', 'Profiles linked to the group (with the "+" button to add).'],
+  ]}
+/>
+
+### "Define access permissions" window
+
+<DocTable
+  headers={['Element', 'What it shows']}
+  rows={[
+    ['Module', 'Module whose screens (URLs) are being configured (e.g., "Administrator").'],
+    ['Urls', 'List of the module screens (e.g., "Attachments", "City", "Company", "Address", "State").'],
+    ['Permissions', 'Group permissions on each URL (e.g., look up, add, delete and more), marked in green when granted and in red when denied.'],
+  ]}
+/>
+
+### "Change log" window
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['User', 'User who made the change.'],
+    ['Update Date', 'Date and time of the change.'],
+  ]}
+/>
+
+### "Details" window
+
+<DocTable
+  headers={['Field', 'What it shows']}
+  rows={[
+    ['Name', 'Group name.'],
+    ['Profiles', 'Profiles linked to the group ("Title" column).'],
+  ]}
+/>
+
+## Main flows
+
+1. **Find a group** — enter the "Name" and click **"Search"**.
+2. **Create a group** — click **"+ New"**, enter the "Name", add the "Users" and the "Profiles" and click **"Save"**.
+3. **Edit a group** — use the row's **Edit** icon, adjust "Name", "Users" or "Profiles" and click **"Save"**.
+4. **Define permissions** — use the **Define access permissions** icon, choose the module and adjust the permissions by URL.
+5. **Look up the log** — use the **Change log** icon to see who changed the group and when.
+6. **Delete a group** — use the row's **Delete** icon (red X).
+
+<Callout type="cuidado" title="Changing permissions affects users">
+Adjusting the group access permissions or profiles changes what the linked users can see and do in the system.
+</Callout>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the groups by "Name".', 'Leave the field empty to list all.'],
+    ['+ New', 'To start registering a new group.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filter and redo the search.', '—'],
+    ['Change log', 'To see the change history of the group.', 'It is a lookup; it does not change the group.'],
+    ['Define access permissions', 'To adjust the group permissions by URL and module.', 'Check the selected module before changing.'],
+    ['Details', 'To look up the group Name and Profiles.', 'It is read-only.'],
+    ['Edit', 'To change the group Name, Users and Profiles.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the group (red X icon).', 'Confirm first; deleting affects the existing links.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Group', 'Access to the screen', 'Allows opening the screen and looking up the groups.'],
+    ['Group registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting groups and their links.'],
+    ['Define access permissions', 'Permissions by URL', 'Allows adjusting the group access permissions by URL and module.'],
+  ]}
+/>
+
+<Callout type="info" title="Fine-grained permissions by URL">
+The group permissions are configured screen by screen (URL) and organized by module. In each URL, the granted permissions appear in green and the denied ones in red.
+</Callout>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['User and profile links', 'The group gathers users and links profiles; both are adjusted in the edit window.', 'Keep the links updated as people and roles change.'],
+    ['Permissions by URL', 'Permissions are defined screen by screen, by module, in the "Define access permissions" window.', 'Review the selected module when adjusting permissions.'],
+    ['Change log', 'The screen keeps the change history of the group (user and date).', 'Use the log to track who changed the group.'],
+    ['Read-only Details', 'The "Details" window shows Name and Profiles without allowing editing.', 'To change, use the Edit icon.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['User', 'The users linked to the group are registered on the User screen.', 'The group organizes already registered users.'],
+    ['Profile', 'The profiles linked to the group are defined on the Profile screen.', 'The profile brings the set of permissions linked to the group.'],
+    ['URL', 'The screens (URLs) configured in the permissions are registered on the URL screen.', 'The permissions reflect the URLs available by module.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- Does not register users — that is done on the User screen.
+- Does not create profiles — that is done on the Profile screen.
+- Does not register the URLs — they are maintained on the URL screen; here you only define the group permissions over them.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot access the screen', 'Lack of permission', 'Check the permission with the administrator.'],
+    ['A group user does not see an expected screen', 'URL permission denied in the group or in the profile', 'Review the group permissions in the "Define access permissions" window.'],
+    ['A user does not appear in the group', 'User not linked', 'Edit the group and add the user in the "Users" field.'],
+    ['I do not know who changed the group', 'Change made by another user', 'Check the "Change log" in the group row.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register groups, gather users, link profiles and define the access permissions by URL and module.' },
+    { question: 'What is the difference between Group and Profile?', answer: 'The profile is the set of permissions; the group gathers users, links profiles and also lets you adjust the access permissions by screen (URL).' },
+    { question: 'How do I define what the group can access?', answer: 'Through the row\'s "Define access permissions" icon: choose the module and adjust the permissions of each URL (green for granted, red for denied).' },
+    { question: 'How do I add users to the group?', answer: 'In the edit window, use the "Users" field and the "+" button to add the desired users.' },
+    { question: 'Is there a change history for the group?', answer: 'Yes. The "Change log" icon shows the user and the date of each change.' },
+    { question: 'Does the "Details" window allow changing the group?', answer: 'No. The "Details" window is read-only; to change, use the Edit icon.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '25/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/08/2026', author: 'Renan Camargo', description: 'Initial release of the Group screen documentation.' },
+  ]}
+/>

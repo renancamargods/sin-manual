@@ -1,0 +1,238 @@
+---
+section: modulos
+routeSlug: administrador/anexos
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Anexos
+description: Consulta e gestão central dos anexos do sistema por domínio e tipo, com download, detalhes, edição e exclusão.
+routineType: Consulta e edição
+permission: Sim
+impact: Consulta e gestão dos documentos anexados nos cadastros do sistema
+keywords: [anexos, anexo, documento, download de anexo, domínio do anexo, tipo de anexo, documento de identificação, comprovante, clientes, upload]
+tags: [modulo-administrador, consulta]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Anexos** reúne, em um só lugar, os documentos anexados nos cadastros do sistema. Nela é possível **pesquisar, consultar e gerenciar** os anexos por **domínio** (a origem do anexo, como "Clientes") e por **tipo** (a classificação do documento, como "Documento de Identificação").
+
+Cada anexo listado traz o domínio, o tipo, o nome do arquivo, a descrição, o registro relacionado (ex.: o cliente) e a data de cadastro, além das ações para **baixar**, ver **detalhes**, **editar** ou **excluir**.
+
+<Callout type="info" title="Os anexos chegam de outras telas">
+Esta tela **não adiciona** anexos: os documentos são incluídos nos cadastros de origem (ex.: o cadastro de Cliente). Aqui você **consulta e gerencia** os anexos já existentes.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Central de anexos', text: 'Consulta e gestão dos documentos anexados nos cadastros do sistema.' },
+    { label: 'Uso', title: 'Localizar e baixar', text: 'Filtra por domínio e tipo para encontrar e baixar o anexo desejado.' },
+    { label: 'Cuidado', title: 'Exclusão remove o arquivo', text: 'Excluir um anexo remove o documento do registro; confirme antes.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Localizar um anexo por nome, descrição, domínio ou tipo.
+- Baixar um documento anexado a um cadastro.
+- Consultar os detalhes de um anexo.
+- Editar ou excluir um anexo já existente.
+
+## Como acessar
+
+Administrador → Anexos
+
+## Antes de começar
+
+- Saiba o domínio do anexo (a origem, ex.: "Clientes") e, se possível, o tipo do documento.
+- Tenha em mãos o nome do arquivo ou a descrição para agilizar a busca.
+- Confirme que o seu perfil permite acessar e gerenciar anexos.
+
+## Diferenças importantes
+
+<DocTable
+  headers={['Comparação', 'Diferença', 'Orientação']}
+  rows={[
+    ['Domínio do Anexo x Tipo de Anexo', 'O domínio é a origem do anexo (ex.: "Clientes", "StatusLead"); o tipo é a classificação do documento (ex.: "Documento de Identificação", "Comprovante de Endereço").', 'Use o domínio para a origem e o tipo para a classificação.'],
+    ['Download x Detalhes', 'O Download baixa o arquivo; os Detalhes mostram as informações do anexo sem baixá-lo.', 'Use Download para obter o arquivo e Detalhes para conferir os dados.'],
+    ['Detalhes x Editar', 'Detalhes é consulta; a edição permite alterar os dados do anexo.', 'Use Detalhes para consultar e Editar para alterar.'],
+  ]}
+/>
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', '"Nome do Anexo", "Descrição", "Domínios do Anexo" e "Tipos de Anexos", com os botões "Pesquisar" e "Limpar Filtros".', 'Os filtros de domínio e tipo permitem marcar mais de uma opção.'],
+    ['Resultados', 'Lista dos anexos com as colunas de domínio, tipo, nome, descrição, cliente e data e, em cada linha, os ícones de ação. A barra de resultados oferece visualização em grade ou lista, seleção de colunas e exportação.', 'Os ícones de ação ficam à direita de cada linha.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome do Anexo', 'Pesquisa pelo nome do arquivo anexado.'],
+    ['Descrição', 'Pesquisa pela descrição do anexo (ex.: "cnh", "cro", "doc").'],
+    ['Domínios do Anexo', 'Filtra pela origem do anexo; permite marcar mais de um domínio.'],
+    ['Tipos de Anexos', 'Filtra pela classificação do documento; permite marcar mais de um tipo.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Domínio do Anexo', 'Origem do anexo (ex.: "Clientes").'],
+    ['Tipo de Anexo', 'Classificação do documento (ex.: "Documento de Identificação").'],
+    ['Nome do Anexo', 'Nome do arquivo anexado.'],
+    ['Descrição', 'Descrição informada para o anexo.'],
+    ['Cliente do Anexo', 'Registro relacionado ao anexo (ex.: o cliente).'],
+    ['Data de Cadastro', 'Data em que o anexo foi cadastrado.'],
+  ]}
+/>
+
+### Domínios do Anexo
+
+<DocTable
+  headers={['Domínio', 'O que representa']}
+  rows={[
+    ['Clientes', 'Anexos vinculados ao cadastro de clientes.'],
+    ['StatusLead', 'Anexos vinculados ao status de leads.'],
+    ['PesquisaResposta', 'Anexos vinculados às respostas de pesquisa.'],
+  ]}
+/>
+
+### Tipos de Anexos
+
+<DocTable
+  headers={['Tipo', 'O que representa']}
+  rows={[
+    ['Documento de Identificação', 'Documento de identificação do cadastro.'],
+    ['Documento de Identificação dos Sócios', 'Documento de identificação dos sócios.'],
+    ['Comprovante de CRO', 'Comprovante de CRO.'],
+    ['Comprovante de Endereço', 'Comprovante de endereço.'],
+    ['Declaração de Aluno', 'Declaração de aluno.'],
+    ['Contrato Social', 'Contrato social.'],
+    ['Receita', 'Receita.'],
+    ['TipoAnexoRespostaPesquisa', 'Anexo de resposta de pesquisa.'],
+    ['Proposta', 'Proposta anexada.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Pesquisar anexos** — informe os filtros ("Nome do Anexo", "Descrição", "Domínios do Anexo" ou "Tipos de Anexos") e clique em **"Pesquisar"**.
+2. **Baixar um anexo** — na linha desejada, use o ícone de **Download**.
+3. **Consultar detalhes** — use o ícone de **Detalhes** para ver as informações do anexo.
+4. **Editar um anexo** — use o ícone de **Edição** da linha e ajuste os dados.
+5. **Excluir um anexo** — use o ícone de **Exclusão** (X vermelho) da linha.
+
+<Callout type="cuidado" title="Excluir remove o documento">
+Excluir um anexo remove o documento do registro relacionado. Confirme antes de excluir.
+</Callout>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os anexos conforme os filtros.', 'Combine domínio e tipo para refinar.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Download', 'Para baixar o arquivo anexado.', 'Baixa o documento da linha.'],
+    ['Detalhes', 'Para consultar as informações do anexo.', 'É somente leitura.'],
+    ['Edição', 'Para alterar os dados do anexo.', 'Confirme a alteração ao salvar.'],
+    ['Exclusão', 'Para remover o anexo (ícone X vermelho).', 'Remove o documento do registro; confirme antes.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Anexos', 'Acesso à tela', 'Permite abrir a tela e consultar os anexos.'],
+    ['Edição e exclusão de anexo', 'Editar / Excluir', 'Permite alterar e excluir anexos já existentes.'],
+    ['Download de anexo', 'Ação de baixar', 'Permite baixar o arquivo anexado.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Filtros por múltiplas opções', 'Os filtros "Domínios do Anexo" e "Tipos de Anexos" permitem marcar mais de uma opção ao mesmo tempo.', 'Marque as opções desejadas antes de pesquisar.'],
+    ['Domínio define a origem', 'O domínio indica de onde o anexo veio (ex.: "Clientes").', 'Use o domínio para separar anexos de diferentes origens.'],
+    ['Exclusão remove o arquivo', 'Excluir um anexo remove o documento do registro relacionado.', 'Confirme antes; a ação afeta o cadastro de origem.'],
+    ['Registro relacionado', 'A coluna "Cliente do Anexo" mostra o registro ao qual o anexo pertence.', 'Confira o registro antes de baixar ou excluir.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Cliente', 'Os anexos do domínio "Clientes" pertencem aos cadastros de clientes.', 'A exclusão aqui reflete no anexo do cliente.'],
+    ['Leads e Pesquisas', 'Os domínios "StatusLead" e "PesquisaResposta" reúnem anexos originados de leads e respostas de pesquisa.', 'O domínio identifica a origem do anexo.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não adiciona anexos — os documentos são incluídos nos cadastros de origem (ex.: o cadastro de Cliente); esta tela apenas consulta e gerencia os já existentes.
+- Não cria os cadastros de origem (cliente, lead, pesquisa) — apenas reúne os anexos vinculados a eles.
+- Não define os domínios e tipos disponíveis — eles vêm da configuração do sistema.
+- Não altera o registro relacionado (ex.: os dados do cliente).
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O anexo não aparece na busca', 'Filtros muito restritos', 'Revise "Nome do Anexo", "Descrição", domínio e tipo, e clique em "Pesquisar".'],
+    ['Não consigo baixar o anexo', 'Falta de permissão de download', 'Verifique a permissão com o administrador.'],
+    ['Excluí um anexo por engano', 'Exclusão sem confirmação', 'A exclusão remove o documento do registro; reenvie o anexo pelo cadastro de origem.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para consultar e gerenciar, em um só lugar, os anexos do sistema por domínio e tipo, com download, detalhes, edição e exclusão.' },
+    { question: 'Consigo adicionar um anexo por esta tela?', answer: 'Não. Os anexos são incluídos nos cadastros de origem (ex.: o cadastro de Cliente). Esta tela apenas consulta e gerencia os anexos já existentes.' },
+    { question: 'Qual a diferença entre domínio e tipo de anexo?', answer: 'O domínio é a origem do anexo (ex.: "Clientes"); o tipo é a classificação do documento (ex.: "Documento de Identificação").' },
+    { question: 'Posso filtrar por mais de um domínio ou tipo?', answer: 'Sim. Os filtros "Domínios do Anexo" e "Tipos de Anexos" permitem marcar mais de uma opção.' },
+    { question: 'Como baixo um anexo?', answer: 'Use o ícone de Download na linha do anexo desejado.' },
+    { question: 'Excluir um anexo aqui afeta o cadastro de origem?', answer: 'Sim. A exclusão remove o documento do registro relacionado; confirme antes de excluir.' },
+    { question: 'Preciso de permissão para acessar esta tela?', answer: 'Sim. É necessário ter a permissão correspondente liberada no seu perfil de acesso.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '25/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Anexos.' },
+  ]}
+/>

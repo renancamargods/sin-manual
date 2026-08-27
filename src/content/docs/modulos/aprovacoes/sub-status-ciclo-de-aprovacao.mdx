@@ -1,0 +1,248 @@
+---
+section: modulos
+routeSlug: aprovacoes/sub-status-ciclo-de-aprovacao
+pageType: routine
+module: aprovacoes
+moduleLabel: Aprovações
+title: Sub-Status - Ciclo de Aprovação
+description: Cadastro dos sub-status do ciclo de aprovação, aplicados por grupo e entidade ao aprovar, reprovar ou enviar para avaliação.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Define os sub-status usados nas decisões dos ciclos de aprovação
+keywords: [sub-status, ciclo de aprovação, aplicação do sub-status, ao aprovar, ao reprovar, ao enviar para avaliação, entidade de aprovação, grupo, alçada, status sistema, cliente, pedido]
+tags: [modulo-aprovacoes, cadastro]
+order: 5
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Sub-Status - Ciclo de Aprovação** é onde se cadastram os **sub-status** aplicados nas decisões dos ciclos de aprovação. Cada sub-status é vinculado a uma **entidade de aprovação** (ex.: "Cliente" ou "Pedido"), a um **grupo** (a alçada responsável) e a uma **aplicação**, que define quando ele é usado: **ao aprovar**, **ao reprovar** ou **ao enviar para avaliação**.
+
+São esses sub-status que aparecem, por exemplo, na coluna "Sub-Status Ciclo de Aprovação" das telas de decisão e de acompanhamento (ex.: "Aprovado ADM Vendas", "Reprovado ADM Vendas"). Ao registrar a decisão de uma etapa, o sistema aplica o sub-status correspondente ao grupo e à aplicação.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de sub-status', text: 'Define os sub-status aplicados ao aprovar, reprovar ou enviar para avaliação.' },
+    { label: 'Uso', title: 'Configuração do ciclo', text: 'Vincula cada sub-status a uma entidade, um grupo e um momento da decisão.' },
+    { label: 'Cuidado', title: 'Impacto nas decisões', text: 'O sub-status configurado aqui é o que aparece nas telas de decisão e acompanhamento.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo sub-status para um grupo e uma entidade de aprovação.
+- Consultar os sub-status já cadastrados.
+- Alterar o nome, a descrição, a aplicação ou a situação de um sub-status.
+- Inativar um sub-status que não deve mais ser aplicado.
+- Consultar o log de alterações de um sub-status.
+
+## Como acessar
+
+Aprovações → Sub-Status - Ciclo de Aprovação
+
+## Antes de começar
+
+- Defina a entidade de aprovação (ex.: "Cliente", "Pedido") e o grupo (alçada) do sub-status.
+- Escolha a aplicação: "Ao Aprovar", "Ao Reprovar" ou "Ao Enviar para Avaliação".
+- Tenha um nome claro para o sub-status, pois ele aparece nas telas de decisão e acompanhamento.
+
+## Diferenças importantes
+
+<DocTable
+  headers={['Comparação', 'Diferença', 'Orientação']}
+  rows={[
+    ['Aplicação do Sub-Status', 'Define o momento da decisão em que o sub-status é aplicado: "Ao Aprovar", "Ao Reprovar" ou "Ao Enviar para Avaliação".', 'Escolha a aplicação conforme a decisão que deve gerar o sub-status.'],
+    ['Sub-Status x Entidade / Grupo', 'A entidade indica o que é aprovado (ex.: "Cliente"); o grupo é a alçada; o sub-status é o resultado aplicado por essa alçada.', 'Cada sub-status é específico de uma entidade, um grupo e uma aplicação.'],
+    ['Detalhes x Editar', 'A janela "Detalhes" é somente leitura; a edição permite alterar os dados do sub-status.', 'Use "Detalhes" para consultar e "Editar" para alterar.'],
+  ]}
+/>
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', '"Nome do Sub-Status", "Descrição", "Grupo", "Entidade de Aprovação", "Status Sistema" e "Aplicação do Sub-Status", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use os filtros para restringir a lista.'],
+    ['Resultados', 'Lista dos sub-status com as colunas de criação, situação, entidade, nome, aplicação e grupo e, em cada linha, os ícones de ação. A barra de resultados oferece visualização em grade ou lista, seleção de colunas e exportação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Aba "Dados do SubStatus do Ciclo de Aprovação" com o bloco "Informações" e os campos do sub-status.', 'Clique em "Salvar" para confirmar o cadastro.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome do Sub-Status', 'Pesquisa pelo nome do sub-status.'],
+    ['Descrição', 'Pesquisa pela descrição do sub-status.'],
+    ['Grupo', 'Filtra pelo grupo (alçada) do sub-status.'],
+    ['Entidade de Aprovação', 'Filtra pela entidade (ex.: "Cliente", "Pedido").'],
+    ['Status Sistema', 'Filtra por "Ativo" ou "Inativo".'],
+    ['Aplicação do Sub-Status', 'Filtra por "Ao Aprovar", "Ao Reprovar" ou "Ao Enviar para Avaliação".'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Data de Criação', 'Data em que o sub-status foi criado.'],
+    ['Status Sistema', 'Situação do sub-status: "Ativo" ou "Inativo".'],
+    ['Entidade de Aprovação', 'Entidade vinculada (ex.: "Cliente", "Pedido").'],
+    ['Nome do Sub-Status', 'Nome do sub-status (ex.: "Aprovado ADM Vendas").'],
+    ['Aplicação do Sub-Status', 'Momento da decisão: "Ao Aprovar", "Ao Reprovar" ou "Ao Enviar para Avaliação".'],
+    ['Grupo', 'Grupo (alçada) vinculado ao sub-status.'],
+  ]}
+/>
+
+### Cadastro do sub-status (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome do Sub-Status', 'Nome do sub-status, exibido nas telas de decisão e acompanhamento.'],
+    ['Entidade de Aprovação', 'Entidade à qual o sub-status se aplica (ex.: "Cliente", "Pedido").'],
+    ['Grupo', 'Grupo (alçada) responsável pela decisão.'],
+    ['Aplicação do Sub-Status', 'Momento em que o sub-status é aplicado: "Ao Aprovar", "Ao Reprovar" ou "Ao Enviar para Avaliação".'],
+    ['Status Sistema', 'Define se o sub-status está "Ativo" ou "Inativo".'],
+    ['Descrição', 'Texto que explica quando o sub-status deve ser aplicado.'],
+  ]}
+/>
+
+### Janela "Log de alteração"
+
+<DocTable
+  headers={['Informação', 'O que mostra']}
+  rows={[
+    ['Data e usuário', 'Data, hora e usuário de cada alteração.'],
+    ['Campos alterados', 'Os campos e valores modificados em cada alteração (ex.: "Nome do Sub-Status", "Status Sistema").'],
+    ['Dados de criação', 'Código do Sub-Status, Usuário de Criação e Data de Criação.'],
+  ]}
+/>
+
+### Janela "Detalhes"
+
+<DocTable
+  headers={['Campo', 'O que mostra']}
+  rows={[
+    ['Código', 'Código que identifica o sub-status.'],
+    ['Data de Criação', 'Data e hora da criação.'],
+    ['Nome do Sub-Status', 'Nome do sub-status.'],
+    ['Aplicação do Sub-Status', 'Momento da decisão vinculado.'],
+    ['Status Sistema', 'Situação: "Ativo" ou "Inativo".'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Pesquisar sub-status** — informe os filtros desejados e clique em **"Pesquisar"**.
+2. **Cadastrar sub-status** — clique em **"+ Novo"**, informe o "Nome do Sub-Status", a "Entidade de Aprovação", o "Grupo", a "Aplicação do Sub-Status", o "Status Sistema" e a "Descrição", e clique em **"Salvar"**.
+3. **Editar sub-status** — use o ícone de **Edição** da linha, ajuste os campos e clique em **"Salvar"**.
+4. **Consultar detalhes** — use o ícone de **Detalhes** para ver as informações do sub-status.
+5. **Consultar o log** — use o ícone de **Log de alteração** para ver quem alterou o sub-status e quando.
+6. **Inativar ou excluir** — altere o "Status Sistema" para "Inativo" na edição, ou use o ícone de **Exclusão** (X vermelho) da linha.
+
+<Callout type="cuidado" title="Reflete nas telas de decisão">
+O sub-status cadastrado aqui é o que aparece nas telas de decisão e de acompanhamento do ciclo. Confira a entidade, o grupo e a aplicação antes de salvar.
+</Callout>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os sub-status conforme os filtros.', 'Combine entidade, grupo e aplicação para refinar.'],
+    ['+ Novo', 'Para cadastrar um novo sub-status.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Log de alteração', 'Para ver o histórico de alterações do sub-status.', 'É uma consulta; não altera o sub-status.'],
+    ['Detalhes', 'Para consultar as informações do sub-status.', 'É somente leitura.'],
+    ['Edição', 'Para alterar os dados do sub-status.', 'Clique em "Salvar" para confirmar.'],
+    ['Exclusão', 'Para remover o sub-status (ícone X vermelho).', 'Prefira inativar quando o sub-status já tiver sido usado.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Sub-Status - Ciclo de Aprovação', 'Acesso à tela', 'Permite abrir a tela e consultar os sub-status.'],
+    ['Cadastro e edição de sub-status', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir sub-status.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Aplicação define o momento', 'A aplicação ("Ao Aprovar", "Ao Reprovar", "Ao Enviar para Avaliação") define quando o sub-status é usado na decisão.', 'Escolha a aplicação conforme a decisão que deve gerar o sub-status.'],
+    ['Vínculo por entidade e grupo', 'Cada sub-status é específico de uma entidade de aprovação e de um grupo (alçada).', 'Cadastre um sub-status por combinação de entidade, grupo e aplicação.'],
+    ['Status Sistema', 'Um sub-status "Inativo" deixa de ser aplicado nas decisões.', 'Inative em vez de excluir quando o sub-status já tiver histórico.'],
+    ['Log de alteração', 'A tela mantém o histórico de alterações (usuário, data e campos alterados).', 'Use o log para acompanhar as mudanças do sub-status.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Nova Fila de Aprovação - Clientes', 'Ao aprovar, reprovar ou enviar para avaliação, aplica o sub-status configurado para o grupo e a aplicação.', 'A decisão usa o sub-status ativo correspondente.'],
+    ['Acompanhamento Ciclos de Aprovação', 'Exibe o sub-status aplicado na coluna "Sub-Status Ciclo de Aprovação".', 'O nome mostrado é o cadastrado nesta tela.'],
+    ['Entidade de Aprovação e Grupo', 'Fornecem a entidade e o grupo aos quais o sub-status é vinculado.', 'Cadastre a entidade e o grupo antes do sub-status.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não aprova nem reprova registros — apenas define os sub-status usados nessas decisões.
+- Não cria as entidades de aprovação nem os grupos — eles são cadastrados em suas próprias telas.
+- Não altera os ciclos de aprovação em andamento.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O sub-status não aparece na decisão', 'Sub-status inativo ou vinculado a outro grupo/aplicação', 'Confira o "Status Sistema", o "Grupo" e a "Aplicação do Sub-Status".'],
+    ['O sub-status não aparece na busca', 'Filtros muito restritos', 'Revise os filtros e clique em "Pesquisar".'],
+    ['Não consigo excluir um sub-status', 'Sub-status já utilizado em decisões', 'Prefira inativar (Status Sistema "Inativo") para preservar o histórico.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os sub-status do ciclo de aprovação aplicados ao aprovar, reprovar ou enviar para avaliação, por entidade e grupo.' },
+    { question: 'O que é a "Aplicação do Sub-Status"?', answer: 'É o momento da decisão em que o sub-status é aplicado: "Ao Aprovar", "Ao Reprovar" ou "Ao Enviar para Avaliação".' },
+    { question: 'Onde o sub-status cadastrado aqui aparece?', answer: 'Na coluna "Sub-Status Ciclo de Aprovação" das telas de decisão (Nova Fila de Aprovação) e de acompanhamento (Acompanhamento Ciclos de Aprovação).' },
+    { question: 'Posso excluir um sub-status já usado?', answer: 'Não é recomendado. Prefira inativá-lo (Status Sistema "Inativo") para preservar o histórico das decisões.' },
+    { question: 'Existe log de alterações do sub-status?', answer: 'Sim. O ícone "Log de alteração" mostra o usuário, a data e os campos alterados.' },
+    { question: 'A janela "Detalhes" permite alterar o sub-status?', answer: 'Não. A janela "Detalhes" é somente leitura; para alterar, use o ícone de Edição.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '25/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Sub-Status - Ciclo de Aprovação.' },
+  ]}
+/>

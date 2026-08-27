@@ -1,0 +1,239 @@
+---
+section: modulos
+routeSlug: autenticador/grupo
+pageType: routine
+module: autenticador
+moduleLabel: Autenticador
+title: Grupo
+description: Cadastro de grupos que reúnem usuários, vinculam perfis e definem as permissões de acesso por URL e módulo.
+routineType: Cadastro
+permission: Sim
+impact: Organização de usuários e controle de permissões de acesso
+keywords: [grupo, cadastro de grupo, usuários, perfis, permissões de acesso, definir permissões, log de alteração, autenticador, controle de acesso]
+tags: [modulo-autenticador, cadastro]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Grupo** reúne o cadastro dos grupos do sistema. Um grupo **agrupa usuários**, **vincula um ou mais perfis** e permite **definir as permissões de acesso** por URL, organizadas por módulo.
+
+Junto com o Perfil, o grupo faz parte do controle de acesso: ele organiza os usuários e define, para cada tela (URL), o que o grupo pode consultar, incluir, excluir, entre outras permissões.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de grupos', text: 'Reúne usuários, vincula perfis e define permissões de acesso por URL.' },
+    { label: 'Uso', title: 'Controle de acesso', text: 'Organiza os usuários e define o que o grupo pode fazer em cada tela.' },
+    { label: 'Cuidado', title: 'Impacto no acesso', text: 'Alterar as permissões do grupo muda o que os usuários vinculados conseguem fazer.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo grupo.
+- Consultar os grupos existentes e seus detalhes.
+- Vincular ou remover usuários e perfis de um grupo.
+- Definir ou revisar as permissões de acesso do grupo por URL e módulo.
+- Consultar o log de alterações de um grupo.
+
+## Como acessar
+
+Autenticador → Grupo
+
+## Antes de começar
+
+- Confirme quais usuários e perfis devem compor o grupo.
+- Saiba quais telas (URLs) e permissões o grupo deve ter em cada módulo.
+- Verifique se já não existe um grupo equivalente antes de criar um novo.
+
+## Diferenças importantes
+
+<DocTable
+  headers={['Comparação', 'Diferença', 'Orientação']}
+  rows={[
+    ['Grupo x Perfil', 'O perfil é o conjunto de permissões; o grupo reúne usuários, vincula perfis e também define permissões de acesso por URL.', 'Use o Perfil para o conjunto de permissões; use o Grupo para organizar usuários e ajustar o acesso por tela.'],
+    ['Detalhes x Editar', 'A janela "Detalhes" é somente leitura (mostra Nome e Perfis); a janela de edição permite alterar Nome, Usuários e Perfis.', 'Use "Detalhes" para consultar e "Editar" para alterar.'],
+    ['Definir permissões x Perfil', '"Definir permissões de acessos" ajusta o acesso do grupo por URL/módulo; o Perfil traz o conjunto de permissões vinculado.', 'Ajuste as permissões finas pela janela "Definir permissões de acessos".'],
+  ]}
+/>
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Nome", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use "Nome" para localizar o grupo; "+ Novo" abre o cadastro.'],
+    ['Resultados', 'Lista dos grupos na coluna "Nome" e, em cada linha, os ícones de ação. A barra de resultados oferece visualização em grade ou lista, seleção de colunas e exportação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Janelas dos ícones', 'Log de alteração, Definir permissões de acessos, Detalhes e Edição, abertas pelos ícones da linha.', 'Cada ícone abre uma janela específica.'],
+  ]}
+/>
+
+## Campos principais
+
+### Pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Pesquisa o grupo pelo nome.'],
+  ]}
+/>
+
+### Cadastro do grupo (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Nome do grupo.'],
+    ['Usuários', 'Usuários vinculados ao grupo (seleção com o botão "+" para adicionar).'],
+    ['Perfis', 'Perfis vinculados ao grupo (com o botão "+" para adicionar).'],
+  ]}
+/>
+
+### Janela "Definir permissões de acessos"
+
+<DocTable
+  headers={['Elemento', 'O que mostra']}
+  rows={[
+    ['Módulo', 'Módulo cujas telas (URLs) estão sendo configuradas (ex.: "Administrador").'],
+    ['Urls', 'Lista das telas do módulo (ex.: "Anexos", "Cidade", "Empresa", "Endereço", "Estado").'],
+    ['Permissões', 'Permissões do grupo em cada URL (ex.: consultar, incluir, excluir, entre outras), marcadas em verde quando concedidas e em vermelho quando negadas.'],
+  ]}
+/>
+
+### Janela "Log de alteração"
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Usuário', 'Usuário que realizou a alteração.'],
+    ['Data Atualização', 'Data e hora da alteração.'],
+  ]}
+/>
+
+### Janela "Detalhes"
+
+<DocTable
+  headers={['Campo', 'O que mostra']}
+  rows={[
+    ['Nome', 'Nome do grupo.'],
+    ['Perfis', 'Perfis vinculados ao grupo (coluna "Título").'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Localizar um grupo** — informe o "Nome" e clique em **"Pesquisar"**.
+2. **Criar um grupo** — clique em **"+ Novo"**, informe o "Nome", adicione os "Usuários" e os "Perfis" e clique em **"Salvar"**.
+3. **Editar um grupo** — use o ícone de **Editar** da linha, ajuste "Nome", "Usuários" ou "Perfis" e clique em **"Salvar"**.
+4. **Definir permissões** — use o ícone de **Definir permissões de acessos**, escolha o módulo e ajuste as permissões por URL.
+5. **Consultar o log** — use o ícone de **Log de alteração** para ver quem alterou o grupo e quando.
+6. **Excluir um grupo** — use o ícone de **Excluir** (X vermelho) da linha.
+
+<Callout type="cuidado" title="Alteração de permissões afeta os usuários">
+Ajustar as permissões de acesso ou os perfis do grupo muda o que os usuários vinculados conseguem ver e fazer no sistema.
+</Callout>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os grupos conforme o "Nome".', 'Deixe o campo vazio para listar todos.'],
+    ['+ Novo', 'Para iniciar o cadastro de um novo grupo.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+    ['Log de alteração', 'Para ver o histórico de alterações do grupo.', 'É uma consulta; não altera o grupo.'],
+    ['Definir permissões de acessos', 'Para ajustar as permissões do grupo por URL e módulo.', 'Confira o módulo selecionado antes de alterar.'],
+    ['Detalhes', 'Para consultar Nome e Perfis do grupo.', 'É somente leitura.'],
+    ['Editar', 'Para alterar Nome, Usuários e Perfis do grupo.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover o grupo (ícone X vermelho).', 'Confirme antes; a exclusão afeta os vínculos existentes.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Grupo', 'Acesso à tela', 'Permite abrir a tela e consultar os grupos.'],
+    ['Cadastro e edição de grupo', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir grupos e seus vínculos.'],
+    ['Definir permissões de acessos', 'Permissões por URL', 'Permite ajustar as permissões de acesso do grupo por URL e módulo.'],
+  ]}
+/>
+
+<Callout type="info" title="Permissões finas por URL">
+As permissões do grupo são configuradas por tela (URL) e organizadas por módulo. Em cada URL, as permissões concedidas aparecem em verde e as negadas em vermelho.
+</Callout>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Vínculo de usuários e perfis', 'O grupo reúne usuários e vincula perfis; ambos são ajustados na janela de edição.', 'Mantenha os vínculos atualizados conforme as pessoas e funções mudam.'],
+    ['Permissões por URL', 'As permissões são definidas tela a tela, por módulo, na janela "Definir permissões de acessos".', 'Revise o módulo selecionado ao ajustar as permissões.'],
+    ['Log de alteração', 'A tela mantém o histórico de alterações do grupo (usuário e data).', 'Use o log para acompanhar quem alterou o grupo.'],
+    ['Detalhes somente leitura', 'A janela "Detalhes" mostra Nome e Perfis sem permitir edição.', 'Para alterar, use o ícone de Editar.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Usuário', 'Os usuários vinculados ao grupo são cadastrados na tela Usuário.', 'O grupo organiza usuários já cadastrados.'],
+    ['Perfil', 'Os perfis vinculados ao grupo são definidos na tela Perfil.', 'O perfil traz o conjunto de permissões vinculado ao grupo.'],
+    ['URL', 'As telas (URLs) configuradas nas permissões são cadastradas na tela URL.', 'As permissões refletem as URLs disponíveis por módulo.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra usuários — isso é feito na tela Usuário.
+- Não cria perfis — isso é feito na tela Perfil.
+- Não cadastra as URLs — elas são mantidas na tela URL; aqui apenas se definem as permissões do grupo sobre elas.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+    ['Usuário do grupo não vê uma tela esperada', 'Permissão da URL negada no grupo ou no perfil', 'Revise as permissões do grupo na janela "Definir permissões de acessos".'],
+    ['Um usuário não aparece no grupo', 'Usuário não vinculado', 'Edite o grupo e adicione o usuário no campo "Usuários".'],
+    ['Não sei quem alterou o grupo', 'Alteração feita por outro usuário', 'Consulte o "Log de alteração" da linha do grupo.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar grupos, reunir usuários, vincular perfis e definir as permissões de acesso por URL e módulo.' },
+    { question: 'Qual a diferença entre Grupo e Perfil?', answer: 'O perfil é o conjunto de permissões; o grupo reúne usuários, vincula perfis e também permite ajustar as permissões de acesso por tela (URL).' },
+    { question: 'Como defino o que o grupo pode acessar?', answer: 'Pelo ícone "Definir permissões de acessos" da linha: escolha o módulo e ajuste as permissões de cada URL (verde para concedida, vermelho para negada).' },
+    { question: 'Como adiciono usuários ao grupo?', answer: 'Na janela de edição, use o campo "Usuários" e o botão "+" para adicionar os usuários desejados.' },
+    { question: 'Existe histórico de alterações do grupo?', answer: 'Sim. O ícone "Log de alteração" mostra o usuário e a data de cada alteração.' },
+    { question: 'A janela "Detalhes" permite alterar o grupo?', answer: 'Não. A janela "Detalhes" é somente leitura; para alterar, use o ícone de Editar.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '25/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Grupo.' },
+  ]}
+/>

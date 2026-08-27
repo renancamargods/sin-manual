@@ -1,0 +1,239 @@
+---
+section: modulos
+routeSlug: administrador/anexos
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Attachments
+description: Central lookup and management of the system attachments by domain and type, with download, details, editing and deletion.
+routineType: Lookup and editing
+permission: Yes
+impact: Lookup and management of the documents attached in the system records
+keywords: [attachments, attachment, document, attachment download, attachment domain, attachment type, identification document, proof, customers, upload]
+tags: [modulo-administrador, consulta]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Attachments** screen gathers, in one place, the documents attached in the system records. In it you can **search, look up and manage** the attachments by **domain** (the attachment origin, such as "Customers") and by **type** (the document classification, such as "Identification Document").
+
+Each listed attachment brings the domain, the type, the file name, the description, the related record (e.g., the customer) and the registration date, plus the actions to **download**, view **details**, **edit** or **delete**.
+
+<Callout type="info" title="Attachments come from other screens">
+This screen **does not add** attachments: the documents are added in the origin registrations (e.g., the Customer registration). Here you **look up and manage** the existing attachments.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Attachment hub', text: 'Lookup and management of the documents attached in the system records.' },
+    { label: 'Usage', title: 'Find and download', text: 'Filters by domain and type to find and download the desired attachment.' },
+    { label: 'Caution', title: 'Deletion removes the file', text: 'Deleting an attachment removes the document from the record; confirm first.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Find an attachment by name, description, domain or type.
+- Download a document attached to a record.
+- Look up the details of an attachment.
+- Edit or delete an existing attachment.
+
+## How to access
+
+Administrator → Attachments
+
+## Before you start
+
+- Know the attachment domain (the origin, e.g., "Customers") and, if possible, the document type.
+- Have the file name or the description at hand to speed up the search.
+- Confirm that your profile allows accessing and managing attachments.
+
+## Key differences
+
+<DocTable
+  headers={['Comparison', 'Difference', 'Guidance']}
+  rows={[
+    ['Attachment Domain vs. Attachment Type', 'The domain is the attachment origin (e.g., "Customers", "StatusLead"); the type is the document classification (e.g., "Identification Document", "Proof of Address").', 'Use the domain for the origin and the type for the classification.'],
+    ['Download vs. Details', 'Download saves the file; Details shows the attachment information without downloading it.', 'Use Download to get the file and Details to check the data.'],
+    ['Details vs. Edit', 'Details is a lookup; editing lets you change the attachment data.', 'Use Details to look up and Edit to change.'],
+  ]}
+/>
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', '"Attachment Name", "Description", "Attachment Domains" and "Attachment Types", with the "Search" and "Clear Filters" buttons.', 'The domain and type filters allow selecting more than one option.'],
+    ['Results', 'List of attachments with the domain, type, name, description, customer and date columns and, in each row, the action icons. The results bar offers grid or list view, column selection and export.', 'The action icons are on the right of each row.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Attachment Name', 'Searches by the attached file name.'],
+    ['Description', 'Searches by the attachment description (e.g., "cnh", "cro", "doc").'],
+    ['Attachment Domains', 'Filters by the attachment origin; allows selecting more than one domain.'],
+    ['Attachment Types', 'Filters by the document classification; allows selecting more than one type.'],
+  ]}
+/>
+
+### Results columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Attachment Domain', 'Attachment origin (e.g., "Customers").'],
+    ['Attachment Type', 'Document classification (e.g., "Identification Document").'],
+    ['Attachment Name', 'Name of the attached file.'],
+    ['Description', 'Description entered for the attachment.'],
+    ['Attachment Customer', 'Record related to the attachment (e.g., the customer).'],
+    ['Registration Date', 'Date the attachment was registered.'],
+  ]}
+/>
+
+### Attachment Domains
+
+<DocTable
+  headers={['Domain', 'What it represents']}
+  rows={[
+    ['Customers', 'Attachments linked to the customer registration.'],
+    ['StatusLead', 'Attachments linked to the lead status.'],
+    ['PesquisaResposta', 'Attachments linked to the survey answers.'],
+  ]}
+/>
+
+### Attachment Types
+
+<DocTable
+  headers={['Type', 'What it represents']}
+  rows={[
+    ['Identification Document', 'Identification document of the record.'],
+    ['Partners Identification Document', 'Identification document of the partners.'],
+    ['CRO Proof', 'CRO proof.'],
+    ['Proof of Address', 'Proof of address.'],
+    ['Student Declaration', 'Student declaration.'],
+    ['Articles of Association', 'Articles of association (contrato social).'],
+    ['Prescription', 'Prescription (receita).'],
+    ['TipoAnexoRespostaPesquisa', 'Survey answer attachment.'],
+    ['Proposal', 'Attached proposal.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search attachments** — enter the filters ("Attachment Name", "Description", "Attachment Domains" or "Attachment Types") and click **"Search"**.
+2. **Download an attachment** — in the desired row, use the **Download** icon.
+3. **Look up details** — use the **Details** icon to see the attachment information.
+4. **Edit an attachment** — use the row's **Edit** icon and adjust the data.
+5. **Delete an attachment** — use the row's **Delete** icon (red X).
+
+<Callout type="cuidado" title="Deleting removes the document">
+Deleting an attachment removes the document from the related record. Confirm before deleting.
+</Callout>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the attachments by the filters.', 'Combine domain and type to refine.'],
+    ['Clear Filters', 'To reset the filters and redo the search.', '—'],
+    ['Download', 'To download the attached file.', 'Downloads the document of the row.'],
+    ['Details', 'To look up the attachment information.', 'It is read-only.'],
+    ['Edit', 'To change the attachment data.', 'Confirm the change when saving.'],
+    ['Delete', 'To remove the attachment (red X icon).', 'Removes the document from the record; confirm first.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Attachments', 'Access to the screen', 'Allows opening the screen and looking up the attachments.'],
+    ['Attachment editing and deletion', 'Edit / Delete', 'Allows changing and deleting existing attachments.'],
+    ['Attachment download', 'Download action', 'Allows downloading the attached file.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Filters with multiple options', 'The "Attachment Domains" and "Attachment Types" filters allow selecting more than one option at the same time.', 'Select the desired options before searching.'],
+    ['The domain defines the origin', 'The domain indicates where the attachment came from (e.g., "Customers").', 'Use the domain to separate attachments from different origins.'],
+    ['Deletion removes the file', 'Deleting an attachment removes the document from the related record.', 'Confirm first; the action affects the origin record.'],
+    ['Related record', 'The "Attachment Customer" column shows the record the attachment belongs to.', 'Check the record before downloading or deleting.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Customer', 'The attachments of the "Customers" domain belong to the customer registrations.', 'Deleting here reflects on the customer attachment.'],
+    ['Leads and Surveys', 'The "StatusLead" and "PesquisaResposta" domains gather attachments originated from leads and survey answers.', 'The domain identifies the attachment origin.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- Does not add attachments — the documents are added in the origin registrations (e.g., the Customer registration); this screen only looks up and manages the existing ones.
+- Does not create the origin records (customer, lead, survey) — it only gathers the attachments linked to them.
+- Does not define the available domains and types — they come from the system configuration.
+- Does not change the related record (e.g., the customer data).
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The attachment does not appear in the search', 'Filters too restrictive', 'Review "Attachment Name", "Description", domain and type, and click "Search".'],
+    ['I cannot download the attachment', 'Lack of download permission', 'Check the permission with the administrator.'],
+    ['I deleted an attachment by mistake', 'Deletion without confirmation', 'Deletion removes the document from the record; re-upload the attachment through the origin registration.'],
+    ['I cannot access the screen', 'Lack of permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To look up and manage, in one place, the system attachments by domain and type, with download, details, editing and deletion.' },
+    { question: 'Can I add an attachment through this screen?', answer: 'No. Attachments are added in the origin registrations (e.g., the Customer registration). This screen only looks up and manages the existing attachments.' },
+    { question: 'What is the difference between attachment domain and type?', answer: 'The domain is the attachment origin (e.g., "Customers"); the type is the document classification (e.g., "Identification Document").' },
+    { question: 'Can I filter by more than one domain or type?', answer: 'Yes. The "Attachment Domains" and "Attachment Types" filters allow selecting more than one option.' },
+    { question: 'How do I download an attachment?', answer: 'Use the Download icon in the row of the desired attachment.' },
+    { question: 'Does deleting an attachment here affect the origin record?', answer: 'Yes. Deletion removes the document from the related record; confirm before deleting.' },
+    { question: 'Do I need permission to access this screen?', answer: 'Yes. You need the corresponding permission enabled in your access profile.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '25/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/08/2026', author: 'Renan Camargo', description: 'Initial release of the Attachments screen documentation.' },
+  ]}
+/>

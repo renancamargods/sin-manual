@@ -1,0 +1,401 @@
+---
+section: modulos
+routeSlug: faturamentos/trocas-devolucoes
+pageType: routine
+module: faturamentos
+moduleLabel: Faturamentos
+title: Trocas/Devoluções
+description: Triagem, devolução e troca de produtos por protocolo, com bipagem dos itens, geração de crédito/débito e acompanhamento do status da operação TDC.
+routineType: Cadastro e processo
+permission: Sim
+impact: Processa devoluções e trocas de produtos e gera os pedidos e créditos correspondentes
+keywords: [trocas, devoluções, triagem, operação tdc, protocolo, bipagem, datamatrix, devolução de produtos, itens de troca, crédito, débito, bonificado, incompany, freshdesk, consignado]
+tags: [modulo-faturamentos, processo]
+order: 4
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Trocas/Devoluções** conduz, de ponta a ponta, o processo de **troca e devolução de produtos** de um cliente. Cada operação nasce de uma **triagem** e recebe um **Nº Protocolo**; a partir dela, os produtos que voltam são **bipados** (lidos), os valores de crédito ou débito são calculados e, quando é o caso, são gerados os **pedidos de devolução** e de **troca**.
+
+Todo o andamento é acompanhado pelo **Status do Pedido TDC** (ex.: "Triagem Iniciada", "Pedido de Devolução Criado", "Pedido de Troca Criado"), e cada mudança fica registrada no histórico da operação.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Triagem, devolução e troca', text: 'Processa a volta de produtos do cliente e gera os pedidos e valores correspondentes.' },
+    { label: 'Uso', title: 'Bipagem e conferência', text: 'Lê os itens devolvidos, calcula crédito/débito e monta os itens de troca.' },
+    { label: 'Cuidado', title: 'Confira antes de gerar', text: 'Gerar Devolução e Gerar Troca criam pedidos; revise os itens e valores antes.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Iniciar uma nova triagem de troca/devolução para um cliente.
+- Bipar e conferir os produtos que o cliente está devolvendo.
+- Registrar os itens de troca e gerar os pedidos de devolução e de troca.
+- Acompanhar o status e o histórico de um protocolo de troca/devolução.
+- Cancelar um protocolo quando necessário.
+
+## Como acessar
+
+Faturamentos → Trocas/Devoluções
+
+## Antes de começar
+
+- Tenha o **cliente** responsável pela devolução e o **centro** da operação.
+- Reúna os produtos que voltam, com **DataMatrix**, lote, serial e a nota fiscal de referência.
+- Se houver, tenha o **número do chamado FreshDesk** relacionado.
+- Confirme que o seu perfil permite iniciar triagem e gerar devolução/troca.
+
+## Diferenças importantes
+
+<DocTable
+  headers={['Comparação', 'Diferença', 'Orientação']}
+  rows={[
+    ['Devolução x Troca', 'A devolução é a volta dos produtos (gera crédito ou débito); a troca é a saída dos novos produtos para o cliente.', 'Uma operação pode ter apenas devolução, apenas troca ou as duas.'],
+    ['+ Nova Triagem x Editar', '"+ Nova Triagem" inicia um protocolo do zero; a edição (ícone da linha) reabre um protocolo existente para continuar.', 'Use "+ Nova Triagem" para começar e a edição para prosseguir.'],
+    ['Detalhes x Edição', 'A janela "Detalhes" é somente leitura; a edição permite bipar itens, montar a troca e gerar os pedidos.', 'Use "Detalhes" para consultar e a edição para trabalhar o protocolo.'],
+    ['Bipagem x Cópia e Cola x Nota Fiscal', 'São as três formas de informar o produto devolvido: leitura do DataMatrix, colagem dos códigos ou pela nota fiscal.', 'Escolha a forma conforme os dados disponíveis do item.'],
+    ['Gerar Devolução x Gerar Troca', '"Gerar Devolução" cria o pedido de devolução dos itens que voltaram; "Gerar Troca" cria o pedido de saída dos itens de troca.', 'Confira os itens e valores antes de gerar cada um.'],
+  ]}
+/>
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros por cliente, protocolo, status, usuário, período, Lounge e situação, com os botões de relatório, "Pesquisar", "+ Nova Triagem" e "Limpar Filtros".', 'Use os filtros para localizar protocolos existentes.'],
+    ['Resultados', 'Lista dos protocolos com as colunas da operação e, em cada linha, os ícones de ação. A barra de resultados oferece visualização em grade ou lista, seleção de colunas e exportação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (2 abas)', 'Aba "Devolução dos Produtos" (operação, clientes, pedidos, itens de devolução e de troca) e aba "Informações Adicionais" (atualizações de status).', 'O trabalho do protocolo é feito na aba "Devolução dos Produtos".'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Cliente', 'Filtra pelo cliente da operação.'],
+    ['Nº Protocolo', 'Filtra pelo número do protocolo (ex.: "P0000007").'],
+    ['Status da Operação TDC', 'Filtra pelo status da operação (lista "Selecione").'],
+    ['Usuário de Criação', 'Filtra pelo usuário que criou a operação.'],
+    ['Data de / Data até', 'Período de criação da operação.'],
+    ['Lounge', 'Filtra pelo Lounge (unidade) da operação.'],
+    ['Protocolo Cancelado?', 'Filtra por protocolos cancelados (Sim ou Não).'],
+    ['Devolução Incompany', 'Filtra por devoluções entre empresas do grupo (Incompany: Sim ou Não).'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Nº Protocolo', 'Número que identifica a operação (ex.: "P0000007").'],
+    ['Código do Cliente', 'Código do cliente da operação.'],
+    ['Nome', 'Nome do cliente.'],
+    ['Data de Criação', 'Data de criação da operação.'],
+    ['Usuário Criação', 'Usuário que criou a operação.'],
+    ['Status Pedido TDC', 'Status atual da operação (ex.: "Triagem Iniciada", "Pedido de Devolução Criado", "Pedido de Troca Criado").'],
+    ['Número chamado FreshDesk', 'Número do chamado FreshDesk relacionado, quando houver.'],
+    ['Observações', 'Observações registradas na operação.'],
+    ['É Devolução de Consignado?', 'Indica se a devolução é de itens consignados (Sim ou Não).'],
+    ['QTD Itens Bipados', 'Quantidade de itens já bipados (lidos) na operação.'],
+    ['QTD de Itens de Trocas', 'Quantidade de itens de troca da operação.'],
+  ]}
+/>
+
+### Status do Pedido TDC
+
+<DocTable
+  headers={['Status', 'O que indica']}
+  rows={[
+    ['Triagem Iniciada', 'A operação foi iniciada e está em triagem.'],
+    ['Pedido de Devolução Criado', 'O pedido de devolução dos itens foi gerado.'],
+    ['Pedido de Troca Criado', 'O pedido de troca dos novos itens foi gerado.'],
+  ]}
+/>
+
+## Cadastro — aba "Devolução dos Produtos"
+
+### Informações da Operação
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Cliente Responsável pela Devolução', 'Cliente que responde pela devolução (código e nome).'],
+    ['Centro da Devolução', 'Centro em que a devolução é realizada (ex.: "3012 - Vpd - Distribuidora").'],
+    ['Número chamado FreshDesk', 'Número do chamado FreshDesk relacionado à operação.'],
+  ]}
+/>
+
+### Clientes da Operação
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Cliente', 'Código do cliente.'],
+    ['Nome', 'Nome do cliente.'],
+    ['Gerou', 'O que a operação gerou para o cliente (ex.: "Crédito" ou "Débito").'],
+    ['Valor de Venda', 'Valor da venda original dos itens.'],
+    ['Valor de Troca', 'Valor dos itens de troca.'],
+    ['Diferença', 'Diferença entre a troca e a venda (pode ser negativa).'],
+    ['Valor de Bonificados', 'Valor referente a itens bonificados.'],
+    ['Dev. Autorizada', 'Indica se a devolução do cliente está autorizada (Sim ou Não).'],
+  ]}
+/>
+
+### Pedidos Originados da Operação
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Pedido', 'Número do pedido gerado a partir da operação.'],
+    ['Data do Pedido', 'Data do pedido.'],
+    ['Status do Pedido', 'Situação do pedido.'],
+    ['Tipo do Pedido', 'Tipo do pedido gerado.'],
+    ['Cliente / Nome', 'Cliente do pedido.'],
+    ['Operação', 'Operação do pedido.'],
+    ['Contabilizar Frete?', 'Indica se o frete é contabilizado.'],
+    ['Nota Fiscal do Pedido', 'Nota fiscal do pedido.'],
+    ['Nota Fiscal de Terceiro', 'Nota fiscal de terceiro, quando houver.'],
+    ['Remessa', 'Remessa vinculada ao pedido.'],
+    ['Registro do SM', 'Registro do SM vinculado.'],
+  ]}
+/>
+
+<Callout type="info" title="Sem pedidos no início">
+Enquanto a devolução ou a troca não é gerada, a área exibe "Nenhum pedido gerado ainda a partir dessa operação TDC". Os pedidos aparecem depois de "Gerar Devolução" ou "Gerar Troca".
+</Callout>
+
+### Itens de Devolução
+
+Área onde os produtos que voltam são informados e conferidos.
+
+<DocTable
+  headers={['Elemento', 'Para que serve']}
+  rows={[
+    ['Informar Produto Devolução (Leitura)', 'Campo de leitura para informar o produto que está sendo devolvido.'],
+    ['Bipagem / Cópia e Cola / Nota Fiscal', 'Três formas de informar o item: pela leitura do DataMatrix, pela colagem dos códigos ou pela nota fiscal.'],
+    ['Escolher arquivo', 'Permite anexar um arquivo com os itens da devolução.'],
+  ]}
+/>
+
+Tabela **"Itens Devolvidos da Operação (Agrupados por Cliente)"**:
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Código do Produto', 'Código do produto devolvido (ex.: "ILCM 4513N").'],
+    ['Lote', 'Lote do item.'],
+    ['Serial', 'Serial do item.'],
+    ['Nº Nota Fiscal', 'Número da nota fiscal de origem.'],
+    ['Tipo NF', 'Tipo da nota fiscal (ex.: "OPL3").'],
+    ['Preço Tabela', 'Preço de tabela do produto.'],
+    ['Preço NF Referência', 'Preço da nota fiscal de referência.'],
+    ['Centro Origem', 'Centro de origem da nota.'],
+    ['Valor Frete', 'Valor de frete do item.'],
+    ['É InCompany?', 'Indica se é item entre empresas do grupo (Sim ou Não).'],
+    ['Pedido', 'Pedido vinculado ao item, quando houver.'],
+    ['DataMatrix', 'DataMatrix bipado do item.'],
+  ]}
+/>
+
+<Callout type="dica" title="Gerar Devolução">
+Depois de bipar e conferir os itens, use **"Gerar Devolução"** para criar o pedido de devolução dos produtos que voltaram.
+</Callout>
+
+### Itens de Troca
+
+Área onde são informados os novos produtos que saem para o cliente (a troca).
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Código do Produto', 'Código do produto de troca (ex.: "ILHE 3707N").'],
+    ['Tipo do Item', 'Tipo do item (ex.: "Venda").'],
+    ['Quantidade', 'Quantidade do item (ex.: "1 UN").'],
+    ['Preço Tabela', 'Preço de tabela.'],
+    ['Preço Total', 'Preço total do item pela tabela.'],
+    ['Valor Unitário de Saída', 'Valor unitário de saída aplicado.'],
+    ['Preço Total de Saída', 'Preço total de saída do item.'],
+    ['Desconto a ser Aplicado', 'Percentual de desconto aplicado (ex.: "41,11 %").'],
+    ['Estoque em Tempo Real', 'Estoque atual do produto.'],
+    ['Pedido', 'Pedido vinculado ao item de troca, quando houver.'],
+  ]}
+/>
+
+A linha de **Totalizadores** soma a quantidade e os valores dos itens de troca do cliente.
+
+<DocTable
+  headers={['Ação da área de troca', 'Para que serve']}
+  rows={[
+    ['Consultar Estoque em Tempo Real', 'Atualiza o estoque atual dos itens de troca.'],
+    ['Importar Itens do Excel', 'Importa os itens de troca a partir de uma planilha.'],
+    ['+ Digitação Rápida Item de Troca', 'Adiciona itens de troca em digitação rápida.'],
+    ['+ Novo Item de Troca', 'Adiciona um item de troca manualmente.'],
+    ['Gerar Troca', 'Cria o pedido de troca com os itens informados.'],
+  ]}
+/>
+
+### Dados Gerais
+
+<DocTable
+  headers={['Informação', 'O que mostra']}
+  rows={[
+    ['Nº Protocolo', 'Número do protocolo da operação.'],
+    ['Data Início', 'Data e hora de início da operação.'],
+    ['Data Início (usuário)', 'Usuário que iniciou a operação.'],
+    ['Diferença Geral de Venda', 'Diferença geral de venda calculada na operação.'],
+  ]}
+/>
+
+## Cadastro — aba "Informações Adicionais"
+
+Reúne o **histórico de status** da operação.
+
+<DocTable
+  headers={['Informação', 'O que mostra']}
+  rows={[
+    ['Status', 'Status registrado (ex.: "Triagem Iniciada").'],
+    ['Informações Adicionais', 'Detalhe da atualização (ex.: "Triagem Iniciada para Pedido TDC de Protocolo P0000007").'],
+    ['Data', 'Data e hora da atualização.'],
+    ['Atualizado por', 'Usuário que registrou a atualização.'],
+  ]}
+/>
+
+## Janelas dos ícones da linha
+
+### Log de alteração
+
+Mostra o **histórico completo** de cada alteração da operação, com data, hora e usuário. Cada registro traz os dados da operação e dos itens (ex.: "Status Pedido TDC", "Valor de Crédito ou Débito gerado", "Centro", "Lista de Preço" e os itens devolvidos com lote, serial, nota fiscal e DataMatrix).
+
+### Detalhes
+
+Janela **somente leitura** com os dados principais da operação: Nº Protocolo, cliente, centro, status, valores e itens. Não permite alterar nada.
+
+## Fluxos principais
+
+1. **Iniciar triagem** — clique em **"+ Nova Triagem"**, informe o "Cliente Responsável pela Devolução" e o "Centro da Devolução".
+2. **Informar os itens devolvidos** — em "Itens de Devolução", use **"Bipagem"**, **"Cópia e Cola"** ou **"Nota Fiscal"** para informar os produtos que voltam.
+3. **Gerar a devolução** — confira os itens e valores e clique em **"Gerar Devolução"**.
+4. **Montar a troca** — em "Itens de Troca", adicione os novos produtos ("+ Novo Item de Troca", "+ Digitação Rápida Item de Troca" ou "Importar Itens do Excel") e confira o estoque.
+5. **Gerar a troca** — clique em **"Gerar Troca"** para criar o pedido de saída dos itens de troca.
+6. **Acompanhar o status** — consulte a aba "Informações Adicionais" e o "Status Pedido TDC" da operação.
+7. **Salvar** — clique em **"Salvar"** para guardar o andamento.
+
+<Callout type="cuidado" title="Gerar cria pedidos">
+"Gerar Devolução" e "Gerar Troca" criam pedidos a partir da operação. Revise os itens, os valores e a autorização de devolução antes de gerar.
+</Callout>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os protocolos conforme os filtros.', 'Combine cliente, status e período para refinar.'],
+    ['+ Nova Triagem', 'Para iniciar um protocolo do zero.', 'Abre o cadastro da operação.'],
+    ['Relatório para Análise de Devolução', 'Para gerar o relatório de análise das devoluções.', '—'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Log de alteração', 'Para ver o histórico completo de alterações da operação.', 'É uma consulta; não altera a operação.'],
+    ['Detalhes', 'Para consultar os dados da operação.', 'É somente leitura.'],
+    ['Edição', 'Para trabalhar o protocolo (bipar, gerar devolução e troca).', 'Serve também para continuar uma triagem existente.'],
+    ['Cancelar protocolo', 'Para cancelar a operação.', 'O protocolo passa a constar como cancelado.'],
+    ['Gerar Devolução', 'Para criar o pedido de devolução dos itens.', 'Confira os itens antes.'],
+    ['Gerar Troca', 'Para criar o pedido de troca dos itens.', 'Confira os itens e o estoque antes.'],
+    ['Gerar Excel com Detalhamento da Devolução', 'Para exportar o detalhamento da devolução em Excel.', '—'],
+    ['Salvar', 'Para guardar o andamento da operação.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Trocas/Devoluções', 'Acesso à tela', 'Permite abrir a tela e consultar os protocolos.'],
+    ['Nova triagem e edição', 'Nova Triagem / Editar', 'Permite iniciar e trabalhar as operações de troca/devolução.'],
+    ['Gerar devolução e troca', 'Gerar Devolução / Gerar Troca', 'Permite gerar os pedidos de devolução e de troca.'],
+    ['Cancelar protocolo', 'Cancelamento', 'Permite cancelar um protocolo de troca/devolução.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Protocolo por operação', 'Cada triagem gera um Nº Protocolo que identifica a operação.', 'Use o protocolo para localizar e acompanhar a operação.'],
+    ['Bipagem dos itens', 'Os itens devolvidos são informados por Bipagem, Cópia e Cola ou Nota Fiscal.', 'A quantidade de itens bipados aparece na coluna "QTD Itens Bipados".'],
+    ['Crédito ou débito', 'A diferença entre venda e troca gera crédito ou débito para o cliente.', 'Confira a coluna "Gerou" e os valores em "Clientes da Operação".'],
+    ['Geração de pedidos', 'Só há pedidos vinculados após "Gerar Devolução" ou "Gerar Troca".', 'Antes disso, a área de pedidos fica vazia.'],
+    ['Status acompanhado', 'O "Status Pedido TDC" evolui conforme a operação (triagem, devolução, troca).', 'Acompanhe pelo status e pela aba "Informações Adicionais".'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Pedido', 'Os pedidos de devolução e de troca gerados aparecem na área "Pedidos Originados da Operação" e no módulo de Pedidos.', 'A geração cria pedidos reais.'],
+    ['Cliente', 'A operação é vinculada ao cliente responsável pela devolução.', 'Confira o cliente antes de gerar.'],
+    ['FreshDesk', 'O número do chamado FreshDesk vincula a operação ao atendimento de origem.', 'Informe o chamado quando houver.'],
+    ['Consignado', 'A operação identifica se é devolução de consignado.', 'Confira o campo "É Devolução de Consignado?".'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não fatura os pedidos — apenas gera os pedidos de devolução e de troca.
+- Não cadastra os produtos nem os clientes — eles vêm de seus próprios cadastros.
+- Não altera notas fiscais já emitidas — usa as notas de referência para a devolução.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O item não é aceito na bipagem', 'DataMatrix ilegível ou item não localizado', 'Confira o DataMatrix e tente por "Cópia e Cola" ou "Nota Fiscal".'],
+    ['Não aparece pedido na operação', 'Devolução ou troca ainda não gerada', 'Use "Gerar Devolução" ou "Gerar Troca" após conferir os itens.'],
+    ['O estoque do item de troca está zerado', 'Estoque desatualizado', 'Use "Consultar Estoque em Tempo Real".'],
+    ['Não consigo cancelar o protocolo', 'Falta de permissão ou operação já avançada', 'Verifique a permissão e o status atual da operação.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para conduzir a triagem, a devolução e a troca de produtos de um cliente, gerando os pedidos e os valores de crédito ou débito correspondentes.' },
+    { question: 'Como inicio uma troca/devolução?', answer: 'Clique em "+ Nova Triagem", informe o cliente responsável e o centro da devolução e comece a bipar os itens.' },
+    { question: 'Quais as formas de informar os itens devolvidos?', answer: 'Por "Bipagem" (leitura do DataMatrix), "Cópia e Cola" dos códigos ou pela "Nota Fiscal".' },
+    { question: 'Qual a diferença entre Gerar Devolução e Gerar Troca?', answer: '"Gerar Devolução" cria o pedido de devolução dos itens que voltaram; "Gerar Troca" cria o pedido de saída dos novos itens de troca.' },
+    { question: 'Onde vejo se a operação gerou crédito ou débito?', answer: 'Na área "Clientes da Operação", nas colunas "Gerou" e "Diferença".' },
+    { question: 'Como acompanho o andamento do protocolo?', answer: 'Pelo "Status Pedido TDC" na lista e pela aba "Informações Adicionais", que traz as atualizações de status.' },
+    { question: 'A janela "Detalhes" permite alterar a operação?', answer: 'Não. A janela "Detalhes" é somente leitura; para trabalhar o protocolo, use a edição.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '25/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Trocas/Devoluções.' },
+  ]}
+/>

@@ -1,0 +1,402 @@
+---
+section: modulos
+routeSlug: faturamentos/trocas-devolucoes
+pageType: routine
+module: faturamentos
+moduleLabel: Invoicing
+lang: en
+title: Exchanges/Returns
+description: Triage, return and exchange of products by protocol, with item scanning, credit/debit generation and tracking of the TDC operation status.
+routineType: Registration and process
+permission: Yes
+impact: Processes product returns and exchanges and generates the corresponding orders and credits
+keywords: [exchanges, returns, triage, tdc operation, protocol, scanning, datamatrix, product return, exchange items, credit, debit, bonus, incompany, freshdesk, consignment]
+tags: [modulo-faturamentos, processo]
+order: 4
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Exchanges/Returns** screen drives, end to end, the process of **product exchange and return** for a customer. Each operation starts from a **triage** and receives a **Protocol No.**; from it, the products that come back are **scanned**, the credit or debit amounts are calculated and, when applicable, the **return** and **exchange** orders are generated.
+
+The whole progress is tracked by the **TDC Order Status** (e.g., "Triage Started", "Return Order Created", "Exchange Order Created"), and each change is recorded in the operation history.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Triage, return and exchange', text: 'Processes the return of the customer products and generates the corresponding orders and amounts.' },
+    { label: 'Usage', title: 'Scanning and checking', text: 'Reads the returned items, calculates credit/debit and builds the exchange items.' },
+    { label: 'Caution', title: 'Check before generating', text: 'Generate Return and Generate Exchange create orders; review the items and amounts first.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Start a new exchange/return triage for a customer.
+- Scan and check the products the customer is returning.
+- Register the exchange items and generate the return and exchange orders.
+- Track the status and history of an exchange/return protocol.
+- Cancel a protocol when needed.
+
+## How to access
+
+Invoicing → Exchanges/Returns
+
+## Before you start
+
+- Have the **customer** responsible for the return and the operation **center**.
+- Gather the products coming back, with **DataMatrix**, lot, serial and the reference invoice.
+- If any, have the related **FreshDesk ticket number**.
+- Confirm that your profile allows starting a triage and generating return/exchange.
+
+## Key differences
+
+<DocTable
+  headers={['Comparison', 'Difference', 'Guidance']}
+  rows={[
+    ['Return vs. Exchange', 'The return is the products coming back (generates credit or debit); the exchange is the new products going out to the customer.', 'An operation may have only a return, only an exchange or both.'],
+    ['+ New Triage vs. Edit', '"+ New Triage" starts a protocol from scratch; editing (row icon) reopens an existing protocol to continue.', 'Use "+ New Triage" to start and edit to proceed.'],
+    ['Details vs. Edit', 'The "Details" window is read-only; editing lets you scan items, build the exchange and generate the orders.', 'Use "Details" to look up and edit to work the protocol.'],
+    ['Scanning vs. Copy and Paste vs. Invoice', 'These are the three ways to inform the returned product: DataMatrix reading, code pasting or through the invoice.', 'Choose the way according to the available item data.'],
+    ['Generate Return vs. Generate Exchange', '"Generate Return" creates the return order for the items that came back; "Generate Exchange" creates the outbound order for the exchange items.', 'Check the items and amounts before generating each one.'],
+  ]}
+/>
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Filters by customer, protocol, status, user, period, Lounge and situation, with the report, "Search", "+ New Triage" and "Clear Filters" buttons.', 'Use the filters to find existing protocols.'],
+    ['Results', 'List of protocols with the operation columns and, in each row, the action icons. The results bar offers grid or list view, column selection and export.', 'The action icons are on the right of each row.'],
+    ['Registration (2 tabs)', '"Product Return" tab (operation, customers, orders, return items and exchange items) and "Additional Information" tab (status updates).', 'The protocol work is done in the "Product Return" tab.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Customer', 'Filters by the operation customer.'],
+    ['Protocol No.', 'Filters by the protocol number (e.g., "P0000007").'],
+    ['TDC Operation Status', 'Filters by the operation status (the "Select" list).'],
+    ['Creation User', 'Filters by the user who created the operation.'],
+    ['Date from / Date to', 'Operation creation period.'],
+    ['Lounge', 'Filters by the operation Lounge (unit).'],
+    ['Protocol Canceled?', 'Filters by canceled protocols (Yes or No).'],
+    ['Incompany Return', 'Filters by returns between group companies (Incompany: Yes or No).'],
+  ]}
+/>
+
+### Results columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Protocol No.', 'Number that identifies the operation (e.g., "P0000007").'],
+    ['Customer Code', 'Code of the operation customer.'],
+    ['Name', 'Customer name.'],
+    ['Creation Date', 'Operation creation date.'],
+    ['Creation User', 'User who created the operation.'],
+    ['TDC Order Status', 'Current operation status (e.g., "Triage Started", "Return Order Created", "Exchange Order Created").'],
+    ['FreshDesk Ticket Number', 'Related FreshDesk ticket number, when any.'],
+    ['Notes', 'Notes recorded in the operation.'],
+    ['Is Consignment Return?', 'Indicates whether the return is of consigned items (Yes or No).'],
+    ['Scanned Items Qty', 'Quantity of items already scanned in the operation.'],
+    ['Exchange Items Qty', 'Quantity of exchange items in the operation.'],
+  ]}
+/>
+
+### TDC Order Status
+
+<DocTable
+  headers={['Status', 'What it indicates']}
+  rows={[
+    ['Triage Started', 'The operation was started and is in triage.'],
+    ['Return Order Created', 'The return order for the items was generated.'],
+    ['Exchange Order Created', 'The exchange order for the new items was generated.'],
+  ]}
+/>
+
+## Registration — "Product Return" tab
+
+### Operation Information
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Customer Responsible for the Return', 'Customer responsible for the return (code and name).'],
+    ['Return Center', 'Center where the return is performed (e.g., "3012 - Vpd - Distribuidora").'],
+    ['FreshDesk Ticket Number', 'FreshDesk ticket number related to the operation.'],
+  ]}
+/>
+
+### Operation Customers
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Customer', 'Customer code.'],
+    ['Name', 'Customer name.'],
+    ['Generated', 'What the operation generated for the customer (e.g., "Credit" or "Debit").'],
+    ['Sale Amount', 'Amount of the original sale of the items.'],
+    ['Exchange Amount', 'Amount of the exchange items.'],
+    ['Difference', 'Difference between exchange and sale (may be negative).'],
+    ['Bonus Amount', 'Amount related to bonus items.'],
+    ['Authorized Return', 'Indicates whether the customer return is authorized (Yes or No).'],
+  ]}
+/>
+
+### Orders Originated from the Operation
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Order', 'Number of the order generated from the operation.'],
+    ['Order Date', 'Order date.'],
+    ['Order Status', 'Order situation.'],
+    ['Order Type', 'Type of the generated order.'],
+    ['Customer / Name', 'Order customer.'],
+    ['Operation', 'Order operation.'],
+    ['Account for Freight?', 'Indicates whether the freight is accounted for.'],
+    ['Order Invoice', 'Order invoice.'],
+    ['Third-Party Invoice', 'Third-party invoice, when any.'],
+    ['Shipment', 'Shipment linked to the order.'],
+    ['SM Record', 'Linked SM record.'],
+  ]}
+/>
+
+<Callout type="info" title="No orders at the start">
+While the return or the exchange is not generated, the area shows "No order generated yet from this TDC operation". The orders appear after "Generate Return" or "Generate Exchange".
+</Callout>
+
+### Return Items
+
+Area where the products coming back are informed and checked.
+
+<DocTable
+  headers={['Element', 'What it is for']}
+  rows={[
+    ['Inform Return Product (Reading)', 'Reading field to inform the product being returned.'],
+    ['Scanning / Copy and Paste / Invoice', 'Three ways to inform the item: by DataMatrix reading, by pasting the codes or through the invoice.'],
+    ['Choose file', 'Allows attaching a file with the return items.'],
+  ]}
+/>
+
+**"Returned Items of the Operation (Grouped by Customer)"** table:
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Product Code', 'Code of the returned product (e.g., "ILCM 4513N").'],
+    ['Lot', 'Item lot.'],
+    ['Serial', 'Item serial.'],
+    ['Invoice No.', 'Number of the origin invoice.'],
+    ['Invoice Type', 'Invoice type (e.g., "OPL3").'],
+    ['Table Price', 'Table price of the product.'],
+    ['Reference Invoice Price', 'Price of the reference invoice.'],
+    ['Origin Center', 'Origin center of the invoice.'],
+    ['Freight Amount', 'Item freight amount.'],
+    ['Is InCompany?', 'Indicates whether it is an item between group companies (Yes or No).'],
+    ['Order', 'Order linked to the item, when any.'],
+    ['DataMatrix', 'Scanned DataMatrix of the item.'],
+  ]}
+/>
+
+<Callout type="dica" title="Generate Return">
+After scanning and checking the items, use **"Generate Return"** to create the return order for the products that came back.
+</Callout>
+
+### Exchange Items
+
+Area where the new products going out to the customer (the exchange) are informed.
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Product Code', 'Code of the exchange product (e.g., "ILHE 3707N").'],
+    ['Item Type', 'Item type (e.g., "Sale").'],
+    ['Quantity', 'Item quantity (e.g., "1 UN").'],
+    ['Table Price', 'Table price.'],
+    ['Total Price', 'Total item price by the table.'],
+    ['Unit Outbound Value', 'Unit outbound value applied.'],
+    ['Total Outbound Price', 'Total outbound price of the item.'],
+    ['Discount to Apply', 'Discount percentage applied (e.g., "41.11 %").'],
+    ['Real-Time Stock', 'Current stock of the product.'],
+    ['Order', 'Order linked to the exchange item, when any.'],
+  ]}
+/>
+
+The **Totals** row sums the quantity and amounts of the customer exchange items.
+
+<DocTable
+  headers={['Exchange area action', 'What it is for']}
+  rows={[
+    ['Check Real-Time Stock', 'Updates the current stock of the exchange items.'],
+    ['Import Items from Excel', 'Imports the exchange items from a spreadsheet.'],
+    ['+ Quick Entry Exchange Item', 'Adds exchange items in quick entry.'],
+    ['+ New Exchange Item', 'Adds an exchange item manually.'],
+    ['Generate Exchange', 'Creates the exchange order with the informed items.'],
+  ]}
+/>
+
+### General Data
+
+<DocTable
+  headers={['Information', 'What it shows']}
+  rows={[
+    ['Protocol No.', 'Operation protocol number.'],
+    ['Start Date', 'Operation start date and time.'],
+    ['Start Date (user)', 'User who started the operation.'],
+    ['General Sale Difference', 'General sale difference calculated in the operation.'],
+  ]}
+/>
+
+## Registration — "Additional Information" tab
+
+Gathers the **status history** of the operation.
+
+<DocTable
+  headers={['Information', 'What it shows']}
+  rows={[
+    ['Status', 'Recorded status (e.g., "Triage Started").'],
+    ['Additional Information', 'Detail of the update (e.g., "Triage Started for TDC Order of Protocol P0000007").'],
+    ['Date', 'Date and time of the update.'],
+    ['Updated by', 'User who recorded the update.'],
+  ]}
+/>
+
+## Row icon windows
+
+### Change log
+
+Shows the **full history** of each operation change, with date, time and user. Each record brings the operation and item data (e.g., "TDC Order Status", "Credit or Debit amount generated", "Center", "Price List" and the returned items with lot, serial, invoice and DataMatrix).
+
+### Details
+
+**Read-only** window with the main operation data: Protocol No., customer, center, status, amounts and items. It does not allow changing anything.
+
+## Main flows
+
+1. **Start triage** — click **"+ New Triage"**, inform the "Customer Responsible for the Return" and the "Return Center".
+2. **Inform the returned items** — in "Return Items", use **"Scanning"**, **"Copy and Paste"** or **"Invoice"** to inform the products coming back.
+3. **Generate the return** — check the items and amounts and click **"Generate Return"**.
+4. **Build the exchange** — in "Exchange Items", add the new products ("+ New Exchange Item", "+ Quick Entry Exchange Item" or "Import Items from Excel") and check the stock.
+5. **Generate the exchange** — click **"Generate Exchange"** to create the outbound order for the exchange items.
+6. **Track the status** — check the "Additional Information" tab and the operation "TDC Order Status".
+7. **Save** — click **"Save"** to keep the progress.
+
+<Callout type="cuidado" title="Generating creates orders">
+"Generate Return" and "Generate Exchange" create orders from the operation. Review the items, the amounts and the return authorization before generating.
+</Callout>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the protocols by the filters.', 'Combine customer, status and period to refine.'],
+    ['+ New Triage', 'To start a protocol from scratch.', 'Opens the operation registration.'],
+    ['Report for Return Analysis', 'To generate the return analysis report.', '—'],
+    ['Clear Filters', 'To reset the filters and redo the search.', '—'],
+    ['Change log', 'To see the full change history of the operation.', 'It is a lookup; it does not change the operation.'],
+    ['Details', 'To look up the operation data.', 'It is read-only.'],
+    ['Edit', 'To work the protocol (scan, generate return and exchange).', 'Also used to continue an existing triage.'],
+    ['Cancel protocol', 'To cancel the operation.', 'The protocol becomes marked as canceled.'],
+    ['Generate Return', 'To create the return order for the items.', 'Check the items first.'],
+    ['Generate Exchange', 'To create the exchange order for the items.', 'Check the items and the stock first.'],
+    ['Generate Excel with Return Details', 'To export the return details to Excel.', '—'],
+    ['Save', 'To keep the operation progress.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Exchanges/Returns', 'Access to the screen', 'Allows opening the screen and looking up the protocols.'],
+    ['New triage and editing', 'New Triage / Edit', 'Allows starting and working the exchange/return operations.'],
+    ['Generate return and exchange', 'Generate Return / Generate Exchange', 'Allows generating the return and exchange orders.'],
+    ['Cancel protocol', 'Cancellation', 'Allows canceling an exchange/return protocol.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Protocol per operation', 'Each triage generates a Protocol No. that identifies the operation.', 'Use the protocol to find and track the operation.'],
+    ['Item scanning', 'The returned items are informed by Scanning, Copy and Paste or Invoice.', 'The number of scanned items appears in the "Scanned Items Qty" column.'],
+    ['Credit or debit', 'The difference between sale and exchange generates credit or debit for the customer.', 'Check the "Generated" column and the amounts in "Operation Customers".'],
+    ['Order generation', 'There are only linked orders after "Generate Return" or "Generate Exchange".', 'Before that, the orders area is empty.'],
+    ['Tracked status', 'The "TDC Order Status" evolves as the operation progresses (triage, return, exchange).', 'Track it by the status and the "Additional Information" tab.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Order', 'The generated return and exchange orders appear in the "Orders Originated from the Operation" area and in the Orders module.', 'Generation creates real orders.'],
+    ['Customer', 'The operation is linked to the customer responsible for the return.', 'Check the customer before generating.'],
+    ['FreshDesk', 'The FreshDesk ticket number links the operation to the origin service.', 'Inform the ticket when any.'],
+    ['Consignment', 'The operation identifies whether it is a consignment return.', 'Check the "Is Consignment Return?" field.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- Does not invoice the orders — it only generates the return and exchange orders.
+- Does not register the products or the customers — they come from their own registrations.
+- Does not change already issued invoices — it uses the reference invoices for the return.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The item is not accepted in scanning', 'Unreadable DataMatrix or item not found', 'Check the DataMatrix and try "Copy and Paste" or "Invoice".'],
+    ['No order appears in the operation', 'Return or exchange not generated yet', 'Use "Generate Return" or "Generate Exchange" after checking the items.'],
+    ['The exchange item stock is zero', 'Outdated stock', 'Use "Check Real-Time Stock".'],
+    ['I cannot cancel the protocol', 'Lack of permission or operation already advanced', 'Check the permission and the current operation status.'],
+    ['I cannot access the screen', 'Lack of permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To drive the triage, return and exchange of a customer products, generating the corresponding orders and the credit or debit amounts.' },
+    { question: 'How do I start an exchange/return?', answer: 'Click "+ New Triage", inform the responsible customer and the return center and start scanning the items.' },
+    { question: 'What are the ways to inform the returned items?', answer: 'By "Scanning" (DataMatrix reading), "Copy and Paste" of the codes or through the "Invoice".' },
+    { question: 'What is the difference between Generate Return and Generate Exchange?', answer: '"Generate Return" creates the return order for the items that came back; "Generate Exchange" creates the outbound order for the new exchange items.' },
+    { question: 'Where do I see if the operation generated credit or debit?', answer: 'In the "Operation Customers" area, in the "Generated" and "Difference" columns.' },
+    { question: 'How do I track the protocol progress?', answer: 'By the "TDC Order Status" in the list and the "Additional Information" tab, which brings the status updates.' },
+    { question: 'Does the "Details" window allow changing the operation?', answer: 'No. The "Details" window is read-only; to work the protocol, use editing.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '25/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/08/2026', author: 'Renan Camargo', description: 'Initial release of the Exchanges/Returns screen documentation.' },
+  ]}
+/>

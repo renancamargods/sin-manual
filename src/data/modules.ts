@@ -64,6 +64,7 @@ export const modules: ModuleDef[] = [
     description: 'Configurações administrativas gerais do sistema.',
     order: 1,
     routines: [
+      { title: 'Anexos', slug: 'anexos', description: 'Consulta e gestão central dos anexos por domínio e tipo.' },
       { title: 'Log de Execução de Serviço', slug: 'log-de-execucao-de-servico', description: 'Consulta e registro das execuções de serviços e integrações do sistema.' },
       { title: 'Mensagem Personalizada', slug: 'mensagem-personalizada', description: 'Cadastro e consulta das mensagens padronizadas por tipo de mensagem.' },
     ],
@@ -76,6 +77,7 @@ export const modules: ModuleDef[] = [
     routines: [
       { title: 'Acompanhamento Ciclos de Aprovação', slug: 'acompanhamento-ciclos-de-aprovacao', description: 'Consulta e acompanhamento dos ciclos de aprovação e suas etapas.' },
       { title: 'Nova Fila de Aprovação - Clientes', slug: 'nova-fila-de-aprovacao-clientes', description: 'Fila para aprovar, reprovar ou avaliar os clientes aguardando liberação.' },
+      { title: 'Sub-Status - Ciclo de Aprovação', slug: 'sub-status-ciclo-de-aprovacao', description: 'Cadastro dos sub-status aplicados ao aprovar, reprovar ou enviar para avaliação.' },
       { title: 'Entidade de Aprovação', slug: 'entidade-de-aprovacao', description: 'Define o que pode ser submetido a aprovação.' },
       { title: 'Regra de Aprovação', slug: 'regra-de-aprovacao', description: 'Define quem aprova e em qual condição.' },
     ],
@@ -139,7 +141,7 @@ export const modules: ModuleDef[] = [
       { title: 'Análise DataMatrix', slug: 'analise-datamatrix', description: 'Conferência de códigos DataMatrix nas remessas.' },
       { title: 'Fechamento de Consignado', slug: 'fechamento-de-consignado', description: 'Encerramento de períodos de consignado.' },
       { title: 'Fila de Remessas Aguardando Separação', slug: 'fila-de-remessas-aguardando-separacao', description: 'Acompanhamento de remessas pendentes de separação.' },
-      { title: 'Trocas e Devoluções', slug: 'trocas-devolucoes', description: 'Registro e acompanhamento de trocas e devoluções.' },
+      { title: 'Trocas/Devoluções', slug: 'trocas-devolucoes', description: 'Triagem, devolução e troca de produtos por protocolo, com bipagem e geração de pedidos.' },
       { title: 'Relatório de Consignado', slug: 'relatorio-de-consignado', description: 'Relatório com a posição de itens consignados.' },
       { title: 'Relatório de Status do Serial', slug: 'relatorio-de-status-do-serial', description: 'Relatório com a situação atual de cada serial.' },
       { title: 'Relatório Operador Logístico', slug: 'relatorio-operador-logistico', description: 'Relatório de movimentações pelo operador logístico.' },
@@ -387,10 +389,12 @@ export const tecnicoGroupEn: Record<string, { title: string; description: string
 
 // Nomes das rotinas (submenu) em inglês, por "moduleId/slug". Fallback = título PT.
 export const routineTitleEn: Record<string, string> = {
+  'administrador/anexos': 'Attachments',
   'administrador/log-de-execucao-de-servico': 'Service Execution Log',
   'administrador/mensagem-personalizada': 'Custom Message',
   'aprovacoes/acompanhamento-ciclos-de-aprovacao': 'Approval Cycles Tracking',
   'aprovacoes/nova-fila-de-aprovacao-clientes': 'New Approval Queue - Customers',
+  'aprovacoes/sub-status-ciclo-de-aprovacao': 'Sub-Status - Approval Cycle',
   'aprovacoes/entidade-de-aprovacao': 'Approval Entity',
   'aprovacoes/regra-de-aprovacao': 'Approval Rule',
   'autenticador/departamento-de-usuario': 'User Department',
@@ -422,7 +426,7 @@ export const routineTitleEn: Record<string, string> = {
   'faturamentos/analise-datamatrix': 'DataMatrix Analysis',
   'faturamentos/fechamento-de-consignado': 'Consignment Closing',
   'faturamentos/fila-de-remessas-aguardando-separacao': 'Shipments Awaiting Picking Queue',
-  'faturamentos/trocas-devolucoes': 'Exchanges and Returns',
+  'faturamentos/trocas-devolucoes': 'Exchanges/Returns',
   'faturamentos/relatorio-de-consignado': 'Consignment Report',
   'faturamentos/relatorio-de-status-do-serial': 'Serial Status Report',
   'faturamentos/relatorio-operador-logistico': 'Logistics Operator Report',
