@@ -1,0 +1,141 @@
+---
+section: modulos
+routeSlug: autenticador/perfil
+pageType: routine
+module: autenticador
+moduleLabel: Autenticador
+title: Perfil
+description: Cadastro dos perfis de acesso, que reúnem grupos de permissões atribuídos aos usuários.
+routineType: Cadastro
+permission: Sim
+impact: Define os perfis de acesso atribuídos aos usuários
+keywords: [perfil, permissões, grupo, acesso, autenticador, usuário]
+tags: [modulo-autenticador, cadastro]
+order: 4
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Perfil** reúne o cadastro dos **perfis de acesso** (ex.: "Administrador", "Consultor FVE", "Coordenador"). Cada perfil tem um **título** e reúne um ou mais **grupos** de permissões, que definem o que o usuário pode acessar no sistema.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de perfis', text: 'Reúne grupos de permissões em um perfil de acesso.' },
+    { label: 'Uso', title: 'Controle de acesso', text: 'Os perfis são atribuídos aos usuários para definir o que eles acessam.' },
+    { label: 'Cuidado', title: 'Grupos corretos', text: 'Associe os grupos que correspondem às permissões do perfil.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo perfil de acesso.
+- Consultar os perfis já cadastrados.
+- Alterar os grupos associados a um perfil.
+
+## Como acessar
+
+Autenticador → Perfil
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Título", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use "Título" para localizar o perfil.'],
+    ['Resultados', 'Lista dos perfis com a coluna "Título" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com o título e os grupos do perfil.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Título', 'Título do perfil de acesso.'],
+  ]}
+/>
+
+### Cadastro do perfil (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Título', 'Título do perfil.'],
+    ['Grupos', 'Grupos de permissões associados ao perfil (use o "+" para cadastrar um novo grupo).'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os perfis.', 'Deixe o filtro vazio para listar todos.'],
+    ['+ Novo', 'Para cadastrar um novo perfil.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+    ['Detalhes', 'Para consultar as informações do perfil.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados do perfil.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover o perfil (ícone X vermelho).', 'Use com atenção; perfis em uso não devem ser excluídos.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Perfil', 'Acesso à tela', 'Permite abrir a tela e consultar os perfis.'],
+    ['Cadastro e edição de perfil', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir perfis.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Grupo** — os perfis reúnem os grupos de permissões.
+- **Usuário** — o perfil é atribuído ao usuário para definir seu acesso.
+
+## O que a tela não faz
+
+- Não cadastra os usuários — apenas os perfis; os usuários são cadastrados na tela Usuário.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O usuário não tem o acesso esperado', 'Grupos do perfil incorretos', 'Revise os grupos associados ao perfil.'],
+    ['O perfil não aparece na busca', 'Filtro restrito', 'Revise o campo "Título" e clique em "Pesquisar".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os perfis de acesso, que reúnem grupos de permissões atribuídos aos usuários.' },
+    { question: 'Qual a diferença entre perfil e grupo?', answer: 'O grupo reúne permissões específicas; o perfil reúne um ou mais grupos e é atribuído ao usuário.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Perfil.' },
+  ]}
+/>

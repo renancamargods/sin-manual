@@ -1,0 +1,165 @@
+---
+section: modulos
+routeSlug: contratos/periodo-de-curso
+pageType: routine
+module: contratos
+moduleLabel: Contracts
+lang: en
+title: Course Period
+description: Periods (day of the week and times) of the course classes linked to contracts.
+routineType: Registration
+permission: Yes
+impact: Defines the schedules of the course classes linked to contracts
+keywords: [course period, period, course, class, day of the week, time, start, end]
+tags: [modulo-contratos, cadastro]
+order: 4
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Course Period** screen gathers the **periods of the course classes** — that is, the **day of the week** and the **start and end times** when the class takes place. Each period is linked to a **class**.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Class schedule', text: 'Records the days and times of the courses.' },
+    { label: 'Use', title: 'Course agenda', text: 'Defines when each class takes place.' },
+    { label: 'Caution', title: 'Link to the class', text: 'Select the correct class when registering the period.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register the day and time of a course class.
+- View the periods already registered.
+- Change the day or the times of a period.
+
+## How to access
+
+Contracts → Course Period
+
+## Before you start
+
+- Know the **class** the period belongs to.
+- Define the **day of the week** and the **start and end times**.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Field "Class", with the buttons "Search", "+ New" and "Clear Filters".', 'Use "Class" to filter the periods.'],
+    ['Results', 'List of periods with the "Start" column and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the day of the week, the times and the class.', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Class', 'Filters the periods by class.'],
+  ]}
+/>
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Start', 'Start time of the period.'],
+  ]}
+/>
+
+### Period registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Day of the Week', 'Day when the class takes place.'],
+    ['Start', 'Start time.'],
+    ['End', 'End time.'],
+    ['Class', 'Class the period belongs to (use the "+" to register a new class).'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — select the "Class" and click **"Search"**.
+2. **Register** — click **"+ New"**, enter the day, the times and the class and click **"Save"**.
+3. **Edit** — use the **Edit** icon on the row, adjust the fields and click **"Save"**.
+4. **View details** — use the **Details** icon.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the periods.', 'Leave "Class" as "All" to list all.'],
+    ['+ New', 'To register a new period.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+    ['Details', 'To view the period information.', 'It is read-only.'],
+    ['Edit', 'To change the period data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the period (red X icon).', 'Use with care.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Course Period', 'Access to the screen', 'Allows opening the screen and viewing the periods.'],
+    ['Period registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting periods.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Course Class** — the periods belong to the classes registered on the Course Class screen (which also allows registering the periods in the "Periods" tab).
+
+## What this screen does not do
+
+- It does not register the class — only the periods; the class is registered on the Course Class screen.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The period does not appear in the search', 'Class not selected correctly', 'Review the "Class" filter and click "Search".'],
+    ['I cannot save the period', 'Required fields blank', 'Enter the day, the times and the class.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the days and times (periods) of the course classes.' },
+    { question: 'Can I register the period directly on the class?', answer: 'Yes. The Course Class screen has a "Periods" tab to register the class periods.' },
+    { question: 'Is the class registered here?', answer: 'No. The class is registered on the Course Class screen; here you register the periods.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Course Period screen documentation.' },
+  ]}
+/>

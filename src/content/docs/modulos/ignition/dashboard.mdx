@@ -1,0 +1,159 @@
+---
+section: modulos
+routeSlug: ignition/dashboard
+pageType: routine
+module: ignition
+moduleLabel: Ignition
+title: Dashboard
+description: Painel de monitoramento em tempo real das tarefas e serviços do Ignition, com log, histórico e controles de operação.
+routineType: Consulta
+permission: Sim
+impact: Acompanhamento em tempo real das tarefas e serviços automáticos do sistema
+keywords: [dashboard, ignition, tarefas, serviços, tempo real, log, histórico, fila de espera, monitoramento]
+tags: [modulo-ignition, consulta]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Dashboard** (Ignition) é o **painel de monitoramento** das tarefas e serviços automáticos do sistema. Ela acompanha, em **tempo real**, as tarefas em execução e as executadas, com o registro detalhado (log) e o histórico, além de controles de operação.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Monitorar tarefas e serviços', text: 'Acompanha em tempo real as tarefas e serviços automáticos do sistema.' },
+    { label: 'Uso', title: 'Acompanhamento operacional', text: 'Mostra as tarefas em execução, executadas, o log e o histórico.' },
+    { label: 'Cuidado', title: 'Ações de operação', text: '"Limpar Dados" e "Reciclar Serviços" afetam a operação; use com critério.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Acompanhar em tempo real as tarefas e serviços automáticos.
+- Consultar o log detalhado e o histórico das tarefas.
+- Verificar a fila de espera das tarefas.
+
+## Como acessar
+
+Ignition → Dashboard
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Abas', '"Tempo Real", "Log Detalhado" e "Histórico".', 'A aba escolhida define a visão exibida.'],
+    ['Simbologia', 'Legenda dos tipos de tarefa exibidos no painel.', 'Ajuda a identificar cada tipo de tarefa.'],
+    ['Painel de Controle', 'Campo "Ticket", indicadores de conexão e ações de operação.', 'Contém ações que afetam a operação.'],
+    ['Tarefas em Execução / Executadas', 'Listas das tarefas em execução e das já executadas.', 'Atualizadas em tempo real pelo servidor.'],
+  ]}
+/>
+
+## Campos principais
+
+### Simbologia (tipos de tarefa)
+
+<DocTable
+  headers={['Símbolo', 'O que representa']}
+  rows={[
+    ['Timer evento de tarefa', 'Tarefa disparada por timer de evento.'],
+    ['Timer de reprocessamento do processo', 'Tarefa de reprocessamento por timer.'],
+    ['Iniciar tarefa via sistema', 'Tarefa iniciada pelo próprio sistema.'],
+    ['Execução de WebService', 'Tarefa de execução de WebService.'],
+    ['Prompt de comando', 'Tarefa executada via prompt de comando.'],
+    ['Envio de Mala Direta', 'Tarefa de envio de mala direta.'],
+  ]}
+/>
+
+### Painel de Controle
+
+<DocTable
+  headers={['Elemento', 'O que mostra / faz']}
+  rows={[
+    ['Ticket', 'Campo para informar o ticket.'],
+    ['Log Realtime', 'Indica a conexão do log em tempo real.'],
+    ['Monit. Tec. de Usuário', 'Indica se o monitoramento técnico de usuário está ativo (Sim/Não).'],
+    ['Visualizar Fila de espera', 'Abre a fila de espera das tarefas.'],
+    ['Limpar Dados', 'Limpa os dados exibidos no painel.'],
+    ['Reciclar Serviços', 'Recicla (reinicia) os serviços.'],
+  ]}
+/>
+
+### Listas de tarefas
+
+<DocTable
+  headers={['Lista', 'O que mostra']}
+  rows={[
+    ['Tarefas em Execução', 'Tarefas que estão sendo executadas no momento.'],
+    ['Tarefas Executadas', 'Tarefas já concluídas.'],
+  ]}
+/>
+
+<Callout type="info" title="Atualização em tempo real">
+As listas de tarefas são atualizadas em tempo real pelo servidor. Quando não há sinal, o painel exibe "Aguardando sinal do servidor".
+</Callout>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Tempo Real / Log Detalhado / Histórico', 'Para alternar entre as visões do painel.', 'Cada aba mostra um nível de detalhe.'],
+    ['Visualizar Fila de espera', 'Para ver as tarefas na fila.', '—'],
+    ['Limpar Dados', 'Para limpar os dados exibidos.', 'Afeta a visualização do painel.'],
+    ['Reciclar Serviços', 'Para reiniciar os serviços.', 'Afeta a operação; use com critério.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Dashboard', 'Acesso à tela', 'Permite abrir o painel e acompanhar as tarefas e serviços.'],
+    ['Ações de operação', 'Limpar Dados / Reciclar Serviços', 'Permite executar as ações de operação do painel.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra tarefas ou serviços — apenas monitora e opera os existentes.
+- Não altera as regras das tarefas — elas são definidas na configuração do sistema.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O painel mostra "Aguardando sinal do servidor"', 'Sem sinal do servidor no momento', 'Aguarde a atualização em tempo real ou verifique a conexão.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para monitorar em tempo real as tarefas e serviços automáticos do sistema (Ignition).' },
+    { question: 'Qual a diferença entre as abas?', answer: '"Tempo Real" mostra o andamento atual; "Log Detalhado" traz o registro detalhado; "Histórico" reúne o histórico das tarefas.' },
+    { question: 'O que faz "Reciclar Serviços"?', answer: 'Reinicia os serviços; por afetar a operação, use com critério.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '27/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '27/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Dashboard (Ignition).' },
+  ]}
+/>

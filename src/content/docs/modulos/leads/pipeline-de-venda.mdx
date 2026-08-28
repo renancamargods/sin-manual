@@ -1,0 +1,192 @@
+---
+section: modulos
+routeSlug: leads/pipeline-de-venda
+pageType: routine
+module: leads
+moduleLabel: Leads
+title: Pipeline de Venda
+description: Cadastro das pipelines (funis) de venda e das suas fases, com probabilidade e ordem, usadas no acompanhamento dos leads.
+routineType: Cadastro
+permission: Sim
+impact: Define as fases do funil comercial usadas no acompanhamento dos leads
+keywords: [pipeline de venda, pipeline, funil, fase, status da pipeline, probabilidade, ordem, leads]
+tags: [modulo-leads, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Pipeline de Venda** reúne o cadastro das **pipelines (funis) de venda** e das suas **fases**. Cada pipeline tem um nome, uma descrição e um conjunto de **fases** ("Status da Pipeline"), com **probabilidade** e **ordem**. Essas fases são as **colunas do Quadro Kanban Leads** e as etapas pelas quais os leads avançam.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro do funil', text: 'Define as pipelines e as fases do funil comercial.' },
+    { label: 'Uso', title: 'Base do acompanhamento', text: 'As fases viram as colunas do Quadro Kanban Leads.' },
+    { label: 'Cuidado', title: 'Ordem e probabilidade', text: 'A ordem define a sequência das fases; a probabilidade indica a chance de fechamento.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova pipeline de venda.
+- Definir ou ajustar as fases de uma pipeline.
+- Consultar as pipelines já cadastradas.
+
+## Como acessar
+
+Leads → Pipeline de Venda
+
+## Antes de começar
+
+- Defina as **fases** do funil e a **ordem** em que elas ocorrem.
+- Defina a **probabilidade** de fechamento associada a cada fase.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Área de pesquisa com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use "Pesquisar" para listar as pipelines.'],
+    ['Resultados', 'Lista das pipelines com as colunas do cadastro e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com os dados da pipeline e a área "Status da Pipeline" para cadastrar as fases.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['ID', 'Identificador da pipeline.'],
+    ['Data de Criação', 'Data de criação da pipeline.'],
+    ['Nome', 'Nome da pipeline.'],
+    ['Descrição', 'Descrição da pipeline.'],
+    ['Status Sistema', 'Indica se a pipeline está "Ativo".'],
+  ]}
+/>
+
+### Cadastro da pipeline (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Nome da pipeline de venda.'],
+    ['Status Sistema', 'Define se a pipeline está "Ativo" ou "Inativo".'],
+    ['Descrição', 'Descrição da pipeline.'],
+  ]}
+/>
+
+### Fases da pipeline ("Status da Pipeline")
+
+Use o botão **"+ Novo Status da Pipeline"** para cadastrar cada status. A grade traz as colunas:
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Fase do Status', 'Agrupamento/categoria do status (ex.: "Negociação" ou "Fechamento").'],
+    ['Descrição', 'Nome do status exibido como coluna no Quadro Kanban Leads (ex.: "Novo - Sem Interação", "Proposta Enviada", "Ganho", "Perda").'],
+    ['% Probabilidade', 'Probabilidade de fechamento associada ao status.'],
+    ['Ordem na Pipeline', 'Posição do status na sequência do funil (define a ordem das colunas no Kanban).'],
+  ]}
+/>
+
+Cada status da grade tem os ícones **Editar** e **Excluir** à direita.
+
+<Callout type="info" title="Exemplo — pipeline 'SIN Solutions'">
+A pipeline padrão tem **12 status**, agrupados em duas fases: **Negociação** (Novo - Sem Interação, Lead, Não Respondeu, Apresentação Online, Apresentação Presencial, Proposta Enviada, Stand By, Análise Financeira, Pendências Financeiras, Aguardando Assinatura) e **Fechamento** (Ganho, Perda). Cada um tem sua % de probabilidade e sua ordem.
+</Callout>
+
+## Fluxos principais
+
+1. **Pesquisar** — clique em **"Pesquisar"** para listar as pipelines.
+2. **Cadastrar** — clique em **"+ Novo"**, informe "Nome" e "Descrição", cadastre as fases em **"+ Novo Status da Pipeline"** e clique em **"Salvar"**.
+3. **Editar** — use o ícone de **Editar** da linha, ajuste os dados ou as fases e clique em **"Salvar"**.
+4. **Consultar detalhes** — use o ícone de **Detalhes**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as pipelines.', '—'],
+    ['+ Novo', 'Para cadastrar uma nova pipeline.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['+ Novo Status da Pipeline', 'Para adicionar uma fase à pipeline.', 'Informe fase, descrição, probabilidade e ordem.'],
+    ['Logs de Alteração', 'Para ver o histórico de alterações do registro.', 'É uma consulta; não altera o registro.'],
+    ['Detalhes', 'Para consultar as informações da pipeline.', 'É somente leitura.'],
+    ['Editar', 'Para alterar a pipeline ou as fases.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Pipeline de Venda', 'Acesso à tela', 'Permite abrir a tela e consultar as pipelines.'],
+    ['Cadastro e edição de pipeline', 'Novo / Editar', 'Permite criar e alterar pipelines e suas fases.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Ordem das fases', 'A "Ordem na Pipeline" define a sequência das colunas no Quadro Kanban Leads.', 'Ajuste a ordem conforme a sequência real do funil.'],
+    ['Probabilidade', 'A "% Probabilidade" indica a chance de fechamento na fase.', 'Defina a probabilidade de cada fase.'],
+    ['Status da pipeline', 'Uma pipeline inativa deixa de ser usada nas indicações e no quadro.', 'Inative em vez de excluir quando a pipeline já foi usada.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Quadro Kanban Leads** — usa as fases da pipeline como colunas.
+- **Indicação de Lead** — associa cada lead a uma pipeline.
+
+## O que a tela não faz
+
+- Não movimenta os leads — a movimentação entre fases é feita no Quadro Kanban Leads.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['As fases não aparecem no Quadro Kanban', 'Fases não cadastradas ou ordem incorreta', 'Revise as fases em "Status da Pipeline" e a "Ordem na Pipeline".'],
+    ['Não consigo salvar a pipeline', 'Campos obrigatórios em branco', 'Informe o "Nome" e cadastre ao menos uma fase.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as pipelines (funis) de venda e as suas fases, usadas no acompanhamento dos leads.' },
+    { question: 'O que é uma "fase" (Status da Pipeline)?', answer: 'É uma etapa do funil (ex.: "Apresentação Online", "Proposta Enviada"). As fases viram as colunas do Quadro Kanban Leads.' },
+    { question: 'Para que serve a "% Probabilidade"?', answer: 'Indica a chance de fechamento associada àquela fase do funil.' },
+    { question: 'Como as fases aparecem no acompanhamento?', answer: 'Elas viram as colunas do Quadro Kanban Leads, na ordem definida em "Ordem na Pipeline".' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '27/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '27/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Pipeline de Venda.' },
+  ]}
+/>

@@ -1,0 +1,161 @@
+---
+section: modulos
+routeSlug: ocorrencias/pesquisas
+pageType: routine
+module: ocorrencias
+moduleLabel: Ocorrências
+title: Pesquisas
+description: Construtor de pesquisas (questionários) com seções e perguntas, controle de ativação e consulta das respostas.
+routineType: Cadastro
+permission: Sim
+impact: Cria as pesquisas e questionários usados no relacionamento e no feedback
+keywords: [pesquisas, pesquisa, questionário, seção, respostas, slug, ativo, ocorrência pfcq]
+tags: [modulo-ocorrencias, cadastro]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Pesquisas** é um **construtor de pesquisas (questionários)**. Cada pesquisa tem um **título**, um **slug** (identificador único gerado a partir do título) e a marcação **Ativo**, além de **seções** que organizam as perguntas. A tela também permite consultar as **respostas** e, a partir de uma resposta, **gerar uma Ocorrência PFCQ**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Criação de pesquisas', text: 'Monta questionários com seções e perguntas.' },
+    { label: 'Uso', title: 'Feedback e satisfação', text: 'Coleta respostas que podem gerar ocorrências para tratamento.' },
+    { label: 'Cuidado', title: 'Slug único', text: 'O slug é único e gerado do título; ajuste com cuidado.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Criar uma nova pesquisa (questionário).
+- Adicionar seções e perguntas a uma pesquisa.
+- Consultar as respostas de uma pesquisa.
+- Gerar uma Ocorrência PFCQ a partir de uma resposta.
+
+## Como acessar
+
+Ocorrências → Pesquisas
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Título", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use "Título" para localizar a pesquisa.'],
+    ['Resultados', 'Lista das pesquisas com as colunas "Título", "Slug", "Ativo" e "Data Criação" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Tela com as abas "Pesquisas" (dados e seções) e "Respostas".', 'Use "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Título', 'Título da pesquisa.'],
+    ['Slug', 'Identificador único da pesquisa.'],
+    ['Ativo', 'Indica se a pesquisa está ativa.'],
+    ['Data Criação', 'Data de criação da pesquisa.'],
+  ]}
+/>
+
+### Cadastro — aba "Pesquisas"
+
+<DocTable
+  headers={['Campo / Área', 'Para que serve']}
+  rows={[
+    ['Título', 'Título da pesquisa.'],
+    ['Slug', 'Identificador único, gerado a partir do título (pode ajustar).'],
+    ['Ativo', 'Define se a pesquisa está ativa.'],
+    ['Seções', 'Área para montar as seções e perguntas da pesquisa. Use "+ Nova seção" para começar.'],
+  ]}
+/>
+
+### Cadastro — aba "Respostas"
+
+Mostra as **respostas** recebidas para a pesquisa.
+
+## Fluxos principais
+
+1. **Criar** — clique em **"+ Novo"**, informe o "Título", ajuste o "Slug" e marque "Ativo".
+2. **Montar** — em "Seções", clique em **"+ Nova seção"** e adicione as perguntas.
+3. **Salvar** — clique em **"Salvar"**.
+4. **Consultar respostas** — abra a aba **"Respostas"**.
+5. **Gerar ocorrência** — use o botão **"Gerar Ocorrência PFCQ"** para abrir uma ocorrência a partir da pesquisa/resposta.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as pesquisas.', 'Deixe o filtro vazio para listar todas.'],
+    ['+ Novo', 'Para criar uma nova pesquisa.', 'Abre a tela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+    ['+ Nova seção', 'Para adicionar uma seção à pesquisa.', 'Disponível na área "Seções".'],
+    ['Gerar Ocorrência PFCQ', 'Para abrir uma ocorrência a partir da pesquisa.', 'Encaminha o caso para tratamento na tela Ocorrências PFCQ.'],
+    ['Detalhes', 'Para consultar a pesquisa.', 'É somente leitura.'],
+    ['Editar', 'Para alterar a pesquisa e suas seções.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover a pesquisa (ícone X vermelho).', 'Use com atenção.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Pesquisas', 'Acesso à tela', 'Permite abrir a tela e consultar as pesquisas.'],
+    ['Cadastro e edição de pesquisa', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir pesquisas.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Ocorrências PFCQ** — o botão "Gerar Ocorrência PFCQ" cria uma ocorrência a partir da pesquisa.
+
+## O que a tela não faz
+
+- Não trata a ocorrência — apenas a gera; o tratamento acontece na tela Ocorrências PFCQ.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A pesquisa não fica disponível', 'Marcação "Ativo" desmarcada', 'Verifique se a pesquisa está ativa.'],
+    ['Não consigo salvar a pesquisa', 'Título/slug em branco ou sem seções', 'Informe o título e monte ao menos uma seção.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para criar pesquisas (questionários) com seções e perguntas, consultar as respostas e gerar ocorrências a partir delas.' },
+    { question: 'O que é o "Slug"?', answer: 'É o identificador único da pesquisa, gerado a partir do título; pode ser ajustado.' },
+    { question: 'O que faz o botão "Gerar Ocorrência PFCQ"?', answer: 'Abre uma ocorrência na tela Ocorrências PFCQ a partir da pesquisa/resposta.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Pesquisas.' },
+  ]}
+/>

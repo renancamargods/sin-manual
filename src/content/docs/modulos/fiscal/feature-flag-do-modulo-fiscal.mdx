@@ -1,0 +1,196 @@
+---
+section: modulos
+routeSlug: fiscal/feature-flag-do-modulo-fiscal
+pageType: routine
+module: fiscal
+moduleLabel: Fiscal
+title: Feature Flag do Módulo Fiscal
+description: Ativação controlada de funcionalidades do módulo fiscal, com status, vigência e escopo por estados, clientes e tipos de operação.
+routineType: Cadastro
+permission: Sim
+impact: Controla a ativação de funcionalidades fiscais por escopo e vigência
+keywords: [feature flag, módulo fiscal, ativação, shadow, vigência, estados, clientes, tipo de operação fiscal, sincronizar]
+tags: [modulo-fiscal, cadastro]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Feature Flag do Módulo Fiscal** controla a **ativação de funcionalidades** do módulo fiscal de forma gradual. Cada registro define um **status** (Desativado, Shadow ou Ativo), uma **vigência** e o **escopo** de aplicação — por **estados**, **clientes** e **tipos de operação fiscal**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Ativar funcionalidades fiscais', text: 'Liga funcionalidades do módulo fiscal de forma controlada.' },
+    { label: 'Uso', title: 'Ativação por escopo', text: 'Define status, vigência e escopo por estados, clientes e tipos de operação.' },
+    { label: 'Cuidado', title: 'Impacto no fiscal', text: 'Alterar o status ou o escopo muda o comportamento fiscal aplicado.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Ativar ou testar (Shadow) uma funcionalidade fiscal de forma controlada.
+- Definir o escopo de aplicação por estados, clientes e tipos de operação.
+- Consultar ou alterar a vigência e o status de uma feature flag.
+- Sincronizar as feature flags com "Sincronizar Agora".
+
+## Como acessar
+
+Fiscal → Feature Flag do Módulo Fiscal
+
+## Antes de começar
+
+- Defina o **status** desejado: Desativado, Shadow (validação sem efeito) ou Ativo.
+- Saiba o **escopo**: quais estados, clientes e tipos de operação fiscal são afetados.
+- Tenha as datas de **vigência** (início e, quando houver, término).
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Descrição", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros". Há também o botão "Sincronizar Agora".', 'Use "Descrição" para localizar a feature flag.'],
+    ['Resultados', 'Lista das feature flags com as colunas de descrição, status e vigência e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Aba com o bloco "Informações" e os blocos de escopo: "Estados", "Clientes" e "Tipos de Operação Fiscal".', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Descrição', 'Pesquisa a feature flag pela descrição.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Identificador', 'Código que identifica a feature flag.'],
+    ['Descrição', 'Descrição da feature flag.'],
+    ['Status', 'Situação: Desativado, Shadow ou Ativo.'],
+    ['Vigência Início', 'Data de início da vigência.'],
+    ['Vigência Término', 'Data de término da vigência, quando houver.'],
+  ]}
+/>
+
+### Cadastro — Informações
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Descrição', 'Descrição da feature flag.'],
+    ['Status', 'Situação da funcionalidade: "Desativado", "Shadow" ou "Ativo".'],
+    ['Vigência Início', 'Data de início da vigência.'],
+    ['Vigência Término', 'Data de término da vigência, quando houver.'],
+  ]}
+/>
+
+### Cadastro — Escopo (Estados, Clientes e Tipos de Operação Fiscal)
+
+<DocTable
+  headers={['Bloco', 'O que reúne']}
+  rows={[
+    ['Estados', 'Estados aos quais a feature flag se aplica (botão "+ Novo Estado").'],
+    ['Clientes', 'Clientes aos quais a feature flag se aplica (botão "+ Novo Cliente").'],
+    ['Tipos de Operação Fiscal', 'Tipos de operação fiscal aos quais a feature flag se aplica (botão "+ Novo Tipo de Operação").'],
+  ]}
+/>
+
+<Callout type="info" title="Status Shadow">
+O status "Shadow" é usado para validar a funcionalidade sem que ela produza efeito real, antes de ativá-la de fato.
+</Callout>
+
+## Fluxos principais
+
+1. **Pesquisar** — informe a "Descrição" e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, preencha as "Informações" (descrição, status, vigência) e defina o escopo (Estados, Clientes, Tipos de Operação Fiscal); clique em **"Salvar"**.
+3. **Editar** — use o ícone de **Editar** da linha, ajuste os dados e clique em **"Salvar"**.
+4. **Sincronizar** — use **"Sincronizar Agora"** para sincronizar as feature flags.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as feature flags.', 'Deixe o campo vazio para listar todas.'],
+    ['+ Novo', 'Para cadastrar uma nova feature flag.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+    ['Sincronizar Agora', 'Para sincronizar as feature flags.', '—'],
+    ['Log de alteração', 'Para ver o histórico de alterações do registro.', 'É uma consulta; não altera o registro.'],
+    ['Detalhes', 'Para consultar as informações da feature flag.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados e o escopo da feature flag.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover a feature flag (ícone X vermelho).', 'Confirme antes; afeta a ativação da funcionalidade.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Feature Flag do Módulo Fiscal', 'Acesso à tela', 'Permite abrir a tela e consultar as feature flags.'],
+    ['Cadastro e edição de feature flag', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir feature flags.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Status define a aplicação', 'Desativado não aplica; Shadow valida sem efeito; Ativo aplica a funcionalidade.', 'Use Shadow para validar antes de ativar.'],
+    ['Escopo por estados, clientes e operações', 'A feature flag só se aplica ao escopo informado.', 'Confira o escopo antes de salvar.'],
+    ['Vigência', 'As datas de início e término delimitam o período de aplicação.', 'Preencha a vigência corretamente.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não altera as regras fiscais em si — apenas controla a ativação de funcionalidades por escopo e vigência.
+- Não cadastra estados, clientes ou tipos de operação — apenas os vincula ao escopo.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A funcionalidade não é aplicada', 'Status Desativado/Shadow ou fora do escopo/vigência', 'Confira o status, o escopo e a vigência.'],
+    ['A feature flag não aparece na busca', 'Filtro restrito', 'Revise o campo "Descrição" e clique em "Pesquisar".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para ativar funcionalidades do módulo fiscal de forma controlada, por status, vigência e escopo.' },
+    { question: 'O que é o status "Shadow"?', answer: 'É um status de validação: a funcionalidade é avaliada sem produzir efeito real, antes de ser ativada.' },
+    { question: 'Como defino onde a funcionalidade se aplica?', answer: 'Pelos blocos "Estados", "Clientes" e "Tipos de Operação Fiscal" no cadastro.' },
+    { question: 'Para que serve "Sincronizar Agora"?', answer: 'Para sincronizar as feature flags do módulo fiscal.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '27/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '27/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Feature Flag do Módulo Fiscal.' },
+  ]}
+/>

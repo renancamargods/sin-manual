@@ -1,0 +1,172 @@
+---
+section: modulos
+routeSlug: ocorrencias/solicitacoes-handson
+pageType: routine
+module: ocorrencias
+moduleLabel: Ocorrências
+title: Solicitações HandsOn
+description: Registro e acompanhamento das solicitações de treinamento prático (HandsOn), com palestrante, curso, logística de viagem e situação.
+routineType: Cadastro
+permission: Sim
+impact: Registra e acompanha as solicitações de treinamento HandsOn
+keywords: [solicitações handson, handson, hands on, treinamento, palestrante, curso, aeroporto, hotel, logística, ocorrência]
+tags: [modulo-ocorrencias, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Solicitações HandsOn** reúne o registro e o acompanhamento das **solicitações de treinamento prático (HandsOn)**. Cada solicitação guarda o **cliente**, o **consultor**, o **tipo** e o **motivo** da ocorrência, os dados do **curso e do palestrante** e a **logística de viagem** (instituição, hotel, datas e aeroporto), além da **situação** da ocorrência.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Solicitações de HandsOn', text: 'Registra os pedidos de treinamento prático e sua logística.' },
+    { label: 'Uso', title: 'Organização do treinamento', text: 'Reúne curso, palestrante, datas e logística de viagem.' },
+    { label: 'Cuidado', title: 'Datas e logística', text: 'Confira as datas da palestra e da viagem (ida/volta) e o aeroporto.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Registrar uma nova solicitação de HandsOn.
+- Consultar e acompanhar as solicitações abertas.
+- Organizar a logística (palestrante, datas, hotel e aeroporto) de um treinamento.
+
+## Como acessar
+
+Ocorrências → Solicitações HandsOn
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campos "Numero Ocorrência HandsOn", "Data da Criação Ocorrência HandsOn", "Codigo do Cliente", "Consultor Fve", "Motivo Ocorrencia HandsOn", "Tipo de Ocorrência HandsOn" e "Tipo de Curso", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros". Há os botões "Exportar tabela para Excel" e "Exportar tabela para PDF".', 'Combine os filtros para localizar a solicitação.'],
+    ['Resultados', 'Lista das solicitações com as colunas do registro e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com as abas "Solicitações HandsOn" e "Produtos da Ocorrência".', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Data da Criação Ocorrência HandsOn', 'Data de criação da solicitação.'],
+    ['Situação Ocorrência', 'Situação atual da solicitação.'],
+    ['Tipo de Ocorrência HandsOn', 'Tipo da ocorrência HandsOn.'],
+    ['Motivo Ocorrencia HandsOn', 'Motivo da solicitação.'],
+    ['Palestrante', 'Palestrante do treinamento.'],
+    ['Data da Palestra', 'Data da palestra.'],
+    ['Número de Alunos', 'Quantidade de alunos.'],
+    ['Sugestão de Aeroporto', 'Aeroporto sugerido.'],
+    ['Instituição', 'Instituição relacionada.'],
+    ['Hotel', 'Hotel da viagem.'],
+    ['Data Ida / Data Volta', 'Datas de ida e volta da viagem.'],
+    ['Aeroporto', 'Aeroporto da viagem.'],
+    ['Detalhe Interno', 'Observações internas.'],
+  ]}
+/>
+
+### Cadastro — aba "Solicitações HandsOn"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Codigo do Cliente', 'Cliente relacionado à solicitação.'],
+    ['Consultor Fve', 'Consultor responsável.'],
+    ['Situação Ocorrência', 'Situação da solicitação.'],
+    ['Tipo de Ocorrência HandsOn', 'Tipo da ocorrência.'],
+    ['Motivo Ocorrencia HandsOn', 'Motivo da solicitação.'],
+    ['Palestrante', 'Palestrante do treinamento.'],
+    ['Data da Palestra', 'Data da palestra.'],
+    ['Número de Alunos', 'Quantidade de alunos.'],
+    ['Sugestão de Aeroporto', 'Aeroporto sugerido.'],
+    ['Estado Palestra / Cidade Palestra', 'Local (estado e cidade) da palestra.'],
+    ['Tipo de Curso', 'Tipo do curso.'],
+    ['Instituição', 'Instituição relacionada.'],
+    ['Hotel', 'Hotel da viagem.'],
+    ['Data Ida / Data Volta', 'Datas de ida e volta.'],
+    ['Aeroporto', 'Aeroporto da viagem.'],
+    ['Detalhe Interno', 'Observações internas.'],
+  ]}
+/>
+
+A aba **"Produtos da Ocorrência"** registra os produtos relacionados à solicitação.
+
+## Fluxos principais
+
+1. **Pesquisar** — informe os filtros e clique em **"Pesquisar"**.
+2. **Registrar** — clique em **"+ Novo"**, preencha os dados do curso e a logística e clique em **"Salvar"**.
+3. **Editar** — use o ícone de **Editar** da linha, ajuste os campos e clique em **"Salvar"**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as solicitações.', 'Combine os filtros para refinar.'],
+    ['+ Novo', 'Para registrar uma nova solicitação.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Exportar para Excel / PDF', 'Para exportar as solicitações.', 'Gera um arquivo com os dados.'],
+    ['Detalhes', 'Para consultar a solicitação.', 'É somente leitura.'],
+    ['Editar', 'Para alterar a solicitação.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover a solicitação (ícone X vermelho).', 'Use com atenção.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Solicitações HandsOn', 'Acesso à tela', 'Permite abrir a tela e consultar as solicitações.'],
+    ['Cadastro e edição de solicitação', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir solicitações.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Cliente** — a solicitação é vinculada a um cliente.
+- **Turma de Curso** — relaciona-se aos cursos e turmas de treinamento.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A solicitação não aparece na busca', 'Filtros restritos', 'Revise os filtros (cliente, tipo, motivo) e clique em "Pesquisar".'],
+    ['Não consigo salvar a solicitação', 'Campos obrigatórios em branco', 'Preencha os dados obrigatórios da solicitação.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para registrar e acompanhar as solicitações de treinamento prático (HandsOn), incluindo curso, palestrante e logística de viagem.' },
+    { question: 'A tela cuida da logística da viagem?', answer: 'Sim. Ela guarda instituição, hotel, datas de ida e volta e aeroporto.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Solicitações HandsOn.' },
+  ]}
+/>

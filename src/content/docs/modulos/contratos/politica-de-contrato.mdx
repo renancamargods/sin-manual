@@ -1,0 +1,225 @@
+---
+section: modulos
+routeSlug: contratos/politica-de-contrato
+pageType: routine
+module: contratos
+moduleLabel: Contratos
+title: Política de Contrato
+description: Regras comerciais do contrato — classificação, vigência, rebate, ramo de atividade, volumes de consumo, descontos e comodatos.
+routineType: Cadastro
+permission: Sim
+impact: Define as regras comerciais aplicadas aos contratos
+keywords: [política de contrato, politica, contrato, rebate, vigência, ramo de atividade, desconto, comodato, volume de consumo]
+tags: [modulo-contratos, cadastro]
+order: 5
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Política de Contrato** reúne as **regras comerciais** aplicadas aos contratos (os "pacotes"). Cada política tem um **título**, uma **classificação**, uma **vigência**, um **rebate** e o **ramo de atividade**, além de abas para **volumes de consumo**, **descontos** e **itens de comodato**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Regras do contrato', text: 'Define as condições comerciais aplicadas aos contratos.' },
+    { label: 'Uso', title: 'Pacotes comerciais', text: 'Reúne rebate, descontos, volumes e comodatos em um pacote.' },
+    { label: 'Cuidado', title: 'Vigência e classificação', text: 'Confira a vigência e a classificação ao cadastrar a política.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma política (pacote) de contrato.
+- Consultar as políticas já cadastradas.
+- Ajustar rebate, descontos, volumes de consumo ou comodatos de uma política.
+
+## Como acessar
+
+Contratos → Política de Contrato
+
+## Antes de começar
+
+- Defina o **título** e a **classificação** do contrato.
+- Tenha a **vigência (em meses)**, o **% de rebate** e o **ramo de atividade**.
+
+## Diferenças importantes
+
+Ao clicar em **"+ Novo"**, o sistema oferece duas opções:
+
+<DocTable
+  headers={['Opção', 'Quando usar']}
+  rows={[
+    ['Política de Contrato', 'Política padrão de contrato.'],
+    ['Política de Contrato Curso', 'Política voltada a contratos de curso.'],
+  ]}
+/>
+
+O filtro **"Tipo do Parceiro"** ("Varejo", "Curso" ou "Key Account") ajuda a localizar as políticas por tipo.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campos "Título de Contrato", "Tipo do Parceiro" (Varejo/Curso/Key Account) e "Status Sistema", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Combine os filtros para localizar a política.'],
+    ['Resultados', 'Lista das políticas com a coluna "Título de Contrato" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com as abas "Política de Contrato", "Volumes de Consumo", "Descontos" e "Itens de Comodatos Políticas de Contratos".', 'Use "Salvar e Continuar" para salvar sem fechar; "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Título de Contrato', 'Pesquisa a política pelo título.'],
+    ['Tipo do Parceiro', 'Filtra por "Varejo", "Curso" ou "Key Account".'],
+    ['Status Sistema', 'Filtra por políticas ativas ou inativas.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Título de Contrato', 'Título da política (pacote).'],
+  ]}
+/>
+
+### Cadastro — aba "Política de Contrato"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Título de Contrato', 'Título da política (pacote).'],
+    ['Classificação do Contrato', 'Classificação da política (ex.: "Parceria").'],
+    ['Vigência em meses', 'Prazo de vigência da política, em meses.'],
+    ['Fresas bonificadas?', 'Indica se há fresas bonificadas (Sim/Não).'],
+    ['% Rebate', 'Percentual de rebate da política.'],
+    ['Observação', 'Observações sobre a política.'],
+    ['Ramo de Atividade', 'Ramo de atividade da política (use o "+" para cadastrar um novo).'],
+    ['Status Sistema', 'Define se a política está "Ativo" ou "Inativo".'],
+  ]}
+/>
+
+### Cadastro — aba "Volumes de Consumo"
+
+Grade dos volumes de consumo previstos na política. Cada linha é adicionada pelo botão **"+"** e tem os ícones **Logs de Alteração**, **Detalhes**, **Editar** e **Excluir**.
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Quantidade de Meta de Consumo', 'Quantidade prevista para o volume de consumo.'],
+  ]}
+/>
+
+### Cadastro — aba "Descontos"
+
+Grade dos descontos aplicados pela política. Cada linha (um desconto) é adicionada pelo botão **"+"** e tem os ícones **Logs de Alteração**, **Detalhes**, **Editar** e **Excluir**.
+
+### Cadastro — aba "Itens de Comodatos Políticas de Contratos"
+
+Grade dos itens em comodato vinculados à política. Cada linha é adicionada pelo botão **"+"** e tem os ícones **Logs de Alteração**, **Detalhes**, **Editar** e **Excluir**.
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Quantidade', 'Quantidade do item em comodato.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Pesquisar** — informe os filtros e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, escolha "Política de Contrato" ou "Política de Contrato Curso", preencha as abas e clique em **"Salvar"**.
+3. **Editar** — use o ícone de **Editar** da linha, ajuste as abas e clique em **"Salvar"**.
+4. **Consultar detalhes** — use o ícone de **Detalhes**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as políticas.', 'Combine os filtros para refinar.'],
+    ['+ Novo', 'Para cadastrar uma nova política.', 'Escolha "Política de Contrato" ou "Política de Contrato Curso".'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Salvar e Continuar', 'Para salvar a política sem fechar a janela.', 'Útil para preencher as demais abas.'],
+    ['Logs de Alteração', 'Para ver o histórico de alterações do registro.', 'É uma consulta; não altera o registro.'],
+    ['Detalhes', 'Para consultar as informações da política.', 'É somente leitura.'],
+    ['Editar', 'Para alterar a política e suas abas.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover a política (ícone X vermelho).', 'Prefira inativar quando a política já tiver sido usada.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Política de Contrato', 'Acesso à tela', 'Permite abrir a tela e consultar as políticas.'],
+    ['Cadastro e edição de política', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir políticas.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Vigência', 'A "Vigência em meses" delimita o período em que a política vale.', 'Preencha a vigência corretamente.'],
+    ['Rebate e descontos', 'O "% Rebate" e a aba "Descontos" definem as condições comerciais aplicadas.', 'Confira os percentuais antes de salvar.'],
+    ['Comodatos e volumes', 'As abas de comodato e de volumes de consumo complementam a política.', 'Preencha as abas conforme o pacote acordado.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Contrato** — as políticas definem as regras comerciais aplicadas aos contratos.
+- **Meta de Consumo** — trata das metas previstas em contrato (complementar aos volumes da política).
+
+## O que a tela não faz
+
+- Não firma o contrato — define as regras (políticas) que serão aplicadas a ele.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A política não aparece na busca', 'Filtros restritos', 'Revise "Título de Contrato", "Tipo do Parceiro" e "Status Sistema".'],
+    ['Não consigo salvar a política', 'Campos obrigatórios em branco', 'Preencha o título, a classificação e a vigência.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as regras comerciais (políticas/pacotes) aplicadas aos contratos.' },
+    { question: 'Qual a diferença entre "Política de Contrato" e "Política de Contrato Curso"?', answer: 'A primeira é a política padrão; a segunda é voltada a contratos de curso. Você escolhe ao clicar em "+ Novo".' },
+    { question: 'O que ficam nas abas Volumes de Consumo, Descontos e Comodatos?', answer: 'São os volumes previstos, os descontos aplicados e os itens em comodato da política.' },
+    { question: 'Posso excluir uma política já usada?', answer: 'Não é recomendado. Prefira inativá-la (campo "Status Sistema") para preservar o histórico.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Política de Contrato.' },
+  ]}
+/>

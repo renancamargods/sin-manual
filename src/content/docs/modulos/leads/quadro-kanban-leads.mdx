@@ -1,0 +1,170 @@
+---
+section: modulos
+routeSlug: leads/quadro-kanban-leads
+pageType: routine
+module: leads
+moduleLabel: Leads
+title: Quadro Kanban Leads
+description: Painel visual (kanban) dos leads organizados em colunas por fase da Pipeline de Venda, com totais por coluna e movimentação entre etapas.
+routineType: Consulta
+permission: Sim
+impact: Acompanha visualmente os leads por fase do funil comercial
+keywords: [quadro kanban leads, kanban, leads, pipeline, funil, fases, acompanhamento, board]
+tags: [modulo-leads, consulta]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+O **Quadro Kanban Leads** mostra os leads em um **painel visual (kanban)**, organizados em **colunas por status da Pipeline de Venda**. Há **uma coluna para cada status** da pipeline selecionada, na ordem definida nela — por exemplo, a pipeline "SIN Solutions" tem 12 colunas (de "Novo - Sem Interação" a "Ganho" e "Perda"), então o quadro **rola horizontalmente** para mostrar todas. Cada coluna exibe o **total de valor potencial** e a **quantidade de leads** daquela etapa. Os leads aparecem como cartões e podem ser movidos entre as colunas conforme avançam no funil.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Acompanhamento visual', text: 'Mostra os leads em colunas por fase da pipeline.' },
+    { label: 'Uso', title: 'Gestão do funil', text: 'Permite visualizar e movimentar os leads entre as etapas.' },
+    { label: 'Cuidado', title: 'Selecione a Pipeline', text: 'É preciso selecionar uma Pipeline de Venda para o quadro exibir as colunas.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Acompanhar visualmente os leads por fase do funil.
+- Ver o total de valor potencial e o número de leads em cada etapa.
+- Mover um lead de uma fase para outra conforme o atendimento avança.
+
+## Como acessar
+
+Leads → Quadro Kanban Leads
+
+## Antes de começar
+
+- Tenha uma **Pipeline de Venda** cadastrada (as colunas do quadro são as fases dessa pipeline).
+- Selecione a **Pipeline de Venda** no filtro para o quadro montar as colunas.
+
+<Callout type="info">
+Ao abrir a tela sem uma pipeline escolhida, o quadro mostra a mensagem **"Pipeline Não Selecionado"**. Selecione uma Pipeline de Venda no filtro para visualizar e gerenciar os leads.
+</Callout>
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Os mesmos filtros da Indicação de Lead (estrutura, cliente, período, pipeline, valor, status, tipo de pessoa, tipo de lead, dados do lead), com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Selecione a "Pipeline de Venda" para montar as colunas.'],
+    ['Quadro (kanban)', 'Colunas por fase da pipeline; cada coluna traz o total em R$ e o número de leads, além dos cartões dos leads.', 'Arraste o cartão para mudar o lead de fase.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Estrutura do Solicitante', 'Filtra pela estrutura que originou a indicação.'],
+    ['Estrutura do Destinatário', 'Filtra pela estrutura destinatária.'],
+    ['Cliente', 'Filtra pelo cliente relacionado.'],
+    ['Data de Criação Lead - De / Até', 'Filtra pelo período de criação do lead.'],
+    ['Pipeline de Venda', 'Define a pipeline cujas fases formam as colunas do quadro.'],
+    ['Status da Pipeline', 'Filtra pela fase do lead.'],
+    ['Valor Potencial Lead - De / Até', 'Filtra pela faixa de valor potencial.'],
+    ['Status Sistema', 'Filtra por registros ativos ou inativos.'],
+    ['Tipo de Pessoa', 'Filtra por "Física" ou "Jurídica".'],
+    ['Tipo de Lead', 'Filtra por "Sem Cadastro" ou "Base SIN".'],
+    ['Lead já sendo trabalhado?', 'Filtra os leads já em atendimento (Sim/Não).'],
+    ['Nome / Email / Telefone do Lead', 'Pesquisa pelos dados do lead.'],
+  ]}
+/>
+
+### Colunas do quadro
+
+<DocTable
+  headers={['Elemento', 'O que mostra']}
+  rows={[
+    ['Título da coluna', 'Nome da fase da pipeline (ex.: "Novo - Sem Interação", "Lead", "Proposta Enviada").'],
+    ['Total em R$', 'Soma do valor potencial dos leads daquela fase.'],
+    ['Número de leads', 'Quantidade de leads na fase.'],
+    ['Cartão do lead', 'Representa um lead; pode ser movido entre as colunas.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Selecionar a pipeline** — escolha a **"Pipeline de Venda"** no filtro para o quadro montar as colunas.
+2. **Pesquisar** — ajuste os demais filtros e clique em **"Pesquisar"**.
+3. **Mover o lead** — arraste o cartão do lead de uma coluna para outra para mudar a fase.
+4. **Cadastrar** — use **"+ Novo"** para registrar uma indicação de lead (mesma janela da Indicação de Lead).
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para atualizar o quadro conforme os filtros.', 'Selecione a pipeline antes.'],
+    ['+ Novo', 'Para registrar uma nova indicação de lead.', 'Abre a janela de cadastro do lead.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Mover cartão (arrastar)', 'Para avançar ou retroceder o lead de fase.', 'A mudança altera a fase do lead na pipeline.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Quadro Kanban Leads', 'Acesso à tela', 'Permite abrir o quadro e visualizar os leads por fase.'],
+    ['Movimentação de lead', 'Mover cartão', 'Permite mudar a fase do lead no quadro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Pipeline de Venda** — define as fases que viram as colunas do quadro.
+- **Indicação de Lead** — cadastra os leads exibidos no quadro.
+
+## O que a tela não faz
+
+- Não define as fases — as fases (colunas) vêm da Pipeline de Venda.
+- Não exibe colunas sem uma pipeline selecionada.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O quadro mostra "Pipeline Não Selecionado"', 'Nenhuma pipeline escolhida', 'Selecione uma "Pipeline de Venda" no filtro.'],
+    ['As colunas não são as esperadas', 'Fases cadastradas na pipeline', 'Revise as fases na tela Pipeline de Venda.'],
+    ['Não consigo mover um lead', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para acompanhar visualmente os leads em colunas por fase da Pipeline de Venda e movê-los entre as etapas.' },
+    { question: 'Por que o quadro está vazio?', answer: 'Provavelmente nenhuma pipeline foi selecionada. Escolha uma "Pipeline de Venda" no filtro para montar as colunas.' },
+    { question: 'De onde vêm as colunas do quadro?', answer: 'São as fases (Status da Pipeline) cadastradas na Pipeline de Venda selecionada.' },
+    { question: 'O que significam os valores no topo de cada coluna?', answer: 'O total em R$ é a soma do valor potencial dos leads da fase, e o número indica quantos leads estão nela.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '27/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '27/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Quadro Kanban Leads.' },
+  ]}
+/>

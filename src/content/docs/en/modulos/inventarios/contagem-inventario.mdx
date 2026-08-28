@@ -1,0 +1,166 @@
+---
+section: modulos
+routeSlug: inventarios/contagem-inventario
+pageType: routine
+module: inventarios
+moduleLabel: Inventories
+lang: en
+title: Inventory Count
+description: Query and recording of the counts performed on stock inventories, with opening the inventory for counting.
+routineType: Process
+permission: Yes
+impact: Records and tracks the counts performed on inventories
+keywords: [inventory count, count, inventory, stock, centers, open inventory, inventory status]
+tags: [modulo-inventarios, processo]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Inventory Count** screen gathers the **counts performed** on stock inventories. From it you can locate an inventory and **open it for counting**, as well as view the details and history of each record.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Recording the counts', text: 'Concentrates the counts performed on inventories.' },
+    { label: 'Use', title: 'Open for counting', text: 'Allows opening the inventory and recording the count.' },
+    { label: 'Caution', title: 'Status and type', text: 'Check the status and type of the inventory before opening the count.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Locate an inventory to record the count.
+- Check the counts already performed.
+- Track the counting status of each inventory.
+
+## How to access
+
+Inventories → Inventory Count
+
+## Before you start
+
+- Know the **inventory** (ID or description) to be counted.
+- Check the **Center** and the **type** of inventory.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Fields "Inventory ID", "Description", "Centers", "Inventory Type", "Inventory Status", "Creation Date - From" and "Creation Date - To", with the buttons "Search" and "Clear Filters".', 'Combine the filters to locate the inventory.'],
+    ['Results', 'List of inventories with the record columns and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Inventory ID', 'Searches the inventory by identifier.'],
+    ['Description', 'Searches by the inventory description.'],
+    ['Centers', 'Filters by the center (unit) of the inventory.'],
+    ['Inventory Type', 'Filters by "General" or "Cyclic".'],
+    ['Inventory Status', 'Filters by the counting stage.'],
+    ['Creation Date - From / To', 'Filters by the inventory creation period.'],
+  ]}
+/>
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Inventory Id', 'Inventory identifier.'],
+    ['Description', 'Inventory description.'],
+    ['Name', 'Name of the inventoried Lounge.'],
+    ['Inventory Date', 'Inventory date.'],
+    ['Inventory Type', 'Type: "General" or "Cyclic".'],
+    ['Inventory Status', 'Counting stage.'],
+    ['Last Change Date', 'Date and time of the last change to the record.'],
+    ['System Status', 'Indicates whether the record is "Active".'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the desired filters and click **"Search"**.
+2. **Open for counting** — use the **Open Inventory** icon on the row to record the count.
+3. **View details** — use the **Details** icon to see the information.
+4. **View history** — use the **Change Logs** icon.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the inventories.', 'Leave the filters empty to list all.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+    ['Open Inventory', 'To open the inventory and record the count.', 'Follows the inventory counting flow.'],
+    ['Change Logs', 'To view the change history of the record.', 'It is a query; it does not change the record.'],
+    ['Details', 'To view the inventory information.', 'It is read-only.'],
+    ['Edit', 'To change the record data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the record (red X icon).', 'Use with care.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Inventory Count', 'Access to the screen', 'Allows opening the screen and viewing the counts.'],
+    ['Count recording', 'Open Inventory / Edit', 'Allows opening the inventory and recording the count.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Inventory** — the inventories counted here are created on the Inventory screen.
+- **Available Inventories** — presents, as cards, the inventories open to start the count.
+
+## What this screen does not do
+
+- It does not create the inventory — creation is done on the Inventory screen.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The inventory does not appear in the search', 'Restrictive filters', 'Review the filters (Centers, Status, Dates) and click "Search".'],
+    ['I cannot open the inventory for counting', 'Inventory status or permission', 'Check the status and the permission with the administrator.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To view the counts performed and open an inventory to record the count.' },
+    { question: 'How do I record the count of an inventory?', answer: 'Locate the inventory in the list and use the "Open Inventory" icon on the row.' },
+    { question: 'How is this screen different from the Inventory screen?', answer: 'The Inventory screen creates and tracks the inventories; the Inventory Count concentrates the recording of the counts performed.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/27/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/27/2026', author: 'Renan Camargo', description: 'Initial release of the Inventory Count screen documentation.' },
+  ]}
+/>

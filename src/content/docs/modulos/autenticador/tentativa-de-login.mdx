@@ -1,0 +1,133 @@
+---
+section: modulos
+routeSlug: autenticador/tentativa-de-login
+pageType: routine
+module: autenticador
+moduleLabel: Autenticador
+title: Tentativa de Login
+description: Consulta do histórico de tentativas de login no sistema, com e-mail, data e status de cada tentativa.
+routineType: Consulta
+permission: Sim
+impact: Consulta o histórico de tentativas de acesso ao sistema
+keywords: [tentativa de login, login, acesso, histórico, autenticador, segurança]
+tags: [modulo-autenticador, consulta]
+order: 5
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Tentativa de Login** permite **consultar o histórico de tentativas de login** no sistema. Cada registro mostra o **e-mail** usado, a **data da tentativa** e o **status** (se a tentativa foi bem-sucedida ou não). É uma tela de **consulta**, útil para acompanhamento e segurança.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Histórico de acessos', text: 'Mostra as tentativas de login realizadas no sistema.' },
+    { label: 'Uso', title: 'Acompanhamento e segurança', text: 'Ajuda a verificar acessos e tentativas malsucedidas.' },
+    { label: 'Cuidado', title: 'Somente consulta', text: 'A tela não cadastra nem altera registros; apenas consulta.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar as tentativas de login de um usuário (por e-mail).
+- Verificar tentativas em um período.
+- Acompanhar o status das tentativas (sucesso ou falha).
+
+## Como acessar
+
+Autenticador → Tentativa de Login
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campos "E-mail", "Status", "Date Inicial" e "Data Termino", com os botões "Pesquisar" e "Limpar Filtros".', 'Combine os filtros para refinar a consulta.'],
+    ['Resultados', 'Lista das tentativas com as colunas "E-mail", "Data Tentativa" e "Status".', 'É uma consulta; não há ações de edição.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['E-mail', 'Pesquisa as tentativas pelo e-mail usado.'],
+    ['Status', 'Filtra pelo status da tentativa.'],
+    ['Date Inicial / Data Termino', 'Filtra pelo período das tentativas.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['E-mail', 'E-mail usado na tentativa de login.'],
+    ['Data Tentativa', 'Data e hora da tentativa.'],
+    ['Status', 'Situação da tentativa (sucesso ou falha).'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as tentativas conforme os filtros.', 'Combine os filtros para refinar.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a consulta.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Tentativa de Login', 'Acesso à tela', 'Permite abrir a tela e consultar as tentativas de login.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra nem altera registros — é uma tela de consulta.
+- Não bloqueia nem libera acessos — apenas exibe o histórico.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A tentativa não aparece na consulta', 'Filtros restritos', 'Revise o "E-mail", o "Status" e o período e clique em "Pesquisar".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para consultar o histórico de tentativas de login no sistema.' },
+    { question: 'Consigo alterar algo aqui?', answer: 'Não. É uma tela de consulta; ela apenas exibe as tentativas registradas.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Tentativa de Login.' },
+  ]}
+/>

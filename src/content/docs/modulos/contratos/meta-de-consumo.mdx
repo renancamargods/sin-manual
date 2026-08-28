@@ -1,0 +1,163 @@
+---
+section: modulos
+routeSlug: contratos/meta-de-consumo
+pageType: routine
+module: contratos
+moduleLabel: Contratos
+title: Meta de Consumo
+description: Metas de consumo previstas em contrato, com a quantidade, o contrato e a aplicação do item (tipo, família, grupo ou produto).
+routineType: Cadastro
+permission: Sim
+impact: Define as metas de consumo previstas nos contratos
+keywords: [meta de consumo, meta, consumo, contrato, aplicação do item, produto, família, grupo]
+tags: [modulo-contratos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Meta de Consumo** reúne as **metas de consumo previstas em contrato**. Cada meta define uma **quantidade**, o **contrato** ao qual pertence e a **aplicação do item** — ou seja, se a meta vale para um "Tipo de Produto", uma "Família de Produto", um "Grupo de Produto" ou um "Produto".
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Metas do contrato', text: 'Registra as metas de consumo previstas em cada contrato.' },
+    { label: 'Uso', title: 'Base de acompanhamento', text: 'Define a quantidade esperada por tipo, família, grupo ou produto.' },
+    { label: 'Cuidado', title: 'Aplicação do item', text: 'Escolha corretamente onde a meta se aplica (tipo, família, grupo ou produto).' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma meta de consumo para um contrato.
+- Consultar as metas de consumo já cadastradas.
+- Alterar a quantidade ou a aplicação de uma meta.
+
+## Como acessar
+
+Contratos → Meta de Consumo
+
+## Antes de começar
+
+- Saiba o **contrato** ao qual a meta pertence.
+- Defina a **quantidade** da meta e a **aplicação do item** (tipo, família, grupo ou produto).
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Área de pesquisa com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use "Pesquisar" para listar as metas.'],
+    ['Resultados', 'Lista das metas com a coluna "Quantidade de Meta de Consumo" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com a quantidade, o contrato e a aplicação do item.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Quantidade de Meta de Consumo', 'Quantidade prevista na meta.'],
+  ]}
+/>
+
+### Cadastro da meta (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Quantidade de Meta de Consumo', 'Quantidade prevista na meta.'],
+    ['Contrato', 'Contrato ao qual a meta pertence (use o "+" para cadastrar um novo contrato).'],
+    ['Aplicação do Item', 'Onde a meta se aplica: "Tipo de Produto", "Família de Produto", "Grupo de Produto" ou "Produto".'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Pesquisar** — clique em **"Pesquisar"** para listar as metas.
+2. **Cadastrar** — clique em **"+ Novo"**, informe a quantidade, o contrato e a aplicação do item e clique em **"Salvar"**.
+3. **Editar** — use o ícone de **Editar** da linha, ajuste os campos e clique em **"Salvar"**.
+4. **Consultar detalhes** — use o ícone de **Detalhes**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as metas de consumo.', '—'],
+    ['+ Novo', 'Para cadastrar uma nova meta.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Detalhes', 'Para consultar as informações da meta.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados da meta.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover a meta (ícone X vermelho).', 'Use com atenção.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Meta de Consumo', 'Acesso à tela', 'Permite abrir a tela e consultar as metas.'],
+    ['Cadastro e edição de meta', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir metas de consumo.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Aplicação do item', 'A meta pode valer para um tipo, família, grupo ou produto.', 'Escolha o nível correto para que a meta abranja os itens desejados.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Contrato** — as metas são vinculadas aos contratos cadastrados na tela Contrato.
+
+## O que a tela não faz
+
+- Não apura o consumo realizado — registra a meta prevista.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não consigo salvar a meta', 'Campos obrigatórios em branco', 'Informe a quantidade, o contrato e a aplicação do item.'],
+    ['A meta não abrange o item esperado', 'Aplicação do item incorreta', 'Revise se a meta foi aplicada ao tipo, família, grupo ou produto certo.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as metas de consumo previstas nos contratos.' },
+    { question: 'O que é a "Aplicação do Item"?', answer: 'Define se a meta vale para um Tipo de Produto, uma Família de Produto, um Grupo de Produto ou um Produto específico.' },
+    { question: 'A meta considera o consumo já realizado?', answer: 'Não. Esta tela registra a meta prevista; o consumo realizado é acompanhado em outros processos.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Meta de Consumo.' },
+  ]}
+/>

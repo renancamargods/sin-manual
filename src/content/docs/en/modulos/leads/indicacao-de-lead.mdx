@@ -1,0 +1,238 @@
+---
+section: modulos
+routeSlug: leads/indicacao-de-lead
+pageType: routine
+module: leads
+moduleLabel: Leads
+lang: en
+title: Lead Referral
+description: Recording and tracking of lead referrals, with requester and recipient structure, sales pipeline, lead data and questionnaire.
+routineType: Registration
+permission: Yes
+impact: Records the lead referrals that feed the sales funnel
+keywords: [lead referral, lead, prospecting, pipeline, requester, recipient, questionnaire, potential value]
+tags: [modulo-leads, cadastro]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Lead Referral** screen gathers the recording and tracking of **lead referrals** (commercial opportunities). Each referral relates a **requester structure** and a **recipient structure**, associates a **Sales Pipeline** and stores the lead data, the potential value and a brief commercial questionnaire.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Referral registration', text: 'Records the lead referrals that feed the sales funnel.' },
+    { label: 'Use', title: 'Funnel entry', text: 'The referral is the lead\'s starting point in the Sales Pipeline.' },
+    { label: 'Caution', title: 'Requester and recipient', text: 'Fill in the requester and recipient structures correctly.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Record a new lead referral.
+- Check the referrals already recorded and the status of each one.
+- Track the most recent interaction and the SLA of each lead.
+
+## How to access
+
+Leads → Lead Referral
+
+## Before you start
+
+- Know the **structures** of the referral's requester and recipient.
+- Define the **Sales Pipeline** and the lead **source**.
+- Have the **lead data** (name, phone and, when available, tax ID and e-mail) and the **potential value**.
+
+## Important differences
+
+<DocTable
+  headers={['Lead Type', 'What it means']}
+  rows={[
+    ['No Registration', 'Lead that is not yet a registered customer — the data is entered manually.'],
+    ['SIN Base', 'Lead linked to a customer already existing in the base (retrieved from the customer record).'],
+  ]}
+/>
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Several filters for structure, customer, period, pipeline, value, status, person type, lead type and lead data, with the buttons "Search", "+ New" and "Clear Filters".', 'Combine the filters to locate the referral.'],
+    ['Results', 'List of referrals with the record columns and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the tabs "Lead Data" and "Lead Interaction History".', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Requester Structure', 'Filters by the structure that originated the referral.'],
+    ['Recipient Structure', 'Filters by the recipient structure of the referral.'],
+    ['Customer', 'Filters by the related customer.'],
+    ['Lead Creation Date - From / To', 'Filters by the lead creation period.'],
+    ['Sales Pipeline', 'Filters by the associated pipeline.'],
+    ['Pipeline Status', 'Filters by the lead\'s stage in the pipeline.'],
+    ['Potential Lead Value - From / To', 'Filters by the potential value range.'],
+    ['System Status', 'Filters by active or inactive records.'],
+    ['Person Type', 'Filters by "Individual" or "Company".'],
+    ['Lead Type', 'Filters by "No Registration" or "SIN Base".'],
+    ['Lead already being worked?', 'Filters leads already being handled (Yes/No).'],
+    ['Lead Name / Email / Phone', 'Searches by the lead data.'],
+    ['Archived', 'Filters archived leads (Yes/No).'],
+  ]}
+/>
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['ID', 'Referral identifier.'],
+    ['Creation Date', 'Date the lead was created.'],
+    ['System Status', 'Indicates whether the record is "Active".'],
+    ['Deadline Date', 'Deadline associated with the referral.'],
+    ['Person Type', '"Individual" or "Company".'],
+    ['Tax ID', 'Lead document.'],
+    ['Customer Code', 'Customer code, when the lead is from the SIN Base.'],
+    ['Name', 'Lead name.'],
+    ['Phone/Mobile', 'Lead phone contact.'],
+    ['E-mail', 'Lead e-mail.'],
+    ['Lead Type', '"No Registration" or "SIN Base".'],
+    ['Lead Source', 'Source of the referral.'],
+    ['Lead already being worked?', 'Indicates whether the lead is already being handled.'],
+    ['Potential Lead Value', 'Estimated potential value of the lead.'],
+    ['Commercial Classification', 'Commercial classification of the lead.'],
+    ['Requester Structure', 'Structure that originated the referral.'],
+    ['Requester Name', 'Requester responsible.'],
+    ['Recipient Structure', 'Recipient structure.'],
+    ['Recipient Name', 'Recipient responsible.'],
+    ['Most recent interaction status', 'Status of the last recorded interaction.'],
+    ['Most recent interaction detail', 'Description of the last interaction.'],
+    ['SLA', 'Service deadline indicator.'],
+  ]}
+/>
+
+### Registration — "Lead Data" tab
+
+<DocTable
+  headers={['Group', 'Fields']}
+  rows={[
+    ['Initial Lead Information', '"Requester Structure", "Recipient Structure", "Sales Pipeline", "Lead Source" and "Lead Type" (No Registration / SIN Base).'],
+    ['Information', '"Person Type" (Individual / Company), "Tax ID", "Name", "Phone/Mobile", "E-mail", "Potential Lead Value" and "Do you agree with the Lead Referral policy?" (Yes/No).'],
+    ['Lead Questionnaire', '"Which solutions did the customer show interest in?", "How would you rate the Customer\'s interest in these Products?" and "Have you already presented any condition to the Customer?".'],
+  ]}
+/>
+
+<Callout type="atencao">
+When confirming the referral, the system states that it will **go through a prior review of the internal policies** and will only be considered a referral once it appears in the company's official sales reports.
+</Callout>
+
+### Registration — "Lead Interaction History" tab
+
+<DocTable
+  headers={['Item', 'What it shows']}
+  rows={[
+    ['Lead Interactions', 'History of the interactions recorded with the lead.'],
+    ['Customer search (SIN Base)', 'When the lead is from the SIN Base, the customer is located by "Customer Code", "Document (Tax ID)", "Name" and "Trade Name".'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the desired filters and click **"Search"**.
+2. **Register** — click **"+ New"**, fill in the lead and questionnaire information and click **"Save"**.
+3. **Edit** — use the **Edit** icon on the row, adjust the fields and click **"Save"**.
+4. **View details** — use the **Details** icon.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the referrals.', 'Combine the filters to refine.'],
+    ['+ New', 'To record a new referral.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+    ['Questionnaire Answers Report', 'To view the answers of the leads\' questionnaires.', 'It is a query.'],
+    ['Export table to Excel', 'To export the lead list.', 'Generates a file with the listed data.'],
+    ['Change Logs', 'To view the change history of the record.', 'It is a query; it does not change the record.'],
+    ['Details', 'To view the referral information.', 'It is read-only.'],
+    ['Edit', 'To change the referral data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the referral (red X icon).', 'Use with care.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Lead Referral', 'Access to the screen', 'Allows opening the screen and viewing the referrals.'],
+    ['Lead registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting referrals.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Prior review', 'The referral goes through a review of the internal policies before being considered.', 'It is only considered a referral once it appears in the official sales reports.'],
+    ['Lead Type', '"SIN Base" links the lead to an existing customer; "No Registration" uses manually entered data.', 'Choose the correct type when registering.'],
+    ['Interactions and SLA', 'The screen shows the most recent interaction and the service SLA.', 'Track the SLA so as not to miss the deadline.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Sales Pipeline** — defines the stages the lead advances through.
+- **Leads Kanban Board** — shows the leads in columns by pipeline stage, for visual tracking.
+
+## What this screen does not do
+
+- It does not close the sale — it records and tracks the referral within the sales funnel.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot save the referral', 'Required fields blank', 'Fill in the fields marked with an asterisk (*).'],
+    ['The lead does not appear in the search', 'Restrictive filters or archived lead', 'Review the filters and the "Archived" field.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To record and track the lead referrals that feed the sales funnel.' },
+    { question: 'What is the difference between a "No Registration" and a "SIN Base" lead?', answer: 'The "No Registration" has its data entered manually; the "SIN Base" is linked to a customer already existing in the base.' },
+    { question: 'Is the referral valid as soon as I save it?', answer: 'No. It goes through a prior review of the internal policies and is only considered a referral once it appears in the official sales reports.' },
+    { question: 'Where do I track the lead\'s progress in the funnel?', answer: 'On the "Leads Kanban Board", which shows the leads in columns by Sales Pipeline stage.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/27/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/27/2026', author: 'Renan Camargo', description: 'Initial release of the Lead Referral screen documentation.' },
+  ]}
+/>

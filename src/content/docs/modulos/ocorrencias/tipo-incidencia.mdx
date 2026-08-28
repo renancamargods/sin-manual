@@ -1,0 +1,139 @@
+---
+section: modulos
+routeSlug: ocorrencias/tipo-incidencia
+pageType: routine
+module: ocorrencias
+moduleLabel: Ocorrências
+title: Tipo Incidência
+description: Cadastro dos tipos de incidência usados na classificação das ocorrências, com embasamento de não procedência e outras informações.
+routineType: Cadastro
+permission: Sim
+impact: Classifica as ocorrências por tipo de incidência
+keywords: [tipo incidência, incidência, classificação, ocorrência, não procedência, embasamento]
+tags: [modulo-ocorrencias, cadastro]
+order: 4
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Tipo Incidência** reúne o cadastro dos **tipos de incidência** usados para **classificar as ocorrências**. Cada tipo tem uma descrição, um **embasamento de não procedência** e um campo de **outras informações**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de tipos', text: 'Classifica as ocorrências por tipo de incidência.' },
+    { label: 'Uso', title: 'Padronização', text: 'Padroniza a classificação usada nas ocorrências.' },
+    { label: 'Cuidado', title: 'Embasamento', text: 'Preencha o embasamento de não procedência quando aplicável.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo tipo de incidência.
+- Consultar os tipos já cadastrados.
+- Ajustar o embasamento ou as informações de um tipo.
+
+## Como acessar
+
+Ocorrências → Tipo Incidência
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campos "Tipo de Incidência", "Embasamento Não Procedência" e "Outras informacoes", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Combine os filtros para localizar o tipo.'],
+    ['Resultados', 'Lista dos tipos com as colunas "Tipo de Incidência", "Embasamento Não Procedência", "Outras informacoes" e "Data Cadastro Incidência" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com os campos do tipo de incidência.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Tipo de Incidência', 'Nome/descrição do tipo de incidência.'],
+    ['Embasamento Não Procedência', 'Embasamento usado quando a ocorrência não procede.'],
+    ['Outras informacoes', 'Informações complementares.'],
+    ['Data Cadastro Incidência', 'Data de cadastro do tipo.'],
+  ]}
+/>
+
+### Cadastro do tipo (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Tipo de Incidência', 'Nome/descrição do tipo de incidência.'],
+    ['Embasamento Não Procedência', 'Embasamento usado quando a ocorrência não procede.'],
+    ['Outras informacoes', 'Informações complementares.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os tipos de incidência.', 'Deixe os filtros vazios para listar todos.'],
+    ['+ Novo', 'Para cadastrar um novo tipo.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Detalhes', 'Para consultar as informações do tipo.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados do tipo.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover o tipo (ícone X vermelho).', 'Prefira não excluir tipos já usados em ocorrências.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Tipo Incidência', 'Acesso à tela', 'Permite abrir a tela e consultar os tipos.'],
+    ['Cadastro e edição de tipo de incidência', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir tipos.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Ocorrências PFCQ** — os tipos de incidência classificam as ocorrências registradas.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O tipo não aparece na busca', 'Filtros restritos', 'Revise os filtros e clique em "Pesquisar".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os tipos de incidência usados na classificação das ocorrências.' },
+    { question: 'O que é o "Embasamento Não Procedência"?', answer: 'É o embasamento usado quando a ocorrência é considerada não procedente.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Tipo Incidência.' },
+  ]}
+/>

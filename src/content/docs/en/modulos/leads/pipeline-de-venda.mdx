@@ -1,0 +1,193 @@
+---
+section: modulos
+routeSlug: leads/pipeline-de-venda
+pageType: routine
+module: leads
+moduleLabel: Leads
+lang: en
+title: Sales Pipeline
+description: Registration of the sales pipelines (funnels) and their stages, with probability and order, used in lead tracking.
+routineType: Registration
+permission: Yes
+impact: Defines the sales funnel stages used in lead tracking
+keywords: [sales pipeline, pipeline, funnel, stage, pipeline status, probability, order, leads]
+tags: [modulo-leads, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Sales Pipeline** screen gathers the registration of the **sales pipelines (funnels)** and their **stages**. Each pipeline has a name, a description and a set of **stages** ("Pipeline Status"), with **probability** and **order**. These stages are the **columns of the Leads Kanban Board** and the steps the leads advance through.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Funnel registration', text: 'Defines the pipelines and the stages of the sales funnel.' },
+    { label: 'Use', title: 'Tracking basis', text: 'The stages become the columns of the Leads Kanban Board.' },
+    { label: 'Caution', title: 'Order and probability', text: 'The order defines the sequence of stages; the probability indicates the chance of closing.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new sales pipeline.
+- Define or adjust the stages of a pipeline.
+- Check the pipelines already registered.
+
+## How to access
+
+Leads → Sales Pipeline
+
+## Before you start
+
+- Define the funnel **stages** and the **order** in which they occur.
+- Define the closing **probability** associated with each stage.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Search area with the buttons "Search", "+ New" and "Clear Filters".', 'Use "Search" to list the pipelines.'],
+    ['Results', 'List of pipelines with the registration columns and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the pipeline data and the "Pipeline Status" area to register the stages.', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['ID', 'Pipeline identifier.'],
+    ['Creation Date', 'Pipeline creation date.'],
+    ['Name', 'Pipeline name.'],
+    ['Description', 'Pipeline description.'],
+    ['System Status', 'Indicates whether the pipeline is "Active".'],
+  ]}
+/>
+
+### Pipeline registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Name', 'Name of the sales pipeline.'],
+    ['System Status', 'Defines whether the pipeline is "Active" or "Inactive".'],
+    ['Description', 'Pipeline description.'],
+  ]}
+/>
+
+### Pipeline stages ("Pipeline Status")
+
+Use the **"+ New Pipeline Status"** button to register each status. The grid has the columns:
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Status Stage', 'Grouping/category of the status (e.g., "Negotiation" or "Closing").'],
+    ['Description', 'Name of the status shown as a column on the Leads Kanban Board (e.g., "New - No Interaction", "Proposal Sent", "Won", "Lost").'],
+    ['% Probability', 'Closing probability associated with the status.'],
+    ['Order in the Pipeline', 'Position of the status in the funnel sequence (defines the order of the columns on the Kanban).'],
+  ]}
+/>
+
+Each status in the grid has the **Edit** and **Delete** icons on the right.
+
+<Callout type="info" title="Example — 'SIN Solutions' pipeline">
+The default pipeline has **12 statuses**, grouped into two stages: **Negotiation** (New - No Interaction, Lead, Did Not Reply, Online Presentation, In-Person Presentation, Proposal Sent, Stand By, Financial Analysis, Financial Pending Items, Awaiting Signature) and **Closing** (Won, Lost). Each one has its own probability % and order.
+</Callout>
+
+## Main flows
+
+1. **Search** — click **"Search"** to list the pipelines.
+2. **Register** — click **"+ New"**, enter "Name" and "Description", register the stages in **"+ New Pipeline Status"** and click **"Save"**.
+3. **Edit** — use the **Edit** icon on the row, adjust the data or the stages and click **"Save"**.
+4. **View details** — use the **Details** icon.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the pipelines.', '—'],
+    ['+ New', 'To register a new pipeline.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+    ['+ New Pipeline Status', 'To add a stage to the pipeline.', 'Enter stage, description, probability and order.'],
+    ['Change Logs', 'To view the change history of the record.', 'It is a query; it does not change the record.'],
+    ['Details', 'To view the pipeline information.', 'It is read-only.'],
+    ['Edit', 'To change the pipeline or the stages.', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Sales Pipeline', 'Access to the screen', 'Allows opening the screen and viewing the pipelines.'],
+    ['Pipeline registration and editing', 'New / Edit', 'Allows creating and changing pipelines and their stages.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Order of the stages', 'The "Order in the Pipeline" defines the sequence of the columns on the Leads Kanban Board.', 'Adjust the order to match the real funnel sequence.'],
+    ['Probability', 'The "% Probability" indicates the chance of closing at the stage.', 'Define the probability of each stage.'],
+    ['Pipeline status', 'An inactive pipeline is no longer used in referrals and on the board.', 'Deactivate instead of deleting when the pipeline has already been used.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Leads Kanban Board** — uses the pipeline stages as columns.
+- **Lead Referral** — associates each lead with a pipeline.
+
+## What this screen does not do
+
+- It does not move the leads — movement between stages is done on the Leads Kanban Board.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The stages do not appear on the Kanban Board', 'Stages not registered or incorrect order', 'Review the stages in "Pipeline Status" and the "Order in the Pipeline".'],
+    ['I cannot save the pipeline', 'Required fields blank', 'Enter the "Name" and register at least one stage.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the sales pipelines (funnels) and their stages, used in lead tracking.' },
+    { question: 'What is a "stage" (Pipeline Status)?', answer: 'It is a step of the funnel (e.g., "Online Presentation", "Proposal Sent"). The stages become the columns of the Leads Kanban Board.' },
+    { question: 'What is the "% Probability" for?', answer: 'It indicates the chance of closing associated with that funnel stage.' },
+    { question: 'How do the stages appear in the tracking?', answer: 'They become the columns of the Leads Kanban Board, in the order defined in "Order in the Pipeline".' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/27/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/27/2026', author: 'Renan Camargo', description: 'Initial release of the Sales Pipeline screen documentation.' },
+  ]}
+/>

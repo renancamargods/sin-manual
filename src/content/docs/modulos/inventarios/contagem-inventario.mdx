@@ -1,0 +1,165 @@
+---
+section: modulos
+routeSlug: inventarios/contagem-inventario
+pageType: routine
+module: inventarios
+moduleLabel: Inventários
+title: Contagem Inventário
+description: Consulta e registro das contagens realizadas nos inventários de estoque, com abertura do inventário para contagem.
+routineType: Processo
+permission: Sim
+impact: Registra e acompanha as contagens realizadas nos inventários
+keywords: [contagem inventário, contagem, inventário, estoque, centros, abrir inventário, status inventário]
+tags: [modulo-inventarios, processo]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Contagem Inventário** reúne as **contagens realizadas** nos inventários de estoque. A partir dela é possível localizar um inventário e **abri-lo para contagem**, além de consultar os detalhes e o histórico de cada registro.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Registro das contagens', text: 'Concentra as contagens realizadas nos inventários.' },
+    { label: 'Uso', title: 'Abrir para contagem', text: 'Permite abrir o inventário e registrar a contagem.' },
+    { label: 'Cuidado', title: 'Status e tipo', text: 'Confira o status e o tipo do inventário antes de abrir a contagem.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Localizar um inventário para registrar a contagem.
+- Consultar as contagens já realizadas.
+- Acompanhar o status de contagem de cada inventário.
+
+## Como acessar
+
+Inventários → Contagem Inventário
+
+## Antes de começar
+
+- Saiba o **inventário** (ID ou descrição) que será contado.
+- Confira o **Centro** e o **tipo** de inventário.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campos "ID do Inventário", "Descrição", "Centros", "Tipo de Inventário", "Status do Inventário", "Data Criação - De" e "Data Criação - Até", com os botões "Pesquisar" e "Limpar Filtros".', 'Combine os filtros para localizar o inventário.'],
+    ['Resultados', 'Lista dos inventários com as colunas do registro e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['ID do Inventário', 'Pesquisa o inventário pelo identificador.'],
+    ['Descrição', 'Pesquisa pela descrição do inventário.'],
+    ['Centros', 'Filtra pelo centro (unidade) do inventário.'],
+    ['Tipo de Inventário', 'Filtra por "Geral" ou "Cíclico".'],
+    ['Status do Inventário', 'Filtra pela situação da contagem.'],
+    ['Data Criação - De / Até', 'Filtra pelo período de criação do inventário.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Id Inventário', 'Identificador do inventário.'],
+    ['Descrição', 'Descrição do inventário.'],
+    ['Nome', 'Nome do Lounge inventariado.'],
+    ['Data de Inventário', 'Data do inventário.'],
+    ['Tipo de Inventário', 'Tipo: "Geral" ou "Cíclico".'],
+    ['Status Inventário', 'Situação da contagem.'],
+    ['Data da Última Alteração', 'Data e hora da última alteração do registro.'],
+    ['Status Sistema', 'Indica se o registro está "Ativo".'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Pesquisar** — informe os filtros desejados e clique em **"Pesquisar"**.
+2. **Abrir para contagem** — use o ícone **Abrir Inventário** da linha para registrar a contagem.
+3. **Consultar detalhes** — use o ícone de **Detalhes** para ver as informações.
+4. **Consultar histórico** — use o ícone **Logs de Alteração**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os inventários.', 'Deixe os filtros vazios para listar todos.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Abrir Inventário', 'Para abrir o inventário e registrar a contagem.', 'Segue o fluxo de contagem do inventário.'],
+    ['Logs de Alteração', 'Para ver o histórico de alterações do registro.', 'É uma consulta; não altera o registro.'],
+    ['Detalhes', 'Para consultar as informações do inventário.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados do registro.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover o registro (ícone X vermelho).', 'Use com atenção.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Contagem Inventário', 'Acesso à tela', 'Permite abrir a tela e consultar as contagens.'],
+    ['Registro de contagem', 'Abrir Inventário / Editar', 'Permite abrir o inventário e registrar a contagem.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Inventário** — os inventários contados aqui são criados na tela Inventário.
+- **Inventários Disponíveis** — apresenta, em cartões, os inventários abertos para iniciar a contagem.
+
+## O que a tela não faz
+
+- Não cria o inventário — a criação é feita na tela Inventário.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O inventário não aparece na busca', 'Filtros restritos', 'Revise os filtros (Centros, Status, Datas) e clique em "Pesquisar".'],
+    ['Não consigo abrir o inventário para contagem', 'Status do inventário ou permissão', 'Verifique o status e a permissão com o administrador.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para consultar as contagens realizadas e abrir um inventário para registrar a contagem.' },
+    { question: 'Como registro a contagem de um inventário?', answer: 'Localize o inventário na lista e use o ícone "Abrir Inventário" da linha.' },
+    { question: 'Qual a diferença desta tela para a tela Inventário?', answer: 'A tela Inventário cria e acompanha os inventários; a Contagem Inventário concentra o registro das contagens realizadas.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '27/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '27/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Contagem Inventário.' },
+  ]}
+/>

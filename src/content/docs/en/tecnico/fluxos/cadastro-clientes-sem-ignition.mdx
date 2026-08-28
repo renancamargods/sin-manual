@@ -1,0 +1,235 @@
+---
+section: tecnico
+routeSlug: fluxos/cadastro-clientes-sem-ignition
+pageType: tecnico
+lang: en
+title: Customer Registration WITHOUT Ignition
+description: Process of registering and approving customers (individual, company and foreign) through the queue WITHOUT Ignition, from preparing the approval rule to activation and SAP code generation.
+moduleLabel: Customer Module
+routineType: Process flow
+impact: Customer registration and approval through the queue WITHOUT Ignition
+keywords: [customer registration, without ignition, approval, approval rule, approval step, sales adm, credit, fiscal, comex, sub-status, sap code, individual, company, foreign]
+tags: [tecnico, fluxo, cliente]
+order: 4
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Customer Registration WITHOUT Ignition** flow describes, step by step, how to register and approve a new customer using the **queue WITHOUT Ignition** — a faster and more direct approval path. It applies to **Individual**, **Company** and **Foreign** customer types.
+
+Whenever a new customer is registered, it goes through an **approval flow** before becoming active. This flow ensures the registration is reviewed and released correctly, and the path changes slightly depending on the customer type. The process has two parts: the **system preparation** (done once by the administrator) and the **customer registration and approval** (day-to-day use).
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Registration via the queue without Ignition', text: 'Standardizes the creation and approval of individual, company and foreign customers through the simplest path (Ignition disabled).' },
+    { label: 'Use', title: 'Preparation and daily use', text: 'The administrator prepares the approval rule once; users register and send the customers day to day.' },
+    { label: 'Caution', title: 'Rule and steps', text: 'Approvals follow exactly the configured Approval Rule and the steps applicable to each person type.' },
+  ]}
+/>
+
+## When to use this flow
+
+- Register a new customer (individual, company or foreign) through the queue WITHOUT Ignition.
+- Prepare the approval rule and steps used by this flow.
+- Send a newly registered customer to the approval steps.
+- Track the status and the approval cycle sub-status until activation and SAP code generation.
+
+## How to access
+
+- Administrator Module → Feature Control (preparation)
+- Approvals Module → Approval Rule (preparation)
+- Customers Module → Customer (day-to-day registration)
+
+## Quick glossary
+
+<DocTable
+  headers={['Term', 'What it means']}
+  rows={[
+    ['Ignition', 'A type of approval queue. In this process it is disabled, which makes the path faster and simpler.'],
+    ['Approval Rule', 'A setting that defines who must approve the registration and in what order.'],
+    ['Approval Step', 'Each step within the rule (e.g., "Sales ADM Approval" or "Credit Approval").'],
+    ['Person Type', 'Customer classification (Individual, Company or Foreign). Defines which approval steps apply.'],
+    ['Comex', 'Area responsible for operations with foreign customers (Comex Credit and Comex Fiscal).'],
+    ['Approval cycle sub-status', 'Information showing at which point of the approval the registration currently is.'],
+    ['SAP Code', 'A unique code generated automatically by the system when the customer registration is activated.'],
+  ]}
+/>
+
+## The process steps
+
+<DocTable
+  headers={['Step', 'What happens']}
+  rows={[
+    ['Preparation 1', 'Define that the queue does NOT use Ignition (Feature Control).'],
+    ['Preparation 2', 'Configure the Approval Rule (name, entity and execution mode).'],
+    ['Preparation 3', 'Register the approval steps (group, order and person types).'],
+    ['1. New customer', 'Open the registration of a new customer.'],
+    ['2. Type and document', 'Select the person type and the registration type and enter the document.'],
+    ['3. Customer data', 'Fill in the data (with automatic fill when a registration already exists).'],
+    ['4. Save and send', 'Save and send the customer to the approval flow.'],
+    ['5. Status', 'Track the status and the approval cycle sub-status.'],
+    ['6. Activation and SAP', 'Automatic activation of the registration and generation of the SAP code.'],
+  ]}
+/>
+
+## Before you start
+
+- Confirm with the administrator that the **approval rule** and the **steps** are already configured.
+- Know the **person type** (Individual, Company or Foreign) and the **registration type** of the customer.
+- Have the customer **document** (Tax ID, when applicable) — it is required.
+
+## Part 1 — System preparation (done by the administrator)
+
+These steps are normally already configured. They only need to be done once, before starting to register customers.
+
+### Step 1 — Define whether the queue uses Ignition
+
+In the **Administrator** module, **Feature Control** screen, you can enable or disable the use of the Ignition queue. For this process, the option must be set **so that the Ignition queue is NOT used** — that is, the registration follows the simplest and fastest path.
+
+### Step 2 — Configure the Approval Rule
+
+In the **Approvals** module, **Approval Rule** screen, define the **rule name**, the **approval entity** and the **execution mode**:
+
+<DocTable
+  headers={['Execution mode', 'What it means']}
+  rows={[
+    ['Parallel', 'There is no order between the approvers.'],
+    ['Sequential', 'Approval follows the registered order.'],
+  ]}
+/>
+
+### Step 3 — Register the approval steps
+
+Within the created rule, click **"New approval step"** (or edit an existing one). Fill in the **responsible group**, the **order** and the **applicable person types**, keeping the step **ACTIVE** so it works in the process.
+
+## Part 2 — Customer registration and approval (day-to-day use)
+
+With the system prepared, this is the path to follow whenever a new customer needs to be registered.
+
+### Step 1 — Open the new customer registration
+
+Access the **Customers** module, **Customer** screen, and click the **"+ New Customer"** button.
+
+### Step 2 — Select the customer type and enter the document
+
+Choose the **person type** (Individual, Company or Foreign) and the **registration type**. Enter the **document** (Tax ID, when applicable), which is required, and click **"Next"**.
+
+### Step 3 — Fill in the customer data
+
+The system opens the registration screen. If data already exists for that document, the system fills it automatically (the **"verify"** function). Otherwise, fill in all required fields manually.
+
+### Step 4 — Save and send the customer
+
+After filling everything in, click **"Save and continue"**. The **"Send customer"** button appears — click it to send the registration to the approval flow.
+
+### Step 5 — Check the registration status
+
+Look for the customer in the **customer list** to follow the registration. You can filter by **Person Type** (Individual, Company or Foreign) and see the **registration status**, the **most recent update date** and the **approval cycle sub-status**.
+
+## Approval differences by customer type
+
+Approvals follow exactly what was configured in the **Approval Rule**. Today, the rule is set up as follows:
+
+<DocTable
+  headers={['Order', 'Step', 'Responsible group', 'Applies to', 'Status']}
+  rows={[
+    ['1', 'Sales ADM Approval', 'Sales ADM', 'Individual, Company', 'Active'],
+    ['2', 'Credit Approval', 'Credit', 'Individual, Company', 'Active'],
+    ['3', 'Fiscal Approval', 'Fiscal', 'Company', 'Active'],
+    ['4', 'Comex Credit Approval', 'Comex Credit', 'Foreign', 'Active'],
+    ['5', 'Comex Fiscal Approval', 'Fiscal', 'Foreign', 'Active'],
+  ]}
+/>
+
+In practice, each customer type follows a slightly different path until it is activated:
+
+<DocTable
+  headers={['Customer type', 'Approval path']}
+  rows={[
+    ['Individual', 'Sales ADM Approval → Credit Approval.'],
+    ['Company', 'Sales ADM Approval → Credit Approval → Fiscal Approval (one step more than Individual).'],
+    ['Foreign', 'Comex Credit Approval → Comex Fiscal Approval.'],
+  ]}
+/>
+
+<Callout type="info" title="The rule drives the flow">
+The approval path of each person type comes from the Approval Rule. If the steps or the order change in the rule, the flow changes with them — always check the current configuration.
+</Callout>
+
+## Final activation of the registration
+
+After a few seconds or minutes, the system **activates the registration automatically**, regardless of the customer type. At that point you can see the **most recent update** and the **SAP Code**, generated by the system itself to identify that customer. From there, the process is complete and the customer is ready to use.
+
+## Quick summary
+
+1. Prepare the queue without Ignition and configure the approval rule (once).
+2. Register the new customer with the required data, entering the correct person type.
+3. Send the customer for approval.
+4. Track the status in the customer list.
+5. Wait for the approvals according to the customer type (Individual, Company or Foreign).
+6. Check the final activation and the generated SAP Code.
+
+## Rules and cautions
+
+- The **Ignition** option must be configured so that the Ignition queue is **not** used in this flow.
+- Approvals follow the **Approval Rule**: the mode (Parallel/Sequential), the active steps and the applicable person types determine the path.
+- The **document** (Tax ID) is required at the start of the registration.
+- The **"Send customer"** button appears after **"Save and continue"**.
+- The **SAP Code** is only generated when the registration is activated.
+
+## Responsibilities
+
+<DocTable
+  headers={['Role', 'Access', 'Responsibility']}
+  rows={[
+    ['Administrator', 'Preparation', 'Configures Feature Control, the Approval Rule and the steps.'],
+    ['Registration user', 'Customers Module', 'Creates and sends the customers for approval.'],
+    ['Sales ADM', 'Approval step', 'Sales ADM Approval (Individual and Company).'],
+    ['Credit', 'Approval step', 'Credit approval (Individual and Company).'],
+    ['Fiscal', 'Approval step', 'Fiscal approval (Company and Foreign).'],
+    ['Comex Credit', 'Approval step', 'International credit approval (Foreign).'],
+  ]}
+/>
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The registration is going through Ignition', 'Feature Control configured incorrectly', 'Confirm with the administrator that the option is set so the Ignition queue is NOT used.'],
+    ['The "Send customer" button does not appear', 'Registration not saved yet', 'Click "Save and continue" with the required fields filled in.'],
+    ['The customer does not advance in the approvals', 'Inactive steps or non-applicable person type', 'Review the steps and the person types in the Approval Rule.'],
+    ['The customer did not generate a SAP code', 'Registration not activated yet', 'Wait for the automatic activation; the SAP code is generated at that moment.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What does "WITHOUT Ignition" mean?', answer: 'It means the Ignition queue is disabled for this process, making the approval path faster and simpler.' },
+    { question: 'Who defines the approval path?', answer: 'The Approval Rule, configured in the Approvals module. The active steps and the applicable person types determine the path.' },
+    { question: 'What is the difference between Individual, Company and Foreign?', answer: 'Individual goes through Sales ADM and Credit; Company goes through Sales ADM, Credit and Fiscal; Foreign goes through Comex Credit and Comex Fiscal.' },
+    { question: 'What is the approval cycle sub-status?', answer: 'It is the information showing at which point of the approval the registration currently is.' },
+    { question: 'When is the SAP code generated?', answer: 'Automatically, when the system activates the customer registration.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the customer registration flow through the queue WITHOUT Ignition.' },
+  ]}
+/>

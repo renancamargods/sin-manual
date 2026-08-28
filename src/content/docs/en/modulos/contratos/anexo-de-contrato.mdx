@@ -1,0 +1,167 @@
+---
+section: modulos
+routeSlug: contratos/anexo-de-contrato
+pageType: routine
+module: contratos
+moduleLabel: Contracts
+lang: en
+title: Contract Attachment
+description: Documents attached to contracts, with name, keywords, description and a link to the contract.
+routineType: Registration
+permission: Yes
+impact: Stores the documents linked to the contracts
+keywords: [contract attachment, attachment, document, file, contract, keywords]
+tags: [modulo-contratos, cadastro]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Contract Attachment** screen gathers the **documents attached to contracts**. Each attachment is a **file** (for example, a PDF) with **keywords**, a **description** and the **contract** it is linked to.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Contract documents', text: 'Stores the files linked to each contract.' },
+    { label: 'Use', title: 'Attach and view', text: 'Allows attaching new documents and downloading existing ones.' },
+    { label: 'Caution', title: 'Link to the contract', text: 'Select the correct contract when attaching the document.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Attach a document to a contract.
+- View and download the documents already attached.
+- Locate an attachment by name or by keywords.
+
+## How to access
+
+Contracts → Contract Attachment
+
+## Before you start
+
+- Have the **file** to be attached.
+- Know the **contract** the attachment belongs to.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Fields "Name" and "Keywords", with the buttons "Search", "+ New" and "Clear Filters".', 'Use "Name" or "Keywords" to locate the attachment.'],
+    ['Results', 'List of attachments with the "Name" column and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the file and the attachment data.', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Name', 'Searches the attachment by file name.'],
+    ['Keywords', 'Searches the attachment by the registered keywords.'],
+  ]}
+/>
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Name', 'Name of the attached file.'],
+  ]}
+/>
+
+### Attachment registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['File', 'Document to be attached ("Choose file" button).'],
+    ['Keywords', 'Keywords to make the attachment easier to find.'],
+    ['Description', 'Attachment description.'],
+    ['Contract', 'Contract the attachment is linked to (use the "+" to register a new contract).'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter "Name" or "Keywords" and click **"Search"**.
+2. **Attach** — click **"+ New"**, choose the file, fill in the fields and click **"Save"**.
+3. **Download** — use the **Download** icon on the row.
+4. **Edit** — use the **Edit** icon on the row, adjust the fields and click **"Save"**.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the attachments.', 'Leave the filters empty to list all.'],
+    ['+ New', 'To attach a new document.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+    ['Download', 'To download the attached file.', 'It is a query; it does not change the record.'],
+    ['Details', 'To view the attachment information.', 'It is read-only.'],
+    ['Edit', 'To change the attachment data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the attachment (red X icon).', 'Removing the attachment is permanent.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Contract Attachment', 'Access to the screen', 'Allows opening the screen and viewing the attachments.'],
+    ['Attachment registration and editing', 'New / Edit / Delete', 'Allows attaching, changing and deleting documents.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Contract** — the attachments are linked to the contracts registered on the Contract screen.
+
+## What this screen does not do
+
+- It does not create the contract — it only links the document to an existing contract (or lets you register a new one via the "+").
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The attachment does not appear in the search', 'Restrictive filters', 'Review "Name" and "Keywords" and click "Search".'],
+    ['I cannot attach the file', 'File not selected or contract not set', 'Choose the file and select the contract before saving.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To attach and view the documents linked to contracts.' },
+    { question: 'How do I download an attachment?', answer: 'Use the "Download" icon on the attachment row.' },
+    { question: 'What are the keywords for?', answer: 'They make the attachment easier to find in the search.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Contract Attachment screen documentation.' },
+  ]}
+/>

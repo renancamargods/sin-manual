@@ -1,0 +1,222 @@
+---
+section: modulos
+routeSlug: qualidade/analise-de-qualidade
+pageType: routine
+module: qualidade
+moduleLabel: Qualidade
+title: Análise de Qualidade
+description: Registro e acompanhamento das análises de qualidade, com bipagem dos produtos, classificação (vendável/sucata) e transferência com status.
+routineType: Consulta e processo
+permission: Sim
+impact: Processa e classifica os produtos analisados no controle de qualidade
+keywords: [análise de qualidade, qualidade, bipagem, datamatrix, vendável, sucata, produtos processados, documento de material, transferência]
+tags: [modulo-qualidade, processo]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Análise de Qualidade** conduz o **processo de análise dos produtos** no controle de qualidade. A partir de um documento de material, os produtos são **bipados** (lidos), **classificados** como "Vendável" ou "Sucata" e **transferidos**, com o resultado acompanhado por status (Produto, SAP e Deluge).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Análise de produtos', text: 'Processa e classifica os produtos analisados no controle de qualidade.' },
+    { label: 'Uso', title: 'Bipagem e classificação', text: 'Lê os produtos, classifica em vendável ou sucata e transfere.' },
+    { label: 'Cuidado', title: 'Confira o status', text: 'Acompanhe os status de Produto, SAP e Deluge após a transferência.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar as análises de qualidade já registradas.
+- Bipar e classificar os produtos de uma análise.
+- Acompanhar o status da transferência dos produtos processados.
+
+## Como acessar
+
+Qualidade → Análise de Qualidade
+
+## Antes de começar
+
+- Tenha o **documento de material** e os produtos a analisar.
+- Reúna os produtos com **DataMatrix** para a bipagem.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', '"Número Análise", "Documento de Material", "Usuário", "Data Criação De" e "Data Criação Até", com os botões "Pesquisar", "+ Nova Imagem" e "Limpar Filtros".', 'Combine os filtros para localizar a análise.'],
+    ['Resultados', 'Lista das análises com as colunas de número, data, usuário e documento e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Detalhe (2 abas)', 'Aba "Dados da Análise de Qualidade" (dados, entrada de produtos e produtos processados) e aba "Log de Transferência".', 'A análise dos produtos é feita na aba "Dados da Análise de Qualidade".'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Número Análise', 'Pesquisa pelo número da análise.'],
+    ['Documento de Material', 'Pesquisa pelo documento de material.'],
+    ['Usuário', 'Filtra pelo usuário (busca "Digite para pesquisar").'],
+    ['Data Criação De / Até', 'Período de criação da análise.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Número Análise', 'Número que identifica a análise.'],
+    ['Data Criação', 'Data de criação da análise.'],
+    ['Usuário Criação', 'Usuário que criou a análise.'],
+    ['Documento de Material', 'Documento de material vinculado à análise.'],
+  ]}
+/>
+
+### Detalhe — Dados da Análise de Qualidade
+
+<DocTable
+  headers={['Campo', 'O que mostra']}
+  rows={[
+    ['Número Análise', 'Número da análise.'],
+    ['Documento de Material', 'Documento de material da análise.'],
+    ['Data Criação', 'Data de criação.'],
+    ['Usuário Criação', 'Usuário que criou a análise.'],
+    ['Observações', 'Observações da análise.'],
+  ]}
+/>
+
+### Detalhe — Entrada de Produtos
+
+<DocTable
+  headers={['Elemento', 'Para que serve']}
+  rows={[
+    ['Vendável / Sucata', 'Define a classificação dos produtos lidos.'],
+    ['Leitura (Bipagem / Cópia e Cola)', 'Informa os produtos por leitura do DataMatrix ou colagem dos códigos.'],
+    ['Simulação de leitura em massa', 'Permite anexar um arquivo de texto com um DataMatrix por linha ("Escolher arquivo").'],
+  ]}
+/>
+
+### Detalhe — Produtos Processados
+
+Tabela dos itens lidos (com a quantidade total):
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Código', 'Código do produto.'],
+    ['Descrição', 'Descrição do produto.'],
+    ['Endereço do Produto', 'Endereço (localização) do produto.'],
+    ['Lote', 'Lote do produto.'],
+    ['Serial', 'Serial do produto.'],
+    ['Status Produto', 'Classificação do produto (ex.: "Vendável").'],
+    ['Status SAP', 'Status da integração com o SAP (ex.: "Sucesso").'],
+    ['Status Deluge', 'Status da integração Deluge (ex.: "Sucesso").'],
+    ['Observação', 'Observação do item.'],
+    ['Data Criação', 'Data de criação do item.'],
+    ['Data Validade', 'Data de validade do produto.'],
+  ]}
+/>
+
+<Callout type="info" title="Aba Log de Transferência">
+A aba "Log de Transferência" reúne o histórico da transferência dos produtos processados.
+</Callout>
+
+## Fluxos principais
+
+1. **Pesquisar** — informe os filtros e clique em **"Pesquisar"**.
+2. **Abrir a análise** — use o ícone de **Detalhes** (ou **Edição**) da linha.
+3. **Classificar e bipar** — em "Entrada de Produtos", escolha "Vendável" ou "Sucata" e informe os produtos por Bipagem, Cópia e Cola ou arquivo.
+4. **Acompanhar** — veja os itens em "Produtos Processados" com os status de Produto, SAP e Deluge.
+5. **Reprocessar** — use **"Reprocessar Produtos"** quando necessário; **"Salvar"** guarda o andamento.
+
+<Callout type="cuidado" title="Confira antes de transferir">
+A transferência dos produtos gera efeitos (integração SAP/Deluge). Confira os itens e a classificação antes.
+</Callout>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as análises conforme os filtros.', 'Combine período e usuário para refinar.'],
+    ['+ Nova Imagem', 'Para iniciar uma nova análise a partir de imagem.', 'Abre a inclusão de imagem.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Detalhes', 'Para consultar os dados da análise.', 'É somente leitura.'],
+    ['Edição', 'Para bipar, classificar e processar os produtos.', 'Confira os itens antes de salvar.'],
+    ['Reprocessar Produtos', 'Para reprocessar os produtos da análise.', 'Use quando houver falha ou ajuste.'],
+    ['Salvar', 'Para guardar o andamento da análise.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Análise de Qualidade', 'Acesso à tela', 'Permite abrir a tela e consultar as análises.'],
+    ['Processamento de análise', 'Bipagem / Classificação / Transferência', 'Permite bipar, classificar e transferir os produtos.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Classificação Vendável/Sucata', 'Define o destino dos produtos lidos.', 'Escolha a classificação antes de bipar.'],
+    ['Bipagem por DataMatrix', 'Os produtos são informados por leitura do DataMatrix, colagem ou arquivo.', 'A quantidade de itens lidos é exibida no bloco.'],
+    ['Status de integração', 'Cada item mostra os status de Produto, SAP e Deluge.', 'Acompanhe os status após a transferência.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra os produtos — eles vêm do cadastro de Produto.
+- Não registra refugos avulsos — isso é feito na tela Refugo.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O item não é aceito na bipagem', 'DataMatrix ilegível ou item não localizado', 'Confira o DataMatrix e tente por "Cópia e Cola" ou arquivo.'],
+    ['O status ficou com falha', 'Falha na integração (SAP/Deluge)', 'Use "Reprocessar Produtos" e verifique os status.'],
+    ['A análise não aparece na busca', 'Filtros restritos', 'Revise os filtros e o período, e clique em "Pesquisar".'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para analisar os produtos no controle de qualidade: bipar, classificar em vendável ou sucata e transferir, acompanhando os status.' },
+    { question: 'Como classifico os produtos?', answer: 'Em "Entrada de Produtos", escolha "Vendável" ou "Sucata" antes de bipar os itens.' },
+    { question: 'O que significam os status Produto, SAP e Deluge?', answer: 'São os status do item e das integrações após a transferência (ex.: "Sucesso").' },
+    { question: 'O que faz "Reprocessar Produtos"?', answer: 'Reprocessa os produtos da análise, útil quando há falha ou ajuste.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '27/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '27/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Análise de Qualidade.' },
+  ]}
+/>

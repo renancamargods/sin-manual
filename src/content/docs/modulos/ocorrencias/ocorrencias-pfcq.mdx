@@ -1,0 +1,209 @@
+---
+section: modulos
+routeSlug: ocorrencias/ocorrencias-pfcq
+pageType: routine
+module: ocorrencias
+moduleLabel: Ocorrências
+title: Ocorrências PFCQ
+description: Registro e acompanhamento das ocorrências PFCQ, com dados do cliente, produtos, anexos, atividades e fluxo de status.
+routineType: Cadastro
+permission: Sim
+impact: Registra e acompanha as ocorrências relacionadas a produto, fornecedor, cliente ou qualidade
+keywords: [ocorrências pfcq, ocorrencia, pfcq, capa, ticket, cliente, produto, anexo, atividade, fluxo de status, lounge]
+tags: [modulo-ocorrencias, cadastro]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Ocorrências PFCQ** reúne o registro e o acompanhamento das **ocorrências** (relacionadas a produto, fornecedor, cliente ou qualidade). Cada ocorrência guarda os **dados do cliente**, os **produtos** envolvidos, os **anexos**, as **atividades** e um **fluxo de status** que acompanha o andamento. As ocorrências podem estar vinculadas a um **Número CAPA** e a um **Número do Ticket**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Registro de ocorrências', text: 'Registra e acompanha as ocorrências PFCQ.' },
+    { label: 'Uso', title: 'Tratamento e histórico', text: 'Reúne dados, produtos, anexos, atividades e o fluxo de status.' },
+    { label: 'Cuidado', title: 'Cliente e status', text: 'Confira o cliente vinculado e acompanhe o fluxo de status.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Registrar uma nova ocorrência.
+- Consultar e acompanhar as ocorrências abertas.
+- Acompanhar o fluxo de status e as atividades de uma ocorrência.
+
+## Como acessar
+
+Ocorrências → Ocorrências PFCQ
+
+## Antes de começar
+
+- Saiba o **cliente** relacionado à ocorrência.
+- Tenha, quando houver, o **Número CAPA** e o **Número do Ticket**.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campos "Número da Ocorrência", "Data Inicial", "Data Final", "Status", "Número CAPA", "Cliente", "Consultor FVE", "Ocorrência cancelada?" e "Lounge", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros". Há o botão "Exportar Excel".', 'Combine os filtros para localizar a ocorrência.'],
+    ['Resultados', 'Lista das ocorrências com as colunas do registro e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com as abas "Ocorrências", "Produtos da Ocorrência", "Anexos de Ocorrência" e "Atividades".', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Número da Ocorrência', 'Pesquisa a ocorrência pelo número.'],
+    ['Data Inicial / Data Final', 'Filtra pelo período da ocorrência.'],
+    ['Status', 'Filtra pela situação da ocorrência.'],
+    ['Número CAPA', 'Filtra pelo número CAPA.'],
+    ['Cliente', 'Filtra pelo cliente relacionado.'],
+    ['Consultor FVE', 'Filtra pelo consultor responsável.'],
+    ['Ocorrência cancelada?', 'Filtra as ocorrências canceladas.'],
+    ['Lounge', 'Filtra pelo Lounge.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Número da Ocorrência', 'Número da ocorrência.'],
+    ['Codigo do Cliente', 'Código do cliente relacionado.'],
+    ['Cliente', 'Nome do cliente.'],
+    ['Status', 'Situação atual da ocorrência.'],
+    ['Data da Ocorrência', 'Data em que a ocorrência foi registrada.'],
+    ['Data da Última Alteração', 'Data e hora da última alteração.'],
+    ['Data Vencimento', 'Prazo de vencimento da ocorrência.'],
+    ['Nome', 'Nome relacionado à ocorrência.'],
+    ['Atividade mais Recente', 'Última atividade registrada.'],
+    ['Lounge', 'Lounge relacionado.'],
+    ['Número CAPA', 'Número CAPA vinculado.'],
+  ]}
+/>
+
+### Cadastro — aba "Ocorrências"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Número CAPA', 'Número CAPA vinculado à ocorrência.'],
+    ['Número do Ticket', 'Número do ticket relacionado.'],
+    ['Cliente', 'Cliente relacionado à ocorrência.'],
+    ['Documento (CPF/CNPJ)', 'Documento do cliente.'],
+    ['Numero da Credencial', 'Número da credencial do cliente.'],
+    ['E-Mail principal', 'E-mail principal do cliente.'],
+    ['Telefone Principal', 'Telefone principal do cliente.'],
+    ['Endereço / Bairro / Cidade / Estado / País / CEP', 'Dados de endereço do cliente.'],
+    ['Lounge', 'Lounge relacionado.'],
+    ['Consultor FVE', 'Consultor responsável.'],
+    ['Observações', 'Observações sobre a ocorrência.'],
+  ]}
+/>
+
+Ainda na aba "Ocorrências", a área **"Fluxo de Status"** mostra o histórico de status da ocorrência.
+
+### Cadastro — demais abas
+
+<DocTable
+  headers={['Aba', 'Para que serve']}
+  rows={[
+    ['Produtos da Ocorrência', 'Registra os produtos envolvidos na ocorrência.'],
+    ['Anexos de Ocorrência', 'Anexa documentos à ocorrência.'],
+    ['Atividades', 'Registra as atividades (andamento) da ocorrência.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Pesquisar** — informe os filtros e clique em **"Pesquisar"**.
+2. **Registrar** — clique em **"+ Novo"**, preencha os dados, os produtos e as atividades e clique em **"Salvar"**.
+3. **Acompanhar** — abra a ocorrência e consulte o "Fluxo de Status" e as "Atividades".
+4. **Editar** — use o ícone de **Editar** da linha, ajuste as abas e clique em **"Salvar"**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as ocorrências.', 'Combine os filtros para refinar.'],
+    ['+ Novo', 'Para registrar uma nova ocorrência.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Exportar Excel', 'Para exportar as ocorrências.', 'Gera um arquivo com os dados.'],
+    ['Detalhes', 'Para consultar as informações da ocorrência.', 'É somente leitura.'],
+    ['Editar', 'Para alterar a ocorrência e suas abas.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover a ocorrência (ícone X vermelho).', 'Use com atenção.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Ocorrências PFCQ', 'Acesso à tela', 'Permite abrir a tela e consultar as ocorrências.'],
+    ['Cadastro e edição de ocorrência', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir ocorrências.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Fluxo de status', 'O status da ocorrência avança conforme o tratamento.', 'Acompanhe o "Fluxo de Status" para saber a etapa atual.'],
+    ['Data de vencimento', 'A ocorrência tem um prazo de vencimento.', 'Fique atento ao prazo para o tratamento.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Tipo Incidência** — classifica as ocorrências registradas.
+- **Cliente** — a ocorrência é vinculada a um cliente.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A ocorrência não aparece na busca', 'Filtros restritos ou ocorrência cancelada', 'Revise os filtros e o campo "Ocorrência cancelada?".'],
+    ['Não consigo salvar a ocorrência', 'Campos obrigatórios em branco', 'Preencha os dados obrigatórios da ocorrência.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para registrar e acompanhar as ocorrências PFCQ, com dados do cliente, produtos, anexos, atividades e fluxo de status.' },
+    { question: 'O que é o Número CAPA?', answer: 'É um número que pode ser vinculado à ocorrência para relacioná-la a uma ação/plano correspondente.' },
+    { question: 'Onde acompanho o andamento da ocorrência?', answer: 'No "Fluxo de Status" e na aba "Atividades" da ocorrência.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Ocorrências PFCQ.' },
+  ]}
+/>

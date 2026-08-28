@@ -1,0 +1,198 @@
+---
+section: modulos
+routeSlug: inventarios/inventario
+pageType: routine
+module: inventarios
+moduleLabel: Inventories
+lang: en
+title: Inventory
+description: Registration and tracking of stock inventories, with lounge, date, type (General or Cyclic) and counting status.
+routineType: Registration
+permission: Yes
+impact: Creates and tracks the inventories used in stock counts
+keywords: [inventory, stock, count, lounge, sap, general, cyclic, inventory status]
+tags: [modulo-inventarios, cadastro]
+order: 2
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Inventory** screen gathers the registration and tracking of stock inventories. Each inventory represents a **count of a Lounge** on a date, with a **type** (General or Cyclic) and a **status** that advances as the count is performed (for example: "Inventory Created", "First Count", "Second Count" and "Count Finished").
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Inventory registration', text: 'Registers the inventories to be counted by Lounge and date.' },
+    { label: 'Use', title: 'Basis of the count', text: 'From the created inventory you can run the count and issue the report.' },
+    { label: 'Caution', title: 'Lounge and type', text: 'Check the Lounge, the date and the type (General or Cyclic) before saving.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new inventory for a Lounge.
+- Check the inventories already created and the status of each one.
+- Run the count of an inventory.
+- Issue the report of an inventory.
+
+## How to access
+
+Inventories → Inventory
+
+## Before you start
+
+- Know the **Lounge** to be inventoried.
+- Define the inventory **type**: "General" or "Cyclic".
+- Have, when applicable, the corresponding **SAP Inventory**.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Fields "SAP Inventory", "Description", "Lounge", "Inventory Date", "Inventory Type" and "Inventory Status", with the buttons "Search", "+ New" and "Clear Filters".', 'Combine the filters to locate the inventory.'],
+    ['Results', 'List of inventories with the registration columns and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the inventory fields.', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['SAP Inventory', 'Searches by the inventory number in SAP.'],
+    ['Description', 'Searches by the inventory description.'],
+    ['Lounge', 'Filters inventories by Lounge.'],
+    ['Inventory Date', 'Filters by the inventory date.'],
+    ['Inventory Type', 'Filters by "General" or "Cyclic".'],
+    ['Inventory Status', 'Filters by the counting stage (e.g., "Count Finished").'],
+  ]}
+/>
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['SAP Inventory', 'Inventory number in SAP.'],
+    ['Description', 'Inventory description.'],
+    ['Name', 'Name of the inventoried Lounge.'],
+    ['Inventory Date', 'Inventory date.'],
+    ['Inventory Type', 'Type: "General" or "Cyclic".'],
+    ['Inventory Status', 'Counting stage (e.g., "Inventory Created", "First Count", "Second Count", "Count Finished").'],
+    ['Last Change Date', 'Date and time of the last change to the record.'],
+    ['System Status', 'Indicates whether the record is "Active".'],
+  ]}
+/>
+
+### Inventory registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['SAP Inventory', 'SAP inventory number related to the record.'],
+    ['Description', 'Inventory description.'],
+    ['Lounge', 'Lounge to be inventoried.'],
+    ['Inventory Date', 'Inventory date.'],
+    ['Inventory Status', 'Initial status of the inventory (when created, it starts as "Inventory Created").'],
+    ['Inventory Type', 'Defines whether the inventory is "General" or "Cyclic".'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the desired filters and click **"Search"**.
+2. **Register** — click **"+ New"**, fill in the fields and click **"Save"**.
+3. **Run count** — use the **Run Count** icon on the row to record the inventory count.
+4. **Edit** — use the **Edit** icon on the row, adjust the fields and click **"Save"**.
+5. **Issue report** — use the **Report** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the inventories.', 'Leave the filters empty to list all.'],
+    ['+ New', 'To register a new inventory.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+    ['Report', 'To issue the inventory report.', 'It is a query; it does not change the record.'],
+    ['Run Count', 'To record the inventory count.', 'Follows the counting flow (First/Second Count).'],
+    ['Change Logs', 'To view the change history of the record.', 'It is a query; it does not change the record.'],
+    ['Details', 'To view the inventory information.', 'It is read-only.'],
+    ['Edit', 'To change the inventory data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the inventory (red X icon).', 'Use with care; avoid deleting inventories already counted.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Inventory', 'Access to the screen', 'Allows opening the screen and viewing the inventories.'],
+    ['Inventory registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting inventories.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Counting status', 'The status advances as the count runs (Created → First/Second Count → Finished).', 'Track the status to know which stage the inventory is in.'],
+    ['Inventory type', 'Defines whether the count is "General" or "Cyclic".', 'Choose the correct type when creating.'],
+    ['SAP integration', 'The "SAP Inventory" field links the record to the SAP inventory.', 'Fill it in when there is a matching inventory in SAP.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Available Inventories** and **Inventory Count** — use the inventories created here as the basis for the count.
+
+## What this screen does not do
+
+- It does not perform the count itself — the count is done through the "Run Count" action (or the Available Inventories screen).
+- It does not create the inventory in SAP — it only links the record to the SAP inventory.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The inventory does not appear in the search', 'Restrictive filters', 'Review the filters (Lounge, Date, Status) and click "Search".'],
+    ['I cannot run the count', 'Inventory status or permission', 'Check the inventory status and the permission with the administrator.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register and track the stock inventories that will be counted by Lounge.' },
+    { question: 'What is the difference between a General and a Cyclic inventory?', answer: 'It is the type of count. General covers stock broadly; Cyclic is a periodic/partial count. Choose the type when creating the inventory.' },
+    { question: 'How do I run the count of an inventory?', answer: 'Use the "Run Count" icon on the row, or the "Available Inventories" screen to start the count.' },
+    { question: 'What do the inventory statuses mean?', answer: 'They indicate the counting stage: "Inventory Created", "First Count", "Second Count" and "Count Finished".' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/27/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/27/2026', author: 'Renan Camargo', description: 'Initial release of the Inventory screen documentation.' },
+  ]}
+/>

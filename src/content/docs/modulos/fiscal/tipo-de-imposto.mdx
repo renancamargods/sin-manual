@@ -1,0 +1,184 @@
+---
+section: modulos
+routeSlug: fiscal/tipo-de-imposto
+pageType: routine
+module: fiscal
+moduleLabel: Fiscal
+title: Tipo de Imposto
+description: Cadastro dos tipos de imposto usados nas operações, com modalidade de cálculo, ordem e vigência.
+routineType: Cadastro
+permission: Sim
+impact: Define os tipos de imposto usados nos cálculos fiscais
+keywords: [tipo de imposto, imposto, modalidade, por dentro, por fora, ordem de cálculo, icms, difal, fiscal]
+tags: [modulo-fiscal, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Tipo de Imposto** reúne o cadastro dos tipos de imposto usados nas operações do sistema (ex.: "ICMS Interestadual", "DIFAL", "ICMS Contribuinte"). Cada tipo define a **modalidade de cálculo** (por dentro ou por fora), a **ordem de cálculo** e a **vigência**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de tipos de imposto', text: 'Registra os impostos usados nos cálculos fiscais das operações.' },
+    { label: 'Uso', title: 'Base do cálculo fiscal', text: 'Define a modalidade e a ordem em que cada imposto é calculado.' },
+    { label: 'Cuidado', title: 'Modalidade e ordem', text: 'A modalidade (por dentro/por fora) e a ordem influenciam o cálculo; confira antes de salvar.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo tipo de imposto.
+- Consultar os tipos de imposto já cadastrados.
+- Alterar a modalidade, a ordem de cálculo ou a vigência de um imposto.
+- Inativar um tipo de imposto que não deve mais ser usado.
+
+## Como acessar
+
+Fiscal → Tipo de Imposto
+
+## Antes de começar
+
+- Saiba a **modalidade** de cálculo do imposto (por dentro ou por fora).
+- Defina a **ordem de cálculo** em relação aos demais impostos.
+- Tenha as datas de **vigência** (início e, quando houver, fim).
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Nome", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use "Nome" para localizar o imposto.'],
+    ['Resultados', 'Lista dos tipos de imposto com as colunas do cadastro e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Aba "Informações" com os campos do tipo de imposto.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Pesquisa o tipo de imposto pelo nome.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Identificador', 'Código que identifica o tipo de imposto.'],
+    ['Nome', 'Nome do tipo de imposto (ex.: "ICMS Interestadual").'],
+    ['Modalidade', 'Modalidade de cálculo: "Por Dentro" ou "Por Fora".'],
+    ['Ordem de Cálculo', 'Ordem em que o imposto é calculado.'],
+    ['Ativo', 'Indica se o tipo de imposto está ativo (Sim ou Não).'],
+    ['Data Início', 'Data de início da vigência.'],
+  ]}
+/>
+
+### Cadastro do tipo de imposto (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Nome do tipo de imposto.'],
+    ['Modalidade', 'Modalidade de cálculo: "Por Dentro" ou "Por Fora".'],
+    ['Ordem de Cálculo', 'Ordem em que o imposto é calculado em relação aos demais.'],
+    ['Data Início', 'Data de início da vigência.'],
+    ['Data Fim', 'Data de fim da vigência, quando houver.'],
+    ['Ativo', 'Define se o tipo de imposto está ativo.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Pesquisar** — informe o "Nome" e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, preencha os campos e clique em **"Salvar"**.
+3. **Editar** — use o ícone de **Editar** da linha, ajuste os campos e clique em **"Salvar"**.
+4. **Consultar detalhes** — use o ícone de **Detalhes** para ver as informações.
+5. **Inativar ou excluir** — altere o campo "Ativo" na edição, ou use o ícone de **Excluir** (X vermelho).
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os tipos de imposto.', 'Deixe o campo vazio para listar todos.'],
+    ['+ Novo', 'Para cadastrar um novo tipo de imposto.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+    ['Log de alteração', 'Para ver o histórico de alterações do registro.', 'É uma consulta; não altera o registro.'],
+    ['Detalhes', 'Para consultar as informações do tipo de imposto.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados do tipo de imposto.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover o tipo de imposto (ícone X vermelho).', 'Prefira inativar quando o imposto já tiver sido usado.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Tipo de Imposto', 'Acesso à tela', 'Permite abrir a tela e consultar os tipos de imposto.'],
+    ['Cadastro e edição de tipo de imposto', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir tipos de imposto.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Modalidade de cálculo', 'A modalidade "Por Dentro" ou "Por Fora" define como o imposto entra no cálculo.', 'Confira a modalidade ao cadastrar.'],
+    ['Ordem de cálculo', 'A ordem define a sequência de cálculo em relação aos demais impostos.', 'Ajuste a ordem conforme a regra fiscal.'],
+    ['Vigência', 'As datas de início e fim delimitam o período em que o imposto vale.', 'Preencha a vigência corretamente.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não calcula os impostos das operações — apenas cadastra os tipos usados no cálculo.
+- Não define as sequências de acesso — isso é feito na tela Sequência de Acesso.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O tipo de imposto não aparece na busca', 'Filtro restrito', 'Revise o campo "Nome" e clique em "Pesquisar".'],
+    ['Não consigo excluir um tipo de imposto', 'Imposto já utilizado em operações', 'Prefira inativar (campo "Ativo") para preservar o histórico.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os tipos de imposto usados nos cálculos fiscais das operações.' },
+    { question: 'Qual a diferença entre "Por Dentro" e "Por Fora"?', answer: 'É a modalidade de cálculo do imposto; define como o imposto entra na composição do valor.' },
+    { question: 'Para que serve a Ordem de Cálculo?', answer: 'Define a sequência em que o imposto é calculado em relação aos demais.' },
+    { question: 'Posso excluir um tipo de imposto já usado?', answer: 'Não é recomendado. Prefira inativá-lo (campo "Ativo") para preservar o histórico.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '27/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '27/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Tipo de Imposto.' },
+  ]}
+/>

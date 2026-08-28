@@ -1,0 +1,185 @@
+---
+section: modulos
+routeSlug: fiscal/tipo-de-imposto
+pageType: routine
+module: fiscal
+moduleLabel: Tax
+lang: en
+title: Tax Type
+description: Registration of the tax types used in operations, with calculation mode, order and validity.
+routineType: Registration
+permission: Yes
+impact: Defines the tax types used in the fiscal calculations
+keywords: [tax type, tax, mode, inside, outside, calculation order, icms, difal, fiscal]
+tags: [modulo-fiscal, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Tax Type** screen holds the registration of the tax types used in the system operations (e.g., "ICMS Interestadual", "DIFAL", "ICMS Contribuinte"). Each type defines the **calculation mode** (inside or outside), the **calculation order** and the **validity**.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Tax type registration', text: 'Registers the taxes used in the fiscal calculations of operations.' },
+    { label: 'Usage', title: 'Basis of fiscal calculation', text: 'Defines the mode and the order in which each tax is calculated.' },
+    { label: 'Caution', title: 'Mode and order', text: 'The mode (inside/outside) and the order affect the calculation; check before saving.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new tax type.
+- Look up the tax types already registered.
+- Change the mode, calculation order or validity of a tax.
+- Deactivate a tax type that should no longer be used.
+
+## How to access
+
+Tax → Tax Type
+
+## Before you start
+
+- Know the calculation **mode** of the tax ("Por Dentro"/inside or "Por Fora"/outside).
+- Define the **calculation order** relative to the other taxes.
+- Have the **validity** dates (start and, when applicable, end).
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', '"Name" field, with the "Search", "+ New" and "Clear Filters" buttons.', 'Use "Name" to find the tax.'],
+    ['Results', 'List of tax types with the registration columns and, in each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', '"Information" tab with the tax type fields.', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Name', 'Searches the tax type by name.'],
+  ]}
+/>
+
+### Results columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Identifier', 'Code that identifies the tax type.'],
+    ['Name', 'Name of the tax type (e.g., "ICMS Interestadual").'],
+    ['Mode', 'Calculation mode: "Por Dentro" (inside) or "Por Fora" (outside).'],
+    ['Calculation Order', 'Order in which the tax is calculated.'],
+    ['Active', 'Indicates whether the tax type is active (Yes or No).'],
+    ['Start Date', 'Validity start date.'],
+  ]}
+/>
+
+### Tax type registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Name', 'Name of the tax type.'],
+    ['Mode', 'Calculation mode: "Por Dentro" (inside) or "Por Fora" (outside).'],
+    ['Calculation Order', 'Order in which the tax is calculated relative to the others.'],
+    ['Start Date', 'Validity start date.'],
+    ['End Date', 'Validity end date, when applicable.'],
+    ['Active', 'Defines whether the tax type is active.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the "Name" and click **"Search"**.
+2. **Register** — click **"+ New"**, fill in the fields and click **"Save"**.
+3. **Edit** — use the row's **Edit** icon, adjust the fields and click **"Save"**.
+4. **Look up details** — use the **Details** icon to see the information.
+5. **Deactivate or delete** — change the "Active" field in the edit window, or use the **Delete** icon (red X).
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the tax types.', 'Leave the field empty to list all.'],
+    ['+ New', 'To register a new tax type.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filter and redo the search.', '—'],
+    ['Change log', 'To see the change history of the record.', 'It is a lookup; it does not change the record.'],
+    ['Details', 'To look up the tax type information.', 'It is read-only.'],
+    ['Edit', 'To change the tax type data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the tax type (red X icon).', 'Prefer deactivating when the tax has already been used.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Tax Type', 'Access to the screen', 'Allows opening the screen and looking up the tax types.'],
+    ['Tax type registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting tax types.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Calculation mode', 'The "Por Dentro" (inside) or "Por Fora" (outside) mode defines how the tax enters the calculation.', 'Check the mode when registering.'],
+    ['Calculation order', 'The order defines the calculation sequence relative to the other taxes.', 'Adjust the order according to the fiscal rule.'],
+    ['Validity', 'The start and end dates set the period in which the tax is valid.', 'Fill in the validity correctly.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- Does not calculate the operation taxes — it only registers the types used in the calculation.
+- Does not define the access sequences — that is done on the Access Sequence screen.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The tax type does not appear in the search', 'Restrictive filter', 'Review the "Name" field and click "Search".'],
+    ['I cannot delete a tax type', 'Tax already used in operations', 'Prefer deactivating (the "Active" field) to preserve the history.'],
+    ['I cannot access the screen', 'Lack of permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the tax types used in the fiscal calculations of operations.' },
+    { question: 'What is the difference between "Por Dentro" and "Por Fora"?', answer: 'It is the tax calculation mode; it defines how the tax enters the composition of the amount.' },
+    { question: 'What is the Calculation Order for?', answer: 'It defines the sequence in which the tax is calculated relative to the others.' },
+    { question: 'Can I delete a tax type already used?', answer: 'It is not recommended. Prefer deactivating it (the "Active" field) to preserve the history.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '27/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '27/08/2026', author: 'Renan Camargo', description: 'Initial release of the Tax Type screen documentation.' },
+  ]}
+/>

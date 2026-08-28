@@ -1,0 +1,153 @@
+---
+section: modulos
+routeSlug: autenticador/url
+pageType: routine
+module: autenticador
+moduleLabel: Authenticator
+lang: en
+title: URL
+description: Registration of the system addresses (URLs), with module, controller and the active and visible flags, used in access control.
+routineType: Registration
+permission: Yes
+impact: Defines the system addresses associated with permissions
+keywords: [url, address, module, controller, permission, authenticator, active, visible]
+tags: [modulo-autenticador, cadastro]
+order: 6
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **URL** screen gathers the registration of the system **addresses (URLs)**. Each address has a **name**, the corresponding **module** and **controller**, plus the **Active** and **Visible** flags. These addresses are used in **access control** and system navigation.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Address registration', text: 'Registers the system URLs associated with modules and permissions.' },
+    { label: 'Use', title: 'Access and navigation', text: 'Relates each address to the module and the controller.' },
+    { label: 'Caution', title: 'Active and visible', text: 'The "Active" and "Visible" flags define the address availability and display.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new system address (URL).
+- Check the addresses already registered.
+- Adjust the module, the controller or the flags of an address.
+
+## How to access
+
+Authenticator → URL
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Fields "Name" and "Module", with the buttons "Search" and "Clear Filters". There are the "Export table to Excel" and "Export table to PDF" buttons.', 'Combine the filters to locate the address.'],
+    ['Results', 'List of addresses with the "Name" column and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the address fields.', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Name', 'Searches the address by name.'],
+    ['Module', 'Filters the addresses by module.'],
+  ]}
+/>
+
+### Address registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Name', 'Address name.'],
+    ['Module', 'Module the address belongs to.'],
+    ['Controller', 'Controller corresponding to the address.'],
+    ['Active', 'Defines whether the address is active.'],
+    ['Visible', 'Defines whether the address is visible in navigation.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the addresses.', 'Combine the filters to refine.'],
+    ['+ New', 'To register a new address.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+    ['Export to Excel / PDF', 'To export the address list.', 'Generates a file with the listed data.'],
+    ['Details', 'To view the address information.', 'It is read-only.'],
+    ['Edit', 'To change the address data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the address (red X icon).', 'Use with care.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['URL', 'Access to the screen', 'Allows opening the screen and viewing the addresses.'],
+    ['URL registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting addresses.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Active', 'An inactive address is no longer available.', 'Deactivate instead of deleting when the address is already in use.'],
+    ['Visible', 'Controls whether the address appears in navigation.', 'Adjust according to the display need.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Module** — each address belongs to a registered module.
+- **Profile** — the addresses are used in the access control associated with the profiles.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The address does not appear in the search', 'Restrictive filters', 'Review "Name" and "Module" and click "Search".'],
+    ['The address does not appear in navigation', '"Visible" or "Active" flag', 'Check whether the address is active and visible.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the system addresses (URLs), associated with modules and used in access control.' },
+    { question: 'What do "Active" and "Visible" mean?', answer: '"Active" defines whether the address is available; "Visible" defines whether it appears in navigation.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the URL screen documentation.' },
+  ]}
+/>

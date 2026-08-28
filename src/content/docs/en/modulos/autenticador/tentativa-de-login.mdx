@@ -1,0 +1,134 @@
+---
+section: modulos
+routeSlug: autenticador/tentativa-de-login
+pageType: routine
+module: autenticador
+moduleLabel: Authenticator
+lang: en
+title: Login Attempt
+description: Query of the system login attempt history, with e-mail, date and status of each attempt.
+routineType: Query
+permission: Yes
+impact: Queries the history of system access attempts
+keywords: [login attempt, login, access, history, authenticator, security]
+tags: [modulo-autenticador, consulta]
+order: 5
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Login Attempt** screen lets you **query the system login attempt history**. Each record shows the **e-mail** used, the **attempt date** and the **status** (whether the attempt succeeded or not). It is a **query** screen, useful for tracking and security.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Access history', text: 'Shows the login attempts made in the system.' },
+    { label: 'Use', title: 'Tracking and security', text: 'Helps verify accesses and failed attempts.' },
+    { label: 'Caution', title: 'Query only', text: 'The screen does not register or change records; it only queries.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Query the login attempts of a user (by e-mail).
+- Check attempts in a period.
+- Track the status of the attempts (success or failure).
+
+## How to access
+
+Authenticator → Login Attempt
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Fields "E-mail", "Status", "Start Date" and "End Date", with the buttons "Search" and "Clear Filters".', 'Combine the filters to refine the query.'],
+    ['Results', 'List of attempts with the "E-mail", "Attempt Date" and "Status" columns.', 'It is a query; there are no editing actions.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['E-mail', 'Searches the attempts by the e-mail used.'],
+    ['Status', 'Filters by the attempt status.'],
+    ['Start Date / End Date', 'Filters by the attempt period.'],
+  ]}
+/>
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['E-mail', 'E-mail used in the login attempt.'],
+    ['Attempt Date', 'Date and time of the attempt.'],
+    ['Status', 'Attempt status (success or failure).'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the attempts according to the filters.', 'Combine the filters to refine.'],
+    ['Clear Filters', 'To reset the filters and query again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Login Attempt', 'Access to the screen', 'Allows opening the screen and querying the login attempts.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not register or change records — it is a query screen.
+- It does not block or release accesses — it only shows the history.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The attempt does not appear in the query', 'Restrictive filters', 'Review the "E-mail", the "Status" and the period and click "Search".'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To query the system login attempt history.' },
+    { question: 'Can I change anything here?', answer: 'No. It is a query screen; it only shows the registered attempts.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Login Attempt screen documentation.' },
+  ]}
+/>

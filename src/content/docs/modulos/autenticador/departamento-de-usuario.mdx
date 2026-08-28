@@ -1,0 +1,137 @@
+---
+section: modulos
+routeSlug: autenticador/departamento-de-usuario
+pageType: routine
+module: autenticador
+moduleLabel: Autenticador
+title: Departamento de Usuário
+description: Cadastro dos departamentos que agrupam os usuários por área da empresa, com a diretoria correspondente.
+routineType: Cadastro
+permission: Sim
+impact: Organiza os usuários por departamento e diretoria
+keywords: [departamento de usuário, departamento, diretoria, usuário, autenticador, área]
+tags: [modulo-autenticador, cadastro]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Departamento de Usuário** reúne o cadastro dos **departamentos** que agrupam os usuários por **área da empresa**. Cada departamento é vinculado a uma **diretoria**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de departamentos', text: 'Organiza os usuários por área da empresa.' },
+    { label: 'Uso', title: 'Estrutura interna', text: 'Relaciona cada departamento à sua diretoria.' },
+    { label: 'Cuidado', title: 'Diretoria correta', text: 'Vincule o departamento à diretoria correspondente.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo departamento.
+- Consultar os departamentos já cadastrados.
+- Alterar a diretoria de um departamento.
+
+## Como acessar
+
+Autenticador → Departamento de Usuário
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Nome", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use "Nome" para localizar o departamento.'],
+    ['Resultados', 'Lista dos departamentos com as colunas "Nome" e "Diretoria" e, em cada linha, os ícones de ação. Há os botões "Exportar tabela para Excel" e "Exportar tabela para PDF".', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com os campos do departamento.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Nome', 'Nome do departamento.'],
+    ['Diretoria', 'Diretoria à qual o departamento pertence.'],
+  ]}
+/>
+
+### Cadastro do departamento (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Nome do departamento.'],
+    ['Diretoria', 'Diretoria à qual o departamento é vinculado.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os departamentos.', 'Deixe o filtro vazio para listar todos.'],
+    ['+ Novo', 'Para cadastrar um novo departamento.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+    ['Exportar para Excel / PDF', 'Para exportar a lista de departamentos.', 'Gera um arquivo com os dados listados.'],
+    ['Detalhes', 'Para consultar as informações do departamento.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados do departamento.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover o departamento (ícone X vermelho).', 'Use com atenção.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Departamento de Usuário', 'Acesso à tela', 'Permite abrir a tela e consultar os departamentos.'],
+    ['Cadastro e edição de departamento', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir departamentos.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Usuário** — os usuários podem ser organizados pelos departamentos cadastrados aqui.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O departamento não aparece na busca', 'Filtro restrito', 'Revise o campo "Nome" e clique em "Pesquisar".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os departamentos que agrupam os usuários por área da empresa.' },
+    { question: 'O que é a "Diretoria"?', answer: 'É a diretoria à qual o departamento pertence, informada no cadastro.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Departamento de Usuário.' },
+  ]}
+/>

@@ -1,0 +1,225 @@
+---
+section: modulos
+routeSlug: contratos/turma-de-curso
+pageType: routine
+module: contratos
+moduleLabel: Contratos
+title: Turma de Curso
+description: Turmas de cursos vinculadas a contratos, com dados do curso, participantes e períodos (dias e horários).
+routineType: Cadastro
+permission: Sim
+impact: Cadastra as turmas de cursos vinculadas a contratos
+keywords: [turma de curso, turma, curso, participantes, períodos, instituição de ensino, kits boas vindas, contrato]
+tags: [modulo-contratos, cadastro]
+order: 6
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Turma de Curso** reúne as **turmas de cursos vinculadas a contratos**. Cada turma tem os **dados do curso** (tipo, nome, instituição, datas, contrato), a lista de **participantes** e os **períodos** (dias e horários) em que acontece.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de turmas', text: 'Registra as turmas de curso vinculadas aos contratos.' },
+    { label: 'Uso', title: 'Curso completo', text: 'Reúne dados do curso, participantes e períodos em um só lugar.' },
+    { label: 'Cuidado', title: 'Contrato e datas', text: 'Confira o contrato e as datas de início e término da turma.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova turma de curso.
+- Consultar as turmas já cadastradas.
+- Gerenciar os participantes e os períodos de uma turma.
+
+## Como acessar
+
+Contratos → Turma de Curso
+
+## Antes de começar
+
+- Saiba o **tipo de curso** e o **contrato** ao qual a turma pertence.
+- Tenha as **datas de início e término** e a **instituição de ensino**.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campos "Nome Participante", "Tipo de Curso", "Nome da Turma", "Status Sistema", "Data de Início da Turma" e "Data de Término da Turma", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Combine os filtros para localizar a turma.'],
+    ['Resultados', 'Lista das turmas com as colunas "Número do Curso (Auto gerado)" e "Nome da Turma" e, em cada linha, os ícones de ação. Há o botão "Excel Detalhado Turmas de Curso".', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com as abas "Turma de Curso", "Participantes" e "Períodos".', 'Use "Salvar e Continuar" para salvar sem fechar; "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome Participante', 'Pesquisa a turma pelo nome de um participante.'],
+    ['Tipo de Curso', 'Filtra pelas turmas de um tipo de curso.'],
+    ['Nome da Turma', 'Pesquisa pelo nome da turma.'],
+    ['Status Sistema', 'Filtra por turmas ativas ou inativas.'],
+    ['Data de Início da Turma', 'Filtra pela data de início.'],
+    ['Data de Término da Turma', 'Filtra pela data de término.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Número do Curso (Auto gerado)', 'Número do curso gerado automaticamente.'],
+    ['Nome da Turma', 'Nome da turma.'],
+  ]}
+/>
+
+### Cadastro — aba "Turma de Curso"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Número do Curso (Auto gerado)', 'Número do curso gerado automaticamente.'],
+    ['Tipo de Curso', 'Tipo do curso da turma.'],
+    ['Quantidade de Palestrantes', 'Número de palestrantes do curso.'],
+    ['Nome da Turma', 'Nome da turma.'],
+    ['Instituição de Ensino', 'Instituição de ensino da turma (use o "+" para cadastrar uma nova).'],
+    ['Data de Início da Turma', 'Data de início da turma.'],
+    ['Data de Término da Turma', 'Data de término da turma.'],
+    ['Quantidade de Kits Boas Vindas', 'Quantidade de kits de boas-vindas por tamanho (P, M e G).'],
+    ['Dias de permanência do aluno na carteira do consultor do curso', 'Número de dias em que o aluno permanece na carteira do consultor.'],
+    ['Contrato', 'Contrato ao qual a turma pertence (use o "+" para cadastrar um novo contrato).'],
+    ['Desconto de professor', 'Percentual de desconto do professor.'],
+    ['Status de Curso', 'Situação do curso: "Vigente" ou "Vencido".'],
+    ['Status Sistema', 'Define se a turma está "Ativo" ou "Inativo".'],
+  ]}
+/>
+
+Ainda na aba "Turma de Curso", a área **"Períodos de Curso"** lista os períodos da turma com as colunas "Dia da Semana", "Início" e "Término". O botão **"Adicionar Item - Digitação Rápida"** agiliza o cadastro de vários períodos.
+
+### Cadastro — aba "Participantes"
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Código do Cliente', 'Código do cliente participante.'],
+    ['Cliente', 'Nome do cliente participante.'],
+    ['Relação com o Curso', 'Relação do participante com o curso.'],
+    ['Consultor FVE', 'Consultor FVE relacionado.'],
+    ['Nome Consultor', 'Nome do consultor.'],
+    ['Código Território', 'Código do território.'],
+    ['Ramo de Atividade', 'Ramo de atividade do participante.'],
+    ['Ramo de Atividade II', 'Segundo ramo de atividade do participante.'],
+  ]}
+/>
+
+### Cadastro — aba "Períodos"
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Dia da Semana', 'Dia em que a turma acontece.'],
+    ['Início', 'Horário de início.'],
+    ['Término', 'Horário de término.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Pesquisar** — informe os filtros e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, preencha os dados do curso, os participantes e os períodos e clique em **"Salvar"**.
+3. **Editar** — use o ícone de **Editar** da linha, ajuste as abas e clique em **"Salvar"**.
+4. **Exportar** — use o botão **"Excel Detalhado Turmas de Curso"**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as turmas.', 'Combine os filtros para refinar.'],
+    ['+ Novo', 'Para cadastrar uma nova turma.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Excel Detalhado Turmas de Curso', 'Para exportar as turmas detalhadas em Excel.', 'Gera um arquivo com os dados.'],
+    ['Adicionar Item - Digitação Rápida', 'Para cadastrar vários períodos de forma ágil.', 'Disponível na área de períodos do cadastro.'],
+    ['Salvar e Continuar', 'Para salvar a turma sem fechar a janela.', 'Útil para preencher as demais abas.'],
+    ['Logs de Alteração', 'Para ver o histórico de alterações do registro.', 'É uma consulta; não altera o registro.'],
+    ['Detalhes', 'Para consultar as informações da turma.', 'É somente leitura.'],
+    ['Editar', 'Para alterar a turma e suas abas.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover a turma (ícone X vermelho).', 'Use com atenção.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Turma de Curso', 'Acesso à tela', 'Permite abrir a tela e consultar as turmas.'],
+    ['Cadastro e edição de turma', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir turmas.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Número do curso automático', 'O "Número do Curso" é gerado automaticamente pelo sistema.', 'Não é necessário informá-lo manualmente.'],
+    ['Status de Curso', 'O curso pode estar "Vigente" ou "Vencido".', 'Acompanhe o status conforme as datas da turma.'],
+    ['Períodos e participantes', 'Os períodos e participantes são cadastrados nas abas da turma.', 'Preencha as abas para completar a turma.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Período de Curso** — os períodos da turma também podem ser consultados e cadastrados na tela Período de Curso.
+- **Contrato** — a turma é vinculada a um contrato.
+
+## O que a tela não faz
+
+- Não firma o contrato — vincula a turma a um contrato existente (ou permite cadastrar um novo pelo "+").
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A turma não aparece na busca', 'Filtros restritos', 'Revise os filtros (Tipo de Curso, Nome da Turma, datas) e clique em "Pesquisar".'],
+    ['Não consigo salvar a turma', 'Campos obrigatórios em branco', 'Preencha o tipo de curso, o nome, as datas e o contrato.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as turmas de curso vinculadas a contratos, com dados do curso, participantes e períodos.' },
+    { question: 'O número do curso é informado manualmente?', answer: 'Não. Ele é gerado automaticamente pelo sistema.' },
+    { question: 'Onde cadastro os dias e horários da turma?', answer: 'Na aba "Períodos" (ou na área "Períodos de Curso" da aba principal). Eles também aparecem na tela Período de Curso.' },
+    { question: 'Como exporto as turmas?', answer: 'Use o botão "Excel Detalhado Turmas de Curso" na listagem.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Turma de Curso.' },
+  ]}
+/>

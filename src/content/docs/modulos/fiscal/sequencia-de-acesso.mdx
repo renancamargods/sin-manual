@@ -1,0 +1,195 @@
+---
+section: modulos
+routeSlug: fiscal/sequencia-de-acesso
+pageType: routine
+module: fiscal
+moduleLabel: Fiscal
+title: Sequência de Acesso
+description: Cadastro das sequências de acesso do cálculo fiscal, vinculadas a um tipo de imposto, com os passos que definem a ordem de aplicação das regras.
+routineType: Cadastro
+permission: Sim
+impact: Define a ordem de aplicação das regras fiscais por tipo de imposto
+keywords: [sequência de acesso, cálculo fiscal, tipo de imposto, passos, uf de origem, uf de destino, origem do material, setor industrial, fiscal]
+tags: [modulo-fiscal, cadastro]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Sequência de Acesso** cadastra as **sequências de acesso** usadas no cálculo fiscal. Cada sequência é vinculada a um **tipo de imposto** e reúne **passos** que definem, em ordem, os critérios de aplicação das regras (por UF de origem, UF de destino, origem do material e setor industrial do cliente).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de sequências de acesso', text: 'Define a ordem de aplicação das regras fiscais por tipo de imposto.' },
+    { label: 'Uso', title: 'Passos do cálculo', text: 'Monta os passos que o cálculo percorre para encontrar a regra aplicável.' },
+    { label: 'Cuidado', title: 'Ordem dos passos', text: 'A ordem dos passos influencia qual regra é aplicada; confira antes de salvar.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova sequência de acesso para um tipo de imposto.
+- Consultar as sequências de acesso já cadastradas.
+- Alterar os passos ou a situação de uma sequência.
+- Inativar uma sequência que não deve mais ser usada.
+
+## Como acessar
+
+Fiscal → Sequência de Acesso
+
+## Antes de começar
+
+- Saiba o **tipo de imposto** ao qual a sequência será vinculada.
+- Defina os **passos** e a **ordem** em que serão aplicados.
+- Conheça os critérios de cada passo (UF de origem, UF de destino, origem do material, setor industrial do cliente).
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Nome", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use "Nome" para localizar a sequência.'],
+    ['Resultados', 'Lista das sequências com as colunas de nome, tipo de imposto e situação e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Aba com o bloco "Informações" e o bloco "Passos da Sequência de Acesso".', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Pesquisa a sequência de acesso pelo nome.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Identificador', 'Código que identifica a sequência de acesso.'],
+    ['Nome', 'Nome da sequência de acesso.'],
+    ['Tipo de Imposto', 'Tipo de imposto vinculado à sequência.'],
+    ['Ativo', 'Indica se a sequência está ativa (Sim ou Não).'],
+  ]}
+/>
+
+### Cadastro — Informações
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Nome da sequência de acesso.'],
+    ['Tipo de Imposto', 'Tipo de imposto ao qual a sequência se aplica (busca).'],
+    ['Ativo', 'Define se a sequência está ativa.'],
+  ]}
+/>
+
+### Cadastro — Passos da Sequência de Acesso
+
+Cada passo (botão **"+ Novo Passo"**) traz as colunas:
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Ordem', 'Ordem do passo na sequência.'],
+    ['Usa UF de Origem', 'Indica se o passo considera a UF de origem.'],
+    ['Usa UF de Destino', 'Indica se o passo considera a UF de destino.'],
+    ['Usa Origem do Material', 'Indica se o passo considera a origem do material.'],
+    ['Usa Setor Industrial do Cliente', 'Indica se o passo considera o setor industrial do cliente.'],
+    ['Ativo', 'Indica se o passo está ativo.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Pesquisar** — informe o "Nome" e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, preencha as "Informações" (nome, tipo de imposto, ativo) e adicione os passos com **"+ Novo Passo"**; clique em **"Salvar"**.
+3. **Editar** — use o ícone de **Editar** da linha, ajuste os dados e os passos e clique em **"Salvar"**.
+4. **Consultar detalhes** — use o ícone de **Detalhes** para ver as informações.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as sequências de acesso.', 'Deixe o campo vazio para listar todas.'],
+    ['+ Novo', 'Para cadastrar uma nova sequência.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+    ['+ Novo Passo', 'Para adicionar um passo à sequência.', 'A ordem dos passos importa no cálculo.'],
+    ['Log de alteração', 'Para ver o histórico de alterações do registro.', 'É uma consulta; não altera o registro.'],
+    ['Detalhes', 'Para consultar as informações da sequência.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados e os passos da sequência.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover a sequência (ícone X vermelho).', 'Prefira inativar quando já tiver sido usada.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Sequência de Acesso', 'Acesso à tela', 'Permite abrir a tela e consultar as sequências de acesso.'],
+    ['Cadastro e edição de sequência de acesso', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir sequências de acesso.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Vínculo com o tipo de imposto', 'A sequência é específica de um tipo de imposto.', 'Cadastre a sequência para o tipo de imposto correto.'],
+    ['Ordem dos passos', 'A ordem define a sequência em que os critérios são avaliados no cálculo.', 'Organize os passos na ordem desejada.'],
+    ['Critérios do passo', 'Cada passo pode considerar UF de origem, UF de destino, origem do material e setor industrial do cliente.', 'Marque apenas os critérios necessários em cada passo.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra os tipos de imposto — isso é feito na tela Tipo de Imposto.
+- Não calcula os impostos — apenas define a sequência de acesso usada no cálculo.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A regra fiscal não é encontrada', 'Passos ou ordem incorretos', 'Revise os passos e a ordem da sequência.'],
+    ['A sequência não aparece na busca', 'Filtro restrito', 'Revise o campo "Nome" e clique em "Pesquisar".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as sequências de acesso usadas no cálculo fiscal, vinculadas a um tipo de imposto.' },
+    { question: 'O que são os passos?', answer: 'São as etapas, em ordem, que o cálculo percorre para encontrar a regra aplicável, considerando critérios como UF e origem do material.' },
+    { question: 'A ordem dos passos importa?', answer: 'Sim. A ordem define a sequência de avaliação dos critérios no cálculo.' },
+    { question: 'A sequência serve para mais de um tipo de imposto?', answer: 'Não. Cada sequência é vinculada a um tipo de imposto.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '27/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '27/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Sequência de Acesso.' },
+  ]}
+/>

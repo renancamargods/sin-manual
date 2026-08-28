@@ -1,0 +1,152 @@
+---
+section: modulos
+routeSlug: autenticador/url
+pageType: routine
+module: autenticador
+moduleLabel: Autenticador
+title: URL
+description: Cadastro dos endereços (URLs) do sistema, com módulo, controller e as marcações de ativo e visível, usados no controle de acesso.
+routineType: Cadastro
+permission: Sim
+impact: Define os endereços do sistema associados a permissões
+keywords: [url, endereço, módulo, controller, permissão, autenticador, ativo, visível]
+tags: [modulo-autenticador, cadastro]
+order: 6
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **URL** reúne o cadastro dos **endereços (URLs)** do sistema. Cada endereço tem um **nome**, o **módulo** e o **controller** correspondentes, além das marcações **Ativo** e **Visível**. Esses endereços são usados no **controle de acesso** e na navegação do sistema.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de endereços', text: 'Registra as URLs do sistema associadas a módulos e permissões.' },
+    { label: 'Uso', title: 'Acesso e navegação', text: 'Relaciona cada endereço ao módulo e ao controller.' },
+    { label: 'Cuidado', title: 'Ativo e visível', text: 'As marcações "Ativo" e "Visível" definem disponibilidade e exibição do endereço.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo endereço (URL) do sistema.
+- Consultar os endereços já cadastrados.
+- Ajustar o módulo, o controller ou as marcações de um endereço.
+
+## Como acessar
+
+Autenticador → URL
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campos "Nome" e "Módulo", com os botões "Pesquisar" e "Limpar Filtros". Há os botões "Exportar tabela para Excel" e "Exportar tabela para PDF".', 'Combine os filtros para localizar o endereço.'],
+    ['Resultados', 'Lista dos endereços com a coluna "Nome" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com os campos do endereço.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Pesquisa o endereço pelo nome.'],
+    ['Módulo', 'Filtra os endereços por módulo.'],
+  ]}
+/>
+
+### Cadastro do endereço (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Nome do endereço.'],
+    ['Módulo', 'Módulo ao qual o endereço pertence.'],
+    ['Controller', 'Controller correspondente ao endereço.'],
+    ['Ativo', 'Define se o endereço está ativo.'],
+    ['Visível', 'Define se o endereço fica visível na navegação.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os endereços.', 'Combine os filtros para refinar.'],
+    ['+ Novo', 'Para cadastrar um novo endereço.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Exportar para Excel / PDF', 'Para exportar a lista de endereços.', 'Gera um arquivo com os dados listados.'],
+    ['Detalhes', 'Para consultar as informações do endereço.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados do endereço.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover o endereço (ícone X vermelho).', 'Use com atenção.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['URL', 'Acesso à tela', 'Permite abrir a tela e consultar os endereços.'],
+    ['Cadastro e edição de URL', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir endereços.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Ativo', 'Um endereço inativo deixa de ficar disponível.', 'Inative em vez de excluir quando o endereço já estiver em uso.'],
+    ['Visível', 'Controla se o endereço aparece na navegação.', 'Ajuste conforme a necessidade de exibição.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Módulo** — cada endereço pertence a um módulo cadastrado.
+- **Perfil** — os endereços são usados no controle de acesso associado aos perfis.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O endereço não aparece na busca', 'Filtros restritos', 'Revise "Nome" e "Módulo" e clique em "Pesquisar".'],
+    ['O endereço não aparece na navegação', 'Marcação "Visível" ou "Ativo"', 'Verifique se o endereço está ativo e visível.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os endereços (URLs) do sistema, associados a módulos e usados no controle de acesso.' },
+    { question: 'O que significam "Ativo" e "Visível"?', answer: '"Ativo" define se o endereço está disponível; "Visível" define se ele aparece na navegação.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de URL.' },
+  ]}
+/>

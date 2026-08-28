@@ -1,0 +1,197 @@
+---
+section: modulos
+routeSlug: inventarios/inventario
+pageType: routine
+module: inventarios
+moduleLabel: Inventários
+title: Inventário
+description: Cadastro e acompanhamento dos inventários de estoque, com lounge, data, tipo (Geral ou Cíclico) e status da contagem.
+routineType: Cadastro
+permission: Sim
+impact: Cria e acompanha os inventários usados nas contagens de estoque
+keywords: [inventário, inventario, estoque, contagem, lounge, sap, geral, cíclico, status inventário]
+tags: [modulo-inventarios, cadastro]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Inventário** reúne o cadastro e o acompanhamento dos inventários de estoque. Cada inventário representa uma **contagem de um Lounge** em uma data, com um **tipo** (Geral ou Cíclico) e um **status** que avança conforme a contagem é realizada (por exemplo: "Inventário Criado", "Primeira Contagem", "Segunda Contagem" e "Contagem Finalizada").
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de inventários', text: 'Registra os inventários que serão contados por Lounge e data.' },
+    { label: 'Uso', title: 'Base da contagem', text: 'A partir do inventário criado é possível executar a contagem e emitir o relatório.' },
+    { label: 'Cuidado', title: 'Lounge e tipo', text: 'Confira o Lounge, a data e o tipo (Geral ou Cíclico) antes de salvar.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo inventário para um Lounge.
+- Consultar os inventários já criados e o status de cada um.
+- Executar a contagem de um inventário.
+- Emitir o relatório de um inventário.
+
+## Como acessar
+
+Inventários → Inventário
+
+## Antes de começar
+
+- Saiba o **Lounge** a ser inventariado.
+- Defina o **tipo** de inventário: "Geral" ou "Cíclico".
+- Tenha, quando aplicável, o **Inventário do SAP** correspondente.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campos "Inventário do SAP", "Descrição", "Lounge", "Data de Inventário", "Tipo de Inventário" e "Status Inventário", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Combine os filtros para localizar o inventário.'],
+    ['Resultados', 'Lista dos inventários com as colunas do cadastro e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com os campos do inventário.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Inventário do SAP', 'Pesquisa pelo número do inventário no SAP.'],
+    ['Descrição', 'Pesquisa pela descrição do inventário.'],
+    ['Lounge', 'Filtra os inventários por Lounge.'],
+    ['Data de Inventário', 'Filtra pela data do inventário.'],
+    ['Tipo de Inventário', 'Filtra por "Geral" ou "Cíclico".'],
+    ['Status Inventário', 'Filtra pela situação da contagem (ex.: "Contagem Finalizada").'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Inventário do SAP', 'Número do inventário no SAP.'],
+    ['Descrição', 'Descrição do inventário.'],
+    ['Nome', 'Nome do Lounge inventariado.'],
+    ['Data de Inventário', 'Data do inventário.'],
+    ['Tipo de Inventário', 'Tipo: "Geral" ou "Cíclico".'],
+    ['Status Inventário', 'Situação da contagem (ex.: "Inventário Criado", "Primeira Contagem", "Segunda Contagem", "Contagem Finalizada").'],
+    ['Data da Última Alteração', 'Data e hora da última alteração do registro.'],
+    ['Status Sistema', 'Indica se o registro está "Ativo".'],
+  ]}
+/>
+
+### Cadastro do inventário (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Inventário do SAP', 'Número do inventário no SAP relacionado ao registro.'],
+    ['Descrição', 'Descrição do inventário.'],
+    ['Lounge', 'Lounge que será inventariado.'],
+    ['Data de Inventário', 'Data do inventário.'],
+    ['Status Inventário', 'Situação inicial do inventário (ao criar, começa como "Inventário Criado").'],
+    ['Tipo de Inventário', 'Define se o inventário é "Geral" ou "Cíclico".'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Pesquisar** — informe os filtros desejados e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, preencha os campos e clique em **"Salvar"**.
+3. **Executar contagem** — use o ícone **Executar Contagem** da linha para registrar a contagem do inventário.
+4. **Editar** — use o ícone de **Editar** da linha, ajuste os campos e clique em **"Salvar"**.
+5. **Emitir relatório** — use o ícone **Relatório** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os inventários.', 'Deixe os filtros vazios para listar todos.'],
+    ['+ Novo', 'Para cadastrar um novo inventário.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Relatório', 'Para emitir o relatório do inventário.', 'É uma consulta; não altera o registro.'],
+    ['Executar Contagem', 'Para registrar a contagem do inventário.', 'Segue o fluxo de contagem (Primeira/Segunda Contagem).'],
+    ['Logs de Alteração', 'Para ver o histórico de alterações do registro.', 'É uma consulta; não altera o registro.'],
+    ['Detalhes', 'Para consultar as informações do inventário.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados do inventário.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover o inventário (ícone X vermelho).', 'Use com atenção; prefira não excluir inventários já contados.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Inventário', 'Acesso à tela', 'Permite abrir a tela e consultar os inventários.'],
+    ['Cadastro e edição de inventário', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir inventários.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Status da contagem', 'O status avança conforme a contagem é executada (Criado → Primeira/Segunda Contagem → Finalizada).', 'Acompanhe o status para saber em que etapa o inventário está.'],
+    ['Tipo de inventário', 'Define se a contagem é "Geral" ou "Cíclico".', 'Escolha o tipo correto ao criar.'],
+    ['Integração com o SAP', 'O campo "Inventário do SAP" relaciona o registro ao inventário do SAP.', 'Preencha quando houver o inventário correspondente no SAP.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Inventários Disponíveis** e **Contagem Inventário** — usam os inventários criados aqui como base para a contagem.
+
+## O que a tela não faz
+
+- Não realiza a contagem em si — a contagem é feita pela ação "Executar Contagem" (ou pela tela Inventários Disponíveis).
+- Não cria o inventário no SAP — apenas relaciona o registro ao inventário do SAP.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O inventário não aparece na busca', 'Filtros restritos', 'Revise os filtros (Lounge, Data, Status) e clique em "Pesquisar".'],
+    ['Não consigo executar a contagem', 'Status do inventário ou permissão', 'Verifique o status do inventário e a permissão com o administrador.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar e acompanhar os inventários de estoque que serão contados por Lounge.' },
+    { question: 'Qual a diferença entre inventário Geral e Cíclico?', answer: 'É o tipo de contagem. O Geral abrange o estoque de forma ampla; o Cíclico é uma contagem periódica/parcial. Escolha o tipo ao criar o inventário.' },
+    { question: 'Como executo a contagem de um inventário?', answer: 'Use o ícone "Executar Contagem" da linha, ou a tela "Inventários Disponíveis" para iniciar a contagem.' },
+    { question: 'O que significam os status do inventário?', answer: 'Indicam a etapa da contagem: "Inventário Criado", "Primeira Contagem", "Segunda Contagem" e "Contagem Finalizada".' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '27/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '27/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Inventário.' },
+  ]}
+/>

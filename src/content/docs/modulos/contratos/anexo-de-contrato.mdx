@@ -1,0 +1,166 @@
+---
+section: modulos
+routeSlug: contratos/anexo-de-contrato
+pageType: routine
+module: contratos
+moduleLabel: Contratos
+title: Anexo de Contrato
+description: Documentos anexados aos contratos, com nome, palavras-chave, descrição e vínculo ao contrato.
+routineType: Cadastro
+permission: Sim
+impact: Guarda os documentos vinculados aos contratos
+keywords: [anexo de contrato, anexo, documento, arquivo, contrato, palavras chave]
+tags: [modulo-contratos, cadastro]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Anexo de Contrato** reúne os **documentos anexados aos contratos**. Cada anexo é um **arquivo** (por exemplo, um PDF) com **palavras-chave**, **descrição** e o **contrato** ao qual está vinculado.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Documentos do contrato', text: 'Guarda os arquivos vinculados a cada contrato.' },
+    { label: 'Uso', title: 'Anexar e consultar', text: 'Permite anexar novos documentos e baixar os existentes.' },
+    { label: 'Cuidado', title: 'Vínculo com o contrato', text: 'Selecione o contrato correto ao anexar o documento.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Anexar um documento a um contrato.
+- Consultar e baixar os documentos já anexados.
+- Localizar um anexo pelo nome ou pelas palavras-chave.
+
+## Como acessar
+
+Contratos → Anexo de Contrato
+
+## Antes de começar
+
+- Tenha o **arquivo** que será anexado.
+- Saiba o **contrato** ao qual o anexo pertence.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campos "Nome" e "Palavras Chave", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use "Nome" ou "Palavras Chave" para localizar o anexo.'],
+    ['Resultados', 'Lista dos anexos com a coluna "Nome" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com o arquivo e os dados do anexo.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Pesquisa o anexo pelo nome do arquivo.'],
+    ['Palavras Chave', 'Pesquisa o anexo pelas palavras-chave cadastradas.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Nome', 'Nome do arquivo anexado.'],
+  ]}
+/>
+
+### Cadastro do anexo (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Arquivo', 'Documento a ser anexado (botão "Escolher arquivo").'],
+    ['Palavras Chave', 'Palavras-chave para facilitar a busca do anexo.'],
+    ['Descrição', 'Descrição do anexo.'],
+    ['Contrato', 'Contrato ao qual o anexo é vinculado (use o "+" para cadastrar um novo contrato).'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Pesquisar** — informe "Nome" ou "Palavras Chave" e clique em **"Pesquisar"**.
+2. **Anexar** — clique em **"+ Novo"**, escolha o arquivo, preencha os campos e clique em **"Salvar"**.
+3. **Baixar** — use o ícone **Download** da linha.
+4. **Editar** — use o ícone de **Editar** da linha, ajuste os campos e clique em **"Salvar"**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os anexos.', 'Deixe os filtros vazios para listar todos.'],
+    ['+ Novo', 'Para anexar um novo documento.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Download', 'Para baixar o arquivo anexado.', 'É uma consulta; não altera o registro.'],
+    ['Detalhes', 'Para consultar as informações do anexo.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados do anexo.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover o anexo (ícone X vermelho).', 'A remoção do anexo é definitiva.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Anexo de Contrato', 'Acesso à tela', 'Permite abrir a tela e consultar os anexos.'],
+    ['Cadastro e edição de anexo', 'Novo / Editar / Excluir', 'Permite anexar, alterar e excluir documentos.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Contrato** — os anexos são vinculados aos contratos cadastrados na tela Contrato.
+
+## O que a tela não faz
+
+- Não cria o contrato — apenas vincula o documento a um contrato existente (ou permite cadastrar um novo pelo "+").
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O anexo não aparece na busca', 'Filtros restritos', 'Revise "Nome" e "Palavras Chave" e clique em "Pesquisar".'],
+    ['Não consigo anexar o arquivo', 'Arquivo não selecionado ou contrato não informado', 'Escolha o arquivo e selecione o contrato antes de salvar.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para anexar e consultar os documentos vinculados aos contratos.' },
+    { question: 'Como baixo um anexo?', answer: 'Use o ícone "Download" na linha do anexo.' },
+    { question: 'Para que servem as palavras-chave?', answer: 'Facilitam a busca do anexo na pesquisa.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Anexo de Contrato.' },
+  ]}
+/>

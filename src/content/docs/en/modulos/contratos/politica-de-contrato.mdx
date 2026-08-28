@@ -1,0 +1,226 @@
+---
+section: modulos
+routeSlug: contratos/politica-de-contrato
+pageType: routine
+module: contratos
+moduleLabel: Contracts
+lang: en
+title: Contract Policy
+description: Commercial rules of the contract — classification, validity, rebate, line of business, consumption volumes, discounts and loaned items.
+routineType: Registration
+permission: Yes
+impact: Defines the commercial rules applied to the contracts
+keywords: [contract policy, policy, contract, rebate, validity, line of business, discount, loaned items, consumption volume]
+tags: [modulo-contratos, cadastro]
+order: 5
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Contract Policy** screen gathers the **commercial rules** applied to the contracts (the "packages"). Each policy has a **title**, a **classification**, a **validity**, a **rebate** and the **line of business**, plus tabs for **consumption volumes**, **discounts** and **loaned items**.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Contract rules', text: 'Defines the commercial conditions applied to the contracts.' },
+    { label: 'Use', title: 'Commercial packages', text: 'Brings rebate, discounts, volumes and loaned items together in one package.' },
+    { label: 'Caution', title: 'Validity and classification', text: 'Check the validity and the classification when registering the policy.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a contract policy (package).
+- View the policies already registered.
+- Adjust rebate, discounts, consumption volumes or loaned items of a policy.
+
+## How to access
+
+Contracts → Contract Policy
+
+## Before you start
+
+- Define the **title** and the **classification** of the contract.
+- Have the **validity (in months)**, the **rebate %** and the **line of business**.
+
+## Important differences
+
+When clicking **"+ New"**, the system offers two options:
+
+<DocTable
+  headers={['Option', 'When to use']}
+  rows={[
+    ['Contract Policy', 'Standard contract policy.'],
+    ['Course Contract Policy', 'Policy aimed at course contracts.'],
+  ]}
+/>
+
+The **"Partner Type"** filter ("Retail", "Course" or "Key Account") helps locate the policies by type.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Fields "Contract Title", "Partner Type" (Retail/Course/Key Account) and "System Status", with the buttons "Search", "+ New" and "Clear Filters".', 'Combine the filters to locate the policy.'],
+    ['Results', 'List of policies with the "Contract Title" column and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the tabs "Contract Policy", "Consumption Volumes", "Discounts" and "Contract Policy Loaned Items".', 'Use "Save and Continue" to save without closing; "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Contract Title', 'Searches the policy by title.'],
+    ['Partner Type', 'Filters by "Retail", "Course" or "Key Account".'],
+    ['System Status', 'Filters by active or inactive policies.'],
+  ]}
+/>
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Contract Title', 'Title of the policy (package).'],
+  ]}
+/>
+
+### Registration — "Contract Policy" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Contract Title', 'Title of the policy (package).'],
+    ['Contract Classification', 'Classification of the policy (e.g., "Partnership").'],
+    ['Validity in months', 'Validity period of the policy, in months.'],
+    ['Bonus burs?', 'Indicates whether there are bonus burs (Yes/No).'],
+    ['% Rebate', 'Rebate percentage of the policy.'],
+    ['Note', 'Notes about the policy.'],
+    ['Line of Business', 'Line of business of the policy (use the "+" to register a new one).'],
+    ['System Status', 'Defines whether the policy is "Active" or "Inactive".'],
+  ]}
+/>
+
+### Registration — "Consumption Volumes" tab
+
+Grid of the consumption volumes set in the policy. Each row is added with the **"+"** button and has the **Change Logs**, **Details**, **Edit** and **Delete** icons.
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Consumption Target Quantity', 'Quantity set for the consumption volume.'],
+  ]}
+/>
+
+### Registration — "Discounts" tab
+
+Grid of the discounts applied by the policy. Each row (a discount) is added with the **"+"** button and has the **Change Logs**, **Details**, **Edit** and **Delete** icons.
+
+### Registration — "Contract Policy Loaned Items" tab
+
+Grid of the loaned items (comodato) linked to the policy. Each row is added with the **"+"** button and has the **Change Logs**, **Details**, **Edit** and **Delete** icons.
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Quantity', 'Quantity of the loaned item.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the filters and click **"Search"**.
+2. **Register** — click **"+ New"**, choose "Contract Policy" or "Course Contract Policy", fill in the tabs and click **"Save"**.
+3. **Edit** — use the **Edit** icon on the row, adjust the tabs and click **"Save"**.
+4. **View details** — use the **Details** icon.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the policies.', 'Combine the filters to refine.'],
+    ['+ New', 'To register a new policy.', 'Choose "Contract Policy" or "Course Contract Policy".'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+    ['Save and Continue', 'To save the policy without closing the window.', 'Useful to fill in the other tabs.'],
+    ['Change Logs', 'To view the change history of the record.', 'It is a query; it does not change the record.'],
+    ['Details', 'To view the policy information.', 'It is read-only.'],
+    ['Edit', 'To change the policy and its tabs.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the policy (red X icon).', 'Prefer deactivating when the policy has already been used.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Contract Policy', 'Access to the screen', 'Allows opening the screen and viewing the policies.'],
+    ['Policy registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting policies.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Validity', 'The "Validity in months" delimits the period the policy is valid.', 'Fill in the validity correctly.'],
+    ['Rebate and discounts', 'The "% Rebate" and the "Discounts" tab define the commercial conditions applied.', 'Check the percentages before saving.'],
+    ['Loaned items and volumes', 'The loaned items and consumption volumes tabs complement the policy.', 'Fill in the tabs according to the agreed package.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Contract** — the policies define the commercial rules applied to the contracts.
+- **Consumption Target** — deals with the targets set in a contract (complementary to the policy volumes).
+
+## What this screen does not do
+
+- It does not sign the contract — it defines the rules (policies) that will be applied to it.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The policy does not appear in the search', 'Restrictive filters', 'Review "Contract Title", "Partner Type" and "System Status".'],
+    ['I cannot save the policy', 'Required fields blank', 'Fill in the title, the classification and the validity.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the commercial rules (policies/packages) applied to the contracts.' },
+    { question: 'What is the difference between "Contract Policy" and "Course Contract Policy"?', answer: 'The first is the standard policy; the second is aimed at course contracts. You choose when clicking "+ New".' },
+    { question: 'What goes in the Consumption Volumes, Discounts and Loaned Items tabs?', answer: 'They hold the planned volumes, the applied discounts and the loaned items of the policy.' },
+    { question: 'Can I delete a policy that has already been used?', answer: 'It is not recommended. Prefer deactivating it (the "System Status" field) to preserve the history.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Contract Policy screen documentation.' },
+  ]}
+/>

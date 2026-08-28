@@ -1,0 +1,164 @@
+---
+section: modulos
+routeSlug: contratos/periodo-de-curso
+pageType: routine
+module: contratos
+moduleLabel: Contratos
+title: Período de Curso
+description: Períodos (dia da semana e horários) das turmas de cursos vinculados a contratos.
+routineType: Cadastro
+permission: Sim
+impact: Define os horários das turmas de cursos vinculados a contratos
+keywords: [período de curso, periodo, curso, turma, dia da semana, horário, início, término]
+tags: [modulo-contratos, cadastro]
+order: 4
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Período de Curso** reúne os **períodos das turmas de curso** — ou seja, o **dia da semana** e os **horários de início e término** em que a turma acontece. Cada período está vinculado a uma **turma**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Horários da turma', text: 'Registra os dias e horários dos cursos.' },
+    { label: 'Uso', title: 'Agenda do curso', text: 'Define quando cada turma acontece.' },
+    { label: 'Cuidado', title: 'Vínculo com a turma', text: 'Selecione a turma correta ao cadastrar o período.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar o dia e o horário de uma turma de curso.
+- Consultar os períodos já cadastrados.
+- Alterar o dia ou os horários de um período.
+
+## Como acessar
+
+Contratos → Período de Curso
+
+## Antes de começar
+
+- Saiba a **turma** à qual o período pertence.
+- Defina o **dia da semana** e os **horários de início e término**.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Turma", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use "Turma" para filtrar os períodos.'],
+    ['Resultados', 'Lista dos períodos com a coluna "Início" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com o dia da semana, os horários e a turma.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Turma', 'Filtra os períodos pela turma.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Início', 'Horário de início do período.'],
+  ]}
+/>
+
+### Cadastro do período (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Dia da Semana', 'Dia em que a turma acontece.'],
+    ['Início', 'Horário de início.'],
+    ['Término', 'Horário de término.'],
+    ['Turma', 'Turma à qual o período pertence (use o "+" para cadastrar uma nova turma).'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Pesquisar** — selecione a "Turma" e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe o dia, os horários e a turma e clique em **"Salvar"**.
+3. **Editar** — use o ícone de **Editar** da linha, ajuste os campos e clique em **"Salvar"**.
+4. **Consultar detalhes** — use o ícone de **Detalhes**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os períodos.', 'Deixe "Turma" em "Todos" para listar todos.'],
+    ['+ Novo', 'Para cadastrar um novo período.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Detalhes', 'Para consultar as informações do período.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados do período.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover o período (ícone X vermelho).', 'Use com atenção.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Período de Curso', 'Acesso à tela', 'Permite abrir a tela e consultar os períodos.'],
+    ['Cadastro e edição de período', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir períodos.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Turma de Curso** — os períodos pertencem às turmas cadastradas na tela Turma de Curso (que também permite cadastrar os períodos na aba "Períodos").
+
+## O que a tela não faz
+
+- Não cadastra a turma — apenas os períodos; a turma é cadastrada na tela Turma de Curso.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O período não aparece na busca', 'Turma não selecionada corretamente', 'Revise o filtro "Turma" e clique em "Pesquisar".'],
+    ['Não consigo salvar o período', 'Campos obrigatórios em branco', 'Informe o dia, os horários e a turma.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os dias e horários (períodos) das turmas de curso.' },
+    { question: 'Posso cadastrar o período direto na turma?', answer: 'Sim. A tela Turma de Curso tem a aba "Períodos" para cadastrar os períodos da turma.' },
+    { question: 'A turma é cadastrada aqui?', answer: 'Não. A turma é cadastrada na tela Turma de Curso; aqui você cadastra os períodos.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Período de Curso.' },
+  ]}
+/>

@@ -47,6 +47,7 @@ export const tecnicoPages: TecnicoGroup[] = [
       { title: 'Romaneio', slug: 'romaneio', description: 'Fluxo de separação, etiquetagem, romaneio e coleta de remessas.' },
       { title: 'Criação de Cliente', slug: 'criacao-de-cliente', description: 'Criação, cadastro e aprovação de clientes (PF, PJ e estrangeiro).' },
       { title: 'Configuração de Produtos no Lounge', slug: 'configuracao-de-produtos-no-lounge', description: 'Parametrização de produtos por localidade e roteamento dos itens para o Lounge/Centro correto.' },
+      { title: 'Cadastro de Clientes SEM Ignition', slug: 'cadastro-clientes-sem-ignition', description: 'Cadastro e aprovação de clientes (PF, PJ e estrangeiro) pela fila SEM Ignition, com regra e etapas de aprovação.' },
     ],
   },
   { title: 'APIs', slug: 'apis', description: 'Integrações disponíveis para troca de informações com outros sistemas.', pages: [] },
@@ -622,4 +623,5 @@ export const tecnicoSubEn: Record<string, string> = {
   'fluxos/romaneio': 'Loading List (Romaneio)',
   'fluxos/criacao-de-cliente': 'Customer Creation',
   'fluxos/configuracao-de-produtos-no-lounge': 'Product Configuration in the Lounge',
+  'fluxos/cadastro-clientes-sem-ignition': 'Customer Registration WITHOUT Ignition',
 };

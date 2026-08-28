@@ -1,0 +1,168 @@
+---
+section: modulos
+routeSlug: qualidade/refugo
+pageType: routine
+module: qualidade
+moduleLabel: Qualidade
+title: Refugo
+description: Registro e consulta dos refugos, com lote, produto, status e mensagem.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Registra os refugos de produtos identificados no controle de qualidade
+keywords: [refugo, qualidade, lote, produto, status, mensagem, sku]
+tags: [modulo-qualidade, cadastro]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Refugo** registra e consulta os **refugos** — produtos separados no controle de qualidade. Cada refugo traz o **lote**, o **produto**, o **status** e uma **mensagem**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Registro de refugos', text: 'Registra os produtos refugados no controle de qualidade.' },
+    { label: 'Uso', title: 'Consulta e registro', text: 'Localiza e cadastra refugos por lote, produto e status.' },
+    { label: 'Cuidado', title: 'Status e produto', text: 'Confira o produto e o status ao registrar o refugo.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Registrar um novo refugo.
+- Consultar os refugos já registrados.
+- Alterar os dados de um refugo.
+
+## Como acessar
+
+Qualidade → Refugo
+
+## Antes de começar
+
+- Tenha o **lote** e o **produto** do item refugado.
+- Saiba o **status** a ser aplicado ao refugo.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', '"Número Refugo", "Lote", "Status", "Mensagem" e "Produto", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Combine os filtros para localizar o refugo.'],
+    ['Resultados', 'Lista dos refugos com as colunas do registro e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Formulário com os campos do refugo.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Número Refugo', 'Pesquisa pelo número do refugo.'],
+    ['Lote', 'Pesquisa pelo lote do produto.'],
+    ['Status', 'Filtra pelo status do refugo (lista "Selecione").'],
+    ['Mensagem', 'Pesquisa pela mensagem do refugo.'],
+    ['Produto', 'Filtra pelo produto (busca "Digite para pesquisar").'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Código Refugo', 'Código que identifica o refugo.'],
+    ['Lote', 'Lote do produto refugado.'],
+    ['Status', 'Status do refugo.'],
+    ['Mensagem', 'Mensagem associada ao refugo.'],
+    ['Código SKU', 'Código SKU do produto.'],
+  ]}
+/>
+
+### Cadastro do refugo (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Lote', 'Lote do produto refugado.'],
+    ['Status', 'Status do refugo (lista "Selecione").'],
+    ['Produto', 'Produto refugado (busca "Digite para pesquisar").'],
+    ['Mensagem', 'Mensagem descritiva do refugo.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Pesquisar** — informe os filtros e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, preencha os campos e clique em **"Salvar"**.
+3. **Editar** — use o ícone de **Edição** da linha, ajuste os campos e clique em **"Salvar"**.
+4. **Consultar detalhes** — use o ícone de **Detalhes** para ver as informações.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os refugos conforme os filtros.', 'Combine os filtros para refinar.'],
+    ['+ Novo', 'Para registrar um novo refugo.', 'Abre o formulário de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Detalhes', 'Para consultar as informações do refugo.', 'É somente leitura.'],
+    ['Edição', 'Para alterar os dados do refugo.', 'Clique em "Salvar" para confirmar.'],
+    ['Exclusão', 'Para remover o refugo (ícone X vermelho).', 'Confirme antes de excluir.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Refugo', 'Acesso à tela', 'Permite abrir a tela e consultar os refugos.'],
+    ['Cadastro e edição de refugo', 'Novo / Editar / Excluir', 'Permite registrar, alterar e excluir refugos.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não realiza a análise de qualidade — isso é feito na tela Análise de Qualidade.
+- Não cadastra os produtos — eles vêm do cadastro de Produto.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O refugo não aparece na busca', 'Filtros restritos', 'Revise os filtros e clique em "Pesquisar".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para registrar e consultar os refugos de produtos identificados no controle de qualidade.' },
+    { question: 'Como registro um refugo?', answer: 'Clique em "+ Novo", informe o lote, o status, o produto e a mensagem, e clique em "Salvar".' },
+    { question: 'Qual a diferença entre Refugo e Análise de Qualidade?', answer: 'O Refugo registra os itens refugados; a Análise de Qualidade processa e classifica os produtos analisados.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '27/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '27/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Refugo.' },
+  ]}
+/>

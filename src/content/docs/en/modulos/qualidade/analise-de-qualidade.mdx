@@ -1,0 +1,223 @@
+---
+section: modulos
+routeSlug: qualidade/analise-de-qualidade
+pageType: routine
+module: qualidade
+moduleLabel: Quality
+lang: en
+title: Quality Analysis
+description: Registration and tracking of quality analyses, with product scanning, classification (sellable/scrap) and transfer with status.
+routineType: Lookup and process
+permission: Yes
+impact: Processes and classifies the products analyzed in quality control
+keywords: [quality analysis, quality, scanning, datamatrix, sellable, scrap, processed products, material document, transfer]
+tags: [modulo-qualidade, processo]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Quality Analysis** screen drives the **product analysis process** in quality control. From a material document, the products are **scanned**, **classified** as "Vendável" (sellable) or "Sucata" (scrap) and **transferred**, with the result tracked by status (Product, SAP and Deluge).
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Product analysis', text: 'Processes and classifies the products analyzed in quality control.' },
+    { label: 'Usage', title: 'Scanning and classification', text: 'Reads the products, classifies as sellable or scrap and transfers.' },
+    { label: 'Caution', title: 'Check the status', text: 'Track the Product, SAP and Deluge statuses after the transfer.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Look up the quality analyses already registered.
+- Scan and classify the products of an analysis.
+- Track the transfer status of the processed products.
+
+## How to access
+
+Quality → Quality Analysis
+
+## Before you start
+
+- Have the **material document** and the products to analyze.
+- Gather the products with **DataMatrix** for scanning.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', '"Analysis Number", "Material Document", "User", "Creation Date From" and "Creation Date To", with the "Search", "+ New Image" and "Clear Filters" buttons.', 'Combine the filters to find the analysis.'],
+    ['Results', 'List of analyses with the number, date, user and document columns and, in each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Detail (2 tabs)', '"Quality Analysis Data" tab (data, product entry and processed products) and "Transfer Log" tab.', 'The product analysis is done in the "Quality Analysis Data" tab.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Analysis Number', 'Searches by the analysis number.'],
+    ['Material Document', 'Searches by the material document.'],
+    ['User', 'Filters by the user (the "Type to search" field).'],
+    ['Creation Date From / To', 'Analysis creation period.'],
+  ]}
+/>
+
+### Results columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Analysis Number', 'Number that identifies the analysis.'],
+    ['Creation Date', 'Analysis creation date.'],
+    ['Creation User', 'User who created the analysis.'],
+    ['Material Document', 'Material document linked to the analysis.'],
+  ]}
+/>
+
+### Detail — Quality Analysis Data
+
+<DocTable
+  headers={['Field', 'What it shows']}
+  rows={[
+    ['Analysis Number', 'Analysis number.'],
+    ['Material Document', 'Material document of the analysis.'],
+    ['Creation Date', 'Creation date.'],
+    ['Creation User', 'User who created the analysis.'],
+    ['Notes', 'Analysis notes.'],
+  ]}
+/>
+
+### Detail — Product Entry
+
+<DocTable
+  headers={['Element', 'What it is for']}
+  rows={[
+    ['Sellable / Scrap', 'Defines the classification of the read products.'],
+    ['Reading (Scanning / Copy and Paste)', 'Informs the products by DataMatrix reading or code pasting.'],
+    ['Bulk reading simulation', 'Allows attaching a text file with one DataMatrix per line ("Choose file").'],
+  ]}
+/>
+
+### Detail — Processed Products
+
+Table of the read items (with the total quantity):
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Code', 'Product code.'],
+    ['Description', 'Product description.'],
+    ['Product Address', 'Product address (location).'],
+    ['Lot', 'Product lot.'],
+    ['Serial', 'Product serial.'],
+    ['Product Status', 'Product classification (e.g., "Vendável"/sellable).'],
+    ['SAP Status', 'Status of the SAP integration (e.g., "Sucesso"/success).'],
+    ['Deluge Status', 'Status of the Deluge integration (e.g., "Sucesso"/success).'],
+    ['Note', 'Item note.'],
+    ['Creation Date', 'Item creation date.'],
+    ['Validity Date', 'Product validity date.'],
+  ]}
+/>
+
+<Callout type="info" title="Transfer Log tab">
+The "Transfer Log" tab gathers the history of the transfer of the processed products.
+</Callout>
+
+## Main flows
+
+1. **Search** — enter the filters and click **"Search"**.
+2. **Open the analysis** — use the row's **Details** (or **Edit**) icon.
+3. **Classify and scan** — in "Product Entry", choose "Sellable" or "Scrap" and inform the products by Scanning, Copy and Paste or file.
+4. **Track** — see the items in "Processed Products" with the Product, SAP and Deluge statuses.
+5. **Reprocess** — use **"Reprocessar Produtos"** (Reprocess Products) when needed; **"Save"** keeps the progress.
+
+<Callout type="cuidado" title="Check before transferring">
+Transferring the products produces effects (SAP/Deluge integration). Check the items and the classification first.
+</Callout>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the analyses by the filters.', 'Combine period and user to refine.'],
+    ['+ New Image', 'To start a new analysis from an image.', 'Opens the image inclusion.'],
+    ['Clear Filters', 'To reset the filters and redo the search.', '—'],
+    ['Details', 'To look up the analysis data.', 'It is read-only.'],
+    ['Edit', 'To scan, classify and process the products.', 'Check the items before saving.'],
+    ['Reprocess Products', 'To reprocess the products of the analysis.', 'Use when there is a failure or adjustment.'],
+    ['Save', 'To keep the progress of the analysis.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Quality Analysis', 'Access to the screen', 'Allows opening the screen and looking up the analyses.'],
+    ['Analysis processing', 'Scanning / Classification / Transfer', 'Allows scanning, classifying and transferring the products.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Sellable/Scrap classification', 'Defines the destination of the read products.', 'Choose the classification before scanning.'],
+    ['DataMatrix scanning', 'The products are informed by DataMatrix reading, pasting or file.', 'The number of read items is shown in the block.'],
+    ['Integration status', 'Each item shows the Product, SAP and Deluge statuses.', 'Track the statuses after the transfer.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- Does not register the products — they come from the Product registration.
+- Does not register standalone scrap — that is done on the Scrap screen.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The item is not accepted in scanning', 'Unreadable DataMatrix or item not found', 'Check the DataMatrix and try "Copy and Paste" or file.'],
+    ['The status failed', 'Integration failure (SAP/Deluge)', 'Use "Reprocess Products" and check the statuses.'],
+    ['The analysis does not appear in the search', 'Restrictive filters', 'Review the filters and the period, and click "Search".'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To analyze the products in quality control: scan, classify as sellable or scrap and transfer, tracking the statuses.' },
+    { question: 'How do I classify the products?', answer: 'In "Product Entry", choose "Sellable" or "Scrap" before scanning the items.' },
+    { question: 'What do the Product, SAP and Deluge statuses mean?', answer: 'They are the item and integration statuses after the transfer (e.g., "Success").' },
+    { question: 'What does "Reprocess Products" do?', answer: 'It reprocesses the products of the analysis, useful when there is a failure or adjustment.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '27/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '27/08/2026', author: 'Renan Camargo', description: 'Initial release of the Quality Analysis screen documentation.' },
+  ]}
+/>

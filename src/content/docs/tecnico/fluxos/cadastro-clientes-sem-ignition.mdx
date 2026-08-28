@@ -1,0 +1,234 @@
+---
+section: tecnico
+routeSlug: fluxos/cadastro-clientes-sem-ignition
+pageType: tecnico
+title: Cadastro de Clientes SEM Ignition
+description: Processo de cadastro e aprovação de clientes (PF, PJ e estrangeiro) pela fila SEM Ignition, da preparação da regra de aprovação até a ativação e a geração do código SAP.
+moduleLabel: Módulo Cliente
+routineType: Fluxo de processo
+impact: Cadastro e aprovação de clientes pela fila SEM Ignition
+keywords: [cadastro de cliente, sem ignition, aprovação, regra de aprovação, etapa de aprovação, adm vendas, crédito, fiscal, comex, sub-status, código sap, pessoa física, pessoa jurídica, estrangeiro]
+tags: [tecnico, fluxo, cliente]
+order: 4
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+O fluxo de **Cadastro de Clientes SEM Ignition** descreve, de forma simples e passo a passo, como cadastrar e aprovar um novo cliente utilizando a **fila SEM Ignition** — um caminho mais rápido e direto de aprovação. Vale para os tipos **Pessoa Física (PF)**, **Pessoa Jurídica (PJ)** e **Estrangeiro**.
+
+Sempre que um cliente novo é cadastrado, ele passa por um **fluxo de aprovações** antes de ficar ativo. Esse fluxo garante que o cadastro seja revisado e liberado corretamente, e o caminho muda um pouco conforme o tipo de cliente. O processo tem duas partes: a **preparação do sistema** (feita uma única vez pelo administrador) e o **cadastro e aprovação do cliente** (uso do dia a dia).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro pela fila sem Ignition', text: 'Padroniza a criação e a aprovação de clientes PF, PJ e estrangeiro pelo caminho mais simples (Ignition desativado).' },
+    { label: 'Uso', title: 'Preparação e dia a dia', text: 'O administrador prepara a regra de aprovação uma vez; os usuários cadastram e enviam os clientes no dia a dia.' },
+    { label: 'Cuidado', title: 'Regra e etapas', text: 'As aprovações seguem exatamente a Regra de Aprovação configurada e as etapas aplicáveis a cada tipo de pessoa.' },
+  ]}
+/>
+
+## Quando usar este fluxo
+
+- Cadastrar um novo cliente (PF, PJ ou estrangeiro) pela fila SEM Ignition.
+- Preparar a regra e as etapas de aprovação usadas por esse fluxo.
+- Enviar um cliente recém-cadastrado para as etapas de aprovação.
+- Acompanhar o status e o sub-status do ciclo de aprovação até a ativação e a geração do código SAP.
+
+## Como acessar
+
+- Módulo Administrador → Controle de Funcionalidade (preparação)
+- Módulo Aprovações → Regra de Aprovação (preparação)
+- Módulo Clientes → Cliente (cadastro do dia a dia)
+
+## Glossário rápido
+
+<DocTable
+  headers={['Termo', 'O que significa']}
+  rows={[
+    ['Ignition', 'Um tipo de fila de aprovação. Neste processo ela fica desativada, o que torna o caminho mais rápido e simples.'],
+    ['Regra de Aprovação', 'Configuração que define quem precisa aprovar o cadastro e em qual ordem.'],
+    ['Etapa de Aprovação', 'Cada passo dentro da regra (ex.: "Aprovação ADM Vendas" ou "Aprovação Crédito").'],
+    ['Tipo de Pessoa', 'Classificação do cliente (Física, Jurídica ou Estrangeiro). Define quais etapas de aprovação serão aplicadas.'],
+    ['Comex', 'Área responsável por operações com clientes estrangeiros (Crédito Comex e Fiscal Comex).'],
+    ['Sub-status do ciclo de aprovação', 'Informação que mostra em que ponto da aprovação o cadastro está no momento.'],
+    ['Código SAP', 'Código único gerado automaticamente pelo sistema quando o cadastro do cliente é ativado.'],
+  ]}
+/>
+
+## As etapas do processo
+
+<DocTable
+  headers={['Etapa', 'O que acontece']}
+  rows={[
+    ['Preparação 1', 'Definir que a fila NÃO usa Ignition (Controle de Funcionalidade).'],
+    ['Preparação 2', 'Configurar a Regra de Aprovação (nome, entidade e modo de execução).'],
+    ['Preparação 3', 'Cadastrar as etapas de aprovação (grupo, ordem e tipos de pessoa).'],
+    ['1. Novo cliente', 'Abrir o cadastro de um novo cliente.'],
+    ['2. Tipo e documento', 'Selecionar o tipo de pessoa e o tipo de cadastro e informar o documento.'],
+    ['3. Dados do cliente', 'Preencher os dados (com preenchimento automático quando já existir cadastro).'],
+    ['4. Salvar e enviar', 'Salvar e enviar o cliente para o fluxo de aprovação.'],
+    ['5. Status', 'Acompanhar o status e o sub-status do ciclo de aprovação.'],
+    ['6. Ativação e SAP', 'Ativação automática do cadastro e geração do código SAP.'],
+  ]}
+/>
+
+## Antes de começar
+
+- Confirme com o administrador que a **regra de aprovação** e as **etapas** já estão configuradas.
+- Saiba o **tipo de pessoa** (Física, Jurídica ou Estrangeiro) e o **tipo de cadastro** do cliente.
+- Tenha o **documento** do cliente (CPF ou CNPJ, quando aplicável) — é obrigatório.
+
+## Parte 1 — Preparação do sistema (feita pelo administrador)
+
+Estes passos normalmente já estarão configurados. Eles só precisam ser feitos uma vez, antes de começar a cadastrar clientes.
+
+### Passo 1 — Definir se a fila usa Ignition
+
+No módulo **Administrador**, tela **Controle de Funcionalidade**, é possível ativar ou desativar o uso da fila Ignition. Para este processo, a opção deve ficar **ATIVA para que a fila do Ignition NÃO seja usada** — ou seja, o cadastro segue pelo caminho mais simples e rápido.
+
+### Passo 2 — Configurar a Regra de Aprovação
+
+No módulo **Aprovações**, tela **Regra de Aprovação**, defina o **nome da regra**, a **entidade de aprovação** e o **modo de execução**:
+
+<DocTable
+  headers={['Modo de execução', 'O que significa']}
+  rows={[
+    ['Paralelo', 'Não existe ordem entre os aprovadores.'],
+    ['Sequencial', 'A aprovação segue a ordem cadastrada.'],
+  ]}
+/>
+
+### Passo 3 — Cadastrar as etapas de aprovação
+
+Dentro da regra criada, clique em **"Nova etapa de aprovação"** (ou edite uma existente). Preencha o **grupo responsável**, a **ordem** e os **tipos de pessoa aplicáveis**, deixando a etapa **ATIVA** para que funcione no processo.
+
+## Parte 2 — Cadastro e aprovação do cliente (uso do dia a dia)
+
+Com o sistema já preparado, este é o caminho a seguir sempre que um novo cliente precisar ser cadastrado.
+
+### Passo 1 — Abrir o cadastro de novo cliente
+
+Acesse o módulo **Clientes**, tela **Cliente**, e clique no botão **"+ Novo Cliente"**.
+
+### Passo 2 — Selecionar o tipo de cliente e informar o documento
+
+Escolha o **tipo de pessoa** (Física, Jurídica ou Estrangeiro) e o **tipo de cadastro**. Informe o **documento** (CPF ou CNPJ, quando aplicável), que é obrigatório, e clique em **"Avançar"**.
+
+### Passo 3 — Preencher os dados do cliente
+
+O sistema abre a tela de cadastro. Se já existirem dados registrados para aquele documento, o sistema preenche automaticamente (função **"verify"**). Caso contrário, preencha manualmente todos os campos obrigatórios.
+
+### Passo 4 — Salvar e enviar o cliente
+
+Depois de preencher tudo, clique em **"Salvar e continuar"**. O botão **"Enviar cliente"** será exibido — clique nele para enviar o cadastro para o fluxo de aprovação.
+
+### Passo 5 — Consultar o status do cadastro
+
+Procure o cliente na **lista de clientes** para acompanhar o cadastro. É possível filtrar por **Tipo de Pessoa** (Física, Jurídica ou Estrangeiro) e ver o **status do cadastro**, a **data da atualização mais recente** e o **sub-status do ciclo de aprovação**.
+
+## Diferenças de aprovação por tipo de cliente
+
+As aprovações seguem exatamente o que foi configurado na **Regra de Aprovação**. Hoje, a regra está montada assim:
+
+<DocTable
+  headers={['Ordem', 'Etapa', 'Grupo responsável', 'Aplicável a', 'Status']}
+  rows={[
+    ['1', 'Aprovação ADM Vendas', 'ADM de Vendas', 'Física, Jurídica', 'Ativo'],
+    ['2', 'Aprovação Crédito', 'Crédito', 'Física, Jurídica', 'Ativo'],
+    ['3', 'Aprovação Fiscal', 'Fiscal', 'Jurídica', 'Ativo'],
+    ['4', 'Aprovação Crédito Comex', 'Crédito Comex', 'Estrangeiro', 'Ativo'],
+    ['5', 'Aprovação Fiscal Comex', 'Fiscal', 'Estrangeiro', 'Ativo'],
+  ]}
+/>
+
+Na prática, cada tipo de cliente segue um caminho um pouco diferente até ser ativado:
+
+<DocTable
+  headers={['Tipo de cliente', 'Caminho de aprovação']}
+  rows={[
+    ['Pessoa Física', 'Aprovação ADM Vendas → Aprovação Crédito.'],
+    ['Pessoa Jurídica', 'Aprovação ADM Vendas → Aprovação Crédito → Aprovação Fiscal (uma etapa a mais que a PF).'],
+    ['Estrangeiro', 'Aprovação Crédito Comex → Aprovação Fiscal Comex.'],
+  ]}
+/>
+
+<Callout type="info" title="A regra manda no fluxo">
+O caminho de aprovação de cada tipo de pessoa vem da Regra de Aprovação. Se as etapas ou a ordem mudarem na regra, o fluxo muda junto — sempre confira a configuração atual.
+</Callout>
+
+## Ativação final do cadastro
+
+Depois de alguns segundos ou minutos, o sistema **ativa o cadastro automaticamente**, independentemente do tipo de cliente. Nesse momento é possível ver a **atualização mais recente** e o **Código SAP**, gerado pelo próprio sistema para identificar aquele cliente. A partir daí, o processo está concluído e o cliente já está pronto para uso.
+
+## Resumo rápido
+
+1. Preparar a fila sem Ignition e configurar a regra de aprovação (uma única vez).
+2. Cadastrar o novo cliente com os dados obrigatórios, informando o tipo de pessoa correto.
+3. Enviar o cliente para aprovação.
+4. Acompanhar o status na listagem de clientes.
+5. Aguardar as aprovações conforme o tipo de cliente (Física, Jurídica ou Estrangeiro).
+6. Conferir a ativação final e o Código SAP gerado.
+
+## Regras e cuidados
+
+- A opção do **Ignition** deve estar configurada para que a fila do Ignition **não** seja usada neste fluxo.
+- As aprovações seguem a **Regra de Aprovação**: o modo (Paralelo/Sequencial), as etapas ativas e os tipos de pessoa aplicáveis determinam o caminho.
+- O **documento** (CPF/CNPJ) é obrigatório no início do cadastro.
+- O botão **"Enviar cliente"** aparece após **"Salvar e continuar"**.
+- O **Código SAP** só é gerado quando o cadastro é ativado.
+
+## Responsabilidades
+
+<DocTable
+  headers={['Perfil', 'Acesso', 'Responsabilidade']}
+  rows={[
+    ['Administrador', 'Preparação', 'Configura o Controle de Funcionalidade, a Regra de Aprovação e as etapas.'],
+    ['Usuário de cadastro', 'Módulo Clientes', 'Cria e envia os clientes para aprovação.'],
+    ['ADM de Vendas', 'Etapa de aprovação', 'Aprovação ADM Vendas (PF e PJ).'],
+    ['Crédito', 'Etapa de aprovação', 'Aprovação de crédito (PF e PJ).'],
+    ['Fiscal', 'Etapa de aprovação', 'Aprovação fiscal (PJ e estrangeiro).'],
+    ['Crédito Comex', 'Etapa de aprovação', 'Aprovação de crédito internacional (estrangeiro).'],
+  ]}
+/>
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O cadastro está seguindo pelo Ignition', 'Controle de Funcionalidade configurado incorretamente', 'Confirme com o administrador que a opção está ajustada para NÃO usar a fila do Ignition.'],
+    ['O botão "Enviar cliente" não aparece', 'Cadastro ainda não salvo', 'Clique em "Salvar e continuar" com os campos obrigatórios preenchidos.'],
+    ['O cliente não avança nas aprovações', 'Etapas inativas ou tipo de pessoa não aplicável', 'Revise as etapas e os tipos de pessoa na Regra de Aprovação.'],
+    ['O cliente não gerou código SAP', 'Cadastro ainda não ativado', 'Aguarde a ativação automática; o código SAP é gerado nesse momento.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'O que significa "SEM Ignition"?', answer: 'Significa que a fila do Ignition está desativada para este processo, deixando o caminho de aprovação mais rápido e simples.' },
+    { question: 'Quem define o caminho de aprovação?', answer: 'A Regra de Aprovação, configurada no módulo Aprovações. As etapas ativas e os tipos de pessoa aplicáveis determinam o caminho.' },
+    { question: 'Qual a diferença entre PF, PJ e Estrangeiro?', answer: 'PF passa por ADM Vendas e Crédito; PJ passa por ADM Vendas, Crédito e Fiscal; Estrangeiro passa por Crédito Comex e Fiscal Comex.' },
+    { question: 'O que é o sub-status do ciclo de aprovação?', answer: 'É a informação que mostra em que ponto da aprovação o cadastro está no momento.' },
+    { question: 'Quando o código SAP é gerado?', answer: 'Automaticamente, quando o sistema ativa o cadastro do cliente.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial do fluxo de cadastro de clientes pela fila SEM Ignition.' },
+  ]}
+/>

@@ -1,0 +1,142 @@
+---
+section: modulos
+routeSlug: autenticador/perfil
+pageType: routine
+module: autenticador
+moduleLabel: Authenticator
+lang: en
+title: Profile
+description: Registration of access profiles, which group permission groups assigned to users.
+routineType: Registration
+permission: Yes
+impact: Defines the access profiles assigned to users
+keywords: [profile, permissions, group, access, authenticator, user]
+tags: [modulo-autenticador, cadastro]
+order: 4
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Profile** screen gathers the registration of the **access profiles** (e.g., "Administrator", "FVE Consultant", "Coordinator"). Each profile has a **title** and groups one or more permission **groups**, which define what the user can access in the system.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Profile registration', text: 'Groups permission groups into an access profile.' },
+    { label: 'Use', title: 'Access control', text: 'Profiles are assigned to users to define what they access.' },
+    { label: 'Caution', title: 'Correct groups', text: 'Associate the groups that match the profile permissions.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new access profile.
+- Check the profiles already registered.
+- Change the groups associated with a profile.
+
+## How to access
+
+Authenticator → Profile
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Field "Title", with the buttons "Search", "+ New" and "Clear Filters".', 'Use "Title" to locate the profile.'],
+    ['Results', 'List of profiles with the "Title" column and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the profile title and groups.', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Title', 'Title of the access profile.'],
+  ]}
+/>
+
+### Profile registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Title', 'Profile title.'],
+    ['Groups', 'Permission groups associated with the profile (use the "+" to register a new group).'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the profiles.', 'Leave the filter empty to list all.'],
+    ['+ New', 'To register a new profile.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+    ['Details', 'To view the profile information.', 'It is read-only.'],
+    ['Edit', 'To change the profile data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the profile (red X icon).', 'Use with care; profiles in use should not be deleted.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Profile', 'Access to the screen', 'Allows opening the screen and viewing the profiles.'],
+    ['Profile registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting profiles.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Group** — profiles group the permission groups.
+- **User** — the profile is assigned to the user to define their access.
+
+## What this screen does not do
+
+- It does not register the users — only the profiles; users are registered on the User screen.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The user does not have the expected access', 'Incorrect profile groups', 'Review the groups associated with the profile.'],
+    ['The profile does not appear in the search', 'Restrictive filter', 'Review the "Title" field and click "Search".'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the access profiles, which group permission groups assigned to users.' },
+    { question: 'What is the difference between profile and group?', answer: 'The group gathers specific permissions; the profile gathers one or more groups and is assigned to the user.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Profile screen documentation.' },
+  ]}
+/>

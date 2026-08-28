@@ -1,0 +1,162 @@
+---
+section: modulos
+routeSlug: ocorrencias/pesquisas
+pageType: routine
+module: ocorrencias
+moduleLabel: Occurrences
+lang: en
+title: Surveys
+description: Survey (questionnaire) builder with sections and questions, activation control and answer query.
+routineType: Registration
+permission: Yes
+impact: Creates the surveys and questionnaires used in relationship and feedback
+keywords: [surveys, survey, questionnaire, section, answers, slug, active, pfcq occurrence]
+tags: [modulo-ocorrencias, cadastro]
+order: 2
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Surveys** screen is a **survey (questionnaire) builder**. Each survey has a **title**, a **slug** (unique identifier generated from the title) and the **Active** flag, plus **sections** that organize the questions. The screen also lets you check the **answers** and, from an answer, **generate a PFCQ Occurrence**.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Survey creation', text: 'Builds questionnaires with sections and questions.' },
+    { label: 'Use', title: 'Feedback and satisfaction', text: 'Collects answers that can generate occurrences for handling.' },
+    { label: 'Caution', title: 'Unique slug', text: 'The slug is unique and generated from the title; adjust it with care.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Create a new survey (questionnaire).
+- Add sections and questions to a survey.
+- Check the answers of a survey.
+- Generate a PFCQ Occurrence from an answer.
+
+## How to access
+
+Occurrences → Surveys
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Field "Title", with the buttons "Search", "+ New" and "Clear Filters".', 'Use "Title" to locate the survey.'],
+    ['Results', 'List of surveys with the "Title", "Slug", "Active" and "Creation Date" columns and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Screen with the tabs "Surveys" (data and sections) and "Answers".', 'Use "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Title', 'Survey title.'],
+    ['Slug', 'Unique identifier of the survey.'],
+    ['Active', 'Indicates whether the survey is active.'],
+    ['Creation Date', 'Creation date of the survey.'],
+  ]}
+/>
+
+### Registration — "Surveys" tab
+
+<DocTable
+  headers={['Field / Area', 'What it is for']}
+  rows={[
+    ['Title', 'Survey title.'],
+    ['Slug', 'Unique identifier, generated from the title (can be adjusted).'],
+    ['Active', 'Defines whether the survey is active.'],
+    ['Sections', 'Area to build the sections and questions of the survey. Use "+ New section" to start.'],
+  ]}
+/>
+
+### Registration — "Answers" tab
+
+Shows the **answers** received for the survey.
+
+## Main flows
+
+1. **Create** — click **"+ New"**, enter the "Title", adjust the "Slug" and mark "Active".
+2. **Build** — in "Sections", click **"+ New section"** and add the questions.
+3. **Save** — click **"Save"**.
+4. **Check answers** — open the **"Answers"** tab.
+5. **Generate occurrence** — use the **"Generate PFCQ Occurrence"** button to open an occurrence from the survey/answer.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the surveys.', 'Leave the filter empty to list all.'],
+    ['+ New', 'To create a new survey.', 'Opens the registration screen.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+    ['+ New section', 'To add a section to the survey.', 'Available in the "Sections" area.'],
+    ['Generate PFCQ Occurrence', 'To open an occurrence from the survey.', 'Sends the case for handling on the PFCQ Occurrences screen.'],
+    ['Details', 'To view the survey.', 'It is read-only.'],
+    ['Edit', 'To change the survey and its sections.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the survey (red X icon).', 'Use with care.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Surveys', 'Access to the screen', 'Allows opening the screen and viewing the surveys.'],
+    ['Survey registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting surveys.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **PFCQ Occurrences** — the "Generate PFCQ Occurrence" button creates an occurrence from the survey.
+
+## What this screen does not do
+
+- It does not handle the occurrence — it only generates it; handling happens on the PFCQ Occurrences screen.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The survey is not available', '"Active" flag unchecked', 'Check whether the survey is active.'],
+    ['I cannot save the survey', 'Title/slug blank or no sections', 'Enter the title and build at least one section.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To create surveys (questionnaires) with sections and questions, check the answers and generate occurrences from them.' },
+    { question: 'What is the "Slug"?', answer: 'It is the unique identifier of the survey, generated from the title; it can be adjusted.' },
+    { question: 'What does the "Generate PFCQ Occurrence" button do?', answer: 'It opens an occurrence on the PFCQ Occurrences screen from the survey/answer.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Surveys screen documentation.' },
+  ]}
+/>

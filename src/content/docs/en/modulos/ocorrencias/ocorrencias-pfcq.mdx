@@ -1,0 +1,210 @@
+---
+section: modulos
+routeSlug: ocorrencias/ocorrencias-pfcq
+pageType: routine
+module: ocorrencias
+moduleLabel: Occurrences
+lang: en
+title: PFCQ Occurrences
+description: Recording and tracking of PFCQ occurrences, with customer data, products, attachments, activities and status flow.
+routineType: Registration
+permission: Yes
+impact: Records and tracks occurrences related to product, supplier, customer or quality
+keywords: [pfcq occurrences, occurrence, pfcq, capa, ticket, customer, product, attachment, activity, status flow, lounge]
+tags: [modulo-ocorrencias, cadastro]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **PFCQ Occurrences** screen gathers the recording and tracking of **occurrences** (related to product, supplier, customer or quality). Each occurrence stores the **customer data**, the **products** involved, the **attachments**, the **activities** and a **status flow** that tracks the progress. Occurrences can be linked to a **CAPA Number** and a **Ticket Number**.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Occurrence recording', text: 'Records and tracks PFCQ occurrences.' },
+    { label: 'Use', title: 'Handling and history', text: 'Gathers data, products, attachments, activities and the status flow.' },
+    { label: 'Caution', title: 'Customer and status', text: 'Check the linked customer and track the status flow.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Record a new occurrence.
+- View and track open occurrences.
+- Track the status flow and activities of an occurrence.
+
+## How to access
+
+Occurrences → PFCQ Occurrences
+
+## Before you start
+
+- Know the **customer** related to the occurrence.
+- Have, when available, the **CAPA Number** and the **Ticket Number**.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Fields "Occurrence Number", "Start Date", "End Date", "Status", "CAPA Number", "Customer", "FVE Consultant", "Occurrence cancelled?" and "Lounge", with the buttons "Search", "+ New" and "Clear Filters". There is the "Export Excel" button.', 'Combine the filters to locate the occurrence.'],
+    ['Results', 'List of occurrences with the record columns and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the tabs "Occurrences", "Occurrence Products", "Occurrence Attachments" and "Activities".', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Occurrence Number', 'Searches the occurrence by number.'],
+    ['Start Date / End Date', 'Filters by the occurrence period.'],
+    ['Status', 'Filters by the occurrence status.'],
+    ['CAPA Number', 'Filters by the CAPA number.'],
+    ['Customer', 'Filters by the related customer.'],
+    ['FVE Consultant', 'Filters by the responsible consultant.'],
+    ['Occurrence cancelled?', 'Filters the cancelled occurrences.'],
+    ['Lounge', 'Filters by Lounge.'],
+  ]}
+/>
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Occurrence Number', 'Occurrence number.'],
+    ['Customer Code', 'Code of the related customer.'],
+    ['Customer', 'Customer name.'],
+    ['Status', 'Current status of the occurrence.'],
+    ['Occurrence Date', 'Date the occurrence was recorded.'],
+    ['Last Change Date', 'Date and time of the last change.'],
+    ['Due Date', 'Due date of the occurrence.'],
+    ['Name', 'Name related to the occurrence.'],
+    ['Most Recent Activity', 'Last recorded activity.'],
+    ['Lounge', 'Related Lounge.'],
+    ['CAPA Number', 'Linked CAPA number.'],
+  ]}
+/>
+
+### Registration — "Occurrences" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['CAPA Number', 'CAPA number linked to the occurrence.'],
+    ['Ticket Number', 'Related ticket number.'],
+    ['Customer', 'Customer related to the occurrence.'],
+    ['Document (Tax ID)', 'Customer document.'],
+    ['Credential Number', 'Customer credential number.'],
+    ['Main E-mail', 'Customer main e-mail.'],
+    ['Main Phone', 'Customer main phone.'],
+    ['Address / Neighborhood / City / State / Country / Zip Code', 'Customer address data.'],
+    ['Lounge', 'Related Lounge.'],
+    ['FVE Consultant', 'Responsible consultant.'],
+    ['Notes', 'Notes about the occurrence.'],
+  ]}
+/>
+
+Still on the "Occurrences" tab, the **"Status Flow"** area shows the status history of the occurrence.
+
+### Registration — other tabs
+
+<DocTable
+  headers={['Tab', 'What it is for']}
+  rows={[
+    ['Occurrence Products', 'Registers the products involved in the occurrence.'],
+    ['Occurrence Attachments', 'Attaches documents to the occurrence.'],
+    ['Activities', 'Registers the activities (progress) of the occurrence.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the filters and click **"Search"**.
+2. **Record** — click **"+ New"**, fill in the data, the products and the activities and click **"Save"**.
+3. **Track** — open the occurrence and check the "Status Flow" and the "Activities".
+4. **Edit** — use the **Edit** icon on the row, adjust the tabs and click **"Save"**.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the occurrences.', 'Combine the filters to refine.'],
+    ['+ New', 'To record a new occurrence.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+    ['Export Excel', 'To export the occurrences.', 'Generates a file with the data.'],
+    ['Details', 'To view the occurrence information.', 'It is read-only.'],
+    ['Edit', 'To change the occurrence and its tabs.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the occurrence (red X icon).', 'Use with care.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['PFCQ Occurrences', 'Access to the screen', 'Allows opening the screen and viewing the occurrences.'],
+    ['Occurrence registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting occurrences.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Status flow', 'The occurrence status advances as it is handled.', 'Track the "Status Flow" to know the current stage.'],
+    ['Due date', 'The occurrence has a due date.', 'Watch the deadline for handling.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Incidence Type** — classifies the recorded occurrences.
+- **Customer** — the occurrence is linked to a customer.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The occurrence does not appear in the search', 'Restrictive filters or cancelled occurrence', 'Review the filters and the "Occurrence cancelled?" field.'],
+    ['I cannot save the occurrence', 'Required fields blank', 'Fill in the required occurrence data.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To record and track PFCQ occurrences, with customer data, products, attachments, activities and status flow.' },
+    { question: 'What is the CAPA Number?', answer: 'It is a number that can be linked to the occurrence to relate it to a corresponding action/plan.' },
+    { question: 'Where do I track the occurrence progress?', answer: 'In the "Status Flow" and in the "Activities" tab of the occurrence.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the PFCQ Occurrences screen documentation.' },
+  ]}
+/>

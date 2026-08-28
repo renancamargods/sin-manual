@@ -1,0 +1,140 @@
+---
+section: modulos
+routeSlug: ocorrencias/tipo-incidencia
+pageType: routine
+module: ocorrencias
+moduleLabel: Occurrences
+lang: en
+title: Incidence Type
+description: Registration of the incidence types used to classify occurrences, with grounds for non-validity and other information.
+routineType: Registration
+permission: Yes
+impact: Classifies occurrences by incidence type
+keywords: [incidence type, incidence, classification, occurrence, non-validity, grounds]
+tags: [modulo-ocorrencias, cadastro]
+order: 4
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Incidence Type** screen gathers the registration of the **incidence types** used to **classify occurrences**. Each type has a description, a **grounds for non-validity** and an **other information** field.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Type registration', text: 'Classifies occurrences by incidence type.' },
+    { label: 'Use', title: 'Standardization', text: 'Standardizes the classification used in occurrences.' },
+    { label: 'Caution', title: 'Grounds', text: 'Fill in the grounds for non-validity when applicable.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new incidence type.
+- Check the types already registered.
+- Adjust the grounds or the information of a type.
+
+## How to access
+
+Occurrences → Incidence Type
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Fields "Incidence Type", "Grounds for Non-Validity" and "Other information", with the buttons "Search", "+ New" and "Clear Filters".', 'Combine the filters to locate the type.'],
+    ['Results', 'List of types with the "Incidence Type", "Grounds for Non-Validity", "Other information" and "Incidence Registration Date" columns and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the incidence type fields.', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Incidence Type', 'Name/description of the incidence type.'],
+    ['Grounds for Non-Validity', 'Grounds used when the occurrence is not valid.'],
+    ['Other information', 'Additional information.'],
+    ['Incidence Registration Date', 'Registration date of the type.'],
+  ]}
+/>
+
+### Type registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Incidence Type', 'Name/description of the incidence type.'],
+    ['Grounds for Non-Validity', 'Grounds used when the occurrence is not valid.'],
+    ['Other information', 'Additional information.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the incidence types.', 'Leave the filters empty to list all.'],
+    ['+ New', 'To register a new type.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+    ['Details', 'To view the type information.', 'It is read-only.'],
+    ['Edit', 'To change the type data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the type (red X icon).', 'Prefer not to delete types already used in occurrences.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Incidence Type', 'Access to the screen', 'Allows opening the screen and viewing the types.'],
+    ['Incidence type registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting types.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **PFCQ Occurrences** — the incidence types classify the recorded occurrences.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The type does not appear in the search', 'Restrictive filters', 'Review the filters and click "Search".'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the incidence types used to classify occurrences.' },
+    { question: 'What is the "Grounds for Non-Validity"?', answer: 'It is the grounds used when the occurrence is considered not valid.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Incidence Type screen documentation.' },
+  ]}
+/>

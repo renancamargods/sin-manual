@@ -1,0 +1,237 @@
+---
+section: modulos
+routeSlug: leads/indicacao-de-lead
+pageType: routine
+module: leads
+moduleLabel: Leads
+title: Indicação de Lead
+description: Registro e acompanhamento das indicações de leads, com estrutura de solicitante e destinatário, pipeline de venda, dados do lead e questionário.
+routineType: Cadastro
+permission: Sim
+impact: Registra as indicações de leads que alimentam o funil comercial
+keywords: [indicação de lead, lead, indicacao, prospecção, pipeline, solicitante, destinatário, questionário, valor potencial]
+tags: [modulo-leads, cadastro]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Indicação de Lead** reúne o registro e o acompanhamento das **indicações de leads** (oportunidades comerciais). Cada indicação relaciona uma **estrutura solicitante** e uma **estrutura destinatária**, associa uma **Pipeline de Venda** e guarda os dados do lead, o valor potencial e um breve questionário comercial.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de indicações', text: 'Registra as indicações de leads que alimentam o funil comercial.' },
+    { label: 'Uso', title: 'Entrada do funil', text: 'A indicação é o ponto de partida do lead na Pipeline de Venda.' },
+    { label: 'Cuidado', title: 'Solicitante e destinatário', text: 'Preencha corretamente as estruturas de solicitante e destinatário.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Registrar uma nova indicação de lead.
+- Consultar as indicações já registradas e o status de cada uma.
+- Acompanhar a interação mais recente e o SLA de cada lead.
+
+## Como acessar
+
+Leads → Indicação de Lead
+
+## Antes de começar
+
+- Saiba as **estruturas** de solicitante e de destinatário da indicação.
+- Defina a **Pipeline de Venda** e a **origem** do lead.
+- Tenha os **dados do lead** (nome, telefone e, quando houver, CPF/CNPJ e e-mail) e o **valor potencial**.
+
+## Diferenças importantes
+
+<DocTable
+  headers={['Tipo de Lead', 'O que significa']}
+  rows={[
+    ['Sem Cadastro', 'Lead que ainda não é cliente cadastrado — os dados são informados manualmente.'],
+    ['Base SIN', 'Lead vinculado a um cliente já existente na base (buscado pelo cadastro do cliente).'],
+  ]}
+/>
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Diversos filtros de estrutura, cliente, período, pipeline, valor, status, tipo de pessoa, tipo de lead e dados do lead, com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Combine os filtros para localizar a indicação.'],
+    ['Resultados', 'Lista das indicações com as colunas do registro e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com as abas "Dados do Lead" e "Histórico de Interações com Lead".', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Estrutura do Solicitante', 'Filtra pela estrutura que originou a indicação.'],
+    ['Estrutura do Destinatário', 'Filtra pela estrutura destinatária da indicação.'],
+    ['Cliente', 'Filtra pelo cliente relacionado.'],
+    ['Data de Criação Lead - De / Até', 'Filtra pelo período de criação do lead.'],
+    ['Pipeline de Venda', 'Filtra pela pipeline associada.'],
+    ['Status da Pipeline', 'Filtra pela fase do lead na pipeline.'],
+    ['Valor Potencial Lead - De / Até', 'Filtra pela faixa de valor potencial.'],
+    ['Status Sistema', 'Filtra por registros ativos ou inativos.'],
+    ['Tipo de Pessoa', 'Filtra por "Física" ou "Jurídica".'],
+    ['Tipo de Lead', 'Filtra por "Sem Cadastro" ou "Base SIN".'],
+    ['Lead já sendo trabalhado?', 'Filtra os leads que já estão em atendimento (Sim/Não).'],
+    ['Nome / Email / Telefone do Lead', 'Pesquisa pelos dados do lead.'],
+    ['Arquivado', 'Filtra os leads arquivados (Sim/Não).'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['ID', 'Identificador da indicação.'],
+    ['Data de Criação', 'Data em que o lead foi criado.'],
+    ['Status Sistema', 'Indica se o registro está "Ativo".'],
+    ['Data de Validade Limite', 'Prazo-limite associado à indicação.'],
+    ['Tipo de Pessoa', 'Pessoa "Física" ou "Jurídica".'],
+    ['CPF/CNPJ', 'Documento do lead.'],
+    ['Código do Cliente', 'Código do cliente, quando o lead é da Base SIN.'],
+    ['Nome', 'Nome do lead.'],
+    ['Telefone/Celular', 'Contato telefônico do lead.'],
+    ['E-mail', 'E-mail do lead.'],
+    ['Tipo de Lead', '"Sem Cadastro" ou "Base SIN".'],
+    ['Origem do Lead', 'Origem da indicação.'],
+    ['Lead já sendo trabalhado?', 'Indica se o lead já está em atendimento.'],
+    ['Valor Potencial Lead', 'Valor potencial estimado do lead.'],
+    ['Classificação Comercial', 'Classificação comercial do lead.'],
+    ['Estrutura do Solicitante', 'Estrutura que originou a indicação.'],
+    ['Nome do Solicitante', 'Responsável solicitante.'],
+    ['Estrutura do Destinatário', 'Estrutura destinatária.'],
+    ['Nome do Destinatário', 'Responsável destinatário.'],
+    ['Status da Interação mais recente', 'Situação da última interação registrada.'],
+    ['Detalhe da Interação mais recente', 'Descrição da última interação.'],
+    ['SLA', 'Indicador de prazo de atendimento.'],
+  ]}
+/>
+
+### Cadastro — aba "Dados do Lead"
+
+<DocTable
+  headers={['Grupo', 'Campos']}
+  rows={[
+    ['Informações Iniciais do Lead', '"Estrutura do Solicitante", "Estrutura do Destinatário", "Pipeline de Venda", "Origem do Lead" e "Tipo de Lead" (Sem Cadastro / Base SIN).'],
+    ['Informações', '"Tipo de Pessoa" (Física / Jurídica), "CPF/CNPJ", "Nome", "Telefone/Celular", "E-mail", "Valor Potencial Lead" e "De acordo com política de Indicação de Leads?" (Sim/Não).'],
+    ['Questionário do Lead', '"Quais soluções o cliente demonstrou interesse?", "Como você classificaria o interesse do Cliente nesses Produtos?" e "Você já apresentou alguma condição ao Cliente?".'],
+  ]}
+/>
+
+<Callout type="atencao">
+Ao confirmar a indicação, o sistema informa que ela **passará por análise prévia das políticas internas** e só será considerada como indicação quando constar nos relatórios oficiais de vendas da empresa.
+</Callout>
+
+### Cadastro — aba "Histórico de Interações com Lead"
+
+<DocTable
+  headers={['Item', 'O que mostra']}
+  rows={[
+    ['Interações com Lead', 'Histórico das interações registradas com o lead.'],
+    ['Busca de cliente (Base SIN)', 'Quando o lead é da Base SIN, o cliente é localizado por "Código do Cliente", "Documento (CPF/CNPJ)", "Nome" e "Nome Fantasia".'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Pesquisar** — informe os filtros desejados e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, preencha as informações do lead e do questionário e clique em **"Salvar"**.
+3. **Editar** — use o ícone de **Editar** da linha, ajuste os campos e clique em **"Salvar"**.
+4. **Consultar detalhes** — use o ícone de **Detalhes**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as indicações.', 'Combine os filtros para refinar.'],
+    ['+ Novo', 'Para registrar uma nova indicação.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Relatório Respostas dos Questionários', 'Para consultar as respostas dos questionários dos leads.', 'É uma consulta.'],
+    ['Exportar tabela para Excel', 'Para exportar a lista de leads.', 'Gera um arquivo com os dados listados.'],
+    ['Logs de Alteração', 'Para ver o histórico de alterações do registro.', 'É uma consulta; não altera o registro.'],
+    ['Detalhes', 'Para consultar as informações da indicação.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados da indicação.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover a indicação (ícone X vermelho).', 'Use com atenção.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Indicação de Lead', 'Acesso à tela', 'Permite abrir a tela e consultar as indicações.'],
+    ['Cadastro e edição de lead', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir indicações.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Análise prévia', 'A indicação passa por análise das políticas internas antes de ser considerada.', 'Só é considerada indicação quando constar nos relatórios oficiais de vendas.'],
+    ['Tipo de Lead', '"Base SIN" vincula o lead a um cliente existente; "Sem Cadastro" usa dados informados manualmente.', 'Escolha o tipo correto ao cadastrar.'],
+    ['Interações e SLA', 'A tela mostra a interação mais recente e o SLA de atendimento.', 'Acompanhe o SLA para não perder o prazo.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Pipeline de Venda** — define as fases pelas quais o lead avança.
+- **Quadro Kanban Leads** — exibe os leads em colunas por fase da pipeline, para acompanhamento visual.
+
+## O que a tela não faz
+
+- Não conclui a venda — registra e acompanha a indicação dentro do funil comercial.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não consigo salvar a indicação', 'Campos obrigatórios em branco', 'Preencha os campos marcados com asterisco (*).'],
+    ['O lead não aparece na busca', 'Filtros restritos ou lead arquivado', 'Revise os filtros e o campo "Arquivado".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para registrar e acompanhar as indicações de leads que alimentam o funil comercial.' },
+    { question: 'Qual a diferença entre lead "Sem Cadastro" e "Base SIN"?', answer: 'O "Sem Cadastro" tem os dados informados manualmente; o "Base SIN" é vinculado a um cliente já existente na base.' },
+    { question: 'A indicação vale assim que eu salvo?', answer: 'Não. Ela passa por análise prévia das políticas internas e só é considerada indicação quando constar nos relatórios oficiais de vendas.' },
+    { question: 'Onde acompanho o avanço do lead no funil?', answer: 'No "Quadro Kanban Leads", que mostra os leads em colunas por fase da Pipeline de Venda.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '27/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '27/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Indicação de Lead.' },
+  ]}
+/>

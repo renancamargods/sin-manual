@@ -1,0 +1,125 @@
+---
+section: modulos
+routeSlug: planejamento-de-vendas/planejamento-de-vendas
+pageType: routine
+module: planejamento-de-vendas
+moduleLabel: Planejamento de Vendas
+title: Planejamento de Vendas
+description: Planejamento de vendas por estrutura comercial, selecionando o GNV e o GR ou Coordenador para acessar o planejamento.
+routineType: Processo
+permission: Sim
+impact: Planejamento de metas e volumes de venda pela estrutura comercial
+keywords: [planejamento de vendas, gnv, gr, coordenador, força de vendas, fve, fvi, metas, volumes]
+tags: [modulo-planejamento-de-vendas, processo]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Planejamento de Vendas** organiza o planejamento pela **estrutura comercial**. O acesso ao planejamento é feito por seleção em cascata: primeiro o **GNV** (força de vendas) e, em seguida, o **GR ou Coordenador**. A partir dessas escolhas, o planejamento correspondente é exibido.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Planejamento de vendas', text: 'Organiza o planejamento por estrutura comercial (GNV, GR/Coordenador).' },
+    { label: 'Uso', title: 'Seleção em cascata', text: 'Selecione o GNV e o GR ou Coordenador para acessar o planejamento.' },
+    { label: 'Cuidado', title: 'Selecionar a estrutura', text: 'O planejamento só aparece após selecionar a estrutura comercial.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Acessar o planejamento de vendas de uma força de vendas (GNV).
+- Consultar o planejamento por GR ou Coordenador.
+
+## Como acessar
+
+Planejamento de Vendas → Planejamento de Vendas
+
+## Antes de começar
+
+- Saiba o **GNV** (força de vendas) a planejar (ex.: FVE ou FVI).
+- Saiba o **GR ou Coordenador** correspondente.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Seleção da estrutura', 'Campos "Selecione o GNV" e "Selecione o GR ou Coordenador".', 'A seleção é em cascata: o segundo campo depende do primeiro.'],
+    ['Planejamento', 'O planejamento é exibido após a seleção da estrutura comercial.', 'Aparece apenas depois de selecionar o GNV e o GR/Coordenador.'],
+  ]}
+/>
+
+## Campos principais
+
+### Seleção da estrutura comercial
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Selecione o GNV', 'Seleciona a força de vendas (ex.: FVE — externa, ou FVI — interna).'],
+    ['Selecione o GR ou Coordenador', 'Seleciona o Gerente Regional ou Coordenador vinculado ao GNV escolhido.'],
+  ]}
+/>
+
+<Callout type="info" title="Conteúdo em detalhamento">
+Após selecionar o GNV e o GR ou Coordenador, a tela exibe o planejamento correspondente. O detalhamento dos campos do planejamento (metas, volumes e períodos) será documentado em seguida.
+</Callout>
+
+## Fluxos principais
+
+1. **Selecionar o GNV** — escolha a força de vendas em "Selecione o GNV".
+2. **Selecionar o GR ou Coordenador** — escolha o responsável em "Selecione o GR ou Coordenador".
+3. **Acessar o planejamento** — o planejamento correspondente é exibido.
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Planejamento de Vendas', 'Acesso à tela', 'Permite abrir a tela e acessar o planejamento de vendas.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra a estrutura comercial (GNV, GR, Coordenador) — ela vem de seus próprios cadastros.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O planejamento não aparece', 'Estrutura comercial não selecionada', 'Selecione o GNV e o GR ou Coordenador.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para acessar e organizar o planejamento de vendas pela estrutura comercial (GNV e GR/Coordenador).' },
+    { question: 'O que é o GNV?', answer: 'É a força de vendas selecionada para o planejamento (ex.: FVE — externa, ou FVI — interna).' },
+    { question: 'Por que o planejamento não aparece?', answer: 'Porque é preciso selecionar primeiro o GNV e depois o GR ou Coordenador.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '27/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '27/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Planejamento de Vendas.' },
+  ]}
+/>
