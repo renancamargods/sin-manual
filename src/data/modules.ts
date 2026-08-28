@@ -45,9 +45,9 @@ export const tecnicoPages: TecnicoGroup[] = [
     description: 'Como os principais processos se conectam entre módulos.',
     pages: [
       { title: 'Romaneio', slug: 'romaneio', description: 'Fluxo de separação, etiquetagem, romaneio e coleta de remessas.' },
-      { title: 'Criação de Cliente', slug: 'criacao-de-cliente', description: 'Criação, cadastro e aprovação de clientes (PF, PJ e estrangeiro).' },
+      { title: 'Cadastro de Clientes x Aprovações - Com Ignition', slug: 'criacao-de-cliente', description: 'Criação, cadastro e aprovação de clientes (PF, PJ e estrangeiro) com a fila Ignition.' },
       { title: 'Configuração de Produtos no Lounge', slug: 'configuracao-de-produtos-no-lounge', description: 'Parametrização de produtos por localidade e roteamento dos itens para o Lounge/Centro correto.' },
-      { title: 'Cadastro de Clientes SEM Ignition', slug: 'cadastro-clientes-sem-ignition', description: 'Cadastro e aprovação de clientes (PF, PJ e estrangeiro) pela fila SEM Ignition, com regra e etapas de aprovação.' },
+      { title: 'Cadastro de Clientes x Aprovações - Sem Ignition', slug: 'cadastro-clientes-sem-ignition', description: 'Cadastro e aprovação de clientes (PF, PJ e estrangeiro) pela fila SEM Ignition, com regra e etapas de aprovação.' },
     ],
   },
   { title: 'APIs', slug: 'apis', description: 'Integrações disponíveis para troca de informações com outros sistemas.', pages: [] },
@@ -621,7 +621,51 @@ export const routineTitleEn: Record<string, string> = {
 // Nomes das subpáginas técnicas (submenu) em inglês, por "groupSlug/slug".
 export const tecnicoSubEn: Record<string, string> = {
   'fluxos/romaneio': 'Loading List (Romaneio)',
-  'fluxos/criacao-de-cliente': 'Customer Creation',
+  'fluxos/criacao-de-cliente': 'Customer Registration x Approvals - With Ignition',
   'fluxos/configuracao-de-produtos-no-lounge': 'Product Configuration in the Lounge',
-  'fluxos/cadastro-clientes-sem-ignition': 'Customer Registration WITHOUT Ignition',
+  'fluxos/cadastro-clientes-sem-ignition': 'Customer Registration x Approvals - Without Ignition',
 };
+
+// --- Ordenação alfabética (locale-aware) da navegação ---
+// Fonte única de ordenação usada pelo menu lateral, home, RoutineList e paginador,
+// para manter módulos, rotinas (telas), grupos técnicos e subpáginas SEMPRE em
+// ordem alfabética conforme o idioma exibido (PT por padrão, EN quando isEn=true).
+const ptCollator = new Intl.Collator('pt-BR', { sensitivity: 'base', numeric: true });
+const enCollator = new Intl.Collator('en', { sensitivity: 'base', numeric: true });
+const collatorFor = (isEn: boolean) => (isEn ? enCollator : ptCollator);
+
+export function sortedModules(isEn = false): ModuleDef[] {
+  return [...modules].sort((a, b) =>
+    collatorFor(isEn).compare(
+      isEn ? moduleEn[a.id]?.label ?? a.label : a.label,
+      isEn ? moduleEn[b.id]?.label ?? b.label : b.label,
+    ),
+  );
+}
+
+export function sortedRoutines(mod: ModuleDef, isEn = false): RoutineLink[] {
+  return [...mod.routines].sort((a, b) =>
+    collatorFor(isEn).compare(
+      isEn ? routineTitleEn[`${mod.id}/${a.slug}`] ?? a.title : a.title,
+      isEn ? routineTitleEn[`${mod.id}/${b.slug}`] ?? b.title : b.title,
+    ),
+  );
+}
+
+export function sortedTecnicoPages(isEn = false): TecnicoGroup[] {
+  return [...tecnicoPages].sort((a, b) =>
+    collatorFor(isEn).compare(
+      isEn ? tecnicoGroupEn[a.slug]?.title ?? a.title : a.title,
+      isEn ? tecnicoGroupEn[b.slug]?.title ?? b.title : b.title,
+    ),
+  );
+}
+
+export function sortedTecnicoSubPages(group: TecnicoGroup, isEn = false): RoutineLink[] {
+  return [...(group.pages ?? [])].sort((a, b) =>
+    collatorFor(isEn).compare(
+      isEn ? tecnicoSubEn[`${group.slug}/${a.slug}`] ?? a.title : a.title,
+      isEn ? tecnicoSubEn[`${group.slug}/${b.slug}`] ?? b.title : b.title,
+    ),
+  );
+}

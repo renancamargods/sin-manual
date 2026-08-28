@@ -1,0 +1,144 @@
+---
+section: modulos
+routeSlug: integrador/tipo-de-etapa
+pageType: routine
+module: integrador
+moduleLabel: Integrador
+title: Tipo de Etapa
+description: Cadastro dos tipos de etapa usados nos fluxos de integração, com tipo de executor, endpoint base e mapeador de payload.
+routineType: Cadastro
+permission: Sim
+impact: Define os tipos de etapa usados nos fluxos de integração
+keywords: [tipo de etapa, etapa, fluxo de integração, executor, endpoint, mapeador de payload, integrador]
+tags: [modulo-integrador, cadastro]
+order: 4
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Tipo de Etapa** reúne o cadastro dos **tipos de etapa** usados nos **fluxos de integração**. Cada tipo define como a etapa é executada — o **tipo de executor**, o **endpoint base** e o **mapeador de payload** — e é reaproveitado ao montar as etapas de um fluxo.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Tipos de etapa', text: 'Define as etapas reutilizáveis dos fluxos de integração.' },
+    { label: 'Uso', title: 'Base dos fluxos', text: 'Os tipos de etapa são usados ao montar as "Etapas do Fluxo".' },
+    { label: 'Cuidado', title: 'Configuração técnica', text: 'Executor, endpoint e mapeador são dados técnicos; configure com atenção.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo tipo de etapa.
+- Consultar os tipos já cadastrados.
+- Ajustar o executor, o endpoint ou o mapeador de um tipo de etapa.
+
+## Como acessar
+
+Integrador → Tipo de Etapa
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Nome", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros". Há os botões "Exportar tabela para Excel" e "Exportar tabela para PDF".', 'Use "Nome" para localizar o tipo de etapa.'],
+    ['Resultados', 'Lista dos tipos com as colunas "Nome", "Descrição" e "Ativo" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com os campos do tipo de etapa.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Nome', 'Nome do tipo de etapa.'],
+    ['Descrição', 'Descrição do tipo de etapa.'],
+    ['Ativo', 'Indica se o tipo está ativo.'],
+  ]}
+/>
+
+### Cadastro do tipo de etapa (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Nome do tipo de etapa.'],
+    ['Ativo', 'Define se o tipo está ativo.'],
+    ['Descrição', 'Descrição do tipo de etapa.'],
+    ['Tipo de Executor', 'Define como a etapa é executada.'],
+    ['Endpoint Base', 'Endereço base usado pela etapa.'],
+    ['Nome do Mapeador de Payload', 'Mapeador que monta o conteúdo (payload) enviado na etapa.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os tipos de etapa.', 'Deixe o filtro vazio para listar todos.'],
+    ['+ Novo', 'Para cadastrar um novo tipo.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+    ['Exportar para Excel / PDF', 'Para exportar a lista de tipos.', 'Gera um arquivo com os dados listados.'],
+    ['Detalhes', 'Para consultar as informações do tipo.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados do tipo.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover o tipo (ícone X vermelho).', 'Prefira não excluir tipos usados em fluxos.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Tipo de Etapa', 'Acesso à tela', 'Permite abrir a tela e consultar os tipos de etapa.'],
+    ['Cadastro e edição de tipo de etapa', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir tipos de etapa.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Fluxos de Integração** — as etapas dos fluxos usam os tipos de etapa cadastrados aqui.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A etapa não funciona no fluxo', 'Executor, endpoint ou mapeador incorretos', 'Revise "Tipo de Executor", "Endpoint Base" e "Nome do Mapeador de Payload".'],
+    ['O tipo não aparece na busca', 'Filtro restrito', 'Revise o campo "Nome" e clique em "Pesquisar".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os tipos de etapa usados nos fluxos de integração.' },
+    { question: 'O que é o "Mapeador de Payload"?', answer: 'É o componente que monta o conteúdo (payload) enviado na etapa da integração.' },
+    { question: 'Onde os tipos de etapa são usados?', answer: 'Na aba "Etapas do Fluxo" da tela Fluxos de Integração.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Tipo de Etapa.' },
+  ]}
+/>

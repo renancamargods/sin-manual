@@ -2,7 +2,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import RoutineList from '../../../components/RoutineList.astro';
-import { getModule, tecnicoPages, modules, manualPages, moduleEn, manualPageEn, tecnicoGroupEn, routineTitleEn, tecnicoSubEn } from '../../../data/modules';
+import { getModule, tecnicoPages, manualPages, moduleEn, manualPageEn, tecnicoGroupEn, routineTitleEn, tecnicoSubEn, sortedModules, sortedRoutines, sortedTecnicoPages, sortedTecnicoSubPages } from '../../../data/modules';
 
 // Rotas em inglês. Geram uma URL /en/* para cada página PT (canônica).
 // Se existir uma gêmea traduzida (lang: 'en' com o mesmo section/routeSlug),
@@ -114,17 +114,17 @@ const flatPages: { href: string; title: string }[] = [];
 for (const p of manualPages) {
   if (availManual.includes(p.slug)) flatPages.push({ href: L(`/manual/${p.slug}`), title: manualPageEn[p.slug]?.title ?? p.title });
 }
-for (const mod of [...modules].sort((a, b) => a.order - b.order)) {
+for (const mod of sortedModules(true)) {
   if (moduleIndexAvailable(mod.id)) flatPages.push({ href: L(`/modulos/${mod.id}`), title: moduleEn[mod.id]?.label ?? mod.label });
-  for (const r of mod.routines) {
+  for (const r of sortedRoutines(mod, true)) {
     if ((availModule[mod.id] ?? []).includes(r.slug)) {
       flatPages.push({ href: L(`/modulos/${mod.id}/${r.slug}`), title: routineTitleEn[`${mod.id}/${r.slug}`] ?? r.title });
     }
   }
 }
-for (const g of tecnicoPages) {
+for (const g of sortedTecnicoPages(true)) {
   if (availTecnico.includes(g.slug)) flatPages.push({ href: L(`/tecnico/${g.slug}`), title: tecnicoGroupEn[g.slug]?.title ?? g.title });
-  for (const sub of g.pages ?? []) {
+  for (const sub of sortedTecnicoSubPages(g, true)) {
     if (availTecnico.includes(`${g.slug}/${sub.slug}`)) {
       flatPages.push({ href: L(`/tecnico/${g.slug}/${sub.slug}`), title: tecnicoSubEn[`${g.slug}/${sub.slug}`] ?? sub.title });
     }

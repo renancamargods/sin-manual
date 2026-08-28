@@ -2,7 +2,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import DocsLayout from '../../layouts/DocsLayout.astro';
 import RoutineList from '../../components/RoutineList.astro';
-import { getModule, tecnicoPages, modules, manualPages } from '../../data/modules';
+import { getModule, tecnicoPages, manualPages, sortedModules, sortedRoutines, sortedTecnicoPages, sortedTecnicoSubPages } from '../../data/modules';
 
 export async function getStaticPaths() {
   const entries = await getCollection('docs', ({ data }) => data.lang !== 'en');
@@ -97,17 +97,17 @@ const flatPages: { href: string; title: string }[] = [];
 for (const p of manualPages) {
   if (availManual.includes(p.slug)) flatPages.push({ href: `/manual/${p.slug}`, title: p.title });
 }
-for (const mod of [...modules].sort((a, b) => a.order - b.order)) {
+for (const mod of sortedModules(false)) {
   if (moduleIndexAvailable(mod.id)) flatPages.push({ href: `/modulos/${mod.id}`, title: mod.label });
-  for (const r of mod.routines) {
+  for (const r of sortedRoutines(mod, false)) {
     if ((availModule[mod.id] ?? []).includes(r.slug)) {
       flatPages.push({ href: `/modulos/${mod.id}/${r.slug}`, title: r.title });
     }
   }
 }
-for (const g of tecnicoPages) {
+for (const g of sortedTecnicoPages(false)) {
   if (availTecnico.includes(g.slug)) flatPages.push({ href: `/tecnico/${g.slug}`, title: g.title });
-  for (const sub of g.pages ?? []) {
+  for (const sub of sortedTecnicoSubPages(g, false)) {
     if (availTecnico.includes(`${g.slug}/${sub.slug}`)) {
       flatPages.push({ href: `/tecnico/${g.slug}/${sub.slug}`, title: sub.title });
     }

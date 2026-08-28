@@ -1,0 +1,146 @@
+---
+section: modulos
+routeSlug: politicas/premiacao-condicionada
+pageType: routine
+module: politicas
+moduleLabel: Políticas
+title: Premiação Condicionada
+description: Cadastro das premiações condicionadas, com forma de aplicação, faixa de valores, vigência e os participantes da premiação.
+routineType: Cadastro
+permission: Sim
+impact: Define as premiações condicionadas vinculadas a metas
+keywords: [premiação condicionada, premiação, meta, forma de aplicação, valor mínimo, valor máximo, participação, políticas]
+tags: [modulo-politicas, cadastro]
+order: 7
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Premiação Condicionada** reúne o cadastro das **premiações** vinculadas a condições/metas. Cada premiação tem uma **forma de aplicação**, uma **faixa de valores** (mínimo e máximo), uma **vigência** e a relação de **participantes** (aba "Participação em Premiações").
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de premiações', text: 'Define as premiações condicionadas e seus participantes.' },
+    { label: 'Uso', title: 'Incentivo comercial', text: 'Vincula a premiação a condições/metas e a uma faixa de valores.' },
+    { label: 'Cuidado', title: 'Vigência e valores', text: 'Confira a vigência e a faixa de valores mínimo/máximo.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova premiação condicionada.
+- Consultar as premiações já cadastradas.
+- Gerenciar os participantes de uma premiação.
+
+## Como acessar
+
+Políticas → Premiação Condicionada
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campos "Descrição", "Vigência - Data De", "Vigência - Data Até" e "Status Sistema", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Combine os filtros para localizar a premiação.'],
+    ['Resultados', 'Lista das premiações com as colunas "Premiação", "Descrição", "Início de Vigência" e "Final de Vigência" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com as abas "Premiação Condicionada" e "Participação em Premiações".', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Cadastro — aba "Premiação Condicionada"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Premiação', 'Nome/identificação da premiação.'],
+    ['Descrição', 'Descrição da premiação.'],
+    ['Início de Vigência / Final de Vigência', 'Período de vigência da premiação.'],
+    ['Status Sistema', 'Define se a premiação está ativa.'],
+    ['Forma de Aplicação', 'Define como a premiação é aplicada.'],
+    ['Valor Mínimo / Valor Máximo', 'Faixa de valores da premiação.'],
+  ]}
+/>
+
+A aba **"Participação em Premiações"** reúne os participantes da premiação.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as premiações.', 'Combine os filtros para refinar.'],
+    ['+ Novo', 'Para cadastrar uma nova premiação.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Exportar para Excel / PDF', 'Para exportar a lista de premiações.', 'Gera um arquivo com os dados listados.'],
+    ['Detalhes', 'Para consultar as informações da premiação.', 'É somente leitura.'],
+    ['Editar', 'Para alterar a premiação e os participantes.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover a premiação (ícone X vermelho).', 'Use com atenção.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Premiação Condicionada', 'Acesso à tela', 'Permite abrir a tela e consultar as premiações.'],
+    ['Cadastro e edição de premiação', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir premiações.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Faixa de valores', 'A premiação vale dentro da faixa de valores mínimo e máximo.', 'Confira os valores ao cadastrar.'],
+    ['Vigência', 'A premiação vale apenas no período de vigência.', 'Preencha início e término corretamente.'],
+    ['Participantes', 'Os participantes ficam na aba "Participação em Premiações".', 'Gerencie os participantes na aba.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Cota de Venda** e **Planejamento de Vendas** — as premiações se relacionam a metas e ao desempenho comercial.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A premiação não aparece na busca', 'Filtros restritos', 'Revise "Descrição", a vigência e "Status Sistema".'],
+    ['A premiação não é aplicada', 'Fora de vigência ou faixa de valores', 'Verifique a vigência e os valores mínimo/máximo.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as premiações condicionadas e seus participantes.' },
+    { question: 'O que é a "Forma de Aplicação"?', answer: 'Define como a premiação é aplicada (a regra de cálculo/atribuição).' },
+    { question: 'Onde cadastro os participantes?', answer: 'Na aba "Participação em Premiações".' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Premiação Condicionada.' },
+  ]}
+/>

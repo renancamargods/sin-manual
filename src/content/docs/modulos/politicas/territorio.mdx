@@ -1,0 +1,130 @@
+---
+section: modulos
+routeSlug: politicas/territorio
+pageType: routine
+module: politicas
+moduleLabel: Políticas
+title: Território
+description: Cadastro dos territórios usados na divisão comercial, com código, descrição e país.
+routineType: Cadastro
+permission: Sim
+impact: Define a divisão territorial usada nas políticas comerciais
+keywords: [território, divisão territorial, código do território, país, estrutura comercial, políticas]
+tags: [modulo-politicas, cadastro]
+order: 9
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Território** reúne o cadastro dos **territórios** usados na divisão comercial. Cada território tem um **código**, uma **descrição** e um **país**, e é usado nas políticas e na estrutura comercial.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de territórios', text: 'Define a divisão territorial comercial.' },
+    { label: 'Uso', title: 'Base das estruturas', text: 'Os territórios são usados nas estruturas comerciais e políticas.' },
+    { label: 'Cuidado', title: 'Código e país', text: 'Confira o código do território e o país ao cadastrar.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo território.
+- Consultar os territórios já cadastrados.
+- Ajustar a descrição ou o país de um território.
+
+## Como acessar
+
+Políticas → Território
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "País", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros". Há os botões de exportação para Excel e PDF.', 'Use "País" para filtrar os territórios.'],
+    ['Resultados', 'Lista dos territórios com as colunas "Código do Território" e "Descrição" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com os campos do território.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Cadastro do território (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código do Território', 'Código que identifica o território.'],
+    ['Descrição', 'Descrição do território.'],
+    ['País', 'País do território.'],
+    ['Observações', 'Observações sobre o território.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os territórios.', 'Use "País" para refinar.'],
+    ['+ Novo', 'Para cadastrar um novo território.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+    ['Exportar para Excel / PDF', 'Para exportar a lista de territórios.', 'Gera um arquivo com os dados listados.'],
+    ['Detalhes', 'Para consultar as informações do território.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados do território.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover o território (ícone X vermelho).', 'Prefira não excluir territórios em uso nas estruturas.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Território', 'Acesso à tela', 'Permite abrir a tela e consultar os territórios.'],
+    ['Cadastro e edição de território', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir territórios.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Estrutura Comercial** — as estruturas são associadas a territórios.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O território não aparece na busca', 'Filtro por país restrito', 'Revise o campo "País" e clique em "Pesquisar".'],
+    ['Não consigo excluir o território', 'Território em uso em estruturas', 'Verifique se o território está vinculado a estruturas comerciais.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os territórios usados na divisão comercial e nas estruturas.' },
+    { question: 'Onde os territórios são usados?', answer: 'Nas estruturas comerciais e nas políticas, para organizar a divisão territorial.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Território.' },
+  ]}
+/>

@@ -1,0 +1,148 @@
+---
+section: modulos
+routeSlug: integrador/fluxos-de-integracao
+pageType: routine
+module: integrador
+moduleLabel: Integrador
+title: Fluxos de Integração
+description: Cadastro dos fluxos de integração com o SAP e das suas etapas, com nome, descrição e quantidade de etapas.
+routineType: Cadastro
+permission: Sim
+impact: Define os fluxos de integração executados pelo sistema
+keywords: [fluxos de integração, fluxo, integração sap, etapas do fluxo, billingdocument, salesorder, businesspartner, outbounddelivery, integrador]
+tags: [modulo-integrador, cadastro]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Fluxos de Integração** reúne o cadastro dos **fluxos de integração** com o SAP e das suas **etapas**. Cada fluxo tem um nome, uma descrição e um conjunto de etapas (ex.: "BillingDocument", "BusinessPartner", "OutboundDelivery", "SalesOrder"), que definem a sequência de passos da integração.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de fluxos', text: 'Define os fluxos de integração e suas etapas.' },
+    { label: 'Uso', title: 'Sequência da integração', text: 'As etapas do fluxo determinam a ordem dos passos com o SAP.' },
+    { label: 'Cuidado', title: 'Etapas corretas', text: 'Monte as etapas do fluxo com os tipos de etapa adequados.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo fluxo de integração.
+- Consultar os fluxos já cadastrados e a quantidade de etapas.
+- Ajustar o nome, a descrição ou as etapas de um fluxo.
+
+## Como acessar
+
+Integrador → Fluxos de Integração
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Nome", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use "Nome" para localizar o fluxo.'],
+    ['Resultados', 'Lista dos fluxos com as colunas "Nome", "Descrição", "Qtde. de Etapas" e "Ativo" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com as abas "Fluxos de Integração" (dados) e "Etapas do Fluxo".', 'Use "Salvar e Continuar" para salvar sem fechar; "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Nome', 'Nome do fluxo de integração.'],
+    ['Descrição', 'Descrição do fluxo.'],
+    ['Qtde. de Etapas', 'Quantidade de etapas do fluxo.'],
+    ['Ativo', 'Indica se o fluxo está ativo.'],
+  ]}
+/>
+
+### Cadastro — aba "Fluxos de Integração"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Nome do fluxo de integração.'],
+    ['Ativo', 'Define se o fluxo está ativo (Sim/Não).'],
+    ['Descrição', 'Descrição do fluxo.'],
+  ]}
+/>
+
+### Cadastro — aba "Etapas do Fluxo"
+
+Cadastra as **etapas** que compõem o fluxo, na sequência em que são executadas. As etapas usam os **tipos de etapa** cadastrados na tela Tipo de Etapa.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os fluxos.', 'Deixe o filtro vazio para listar todos.'],
+    ['+ Novo', 'Para cadastrar um novo fluxo.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+    ['Salvar e Continuar', 'Para salvar o fluxo sem fechar a janela.', 'Útil para montar as etapas.'],
+    ['Detalhes', 'Para consultar as informações do fluxo.', 'É somente leitura.'],
+    ['Editar', 'Para alterar o fluxo e suas etapas.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover o fluxo (ícone X vermelho).', 'Use com atenção; afeta a integração.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Fluxos de Integração', 'Acesso à tela', 'Permite abrir a tela e consultar os fluxos.'],
+    ['Cadastro e edição de fluxo', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir fluxos e suas etapas.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Tipo de Etapa** — as etapas do fluxo usam os tipos de etapa cadastrados.
+- **Configuração de Integração SAP** — define o ambiente de conexão usado pelos fluxos.
+- **Monitoramento de Integrações SAP** — acompanha a execução das integrações.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O fluxo não executa como esperado', 'Etapas incorretas ou fora de ordem', 'Revise as "Etapas do Fluxo" e a sequência.'],
+    ['O fluxo não aparece na busca', 'Filtro restrito', 'Revise o campo "Nome" e clique em "Pesquisar".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os fluxos de integração com o SAP e as suas etapas.' },
+    { question: 'O que fica na aba "Etapas do Fluxo"?', answer: 'As etapas que compõem o fluxo, na ordem de execução, usando os tipos de etapa cadastrados.' },
+    { question: 'De onde vêm os exemplos como "SalesOrder" e "BillingDocument"?', answer: 'São fluxos cadastrados que integram, respectivamente, pedidos e faturas com o SAP.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Fluxos de Integração.' },
+  ]}
+/>

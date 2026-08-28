@@ -1,0 +1,132 @@
+---
+section: modulos
+routeSlug: politicas/forma-de-pagamento
+pageType: routine
+module: politicas
+moduleLabel: Políticas
+title: Forma de Pagamento
+description: Cadastro das formas de pagamento aceitas e das condições de pagamento vinculadas a cada forma.
+routineType: Cadastro
+permission: Sim
+impact: Define as formas de pagamento aceitas nas operações
+keywords: [forma de pagamento, pagamento, condições de pagamento, comex, políticas]
+tags: [modulo-politicas, cadastro]
+order: 4
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Forma de Pagamento** reúne o cadastro das **formas de pagamento** aceitas nas operações. Cada forma tem uma descrição, uma observação e a indicação de **disponibilidade para Comex**, além de reunir, em uma aba, as **condições de pagamento** vinculadas.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de formas', text: 'Define as formas de pagamento aceitas.' },
+    { label: 'Uso', title: 'Base do pagamento', text: 'As formas são associadas às condições de pagamento.' },
+    { label: 'Cuidado', title: 'Disponível Comex?', text: 'Marque a disponibilidade para Comex quando aplicável.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova forma de pagamento.
+- Consultar as formas já cadastradas.
+- Consultar as condições de pagamento vinculadas a uma forma.
+
+## Como acessar
+
+Políticas → Forma de Pagamento
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Descrição", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros". Há os botões de exportação para Excel e PDF.', 'Use "Descrição" para localizar a forma.'],
+    ['Resultados', 'Lista das formas com a coluna "Descrição" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com as abas "Forma de Pagamento" e "Condições de Pagamentos".', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Cadastro — aba "Forma de Pagamento"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Descrição', 'Descrição da forma de pagamento.'],
+    ['Observação', 'Observações sobre a forma.'],
+    ['Disponível Comex?', 'Indica se a forma está disponível para operações Comex.'],
+  ]}
+/>
+
+A aba **"Condições de Pagamentos"** lista as condições de pagamento vinculadas à forma.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as formas.', 'Deixe o filtro vazio para listar todas.'],
+    ['+ Novo', 'Para cadastrar uma nova forma.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+    ['Exportar para Excel / PDF', 'Para exportar a lista de formas.', 'Gera um arquivo com os dados listados.'],
+    ['Detalhes', 'Para consultar as informações da forma.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados da forma.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover a forma (ícone X vermelho).', 'Prefira não excluir formas já usadas em condições.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Forma de Pagamento', 'Acesso à tela', 'Permite abrir a tela e consultar as formas.'],
+    ['Cadastro e edição de forma', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir formas.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Condição de Pagamento** — cada condição está vinculada a uma forma de pagamento.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A forma não aparece na busca', 'Filtro restrito', 'Revise o campo "Descrição" e clique em "Pesquisar".'],
+    ['A forma não aparece em Comex', 'Marcação "Disponível Comex?" desmarcada', 'Verifique a disponibilidade para Comex.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as formas de pagamento aceitas e ver as condições vinculadas.' },
+    { question: 'O que é "Disponível Comex?"?', answer: 'Indica se a forma de pagamento pode ser usada em operações Comex (internacionais).' },
+    { question: 'Qual a diferença entre forma e condição de pagamento?', answer: 'A forma é o meio (ex.: boleto, cartão); a condição define parcelas e prazos e está vinculada a uma forma.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Forma de Pagamento.' },
+  ]}
+/>

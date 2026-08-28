@@ -1,0 +1,155 @@
+---
+section: modulos
+routeSlug: politicas/parametro-de-campanha
+pageType: routine
+module: politicas
+moduleLabel: Políticas
+title: Parâmetro de Campanha
+description: Cadastro dos parâmetros usados nas campanhas comerciais, com hierarquia (pai), período de disponibilização e final de percurso.
+routineType: Cadastro
+permission: Sim
+impact: Define os parâmetros usados nas campanhas comerciais
+keywords: [parâmetro de campanha, campanha, percurso, disponibilização, pai, políticas]
+tags: [modulo-politicas, cadastro]
+order: 5
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Parâmetro de Campanha** reúne o cadastro dos **parâmetros** usados nas **campanhas comerciais**. Cada parâmetro tem um **título**, pode ter um **parâmetro pai** (hierarquia), um **período de disponibilização** (data de disponibilização e "exibir até") e a marcação de **final de percurso**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Parâmetros de campanha', text: 'Define os itens usados nas campanhas comerciais.' },
+    { label: 'Uso', title: 'Estrutura da campanha', text: 'Os parâmetros podem se organizar em hierarquia (pai/filho).' },
+    { label: 'Cuidado', title: 'Disponibilização', text: 'Confira o período de disponibilização (datas) do parâmetro.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo parâmetro de campanha.
+- Consultar os parâmetros já cadastrados.
+- Organizar os parâmetros em hierarquia (pai/filho).
+
+## Como acessar
+
+Políticas → Parâmetro de Campanha
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campos "Título" e "Status Sistema", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros". Há os botões de exportação para Excel e PDF.', 'Combine os filtros para localizar o parâmetro.'],
+    ['Resultados', 'Lista dos parâmetros com as colunas "Título", "Status Sistema", "Final de Percurso?" e "Pai" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com os campos do parâmetro.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Título', 'Título do parâmetro.'],
+    ['Status Sistema', 'Indica se o parâmetro está ativo.'],
+    ['Final de Percurso?', 'Indica se o parâmetro é final de percurso.'],
+    ['Pai', 'Parâmetro pai na hierarquia.'],
+  ]}
+/>
+
+### Cadastro do parâmetro (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Título', 'Título do parâmetro.'],
+    ['Status Sistema', 'Define se o parâmetro está ativo.'],
+    ['Final de Percurso?', 'Indica se o parâmetro é final de percurso.'],
+    ['Data de Disponibilização', 'Data a partir da qual o parâmetro fica disponível.'],
+    ['Exibir Até', 'Data-limite de exibição do parâmetro.'],
+    ['Pai', 'Parâmetro pai na hierarquia.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os parâmetros.', 'Combine os filtros para refinar.'],
+    ['+ Novo', 'Para cadastrar um novo parâmetro.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Exportar para Excel / PDF', 'Para exportar a lista de parâmetros.', 'Gera um arquivo com os dados listados.'],
+    ['Detalhes', 'Para consultar as informações do parâmetro.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados do parâmetro.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover o parâmetro (ícone X vermelho).', 'Use com atenção.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Parâmetro de Campanha', 'Acesso à tela', 'Permite abrir a tela e consultar os parâmetros.'],
+    ['Cadastro e edição de parâmetro', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir parâmetros.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Hierarquia (Pai)', 'Um parâmetro pode ter um pai, formando uma hierarquia.', 'Use o campo "Pai" para organizar os parâmetros.'],
+    ['Período de disponibilização', 'A "Data de Disponibilização" e o "Exibir Até" delimitam quando o parâmetro aparece.', 'Preencha as datas conforme a campanha.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Política Comercial** e **Condição de Pagamento** — parâmetros e condições exclusivas apoiam as campanhas comerciais.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O parâmetro não aparece na busca', 'Filtros restritos', 'Revise "Título" e "Status Sistema" e clique em "Pesquisar".'],
+    ['O parâmetro não fica disponível', 'Período de disponibilização', 'Verifique "Data de Disponibilização" e "Exibir Até".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os parâmetros usados nas campanhas comerciais.' },
+    { question: 'O que é o campo "Pai"?', answer: 'É o parâmetro superior na hierarquia; permite organizar os parâmetros em níveis.' },
+    { question: 'O que significa "Final de Percurso?"?', answer: 'Indica que o parâmetro é o final do percurso da campanha.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Parâmetro de Campanha.' },
+  ]}
+/>

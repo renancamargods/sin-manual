@@ -1,0 +1,131 @@
+---
+section: modulos
+routeSlug: politicas/territorio
+pageType: routine
+module: politicas
+moduleLabel: Policies
+lang: en
+title: Territory
+description: Registration of the territories used in the commercial division, with code, description and country.
+routineType: Registration
+permission: Yes
+impact: Defines the territorial division used in commercial policies
+keywords: [territory, territorial division, territory code, country, commercial structure, policies]
+tags: [modulo-politicas, cadastro]
+order: 9
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Territory** screen gathers the registration of the **territories** used in the commercial division. Each territory has a **code**, a **description** and a **country**, and is used in the policies and in the commercial structure.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Territory registration', text: 'Defines the commercial territorial division.' },
+    { label: 'Use', title: 'Basis of the structures', text: 'The territories are used in the commercial structures and policies.' },
+    { label: 'Caution', title: 'Code and country', text: 'Check the territory code and the country when registering.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new territory.
+- Check the territories already registered.
+- Adjust the description or the country of a territory.
+
+## How to access
+
+Policies → Territory
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Field "Country", with the buttons "Search", "+ New" and "Clear Filters". There are the Excel and PDF export buttons.', 'Use "Country" to filter the territories.'],
+    ['Results', 'List of territories with the "Territory Code" and "Description" columns and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the territory fields.', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Territory registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Territory Code', 'Code that identifies the territory.'],
+    ['Description', 'Description of the territory.'],
+    ['Country', 'Country of the territory.'],
+    ['Notes', 'Notes about the territory.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the territories.', 'Use "Country" to refine.'],
+    ['+ New', 'To register a new territory.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+    ['Export to Excel / PDF', 'To export the territory list.', 'Generates a file with the listed data.'],
+    ['Details', 'To view the territory information.', 'It is read-only.'],
+    ['Edit', 'To change the territory data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the territory (red X icon).', 'Prefer not to delete territories in use in the structures.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Territory', 'Access to the screen', 'Allows opening the screen and viewing the territories.'],
+    ['Territory registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting territories.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Commercial Structure** — the structures are associated with territories.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The territory does not appear in the search', 'Restrictive country filter', 'Review the "Country" field and click "Search".'],
+    ['I cannot delete the territory', 'Territory in use in structures', 'Check whether the territory is linked to commercial structures.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the territories used in the commercial division and in the structures.' },
+    { question: 'Where are the territories used?', answer: 'In the commercial structures and in the policies, to organize the territorial division.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Territory screen documentation.' },
+  ]}
+/>

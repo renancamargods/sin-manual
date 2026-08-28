@@ -1,0 +1,154 @@
+---
+section: modulos
+routeSlug: politicas/estrutura-comercial
+pageType: routine
+module: politicas
+moduleLabel: Políticas
+title: Estrutura Comercial
+description: Cadastro da hierarquia comercial (estruturas, usuários e superiores) usada nas políticas, com abas de contratos, pedidos, clientes e cotas.
+routineType: Cadastro
+permission: Sim
+impact: Define a hierarquia comercial usada em políticas, metas e acompanhamento
+keywords: [estrutura comercial, hierarquia, consultor, executivo, superior, território, cotas, políticas]
+tags: [modulo-politicas, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Estrutura Comercial** reúne o cadastro da **hierarquia comercial** usada nas políticas e no acompanhamento. Cada estrutura tem um **código**, uma **hierarquia** (nível), o **usuário** responsável, o **superior** e os papéis relacionados (assessor, executivos, consultores). A tela também concentra, em abas, os **contratos, pedidos, clientes e cotas** ligados à estrutura.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Hierarquia comercial', text: 'Define os níveis e responsáveis da estrutura comercial.' },
+    { label: 'Uso', title: 'Base das políticas', text: 'A estrutura é usada em cotas, políticas e acompanhamento.' },
+    { label: 'Cuidado', title: 'Hierarquia e superior', text: 'Confira o nível de hierarquia e o superior ao cadastrar.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova estrutura comercial.
+- Consultar as estruturas já cadastradas e seus responsáveis.
+- Acompanhar os contratos, pedidos, clientes e cotas de uma estrutura.
+
+## Como acessar
+
+Políticas → Estrutura Comercial
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros por hierarquia, código, usuário, território, superior e diversos papéis (assessor, executivos, consultores, representante) e "Status Sistema", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Combine os filtros para localizar a estrutura.'],
+    ['Resultados', 'Lista das estruturas com as colunas "Hierarquia", "Código da Estrutura", "Usuário" e "Superior" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com a aba principal "Estrutura Comercial" e diversas abas de consulta (contratos, pedidos, clientes, cotas).', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Cadastro — aba "Estrutura Comercial"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código da Estrutura', 'Código que identifica a estrutura.'],
+    ['Hierarquia', 'Nível da estrutura na hierarquia comercial.'],
+    ['Território', 'Território vinculado à estrutura.'],
+    ['Usuário', 'Usuário responsável pela estrutura.'],
+    ['Superior', 'Estrutura superior na hierarquia.'],
+    ['Assessor', 'Assessor relacionado.'],
+    ['Executivo Varejo / Executivo KA / Executivo SIN Solution Externo', 'Executivos relacionados à estrutura.'],
+    ['FVI SIN Solution', 'Consultor FVI da SIN Solution.'],
+    ['Empresa', 'Empresa da estrutura.'],
+    ['Status Sistema', 'Define se a estrutura está ativa.'],
+  ]}
+/>
+
+### Cadastro — abas de consulta
+
+Além da aba principal, o cadastro reúne abas que **listam os registros relacionados** à estrutura, como:
+
+<DocTable
+  headers={['Grupo de abas', 'O que mostram']}
+  rows={[
+    ['Dependentes / Assessorados', 'Estruturas subordinadas e assessorados.'],
+    ['Contratos (Diretor, GR, GD, Consultor, GNV)', 'Contratos vinculados a cada nível da estrutura.'],
+    ['Pedidos (Consultor FVE, Consultor FVI, GD, GR, GNV, Diretoria)', 'Pedidos relacionados a cada nível.'],
+    ['Clientes (Consultor FVE, Representante)', 'Clientes vinculados à estrutura.'],
+    ['Cotas', 'Cotas da estrutura.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as estruturas.', 'Combine os filtros para refinar.'],
+    ['+ Novo', 'Para cadastrar uma nova estrutura.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Exportar para Excel / PDF', 'Para exportar a lista de estruturas.', 'Gera um arquivo com os dados listados.'],
+    ['Detalhes', 'Para consultar as informações da estrutura.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados da estrutura.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover a estrutura (ícone X vermelho).', 'Use com atenção; a estrutura é base de políticas e cotas.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Estrutura Comercial', 'Acesso à tela', 'Permite abrir a tela e consultar as estruturas.'],
+    ['Cadastro e edição de estrutura', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir estruturas.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Cota de Venda** — as cotas são vinculadas às estruturas comerciais.
+- **Território** — a estrutura é associada a um território.
+- **Autenticador (Usuário)** — o responsável pela estrutura é um usuário do sistema.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A estrutura não aparece na busca', 'Filtros restritos', 'Revise os filtros (hierarquia, usuário, território) e clique em "Pesquisar".'],
+    ['A hierarquia não está correta', 'Superior incorreto', 'Revise o campo "Superior" e a "Hierarquia".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar a hierarquia comercial (estruturas, usuários e superiores) usada nas políticas e no acompanhamento.' },
+    { question: 'O que mostram as abas de contratos e pedidos?', answer: 'Listam os contratos, pedidos e clientes relacionados a cada nível da estrutura (consulta).' },
+    { question: 'Como a estrutura se relaciona com as cotas?', answer: 'As cotas de venda são cadastradas por estrutura comercial e período.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Estrutura Comercial.' },
+  ]}
+/>

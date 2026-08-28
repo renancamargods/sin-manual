@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import { manualPages, modules, tecnicoPages, moduleEn, manualPageEn, tecnicoGroupEn, routineTitleEn, tecnicoSubEn } from '../data/modules';
+import { manualPages, moduleEn, manualPageEn, tecnicoGroupEn, routineTitleEn, tecnicoSubEn, sortedModules, sortedRoutines, sortedTecnicoPages, sortedTecnicoSubPages } from '../data/modules';
 
 interface Props {
   currentPath: string;
@@ -29,7 +29,7 @@ const soonLabel = isEn ? 'soon' : 'em breve';
 
 const isActive = (href: string) => currentPath === href || currentPath === `${href}/`;
 const linkBase =
-  'block rounded-md px-2.5 py-1.5 text-sm transition truncate';
+  'block rounded-md px-2.5 py-1.5 text-sm leading-snug transition';
 const activeClasses = 'bg-brand-red/10 text-brand-red font-semibold';
 const inactiveClasses = 'text-gray-600 hover:bg-gray-100 hover:text-gray-900';
 const mutedClasses = 'text-gray-500 cursor-default';
@@ -58,7 +58,7 @@ const mutedClasses = 'text-gray-500 cursor-default';
   <div class="mb-6">
     <p class="mb-2 px-2.5 text-xs font-semibold uppercase tracking-wider text-gray-400">{headModules}</p>
     <ul class="space-y-0.5">
-      {modules.map((mod) => {
+      {sortedModules(isEn).map((mod) => {
         const moduleHref = L(`/modulos/${mod.id}`);
         const activeModule = currentPath.startsWith(`${moduleHref}/`) || isActive(moduleHref);
         const available = availableModuleSlugs[mod.id] ?? [];
@@ -77,7 +77,7 @@ const mutedClasses = 'text-gray-500 cursor-default';
               </summary>
               {mod.routines.length > 0 && (
                 <ul class="mt-0.5 space-y-0.5 border-l border-gray-200 pl-3">
-                  {mod.routines.map((r) => {
+                  {sortedRoutines(mod, isEn).map((r) => {
                     const href = `${moduleHref}/${r.slug}`;
                     const isAvailable = available.includes(r.slug);
                     const label = routineLabel(mod.id, r.slug, r.title);
@@ -106,10 +106,10 @@ const mutedClasses = 'text-gray-500 cursor-default';
   <div>
     <p class="mb-2 px-2.5 text-xs font-semibold uppercase tracking-wider text-gray-400">{headTecnico}</p>
     <ul class="space-y-0.5">
-      {tecnicoPages.map((group) => {
+      {sortedTecnicoPages(isEn).map((group) => {
         const groupHref = L(`/tecnico/${group.slug}`);
         const activeGroup = currentPath.startsWith(`${groupHref}/`) || isActive(groupHref);
-        const pages = group.pages ?? [];
+        const pages = sortedTecnicoSubPages(group, isEn);
         return (
           <li>
             <details open={activeGroup || undefined} class="group">

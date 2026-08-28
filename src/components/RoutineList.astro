@@ -21,6 +21,12 @@ const isEn = basePath.startsWith('/en');
 const moduleId = basePath.split('/').filter(Boolean).pop() ?? '';
 const routineLabel = (slug: string, fallback: string) =>
   isEn ? routineTitleEn[`${moduleId}/${slug}`] ?? fallback : fallback;
+
+// Sempre em ordem alfabética, conforme o idioma exibido.
+const collator = new Intl.Collator(isEn ? 'en' : 'pt-BR', { sensitivity: 'base', numeric: true });
+const sortedRoutines = [...routines].sort((a, b) =>
+  collator.compare(routineLabel(a.slug, a.title), routineLabel(b.slug, b.title)),
+);
 ---
 
 {routines.length === 0 ? (
@@ -29,7 +35,7 @@ const routineLabel = (slug: string, fallback: string) =>
   </p>
 ) : (
   <div class="not-prose my-6 grid gap-3 sm:grid-cols-2">
-    {routines.map((r) => {
+    {sortedRoutines.map((r) => {
       const available = availableSlugs.includes(r.slug);
       const href = `${basePath}/${r.slug}`;
       const Tag = available ? 'a' : 'div';

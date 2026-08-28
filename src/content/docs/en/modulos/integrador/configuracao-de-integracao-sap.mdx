@@ -1,0 +1,151 @@
+---
+section: modulos
+routeSlug: integrador/configuracao-de-integracao-sap
+pageType: routine
+module: integrador
+moduleLabel: Integrator
+lang: en
+title: SAP Integration Configuration
+description: Registration of the SAP integration environments, with base URL, token URL, SAP Client and Client Id.
+routineType: Registration
+permission: Yes
+impact: Defines the environments used in the SAP integration
+keywords: [sap integration configuration, sap integration, environment, base url, token url, sap client, client id, integrator]
+tags: [modulo-integrador, cadastro]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **SAP Integration Configuration** screen gathers the registration of the **SAP integration environments**. Each environment defines the connection addresses and credentials — **Base URL**, **Token URL**, **SAP Client** and **Client Id** — used for the system to communicate with SAP.
+
+<Callout type="atencao" title="Technical and sensitive data">
+This screen stores technical SAP connection data. The credentials must be handled securely and configured by whoever administers the integration.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Integration environments', text: 'Registers the SAP connection environments.' },
+    { label: 'Use', title: 'Integration basis', text: 'Defines URLs and credentials used to connect to SAP.' },
+    { label: 'Caution', title: 'Active environment', text: 'Check which environment is "Active" before using it in the integration.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new SAP integration environment.
+- Check the environments already registered.
+- Adjust the URLs, the SAP Client or the Client Id of an environment.
+
+## How to access
+
+Integrator → SAP Integration Configuration
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Field "Environment", with the buttons "Search", "+ New" and "Clear Filters".', 'Use "Environment" to locate the configuration.'],
+    ['Results', 'List of configurations with the "Environment", "Base URL" and "Active" columns and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the environment connection data.', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Environment', 'Name of the integration environment.'],
+    ['Base URL', 'Base URL of the SAP connection.'],
+    ['Active', 'Indicates whether the environment is active.'],
+  ]}
+/>
+
+### Environment registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Environment', 'Name of the integration environment.'],
+    ['SAP Client', 'Client identification in SAP.'],
+    ['Active', 'Defines whether the environment is active.'],
+    ['Base URL', 'Base URL of the SAP connection.'],
+    ['Token URL', 'URL used to obtain the authentication token.'],
+    ['Client Id', 'Client identifier used in the authentication.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the environments.', 'Leave the filter empty to list all.'],
+    ['+ New', 'To register a new environment.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+    ['Details', 'To view the environment information.', 'It is read-only.'],
+    ['Edit', 'To change the environment data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the environment (red X icon).', 'Use with care; it affects the integration.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['SAP Integration Configuration', 'Access to the screen', 'Allows opening the screen and viewing the environments.'],
+    ['Configuration registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting environments.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Integration Flows** and **SAP Integrations Monitoring** — use the environment configured here to connect to SAP.
+
+## What this screen does not do
+
+- It does not run the integration — it only configures the environments used by it.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The integration does not connect', 'Incorrect URL or credentials / inactive environment', 'Review "Base URL", "Token URL", "Client Id" and the "Active" flag.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the SAP integration environments (connection URLs and credentials).' },
+    { question: 'What is the "Token URL"?', answer: 'It is the address used to obtain the authentication token of the SAP integration.' },
+    { question: 'How do I know which environment is in use?', answer: 'Check the "Active" column in the listing.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the SAP Integration Configuration screen documentation.' },
+  ]}
+/>

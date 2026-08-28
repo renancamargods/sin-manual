@@ -1,0 +1,150 @@
+---
+section: modulos
+routeSlug: integrador/configuracao-de-integracao-sap
+pageType: routine
+module: integrador
+moduleLabel: Integrador
+title: Configuração de Integração SAP
+description: Cadastro dos ambientes de integração com o SAP, com URL base, URL de token, SAP Client e Client Id.
+routineType: Cadastro
+permission: Sim
+impact: Define os ambientes usados na integração com o SAP
+keywords: [configuração de integração sap, integração sap, ambiente, url base, url de token, sap client, client id, integrador]
+tags: [modulo-integrador, cadastro]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Configuração de Integração SAP** reúne o cadastro dos **ambientes de integração com o SAP**. Cada ambiente define os endereços e as credenciais de conexão — **URL Base**, **URL de Token**, **SAP Client** e **Client Id** — usados para o sistema se comunicar com o SAP.
+
+<Callout type="atencao" title="Dados técnicos e sensíveis">
+Esta tela guarda dados técnicos de conexão com o SAP. As credenciais devem ser tratadas com segurança e configuradas por quem administra a integração.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Ambientes de integração', text: 'Cadastra os ambientes de conexão com o SAP.' },
+    { label: 'Uso', title: 'Base da integração', text: 'Define URLs e credenciais usadas para conectar ao SAP.' },
+    { label: 'Cuidado', title: 'Ambiente ativo', text: 'Confira qual ambiente está "Ativo" antes de usar na integração.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo ambiente de integração com o SAP.
+- Consultar os ambientes já cadastrados.
+- Ajustar as URLs, o SAP Client ou o Client Id de um ambiente.
+
+## Como acessar
+
+Integrador → Configuração de Integração SAP
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Ambiente", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use "Ambiente" para localizar a configuração.'],
+    ['Resultados', 'Lista das configurações com as colunas "Ambiente", "URL Base" e "Ativo" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com os dados de conexão do ambiente.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Ambiente', 'Nome do ambiente de integração.'],
+    ['URL Base', 'URL base da conexão com o SAP.'],
+    ['Ativo', 'Indica se o ambiente está ativo.'],
+  ]}
+/>
+
+### Cadastro do ambiente (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Ambiente', 'Nome do ambiente de integração.'],
+    ['SAP Client', 'Identificação do client no SAP.'],
+    ['Ativo', 'Define se o ambiente está ativo.'],
+    ['URL Base', 'URL base da conexão com o SAP.'],
+    ['URL de Token', 'URL usada para obter o token de autenticação.'],
+    ['Client Id', 'Identificador do cliente (client) usado na autenticação.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os ambientes.', 'Deixe o filtro vazio para listar todos.'],
+    ['+ Novo', 'Para cadastrar um novo ambiente.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+    ['Detalhes', 'Para consultar as informações do ambiente.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados do ambiente.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover o ambiente (ícone X vermelho).', 'Use com atenção; afeta a integração.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Configuração de Integração SAP', 'Acesso à tela', 'Permite abrir a tela e consultar os ambientes.'],
+    ['Cadastro e edição de configuração', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir ambientes.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Fluxos de Integração** e **Monitoramento de Integrações SAP** — usam o ambiente configurado aqui para se conectar ao SAP.
+
+## O que a tela não faz
+
+- Não executa a integração — apenas configura os ambientes usados por ela.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A integração não conecta', 'URL ou credenciais incorretas / ambiente inativo', 'Revise "URL Base", "URL de Token", "Client Id" e a marcação "Ativo".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os ambientes de integração com o SAP (URLs e credenciais de conexão).' },
+    { question: 'O que é a "URL de Token"?', answer: 'É o endereço usado para obter o token de autenticação da integração com o SAP.' },
+    { question: 'Como sei qual ambiente está em uso?', answer: 'Verifique a coluna "Ativo" na listagem.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Configuração de Integração SAP.' },
+  ]}
+/>

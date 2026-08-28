@@ -1,0 +1,135 @@
+---
+section: modulos
+routeSlug: politicas/cota-de-venda
+pageType: routine
+module: politicas
+moduleLabel: Políticas
+title: Cota de Venda
+description: Cadastro das cotas de venda por estrutura comercial e período, com valores de cota Varejo, KA e de implantes.
+routineType: Cadastro
+permission: Sim
+impact: Define as cotas de venda por estrutura comercial e período
+keywords: [cota de venda, cota, meta, estrutura comercial, varejo, ka, implantes, políticas]
+tags: [modulo-politicas, cadastro]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Cota de Venda** reúne o cadastro das **cotas de venda** por **estrutura comercial** e **período** (mês e ano). Cada cota define os valores esperados — **cota Varejo**, **cota KA** e **cota de implantes** (em R$ e em %).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de cotas', text: 'Define as cotas de venda por estrutura e período.' },
+    { label: 'Uso', title: 'Metas comerciais', text: 'As cotas orientam o acompanhamento das vendas.' },
+    { label: 'Cuidado', title: 'Estrutura e período', text: 'Confira a estrutura comercial, o mês e o ano ao cadastrar.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar a cota de uma estrutura comercial para um período.
+- Consultar as cotas já cadastradas.
+- Ajustar os valores de cota Varejo, KA ou de implantes.
+
+## Como acessar
+
+Políticas → Cota de Venda
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Estrutura Comercial", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros". Há os botões de exportação para Excel e PDF.', 'Use "Estrutura Comercial" para filtrar as cotas.'],
+    ['Resultados', 'Lista das cotas com as colunas "Estrutura Comercial", "Mês", "Ano", "R$ Cota Varejo" e "R$ Cota KA" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com os valores da cota.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Cadastro da cota (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Mês', 'Mês da cota.'],
+    ['Ano', 'Ano da cota.'],
+    ['R$ Cota Varejo', 'Valor da cota do canal Varejo.'],
+    ['R$ Cota KA', 'Valor da cota do canal Key Account (KA).'],
+    ['R$ Cota de Implantes', 'Valor da cota de implantes.'],
+    ['% Cota de Implantes', 'Percentual da cota de implantes.'],
+    ['Estrutura Comercial', 'Estrutura comercial à qual a cota pertence.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as cotas.', 'Use "Estrutura Comercial" para refinar.'],
+    ['+ Novo', 'Para cadastrar uma nova cota.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+    ['Exportar para Excel / PDF', 'Para exportar a lista de cotas.', 'Gera um arquivo com os dados listados.'],
+    ['Detalhes', 'Para consultar as informações da cota.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os valores da cota.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover a cota (ícone X vermelho).', 'Use com atenção.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Cota de Venda', 'Acesso à tela', 'Permite abrir a tela e consultar as cotas.'],
+    ['Cadastro e edição de cota', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir cotas.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Estrutura Comercial** — as cotas são vinculadas às estruturas comerciais.
+- **Planejamento de Vendas** — as cotas apoiam o planejamento e o acompanhamento das metas.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A cota não aparece na busca', 'Estrutura não selecionada', 'Revise o filtro "Estrutura Comercial" e clique em "Pesquisar".'],
+    ['Não consigo salvar a cota', 'Campos obrigatórios em branco', 'Informe mês, ano, estrutura e os valores.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as cotas de venda por estrutura comercial e período.' },
+    { question: 'Qual a diferença entre cota Varejo e cota KA?', answer: 'São as cotas dos canais Varejo e Key Account (KA), respectivamente.' },
+    { question: 'A cota de implantes é em valor ou percentual?', answer: 'Há os dois: "R$ Cota de Implantes" (valor) e "% Cota de Implantes" (percentual).' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Cota de Venda.' },
+  ]}
+/>

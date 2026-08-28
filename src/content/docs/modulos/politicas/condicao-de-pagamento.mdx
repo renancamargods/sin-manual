@@ -1,0 +1,157 @@
+---
+section: modulos
+routeSlug: politicas/condicao-de-pagamento
+pageType: routine
+module: politicas
+moduleLabel: Políticas
+title: Condição de Pagamento
+description: Cadastro das condições de pagamento, com forma de pagamento, número de parcelas, prazos e vínculo com a condição no ERP.
+routineType: Cadastro
+permission: Sim
+impact: Define as condições de pagamento usadas em pedidos e faturamento
+keywords: [condição de pagamento, parcelas, prazo, forma de pagamento, condição erp, campanha, políticas]
+tags: [modulo-politicas, cadastro]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Condição de Pagamento** reúne o cadastro das **condições de pagamento** usadas nas operações. Cada condição define a **forma de pagamento**, o **número de parcelas**, os **prazos** (dias para a primeira parcela e prazo médio) e o vínculo com a **condição no ERP**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de condições', text: 'Define parcelas e prazos usados no pagamento.' },
+    { label: 'Uso', title: 'Base do pagamento', text: 'As condições são aplicadas em pedidos e no faturamento.' },
+    { label: 'Cuidado', title: 'Parcelas e prazos', text: 'Confira número de parcelas e dias para a primeira parcela.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova condição de pagamento.
+- Consultar as condições já cadastradas.
+- Ajustar parcelas, prazos ou a forma de pagamento de uma condição.
+
+## Como acessar
+
+Políticas → Condição de Pagamento
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campos "Descrição" e "Status Sistema", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros". Há os botões de exportação para Excel e PDF.', 'Combine os filtros para localizar a condição.'],
+    ['Resultados', 'Lista das condições com as colunas do cadastro e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com as abas "Condição de Pagamento", "Pedidos" e "Notas Fiscais".', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Forma de Pagamento', 'Forma de pagamento da condição.'],
+    ['Descrição', 'Descrição da condição.'],
+    ['Número de Parcelas', 'Quantidade de parcelas.'],
+    ['Dias Para Primeira Parcela', 'Dias até a primeira parcela.'],
+    ['Código da Condição ERP', 'Código correspondente no ERP.'],
+    ['Condição exclusiva para Campanhas?', 'Indica se a condição é exclusiva de campanhas.'],
+    ['Status Sistema', 'Indica se a condição está ativa.'],
+    ['Data da Última Alteração', 'Data e hora da última alteração.'],
+  ]}
+/>
+
+### Cadastro — aba "Condição de Pagamento"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Descrição', 'Descrição da condição.'],
+    ['Prazo Médio', 'Prazo médio de pagamento.'],
+    ['Número de Parcelas', 'Quantidade de parcelas.'],
+    ['Dias Para Primeira Parcela', 'Dias até a primeira parcela.'],
+    ['Código da Condição ERP', 'Código correspondente no ERP.'],
+    ['Forma de Pagamento', 'Forma de pagamento da condição.'],
+    ['Módulos', 'Módulos em que a condição fica disponível.'],
+    ['Status Sistema', 'Define se a condição está ativa.'],
+    ['Condição Preferencial?', 'Indica se é a condição preferencial.'],
+    ['Condição exclusiva para Campanhas?', 'Indica se a condição é exclusiva de campanhas.'],
+    ['Possui data fixa?', 'Indica se o pagamento tem data fixa.'],
+  ]}
+/>
+
+As abas **"Pedidos"** e **"Notas Fiscais"** mostram os registros relacionados à condição.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as condições.', 'Combine os filtros para refinar.'],
+    ['+ Novo', 'Para cadastrar uma nova condição.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Exportar para Excel / PDF', 'Para exportar a lista de condições.', 'Gera um arquivo com os dados listados.'],
+    ['Detalhes', 'Para consultar as informações da condição.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados da condição.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover a condição (ícone X vermelho).', 'Prefira inativar quando a condição já tiver sido usada.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Condição de Pagamento', 'Acesso à tela', 'Permite abrir a tela e consultar as condições.'],
+    ['Cadastro e edição de condição', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir condições.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Forma de Pagamento** — a condição está vinculada a uma forma de pagamento.
+- **Pedidos** e **Faturamentos** — usam as condições de pagamento cadastradas.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A condição não aparece no pedido', 'Módulo não vinculado ou condição inativa', 'Revise "Módulos" e o "Status Sistema".'],
+    ['A condição não aparece na busca', 'Filtros restritos', 'Revise "Descrição" e "Status Sistema" e clique em "Pesquisar".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as condições de pagamento (parcelas e prazos) usadas nas operações.' },
+    { question: 'O que é o "Código da Condição ERP"?', answer: 'É o código que relaciona a condição ao ERP.' },
+    { question: 'O que significa "Condição exclusiva para Campanhas?"?', answer: 'Indica que a condição só é usada em campanhas comerciais.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Condição de Pagamento.' },
+  ]}
+/>

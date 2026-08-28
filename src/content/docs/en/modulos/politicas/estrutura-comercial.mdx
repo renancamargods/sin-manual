@@ -1,0 +1,155 @@
+---
+section: modulos
+routeSlug: politicas/estrutura-comercial
+pageType: routine
+module: politicas
+moduleLabel: Policies
+lang: en
+title: Commercial Structure
+description: Registration of the commercial hierarchy (structures, users and superiors) used in policies, with tabs for contracts, orders, customers and quotas.
+routineType: Registration
+permission: Yes
+impact: Defines the commercial hierarchy used in policies, targets and tracking
+keywords: [commercial structure, hierarchy, consultant, executive, superior, territory, quotas, policies]
+tags: [modulo-politicas, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Commercial Structure** screen gathers the registration of the **commercial hierarchy** used in policies and tracking. Each structure has a **code**, a **hierarchy** (level), the responsible **user**, the **superior** and the related roles (advisor, executives, consultants). The screen also concentrates, in tabs, the **contracts, orders, customers and quotas** linked to the structure.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Commercial hierarchy', text: 'Defines the levels and responsible people of the commercial structure.' },
+    { label: 'Use', title: 'Basis of the policies', text: 'The structure is used in quotas, policies and tracking.' },
+    { label: 'Caution', title: 'Hierarchy and superior', text: 'Check the hierarchy level and the superior when registering.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new commercial structure.
+- Check the structures already registered and their responsible people.
+- Track the contracts, orders, customers and quotas of a structure.
+
+## How to access
+
+Policies → Commercial Structure
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Filters by hierarchy, code, user, territory, superior and various roles (advisor, executives, consultants, representative) and "System Status", with the buttons "Search", "+ New" and "Clear Filters".', 'Combine the filters to locate the structure.'],
+    ['Results', 'List of structures with the "Hierarchy", "Structure Code", "User" and "Superior" columns and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the main "Commercial Structure" tab and several query tabs (contracts, orders, customers, quotas).', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Registration — "Commercial Structure" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Structure Code', 'Code that identifies the structure.'],
+    ['Hierarchy', 'Level of the structure in the commercial hierarchy.'],
+    ['Territory', 'Territory linked to the structure.'],
+    ['User', 'User responsible for the structure.'],
+    ['Superior', 'Superior structure in the hierarchy.'],
+    ['Advisor', 'Related advisor.'],
+    ['Retail Executive / KA Executive / External SIN Solution Executive', 'Executives related to the structure.'],
+    ['SIN Solution FVI', 'SIN Solution FVI consultant.'],
+    ['Company', 'Company of the structure.'],
+    ['System Status', 'Defines whether the structure is active.'],
+  ]}
+/>
+
+### Registration — query tabs
+
+Besides the main tab, the registration gathers tabs that **list the records related** to the structure, such as:
+
+<DocTable
+  headers={['Tab group', 'What they show']}
+  rows={[
+    ['Dependents / Advised', 'Subordinate structures and advised parties.'],
+    ['Contracts (Director, GR, GD, Consultant, GNV)', 'Contracts linked to each level of the structure.'],
+    ['Orders (FVE Consultant, FVI Consultant, GD, GR, GNV, Board)', 'Orders related to each level.'],
+    ['Customers (FVE Consultant, Representative)', 'Customers linked to the structure.'],
+    ['Quotas', 'Quotas of the structure.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the structures.', 'Combine the filters to refine.'],
+    ['+ New', 'To register a new structure.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+    ['Export to Excel / PDF', 'To export the structure list.', 'Generates a file with the listed data.'],
+    ['Details', 'To view the structure information.', 'It is read-only.'],
+    ['Edit', 'To change the structure data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the structure (red X icon).', 'Use with care; the structure is the basis of policies and quotas.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Commercial Structure', 'Access to the screen', 'Allows opening the screen and viewing the structures.'],
+    ['Structure registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting structures.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Sales Quota** — the quotas are linked to the commercial structures.
+- **Territory** — the structure is associated with a territory.
+- **Authenticator (User)** — the person responsible for the structure is a system user.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The structure does not appear in the search', 'Restrictive filters', 'Review the filters (hierarchy, user, territory) and click "Search".'],
+    ['The hierarchy is not correct', 'Incorrect superior', 'Review the "Superior" field and the "Hierarchy".'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the commercial hierarchy (structures, users and superiors) used in policies and tracking.' },
+    { question: 'What do the contracts and orders tabs show?', answer: 'They list the contracts, orders and customers related to each level of the structure (query).' },
+    { question: 'How does the structure relate to the quotas?', answer: 'The sales quotas are registered by commercial structure and period.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Commercial Structure screen documentation.' },
+  ]}
+/>

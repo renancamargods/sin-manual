@@ -1,0 +1,173 @@
+---
+section: modulos
+routeSlug: politicas/politica-comercial
+pageType: routine
+module: politicas
+moduleLabel: Políticas
+title: Política Comercial
+description: Cadastro das políticas comerciais aplicadas a pedidos e clientes, com tipo, vigência, forma de contabilização e segmentação por cliente, rede, canal, ramo e país.
+routineType: Cadastro
+permission: Sim
+impact: Define as regras comerciais aplicadas a pedidos e clientes
+keywords: [política comercial, regra comercial, vigência, contabilização, segmentação, cliente, rede, canal, ramo, país, campanha, políticas]
+tags: [modulo-politicas, cadastro]
+order: 6
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Política Comercial** reúne o cadastro das **regras comerciais** aplicadas a pedidos e clientes. Cada política tem um **tipo**, uma **vigência**, uma **forma de contabilização** e uma **segmentação** (por cliente, rede, canal, ramo de atividade, país etc.) que define a quem a regra se aplica.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Regras comerciais', text: 'Define as políticas aplicadas a pedidos e clientes.' },
+    { label: 'Uso', title: 'Segmentação', text: 'A política vale para o público definido na segmentação.' },
+    { label: 'Cuidado', title: 'Tipo e vigência', text: 'Confira o tipo, a vigência e a forma de contabilização.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova política comercial.
+- Consultar as políticas já cadastradas.
+- Ajustar a vigência, o tipo ou a segmentação de uma política.
+
+## Como acessar
+
+Políticas → Política Comercial
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campos "Descrição", "Vigência - Data De", "Vigência - Data Até", "Tipo", "Regra da Política" e "Status Sistema", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Combine os filtros para localizar a política.'],
+    ['Resultados', 'Lista das políticas com as colunas "Descrição", "Tipo", "Regra da Política", "Vigência - Início" e "Vigência - Término" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com os dados e a segmentação da política.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Cadastro da política (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nacional ou Internacional?', 'Define se a política é nacional ou internacional.'],
+    ['Descrição', 'Descrição da política.'],
+    ['Tipo', 'Tipo da política.'],
+    ['Modo Feira', 'Indica se a política é do modo feira.'],
+    ['Atuação da Política', 'Define a atuação/abrangência da política.'],
+    ['Forma de Contabilização', 'Forma como a política é contabilizada.'],
+    ['Vigência - Início / Término', 'Período de vigência da política.'],
+    ['Valor a Considerar', 'Valor considerado na aplicação da política.'],
+    ['Status Sistema', 'Define se a política está ativa.'],
+    ['Ignorar contabilização de itens agrupados', 'Define se itens agrupados são ignorados na contabilização.'],
+    ['Dias para primeira parcela', 'Dias para a primeira parcela, quando aplicável.'],
+  ]}
+/>
+
+### Cadastro — segmentação
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Cliente', 'Restringe a política a um cliente.'],
+    ['Só para cliente novo?', 'Aplica a política apenas a clientes novos.'],
+    ['Rede', 'Restringe a política a uma rede.'],
+    ['Agrupamento', 'Restringe a política a um agrupamento de clientes.'],
+    ['Canal', 'Restringe a política a um canal.'],
+    ['Ramo de Atividade / Ramo de Atividade 2', 'Restringe a política a ramos de atividade.'],
+    ['Sin Partner', 'Restringe a política a parceiros SIN Partner.'],
+    ['Embaixador', 'Restringe a política a embaixadores.'],
+    ['País', 'Restringe a política a um país.'],
+    ['Comentários', 'Observações sobre a política.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as políticas.', 'Combine os filtros para refinar.'],
+    ['+ Novo', 'Para cadastrar uma nova política.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Exportar para Excel / PDF', 'Para exportar a lista de políticas.', 'Gera um arquivo com os dados listados.'],
+    ['Detalhes', 'Para consultar as informações da política.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados da política.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover a política (ícone X vermelho).', 'Prefira inativar quando a política já tiver sido usada.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Política Comercial', 'Acesso à tela', 'Permite abrir a tela e consultar as políticas.'],
+    ['Cadastro e edição de política', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir políticas.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Vigência', 'A política vale apenas no período de vigência.', 'Preencha início e término corretamente.'],
+    ['Segmentação', 'A política se aplica ao público definido (cliente, rede, canal, ramo, país).', 'Ajuste a segmentação conforme o objetivo da política.'],
+    ['Forma de contabilização', 'Define como a política entra no cálculo.', 'Confira a forma antes de salvar.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Pedidos** e **Clientes** — as políticas são aplicadas conforme a segmentação.
+- **Condição de Pagamento** e **Parâmetro de Campanha** — complementam as regras comerciais em campanhas.
+
+## O que a tela não faz
+
+- Não aplica a política ao pedido em si — define a regra; a aplicação ocorre nos processos de venda conforme a segmentação e a vigência.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A política não é aplicada', 'Fora de vigência ou segmentação não atende', 'Revise a vigência e a segmentação (cliente, canal, ramo, país).'],
+    ['A política não aparece na busca', 'Filtros restritos', 'Revise "Descrição", "Tipo" e "Status Sistema".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as regras comerciais (políticas) aplicadas a pedidos e clientes.' },
+    { question: 'Como defino a quem a política se aplica?', answer: 'Pela segmentação: cliente, rede, agrupamento, canal, ramo de atividade, país, entre outros.' },
+    { question: 'O que é a "Forma de Contabilização"?', answer: 'Define como a política entra no cálculo das operações.' },
+    { question: 'Posso excluir uma política já usada?', answer: 'Não é recomendado. Prefira inativá-la (campo "Status Sistema") para preservar o histórico.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Política Comercial.' },
+  ]}
+/>

@@ -5,7 +5,7 @@ import HeroVideo from '../components/HeroVideo.astro';
 import SearchBox from '../components/SearchBox.astro';
 import ModuleCard from '../components/ModuleCard.astro';
 import Icon from '../components/Icon.astro';
-import { manualPages, modules, tecnicoPages } from '../data/modules';
+import { manualPages, sortedModules, sortedTecnicoPages } from '../data/modules';
 
 // Vídeo de apresentação do hero.
 // Cole aqui a URL (ou o ID) do vídeo no YouTube/Vimeo. Deixe vazio para
@@ -59,7 +59,7 @@ const shortcuts = [
       </div>
     </div>
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {modules.map((mod) => (
+      {sortedModules(false).map((mod) => (
         <ModuleCard label={mod.label} description={mod.description} href={`/modulos/${mod.id}`} count={mod.routines.length} />
       ))}
     </div>
@@ -88,7 +88,7 @@ const shortcuts = [
         <div>
           <h2 class="mb-4 text-lg font-bold text-gray-900">Doc. Técnicas e Configurações</h2>
           <ul class="space-y-2">
-            {tecnicoPages.map((p) => (
+            {sortedTecnicoPages(false).map((p) => (
               <li>
                 <a href={`/tecnico/${p.slug}`} class="group flex items-center justify-between rounded-lg border border-gray-200 px-4 py-3 text-sm transition hover:border-brand-red/30 hover:shadow-card">
                   <span>

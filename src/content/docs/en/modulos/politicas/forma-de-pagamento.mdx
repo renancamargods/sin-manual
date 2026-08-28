@@ -1,0 +1,133 @@
+---
+section: modulos
+routeSlug: politicas/forma-de-pagamento
+pageType: routine
+module: politicas
+moduleLabel: Policies
+lang: en
+title: Payment Method
+description: Registration of the accepted payment methods and the payment terms linked to each method.
+routineType: Registration
+permission: Yes
+impact: Defines the payment methods accepted in operations
+keywords: [payment method, payment, payment terms, comex, policies]
+tags: [modulo-politicas, cadastro]
+order: 4
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Payment Method** screen gathers the registration of the **payment methods** accepted in operations. Each method has a description, a note and the indication of **availability for Comex**, and also gathers, in a tab, the **payment terms** linked to it.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Method registration', text: 'Defines the accepted payment methods.' },
+    { label: 'Use', title: 'Payment basis', text: 'The methods are associated with the payment terms.' },
+    { label: 'Caution', title: 'Available for Comex?', text: 'Mark the availability for Comex when applicable.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new payment method.
+- Check the methods already registered.
+- Check the payment terms linked to a method.
+
+## How to access
+
+Policies → Payment Method
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Field "Description", with the buttons "Search", "+ New" and "Clear Filters". There are the Excel and PDF export buttons.', 'Use "Description" to locate the method.'],
+    ['Results', 'List of methods with the "Description" column and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the tabs "Payment Method" and "Payment Terms".', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Registration — "Payment Method" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Description', 'Description of the payment method.'],
+    ['Note', 'Notes about the method.'],
+    ['Available for Comex?', 'Indicates whether the method is available for Comex operations.'],
+  ]}
+/>
+
+The **"Payment Terms"** tab lists the payment terms linked to the method.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the methods.', 'Leave the filter empty to list all.'],
+    ['+ New', 'To register a new method.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+    ['Export to Excel / PDF', 'To export the method list.', 'Generates a file with the listed data.'],
+    ['Details', 'To view the method information.', 'It is read-only.'],
+    ['Edit', 'To change the method data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the method (red X icon).', 'Prefer not to delete methods already used in terms.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Payment Method', 'Access to the screen', 'Allows opening the screen and viewing the methods.'],
+    ['Method registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting methods.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Payment Term** — each term is linked to a payment method.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The method does not appear in the search', 'Restrictive filter', 'Review the "Description" field and click "Search".'],
+    ['The method does not appear in Comex', '"Available for Comex?" flag unchecked', 'Check the availability for Comex.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the accepted payment methods and see the linked terms.' },
+    { question: 'What is "Available for Comex?"?', answer: 'It indicates whether the payment method can be used in Comex (international) operations.' },
+    { question: 'What is the difference between method and payment term?', answer: 'The method is the means (e.g., bank slip, card); the term defines installments and deadlines and is linked to a method.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Payment Method screen documentation.' },
+  ]}
+/>

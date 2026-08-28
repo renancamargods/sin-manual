@@ -1,0 +1,231 @@
+---
+section: modulos
+routeSlug: aprovacoes/fila-de-aprovacoes-pedidos
+pageType: routine
+module: aprovacoes
+moduleLabel: Aprovações
+title: Fila de Aprovações - Pedidos
+description: Fila onde os grupos responsáveis aprovam, reprovam ou enviam para avaliação os pedidos que aguardam liberação, com totalizadores e abas por situação.
+routineType: Consulta e processo
+permission: Sim
+impact: Decisão de aprovação dos pedidos
+keywords: [fila de aprovação, pedidos a liberar, pedidos em avaliação, recusados, aprovar pedido, reprovar pedido, sub-status, ciclo de aprovação, prioridade, motivos de bloqueio]
+tags: [modulo-aprovacoes, processo]
+order: 5
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Fila de Aprovações - Pedidos** (exibida como "Nova Fila de Aprovação - Pedidos") é onde os grupos responsáveis **decidem sobre os pedidos** enviados para aprovação. Cada pedido que aguarda liberação aparece em uma lista, com o status, o andamento do ciclo, os motivos de bloqueio e as ações para **aprovar**, **reprovar** ou **enviar para avaliação**.
+
+A tela organiza o trabalho em três abas — **"Pedidos a Liberar"**, **"Pedidos em Avaliação"** e **"Recusados"** — e traz **totalizadores** com a quantidade e o valor dos pedidos aguardando aprovação.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Aprovar pedidos', text: 'Recebe os pedidos enviados e permite aprovar, reprovar ou enviar para avaliação.' },
+    { label: 'Uso', title: 'Trabalho da alçada', text: 'É a fila usada pelos grupos responsáveis para decidir sobre cada pedido.' },
+    { label: 'Cuidado', title: 'Confira antes de decidir', text: 'A decisão move o pedido no ciclo; revise valor, prioridade e motivos de bloqueio.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar os pedidos que aguardam a sua aprovação.
+- Aprovar um pedido para que avance no ciclo.
+- Reprovar um pedido que não atende aos requisitos.
+- Enviar um pedido para avaliação quando for preciso analisar antes de decidir.
+- Acompanhar a quantidade e o valor dos pedidos na fila.
+
+## Como acessar
+
+Aprovações → Fila de Aprovações - Pedidos
+
+## Antes de começar
+
+- Confirme que o seu grupo é responsável pela etapa do ciclo desses pedidos.
+- Considere a **prioridade**, o **valor** e os **motivos de bloqueio** ao decidir.
+
+## Diferenças importantes
+
+<DocTable
+  headers={['Comparação', 'Diferença']}
+  rows={[
+    ['Pedidos a Liberar x Pedidos em Avaliação x Recusados', 'A aba "Pedidos a Liberar" reúne os que aguardam decisão; "Pedidos em Avaliação" reúne os enviados para avaliação; "Recusados" reúne os reprovados.'],
+    ['Fila de Aprovação x Acompanhamento de Ciclos', 'Nesta fila você decide as etapas; o Acompanhamento Ciclos de Aprovação é somente leitura, para acompanhar o andamento.'],
+  ]}
+/>
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Diversos filtros de cliente, pedido, período, prioridade, rede, empresa, pagamento e valor, com os botões "Pesquisar" e "Limpar Filtros".', 'Combine os filtros para restringir a fila.'],
+    ['Totalizadores', 'Blocos "Totalizadores Gerais" e "Totalizadores da aba" com a quantidade e o valor líquido dos pedidos aguardando aprovação.', 'Mostram o volume total e o da aba selecionada.'],
+    ['Abas', '"Pedidos a Liberar", "Pedidos em Avaliação" e "Recusados".', 'A aba escolhida define quais pedidos são listados.'],
+    ['Resultados', 'Lista dos pedidos com as colunas do cadastro e do ciclo e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Cliente', 'Pesquisa pelo cliente do pedido.'],
+    ['Número do Pedido', 'Pesquisa pelo número do pedido.'],
+    ['Emissão - Data De / Até', 'Filtra pelo período de emissão.'],
+    ['Tipo de Pessoa', 'Filtra por Física, Jurídica ou Estrangeiro.'],
+    ['Cliente Prioritário', 'Filtra os pedidos de clientes prioritários (Sim/Não).'],
+    ['Observação da Prioridade / Status da Prioridade / Prioridade', 'Filtram pela prioridade do pedido.'],
+    ['Rede', 'Filtra pela rede do cliente.'],
+    ['Empresa', 'Filtra pela empresa.'],
+    ['Grupos do Usuário Solicitante', 'Filtra pelo grupo do usuário que solicitou.'],
+    ['Contém Produtos Sin Solutions?', 'Filtra os pedidos que contêm produtos Sin Solutions (Sim/Não).'],
+    ['Forma de Pagamento', 'Filtra pela forma de pagamento.'],
+    ['Tipo de Produto', 'Filtra pelo tipo de produto.'],
+    ['Valor de / Valor até', 'Filtra pela faixa de valor.'],
+  ]}
+/>
+
+### Totalizadores
+
+<DocTable
+  headers={['Totalizador', 'O que mostra']}
+  rows={[
+    ['Totalizadores Gerais', 'Quantidade de pedidos aguardando aprovação e o total líquido (R$).'],
+    ['Totalizadores da aba', 'Quantidade e total líquido dos pedidos da aba selecionada.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Data Envio Aprovação', 'Data e hora em que o pedido foi enviado para aprovação.'],
+    ['Sub-Status Ciclo de Aprovação', 'Resultado da etapa já percorrida no ciclo.'],
+    ['Número do Pedido', 'Número do pedido.'],
+    ['Data Primeiro Envio', 'Data do primeiro envio para aprovação.'],
+    ['Data de Emissão', 'Data de emissão do pedido.'],
+    ['Código do Cliente / Cliente', 'Cliente do pedido.'],
+    ['Prioridade', 'Prioridade do pedido.'],
+    ['Rede', 'Rede do cliente.'],
+    ['Valor Total Líquido', 'Valor total líquido do pedido.'],
+    ['Descrição', 'Descrição do pedido.'],
+    ['Tipo do Pedido', 'Tipo do pedido.'],
+    ['Motivos de Bloqueio', 'Motivos que bloquearam o pedido.'],
+    ['Novo Anexo?', 'Indica se há novo anexo.'],
+    ['Lounge', 'Lounge relacionado.'],
+    ['Empresa', 'Empresa do pedido.'],
+    ['Grupos do Usuário Solicitante', 'Grupo do usuário que solicitou.'],
+    ['Contém Produtos Sin Solutions?', 'Indica se o pedido contém produtos Sin Solutions.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Localizar o pedido** — informe os filtros e clique em **"Pesquisar"**.
+2. **Escolher a aba** — use **"Pedidos a Liberar"**, **"Pedidos em Avaliação"** ou **"Recusados"**.
+3. **Conferir o pedido** — revise valor, prioridade e motivos de bloqueio antes de decidir.
+4. **Decidir** — na linha do pedido, use **Aprovar**, **Reprovar** ou **Enviar para avaliação**.
+5. **Acompanhar** — os totalizadores e o status de cada linha mostram o andamento.
+
+<Callout type="cuidado" title="Confira antes de decidir">
+Aprovar, reprovar ou enviar para avaliação move o pedido no ciclo de aprovação. Revise os dados antes de registrar a decisão.
+</Callout>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para aplicar os filtros e recarregar a fila.', 'Use após ajustar os filtros.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Aprovar', 'Para liberar o pedido na etapa do seu grupo.', 'O pedido avança para a próxima etapa do ciclo.'],
+    ['Reprovar', 'Para recusar o pedido que não atende aos requisitos.', 'O pedido passa a aparecer na aba "Recusados".'],
+    ['Enviar para avaliação', 'Para encaminhar o pedido à avaliação antes da decisão.', 'O pedido passa a aparecer na aba "Pedidos em Avaliação".'],
+    ['Detalhes / Visualizar', 'Para revisar o pedido antes de decidir.', 'Abre os dados do pedido.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Fila de Aprovações - Pedidos', 'Acesso à tela', 'Permite abrir a fila e consultar os pedidos que aguardam aprovação.'],
+    ['Aprovar / Reprovar pedido', 'Ações da fila', 'Permite registrar a decisão da etapa do grupo responsável.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Aba define a lista', 'Cada aba mostra um grupo de pedidos (a liberar, em avaliação, recusados).', 'Alterne as abas para ver os três grupos.'],
+    ['Totalizadores por aba', 'Mostram a quantidade e o valor geral e o da aba selecionada.', 'Confira os números na aba em que está trabalhando.'],
+    ['Motivos de bloqueio', 'A coluna "Motivos de Bloqueio" mostra o que impede a liberação.', 'Considere os motivos ao decidir.'],
+    ['Reprovar move para "Recusados"', 'Ao reprovar, o pedido passa para a aba "Recusados".', 'Acompanhe a aba "Recusados" para o histórico de reprovações.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação']}
+  rows={[
+    ['Pedido', 'Cria e envia o pedido que chega a esta fila.'],
+    ['Acompanhamento Ciclos de Aprovação', 'Mostra, em modo somente leitura, o histórico das etapas decididas nesta fila.'],
+    ['Entidade de Aprovação e Regra de Aprovação', 'Definem quais pedidos passam por aprovação e quem decide cada etapa.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cria nem envia pedidos — isso é feito na tela de Pedido.
+- Não altera as regras de aprovação nem define quem são as alçadas.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O pedido não aparece na fila', 'Filtros restritos ou aba diferente', 'Revise os filtros, clique em "Pesquisar" e confira as três abas.'],
+    ['Não consigo aprovar ou reprovar', 'Grupo não responsável pela etapa ou falta de permissão', 'Confirme se o seu grupo é a alçada da etapa e verifique a permissão.'],
+    ['O pedido sumiu de "Pedidos a Liberar"', 'Foi enviado para avaliação ou reprovado', 'Verifique as abas "Pedidos em Avaliação" e "Recusados".'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para os grupos responsáveis aprovarem, reprovarem ou enviarem para avaliação os pedidos que aguardam liberação.' },
+    { question: 'Quais são as abas?', answer: '"Pedidos a Liberar" (aguardando decisão), "Pedidos em Avaliação" (enviados para avaliação) e "Recusados" (reprovados).' },
+    { question: 'O que é a coluna "Motivos de Bloqueio"?', answer: 'Mostra os motivos que bloquearam o pedido e que devem ser considerados na decisão.' },
+    { question: 'Onde acompanho o histórico do ciclo?', answer: 'Na tela Acompanhamento Ciclos de Aprovação, que é somente leitura.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Fila de Aprovações - Pedidos.' },
+  ]}
+/>

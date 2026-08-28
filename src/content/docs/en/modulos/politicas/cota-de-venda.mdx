@@ -1,0 +1,136 @@
+---
+section: modulos
+routeSlug: politicas/cota-de-venda
+pageType: routine
+module: politicas
+moduleLabel: Policies
+lang: en
+title: Sales Quota
+description: Registration of the sales quotas by commercial structure and period, with Retail, KA and implant quota values.
+routineType: Registration
+permission: Yes
+impact: Defines the sales quotas by commercial structure and period
+keywords: [sales quota, quota, target, commercial structure, retail, ka, implants, policies]
+tags: [modulo-politicas, cadastro]
+order: 2
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Sales Quota** screen gathers the registration of the **sales quotas** by **commercial structure** and **period** (month and year). Each quota defines the expected values — **Retail quota**, **KA quota** and **implant quota** (in R$ and in %).
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Quota registration', text: 'Defines the sales quotas by structure and period.' },
+    { label: 'Use', title: 'Commercial targets', text: 'The quotas guide the sales tracking.' },
+    { label: 'Caution', title: 'Structure and period', text: 'Check the commercial structure, the month and the year when registering.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register the quota of a commercial structure for a period.
+- Check the quotas already registered.
+- Adjust the Retail, KA or implant quota values.
+
+## How to access
+
+Policies → Sales Quota
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Field "Commercial Structure", with the buttons "Search", "+ New" and "Clear Filters". There are the Excel and PDF export buttons.', 'Use "Commercial Structure" to filter the quotas.'],
+    ['Results', 'List of quotas with the "Commercial Structure", "Month", "Year", "R$ Retail Quota" and "R$ KA Quota" columns and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the quota values.', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Quota registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Month', 'Quota month.'],
+    ['Year', 'Quota year.'],
+    ['R$ Retail Quota', 'Value of the Retail channel quota.'],
+    ['R$ KA Quota', 'Value of the Key Account (KA) channel quota.'],
+    ['R$ Implant Quota', 'Value of the implant quota.'],
+    ['% Implant Quota', 'Percentage of the implant quota.'],
+    ['Commercial Structure', 'Commercial structure the quota belongs to.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the quotas.', 'Use "Commercial Structure" to refine.'],
+    ['+ New', 'To register a new quota.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+    ['Export to Excel / PDF', 'To export the quota list.', 'Generates a file with the listed data.'],
+    ['Details', 'To view the quota information.', 'It is read-only.'],
+    ['Edit', 'To change the quota values.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the quota (red X icon).', 'Use with care.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Sales Quota', 'Access to the screen', 'Allows opening the screen and viewing the quotas.'],
+    ['Quota registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting quotas.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Commercial Structure** — the quotas are linked to the commercial structures.
+- **Sales Planning** — the quotas support the planning and tracking of targets.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The quota does not appear in the search', 'Structure not selected', 'Review the "Commercial Structure" filter and click "Search".'],
+    ['I cannot save the quota', 'Required fields blank', 'Enter month, year, structure and the values.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the sales quotas by commercial structure and period.' },
+    { question: 'What is the difference between Retail quota and KA quota?', answer: 'They are the quotas of the Retail and Key Account (KA) channels, respectively.' },
+    { question: 'Is the implant quota by value or percentage?', answer: 'There are both: "R$ Implant Quota" (value) and "% Implant Quota" (percentage).' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Sales Quota screen documentation.' },
+  ]}
+/>

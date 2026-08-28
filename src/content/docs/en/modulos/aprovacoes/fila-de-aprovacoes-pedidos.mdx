@@ -1,0 +1,232 @@
+---
+section: modulos
+routeSlug: aprovacoes/fila-de-aprovacoes-pedidos
+pageType: routine
+module: aprovacoes
+moduleLabel: Approvals
+lang: en
+title: Approval Queue - Orders
+description: Queue where the responsible groups approve, reject or send for evaluation the orders awaiting release, with totals and tabs by situation.
+routineType: Query and process
+permission: Yes
+impact: Approval decision for orders
+keywords: [approval queue, orders to release, orders in evaluation, rejected, approve order, reject order, sub-status, approval cycle, priority, block reasons]
+tags: [modulo-aprovacoes, processo]
+order: 5
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Approval Queue - Orders** screen (shown as "New Order Approval Queue") is where the responsible groups **decide on the orders** sent for approval. Each order awaiting release appears in a list, with the status, the cycle progress, the block reasons and the actions to **approve**, **reject** or **send for evaluation**.
+
+The screen organizes the work in three tabs — **"Orders to Release"**, **"Orders in Evaluation"** and **"Rejected"** — and shows **totals** with the quantity and value of the orders awaiting approval.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Approve orders', text: 'Receives the sent orders and allows approving, rejecting or sending for evaluation.' },
+    { label: 'Use', title: 'Approver work', text: 'It is the queue used by the responsible groups to decide on each order.' },
+    { label: 'Caution', title: 'Check before deciding', text: 'The decision moves the order in the cycle; review value, priority and block reasons.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Check the orders awaiting your approval.
+- Approve an order so it advances in the cycle.
+- Reject an order that does not meet the requirements.
+- Send an order for evaluation when it needs analysis before deciding.
+- Track the quantity and value of the orders in the queue.
+
+## How to access
+
+Approvals → Approval Queue - Orders
+
+## Before you start
+
+- Confirm that your group is responsible for the cycle stage of these orders.
+- Consider the **priority**, the **value** and the **block reasons** when deciding.
+
+## Important differences
+
+<DocTable
+  headers={['Comparison', 'Difference']}
+  rows={[
+    ['Orders to Release x Orders in Evaluation x Rejected', 'The "Orders to Release" tab gathers those awaiting decision; "Orders in Evaluation" gathers those sent for evaluation; "Rejected" gathers the rejected ones.'],
+    ['Approval Queue x Approval Cycles Tracking', 'In this queue you decide the stages; the Approval Cycles Tracking is read-only, to follow the progress.'],
+  ]}
+/>
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Several filters for customer, order, period, priority, network, company, payment and value, with the buttons "Search" and "Clear Filters".', 'Combine the filters to narrow the queue.'],
+    ['Totals', 'Blocks "General Totals" and "Tab Totals" with the quantity and net value of the orders awaiting approval.', 'They show the overall volume and the selected tab volume.'],
+    ['Tabs', '"Orders to Release", "Orders in Evaluation" and "Rejected".', 'The chosen tab defines which orders are listed.'],
+    ['Results', 'List of orders with the record and cycle columns and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Customer', 'Searches by the order customer.'],
+    ['Order Number', 'Searches by the order number.'],
+    ['Issue - Date From / To', 'Filters by the issue period.'],
+    ['Person Type', 'Filters by Individual, Company or Foreign.'],
+    ['Priority Customer', 'Filters the orders of priority customers (Yes/No).'],
+    ['Priority Note / Priority Status / Priority', 'Filter by the order priority.'],
+    ['Network', 'Filters by the customer network.'],
+    ['Company', 'Filters by company.'],
+    ['Requesting User Groups', 'Filters by the group of the user who requested.'],
+    ['Contains Sin Solutions Products?', 'Filters the orders that contain Sin Solutions products (Yes/No).'],
+    ['Payment Method', 'Filters by the payment method.'],
+    ['Product Type', 'Filters by the product type.'],
+    ['Value from / Value to', 'Filters by the value range.'],
+  ]}
+/>
+
+### Totals
+
+<DocTable
+  headers={['Total', 'What it shows']}
+  rows={[
+    ['General Totals', 'Quantity of orders awaiting approval and the net total (R$).'],
+    ['Tab Totals', 'Quantity and net total of the orders in the selected tab.'],
+  ]}
+/>
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Approval Submission Date', 'Date and time the order was sent for approval.'],
+    ['Approval Cycle Sub-Status', 'Result of the stage already covered in the cycle.'],
+    ['Order Number', 'Order number.'],
+    ['First Submission Date', 'Date of the first submission for approval.'],
+    ['Issue Date', 'Order issue date.'],
+    ['Customer Code / Customer', 'Order customer.'],
+    ['Priority', 'Order priority.'],
+    ['Network', 'Customer network.'],
+    ['Net Total Value', 'Net total value of the order.'],
+    ['Description', 'Order description.'],
+    ['Order Type', 'Order type.'],
+    ['Block Reasons', 'Reasons that blocked the order.'],
+    ['New Attachment?', 'Indicates whether there is a new attachment.'],
+    ['Lounge', 'Related Lounge.'],
+    ['Company', 'Order company.'],
+    ['Requesting User Groups', 'Group of the user who requested.'],
+    ['Contains Sin Solutions Products?', 'Indicates whether the order contains Sin Solutions products.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Locate the order** — enter the filters and click **"Search"**.
+2. **Choose the tab** — use **"Orders to Release"**, **"Orders in Evaluation"** or **"Rejected"**.
+3. **Review the order** — check value, priority and block reasons before deciding.
+4. **Decide** — on the order row, use **Approve**, **Reject** or **Send for evaluation**.
+5. **Track** — the totals and the status of each row show the progress.
+
+<Callout type="cuidado" title="Check before deciding">
+Approving, rejecting or sending for evaluation moves the order in the approval cycle. Review the data before recording the decision.
+</Callout>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To apply the filters and reload the queue.', 'Use after adjusting the filters.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+    ['Approve', 'To release the order at your group stage.', 'The order advances to the next cycle stage.'],
+    ['Reject', 'To refuse the order that does not meet the requirements.', 'The order moves to the "Rejected" tab.'],
+    ['Send for evaluation', 'To send the order for evaluation before the decision.', 'The order moves to the "Orders in Evaluation" tab.'],
+    ['Details / View', 'To review the order before deciding.', 'Opens the order data.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Approval Queue - Orders', 'Access to the screen', 'Allows opening the queue and viewing the orders awaiting approval.'],
+    ['Approve / Reject order', 'Queue actions', 'Allows recording the decision of the responsible group stage.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Tab defines the list', 'Each tab shows a group of orders (to release, in evaluation, rejected).', 'Switch tabs to see the three groups.'],
+    ['Totals per tab', 'Show the quantity and value overall and for the selected tab.', 'Check the numbers on the tab you are working on.'],
+    ['Block reasons', 'The "Block Reasons" column shows what prevents the release.', 'Consider the reasons when deciding.'],
+    ['Reject moves to "Rejected"', 'When rejected, the order moves to the "Rejected" tab.', 'Track the "Rejected" tab for the history of rejections.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship']}
+  rows={[
+    ['Order', 'Creates and sends the order that reaches this queue.'],
+    ['Approval Cycles Tracking', 'Shows, read-only, the history of the stages decided in this queue.'],
+    ['Approval Entity and Approval Rule', 'Define which orders go through approval and who decides each stage.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not create or send orders — that is done on the Order screen.
+- It does not change the approval rules or define who the approvers are.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The order does not appear in the queue', 'Restrictive filters or a different tab', 'Review the filters, click "Search" and check the three tabs.'],
+    ['I cannot approve or reject', 'Group not responsible for the stage or missing permission', 'Confirm that your group is the approver of the stage and check the permission.'],
+    ['The order disappeared from "Orders to Release"', 'It was sent for evaluation or rejected', 'Check the "Orders in Evaluation" and "Rejected" tabs.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'For the responsible groups to approve, reject or send for evaluation the orders awaiting release.' },
+    { question: 'What are the tabs?', answer: '"Orders to Release" (awaiting decision), "Orders in Evaluation" (sent for evaluation) and "Rejected" (rejected).' },
+    { question: 'What is the "Block Reasons" column?', answer: 'It shows the reasons that blocked the order and that should be considered in the decision.' },
+    { question: 'Where do I track the cycle history?', answer: 'On the Approval Cycles Tracking screen, which is read-only.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Approval Queue - Orders screen documentation.' },
+  ]}
+/>

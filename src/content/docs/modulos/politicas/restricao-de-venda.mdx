@@ -1,0 +1,161 @@
+---
+section: modulos
+routeSlug: politicas/restricao-de-venda
+pageType: routine
+module: politicas
+moduleLabel: Políticas
+title: Restrição de Venda
+description: Cadastro das restrições aplicadas a vendas, com tipo, vigência e segmentação por cliente, lounge, estado, ramo, canal e tipo de pedido.
+routineType: Cadastro
+permission: Sim
+impact: Define as restrições aplicadas a determinadas vendas
+keywords: [restrição de venda, restrição, bloqueio, vigência, segmentação, cliente, lounge, estado, ramo, canal, políticas]
+tags: [modulo-politicas, cadastro]
+order: 8
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Restrição de Venda** reúne o cadastro das **restrições** aplicadas a determinadas vendas. Cada restrição tem um **tipo**, uma **vigência** e uma **segmentação** (cliente, lounge, estado, ramo de atividade, canal, tipo de pedido, grupo de usuário) que define onde a restrição se aplica.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de restrições', text: 'Define as restrições aplicadas a vendas.' },
+    { label: 'Uso', title: 'Controle de vendas', text: 'Restringe vendas conforme a segmentação definida.' },
+    { label: 'Cuidado', title: 'Tipo e segmentação', text: 'Confira o tipo de restrição e onde ela se aplica.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova restrição de venda.
+- Consultar as restrições já cadastradas.
+- Ajustar o tipo, a vigência ou a segmentação de uma restrição.
+
+## Como acessar
+
+Políticas → Restrição de Venda
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Descrição", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros". Há os botões de exportação para Excel e PDF.', 'Use "Descrição" para localizar a restrição.'],
+    ['Resultados', 'Lista das restrições com as colunas "Descrição", "Tipo de Restrição de Venda", "Status Sistema", "Início Vigência" e "Término Vigência" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com os dados e a segmentação da restrição.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Cadastro da restrição (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Descrição', 'Descrição da restrição.'],
+    ['Tipo de Restrição de Venda', 'Tipo da restrição.'],
+    ['Status Sistema', 'Define se a restrição está ativa.'],
+    ['Pedido ou Orçamento', 'Define se a restrição vale para pedido ou orçamento.'],
+    ['Nacional ou Internacional', 'Define se a restrição é nacional ou internacional.'],
+    ['Início Vigência / Término Vigência', 'Período de vigência da restrição.'],
+    ['Aplicação do Item', 'Define a que itens a restrição se aplica.'],
+  ]}
+/>
+
+### Cadastro — segmentação
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Clientes', 'Restringe a determinados clientes.'],
+    ['Lounges', 'Restringe a determinados Lounges.'],
+    ['Estados', 'Restringe a determinados estados.'],
+    ['Ramos de Atividade', 'Restringe a determinados ramos de atividade.'],
+    ['Canais', 'Restringe a determinados canais.'],
+    ['Tipo de Pedido', 'Restringe a determinados tipos de pedido.'],
+    ['Grupo de Usuário', 'Restringe a determinados grupos de usuário.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as restrições.', 'Combine os filtros para refinar.'],
+    ['+ Novo', 'Para cadastrar uma nova restrição.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+    ['Exportar para Excel / PDF', 'Para exportar a lista de restrições.', 'Gera um arquivo com os dados listados.'],
+    ['Detalhes', 'Para consultar as informações da restrição.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados da restrição.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover a restrição (ícone X vermelho).', 'Prefira inativar quando a restrição já tiver sido usada.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Restrição de Venda', 'Acesso à tela', 'Permite abrir a tela e consultar as restrições.'],
+    ['Cadastro e edição de restrição', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir restrições.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Segmentação', 'A restrição se aplica ao público definido (cliente, lounge, estado, ramo, canal).', 'Ajuste a segmentação conforme o objetivo.'],
+    ['Vigência', 'A restrição vale apenas no período de vigência.', 'Preencha início e término corretamente.'],
+    ['Pedido ou Orçamento', 'A restrição pode valer para pedido e/ou orçamento.', 'Defina o alvo corretamente.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Pedidos** — as restrições impactam as vendas conforme a segmentação.
+- **Política Comercial** — complementa as regras comerciais aplicadas.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A restrição não é aplicada', 'Fora de vigência ou segmentação não atende', 'Revise a vigência e a segmentação (cliente, lounge, estado, ramo, canal).'],
+    ['A restrição não aparece na busca', 'Filtro restrito', 'Revise o campo "Descrição" e clique em "Pesquisar".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as restrições aplicadas a determinadas vendas.' },
+    { question: 'Como defino onde a restrição se aplica?', answer: 'Pela segmentação: cliente, lounge, estado, ramo de atividade, canal, tipo de pedido e grupo de usuário.' },
+    { question: 'A restrição vale para orçamento também?', answer: 'Depende do campo "Pedido ou Orçamento", que define o alvo da restrição.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Restrição de Venda.' },
+  ]}
+/>

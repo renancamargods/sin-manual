@@ -1,0 +1,145 @@
+---
+section: modulos
+routeSlug: integrador/tipo-de-etapa
+pageType: routine
+module: integrador
+moduleLabel: Integrator
+lang: en
+title: Stage Type
+description: Registration of the stage types used in integration flows, with executor type, base endpoint and payload mapper.
+routineType: Registration
+permission: Yes
+impact: Defines the stage types used in integration flows
+keywords: [stage type, stage, integration flow, executor, endpoint, payload mapper, integrator]
+tags: [modulo-integrador, cadastro]
+order: 4
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Stage Type** screen gathers the registration of the **stage types** used in **integration flows**. Each type defines how the stage is executed — the **executor type**, the **base endpoint** and the **payload mapper** — and is reused when building the stages of a flow.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Stage types', text: 'Defines the reusable stages of the integration flows.' },
+    { label: 'Use', title: 'Basis of the flows', text: 'The stage types are used when building the "Flow Stages".' },
+    { label: 'Caution', title: 'Technical configuration', text: 'Executor, endpoint and mapper are technical data; configure them carefully.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new stage type.
+- Check the types already registered.
+- Adjust the executor, the endpoint or the mapper of a stage type.
+
+## How to access
+
+Integrator → Stage Type
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Field "Name", with the buttons "Search", "+ New" and "Clear Filters". There are the "Export table to Excel" and "Export table to PDF" buttons.', 'Use "Name" to locate the stage type.'],
+    ['Results', 'List of types with the "Name", "Description" and "Active" columns and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the stage type fields.', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Name', 'Name of the stage type.'],
+    ['Description', 'Description of the stage type.'],
+    ['Active', 'Indicates whether the type is active.'],
+  ]}
+/>
+
+### Stage type registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Name', 'Name of the stage type.'],
+    ['Active', 'Defines whether the type is active.'],
+    ['Description', 'Description of the stage type.'],
+    ['Executor Type', 'Defines how the stage is executed.'],
+    ['Base Endpoint', 'Base address used by the stage.'],
+    ['Payload Mapper Name', 'Mapper that builds the content (payload) sent in the stage.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the stage types.', 'Leave the filter empty to list all.'],
+    ['+ New', 'To register a new type.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+    ['Export to Excel / PDF', 'To export the type list.', 'Generates a file with the listed data.'],
+    ['Details', 'To view the type information.', 'It is read-only.'],
+    ['Edit', 'To change the type data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the type (red X icon).', 'Prefer not to delete types used in flows.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Stage Type', 'Access to the screen', 'Allows opening the screen and viewing the stage types.'],
+    ['Stage type registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting stage types.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Integration Flows** — the flow stages use the stage types registered here.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The stage does not work in the flow', 'Incorrect executor, endpoint or mapper', 'Review "Executor Type", "Base Endpoint" and "Payload Mapper Name".'],
+    ['The type does not appear in the search', 'Restrictive filter', 'Review the "Name" field and click "Search".'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the stage types used in integration flows.' },
+    { question: 'What is the "Payload Mapper"?', answer: 'It is the component that builds the content (payload) sent in the integration stage.' },
+    { question: 'Where are the stage types used?', answer: 'In the "Flow Stages" tab of the Integration Flows screen.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Stage Type screen documentation.' },
+  ]}
+/>

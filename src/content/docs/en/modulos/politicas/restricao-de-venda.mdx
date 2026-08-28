@@ -1,0 +1,162 @@
+---
+section: modulos
+routeSlug: politicas/restricao-de-venda
+pageType: routine
+module: politicas
+moduleLabel: Policies
+lang: en
+title: Sales Restriction
+description: Registration of the restrictions applied to sales, with type, validity and segmentation by customer, lounge, state, line of business, channel and order type.
+routineType: Registration
+permission: Yes
+impact: Defines the restrictions applied to certain sales
+keywords: [sales restriction, restriction, block, validity, segmentation, customer, lounge, state, line of business, channel, policies]
+tags: [modulo-politicas, cadastro]
+order: 8
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Sales Restriction** screen gathers the registration of the **restrictions** applied to certain sales. Each restriction has a **type**, a **validity** and a **segmentation** (customer, lounge, state, line of business, channel, order type, user group) that defines where the restriction applies.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Restriction registration', text: 'Defines the restrictions applied to sales.' },
+    { label: 'Use', title: 'Sales control', text: 'Restricts sales according to the defined segmentation.' },
+    { label: 'Caution', title: 'Type and segmentation', text: 'Check the restriction type and where it applies.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new sales restriction.
+- Check the restrictions already registered.
+- Adjust the type, the validity or the segmentation of a restriction.
+
+## How to access
+
+Policies → Sales Restriction
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Field "Description", with the buttons "Search", "+ New" and "Clear Filters". There are the Excel and PDF export buttons.', 'Use "Description" to locate the restriction.'],
+    ['Results', 'List of restrictions with the "Description", "Sales Restriction Type", "System Status", "Validity Start" and "Validity End" columns and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the restriction data and segmentation.', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Restriction registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Description', 'Description of the restriction.'],
+    ['Sales Restriction Type', 'Type of the restriction.'],
+    ['System Status', 'Defines whether the restriction is active.'],
+    ['Order or Quote', 'Defines whether the restriction applies to order or quote.'],
+    ['National or International', 'Defines whether the restriction is national or international.'],
+    ['Validity Start / Validity End', 'Validity period of the restriction.'],
+    ['Item Scope', 'Defines to which items the restriction applies.'],
+  ]}
+/>
+
+### Registration — segmentation
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Customers', 'Restricts to certain customers.'],
+    ['Lounges', 'Restricts to certain Lounges.'],
+    ['States', 'Restricts to certain states.'],
+    ['Lines of Business', 'Restricts to certain lines of business.'],
+    ['Channels', 'Restricts to certain channels.'],
+    ['Order Type', 'Restricts to certain order types.'],
+    ['User Group', 'Restricts to certain user groups.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the restrictions.', 'Combine the filters to refine.'],
+    ['+ New', 'To register a new restriction.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+    ['Export to Excel / PDF', 'To export the restriction list.', 'Generates a file with the listed data.'],
+    ['Details', 'To view the restriction information.', 'It is read-only.'],
+    ['Edit', 'To change the restriction data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the restriction (red X icon).', 'Prefer deactivating when the restriction has already been used.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Sales Restriction', 'Access to the screen', 'Allows opening the screen and viewing the restrictions.'],
+    ['Restriction registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting restrictions.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Segmentation', 'The restriction applies to the defined audience (customer, lounge, state, line of business, channel).', 'Adjust the segmentation according to the objective.'],
+    ['Validity', 'The restriction is valid only during the validity period.', 'Fill in start and end correctly.'],
+    ['Order or Quote', 'The restriction can apply to order and/or quote.', 'Define the target correctly.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Orders** — the restrictions impact sales according to the segmentation.
+- **Commercial Policy** — complements the applied commercial rules.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The restriction is not applied', 'Out of validity or segmentation does not match', 'Review the validity and the segmentation (customer, lounge, state, line of business, channel).'],
+    ['The restriction does not appear in the search', 'Restrictive filter', 'Review the "Description" field and click "Search".'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the restrictions applied to certain sales.' },
+    { question: 'How do I define where the restriction applies?', answer: 'Through segmentation: customer, lounge, state, line of business, channel, order type and user group.' },
+    { question: 'Does the restriction apply to quotes too?', answer: 'It depends on the "Order or Quote" field, which defines the target of the restriction.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Sales Restriction screen documentation.' },
+  ]}
+/>

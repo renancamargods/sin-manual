@@ -1,0 +1,156 @@
+---
+section: modulos
+routeSlug: politicas/parametro-de-campanha
+pageType: routine
+module: politicas
+moduleLabel: Policies
+lang: en
+title: Campaign Parameter
+description: Registration of the parameters used in commercial campaigns, with hierarchy (parent), availability period and end of path.
+routineType: Registration
+permission: Yes
+impact: Defines the parameters used in commercial campaigns
+keywords: [campaign parameter, campaign, path, availability, parent, policies]
+tags: [modulo-politicas, cadastro]
+order: 5
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Campaign Parameter** screen gathers the registration of the **parameters** used in **commercial campaigns**. Each parameter has a **title**, may have a **parent parameter** (hierarchy), an **availability period** (availability date and "show until") and the **end of path** flag.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Campaign parameters', text: 'Defines the items used in commercial campaigns.' },
+    { label: 'Use', title: 'Campaign structure', text: 'The parameters can be organized in a hierarchy (parent/child).' },
+    { label: 'Caution', title: 'Availability', text: 'Check the availability period (dates) of the parameter.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new campaign parameter.
+- Check the parameters already registered.
+- Organize the parameters in a hierarchy (parent/child).
+
+## How to access
+
+Policies → Campaign Parameter
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Fields "Title" and "System Status", with the buttons "Search", "+ New" and "Clear Filters". There are the Excel and PDF export buttons.', 'Combine the filters to locate the parameter.'],
+    ['Results', 'List of parameters with the "Title", "System Status", "End of Path?" and "Parent" columns and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the parameter fields.', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Title', 'Title of the parameter.'],
+    ['System Status', 'Indicates whether the parameter is active.'],
+    ['End of Path?', 'Indicates whether the parameter is the end of the path.'],
+    ['Parent', 'Parent parameter in the hierarchy.'],
+  ]}
+/>
+
+### Parameter registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Title', 'Title of the parameter.'],
+    ['System Status', 'Defines whether the parameter is active.'],
+    ['End of Path?', 'Indicates whether the parameter is the end of the path.'],
+    ['Availability Date', 'Date from which the parameter becomes available.'],
+    ['Show Until', 'Deadline date for showing the parameter.'],
+    ['Parent', 'Parent parameter in the hierarchy.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the parameters.', 'Combine the filters to refine.'],
+    ['+ New', 'To register a new parameter.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+    ['Export to Excel / PDF', 'To export the parameter list.', 'Generates a file with the listed data.'],
+    ['Details', 'To view the parameter information.', 'It is read-only.'],
+    ['Edit', 'To change the parameter data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the parameter (red X icon).', 'Use with care.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Campaign Parameter', 'Access to the screen', 'Allows opening the screen and viewing the parameters.'],
+    ['Parameter registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting parameters.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Hierarchy (Parent)', 'A parameter can have a parent, forming a hierarchy.', 'Use the "Parent" field to organize the parameters.'],
+    ['Availability period', 'The "Availability Date" and "Show Until" delimit when the parameter appears.', 'Fill in the dates according to the campaign.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Commercial Policy** and **Payment Term** — parameters and exclusive conditions support the commercial campaigns.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The parameter does not appear in the search', 'Restrictive filters', 'Review "Title" and "System Status" and click "Search".'],
+    ['The parameter is not available', 'Availability period', 'Check "Availability Date" and "Show Until".'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the parameters used in commercial campaigns.' },
+    { question: 'What is the "Parent" field?', answer: 'It is the higher parameter in the hierarchy; it allows organizing the parameters in levels.' },
+    { question: 'What does "End of Path?" mean?', answer: 'It indicates that the parameter is the end of the campaign path.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Campaign Parameter screen documentation.' },
+  ]}
+/>

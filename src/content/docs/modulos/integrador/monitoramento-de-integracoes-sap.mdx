@@ -1,0 +1,153 @@
+---
+section: modulos
+routeSlug: integrador/monitoramento-de-integracoes-sap
+pageType: routine
+module: integrador
+moduleLabel: Integrador
+title: Monitoramento de Integrações SAP
+description: Consulta e acompanhamento das integrações com o SAP, com status, entidade, ID no CRM e no SAP e datas.
+routineType: Consulta
+permission: Sim
+impact: Acompanha o resultado das integrações com o SAP
+keywords: [monitoramento de integrações sap, monitoramento, integração sap, status, entidade, id crm, id sap, aguardando ação manual, integrador]
+tags: [modulo-integrador, consulta]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Monitoramento de Integrações SAP** permite **consultar e acompanhar as integrações** entre o sistema (CRM) e o SAP. Cada registro mostra a **entidade** integrada (ex.: Cliente), o **status** da integração, o **ID no CRM** e o **ID no SAP**, além das datas de criação e atualização. É uma tela de **consulta**, útil para identificar integrações pendentes ou que precisam de ação manual.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Acompanhar integrações', text: 'Mostra o resultado das integrações com o SAP.' },
+    { label: 'Uso', title: 'Diagnóstico', text: 'Ajuda a identificar registros pendentes ou com erro.' },
+    { label: 'Cuidado', title: 'Somente consulta', text: 'A tela acompanha; não cadastra nem altera registros.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Acompanhar o status das integrações com o SAP.
+- Localizar registros com status "Aguardando Ação Manual" ou pendentes.
+- Verificar o ID de um registro no CRM e no SAP.
+
+## Como acessar
+
+Integrador → Monitoramento de Integrações SAP
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campos "Status", "Data de Criação (Início)" e "Data de Criação (Fim)", com os botões "Pesquisar" e "Limpar Filtros".', 'Combine os filtros para refinar a consulta.'],
+    ['Resultados', 'Lista das integrações com as colunas do registro e, em cada linha, o ícone de detalhes.', 'É uma consulta; não há ações de cadastro.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Status', 'Filtra pelo status da integração (ex.: "Aguardando Ação Manual").'],
+    ['Data de Criação (Início) / (Fim)', 'Filtra pelo período de criação.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['ID da Entidade no CRM', 'Identificador do registro no CRM.'],
+    ['Tipo de Entidade', 'Entidade integrada (ex.: Cliente).'],
+    ['Status', 'Situação da integração (ex.: "Aguardando Ação Manual").'],
+    ['ID do Registro no SAP', 'Identificador do registro correspondente no SAP.'],
+    ['Data de Criação', 'Data em que a integração foi criada.'],
+    ['Data de Atualização', 'Data da última atualização.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as integrações conforme os filtros.', 'Combine status e período para refinar.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a consulta.', '—'],
+    ['Detalhes', 'Para ver as informações da integração.', 'É somente leitura.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Monitoramento de Integrações SAP', 'Acesso à tela', 'Permite abrir a tela e consultar as integrações.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Status "Aguardando Ação Manual"', 'Indica uma integração que precisa de intervenção manual.', 'Use o filtro "Status" para localizar esses registros.'],
+    ['ID no CRM x ID no SAP', 'Relacionam o registro nos dois sistemas.', 'Compare os IDs para conferir a correspondência da integração.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Configuração de Integração SAP** — define o ambiente de conexão usado.
+- **Fluxos de Integração** — executam as integrações que aparecem aqui.
+
+## O que a tela não faz
+
+- Não cadastra nem altera registros — é uma tela de consulta.
+- Não configura a integração — isso é feito em Configuração de Integração SAP e Fluxos de Integração.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A integração não aparece', 'Filtros restritos', 'Revise o "Status" e o período e clique em "Pesquisar".'],
+    ['Registro parado em "Aguardando Ação Manual"', 'A integração exige intervenção', 'Verifique os detalhes e o processo correspondente.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para consultar e acompanhar as integrações entre o CRM e o SAP.' },
+    { question: 'O que significa "Aguardando Ação Manual"?', answer: 'É um status que indica que a integração precisa de uma intervenção manual para prosseguir.' },
+    { question: 'Consigo reprocessar uma integração aqui?', answer: 'A tela é de consulta; ela mostra o status. O tratamento segue o processo correspondente à integração.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Monitoramento de Integrações SAP.' },
+  ]}
+/>

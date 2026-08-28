@@ -1,0 +1,174 @@
+---
+section: modulos
+routeSlug: politicas/politica-comercial
+pageType: routine
+module: politicas
+moduleLabel: Policies
+lang: en
+title: Commercial Policy
+description: Registration of the commercial policies applied to orders and customers, with type, validity, accounting method and segmentation by customer, network, channel, line of business and country.
+routineType: Registration
+permission: Yes
+impact: Defines the commercial rules applied to orders and customers
+keywords: [commercial policy, commercial rule, validity, accounting, segmentation, customer, network, channel, line of business, country, campaign, policies]
+tags: [modulo-politicas, cadastro]
+order: 6
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Commercial Policy** screen gathers the registration of the **commercial rules** applied to orders and customers. Each policy has a **type**, a **validity**, an **accounting method** and a **segmentation** (by customer, network, channel, line of business, country, etc.) that defines to whom the rule applies.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Commercial rules', text: 'Defines the policies applied to orders and customers.' },
+    { label: 'Use', title: 'Segmentation', text: 'The policy applies to the audience defined in the segmentation.' },
+    { label: 'Caution', title: 'Type and validity', text: 'Check the type, the validity and the accounting method.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new commercial policy.
+- Check the policies already registered.
+- Adjust the validity, the type or the segmentation of a policy.
+
+## How to access
+
+Policies → Commercial Policy
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Fields "Description", "Validity - Date From", "Validity - Date To", "Type", "Policy Rule" and "System Status", with the buttons "Search", "+ New" and "Clear Filters".', 'Combine the filters to locate the policy.'],
+    ['Results', 'List of policies with the "Description", "Type", "Policy Rule", "Validity - Start" and "Validity - End" columns and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the policy data and segmentation.', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Policy registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['National or International?', 'Defines whether the policy is national or international.'],
+    ['Description', 'Description of the policy.'],
+    ['Type', 'Type of the policy.'],
+    ['Fair Mode', 'Indicates whether the policy is in fair mode.'],
+    ['Policy Scope', 'Defines the scope/coverage of the policy.'],
+    ['Accounting Method', 'How the policy is accounted for.'],
+    ['Validity - Start / End', 'Validity period of the policy.'],
+    ['Value to Consider', 'Value considered in applying the policy.'],
+    ['System Status', 'Defines whether the policy is active.'],
+    ['Ignore accounting of grouped items', 'Defines whether grouped items are ignored in the accounting.'],
+    ['Days to first installment', 'Days to the first installment, when applicable.'],
+  ]}
+/>
+
+### Registration — segmentation
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Customer', 'Restricts the policy to a customer.'],
+    ['Only for new customer?', 'Applies the policy only to new customers.'],
+    ['Network', 'Restricts the policy to a network.'],
+    ['Grouping', 'Restricts the policy to a customer grouping.'],
+    ['Channel', 'Restricts the policy to a channel.'],
+    ['Line of Business / Line of Business 2', 'Restricts the policy to lines of business.'],
+    ['Sin Partner', 'Restricts the policy to SIN Partner partners.'],
+    ['Ambassador', 'Restricts the policy to ambassadors.'],
+    ['Country', 'Restricts the policy to a country.'],
+    ['Comments', 'Notes about the policy.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the policies.', 'Combine the filters to refine.'],
+    ['+ New', 'To register a new policy.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+    ['Export to Excel / PDF', 'To export the policy list.', 'Generates a file with the listed data.'],
+    ['Details', 'To view the policy information.', 'It is read-only.'],
+    ['Edit', 'To change the policy data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the policy (red X icon).', 'Prefer deactivating when the policy has already been used.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Commercial Policy', 'Access to the screen', 'Allows opening the screen and viewing the policies.'],
+    ['Policy registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting policies.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Validity', 'The policy is valid only during the validity period.', 'Fill in start and end correctly.'],
+    ['Segmentation', 'The policy applies to the defined audience (customer, network, channel, line of business, country).', 'Adjust the segmentation according to the policy objective.'],
+    ['Accounting method', 'Defines how the policy enters the calculation.', 'Check the method before saving.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Orders** and **Customers** — the policies are applied according to the segmentation.
+- **Payment Term** and **Campaign Parameter** — complement the commercial rules in campaigns.
+
+## What this screen does not do
+
+- It does not apply the policy to the order itself — it defines the rule; the application occurs in the sales processes according to the segmentation and validity.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The policy is not applied', 'Out of validity or segmentation does not match', 'Review the validity and the segmentation (customer, channel, line of business, country).'],
+    ['The policy does not appear in the search', 'Restrictive filters', 'Review "Description", "Type" and "System Status".'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the commercial rules (policies) applied to orders and customers.' },
+    { question: 'How do I define to whom the policy applies?', answer: 'Through segmentation: customer, network, grouping, channel, line of business, country, among others.' },
+    { question: 'What is the "Accounting Method"?', answer: 'It defines how the policy enters the calculation of the operations.' },
+    { question: 'Can I delete a policy that has already been used?', answer: 'It is not recommended. Prefer deactivating it (the "System Status" field) to preserve the history.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Commercial Policy screen documentation.' },
+  ]}
+/>
