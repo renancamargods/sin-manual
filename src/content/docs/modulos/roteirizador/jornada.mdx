@@ -1,0 +1,130 @@
+---
+section: modulos
+routeSlug: roteirizador/jornada
+pageType: routine
+module: roteirizador
+moduleLabel: Roteirizador
+title: Jornada
+description: Cadastro das jornadas de trabalho do roteirizador, com dia da semana e horários de início e término.
+routineType: Cadastro
+permission: Sim
+impact: Define os dias e horários de trabalho considerados na agenda
+keywords: [jornada, jornada de trabalho, dia da semana, horário, início, término, agenda, roteirizador]
+tags: [modulo-roteirizador, cadastro]
+order: 7
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Jornada** reúne o cadastro das **jornadas de trabalho** consideradas na agenda do roteirizador. Cada jornada define um **dia da semana** e os **horários de início e término**, delimitando a disponibilidade para atendimentos.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Jornadas de trabalho', text: 'Define os dias e horários de trabalho.' },
+    { label: 'Uso', title: 'Base da agenda', text: 'As jornadas orientam a disponibilidade na agenda.' },
+    { label: 'Cuidado', title: 'Dia e horário', text: 'Confira o dia da semana e os horários de início e término.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma jornada (dia e horário de trabalho).
+- Consultar as jornadas já cadastradas.
+- Ajustar o dia ou os horários de uma jornada.
+
+## Como acessar
+
+Roteirizador → Jornada
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Área de pesquisa com os botões "Pesquisar", "+ Novo" e "Limpar Filtros". Há os botões de exportação para Excel e PDF.', 'Use a pesquisa para localizar a jornada.'],
+    ['Resultados', 'Lista das jornadas com as colunas "Dia da Semana", "Início" e "Término" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com o dia e os horários da jornada.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Cadastro da jornada (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Dia da Semana', 'Dia da semana da jornada.'],
+    ['Início', 'Horário de início.'],
+    ['Término', 'Horário de término.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as jornadas.', 'Deixe o filtro vazio para listar todas.'],
+    ['+ Novo', 'Para cadastrar uma nova jornada.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Exportar para Excel / PDF', 'Para exportar a lista de jornadas.', 'Gera um arquivo com os dados listados.'],
+    ['Detalhes', 'Para consultar as informações da jornada.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados da jornada.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover a jornada (ícone X vermelho).', 'Use com atenção.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Jornada', 'Acesso à tela', 'Permite abrir a tela e consultar as jornadas.'],
+    ['Cadastro e edição de jornada', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir jornadas.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Agenda** — as jornadas definem os dias e horários considerados na agenda de atendimentos.
+- **Ausência** — as ausências reduzem a disponibilidade das jornadas.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A jornada não reflete na agenda', 'Dia ou horário incorretos', 'Revise "Dia da Semana", "Início" e "Término".'],
+    ['A jornada não aparece na busca', 'Filtro restrito', 'Revise a pesquisa e clique em "Pesquisar".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as jornadas de trabalho (dia e horário) consideradas na agenda do roteirizador.' },
+    { question: 'A jornada afeta a agenda?', answer: 'Sim. As jornadas delimitam os dias e horários disponíveis na agenda de atendimentos.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Jornada.' },
+  ]}
+/>

@@ -1,0 +1,192 @@
+---
+section: modulos
+routeSlug: faturamentos/fila-de-remessas-aguardando-separacao
+pageType: routine
+module: faturamentos
+moduleLabel: Invoicing
+lang: en
+title: Shipments Awaiting Picking Queue
+description: Queue of shipments awaiting picking, with filters by order, shipment and priority, totalizers and generation of the picking sheets for the filtered orders.
+routineType: Query and queue
+permission: Yes
+impact: Queries the picking queue and allows generating the picking sheets for the filtered orders
+keywords: [shipments queue, awaiting picking, picking, picking sheet, shipment, priority, label queue, invoicing, dispatch]
+tags: [modulo-faturamentos, consulta]
+order: 4
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Shipments Awaiting Picking Queue** screen shows, as a **queue**, the shipments that still **await picking**. It is a dispatch **tracking** screen: from it, the team filters the shipments, sees the pending quantity and can **generate the picking sheets** for the filtered orders and access the **Label Queue**.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'See what is left to pick', text: 'Lists the shipments awaiting picking.' },
+    { label: 'Use', title: 'Filter and prioritize', text: 'Filters by order, shipment, priority and type, and tracks the totalizers.' },
+    { label: 'Action', title: 'Generate picking sheets', text: 'Generates the picking sheets for the filtered orders and opens the Label Queue.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Track which shipments still await picking.
+- Filter the shipments by order, shipment, priority or order type.
+- Prioritize what must be picked (priority "Urgent", etc.).
+- Generate the picking sheets for the filtered orders.
+- Move on to the Label Queue.
+
+## How to access
+
+Invoicing → Shipments Awaiting Picking Queue
+
+## Before you start
+
+- Know which orders or shipments you want to track (order number, shipment, customer, etc.).
+- Confirm that your profile allows generating the picking sheets.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Filters by Lounge, customer, order, shipment, SAP, dates, priority, order type and picking sheet, with "Search", "Clear Filters" and "+ Save Current Filter".', 'Use the filters to focus on the desired shipments.'],
+    ['Queue actions', 'Buttons "Label Queue" and "Generate Picking Sheets for the Filtered Orders".', 'Sheet generation considers the filtered orders.'],
+    ['Totalizers', 'Shows the "Quantity of Shipments Awaiting Picking".', 'Track the pending volume.'],
+    ['Results', 'Grid with the queue shipments and the operation columns. Exportable to Excel.', 'The grid is empty when there are no shipments in the queue.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Lounge', 'Filters by the Lounge (unit).'],
+    ['Customer', 'Filters by the order customer.'],
+    ['Order Number', 'Filters by the order number.'],
+    ['Shipment No.', 'Filters by the shipment number.'],
+    ['SAP Order No.', 'Filters by the order number in SAP.'],
+    ['Issue - Date From / To', 'Issue period.'],
+    ['Shipment Creation Date - From / To', 'Shipment creation period.'],
+    ['Priority', 'Filters by the shipment priority: "Normal", "Customer at the Lounge", "Urgent" or "Pick up at the Lounge".'],
+    ['Order Type', 'Filters by the order type (e.g., "Standard Sale", "Consignment Sale", "Return", "Export", among others).'],
+    ['Picking Sheet Generated?', 'Filters by shipments with the picking sheet already generated (Yes or No).'],
+  ]}
+/>
+
+### Results columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Shipment No.', 'Shipment number.'],
+    ['Shipment Creation Date', 'Date the shipment was created.'],
+    ['Qty. Shipment Items', 'Quantity of items in the shipment.'],
+    ['Customer Code / Customer', 'Order customer.'],
+    ['Order Number', 'Source order number.'],
+    ['SAP Order', 'Order number in SAP.'],
+    ['Order Status', 'Order situation.'],
+    ['Order Type', 'Type of the order.'],
+    ['Priority', 'Shipment priority.'],
+    ['Issue Date', 'Issue date.'],
+    ['Picking Dispatch Date', 'Date the shipment was sent for picking.'],
+    ['Order Lounge', 'Lounge of the order.'],
+    ['Shipment Lounge', 'Lounge of the shipment.'],
+    ['Picking Sheet generated?', 'Indicates whether the picking sheet was already generated.'],
+    ['Total Value', 'Total value of the shipment.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the shipments according to the filters.', 'Combine order, shipment and priority.'],
+    ['Clear Filters', 'To reset the filters and redo the search.', '—'],
+    ['+ Save Current Filter', 'To save the set of filters used.', 'Makes it easier to repeat the same query.'],
+    ['Label Queue', 'To move on to the label generation queue.', '—'],
+    ['Generate Picking Sheets for the Filtered Orders', 'To generate the picking sheets for the orders currently filtered.', 'The action considers the currently filtered orders.'],
+    ['Export table to Excel', 'To export the queue as a spreadsheet.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Shipments Awaiting Picking Queue', 'Screen access', 'Allows opening the queue and querying the shipments.'],
+    ['Generate picking sheets', 'Generate Picking Sheets', 'Allows generating the picking sheets for the filtered orders.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Pending queue', 'The screen shows only the shipments that still await picking.', 'As they are picked, they leave the queue.'],
+    ['Generation by filter', 'The picking sheet generation uses the set of filtered orders.', 'Adjust the filters before generating.'],
+    ['Priority', 'The priority guides the picking order.', 'Use the "Priority" filter to focus on the urgent ones.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Label Generation Queue', 'Picking moves on to the generation of the shipment labels.', 'Use the "Label Queue" button.'],
+    ['Loading List Queue', 'After picking, the shipments move on to the loading list.', '—'],
+    ['Order / Shipment', 'The queue starts from the orders and shipments generated in invoicing.', 'The shipment must exist to enter the queue.'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not invoice orders or create shipments — it only tracks those awaiting picking.
+- It does not change the order or shipment data.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The queue appears empty', 'No shipments awaiting picking or the filters are restrictive', 'Adjust or clear the filters.'],
+    ['The shipment does not enter the queue', 'Shipment not created yet or already picked', 'Check the order and shipment status.'],
+    ['I cannot generate the picking sheets', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this queue for?', answer: 'To track the shipments that still await picking and to generate the picking sheets for the filtered orders.' },
+    { question: 'How do I prioritize what to pick?', answer: 'Use the "Priority" filter (for example, "Urgent") to focus on the priority shipments.' },
+    { question: 'What does "Generate Picking Sheets for the Filtered Orders" do?', answer: 'It generates the picking sheets for the orders in the current screen filter.' },
+    { question: 'Does the screen change any data?', answer: 'No. It is a queue/query screen; it only tracks and generates the picking sheets.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Shipments Awaiting Picking Queue screen documentation.' },
+  ]}
+/>

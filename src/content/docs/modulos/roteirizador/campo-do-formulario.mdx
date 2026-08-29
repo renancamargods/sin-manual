@@ -1,0 +1,131 @@
+---
+section: modulos
+routeSlug: roteirizador/campo-do-formulario
+pageType: routine
+module: roteirizador
+moduleLabel: Roteirizador
+title: Campo do Formulário
+description: Cadastro dos campos que compõem os formulários de campo, com descrição, código, tipo do campo e obrigatoriedade.
+routineType: Cadastro
+permission: Sim
+impact: Define os campos que compõem os formulários usados em campo
+keywords: [campo do formulário, campo, formulário, código do campo, tipo do campo, obrigatório, roteirizador]
+tags: [modulo-roteirizador, cadastro]
+order: 5
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Campo do Formulário** reúne o cadastro dos **campos** que compõem os formulários de campo. Cada campo tem uma **descrição**, um **código**, um **tipo** e a indicação de **obrigatoriedade**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Campos do formulário', text: 'Define os campos usados nos formulários de campo.' },
+    { label: 'Uso', title: 'Estrutura do formulário', text: 'Os campos compõem os formulários preenchidos na visita.' },
+    { label: 'Cuidado', title: 'Tipo e obrigatoriedade', text: 'Confira o tipo do campo e se ele é obrigatório.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo campo de formulário.
+- Consultar os campos já cadastrados.
+- Ajustar o tipo ou a obrigatoriedade de um campo.
+
+## Como acessar
+
+Roteirizador → Campo do Formulário
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Área de pesquisa com os botões "Pesquisar", "+ Novo" e "Limpar Filtros". Há os botões de exportação para Excel e PDF.', 'Use a pesquisa para localizar o campo.'],
+    ['Resultados', 'Lista dos campos com as colunas "Descrição", "Código do Campo" e "Tipo do Campo" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com os campos do formulário.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Cadastro do campo (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Descrição', 'Descrição do campo.'],
+    ['Código do Campo', 'Código que identifica o campo.'],
+    ['Tipo do Campo', 'Tipo do campo (definido em Tipo de Campo).'],
+    ['Obrigatório', 'Indica se o preenchimento do campo é obrigatório.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os campos.', 'Deixe o filtro vazio para listar todos.'],
+    ['+ Novo', 'Para cadastrar um novo campo.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Exportar para Excel / PDF', 'Para exportar a lista de campos.', 'Gera um arquivo com os dados listados.'],
+    ['Detalhes', 'Para consultar as informações do campo.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados do campo.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover o campo (ícone X vermelho).', 'Prefira não excluir campos usados em formulários.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Campo do Formulário', 'Acesso à tela', 'Permite abrir a tela e consultar os campos.'],
+    ['Cadastro e edição de campo', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir campos.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Formulário** — os campos compõem os formulários usados em campo.
+- **Tipo de Campo** — define o tipo de cada campo.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O campo não aparece na busca', 'Filtro restrito', 'Revise a pesquisa e clique em "Pesquisar".'],
+    ['O campo não é obrigatório quando deveria', 'Marcação "Obrigatório" desmarcada', 'Verifique a obrigatoriedade do campo.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os campos que compõem os formulários de campo.' },
+    { question: 'O que define o "Tipo do Campo"?', answer: 'Define o formato do campo (texto, data, etc.), configurado na tela Tipo de Campo.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Campo do Formulário.' },
+  ]}
+/>

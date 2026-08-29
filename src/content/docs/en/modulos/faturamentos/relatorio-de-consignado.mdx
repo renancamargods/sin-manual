@@ -1,0 +1,176 @@
+---
+section: modulos
+routeSlug: faturamentos/relatorio-de-consignado
+pageType: routine
+module: faturamentos
+moduleLabel: Invoicing
+lang: en
+title: Consignment Report
+description: Report with the position of consignment items by customer, product, lot and serial, with the invoices of the consignment stages and the balance, in the Summary and Full versions.
+routineType: Report
+permission: Yes
+impact: Query — generates the consignment position report, without changing data
+keywords: [consignment report, consignment, consignment position, consignment balance, lot, serial, invoice, kbb, kr, zrob, zcli, keb, zpos, invoicing]
+tags: [modulo-faturamentos, consulta, relatorio]
+order: 7
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Consignment Report** shows the **position of the consignment items**: by customer, product, lot and serial, with the **invoices** of each consignment stage (dispatch, return, sale, etc.) and the **balance** of each item. The report can be generated in the **Summary** or **Full** versions.
+
+It is a **query** screen: it generates the report from the filters, without changing data.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Consignment position', text: 'Shows the situation and balance of the consignment items by customer.' },
+    { label: 'Use', title: 'Filter and generate', text: 'Filter by customer, Lounge, invoice and period and generate the report.' },
+    { label: 'Versions', title: 'Summary or Full', text: 'Choose the detail level of the report.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Query the position of a customer's consignment items.
+- See the consignment balance by product, lot and serial.
+- Track the invoices of the consignment stages.
+- Generate the summary or full report for analysis.
+
+## How to access
+
+Invoicing → Consignment Report
+
+## Before you start
+
+- Know the customer, Lounge, invoice or period you want to query.
+- Choose whether you need the "Summary" or "Full" report.
+- Confirm that your profile has access to the screen.
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Customer', 'Filters by the consignment customer.'],
+    ['Lounge', 'Filters by the Lounge (unit).'],
+    ['Invoice No.', 'Filters by a specific invoice.'],
+    ['Issue Date - From / To', 'Invoice issue period.'],
+    ['Report Type', 'Chooses between "Summary" and "Full".'],
+  ]}
+/>
+
+### Report columns
+
+The report gathers **identification** columns and, for each consignment **stage/invoice type**, a block with the invoice, the date, the value and the quantity, ending in the **Balance**.
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Customer Code / Name', 'Consignment customer.'],
+    ['Possible Reconsig', 'Indicates the possibility of reconsigning the item.'],
+    ['SAP Order', 'Order number in SAP.'],
+    ['Invoice (Fatura)', 'Invoice number.'],
+    ['Product Code', 'Code of the consignment product.'],
+    ['Lot', 'Item lot.'],
+    ['Serial', 'Item serial.'],
+    ['Order Number', 'Source order number.'],
+    ['% Discount of the Original Order', 'Discount percentage of the original order.'],
+    ['Invoice / Invoice Date / Value / Qty (per type)', 'For each consignment invoice type — KBB, KR, ZROB, ZCLI, KEB and ZPOS — the report brings the corresponding invoice, date, value and quantity.'],
+    ['Balance', 'Balance of the item in consignment.'],
+  ]}
+/>
+
+<Callout type="info" title="Consignment invoice types">
+The codes (KBB, KR, ZROB, ZCLI, KEB, ZPOS) identify the consignment invoice/movement types. Each one has, in the report, the "Invoice", "Date", "Value" and "Qty" columns. Use them together with the "Balance" to understand the position of each item.
+</Callout>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the items according to the filters.', 'Combine customer, invoice and period.'],
+    ['Report', 'To generate/export the consignment report.', 'It respects the selected "Report Type".'],
+    ['Clear Filters', 'To reset the filters and redo the query.', '—'],
+    ['Report Type (Summary/Full)', 'To choose the detail level.', '"Full" brings more columns/detail.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Consignment Report', 'Screen access', 'Allows opening the screen and generating the report.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Query only', 'The screen only generates the report from the filters.', 'It does not change consignment data.'],
+    ['Summary x Full', 'The "Report Type" changes the detail level presented.', 'Use "Full" for the per-invoice analysis.'],
+    ['Balance per item', 'The balance consolidates the item movements.', 'Use the "Balance" to see what is still in consignment.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Consignment Closing', 'The report shows the position that guides the closing.', 'Check it before closing the consignment.'],
+    ['Order / Invoice', 'The columns start from the consignment invoices and orders.', '—'],
+    ['Customer', 'The position is presented by customer.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not invoice or close the consignment — it only shows its position.
+- It does not change invoices, orders or balances.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The report brings no records', 'Restrictive filters or no consignment in the period', 'Adjust customer, invoice and period.'],
+    ['Detail columns are missing', 'Report Type on "Summary"', 'Select "Full".'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Consignment Report for?', answer: 'To show the position of the consignment items by customer, product, lot and serial, with the invoices of each stage and the balance.' },
+    { question: 'What is the difference between Summary and Full?', answer: 'The "Report Type" changes the detail level: "Full" brings more columns and per-invoice detailing.' },
+    { question: 'What do the codes KBB, KR, ZROB, ZCLI, KEB, ZPOS mean?', answer: 'They are the consignment invoice/movement types; each has invoice, date, value and quantity columns in the report.' },
+    { question: 'Does the screen change data?', answer: 'No. It is a query; it only generates the report.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Consignment Report screen documentation.' },
+  ]}
+/>

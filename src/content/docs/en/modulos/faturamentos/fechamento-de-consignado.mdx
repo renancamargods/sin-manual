@@ -1,0 +1,277 @@
+---
+section: modulos
+routeSlug: faturamentos/fechamento-de-consignado
+pageType: routine
+module: faturamentos
+moduleLabel: Invoicing
+lang: en
+title: Consignment Closing
+description: Consignment closing — selection of the consignment items to invoice by customer and invoice, with quantity and amount calculation to generate the billing.
+routineType: Registration and process
+permission: Yes
+impact: Generates the closing (billing) of the selected consignment items
+keywords: [consignment closing, consignment, consignment billing, protocol, invoice, items to close, qty to invoice, equalize discount, invoicing]
+tags: [modulo-faturamentos, processo]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Consignment Closing** screen drives the **closing of a consignment**: from a customer and its invoices, the **consignment items** that must be invoiced are gathered, the quantities and amounts are calculated and the **closing** is generated. Each closing starts with a **Protocol** that identifies the operation.
+
+The work is done in two parts: the **listing**, where existing closings are searched, and the **form** ("+ New" or edit), where the items to invoice are selected and the closing is assembled.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Close consignment', text: 'Selects the consignment items to invoice and generates the closing.' },
+    { label: 'Use', title: 'By customer and invoice', text: 'Fetches the customer/invoice information and assembles the items to close.' },
+    { label: 'Caution', title: 'Check before saving', text: 'The closing generates the billing of the items; review quantities and amounts.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Close a customer's consignment.
+- Select which consignment items must be invoiced.
+- Perform a total or partial closing of the quantities.
+- Query and continue closings already started by protocol.
+
+## How to access
+
+Invoicing → Consignment Closing
+
+## Before you start
+
+- Have the **customer** and the reference **invoice** of the consignment.
+- Know which **products** and quantities will be invoiced.
+- Confirm that your profile allows creating and saving the closing.
+
+## Important differences
+
+<DocTable
+  headers={['Comparison', 'Difference', 'Guidance']}
+  rows={[
+    ['+ New x Edit', '"+ New" starts a closing from scratch; the edit (row icon) reopens an existing closing.', 'Use "+ New" to start and edit to continue.'],
+    ['Details x Edit', 'The details icon opens the operation for query; the edit lets you assemble and save the closing.', 'Use details to query and edit to work.'],
+    ['Partial: Yes x No', 'Defines whether the closing invoices only part of the quantities (Yes) or the total (No).', 'Choose according to the quantity to be invoiced.'],
+  ]}
+/>
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Filters by Protocol, Customer, Lounge, invoice issue period and user, with "Search", "+ New" and "Clear Filters".', 'Use the filters to locate existing closings.'],
+    ['Results', 'List of the closings with the operation columns and, on each row, the details and edit icons. The bar offers export to Excel and PDF.', 'The action icons are on the right of the row.'],
+    ['Request Header', 'In the form: customer, invoice, issue date, product and the "Partial" option, with the "Fetch Information" button.', 'Fetch the information before assembling the items.'],
+    ['Form grids', '"Order Information", "General Data" and "Items to Close".', 'The items to invoice are in "Items to Close".'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Protocol', 'Filters by the closing protocol number (e.g., "P0000009").'],
+    ['Customer', 'Filters by the consignment customer.'],
+    ['Lounge', 'Filters by the Lounge (unit) of the operation.'],
+    ['Invoice Issue Date (From) / (To)', 'Invoice issue period.'],
+    ['Issue User', 'Filters by the user responsible for the issue.'],
+  ]}
+/>
+
+### Results columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Protocol', 'Number that identifies the closing.'],
+    ['Creation Date', 'Date the closing was created.'],
+    ['Issue User', 'User responsible for the operation.'],
+    ['Customer', 'Code and name of the consignment customer.'],
+  ]}
+/>
+
+### Request Header (form)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Customer', 'Customer of the consignment to be closed.'],
+    ['Invoice', 'Reference invoice of the consignment.'],
+    ['Invoice Issue Date', 'Issue date of the informed invoice.'],
+    ['Product', 'Filters/locates the product to be included in the closing.'],
+    ['Partial', 'Indicates whether the closing is partial (Yes) or total (No).'],
+    ['Fetch Information', 'Fetches the orders and items of the consignment according to the informed data.'],
+  ]}
+/>
+
+### Order Information
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Order', 'Number of the related order.'],
+    ['Order Date', 'Date of the order.'],
+    ['Order Status', 'Order situation.'],
+    ['Order Type', 'Type of the order.'],
+    ['Customer / Name', 'Customer of the order.'],
+    ['Operation', 'Operation of the order.'],
+    ['Order Invoice', 'Invoice of the order.'],
+    ['Series', 'Invoice series.'],
+    ['Third-party Invoice', 'Third-party invoice, when applicable.'],
+  ]}
+/>
+
+<Callout type="info" title="No orders at the start">
+Until the information is fetched, the area shows "No order generated yet from this TDC operation...". The orders appear after "Fetch Information".
+</Callout>
+
+### General Data
+
+<DocTable
+  headers={['Information', 'What it shows']}
+  rows={[
+    ['Protocol', 'Closing protocol number.'],
+    ['Date', 'Operation date.'],
+    ['User', 'Responsible user.'],
+    ['Total', 'Total amount of the closing.'],
+    ['Total Qty to Invoice', 'Total quantity of items to invoice.'],
+  ]}
+/>
+
+### Items to Close
+
+Grid **"Items Selected to Close"** with the consignment items that will be invoiced.
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['#', 'Item sequence in the list.'],
+    ['Outbound Invoice No.', 'Number of the item outbound invoice.'],
+    ['Invoice Date', 'Invoice date.'],
+    ['Center', 'Operation center.'],
+    ['Order Type', 'Type of the item order.'],
+    ['Product', 'Product code.'],
+    ['Lot', 'Item lot.'],
+    ['Unit Value', 'Unit value of the product.'],
+    ['Discount', 'Discount applied to the item.'],
+    ['Unit Value w/ Disc', 'Unit value already with discount.'],
+    ['Total Value', 'Total value of the item.'],
+    ['Qty of Items', 'Total quantity of the item.'],
+    ['Qty Returned', 'Quantity already returned.'],
+    ['Qty Invoiced', 'Quantity already invoiced.'],
+    ['Qty To Invoice', 'Quantity that will be invoiced in this closing.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Start a closing** — in the listing, click **"+ New"**.
+2. **Fetch the information** — in the "Request Header", inform the customer, the invoice and the other data and click **"Fetch Information"**.
+3. **Assemble the items** — check the items in "Items to Close" and adjust the **"Qty To Invoice"** (use "Partial" when invoicing only part).
+4. **Equalize discount** — if needed, use **"+ Equalize Discount"** to standardize the item discounts.
+5. **Save** — review the amounts and click **"Save"** to generate the closing.
+
+<Callout type="cuidado" title="Saving generates the billing">
+When saving, the closing generates the billing of the selected consignment items. Review the quantities ("Qty To Invoice"), amounts and discounts before saving.
+</Callout>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the closings according to the filters.', 'Combine protocol, customer and period.'],
+    ['+ New', 'To start a closing from scratch.', 'Opens the closing form.'],
+    ['Fetch Information', 'To bring the orders and items of the consignment.', 'Inform customer and invoice first.'],
+    ['+ Equalize Discount', 'To standardize the item discounts.', 'Review the result after equalizing.'],
+    ['Save', 'To generate the closing of the selected items.', 'Check quantities and amounts before.'],
+    ['Close', 'To exit the form.', 'If not saved, the information may be lost.'],
+    ['Export table to Excel / PDF', 'To export the closings list.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Consignment Closing', 'Screen access', 'Allows opening the screen and querying the closings.'],
+    ['Create and save closing', '+ New / Save', 'Allows starting and generating the closing of the consignment items.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Protocol per closing', 'Each closing receives a Protocol that identifies the operation.', 'Use the protocol to locate and continue.'],
+    ['Partial closing', 'The "Partial" option lets you invoice only part of the quantities.', 'Adjust the "Qty To Invoice" of each item.'],
+    ['Amount calculation', 'The amounts and quantities are calculated from the consignment items.', 'Check "Total" and "Total Qty to Invoice" in General Data.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Consignment / Consignment Report', 'The closing settles items that were in consignment.', 'Check the consignment position before closing.'],
+    ['Order / Invoice', 'The closing starts from the consignment invoices and orders and generates the billing.', 'Inform the correct invoice.'],
+    ['Customer', 'The closing is done by customer.', 'Confirm the customer before saving.'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not register products or customers — they come from their own registrations.
+- It does not create the consignment — it only closes it by invoicing the items.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['No items appear after fetching', 'Customer/invoice with no consignment to invoice', 'Check the customer, invoice and period informed.'],
+    ['The quantity to invoice is wrong', 'Manual adjustment needed', 'Review the "Qty To Invoice" and the "Partial" option.'],
+    ['I cannot save', 'Missing permission or incomplete data', 'Check the permission and the required fields.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is Consignment Closing for?', answer: 'To close a consignment, selecting the items that must be invoiced and generating the closing.' },
+    { question: 'How do I start a closing?', answer: 'Click "+ New", inform the customer and invoice in the "Request Header" and use "Fetch Information".' },
+    { question: 'Can I invoice only part of the quantities?', answer: 'Yes. Use the "Partial" option and adjust the "Qty To Invoice" of each item.' },
+    { question: 'What does the "Fetch Information" button do?', answer: 'It brings the orders and items of the consignment according to the informed customer and invoice, to assemble the closing.' },
+    { question: 'What happens when saving?', answer: 'The closing generates the billing of the selected consignment items. Review quantities and amounts before.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Consignment Closing screen documentation.' },
+  ]}
+/>

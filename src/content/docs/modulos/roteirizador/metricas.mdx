@@ -1,0 +1,139 @@
+---
+section: modulos
+routeSlug: roteirizador/metricas
+pageType: routine
+module: roteirizador
+moduleLabel: Roteirizador
+title: Métricas
+description: Cadastro das métricas de acompanhamento do roteirizador, com código, descrição, peso e obrigatoriedade.
+routineType: Cadastro
+permission: Sim
+impact: Define os indicadores de acompanhamento do roteirizador
+keywords: [métricas, metricas, indicador, peso, obrigatória, acompanhamento, roteirizador]
+tags: [modulo-roteirizador, cadastro]
+order: 8
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Métricas** reúne o cadastro das **métricas** de acompanhamento do roteirizador. Cada métrica tem um **código**, uma **descrição**, um **peso** e a indicação de **obrigatoriedade**, e serve como indicador no acompanhamento dos atendimentos.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de métricas', text: 'Define os indicadores de acompanhamento do roteirizador.' },
+    { label: 'Uso', title: 'Avaliação', text: 'As métricas orientam a avaliação dos atendimentos.' },
+    { label: 'Cuidado', title: 'Peso e obrigatoriedade', text: 'Confira o peso e se a métrica é obrigatória.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova métrica.
+- Consultar as métricas já cadastradas.
+- Ajustar o peso ou a obrigatoriedade de uma métrica.
+
+## Como acessar
+
+Roteirizador → Métricas
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Descrição", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use "Descrição" para localizar a métrica.'],
+    ['Resultados', 'Lista das métricas com a coluna "Descrição" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com os campos da métrica.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Cadastro da métrica (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código da Métrica', 'Código que identifica a métrica.'],
+    ['Descrição', 'Descrição da métrica.'],
+    ['Peso', 'Peso da métrica na avaliação.'],
+    ['Obrigatória?', 'Indica se a métrica é obrigatória.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as métricas.', 'Deixe o filtro vazio para listar todas.'],
+    ['+ Novo', 'Para cadastrar uma nova métrica.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+    ['Detalhes', 'Para consultar as informações da métrica.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados da métrica.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover a métrica (ícone X vermelho).', 'Use com atenção.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Métricas', 'Acesso à tela', 'Permite abrir a tela e consultar as métricas.'],
+    ['Cadastro e edição de métrica', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir métricas.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Peso', 'O peso influencia a avaliação da métrica no acompanhamento.', 'Defina o peso conforme a importância da métrica.'],
+    ['Obrigatoriedade', 'Uma métrica obrigatória precisa ser considerada no acompanhamento.', 'Marque a obrigatoriedade quando aplicável.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Agenda** e **Formulário** — as métricas apoiam o acompanhamento e a avaliação dos atendimentos em campo.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A métrica não aparece na busca', 'Filtro restrito', 'Revise o campo "Descrição" e clique em "Pesquisar".'],
+    ['A métrica não é considerada', 'Peso ou obrigatoriedade incorretos', 'Revise o "Peso" e o campo "Obrigatória?".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as métricas de acompanhamento do roteirizador.' },
+    { question: 'Para que serve o "Peso"?', answer: 'Define a importância da métrica na avaliação do acompanhamento.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Métricas.' },
+  ]}
+/>

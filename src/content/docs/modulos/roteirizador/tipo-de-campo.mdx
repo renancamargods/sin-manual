@@ -1,0 +1,125 @@
+---
+section: modulos
+routeSlug: roteirizador/tipo-de-campo
+pageType: routine
+module: roteirizador
+moduleLabel: Roteirizador
+title: Tipo de Campo
+description: Cadastro dos tipos de campo disponíveis para os formulários de campo do roteirizador.
+routineType: Cadastro
+permission: Sim
+impact: Define os tipos de campo usados nos formulários
+keywords: [tipo de campo, campo, formulário, tipo, roteirizador]
+tags: [modulo-roteirizador, cadastro]
+order: 6
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Tipo de Campo** reúne o cadastro dos **tipos de campo** disponíveis para os formulários do roteirizador. Cada tipo tem uma **descrição** e é usado ao definir os campos de um formulário.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Tipos de campo', text: 'Define os tipos disponíveis para os campos de formulário.' },
+    { label: 'Uso', title: 'Base dos campos', text: 'Cada campo do formulário usa um tipo de campo.' },
+    { label: 'Cuidado', title: 'Descrição clara', text: 'Use uma descrição clara para identificar o tipo.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo tipo de campo.
+- Consultar os tipos já cadastrados.
+
+## Como acessar
+
+Roteirizador → Tipo de Campo
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Área de pesquisa com os botões "Pesquisar", "+ Novo" e "Limpar Filtros". Há os botões de exportação para Excel e PDF.', 'Use a pesquisa para localizar o tipo.'],
+    ['Resultados', 'Lista dos tipos com a coluna "Descrição" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com o campo do tipo.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Cadastro do tipo (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Descrição', 'Descrição do tipo de campo.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os tipos.', 'Deixe o filtro vazio para listar todos.'],
+    ['+ Novo', 'Para cadastrar um novo tipo.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Exportar para Excel / PDF', 'Para exportar a lista de tipos.', 'Gera um arquivo com os dados listados.'],
+    ['Detalhes', 'Para consultar as informações do tipo.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados do tipo.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover o tipo (ícone X vermelho).', 'Prefira não excluir tipos usados em campos.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Tipo de Campo', 'Acesso à tela', 'Permite abrir a tela e consultar os tipos.'],
+    ['Cadastro e edição de tipo', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir tipos.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Campo do Formulário** — cada campo usa um tipo de campo cadastrado aqui.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O tipo não aparece na busca', 'Filtro restrito', 'Revise a pesquisa e clique em "Pesquisar".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os tipos de campo usados nos formulários do roteirizador.' },
+    { question: 'Onde os tipos de campo são usados?', answer: 'Na tela Campo do Formulário, ao definir o tipo de cada campo.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Tipo de Campo.' },
+  ]}
+/>

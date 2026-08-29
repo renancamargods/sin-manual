@@ -1,0 +1,243 @@
+---
+section: modulos
+routeSlug: faturamentos/transferencia-reversa
+pageType: routine
+module: faturamentos
+moduleLabel: Faturamentos
+title: Transferência Reversa
+description: Registro e acompanhamento de transferências reversas entre centros, com bipagem dos itens por lote e serial, integração com o SAP e finalização da transferência.
+routineType: Cadastro e processo
+permission: Sim
+impact: Cria e finaliza transferências reversas entre centros, com reflexo no SAP
+keywords: [transferência reversa, transferência, reversa, centro origem, centro destino, bipagem, lote, serial, retorno sap, finalizar transferência, faturamentos]
+tags: [modulo-faturamentos, processo]
+order: 10
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Transferência Reversa** registra e acompanha as **transferências reversas** de produtos **entre centros**. Cada transferência recebe um **número** e um **status**; os itens que voltam são **bipados** (por lote e serial) e, ao final, a transferência é **finalizada**, com o retorno da integração no **SAP**.
+
+O trabalho é feito em duas partes: a **listagem**, onde as transferências são pesquisadas, e o **formulário** ("+ Novo" ou edição), onde a operação é montada e os itens são bipados.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Transferir de volta', text: 'Registra a transferência reversa de itens entre centros.' },
+    { label: 'Uso', title: 'Bipar e finalizar', text: 'Informe origem/destino, bipe os itens e finalize a transferência.' },
+    { label: 'Cuidado', title: 'Finalizar é definitivo', text: '"Finalizar Transferência" conclui a operação e reflete no SAP.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Registrar a transferência reversa de itens entre dois centros.
+- Bipar os produtos (lote e serial) que compõem a transferência.
+- Acompanhar o status e o retorno da integração com o SAP.
+- Consultar e continuar transferências já iniciadas.
+
+## Como acessar
+
+Faturamentos → Transferência Reversa
+
+## Antes de começar
+
+- Saiba o **centro de origem** e o **centro de destino** da transferência.
+- Tenha os produtos com **DataMatrix**/serial para bipar.
+- Confirme que o seu perfil permite criar e finalizar transferências.
+
+## Diferenças importantes
+
+<DocTable
+  headers={['Comparação', 'Diferença', 'Orientação']}
+  rows={[
+    ['+ Novo x Editar', '"+ Novo" inicia uma transferência do zero; a edição (ícone da linha) reabre uma transferência existente.', 'Use "+ Novo" para começar e a edição para continuar.'],
+    ['Salvar x Finalizar Transferência', '"Salvar" guarda o andamento; "Finalizar Transferência" conclui a operação e a envia ao SAP.', 'Só finalize após bipar e conferir todos os itens.'],
+    ['Bipagem x Cópia e Cola', 'São as formas de informar os itens: leitura individual ou colagem dos códigos.', 'Escolha conforme os dados disponíveis.'],
+  ]}
+/>
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros por Número Transferência e período de criação, com "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use os filtros para localizar transferências existentes.'],
+    ['Resultados', 'Lista das transferências com as colunas da operação e, em cada linha, os ícones de histórico, detalhes e edição.', 'Os ícones de ação ficam à direita da linha.'],
+    ['Formulário (2 abas)', 'Aba "Dados da Transferência" (operação, itens bipados) e aba "Retorno SAP" (retorno da integração).', 'O trabalho é feito na aba "Dados da Transferência".'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Número Transferência', 'Filtra pelo número da transferência (ex.: "TR000001").'],
+    ['Data Criação De / Até', 'Período de criação da transferência.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Número Transferência', 'Número que identifica a transferência (ex.: "TR000001").'],
+    ['Status', 'Situação da transferência (ex.: "Reversa Iniciada").'],
+    ['Tipo de Operação', 'Tipo da operação (ex.: "Transferência Reversa").'],
+    ['Data/Hora Início', 'Data e hora de início da transferência.'],
+    ['Usuário Criação', 'Usuário que criou a transferência.'],
+  ]}
+/>
+
+### Informações da Operação (formulário)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Tipo de Operação', 'Tipo da operação (ex.: "Transferência Reversa").'],
+    ['Status', 'Situação atual da transferência (ex.: "Reversa Iniciada").'],
+    ['Usuário Início', 'Usuário que iniciou a transferência.'],
+    ['Data/Hora Início', 'Data e hora de início da operação.'],
+    ['Centro Origem', 'Centro de onde os itens saem.'],
+    ['Centro Destino', 'Centro para onde os itens vão.'],
+    ['Número Transferência', 'Número que identifica a transferência.'],
+  ]}
+/>
+
+### Informar Produto e Itens de Transferência
+
+O bloco **"Informar Produto"** tem o campo de **Leitura** e os modos **"Bipagem"** e **"Cópia e Cola"** para informar os itens.
+
+Grade **"Itens de Transferência"** com os itens bipados:
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['#', 'Sequência do item na lista.'],
+    ['Código', 'Código do produto.'],
+    ['Descrição', 'Descrição do produto.'],
+    ['Lote', 'Lote do item.'],
+    ['Serial', 'Serial do item.'],
+    ['Data/Hora Bipagem', 'Data e hora em que o item foi bipado.'],
+    ['Usuario', 'Usuário que bipou o item.'],
+  ]}
+/>
+
+<Callout type="info" title="Itens no início">
+Enquanto nenhum item é bipado, a grade exibe "Nenhum Item Bipado" e o "Total de Itens" fica em 0. Os itens aparecem à medida que são informados.
+</Callout>
+
+O rodapé do formulário mostra o **Usuário da Última Alteração**, a **Data da Última Alteração** e o **Total de Itens**.
+
+## Aba "Retorno SAP"
+
+Reúne o **retorno da integração** da transferência com o SAP, para acompanhar o processamento no sistema fiscal/logístico.
+
+## Fluxos principais
+
+1. **Iniciar a transferência** — clique em **"+ Novo"** e informe o "Centro Origem" e o "Centro Destino".
+2. **Bipar os itens** — em "Informar Produto", use **"Bipagem"** ou **"Cópia e Cola"** para informar os produtos que voltam.
+3. **Conferir** — acompanhe os itens na grade "Itens de Transferência" e o "Total de Itens".
+4. **Salvar** — use **"Salvar"** para guardar o andamento.
+5. **Finalizar** — quando tudo estiver conferido, clique em **"Finalizar Transferência"** para concluir e enviar ao SAP.
+
+<Callout type="cuidado" title="Finalizar conclui a operação">
+"Finalizar Transferência" conclui a transferência reversa e reflete no SAP. Confira o centro de origem/destino e todos os itens bipados antes de finalizar.
+</Callout>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as transferências conforme os filtros.', 'Combine número e período.'],
+    ['+ Novo', 'Para iniciar uma transferência do zero.', 'Abre o formulário da operação.'],
+    ['Bipagem / Cópia e Cola', 'Para informar os itens da transferência.', 'Confira o código antes de bipar.'],
+    ['Salvar', 'Para guardar o andamento da transferência.', '—'],
+    ['Finalizar Transferência', 'Para concluir a operação e enviar ao SAP.', 'Ação definitiva; revise antes.'],
+    ['Fechar', 'Para sair do formulário.', 'Se não salvou, as informações podem ser perdidas.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Transferência Reversa', 'Acesso à tela', 'Permite abrir a tela e consultar as transferências.'],
+    ['Criar e salvar transferência', '+ Novo / Salvar', 'Permite iniciar e guardar as transferências.'],
+    ['Finalizar transferência', 'Finalizar Transferência', 'Permite concluir a operação e enviar ao SAP.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Número por transferência', 'Cada transferência recebe um número (ex.: "TR000001").', 'Use o número para localizar e continuar.'],
+    ['Status da operação', 'O status evolui (ex.: "Reversa Iniciada") conforme a operação.', 'Acompanhe pela listagem.'],
+    ['Integração SAP', 'A finalização reflete no SAP, com retorno na aba "Retorno SAP".', 'Confira o retorno após finalizar.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Centro (Lounge)', 'A transferência ocorre entre dois centros.', 'Confira origem e destino.'],
+    ['SAP', 'A operação é integrada ao SAP (aba "Retorno SAP").', 'Depende da integração ativa.'],
+    ['Análise DataMatrix / Relatório de Status do Serial', 'Os itens são bipados por lote e serial.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra produtos nem centros — eles vêm de seus próprios cadastros.
+- Não fatura pedidos — trata a transferência reversa entre centros.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O item não é aceito na bipagem', 'DataMatrix ilegível ou item não localizado', 'Confira o código e tente por "Cópia e Cola".'],
+    ['Não consigo finalizar', 'Itens incompletos ou falta de permissão', 'Confira os itens bipados e a permissão.'],
+    ['O retorno do SAP não aparece', 'Integração ainda em processamento', 'Aguarde e confira a aba "Retorno SAP".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Transferência Reversa?', answer: 'Para registrar e finalizar a transferência reversa de itens entre centros, com bipagem por lote e serial e integração com o SAP.' },
+    { question: 'Como inicio uma transferência?', answer: 'Clique em "+ Novo", informe o "Centro Origem" e o "Centro Destino" e bipe os itens.' },
+    { question: 'Qual a diferença entre Salvar e Finalizar Transferência?', answer: '"Salvar" guarda o andamento; "Finalizar Transferência" conclui a operação e a envia ao SAP.' },
+    { question: 'Onde vejo o retorno do SAP?', answer: 'Na aba "Retorno SAP" do formulário.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Transferência Reversa.' },
+  ]}
+/>

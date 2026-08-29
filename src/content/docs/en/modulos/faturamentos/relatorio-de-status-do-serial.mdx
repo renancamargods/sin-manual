@@ -1,0 +1,166 @@
+---
+section: modulos
+routeSlug: faturamentos/relatorio-de-status-do-serial
+pageType: routine
+module: faturamentos
+moduleLabel: Invoicing
+lang: en
+title: Serial Status Report
+description: Serial movement history — shows the invoices, operations, lot and shipment the serialized item went through, from the product, serial or invoice.
+routineType: Report
+permission: Yes
+impact: Query — generates the serial movement history, without changing data
+keywords: [serial status report, serial movement history, serial, tracking, lot, invoice, operation type, shipment, invoicing]
+tags: [modulo-faturamentos, consulta, relatorio]
+order: 8
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Serial Status Report** shows the **movement history of a serial**: where the serialized item went through, with the **invoices**, the **operation type**, the lot and the shipment of each movement. The query can start from the **product**, the **serial** or the **invoice**.
+
+It is a **query** screen: it generates the history from the filters, without changing data.
+
+<Callout type="info" title="Screen name">
+In the menu, the screen appears as **"Serial Status Report"**; when opened, the header shows **"Serial Movement History"**. It is the same screen.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Track a serial', text: 'Shows where the serial went through (invoices, operations, shipments).' },
+    { label: 'Use', title: 'Search by serial/product/invoice', text: 'Filter by product, serial or invoice and generate the report.' },
+    { label: 'Nature', title: 'Query', text: 'It does not change data; it only shows the history.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Track the history of a serialized item.
+- See the invoices and operations the serial went through.
+- Locate the lot and shipment of a serial.
+- Investigate the current situation of a serial.
+
+## How to access
+
+Invoicing → Serial Status Report
+
+## Before you start
+
+- Have the **serial**, the **product code** or the **invoice** for the search.
+- Confirm that your profile has access to the screen.
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Product Code', 'Filters by the serial product.'],
+    ['Serial', 'Filters by the item serial.'],
+    ['Invoice', 'Filters by an invoice.'],
+  ]}
+/>
+
+### Report columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Customer Code', 'Customer of the movement.'],
+    ['Invoice', 'Invoice number of the movement.'],
+    ['Invoice Date', 'Invoice date.'],
+    ['Operation Type', 'Type of the serial operation (movement).'],
+    ['Product Code', 'Product code.'],
+    ['Lot', 'Item lot.'],
+    ['Serial', 'Item serial.'],
+    ['Shipment', 'Shipment linked to the movement.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Generate Report', 'To generate the history according to the filters.', 'Inform at least product, serial or invoice.'],
+    ['Clear Filters', 'To reset the filters and redo the query.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Serial Status Report', 'Screen access', 'Allows opening the screen and generating the serial history.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Query only', 'The screen only generates the history from the filters.', 'It does not change serial data.'],
+    ['History by movement', 'Each row is a movement (invoice/operation) of the serial.', 'Read in order to follow the path.'],
+    ['Flexible search', 'The query starts from product, serial or invoice.', 'Use the data you have at hand.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['DataMatrix Analysis', 'The DataMatrix carries the serial used in this query.', '—'],
+    ['Order / Invoice / Shipment', 'The history starts from the invoices and shipments of the movements.', '—'],
+    ['Consignment Report', 'Both help to track items by serial/lot.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not change invoices, shipments or the product registration.
+- It does not move the serial — it only shows its history.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The report brings no records', 'Serial/product/invoice with no movement or wrong filter', 'Review the serial, product or invoice informed.'],
+    ['I cannot find the serial', 'Serial typed incorrectly', 'Check the serial (use the DataMatrix if possible).'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Serial Status Report for?', answer: 'To show the movement history of a serial — the invoices, operations, lot and shipment the item went through.' },
+    { question: 'By which fields can I search?', answer: 'By Product Code, Serial or Invoice.' },
+    { question: 'Why does the header show another name?', answer: 'In the menu, the screen is "Serial Status Report"; when opened, the title is "Serial Movement History". It is the same screen.' },
+    { question: 'Does the screen change data?', answer: 'No. It is a query; it only generates the history.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Serial Status Report (Serial Movement History) screen documentation.' },
+  ]}
+/>

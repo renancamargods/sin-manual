@@ -1,0 +1,219 @@
+---
+section: modulos
+routeSlug: faturamentos/fila-do-romaneio
+pageType: routine
+module: faturamentos
+moduleLabel: Invoicing
+lang: en
+title: Loading List Queue
+description: Queue of shipments awaiting the loading list, grouped by Lounge and carrier, with loading list creation and tracking of the created loading lists and their conference.
+routineType: Query and process
+permission: Yes
+impact: Creates loading lists from the selected shipments and tracks the created loading lists
+keywords: [loading list queue, loading list, romaneio, create loading list, shipments awaiting loading list, created loading lists, carrier, sedex, volumes, checked, dispatch, invoicing]
+tags: [modulo-faturamentos, processo]
+order: 5
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Loading List Queue** screen organizes the **loading list** stage (the load list per carrier) of dispatch. It has two parts: the **shipments awaiting the loading list** — grouped by Lounge and carrier, from which the loading list is **created** — and the **loading lists already created**, with tracking of their conference and status.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Assemble the loading list', text: 'Groups the shipments by carrier and creates the loading list for dispatch.' },
+    { label: 'Use', title: 'Select and create', text: 'Select the shipments awaiting the loading list and use "+ Create Loading List".' },
+    { label: 'Tracking', title: 'Created loading lists', text: 'Track the created loading lists, the volumes, the conference and the status.' },
+  ]}
+/>
+
+## When to use this screen
+
+- See which shipments await the loading list, by carrier.
+- Select shipments and create the loading list for dispatch.
+- Track the loading lists already created and their conference.
+- Query the status of a loading list.
+
+## How to access
+
+Invoicing → Loading List Queue
+
+## Before you start
+
+- Have the shipments already picked and ready for the loading list.
+- Know the carrier and the Lounge of the shipments.
+- Confirm that your profile allows creating loading lists.
+
+## Important differences
+
+<DocTable
+  headers={['Comparison', 'Difference', 'Guidance']}
+  rows={[
+    ['Shipments awaiting loading list x Created loading lists', 'The first tab lists the shipments still without a loading list (to create); the second lists the loading lists already assembled.', 'Use the first to create and the second to track.'],
+    ['Grouping by carrier', 'The shipments awaiting the loading list appear grouped by Lounge and by carrier (e.g., "SEDEX").', 'The loading list is created per carrier.'],
+  ]}
+/>
+
+## "Shipments awaiting loading list" tab
+
+### Filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Lounge', 'Filters by the Lounge (unit) of the shipments.'],
+    ['Shipment No.', 'Filters by the shipment number.'],
+    ['SAP Order', 'Filters by the order number in SAP.'],
+  ]}
+/>
+
+The shipments appear **grouped by Lounge** and, within it, **by carrier** (e.g., "Lounge Tatuapé - SP" → "SEDEX").
+
+### Shipment columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Selection', 'Box to select the shipment that will enter the loading list.'],
+    ['Shipment', 'Shipment number.'],
+    ['Center', 'Center of the shipment.'],
+    ['Invoice', 'Shipment invoice, when applicable.'],
+    ['Customer', 'Shipment customer.'],
+    ['SAP Order', 'Order number in SAP.'],
+    ['Volumes', 'Quantity of volumes.'],
+    ['Value', 'Shipment value.'],
+    ['Actions', 'Shipment actions (e.g., remove from the list).'],
+  ]}
+/>
+
+The group footer shows the totals of the **selected** shipments (Selected, Volumes and Value). The **"+ Create Loading List"** button assembles the loading list with the carrier's selected shipments.
+
+## "Created loading lists" tab
+
+### Filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Loading List No.', 'Filters by the loading list number (e.g., "ROM-2026-0011").'],
+    ['Date From / Date To', 'Loading list creation period.'],
+    ['Loading List Status', 'Filters by the loading list status.'],
+    ['Carrier', 'Filters by the loading list carrier.'],
+    ['Lounge', 'Filters by the loading list Lounge.'],
+  ]}
+/>
+
+### Loading list columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Loading List No.', 'Number that identifies the loading list (e.g., "ROM-2026-0011").'],
+    ['Carrier', 'Loading list carrier (e.g., "SEDEX").'],
+    ['Shipments', 'Quantity of shipments in the loading list.'],
+    ['Volumes', 'Quantity of volumes.'],
+    ['Checked', 'Quantity already checked.'],
+    ['Loading List Status', 'Loading list situation.'],
+    ['Creation Date', 'Date the loading list was created.'],
+    ['Actions', 'Loading list actions (query, check, etc.).'],
+  ]}
+/>
+
+## Main flows
+
+1. **Select shipments** — in the "Shipments awaiting loading list" tab, filter and check the carrier's shipments.
+2. **Create the loading list** — click **"+ Create Loading List"** to assemble the loading list with the selected shipments.
+3. **Track** — in the "Created loading lists" tab, locate the loading list and track the volumes, the conference and the status.
+
+<Callout type="info" title="Loading list per carrier">
+The shipments are grouped by carrier; the loading list is created for the selected shipments within a carrier.
+</Callout>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the shipments or the loading lists according to the filters.', '—'],
+    ['Clear Filters', 'To reset the filters.', '—'],
+    ['+ Create Loading List', 'To assemble the loading list with the selected shipments.', 'Check the selected shipments before creating.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Loading List Queue', 'Screen access', 'Allows opening the screen and querying the shipments and loading lists.'],
+    ['Create loading list', '+ Create Loading List', 'Allows assembling the loading list from the selected shipments.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Pending queue', 'The shipments stay "awaiting loading list" until they are included in a loading list.', 'After creating the loading list, they leave the queue.'],
+    ['Grouping', 'The shipments are grouped by Lounge and carrier.', 'The loading list is created per carrier.'],
+    ['Conference', 'The created loading list has the "Checked" column to track the conference.', 'Track it in the "Created loading lists" tab.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Shipments Awaiting Picking Queue', 'The shipments reach the loading list after picking.', 'The shipment must be picked.'],
+    ['Logistics Operator Report', 'The loading list organizes the dispatch by carrier / logistics operator.', '—'],
+    ['Shipment', 'The loading list starts from the shipments generated in invoicing.', 'The shipment must exist.'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not invoice orders or create shipments — it only organizes the loading list of existing shipments.
+- It does not change the shipment data.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['"No shipment awaiting loading list found"', 'No shipments ready for the loading list or restrictive filters', 'Adjust or clear the filters.'],
+    ['I cannot create the loading list', 'No shipment selected or missing permission', 'Select the shipments and check the permission.'],
+    ['I cannot find the created loading list', 'Restrictive filters', 'Adjust the filters in the "Created loading lists" tab.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Loading List Queue for?', answer: 'To assemble the loading list (load list per carrier) from the ready shipments and to track the created loading lists.' },
+    { question: 'How do I create a loading list?', answer: 'In the "Shipments awaiting loading list" tab, select the carrier shipments and click "+ Create Loading List".' },
+    { question: 'Where do I track the loading lists already created?', answer: 'In the "Created loading lists" tab, which shows the number, the carrier, the volumes, the conference and the status.' },
+    { question: 'How are the shipments grouped?', answer: 'By Lounge and, within it, by carrier (e.g., "SEDEX").' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Loading List Queue screen documentation.' },
+  ]}
+/>

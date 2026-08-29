@@ -1,0 +1,218 @@
+---
+section: modulos
+routeSlug: faturamentos/fila-do-romaneio
+pageType: routine
+module: faturamentos
+moduleLabel: Faturamentos
+title: Fila do Romaneio
+description: Fila das remessas que aguardam romaneio, agrupadas por Lounge e transportadora, com criação do romaneio e acompanhamento dos romaneios criados e sua conferência.
+routineType: Consulta e processo
+permission: Sim
+impact: Cria romaneios a partir das remessas selecionadas e acompanha os romaneios criados
+keywords: [fila do romaneio, romaneio, criar romaneio, remessas aguardando romaneio, romaneios criados, transportadora, sedex, volumes, conferido, expedição, faturamentos]
+tags: [modulo-faturamentos, processo]
+order: 5
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Fila do Romaneio** organiza a etapa de **romaneio** (a lista de carga por transportadora) da expedição. Ela tem duas partes: as **remessas que aguardam romaneio** — agrupadas por Lounge e por transportadora, a partir das quais o romaneio é **criado** — e os **romaneios já criados**, com o acompanhamento da sua conferência e status.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Montar o romaneio', text: 'Agrupa as remessas por transportadora e cria o romaneio para despacho.' },
+    { label: 'Uso', title: 'Selecionar e criar', text: 'Selecione as remessas aguardando romaneio e use "+ Criar Romaneio".' },
+    { label: 'Acompanhamento', title: 'Romaneios criados', text: 'Acompanhe os romaneios criados, os volumes, a conferência e o status.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Ver quais remessas aguardam romaneio, por transportadora.
+- Selecionar remessas e criar o romaneio para despacho.
+- Acompanhar os romaneios já criados e a sua conferência.
+- Consultar o status de um romaneio.
+
+## Como acessar
+
+Faturamentos → Fila do Romaneio
+
+## Antes de começar
+
+- Tenha as remessas já separadas e prontas para o romaneio.
+- Saiba a transportadora e o Lounge das remessas.
+- Confirme que o seu perfil permite criar romaneios.
+
+## Diferenças importantes
+
+<DocTable
+  headers={['Comparação', 'Diferença', 'Orientação']}
+  rows={[
+    ['Remessas aguardando romaneio x Romaneios criados', 'A primeira aba lista as remessas ainda sem romaneio (para criar); a segunda lista os romaneios já montados.', 'Use a primeira para criar e a segunda para acompanhar.'],
+    ['Agrupamento por transportadora', 'As remessas aguardando romaneio aparecem agrupadas por Lounge e por transportadora (ex.: "SEDEX").', 'O romaneio é criado por transportadora.'],
+  ]}
+/>
+
+## Aba "Remessas aguardando romaneio"
+
+### Filtros
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Lounge', 'Filtra pelo Lounge (unidade) das remessas.'],
+    ['Nº Remessa', 'Filtra pelo número da remessa.'],
+    ['Pedido SAP', 'Filtra pelo número do pedido no SAP.'],
+  ]}
+/>
+
+As remessas aparecem **agrupadas por Lounge** e, dentro dele, **por transportadora** (ex.: "Lounge Tatuapé - SP" → "SEDEX").
+
+### Colunas das remessas
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Seleção', 'Caixa para selecionar a remessa que entrará no romaneio.'],
+    ['Remessa', 'Número da remessa.'],
+    ['Centro', 'Centro da remessa.'],
+    ['NF', 'Nota fiscal da remessa, quando houver.'],
+    ['Cliente', 'Cliente da remessa.'],
+    ['Pedido SAP', 'Número do pedido no SAP.'],
+    ['Volumes', 'Quantidade de volumes.'],
+    ['Valor', 'Valor da remessa.'],
+    ['Ações', 'Ações da remessa (ex.: remover da lista).'],
+  ]}
+/>
+
+O rodapé do grupo mostra os totais das remessas **selecionadas** (Selecionadas, Volumes e Valor). O botão **"+ Criar Romaneio"** monta o romaneio com as remessas selecionadas da transportadora.
+
+## Aba "Romaneios criados"
+
+### Filtros
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nº Romaneio', 'Filtra pelo número do romaneio (ex.: "ROM-2026-0011").'],
+    ['Data de / Data até', 'Período de criação do romaneio.'],
+    ['Status Romaneio', 'Filtra pelo status do romaneio.'],
+    ['Transportadora', 'Filtra pela transportadora do romaneio.'],
+    ['Lounge', 'Filtra pelo Lounge do romaneio.'],
+  ]}
+/>
+
+### Colunas dos romaneios
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Nº Romaneio', 'Número que identifica o romaneio (ex.: "ROM-2026-0011").'],
+    ['Transportadora', 'Transportadora do romaneio (ex.: "SEDEX").'],
+    ['Remessas', 'Quantidade de remessas no romaneio.'],
+    ['Volumes', 'Quantidade de volumes.'],
+    ['Conferido', 'Quantidade já conferida.'],
+    ['Status Romaneio', 'Situação do romaneio.'],
+    ['Data da Criação', 'Data em que o romaneio foi criado.'],
+    ['Ações', 'Ações do romaneio (consultar, conferir, etc.).'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Selecionar remessas** — na aba "Remessas aguardando romaneio", filtre e marque as remessas da transportadora.
+2. **Criar o romaneio** — clique em **"+ Criar Romaneio"** para montar o romaneio com as remessas selecionadas.
+3. **Acompanhar** — na aba "Romaneios criados", localize o romaneio e acompanhe os volumes, a conferência e o status.
+
+<Callout type="info" title="Romaneio por transportadora">
+As remessas são agrupadas por transportadora; o romaneio é criado para as remessas selecionadas dentro de uma transportadora.
+</Callout>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as remessas ou os romaneios conforme os filtros.', '—'],
+    ['Limpar Filtros', 'Para zerar os filtros.', '—'],
+    ['+ Criar Romaneio', 'Para montar o romaneio com as remessas selecionadas.', 'Confira as remessas selecionadas antes de criar.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Fila do Romaneio', 'Acesso à tela', 'Permite abrir a tela e consultar as remessas e romaneios.'],
+    ['Criar romaneio', '+ Criar Romaneio', 'Permite montar o romaneio a partir das remessas selecionadas.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Fila de pendências', 'As remessas ficam em "aguardando romaneio" até serem incluídas em um romaneio.', 'Após criar o romaneio, saem da fila.'],
+    ['Agrupamento', 'As remessas são agrupadas por Lounge e transportadora.', 'O romaneio é criado por transportadora.'],
+    ['Conferência', 'O romaneio criado tem a coluna "Conferido" para acompanhar a conferência.', 'Acompanhe pela aba "Romaneios criados".'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Fila de Remessas Aguardando Separação', 'As remessas chegam ao romaneio após a separação.', 'A remessa precisa estar separada.'],
+    ['Relatório Operador Logístico', 'O romaneio organiza o despacho pela transportadora / operador logístico.', '—'],
+    ['Remessa', 'O romaneio parte das remessas geradas no faturamento.', 'A remessa precisa existir.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não fatura pedidos nem cria remessas — apenas organiza o romaneio das remessas existentes.
+- Não altera os dados da remessa.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['"Nenhuma remessa aguardando romaneio encontrada"', 'Não há remessas prontas para romaneio ou filtros restritos', 'Ajuste ou limpe os filtros.'],
+    ['Não consigo criar o romaneio', 'Nenhuma remessa selecionada ou falta de permissão', 'Selecione as remessas e verifique a permissão.'],
+    ['Não encontro o romaneio criado', 'Filtros restritos', 'Ajuste os filtros na aba "Romaneios criados".'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Fila do Romaneio?', answer: 'Para montar o romaneio (lista de carga por transportadora) a partir das remessas prontas e acompanhar os romaneios criados.' },
+    { question: 'Como crio um romaneio?', answer: 'Na aba "Remessas aguardando romaneio", selecione as remessas da transportadora e clique em "+ Criar Romaneio".' },
+    { question: 'Onde acompanho os romaneios já criados?', answer: 'Na aba "Romaneios criados", que mostra o número, a transportadora, os volumes, a conferência e o status.' },
+    { question: 'As remessas ficam agrupadas como?', answer: 'Por Lounge e, dentro dele, por transportadora (ex.: "SEDEX").' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Fila do Romaneio.' },
+  ]}
+/>

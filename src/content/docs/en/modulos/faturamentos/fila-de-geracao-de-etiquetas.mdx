@@ -1,0 +1,185 @@
+---
+section: modulos
+routeSlug: faturamentos/fila-de-geracao-de-etiquetas
+pageType: routine
+module: faturamentos
+moduleLabel: Invoicing
+lang: en
+title: Label Generation Queue
+description: Queue of invoiced shipments available for generating and printing the dispatch labels, with filters by shipment, carrier and volume.
+routineType: Query and queue
+permission: Yes
+impact: Tracks and supports the generation/printing of the invoiced shipments labels
+keywords: [label generation queue, labels, label generation, label printing, invoiced shipment, carrier, volume, loading list queue, dispatch, invoicing]
+tags: [modulo-faturamentos, consulta]
+order: 6
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Label Generation Queue** screen gathers the **invoiced shipments** available for **generating and printing** the dispatch **labels**. It is a **queue** screen: the team filters the shipments, tracks what already had a label generated/printed and moves on to the loading list.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Shipment labels', text: 'Gathers the invoiced shipments to generate and print the labels.' },
+    { label: 'Use', title: 'Filter and track', text: 'Filters by shipment, carrier and volume and tracks the label status.' },
+    { label: 'Continuity', title: 'Loading List Queue', text: 'Moves on to the loading list after the labels.' },
+  ]}
+/>
+
+## When to use this screen
+
+- See which invoiced shipments await label generation.
+- Track which shipments already had a label generated or printed.
+- Filter the shipments by carrier and by volume.
+- Move on to the Loading List Queue.
+
+## How to access
+
+Invoicing → Label Generation Queue
+
+## Before you start
+
+- Have the shipments already **invoiced** (only they appear in the queue).
+- Know the shipment, order or carrier you want to track.
+- Confirm that your profile allows generating and printing the labels.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Filters by Lounge, shipment, SAP order and by Yes/No of labels generated, labels printed, carrier and volume, with "Search" and "Clear Filters".', 'Use the filters to focus on the desired shipments.'],
+    ['Queue action', 'Button "Loading List Queue".', 'Leads to the loading list stage.'],
+    ['Results', 'Grid with the queue shipments and the operation columns, with the row actions.', 'The grid is empty when there is no invoiced shipment available.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Lounge', 'Filters by the Lounge (unit).'],
+    ['Shipment', 'Filters by the shipment number.'],
+    ['SAP Order', 'Filters by the order number in SAP.'],
+    ['Labels Generated?', 'Filters by shipments with labels already generated (Yes or No).'],
+    ['Labels Printed?', 'Filters by shipments with labels already printed (Yes or No).'],
+    ['With Carrier?', 'Filters by shipments that already have a carrier defined (Yes or No).'],
+    ['With Volume?', 'Filters by shipments that already have a volume informed (Yes or No).'],
+  ]}
+/>
+
+### Results columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Shipment', 'Shipment number.'],
+    ['Order', 'Source order number.'],
+    ['Lounge', 'Shipment Lounge.'],
+    ['Customer', 'Shipment customer.'],
+    ['Order Status', 'Order situation.'],
+    ['Carrier', 'Shipment carrier.'],
+    ['Shipment Volume', 'Shipment volume.'],
+    ['Labels Generated?', 'Indicates whether the labels were already generated.'],
+    ['Labels Printed?', 'Indicates whether the labels were already printed.'],
+    ['Actions', 'Shipment actions (e.g., generate/print labels).'],
+  ]}
+/>
+
+<Callout type="info" title="Invoiced shipments only">
+When there is no invoiced shipment available, the screen shows "No invoiced shipment available for label generation.". Only invoiced shipments enter this queue.
+</Callout>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the shipments according to the filters.', 'Combine shipment, carrier and volume.'],
+    ['Clear Filters', 'To reset the filters and redo the search.', '—'],
+    ['Loading List Queue', 'To move on to the loading list stage.', '—'],
+    ['Row actions', 'To generate and/or print the shipment labels.', 'Track it via the "Labels Generated?" and "Labels Printed?" indicators.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Label Generation Queue', 'Screen access', 'Allows opening the queue and querying the shipments.'],
+    ['Generate/print labels', 'Row actions', 'Allows generating and printing the shipment labels.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Pending queue', 'The queue shows the invoiced shipments available for labeling.', 'After generating/printing, the indicators change to "Yes".'],
+    ['Stage before the loading list', 'The labels precede the loading list in dispatch.', 'Use "Loading List Queue" to continue.'],
+    ['Status indicators', 'The labels generated/printed columns show the progress.', 'Filter by them to find what is missing.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Shipments Awaiting Picking Queue', 'Picking precedes label generation.', 'The shipment must be picked and invoiced.'],
+    ['Loading List Queue', 'After the labels, the shipment moves on to the loading list.', 'Use the "Loading List Queue" button.'],
+    ['Label Printer', 'Printing uses the configured printers.', 'It depends on the printer configuration.'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not invoice orders or create shipments — it only handles the labels of the already invoiced shipments.
+- It does not change the order or shipment data.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The queue appears empty', 'No invoiced shipment available or restrictive filters', 'Adjust or clear the filters and check the invoicing.'],
+    ['The label is not printed', 'Printer not configured or missing permission', 'Check the printer and the permission.'],
+    ['The shipment does not enter the queue', 'Shipment not invoiced yet', 'Check the shipment invoicing status.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this queue for?', answer: 'To gather the invoiced shipments available for generating and printing the dispatch labels.' },
+    { question: 'Which shipments appear in the queue?', answer: 'Only the invoiced shipments; when there are none, the screen states that there is no shipment available.' },
+    { question: 'How do I know what has already been labeled?', answer: 'Through the "Labels Generated?" and "Labels Printed?" columns and filters.' },
+    { question: 'What comes after the labels?', answer: 'The loading list — use the "Loading List Queue" button to continue.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Label Generation Queue screen documentation.' },
+  ]}
+/>

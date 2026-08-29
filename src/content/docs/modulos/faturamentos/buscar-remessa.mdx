@@ -1,0 +1,90 @@
+---
+section: modulos
+routeSlug: faturamentos/buscar-remessa
+pageType: routine
+module: faturamentos
+moduleLabel: Faturamentos
+title: Buscar Remessa
+description: Consulta e localização de remessas do faturamento a partir dos seus identificadores.
+routineType: Consulta
+permission: Sim
+impact: Consulta de remessas — não altera dados
+keywords: [buscar remessa, remessa, consulta de remessa, localizar remessa, faturamentos, expedição]
+tags: [modulo-faturamentos, consulta]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Buscar Remessa** é uma ferramenta de **consulta** do módulo de Faturamentos, usada para **localizar remessas** a partir dos seus identificadores. É o ponto de partida para encontrar uma remessa específica e seguir para as demais rotinas de expedição e faturamento.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Localizar remessas', text: 'Busca e localiza remessas do faturamento pelos seus identificadores.' },
+    { label: 'Uso', title: 'Ponto de partida', text: 'Encontre a remessa desejada para consultar ou seguir com o processo.' },
+    { label: 'Natureza', title: 'Consulta', text: 'É uma tela de consulta; não altera dados da remessa.' },
+  ]}
+/>
+
+<Callout type="atencao" title="Tela não disponível no ambiente consultado">
+No momento da elaboração deste documento, a tela **Buscar Remessa** não pôde ser aberta no ambiente de homologação (retornou "Página não encontrada"). Por isso, esta página descreve a tela de forma **conservadora**, com base na sua finalidade dentro do módulo de Faturamentos. Os campos, filtros e colunas específicos serão detalhados assim que a tela estiver acessível.
+</Callout>
+
+## Quando usar esta tela
+
+- Localizar uma remessa específica do faturamento.
+- Consultar remessas a partir dos seus identificadores.
+- Encontrar a remessa como ponto de partida para outras rotinas do módulo.
+
+## Como acessar
+
+Faturamentos → Buscar Remessa
+
+## Antes de começar
+
+- Tenha em mãos os dados que identificam a remessa que deseja localizar.
+- Confirme que o seu perfil tem acesso à tela.
+
+## O que a tela não faz
+
+- Não fatura pedidos nem gera remessas — apenas as localiza.
+- Não altera os dados das remessas encontradas.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A tela não abre / "Página não encontrada"', 'Funcionalidade não disponível no ambiente ou em implantação', 'Verifique com o administrador se a tela está habilitada para o seu ambiente e perfil.'],
+    ['Não localizo a remessa', 'Identificadores informados incorretos', 'Revise os dados usados na busca.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a tela Buscar Remessa?', answer: 'Para localizar remessas do faturamento a partir dos seus identificadores, servindo de ponto de partida para as demais rotinas do módulo.' },
+    { question: 'A tela altera dados da remessa?', answer: 'Não. É uma tela de consulta.' },
+    { question: 'Por que a tela pode não abrir?', answer: 'A funcionalidade pode não estar habilitada no ambiente em uso. Verifique com o administrador do sistema.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial (conservadora — tela indisponível no ambiente de homologação no momento da elaboração).' },
+  ]}
+/>

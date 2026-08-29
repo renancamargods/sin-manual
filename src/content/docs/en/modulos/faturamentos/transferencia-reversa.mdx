@@ -1,0 +1,244 @@
+---
+section: modulos
+routeSlug: faturamentos/transferencia-reversa
+pageType: routine
+module: faturamentos
+moduleLabel: Invoicing
+lang: en
+title: Reverse Transfer
+description: Registration and tracking of reverse transfers between centers, with item scanning by lot and serial, SAP integration and finalization of the transfer.
+routineType: Registration and process
+permission: Yes
+impact: Creates and finalizes reverse transfers between centers, reflected in SAP
+keywords: [reverse transfer, transfer, reverse, source center, destination center, scanning, lot, serial, sap return, finalize transfer, invoicing]
+tags: [modulo-faturamentos, processo]
+order: 10
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Reverse Transfer** screen registers and tracks the **reverse transfers** of products **between centers**. Each transfer receives a **number** and a **status**; the items that come back are **scanned** (by lot and serial) and, at the end, the transfer is **finalized**, with the integration return in **SAP**.
+
+The work is done in two parts: the **listing**, where the transfers are searched, and the **form** ("+ New" or edit), where the operation is assembled and the items are scanned.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Transfer back', text: 'Registers the reverse transfer of items between centers.' },
+    { label: 'Use', title: 'Scan and finalize', text: 'Inform source/destination, scan the items and finalize the transfer.' },
+    { label: 'Caution', title: 'Finalizing is definitive', text: '"Finalize Transfer" completes the operation and reflects in SAP.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register the reverse transfer of items between two centers.
+- Scan the products (lot and serial) that make up the transfer.
+- Track the status and the return of the SAP integration.
+- Query and continue transfers already started.
+
+## How to access
+
+Invoicing → Reverse Transfer
+
+## Before you start
+
+- Know the **source center** and the **destination center** of the transfer.
+- Have the products with **DataMatrix**/serial to scan.
+- Confirm that your profile allows creating and finalizing transfers.
+
+## Important differences
+
+<DocTable
+  headers={['Comparison', 'Difference', 'Guidance']}
+  rows={[
+    ['+ New x Edit', '"+ New" starts a transfer from scratch; the edit (row icon) reopens an existing transfer.', 'Use "+ New" to start and edit to continue.'],
+    ['Save x Finalize Transfer', '"Save" keeps the progress; "Finalize Transfer" completes the operation and sends it to SAP.', 'Only finalize after scanning and checking all items.'],
+    ['Scanning x Copy and Paste', 'The ways to inform the items: individual reading or pasting the codes.', 'Choose according to the data available.'],
+  ]}
+/>
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Filters by Transfer Number and creation period, with "Search", "+ New" and "Clear Filters".', 'Use the filters to locate existing transfers.'],
+    ['Results', 'List of the transfers with the operation columns and, on each row, the history, details and edit icons.', 'The action icons are on the right of the row.'],
+    ['Form (2 tabs)', 'Tab "Transfer Data" (operation, scanned items) and tab "SAP Return" (integration return).', 'The work is done in the "Transfer Data" tab.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Transfer Number', 'Filters by the transfer number (e.g., "TR000001").'],
+    ['Creation Date From / To', 'Transfer creation period.'],
+  ]}
+/>
+
+### Results columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Transfer Number', 'Number that identifies the transfer (e.g., "TR000001").'],
+    ['Status', 'Transfer situation (e.g., "Reverse Started").'],
+    ['Operation Type', 'Type of the operation (e.g., "Reverse Transfer").'],
+    ['Start Date/Time', 'Start date and time of the transfer.'],
+    ['Creation User', 'User who created the transfer.'],
+  ]}
+/>
+
+### Operation Information (form)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Operation Type', 'Type of the operation (e.g., "Reverse Transfer").'],
+    ['Status', 'Current situation of the transfer (e.g., "Reverse Started").'],
+    ['Start User', 'User who started the transfer.'],
+    ['Start Date/Time', 'Start date and time of the operation.'],
+    ['Source Center', 'Center the items leave from.'],
+    ['Destination Center', 'Center the items go to.'],
+    ['Transfer Number', 'Number that identifies the transfer.'],
+  ]}
+/>
+
+### Inform Product and Transfer Items
+
+The **"Inform Product"** block has the **Reading** field and the **"Scanning"** and **"Copy and Paste"** modes to inform the items.
+
+Grid **"Transfer Items"** with the scanned items:
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['#', 'Item sequence in the list.'],
+    ['Code', 'Product code.'],
+    ['Description', 'Product description.'],
+    ['Lot', 'Item lot.'],
+    ['Serial', 'Item serial.'],
+    ['Scan Date/Time', 'Date and time the item was scanned.'],
+    ['User', 'User who scanned the item.'],
+  ]}
+/>
+
+<Callout type="info" title="Items at the start">
+While no item is scanned, the grid shows "No Item Scanned" and the "Total Items" stays at 0. The items appear as they are informed.
+</Callout>
+
+The form footer shows the **Last Change User**, the **Last Change Date** and the **Total Items**.
+
+## "SAP Return" tab
+
+Gathers the **integration return** of the transfer with SAP, to track the processing in the fiscal/logistics system.
+
+## Main flows
+
+1. **Start the transfer** — click **"+ New"** and inform the "Source Center" and the "Destination Center".
+2. **Scan the items** — in "Inform Product", use **"Scanning"** or **"Copy and Paste"** to inform the products that come back.
+3. **Check** — track the items in the "Transfer Items" grid and the "Total Items".
+4. **Save** — use **"Save"** to keep the progress.
+5. **Finalize** — when everything is checked, click **"Finalize Transfer"** to complete and send to SAP.
+
+<Callout type="cuidado" title="Finalizing completes the operation">
+"Finalize Transfer" completes the reverse transfer and reflects in SAP. Check the source/destination center and all scanned items before finalizing.
+</Callout>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the transfers according to the filters.', 'Combine number and period.'],
+    ['+ New', 'To start a transfer from scratch.', 'Opens the operation form.'],
+    ['Scanning / Copy and Paste', 'To inform the transfer items.', 'Check the code before scanning.'],
+    ['Save', 'To keep the transfer progress.', '—'],
+    ['Finalize Transfer', 'To complete the operation and send to SAP.', 'Definitive action; review before.'],
+    ['Close', 'To exit the form.', 'If not saved, the information may be lost.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Reverse Transfer', 'Screen access', 'Allows opening the screen and querying the transfers.'],
+    ['Create and save transfer', '+ New / Save', 'Allows starting and keeping the transfers.'],
+    ['Finalize transfer', 'Finalize Transfer', 'Allows completing the operation and sending to SAP.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Number per transfer', 'Each transfer receives a number (e.g., "TR000001").', 'Use the number to locate and continue.'],
+    ['Operation status', 'The status evolves (e.g., "Reverse Started") as the operation progresses.', 'Track it in the listing.'],
+    ['SAP integration', 'The finalization reflects in SAP, with a return in the "SAP Return" tab.', 'Check the return after finalizing.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Center (Lounge)', 'The transfer occurs between two centers.', 'Check source and destination.'],
+    ['SAP', 'The operation is integrated with SAP ("SAP Return" tab).', 'It depends on the active integration.'],
+    ['DataMatrix Analysis / Serial Status Report', 'The items are scanned by lot and serial.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not register products or centers — they come from their own registrations.
+- It does not invoice orders — it handles the reverse transfer between centers.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The item is not accepted when scanning', 'Illegible DataMatrix or item not found', 'Check the code and try "Copy and Paste".'],
+    ['I cannot finalize', 'Incomplete items or missing permission', 'Check the scanned items and the permission.'],
+    ['The SAP return does not appear', 'Integration still processing', 'Wait and check the "SAP Return" tab.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is Reverse Transfer for?', answer: 'To register and finalize the reverse transfer of items between centers, with scanning by lot and serial and SAP integration.' },
+    { question: 'How do I start a transfer?', answer: 'Click "+ New", inform the "Source Center" and the "Destination Center" and scan the items.' },
+    { question: 'What is the difference between Save and Finalize Transfer?', answer: '"Save" keeps the progress; "Finalize Transfer" completes the operation and sends it to SAP.' },
+    { question: 'Where do I see the SAP return?', answer: 'In the "SAP Return" tab of the form.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Reverse Transfer screen documentation.' },
+  ]}
+/>

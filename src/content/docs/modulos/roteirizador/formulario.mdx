@@ -1,0 +1,130 @@
+---
+section: modulos
+routeSlug: roteirizador/formulario
+pageType: routine
+module: roteirizador
+moduleLabel: Roteirizador
+title: Formulário
+description: Cadastro dos formulários usados em campo, com a descrição e os campos que compõem o formulário.
+routineType: Cadastro
+permission: Sim
+impact: Define os formulários preenchidos nos atendimentos em campo
+keywords: [formulário, formulario, campo do formulário, atendimento, campo, roteirizador]
+tags: [modulo-roteirizador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Formulário** reúne o cadastro dos **formulários** usados em campo. Cada formulário tem uma **descrição** e reúne, em uma aba, os **campos** que o compõem (aba "Campo do Formulário"). Os formulários são preenchidos durante os atendimentos.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de formulários', text: 'Define os formulários usados nos atendimentos em campo.' },
+    { label: 'Uso', title: 'Coleta em campo', text: 'Os formulários organizam os campos preenchidos na visita.' },
+    { label: 'Cuidado', title: 'Campos do formulário', text: 'Monte os campos que compõem o formulário na aba correspondente.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo formulário.
+- Consultar os formulários já cadastrados.
+- Montar ou ajustar os campos de um formulário.
+
+## Como acessar
+
+Roteirizador → Formulário
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Área de pesquisa com os botões "Pesquisar", "+ Novo" e "Limpar Filtros". Há os botões de exportação para Excel e PDF.', 'Use a pesquisa para localizar o formulário.'],
+    ['Resultados', 'Lista dos formulários com a coluna "Descrição" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com as abas "Formulário" (descrição) e "Campo do Formulário".', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Cadastro — aba "Formulário"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Descrição', 'Descrição do formulário.'],
+  ]}
+/>
+
+A aba **"Campo do Formulário"** reúne os campos que compõem o formulário (relaciona-se à tela Campo do Formulário).
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os formulários.', 'Deixe o filtro vazio para listar todos.'],
+    ['+ Novo', 'Para cadastrar um novo formulário.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Exportar para Excel / PDF', 'Para exportar a lista de formulários.', 'Gera um arquivo com os dados listados.'],
+    ['Detalhes', 'Para consultar as informações do formulário.', 'É somente leitura.'],
+    ['Editar', 'Para alterar o formulário e seus campos.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover o formulário (ícone X vermelho).', 'Use com atenção; formulários em uso não devem ser excluídos.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Formulário', 'Acesso à tela', 'Permite abrir a tela e consultar os formulários.'],
+    ['Cadastro e edição de formulário', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir formulários.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Campo do Formulário** — os campos do formulário são cadastrados/gerenciados aqui e na tela específica.
+- **Formulário Agenda** — associa o formulário à agenda/tipos de atendimento.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O formulário não aparece na busca', 'Filtro restrito', 'Revise a pesquisa e clique em "Pesquisar".'],
+    ['O formulário não tem os campos esperados', 'Campos não cadastrados', 'Revise a aba "Campo do Formulário".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os formulários usados em campo e montar os seus campos.' },
+    { question: 'Onde cadastro os campos do formulário?', answer: 'Na aba "Campo do Formulário" do próprio formulário (ou na tela Campo do Formulário).' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Formulário.' },
+  ]}
+/>

@@ -1,0 +1,128 @@
+---
+section: modulos
+routeSlug: roteirizador/tipo-de-agenda
+pageType: routine
+module: roteirizador
+moduleLabel: Roteirizador
+title: Tipo de Agenda
+description: Cadastro dos tipos de agenda usados na classificação dos atendimentos, indicando se o tipo é uma visita.
+routineType: Cadastro
+permission: Sim
+impact: Classifica os atendimentos por tipo de agenda
+keywords: [tipo de agenda, agenda, visita, atendimento, classificação, roteirizador]
+tags: [modulo-roteirizador, cadastro]
+order: 9
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Tipo de Agenda** reúne o cadastro dos **tipos de agenda** usados para **classificar os atendimentos** do roteirizador. Cada tipo tem uma **descrição** e a indicação de se é uma **visita**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Tipos de agenda', text: 'Classifica os atendimentos por tipo.' },
+    { label: 'Uso', title: 'Organização da agenda', text: 'Os tipos organizam os atendimentos na agenda.' },
+    { label: 'Cuidado', title: 'Visita?', text: 'Indique se o tipo corresponde a uma visita.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo tipo de agenda.
+- Consultar os tipos já cadastrados.
+
+## Como acessar
+
+Roteirizador → Tipo de Agenda
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Área de pesquisa com os botões "Pesquisar", "+ Novo" e "Limpar Filtros". Há os botões de exportação para Excel e PDF.', 'Use a pesquisa para localizar o tipo.'],
+    ['Resultados', 'Lista dos tipos com as colunas "Descrição" e "Visita?" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com os campos do tipo.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Cadastro do tipo (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Descrição', 'Descrição do tipo de agenda.'],
+    ['Visita?', 'Indica se o tipo corresponde a uma visita.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os tipos.', 'Deixe o filtro vazio para listar todos.'],
+    ['+ Novo', 'Para cadastrar um novo tipo.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Exportar para Excel / PDF', 'Para exportar a lista de tipos.', 'Gera um arquivo com os dados listados.'],
+    ['Detalhes', 'Para consultar as informações do tipo.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados do tipo.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover o tipo (ícone X vermelho).', 'Prefira não excluir tipos usados na agenda.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Tipo de Agenda', 'Acesso à tela', 'Permite abrir a tela e consultar os tipos.'],
+    ['Cadastro e edição de tipo', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir tipos.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Agenda** — os tipos de agenda classificam os atendimentos exibidos na agenda.
+- **Formulário Agenda** — o tipo de agenda pode se relacionar ao formulário usado no atendimento.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O tipo não aparece na busca', 'Filtro restrito', 'Revise a pesquisa e clique em "Pesquisar".'],
+    ['O atendimento não é marcado como visita', 'Campo "Visita?" desmarcado', 'Verifique a marcação "Visita?" do tipo.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os tipos de agenda usados na classificação dos atendimentos.' },
+    { question: 'O que significa o campo "Visita?"?', answer: 'Indica se o tipo de agenda corresponde a uma visita.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Tipo de Agenda.' },
+  ]}
+/>

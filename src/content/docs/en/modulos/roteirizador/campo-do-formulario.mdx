@@ -1,0 +1,132 @@
+---
+section: modulos
+routeSlug: roteirizador/campo-do-formulario
+pageType: routine
+module: roteirizador
+moduleLabel: Field Routing
+lang: en
+title: Form Field
+description: Registration of the fields that make up the field forms, with description, code, field type and mandatory flag.
+routineType: Registration
+permission: Yes
+impact: Defines the fields that make up the forms used in the field
+keywords: [form field, field, form, field code, field type, mandatory, field routing]
+tags: [modulo-roteirizador, cadastro]
+order: 5
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Form Field** screen gathers the registration of the **fields** that make up the field forms. Each field has a **description**, a **code**, a **type** and the **mandatory** indication.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Form fields', text: 'Defines the fields used in the field forms.' },
+    { label: 'Use', title: 'Form structure', text: 'The fields make up the forms filled in the visit.' },
+    { label: 'Caution', title: 'Type and mandatory', text: 'Check the field type and whether it is mandatory.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new form field.
+- Check the fields already registered.
+- Adjust the type or the mandatory flag of a field.
+
+## How to access
+
+Field Routing → Form Field
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Search area with the buttons "Search", "+ New" and "Clear Filters". There are the Excel and PDF export buttons.', 'Use the search to locate the field.'],
+    ['Results', 'List of fields with the "Description", "Field Code" and "Field Type" columns and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the form field.', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Field registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Description', 'Description of the field.'],
+    ['Field Code', 'Code that identifies the field.'],
+    ['Field Type', 'Type of the field (defined in Field Type).'],
+    ['Mandatory', 'Indicates whether filling in the field is mandatory.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the fields.', 'Leave the filter empty to list all.'],
+    ['+ New', 'To register a new field.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+    ['Export to Excel / PDF', 'To export the field list.', 'Generates a file with the listed data.'],
+    ['Details', 'To view the field information.', 'It is read-only.'],
+    ['Edit', 'To change the field data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the field (red X icon).', 'Prefer not to delete fields used in forms.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Form Field', 'Access to the screen', 'Allows opening the screen and viewing the fields.'],
+    ['Field registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting fields.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Form** — the fields make up the forms used in the field.
+- **Field Type** — defines the type of each field.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The field does not appear in the search', 'Restrictive filter', 'Review the search and click "Search".'],
+    ['The field is not mandatory when it should be', '"Mandatory" flag unchecked', 'Check the field mandatory flag.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the fields that make up the field forms.' },
+    { question: 'What defines the "Field Type"?', answer: 'It defines the field format (text, date, etc.), configured on the Field Type screen.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Form Field screen documentation.' },
+  ]}
+/>

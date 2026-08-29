@@ -1,0 +1,165 @@
+---
+section: modulos
+routeSlug: faturamentos/relatorio-de-status-do-serial
+pageType: routine
+module: faturamentos
+moduleLabel: Faturamentos
+title: Relatório de Status do Serial
+description: Histórico de movimento de um serial — mostra as notas fiscais, operações, lote e remessa por onde o item serializado passou, a partir do produto, serial ou nota.
+routineType: Relatório
+permission: Sim
+impact: Consulta — gera o histórico de movimento do serial, sem alterar dados
+keywords: [relatório de status do serial, histórico de movimento de serial, serial, rastreio, lote, nota fiscal, tipo da operação, remessa, faturamentos]
+tags: [modulo-faturamentos, consulta, relatorio]
+order: 8
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+O **Relatório de Status do Serial** mostra o **histórico de movimento de um serial**: por onde o item serializado passou, com as **notas fiscais**, o **tipo de operação**, o lote e a remessa de cada movimentação. A consulta pode partir do **produto**, do **serial** ou da **nota fiscal**.
+
+É uma tela de **consulta**: gera o histórico a partir dos filtros, sem alterar dados.
+
+<Callout type="info" title="Nome da tela">
+No menu, a tela aparece como **"Relatório de Status do Serial"**; ao abrir, o cabeçalho mostra **"Histórico de Movimento de Serial"**. É a mesma tela.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Rastrear um serial', text: 'Mostra por onde o serial passou (notas, operações, remessas).' },
+    { label: 'Uso', title: 'Buscar por serial/produto/NF', text: 'Filtre por produto, serial ou nota fiscal e gere o relatório.' },
+    { label: 'Natureza', title: 'Consulta', text: 'Não altera dados; apenas exibe o histórico.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Rastrear o histórico de um item serializado.
+- Ver as notas fiscais e operações por que o serial passou.
+- Localizar o lote e a remessa de um serial.
+- Investigar a situação atual de um serial.
+
+## Como acessar
+
+Faturamentos → Relatório de Status do Serial
+
+## Antes de começar
+
+- Tenha o **serial**, o **código do produto** ou a **nota fiscal** para a busca.
+- Confirme que o seu perfil tem acesso à tela.
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código do Produto', 'Filtra pelo produto do serial.'],
+    ['Serial', 'Filtra pelo serial do item.'],
+    ['Nota Fiscal', 'Filtra por uma nota fiscal.'],
+  ]}
+/>
+
+### Colunas do relatório
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Código do Cliente', 'Cliente da movimentação.'],
+    ['Nota Fiscal', 'Número da nota fiscal da movimentação.'],
+    ['Data da Nota Fiscal', 'Data da nota fiscal.'],
+    ['Tipo da Operação', 'Tipo da operação (movimentação) do serial.'],
+    ['Código do Produto', 'Código do produto.'],
+    ['Lote', 'Lote do item.'],
+    ['Serial', 'Serial do item.'],
+    ['Remessa', 'Remessa vinculada à movimentação.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Gerar Relatório', 'Para gerar o histórico conforme os filtros.', 'Informe pelo menos produto, serial ou nota.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a consulta.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Relatório de Status do Serial', 'Acesso à tela', 'Permite abrir a tela e gerar o histórico do serial.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Somente consulta', 'A tela apenas gera o histórico a partir dos filtros.', 'Não altera dados do serial.'],
+    ['Histórico por movimentação', 'Cada linha é uma movimentação (nota/operação) do serial.', 'Leia em ordem para acompanhar o trajeto.'],
+    ['Busca flexível', 'A consulta parte de produto, serial ou nota fiscal.', 'Use o dado que tiver em mãos.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Análise DataMatrix', 'O DataMatrix carrega o serial usado nesta consulta.', '—'],
+    ['Pedido / Nota Fiscal / Remessa', 'O histórico parte das notas e remessas das movimentações.', '—'],
+    ['Relatório de Consignado', 'Ambos ajudam a acompanhar itens por serial/lote.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não altera notas, remessas nem o cadastro do produto.
+- Não movimenta o serial — apenas exibe o seu histórico.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O relatório não traz registros', 'Serial/produto/nota sem movimentação ou filtro incorreto', 'Revise o serial, o produto ou a nota informada.'],
+    ['Não encontro o serial', 'Serial digitado incorretamente', 'Confira o serial (use o DataMatrix se possível).'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Relatório de Status do Serial?', answer: 'Para mostrar o histórico de movimento de um serial — as notas, operações, lote e remessa por onde o item passou.' },
+    { question: 'Por quais campos posso buscar?', answer: 'Por Código do Produto, Serial ou Nota Fiscal.' },
+    { question: 'Por que o cabeçalho mostra outro nome?', answer: 'No menu, a tela é "Relatório de Status do Serial"; ao abrir, o título é "Histórico de Movimento de Serial". É a mesma tela.' },
+    { question: 'A tela altera dados?', answer: 'Não. É uma consulta; apenas gera o histórico.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Relatório de Status do Serial (Histórico de Movimento de Serial).' },
+  ]}
+/>

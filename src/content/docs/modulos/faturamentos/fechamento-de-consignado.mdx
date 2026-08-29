@@ -1,0 +1,276 @@
+---
+section: modulos
+routeSlug: faturamentos/fechamento-de-consignado
+pageType: routine
+module: faturamentos
+moduleLabel: Faturamentos
+title: Fechamento de Consignado
+description: Encerramento de consignados — seleção dos itens consignados a faturar por cliente e nota fiscal, com cálculo de quantidades e valores para gerar o faturamento.
+routineType: Cadastro e processo
+permission: Sim
+impact: Gera o fechamento (faturamento) dos itens consignados selecionados
+keywords: [fechamento de consignado, consignado, faturamento de consignado, protocolo, nota fiscal, itens para fechamento, qtd a faturar, equalizar desconto, faturamentos]
+tags: [modulo-faturamentos, processo]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Fechamento de Consignado** conduz o **encerramento de um consignado**: a partir de um cliente e das suas notas fiscais, os **itens consignados** que devem ser faturados são reunidos, as quantidades e os valores são calculados e o **fechamento** é gerado. Cada fechamento nasce com um **Protocolo** que identifica a operação.
+
+O trabalho é feito em duas partes: a **listagem**, onde os fechamentos existentes são pesquisados, e o **formulário** ("+ Novo" ou edição), onde os itens a faturar são selecionados e o fechamento é montado.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Encerrar consignado', text: 'Seleciona os itens consignados a faturar e gera o fechamento.' },
+    { label: 'Uso', title: 'Por cliente e nota', text: 'Busca as informações do cliente/nota e monta os itens para fechamento.' },
+    { label: 'Cuidado', title: 'Confira antes de salvar', text: 'O fechamento gera o faturamento dos itens; revise quantidades e valores.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Encerrar (fechar) um consignado de um cliente.
+- Selecionar quais itens consignados devem ser faturados.
+- Fazer o fechamento total ou parcial das quantidades.
+- Consultar e continuar fechamentos já iniciados por protocolo.
+
+## Como acessar
+
+Faturamentos → Fechamento de Consignado
+
+## Antes de começar
+
+- Tenha o **cliente** e a **nota fiscal** de referência do consignado.
+- Saiba quais **produtos** e quantidades serão faturados.
+- Confirme que o seu perfil permite criar e salvar o fechamento.
+
+## Diferenças importantes
+
+<DocTable
+  headers={['Comparação', 'Diferença', 'Orientação']}
+  rows={[
+    ['+ Novo x Editar', '"+ Novo" inicia um fechamento do zero; a edição (ícone da linha) reabre um fechamento existente.', 'Use "+ Novo" para começar e a edição para continuar.'],
+    ['Detalhes x Edição', 'O ícone de detalhes abre a operação para consulta; a edição permite montar e salvar o fechamento.', 'Use os detalhes para consultar e a edição para trabalhar.'],
+    ['Parcial: Sim x Não', 'Define se o fechamento fatura apenas parte das quantidades (Sim) ou o total (Não).', 'Escolha conforme a quantidade que será faturada.'],
+  ]}
+/>
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros por Protocolo, Cliente, Lounge, período de emissão da nota e usuário, com "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use os filtros para localizar fechamentos existentes.'],
+    ['Resultados', 'Lista dos fechamentos com as colunas da operação e, em cada linha, os ícones de detalhes e edição. A barra oferece exportação para Excel e PDF.', 'Os ícones de ação ficam à direita da linha.'],
+    ['Cabeçalho da Solicitação', 'No formulário: cliente, nota fiscal, data de emissão, produto e a opção "Parcial", com o botão "Buscar Informações".', 'Busque as informações antes de montar os itens.'],
+    ['Grids do formulário', '"Informações dos Pedidos", "Dados Gerais" e "Itens para Fechamento".', 'Os itens a faturar ficam em "Itens para Fechamento".'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Protocolo', 'Filtra pelo número do protocolo do fechamento (ex.: "P0000009").'],
+    ['Cliente', 'Filtra pelo cliente do consignado.'],
+    ['Lounge', 'Filtra pelo Lounge (unidade) da operação.'],
+    ['Data de Emissao da Nota (De) / (Até)', 'Período de emissão da nota fiscal.'],
+    ['Usuário de Emissão', 'Filtra pelo usuário responsável pela emissão.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Protocolo', 'Número que identifica o fechamento.'],
+    ['Data de Criação', 'Data em que o fechamento foi criado.'],
+    ['Usuário de Emissão', 'Usuário responsável pela operação.'],
+    ['Cliente', 'Código e nome do cliente do consignado.'],
+  ]}
+/>
+
+### Cabeçalho da Solicitação (formulário)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Cliente', 'Cliente do consignado a ser fechado.'],
+    ['Nota Fiscal', 'Nota fiscal de referência do consignado.'],
+    ['Data de Emissão da Nota', 'Data de emissão da nota informada.'],
+    ['Produto', 'Filtra/localiza o produto a ser incluído no fechamento.'],
+    ['Parcial', 'Indica se o fechamento é parcial (Sim) ou total (Não).'],
+    ['Buscar Informações', 'Busca os pedidos e itens do consignado conforme os dados informados.'],
+  ]}
+/>
+
+### Informações dos Pedidos
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Pedido', 'Número do pedido relacionado.'],
+    ['Data do Pedido', 'Data do pedido.'],
+    ['Status do Pedido', 'Situação do pedido.'],
+    ['Tipo de Pedido', 'Tipo do pedido.'],
+    ['Cliente / Nome', 'Cliente do pedido.'],
+    ['Operação', 'Operação do pedido.'],
+    ['NF Pedido', 'Nota fiscal do pedido.'],
+    ['Série', 'Série da nota fiscal.'],
+    ['NF Terceiro', 'Nota fiscal de terceiro, quando houver.'],
+  ]}
+/>
+
+<Callout type="info" title="Sem pedidos no início">
+Enquanto as informações não são buscadas, a área exibe "Nenhum pedido gerado ainda a partir dessa operação TDC...". Os pedidos aparecem após "Buscar Informações".
+</Callout>
+
+### Dados Gerais
+
+<DocTable
+  headers={['Informação', 'O que mostra']}
+  rows={[
+    ['Protocolo', 'Número do protocolo do fechamento.'],
+    ['Data', 'Data da operação.'],
+    ['Usuário', 'Usuário responsável.'],
+    ['Total', 'Valor total do fechamento.'],
+    ['Qtd Total a Faturar', 'Quantidade total de itens a faturar.'],
+  ]}
+/>
+
+### Itens para Fechamento
+
+Grade **"Itens Selecionados para Fechamento"** com os itens consignados que serão faturados.
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['#', 'Sequência do item na lista.'],
+    ['Nº Nota Fiscal Saída', 'Número da nota fiscal de saída do item.'],
+    ['Data NF', 'Data da nota fiscal.'],
+    ['Centro', 'Centro da operação.'],
+    ['Tipo de Ordem', 'Tipo da ordem do item.'],
+    ['Produto', 'Código do produto.'],
+    ['Lote', 'Lote do item.'],
+    ['Valor Unitário', 'Valor unitário do produto.'],
+    ['Desconto', 'Desconto aplicado ao item.'],
+    ['Valor Unit c/ Desc', 'Valor unitário já com desconto.'],
+    ['Valor Total', 'Valor total do item.'],
+    ['Qtd de Itens', 'Quantidade total do item.'],
+    ['Qtd Devolvido', 'Quantidade já devolvida.'],
+    ['Qtd Faturada', 'Quantidade já faturada.'],
+    ['Qtd A Faturar', 'Quantidade que será faturada neste fechamento.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Iniciar um fechamento** — na listagem, clique em **"+ Novo"**.
+2. **Buscar as informações** — no "Cabeçalho da Solicitação", informe o cliente, a nota fiscal e os demais dados e clique em **"Buscar Informações"**.
+3. **Montar os itens** — confira os itens em "Itens para Fechamento" e ajuste a **"Qtd A Faturar"** (use "Parcial" quando faturar apenas parte).
+4. **Equalizar desconto** — se necessário, use **"+ Equalizar Desconto"** para uniformizar os descontos dos itens.
+5. **Salvar** — revise os valores e clique em **"Salvar"** para gerar o fechamento.
+
+<Callout type="cuidado" title="Salvar gera o faturamento">
+Ao salvar, o fechamento gera o faturamento dos itens consignados selecionados. Revise as quantidades ("Qtd A Faturar"), os valores e os descontos antes de salvar.
+</Callout>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os fechamentos conforme os filtros.', 'Combine protocolo, cliente e período.'],
+    ['+ Novo', 'Para iniciar um fechamento do zero.', 'Abre o formulário do fechamento.'],
+    ['Buscar Informações', 'Para trazer os pedidos e itens do consignado.', 'Informe cliente e nota antes.'],
+    ['+ Equalizar Desconto', 'Para uniformizar os descontos dos itens.', 'Revise o resultado após equalizar.'],
+    ['Salvar', 'Para gerar o fechamento dos itens selecionados.', 'Confira quantidades e valores antes.'],
+    ['Fechar', 'Para sair do formulário.', 'Se não salvou, as informações podem ser perdidas.'],
+    ['Exportar tabela para Excel / PDF', 'Para exportar a lista de fechamentos.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Fechamento de Consignado', 'Acesso à tela', 'Permite abrir a tela e consultar os fechamentos.'],
+    ['Criar e salvar fechamento', '+ Novo / Salvar', 'Permite iniciar e gerar o fechamento dos itens consignados.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Protocolo por fechamento', 'Cada fechamento recebe um Protocolo que identifica a operação.', 'Use o protocolo para localizar e continuar.'],
+    ['Fechamento parcial', 'A opção "Parcial" permite faturar apenas parte das quantidades.', 'Ajuste a "Qtd A Faturar" de cada item.'],
+    ['Cálculo de valores', 'Os valores e quantidades são calculados a partir dos itens do consignado.', 'Confira "Total" e "Qtd Total a Faturar" em Dados Gerais.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Consignado / Relatório de Consignado', 'O fechamento encerra itens que estavam em consignado.', 'Confira a posição do consignado antes de fechar.'],
+    ['Pedido / Nota Fiscal', 'O fechamento parte das notas e pedidos do consignado e gera o faturamento.', 'Informe a nota fiscal correta.'],
+    ['Cliente', 'O fechamento é feito por cliente.', 'Confirme o cliente antes de salvar.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra produtos nem clientes — eles vêm de seus próprios cadastros.
+- Não cria o consignado — apenas o encerra (fecha) faturando os itens.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não aparecem itens após buscar', 'Cliente/nota sem consignado a faturar', 'Confira o cliente, a nota fiscal e o período informados.'],
+    ['A quantidade a faturar está errada', 'Ajuste manual necessário', 'Revise a "Qtd A Faturar" e a opção "Parcial".'],
+    ['Não consigo salvar', 'Falta de permissão ou dados incompletos', 'Verifique a permissão e os campos obrigatórios.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Fechamento de Consignado?', answer: 'Para encerrar um consignado, selecionando os itens que devem ser faturados e gerando o fechamento.' },
+    { question: 'Como inicio um fechamento?', answer: 'Clique em "+ Novo", informe o cliente e a nota no "Cabeçalho da Solicitação" e use "Buscar Informações".' },
+    { question: 'Posso faturar só parte das quantidades?', answer: 'Sim. Use a opção "Parcial" e ajuste a "Qtd A Faturar" de cada item.' },
+    { question: 'O que o botão "Buscar Informações" faz?', answer: 'Traz os pedidos e itens do consignado conforme o cliente e a nota informados, para montar o fechamento.' },
+    { question: 'O que acontece ao salvar?', answer: 'O fechamento gera o faturamento dos itens consignados selecionados. Revise quantidades e valores antes.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Fechamento de Consignado.' },
+  ]}
+/>

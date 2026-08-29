@@ -1,0 +1,184 @@
+---
+section: modulos
+routeSlug: faturamentos/fila-de-geracao-de-etiquetas
+pageType: routine
+module: faturamentos
+moduleLabel: Faturamentos
+title: Fila de Geração de Etiquetas
+description: Fila das remessas faturadas disponíveis para geração e impressão das etiquetas de expedição, com filtros por remessa, transportadora e volume.
+routineType: Consulta e fila
+permission: Sim
+impact: Acompanha e apoia a geração/impressão das etiquetas das remessas faturadas
+keywords: [fila de geração de etiquetas, etiquetas, geração de etiquetas, impressão de etiquetas, remessa faturada, transportadora, volume, fila de romaneio, expedição, faturamentos]
+tags: [modulo-faturamentos, consulta]
+order: 6
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Fila de Geração de Etiquetas** reúne as **remessas faturadas** que estão disponíveis para a **geração e impressão das etiquetas** de expedição. É uma tela de **fila**: a equipe filtra as remessas, acompanha o que já teve etiqueta gerada/impressa e segue para o romaneio.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Etiquetas das remessas', text: 'Reúne as remessas faturadas para gerar e imprimir as etiquetas.' },
+    { label: 'Uso', title: 'Filtrar e acompanhar', text: 'Filtra por remessa, transportadora e volume e acompanha o status das etiquetas.' },
+    { label: 'Continuidade', title: 'Fila de Romaneio', text: 'Segue para o romaneio após as etiquetas.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Ver quais remessas faturadas aguardam a geração de etiquetas.
+- Acompanhar quais remessas já tiveram etiqueta gerada ou impressa.
+- Filtrar as remessas por transportadora e por volume.
+- Seguir para a Fila do Romaneio.
+
+## Como acessar
+
+Faturamentos → Fila de Geração de Etiquetas
+
+## Antes de começar
+
+- Tenha as remessas já **faturadas** (só elas aparecem na fila).
+- Saiba a remessa, o pedido ou a transportadora que quer acompanhar.
+- Confirme que o seu perfil permite gerar e imprimir as etiquetas.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros por Lounge, remessa, pedido SAP e por Sim/Não de etiquetas geradas, etiquetas impressas, transportadora e volume, com "Pesquisar" e "Limpar Filtros".', 'Use os filtros para focar nas remessas desejadas.'],
+    ['Ação da fila', 'Botão "Fila de Romaneio".', 'Leva para a etapa de romaneio.'],
+    ['Resultados', 'Grade com as remessas da fila e as colunas da operação, com as ações por linha.', 'A grade fica vazia quando não há remessa faturada disponível.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Lounge', 'Filtra pelo Lounge (unidade).'],
+    ['Remessa', 'Filtra pelo número da remessa.'],
+    ['Pedido SAP', 'Filtra pelo número do pedido no SAP.'],
+    ['Etiquetas Geradas?', 'Filtra por remessas com etiquetas já geradas (Sim ou Não).'],
+    ['Etiquetas Impressas?', 'Filtra por remessas com etiquetas já impressas (Sim ou Não).'],
+    ['Com Transportadora?', 'Filtra por remessas que já têm transportadora definida (Sim ou Não).'],
+    ['Com Volume?', 'Filtra por remessas que já têm volume informado (Sim ou Não).'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Remessa', 'Número da remessa.'],
+    ['Pedido', 'Número do pedido de origem.'],
+    ['Lounge', 'Lounge da remessa.'],
+    ['Cliente', 'Cliente da remessa.'],
+    ['Status do Pedido', 'Situação do pedido.'],
+    ['Transportadora', 'Transportadora da remessa.'],
+    ['Volume da Remessa', 'Volume da remessa.'],
+    ['Etiquetas Geradas?', 'Indica se as etiquetas já foram geradas.'],
+    ['Etiquetas Impressas?', 'Indica se as etiquetas já foram impressas.'],
+    ['Ações', 'Ações da remessa (ex.: gerar/imprimir etiquetas).'],
+  ]}
+/>
+
+<Callout type="info" title="Só remessas faturadas">
+Quando não há remessa faturada disponível, a tela exibe "Nenhuma remessa faturada disponível para geração de etiquetas.". Apenas remessas faturadas entram nesta fila.
+</Callout>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as remessas conforme os filtros.', 'Combine remessa, transportadora e volume.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Fila de Romaneio', 'Para seguir para a etapa de romaneio.', '—'],
+    ['Ações da linha', 'Para gerar e/ou imprimir as etiquetas da remessa.', 'Acompanhe pelos indicadores "Etiquetas Geradas?" e "Etiquetas Impressas?".'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Fila de Geração de Etiquetas', 'Acesso à tela', 'Permite abrir a fila e consultar as remessas.'],
+    ['Gerar/imprimir etiquetas', 'Ações da linha', 'Permite gerar e imprimir as etiquetas das remessas.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Fila de pendências', 'A fila mostra as remessas faturadas disponíveis para etiqueta.', 'Após gerar/imprimir, os indicadores mudam para "Sim".'],
+    ['Etapa antes do romaneio', 'As etiquetas antecedem o romaneio na expedição.', 'Use "Fila de Romaneio" para seguir.'],
+    ['Indicadores de status', 'As colunas de etiquetas geradas/impressas mostram o andamento.', 'Filtre por elas para achar o que falta.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Fila de Remessas Aguardando Separação', 'A separação antecede a geração das etiquetas.', 'A remessa precisa estar separada e faturada.'],
+    ['Fila do Romaneio', 'Após as etiquetas, a remessa segue para o romaneio.', 'Use o botão "Fila de Romaneio".'],
+    ['Impressora de Etiqueta', 'A impressão usa as impressoras configuradas.', 'Depende da configuração da impressora.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não fatura pedidos nem cria remessas — apenas trata as etiquetas das remessas já faturadas.
+- Não altera os dados do pedido ou da remessa.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A fila aparece vazia', 'Não há remessa faturada disponível ou filtros restritos', 'Ajuste ou limpe os filtros e confira o faturamento.'],
+    ['A etiqueta não é impressa', 'Impressora não configurada ou falta de permissão', 'Verifique a impressora e a permissão.'],
+    ['A remessa não entra na fila', 'Remessa ainda não faturada', 'Confira o status do faturamento da remessa.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta fila?', answer: 'Para reunir as remessas faturadas disponíveis para geração e impressão das etiquetas de expedição.' },
+    { question: 'Quais remessas aparecem na fila?', answer: 'Apenas as remessas faturadas; quando não há nenhuma, a tela informa que não há remessa disponível.' },
+    { question: 'Como sei o que já foi etiquetado?', answer: 'Pelas colunas e filtros "Etiquetas Geradas?" e "Etiquetas Impressas?".' },
+    { question: 'O que vem depois das etiquetas?', answer: 'O romaneio — use o botão "Fila de Romaneio" para seguir.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Fila de Geração de Etiquetas.' },
+  ]}
+/>

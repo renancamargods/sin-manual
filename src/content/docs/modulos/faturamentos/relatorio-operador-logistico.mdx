@@ -1,0 +1,173 @@
+---
+section: modulos
+routeSlug: faturamentos/relatorio-operador-logistico
+pageType: routine
+module: faturamentos
+moduleLabel: Faturamentos
+title: Relatório Operador Logístico
+description: Relatório das movimentações pelo operador logístico (OPL), com notas, faturas, valores e datas das etapas OPL por cliente, pedido, remessa, produto, lote e serial.
+routineType: Relatório
+permission: Sim
+impact: Consulta — gera o relatório das movimentações do operador logístico, sem alterar dados
+keywords: [relatório operador logístico, opl, operador logístico, movimentação opl, nota fiscal opl, fatura opl, remessa, lote, serial, faturamentos]
+tags: [modulo-faturamentos, consulta, relatorio]
+order: 9
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+O **Relatório Operador Logístico** mostra as **movimentações realizadas pelo operador logístico (OPL)**: por cliente, pedido, remessa, produto, lote e serial, trazendo as **notas fiscais**, **faturas**, **valores** e **datas** das etapas do OPL. A consulta parte do centro, do pedido, da nota ou do período.
+
+É uma tela de **consulta**: gera o relatório a partir dos filtros, sem alterar dados.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Movimentações do OPL', text: 'Mostra as movimentações pelo operador logístico, com notas e valores.' },
+    { label: 'Uso', title: 'Filtrar e gerar', text: 'Filtre por centro, pedido, nota ou período e gere o relatório.' },
+    { label: 'Natureza', title: 'Consulta', text: 'Não altera dados; apenas exibe o relatório.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Acompanhar as movimentações feitas pelo operador logístico (OPL).
+- Conferir as notas e faturas das etapas OPL de um pedido/remessa.
+- Localizar produto, lote e serial em uma movimentação OPL.
+- Gerar o relatório para análise por período ou nota.
+
+## Como acessar
+
+Faturamentos → Relatório Operador Logístico
+
+## Antes de começar
+
+- Saiba o centro, o pedido SAP, a nota ou o período que quer consultar.
+- Confirme que o seu perfil tem acesso à tela.
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Centro', 'Filtra pelo centro da movimentação.'],
+    ['Pedido SAP', 'Filtra pelo número do pedido no SAP.'],
+    ['Sequencial', 'Filtra pelo sequencial da movimentação.'],
+    ['Nota Fiscal', 'Filtra por uma nota fiscal.'],
+    ['Data Inicial / Final de Emissão da Nota', 'Período de emissão das notas.'],
+  ]}
+/>
+
+### Colunas do relatório
+
+Além das colunas de identificação, o relatório traz, para as etapas do OPL (**OPL3** e **OPL1**), a nota fiscal, a fatura, o valor e a data correspondentes.
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Código do Cliente', 'Cliente da movimentação.'],
+    ['Ordem de Vendas', 'Ordem de vendas relacionada.'],
+    ['Número do Pedido', 'Número do pedido de origem.'],
+    ['Remessa', 'Remessa vinculada.'],
+    ['Código do Produto', 'Código do produto.'],
+    ['Quantidade', 'Quantidade movimentada.'],
+    ['Lote', 'Lote do item.'],
+    ['Serial', 'Serial do item.'],
+    ['Valor OPL3 / Valor OP1', 'Valor de cada etapa do OPL.'],
+    ['Nota Fiscal OPL3 / Nota Fiscal OPL1', 'Nota fiscal de cada etapa do OPL.'],
+    ['Fatura OPL3 / Fatura OPL1', 'Fatura de cada etapa do OPL.'],
+    ['Data OPL3 / Data OPL1', 'Data de cada etapa do OPL.'],
+  ]}
+/>
+
+<Callout type="info" title="Etapas OPL3 e OPL1">
+As colunas terminadas em "OPL3" e "OPL1" representam as etapas do operador logístico. Cada etapa traz a sua nota, fatura, valor e data, permitindo comparar as movimentações.
+</Callout>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Gerar Relatório', 'Para gerar o relatório conforme os filtros.', 'Combine centro, pedido, nota e período.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a consulta.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Relatório Operador Logístico', 'Acesso à tela', 'Permite abrir a tela e gerar o relatório.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Somente consulta', 'A tela apenas gera o relatório a partir dos filtros.', 'Não altera dados das movimentações.'],
+    ['Etapas do OPL', 'As colunas separam as etapas OPL3 e OPL1.', 'Compare notas, faturas e valores entre as etapas.'],
+    ['Rastreio por item', 'Traz produto, lote e serial de cada movimentação.', 'Use para localizar itens específicos.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Fila do Romaneio', 'O romaneio organiza o despacho pelo operador logístico.', '—'],
+    ['Pedido / Nota Fiscal / Remessa', 'O relatório parte das notas e remessas das movimentações OPL.', '—'],
+    ['Relatório de Status do Serial', 'Ambos ajudam a rastrear itens por serial/lote.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não fatura nem cria movimentações — apenas as exibe.
+- Não altera notas, faturas ou remessas.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O relatório não traz registros', 'Filtros restritos ou sem movimentação no período', 'Ajuste centro, nota e período.'],
+    ['Faltam dados de uma etapa OPL', 'Etapa ainda não realizada', 'Confira o andamento da movimentação.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Relatório Operador Logístico?', answer: 'Para mostrar as movimentações realizadas pelo operador logístico (OPL), com as notas, faturas, valores e datas das etapas.' },
+    { question: 'Por quais campos posso filtrar?', answer: 'Por Centro, Pedido SAP, Sequencial, Nota Fiscal e período de emissão da nota.' },
+    { question: 'O que significam OPL3 e OPL1?', answer: 'São as etapas do operador logístico; cada uma tem nota, fatura, valor e data no relatório.' },
+    { question: 'A tela altera dados?', answer: 'Não. É uma consulta; apenas gera o relatório.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Relatório Operador Logístico.' },
+  ]}
+/>

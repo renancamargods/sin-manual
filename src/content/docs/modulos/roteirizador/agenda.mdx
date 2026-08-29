@@ -1,0 +1,94 @@
+---
+section: modulos
+routeSlug: roteirizador/agenda
+pageType: routine
+module: roteirizador
+moduleLabel: Roteirizador
+title: Agenda
+description: Agenda de atendimentos do roteirizador, que exibe em calendário os agendamentos das visitas e atendimentos em campo.
+routineType: Consulta
+permission: Sim
+impact: Exibe e acompanha os agendamentos de atendimento em campo
+keywords: [agenda, agenda de atendimentos, agendamentos, calendário, visita, atendimento, campo, roteirizador]
+tags: [modulo-roteirizador, consulta]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Agenda** (exibida como "Agenda de Atendimentos") apresenta, em formato de **calendário**, os **agendamentos** de visitas e atendimentos em campo do roteirizador. É onde se **acompanha a agenda** dos atendimentos, conforme as jornadas e os tipos de agenda configurados.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Agenda de atendimentos', text: 'Mostra os agendamentos de visitas e atendimentos em campo.' },
+    { label: 'Uso', title: 'Acompanhamento', text: 'Exibe a agenda em calendário para acompanhar os atendimentos.' },
+    { label: 'Cuidado', title: 'Depende de dados', text: 'A agenda depende dos agendamentos, das jornadas e dos tipos de agenda.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar os agendamentos de atendimento em campo.
+- Acompanhar a agenda das visitas conforme as jornadas.
+
+## Como acessar
+
+Roteirizador → Agenda
+
+<Callout type="info" title="Visualização em calendário">
+Diferente das telas de cadastro, a Agenda é exibida em um **calendário** de atendimentos. Ao abrir, o sistema busca as informações dos agendamentos ("Aguarde... realizando busca das informações de agendamentos"); em ambientes sem agendamentos, a agenda pode aparecer vazia.
+</Callout>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação']}
+  rows={[
+    ['Jornada', 'Define os dias e horários de trabalho considerados na agenda.'],
+    ['Tipo de Agenda', 'Classifica os agendamentos (ex.: se é visita).'],
+    ['Formulário e Formulário Agenda', 'Os formulários preenchidos em campo se relacionam aos agendamentos.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra jornadas nem tipos de agenda — isso é feito nas telas específicas.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A agenda não carrega', 'Volume de dados ou indisponibilidade momentânea', 'Aguarde a busca dos agendamentos e recarregue se necessário.'],
+    ['A agenda aparece vazia', 'Sem agendamentos no período', 'Confira se há agendamentos e as jornadas configuradas.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para exibir, em calendário, os agendamentos de visitas e atendimentos em campo do roteirizador.' },
+    { question: 'Por que a agenda pode aparecer vazia?', answer: 'Quando não há agendamentos no período consultado, ou as jornadas ainda não foram configuradas.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Agenda.' },
+  ]}
+/>

@@ -1,0 +1,175 @@
+---
+section: modulos
+routeSlug: faturamentos/relatorio-de-consignado
+pageType: routine
+module: faturamentos
+moduleLabel: Faturamentos
+title: Relatório de Consignado
+description: Relatório com a posição dos itens consignados por cliente, produto, lote e serial, com as notas fiscais das etapas do consignado e o saldo, nas versões Resumido e Completo.
+routineType: Relatório
+permission: Sim
+impact: Consulta — gera o relatório da posição de consignado, sem alterar dados
+keywords: [relatório de consignado, consignado, posição de consignado, saldo de consignado, lote, serial, nota fiscal, kbb, kr, zrob, zcli, keb, zpos, faturamentos]
+tags: [modulo-faturamentos, consulta, relatorio]
+order: 7
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+O **Relatório de Consignado** mostra a **posição dos itens em consignado**: por cliente, produto, lote e serial, com as **notas fiscais** de cada etapa do consignado (envio, retorno, venda, etc.) e o **saldo** de cada item. O relatório pode ser gerado nas versões **Resumido** ou **Completo**.
+
+É uma tela de **consulta**: gera o relatório a partir dos filtros, sem alterar dados.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Posição do consignado', text: 'Mostra a situação e o saldo dos itens consignados por cliente.' },
+    { label: 'Uso', title: 'Filtrar e gerar', text: 'Filtre por cliente, Lounge, nota e período e gere o relatório.' },
+    { label: 'Versões', title: 'Resumido ou Completo', text: 'Escolha o nível de detalhe do relatório.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar a posição dos itens consignados de um cliente.
+- Ver o saldo de consignado por produto, lote e serial.
+- Acompanhar as notas fiscais das etapas do consignado.
+- Gerar o relatório resumido ou completo para análise.
+
+## Como acessar
+
+Faturamentos → Relatório de Consignado
+
+## Antes de começar
+
+- Saiba o cliente, o Lounge, a nota ou o período que quer consultar.
+- Escolha se precisa do relatório "Resumido" ou "Completo".
+- Confirme que o seu perfil tem acesso à tela.
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Cliente', 'Filtra pelo cliente do consignado.'],
+    ['Lounge', 'Filtra pelo Lounge (unidade).'],
+    ['Nº Nota Fiscal', 'Filtra por uma nota fiscal específica.'],
+    ['Data de Emissão - De / Até', 'Período de emissão das notas.'],
+    ['Tipo do Relatório', 'Escolhe entre "Resumido" e "Completo".'],
+  ]}
+/>
+
+### Colunas do relatório
+
+O relatório reúne colunas de **identificação** e, para cada **etapa/tipo de nota** do consignado, um bloco com a nota, a data, o valor e a quantidade, terminando no **Saldo**.
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Código do Cliente / Nome', 'Cliente do consignado.'],
+    ['Possível Reconsig', 'Indica possibilidade de reconsignação do item.'],
+    ['Pedido SAP', 'Número do pedido no SAP.'],
+    ['Fatura', 'Número da fatura.'],
+    ['Código do Produto', 'Código do produto consignado.'],
+    ['Lote', 'Lote do item.'],
+    ['Serial', 'Serial do item.'],
+    ['Número do Pedido', 'Número do pedido de origem.'],
+    ['% de Desconto do Pedido Original', 'Percentual de desconto do pedido original.'],
+    ['NF / Data NF / Valor / Qtd (por tipo)', 'Para cada tipo de nota do consignado — KBB, KR, ZROB, ZCLI, KEB e ZPOS — o relatório traz a nota fiscal, a data, o valor e a quantidade correspondentes.'],
+    ['Saldo', 'Saldo do item em consignado.'],
+  ]}
+/>
+
+<Callout type="info" title="Tipos de nota do consignado">
+As siglas (KBB, KR, ZROB, ZCLI, KEB, ZPOS) identificam os tipos de nota/movimentação do consignado. Cada uma tem, no relatório, as colunas de "NF", "Data", "Valor" e "Qtd". Use-as junto do "Saldo" para entender a posição de cada item.
+</Callout>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os itens conforme os filtros.', 'Combine cliente, nota e período.'],
+    ['Relatório', 'Para gerar/exportar o relatório de consignado.', 'Respeita o "Tipo do Relatório" selecionado.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a consulta.', '—'],
+    ['Tipo do Relatório (Resumido/Completo)', 'Para escolher o nível de detalhe.', '"Completo" traz mais colunas/detalhe.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Relatório de Consignado', 'Acesso à tela', 'Permite abrir a tela e gerar o relatório.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Somente consulta', 'A tela apenas gera o relatório a partir dos filtros.', 'Não altera dados de consignado.'],
+    ['Resumido x Completo', 'O "Tipo do Relatório" muda o nível de detalhe apresentado.', 'Use "Completo" para a análise por nota.'],
+    ['Saldo por item', 'O saldo consolida as movimentações do item.', 'Use o "Saldo" para ver o que ainda está em consignado.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Fechamento de Consignado', 'O relatório mostra a posição que orienta o fechamento.', 'Consulte antes de fechar o consignado.'],
+    ['Pedido / Nota Fiscal', 'As colunas partem das notas e pedidos do consignado.', '—'],
+    ['Cliente', 'A posição é apresentada por cliente.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não fatura nem fecha o consignado — apenas mostra a sua posição.
+- Não altera notas, pedidos ou saldos.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O relatório não traz registros', 'Filtros restritos ou sem consignado no período', 'Ajuste cliente, nota e período.'],
+    ['Faltam colunas de detalhe', 'Tipo do Relatório em "Resumido"', 'Selecione "Completo".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Relatório de Consignado?', answer: 'Para mostrar a posição dos itens em consignado por cliente, produto, lote e serial, com as notas de cada etapa e o saldo.' },
+    { question: 'Qual a diferença entre Resumido e Completo?', answer: 'O "Tipo do Relatório" muda o nível de detalhe: "Completo" traz mais colunas e detalhamento por nota.' },
+    { question: 'O que significam as siglas KBB, KR, ZROB, ZCLI, KEB, ZPOS?', answer: 'São os tipos de nota/movimentação do consignado; cada um tem colunas de nota, data, valor e quantidade no relatório.' },
+    { question: 'A tela altera dados?', answer: 'Não. É uma consulta; apenas gera o relatório.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Relatório de Consignado.' },
+  ]}
+/>

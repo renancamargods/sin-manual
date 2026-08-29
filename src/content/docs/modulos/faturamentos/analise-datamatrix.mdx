@@ -1,0 +1,187 @@
+---
+section: modulos
+routeSlug: faturamentos/analise-datamatrix
+pageType: routine
+module: faturamentos
+moduleLabel: Faturamentos
+title: Análise DataMatrix
+description: Ferramenta de conferência de códigos DataMatrix dos produtos, por bipagem, cópia e cola ou nota fiscal, com exportação do resultado para Excel.
+routineType: Consulta e análise
+permission: Sim
+impact: Não altera dados — apenas lê e confere os códigos DataMatrix informados
+keywords: [datamatrix, análise datamatrix, conferência, bipagem, cópia e cola, nota fiscal, serial, lote, gtin, remessa, faturamentos, exportar excel]
+tags: [modulo-faturamentos, consulta]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Análise DataMatrix** é uma ferramenta de **conferência** dos códigos **DataMatrix** dos produtos. Ela permite informar um ou vários itens — por **bipagem** (leitura), por **cópia e cola** dos códigos ou a partir de uma **nota fiscal** — e ver os dados que cada DataMatrix carrega (como produto, lote e serial), montando uma lista que pode ser **exportada para Excel**.
+
+É uma tela de **consulta**: não cria, não fatura e não altera pedidos ou remessas. Serve para analisar e validar os códigos lidos.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Conferir DataMatrix', text: 'Lê e analisa os códigos DataMatrix dos produtos informados.' },
+    { label: 'Uso', title: 'Bipar ou informar por NF', text: 'Informe os itens por bipagem, cópia e cola ou pela nota fiscal.' },
+    { label: 'Resultado', title: 'Lista para Excel', text: 'Os itens conferidos formam uma lista que pode ser exportada para Excel.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Conferir se um DataMatrix está legível e íntegro.
+- Analisar os dados que um código carrega (produto, lote, serial).
+- Verificar vários itens de uma vez, por bipagem ou colando os códigos.
+- Levantar os itens de uma nota fiscal para conferência.
+- Exportar a lista conferida para Excel.
+
+## Como acessar
+
+Faturamentos → Análise DataMatrix
+
+## Antes de começar
+
+- Tenha os produtos com o **DataMatrix** legível para bipar, ou os códigos para colar.
+- Para a consulta por nota fiscal, tenha a **empresa** e a **nota fiscal** de referência.
+- Confirme que o seu perfil tem acesso à tela.
+
+## Diferenças importantes
+
+<DocTable
+  headers={['Comparação', 'Diferença', 'Orientação']}
+  rows={[
+    ['Por DataMatrix x Por Nota Fiscal', 'São as duas formas de informar os itens: lendo os códigos diretamente ou trazendo os itens a partir de uma nota fiscal.', 'Escolha a aba conforme os dados disponíveis.'],
+    ['Bipagem x Cópia e Cola', 'Na "Bipagem" cada código é lido um a um; na "Cópia e Cola" você cola vários códigos de uma vez.', 'Use a bipagem para leitura direta e a cópia e cola para lotes de códigos.'],
+    ['Analisar x Faturar', 'Esta tela apenas confere os códigos; ela não fatura nem gera pedidos ou remessas.', 'É uma ferramenta de consulta.'],
+  ]}
+/>
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa', 'Bloco de busca com duas abas: "Por Datamatrix" e "Por Nota Fiscal".', 'Escolha a aba antes de informar os itens.'],
+    ['Aba "Por Datamatrix"', 'Campo "Datamatrix do Produto" (Leitura) e os modos "Bipagem" e "Cópia e Cola".', 'Bipe ou cole os códigos que quer conferir.'],
+    ['Aba "Por Nota Fiscal"', 'Seleção da "Empresa" e da nota fiscal para trazer os itens à conferência.', 'Traz os itens da nota informada.'],
+    ['Resultados', 'Lista dos itens conferidos, com os botões "Exportar Para Excel" e "Limpar Todos os itens da lista.".', 'A lista começa vazia e é preenchida à medida que os itens são informados.'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Por Datamatrix"
+
+<DocTable
+  headers={['Campo / opção', 'Para que serve']}
+  rows={[
+    ['Datamatrix do Produto (Leitura)', 'Campo onde o código DataMatrix é lido/informado para conferência.'],
+    ['Bipagem', 'Modo em que cada código é lido individualmente (por leitor ou digitação).'],
+    ['Cópia e Cola', 'Modo em que vários códigos são colados de uma vez para conferência.'],
+  ]}
+/>
+
+### Aba "Por Nota Fiscal"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Empresa', 'Seleciona a empresa da nota fiscal (ex.: "1 - S.I.N Brasil").'],
+    ['Nota Fiscal', 'Informa a nota fiscal cujos itens serão trazidos para a conferência.'],
+  ]}
+/>
+
+<Callout type="info" title="Lista começa vazia">
+A lista de resultados só é preenchida depois que os itens são informados (por bipagem, cópia e cola ou nota fiscal). Antes disso, a área de resultados fica vazia.
+</Callout>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Bipagem', 'Para ler os códigos um a um.', 'Confira se o DataMatrix está legível.'],
+    ['Cópia e Cola', 'Para conferir vários códigos de uma vez.', 'Cole os códigos no formato esperado.'],
+    ['Exportar Para Excel', 'Para gerar uma planilha com os itens conferidos.', 'Exporta a lista atual de resultados.'],
+    ['Limpar Todos os itens da lista.', 'Para esvaziar a lista e recomeçar a conferência.', 'Remove todos os itens já conferidos da lista.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Análise DataMatrix', 'Acesso à tela', 'Permite abrir a tela e conferir os códigos DataMatrix.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Somente conferência', 'A tela apenas lê e analisa os códigos informados.', 'Não gera nem altera pedidos, notas ou remessas.'],
+    ['Lista acumulada', 'Os itens conferidos vão sendo somados à lista de resultados.', 'Use "Limpar Todos os itens da lista." para recomeçar.'],
+    ['Duas formas de entrada', 'Os itens podem vir da leitura dos códigos ou de uma nota fiscal.', 'Escolha a aba conforme os dados que você tem.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['DataMatrix dos produtos', 'A tela lê o DataMatrix impresso nos produtos para conferência.', 'Depende de o código estar legível.'],
+    ['Nota Fiscal', 'A aba "Por Nota Fiscal" traz os itens a partir de uma nota informada.', 'Informe a empresa e a nota corretas.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não fatura e não gera pedidos ou remessas.
+- Não altera notas fiscais nem cadastros de produtos.
+- Não movimenta estoque — apenas confere os códigos informados.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O código não é aceito na bipagem', 'DataMatrix ilegível ou fora do padrão', 'Confira a impressão do código e tente por "Cópia e Cola".'],
+    ['A nota fiscal não traz itens', 'Empresa ou nota informada incorreta', 'Revise a empresa selecionada e o número da nota.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a tela Análise DataMatrix?', answer: 'Para conferir e analisar os códigos DataMatrix dos produtos, informando-os por bipagem, cópia e cola ou pela nota fiscal.' },
+    { question: 'Quais as formas de informar os itens?', answer: 'Por "Bipagem" (leitura dos códigos), por "Cópia e Cola" de vários códigos ou pela aba "Por Nota Fiscal".' },
+    { question: 'A tela altera algum dado?', answer: 'Não. É uma tela de consulta: apenas lê e confere os códigos, sem gerar ou alterar pedidos, notas ou remessas.' },
+    { question: 'Como salvo o resultado da conferência?', answer: 'Use "Exportar Para Excel" para gerar uma planilha com os itens conferidos.' },
+    { question: 'Como recomeço a conferência?', answer: 'Use "Limpar Todos os itens da lista." para esvaziar a lista e informar os itens novamente.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Análise DataMatrix.' },
+  ]}
+/>

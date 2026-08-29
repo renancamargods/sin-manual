@@ -1,0 +1,191 @@
+---
+section: modulos
+routeSlug: faturamentos/fila-de-remessas-aguardando-separacao
+pageType: routine
+module: faturamentos
+moduleLabel: Faturamentos
+title: Fila de Remessas Aguardando Separação
+description: Fila das remessas que aguardam separação, com filtros por pedido, remessa e prioridade, totalizadores e geração das folhas de picking dos pedidos filtrados.
+routineType: Consulta e fila
+permission: Sim
+impact: Consulta a fila de separação e permite gerar as folhas de picking dos pedidos filtrados
+keywords: [fila de remessas, aguardando separação, separação, picking, folha de picking, remessa, prioridade, fila de etiquetas, faturamentos, expedição]
+tags: [modulo-faturamentos, consulta]
+order: 4
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Fila de Remessas Aguardando Separação** mostra, em forma de **fila**, as remessas que ainda **aguardam a separação** (picking). É uma tela de **acompanhamento** da expedição: a partir dela, a equipe filtra as remessas, vê a quantidade pendente e pode **gerar as folhas de picking** dos pedidos filtrados e acessar a **Fila de Etiquetas**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Ver o que falta separar', text: 'Lista as remessas que aguardam separação (picking).' },
+    { label: 'Uso', title: 'Filtrar e priorizar', text: 'Filtra por pedido, remessa, prioridade e tipo, e acompanha os totalizadores.' },
+    { label: 'Ação', title: 'Gerar folhas de picking', text: 'Gera as folhas de picking dos pedidos filtrados e abre a Fila de Etiquetas.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Acompanhar quais remessas ainda aguardam separação.
+- Filtrar as remessas por pedido, remessa, prioridade ou tipo de pedido.
+- Priorizar o que deve ser separado (prioridade "Urgente", etc.).
+- Gerar as folhas de picking dos pedidos filtrados.
+- Seguir para a Fila de Etiquetas.
+
+## Como acessar
+
+Faturamentos → Fila de Remessas Aguardando Separação
+
+## Antes de começar
+
+- Saiba quais pedidos ou remessas quer acompanhar (número do pedido, remessa, cliente, etc.).
+- Confirme que o seu perfil permite gerar as folhas de picking.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros por Lounge, cliente, pedido, remessa, SAP, datas, prioridade, tipo de pedido e folha de picking, com "Pesquisar", "Limpar Filtros" e "+ Salvar Filtro Atual".', 'Use os filtros para focar nas remessas desejadas.'],
+    ['Ações da fila', 'Botões "Fila de Etiquetas" e "Gerar Folhas de Picking dos Pedidos Filtrados".', 'A geração de folhas considera os pedidos filtrados.'],
+    ['Totalizadores', 'Mostra a "Quantidade Remessas Aguardando Separação".', 'Acompanhe o volume pendente.'],
+    ['Resultados', 'Grade com as remessas da fila e as colunas da operação. Exportável para Excel.', 'A grade fica vazia quando não há remessas na fila.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Lounge', 'Filtra pelo Lounge (unidade).'],
+    ['Cliente', 'Filtra pelo cliente do pedido.'],
+    ['Número do Pedido', 'Filtra pelo número do pedido.'],
+    ['Nº Remessa', 'Filtra pelo número da remessa.'],
+    ['Nº Pedido SAP', 'Filtra pelo número do pedido no SAP.'],
+    ['Emissão - Data De / Até', 'Período de emissão.'],
+    ['Data Criação Remessa - De / Até', 'Período de criação da remessa.'],
+    ['Prioridade', 'Filtra pela prioridade da remessa: "Normal", "Cliente no Lounge", "Urgente" ou "Retirar no Lounge".'],
+    ['Tipo de Pedido', 'Filtra pelo tipo de pedido (ex.: "Venda Standard", "Venda de Consignado", "Devolução", "Exportação", entre outros).'],
+    ['Folha de Picking Gerada?', 'Filtra por remessas com a folha de picking já gerada (Sim ou Não).'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Nº Remessa', 'Número da remessa.'],
+    ['Data Criação Remessa', 'Data em que a remessa foi criada.'],
+    ['Qtd. Itens da Remessa', 'Quantidade de itens da remessa.'],
+    ['Código do Cliente / Cliente', 'Cliente do pedido.'],
+    ['Número do Pedido', 'Número do pedido de origem.'],
+    ['Pedido SAP', 'Número do pedido no SAP.'],
+    ['Status do Pedido', 'Situação do pedido.'],
+    ['Tipo do Pedido', 'Tipo do pedido.'],
+    ['Prioridade', 'Prioridade da remessa.'],
+    ['Data de Emissão', 'Data de emissão.'],
+    ['Data de Envio da Separação', 'Data em que a remessa foi enviada para separação.'],
+    ['Lounge do Pedido', 'Lounge do pedido.'],
+    ['Lounge da Remessa', 'Lounge da remessa.'],
+    ['Folha de Picking gerada?', 'Indica se a folha de picking já foi gerada.'],
+    ['Valor Total', 'Valor total da remessa.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as remessas conforme os filtros.', 'Combine pedido, remessa e prioridade.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['+ Salvar Filtro Atual', 'Para guardar o conjunto de filtros usado.', 'Facilita repetir a mesma consulta.'],
+    ['Fila de Etiquetas', 'Para seguir para a fila de geração de etiquetas.', '—'],
+    ['Gerar Folhas de Picking dos Pedidos Filtrados', 'Para gerar as folhas de picking dos pedidos que estão filtrados.', 'A ação considera os pedidos atualmente filtrados.'],
+    ['Exportar tabela para Excel', 'Para exportar a fila em planilha.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Fila de Remessas Aguardando Separação', 'Acesso à tela', 'Permite abrir a fila e consultar as remessas.'],
+    ['Gerar folhas de picking', 'Gerar Folhas de Picking', 'Permite gerar as folhas de picking dos pedidos filtrados.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Fila de pendências', 'A tela mostra apenas as remessas que ainda aguardam separação.', 'À medida que são separadas, saem da fila.'],
+    ['Geração por filtro', 'A geração de folhas de picking usa o conjunto de pedidos filtrados.', 'Ajuste os filtros antes de gerar.'],
+    ['Prioridade', 'A prioridade orienta a ordem de separação.', 'Use o filtro "Prioridade" para focar no urgente.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Fila de Geração de Etiquetas', 'A separação segue para a geração das etiquetas das remessas.', 'Use o botão "Fila de Etiquetas".'],
+    ['Fila do Romaneio', 'Após a separação, as remessas seguem para o romaneio.', '—'],
+    ['Pedido / Remessa', 'A fila parte dos pedidos e remessas gerados no faturamento.', 'A remessa precisa existir para entrar na fila.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não fatura pedidos nem cria remessas — apenas acompanha as que aguardam separação.
+- Não altera os dados do pedido ou da remessa.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A fila aparece vazia', 'Não há remessas aguardando separação ou os filtros estão restritos', 'Ajuste ou limpe os filtros.'],
+    ['A remessa não entra na fila', 'Remessa ainda não criada ou já separada', 'Confira o status do pedido e da remessa.'],
+    ['Não consigo gerar as folhas de picking', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta fila?', answer: 'Para acompanhar as remessas que ainda aguardam separação (picking) e gerar as folhas de picking dos pedidos filtrados.' },
+    { question: 'Como priorizo o que separar?', answer: 'Use o filtro "Prioridade" (por exemplo, "Urgente") para focar nas remessas prioritárias.' },
+    { question: 'O que faz "Gerar Folhas de Picking dos Pedidos Filtrados"?', answer: 'Gera as folhas de picking dos pedidos que estão no filtro atual da tela.' },
+    { question: 'A tela altera algum dado?', answer: 'Não. É uma tela de fila/consulta; ela apenas acompanha e gera as folhas de picking.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Fila de Remessas Aguardando Separação.' },
+  ]}
+/>

@@ -1,0 +1,140 @@
+---
+section: modulos
+routeSlug: roteirizador/metricas
+pageType: routine
+module: roteirizador
+moduleLabel: Field Routing
+lang: en
+title: Metrics
+description: Registration of the Field Routing tracking metrics, with code, description, weight and mandatory flag.
+routineType: Registration
+permission: Yes
+impact: Defines the Field Routing tracking indicators
+keywords: [metrics, indicator, weight, mandatory, tracking, field routing]
+tags: [modulo-roteirizador, cadastro]
+order: 8
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Metrics** screen gathers the registration of the Field Routing **tracking metrics**. Each metric has a **code**, a **description**, a **weight** and the **mandatory** indication, and serves as an indicator in tracking the services.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Metric registration', text: 'Defines the Field Routing tracking indicators.' },
+    { label: 'Use', title: 'Evaluation', text: 'The metrics guide the evaluation of the services.' },
+    { label: 'Caution', title: 'Weight and mandatory', text: 'Check the weight and whether the metric is mandatory.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new metric.
+- Check the metrics already registered.
+- Adjust the weight or the mandatory flag of a metric.
+
+## How to access
+
+Field Routing → Metrics
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Field "Description", with the buttons "Search", "+ New" and "Clear Filters".', 'Use "Description" to locate the metric.'],
+    ['Results', 'List of metrics with the "Description" column and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the metric fields.', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Metric registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Metric Code', 'Code that identifies the metric.'],
+    ['Description', 'Description of the metric.'],
+    ['Weight', 'Weight of the metric in the evaluation.'],
+    ['Mandatory?', 'Indicates whether the metric is mandatory.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the metrics.', 'Leave the filter empty to list all.'],
+    ['+ New', 'To register a new metric.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+    ['Details', 'To view the metric information.', 'It is read-only.'],
+    ['Edit', 'To change the metric data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the metric (red X icon).', 'Use with care.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Metrics', 'Access to the screen', 'Allows opening the screen and viewing the metrics.'],
+    ['Metric registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting metrics.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Weight', 'The weight influences the metric evaluation in tracking.', 'Set the weight according to the metric importance.'],
+    ['Mandatory', 'A mandatory metric must be considered in tracking.', 'Mark the mandatory flag when applicable.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Schedule** and **Form** — the metrics support the tracking and evaluation of the field services.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The metric does not appear in the search', 'Restrictive filter', 'Review the "Description" field and click "Search".'],
+    ['The metric is not considered', 'Incorrect weight or mandatory flag', 'Review the "Weight" and the "Mandatory?" field.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the Field Routing tracking metrics.' },
+    { question: 'What is the "Weight" for?', answer: 'It defines the importance of the metric in the tracking evaluation.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Metrics screen documentation.' },
+  ]}
+/>

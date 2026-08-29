@@ -1,0 +1,174 @@
+---
+section: modulos
+routeSlug: faturamentos/relatorio-operador-logistico
+pageType: routine
+module: faturamentos
+moduleLabel: Invoicing
+lang: en
+title: Logistics Operator Report
+description: Report of the movements by the logistics operator (OPL), with invoices, invoices billed, values and dates of the OPL stages by customer, order, shipment, product, lot and serial.
+routineType: Report
+permission: Yes
+impact: Query — generates the logistics operator movements report, without changing data
+keywords: [logistics operator report, opl, logistics operator, opl movement, opl invoice, opl billing, shipment, lot, serial, invoicing]
+tags: [modulo-faturamentos, consulta, relatorio]
+order: 9
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Logistics Operator Report** shows the **movements performed by the logistics operator (OPL)**: by customer, order, shipment, product, lot and serial, bringing the **invoices**, **billings**, **values** and **dates** of the OPL stages. The query starts from the center, the order, the invoice or the period.
+
+It is a **query** screen: it generates the report from the filters, without changing data.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'OPL movements', text: 'Shows the movements by the logistics operator, with invoices and values.' },
+    { label: 'Use', title: 'Filter and generate', text: 'Filter by center, order, invoice or period and generate the report.' },
+    { label: 'Nature', title: 'Query', text: 'It does not change data; it only shows the report.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Track the movements performed by the logistics operator (OPL).
+- Check the invoices and billings of the OPL stages of an order/shipment.
+- Locate product, lot and serial in an OPL movement.
+- Generate the report for analysis by period or invoice.
+
+## How to access
+
+Invoicing → Logistics Operator Report
+
+## Before you start
+
+- Know the center, SAP order, invoice or period you want to query.
+- Confirm that your profile has access to the screen.
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Center', 'Filters by the movement center.'],
+    ['SAP Order', 'Filters by the order number in SAP.'],
+    ['Sequential', 'Filters by the movement sequential.'],
+    ['Invoice', 'Filters by an invoice.'],
+    ['Invoice Issue Start / End Date', 'Invoice issue period.'],
+  ]}
+/>
+
+### Report columns
+
+Besides the identification columns, the report brings, for the OPL stages (**OPL3** and **OPL1**), the corresponding invoice, billing, value and date.
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Customer Code', 'Customer of the movement.'],
+    ['Sales Order', 'Related sales order.'],
+    ['Order Number', 'Source order number.'],
+    ['Shipment', 'Linked shipment.'],
+    ['Product Code', 'Product code.'],
+    ['Quantity', 'Moved quantity.'],
+    ['Lot', 'Item lot.'],
+    ['Serial', 'Item serial.'],
+    ['OPL3 Value / OP1 Value', 'Value of each OPL stage.'],
+    ['OPL3 Invoice / OPL1 Invoice', 'Invoice of each OPL stage.'],
+    ['OPL3 Billing / OPL1 Billing', 'Billing of each OPL stage.'],
+    ['OPL3 Date / OPL1 Date', 'Date of each OPL stage.'],
+  ]}
+/>
+
+<Callout type="info" title="OPL3 and OPL1 stages">
+The columns ending in "OPL3" and "OPL1" represent the logistics operator stages. Each stage brings its invoice, billing, value and date, allowing the movements to be compared.
+</Callout>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Generate Report', 'To generate the report according to the filters.', 'Combine center, order, invoice and period.'],
+    ['Clear Filters', 'To reset the filters and redo the query.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Logistics Operator Report', 'Screen access', 'Allows opening the screen and generating the report.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Query only', 'The screen only generates the report from the filters.', 'It does not change movement data.'],
+    ['OPL stages', 'The columns split the OPL3 and OPL1 stages.', 'Compare invoices, billings and values between the stages.'],
+    ['Tracking by item', 'It brings the product, lot and serial of each movement.', 'Use it to locate specific items.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Loading List Queue', 'The loading list organizes the dispatch by the logistics operator.', '—'],
+    ['Order / Invoice / Shipment', 'The report starts from the invoices and shipments of the OPL movements.', '—'],
+    ['Serial Status Report', 'Both help to track items by serial/lot.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not invoice or create movements — it only shows them.
+- It does not change invoices, billings or shipments.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The report brings no records', 'Restrictive filters or no movement in the period', 'Adjust center, invoice and period.'],
+    ['Data of an OPL stage is missing', 'Stage not performed yet', 'Check the movement progress.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Logistics Operator Report for?', answer: 'To show the movements performed by the logistics operator (OPL), with the invoices, billings, values and dates of the stages.' },
+    { question: 'By which fields can I filter?', answer: 'By Center, SAP Order, Sequential, Invoice and invoice issue period.' },
+    { question: 'What do OPL3 and OPL1 mean?', answer: 'They are the logistics operator stages; each has invoice, billing, value and date in the report.' },
+    { question: 'Does the screen change data?', answer: 'No. It is a query; it only generates the report.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Logistics Operator Report screen documentation.' },
+  ]}
+/>

@@ -1,0 +1,188 @@
+---
+section: modulos
+routeSlug: faturamentos/analise-datamatrix
+pageType: routine
+module: faturamentos
+moduleLabel: Invoicing
+lang: en
+title: DataMatrix Analysis
+description: Tool to check product DataMatrix codes, by scanning, copy and paste or invoice, with export of the result to Excel.
+routineType: Query and analysis
+permission: Yes
+impact: Does not change data — only reads and checks the informed DataMatrix codes
+keywords: [datamatrix, datamatrix analysis, checking, scanning, copy and paste, invoice, serial, lot, gtin, shipment, invoicing, export excel]
+tags: [modulo-faturamentos, consulta]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **DataMatrix Analysis** screen is a tool to **check** the products' **DataMatrix** codes. It lets you inform one or several items — by **scanning** (reading), by **copy and paste** of the codes or from an **invoice** — and see the data each DataMatrix carries (such as product, lot and serial), building a list that can be **exported to Excel**.
+
+It is a **query** screen: it does not create, invoice or change orders or shipments. It is used to analyze and validate the read codes.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Check DataMatrix', text: 'Reads and analyzes the DataMatrix codes of the informed products.' },
+    { label: 'Use', title: 'Scan or inform by invoice', text: 'Inform the items by scanning, copy and paste or from the invoice.' },
+    { label: 'Result', title: 'List for Excel', text: 'The checked items form a list that can be exported to Excel.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Check whether a DataMatrix is legible and intact.
+- Analyze the data a code carries (product, lot, serial).
+- Verify several items at once, by scanning or pasting the codes.
+- Pull the items of an invoice for checking.
+- Export the checked list to Excel.
+
+## How to access
+
+Invoicing → DataMatrix Analysis
+
+## Before you start
+
+- Have the products with a legible **DataMatrix** to scan, or the codes to paste.
+- For the query by invoice, have the **company** and the reference **invoice**.
+- Confirm that your profile has access to the screen.
+
+## Important differences
+
+<DocTable
+  headers={['Comparison', 'Difference', 'Guidance']}
+  rows={[
+    ['By DataMatrix x By Invoice', 'The two ways to inform the items: reading the codes directly or bringing the items from an invoice.', 'Choose the tab according to the data available.'],
+    ['Scanning x Copy and Paste', 'In "Scanning" each code is read one by one; in "Copy and Paste" you paste several codes at once.', 'Use scanning for direct reading and copy and paste for batches of codes.'],
+    ['Analyze x Invoice', 'This screen only checks the codes; it does not invoice or generate orders or shipments.', 'It is a query tool.'],
+  ]}
+/>
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search', 'Search block with two tabs: "By Datamatrix" and "By Invoice".', 'Choose the tab before informing the items.'],
+    ['"By Datamatrix" tab', 'Field "Product Datamatrix" (Reading) and the "Scanning" and "Copy and Paste" modes.', 'Scan or paste the codes you want to check.'],
+    ['"By Invoice" tab', 'Selection of the "Company" and the invoice to bring the items for checking.', 'Brings the items of the informed invoice.'],
+    ['Results', 'List of the checked items, with the buttons "Export to Excel" and "Clear all items from the list.".', 'The list starts empty and is filled as the items are informed.'],
+  ]}
+/>
+
+## Main fields
+
+### "By Datamatrix" tab
+
+<DocTable
+  headers={['Field / option', 'What it is for']}
+  rows={[
+    ['Product Datamatrix (Reading)', 'Field where the DataMatrix code is read/informed for checking.'],
+    ['Scanning', 'Mode in which each code is read individually (by reader or typing).'],
+    ['Copy and Paste', 'Mode in which several codes are pasted at once for checking.'],
+  ]}
+/>
+
+### "By Invoice" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Company', 'Selects the company of the invoice (e.g., "1 - S.I.N Brasil").'],
+    ['Invoice', 'Informs the invoice whose items will be brought for checking.'],
+  ]}
+/>
+
+<Callout type="info" title="List starts empty">
+The results list is only filled after the items are informed (by scanning, copy and paste or invoice). Before that, the results area is empty.
+</Callout>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Scanning', 'To read the codes one by one.', 'Check whether the DataMatrix is legible.'],
+    ['Copy and Paste', 'To check several codes at once.', 'Paste the codes in the expected format.'],
+    ['Export to Excel', 'To generate a spreadsheet with the checked items.', 'Exports the current results list.'],
+    ['Clear all items from the list.', 'To empty the list and restart the checking.', 'Removes all already checked items from the list.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['DataMatrix Analysis', 'Screen access', 'Allows opening the screen and checking the DataMatrix codes.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Checking only', 'The screen only reads and analyzes the informed codes.', 'It does not generate or change orders, invoices or shipments.'],
+    ['Accumulated list', 'The checked items are added to the results list.', 'Use "Clear all items from the list." to restart.'],
+    ['Two input ways', 'The items can come from reading the codes or from an invoice.', 'Choose the tab according to the data you have.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Product DataMatrix', 'The screen reads the DataMatrix printed on the products for checking.', 'It depends on the code being legible.'],
+    ['Invoice', 'The "By Invoice" tab brings the items from an informed invoice.', 'Inform the correct company and invoice.'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not invoice and does not generate orders or shipments.
+- It does not change invoices or product registrations.
+- It does not move stock — it only checks the informed codes.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The code is not accepted when scanning', 'Illegible or non-standard DataMatrix', 'Check the code print and try "Copy and Paste".'],
+    ['The invoice brings no items', 'Wrong company or invoice informed', 'Review the selected company and the invoice number.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the DataMatrix Analysis screen for?', answer: 'To check and analyze the products DataMatrix codes, informing them by scanning, copy and paste or from the invoice.' },
+    { question: 'What are the ways to inform the items?', answer: 'By "Scanning" (reading the codes), by "Copy and Paste" of several codes or through the "By Invoice" tab.' },
+    { question: 'Does the screen change any data?', answer: 'No. It is a query screen: it only reads and checks the codes, without generating or changing orders, invoices or shipments.' },
+    { question: 'How do I save the checking result?', answer: 'Use "Export to Excel" to generate a spreadsheet with the checked items.' },
+    { question: 'How do I restart the checking?', answer: 'Use "Clear all items from the list." to empty the list and inform the items again.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the DataMatrix Analysis screen documentation.' },
+  ]}
+/>

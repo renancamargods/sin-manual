@@ -1,0 +1,129 @@
+---
+section: modulos
+routeSlug: roteirizador/tipo-de-agenda
+pageType: routine
+module: roteirizador
+moduleLabel: Field Routing
+lang: en
+title: Schedule Type
+description: Registration of the schedule types used to classify services, indicating whether the type is a visit.
+routineType: Registration
+permission: Yes
+impact: Classifies the services by schedule type
+keywords: [schedule type, schedule, visit, service, classification, field routing]
+tags: [modulo-roteirizador, cadastro]
+order: 9
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Schedule Type** screen gathers the registration of the **schedule types** used to **classify the services** of Field Routing. Each type has a **description** and the indication of whether it is a **visit**.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Schedule types', text: 'Classifies the services by type.' },
+    { label: 'Use', title: 'Schedule organization', text: 'The types organize the services in the schedule.' },
+    { label: 'Caution', title: 'Visit?', text: 'Indicate whether the type corresponds to a visit.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new schedule type.
+- Check the types already registered.
+
+## How to access
+
+Field Routing → Schedule Type
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Search area with the buttons "Search", "+ New" and "Clear Filters". There are the Excel and PDF export buttons.', 'Use the search to locate the type.'],
+    ['Results', 'List of types with the "Description" and "Visit?" columns and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the type fields.', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Type registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Description', 'Description of the schedule type.'],
+    ['Visit?', 'Indicates whether the type corresponds to a visit.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the types.', 'Leave the filter empty to list all.'],
+    ['+ New', 'To register a new type.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+    ['Export to Excel / PDF', 'To export the type list.', 'Generates a file with the listed data.'],
+    ['Details', 'To view the type information.', 'It is read-only.'],
+    ['Edit', 'To change the type data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the type (red X icon).', 'Prefer not to delete types used in the schedule.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Schedule Type', 'Access to the screen', 'Allows opening the screen and viewing the types.'],
+    ['Type registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting types.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Schedule** — the schedule types classify the services shown in the schedule.
+- **Schedule Form** — the schedule type may relate to the form used in the service.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The type does not appear in the search', 'Restrictive filter', 'Review the search and click "Search".'],
+    ['The service is not marked as a visit', '"Visit?" field unchecked', 'Check the type "Visit?" flag.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the schedule types used to classify the services.' },
+    { question: 'What does the "Visit?" field mean?', answer: 'It indicates whether the schedule type corresponds to a visit.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Schedule Type screen documentation.' },
+  ]}
+/>

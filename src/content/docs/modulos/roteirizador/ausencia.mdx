@@ -1,0 +1,130 @@
+---
+section: modulos
+routeSlug: roteirizador/ausencia
+pageType: routine
+module: roteirizador
+moduleLabel: Roteirizador
+title: Ausência
+description: Registro das ausências que afetam a agenda do roteirizador, com motivo, tipo e período (data de início e término).
+routineType: Cadastro
+permission: Sim
+impact: Registra as ausências que impactam a agenda de atendimentos
+keywords: [ausência, ausencia, motivo, tipo de ausência, período, agenda, roteirizador]
+tags: [modulo-roteirizador, cadastro]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Ausência** reúne o registro das **ausências** que afetam a agenda do roteirizador. Cada ausência tem um **motivo**, um **tipo** e um **período** (data de início e término), e impacta a disponibilidade na agenda de atendimentos.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Registro de ausências', text: 'Registra as ausências que afetam a agenda.' },
+    { label: 'Uso', title: 'Disponibilidade', text: 'As ausências reduzem a disponibilidade na agenda.' },
+    { label: 'Cuidado', title: 'Período correto', text: 'Confira as datas de início e término da ausência.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Registrar uma ausência que afeta a agenda.
+- Consultar as ausências já registradas.
+- Ajustar o motivo, o tipo ou o período de uma ausência.
+
+## Como acessar
+
+Roteirizador → Ausência
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Área de pesquisa com os botões "Pesquisar", "+ Novo" e "Limpar Filtros". Há os botões de exportação para Excel e PDF.', 'Use a pesquisa para localizar a ausência.'],
+    ['Resultados', 'Lista das ausências com as colunas "Motivo da Ausência", "Tipo de Ausência", "Data Início" e "Data Término" e, em cada linha, os ícones de ação.', 'Os ícones de ação ficam à direita de cada linha.'],
+    ['Cadastro (Novo / Editar)', 'Janela com os campos da ausência.', 'Clique em "Salvar" para confirmar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Cadastro da ausência (Novo / Editar)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Motivo da Ausência', 'Motivo da ausência.'],
+    ['Tipo de Ausência', 'Tipo da ausência.'],
+    ['Data Início', 'Data de início da ausência.'],
+    ['Data Término', 'Data de término da ausência.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as ausências.', 'Combine os filtros para refinar.'],
+    ['+ Novo', 'Para registrar uma nova ausência.', 'Abre a janela de cadastro.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+    ['Exportar para Excel / PDF', 'Para exportar a lista de ausências.', 'Gera um arquivo com os dados listados.'],
+    ['Detalhes', 'Para consultar as informações da ausência.', 'É somente leitura.'],
+    ['Editar', 'Para alterar os dados da ausência.', 'Clique em "Salvar" para confirmar.'],
+    ['Excluir', 'Para remover a ausência (ícone X vermelho).', 'Use com atenção.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Ausência', 'Acesso à tela', 'Permite abrir a tela e consultar as ausências.'],
+    ['Cadastro e edição de ausência', 'Novo / Editar / Excluir', 'Permite criar, alterar e excluir ausências.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Agenda** — as ausências reduzem a disponibilidade exibida na agenda de atendimentos.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A ausência não aparece na busca', 'Filtros restritos', 'Revise os filtros e clique em "Pesquisar".'],
+    ['A ausência não reflete na agenda', 'Período incorreto', 'Verifique as datas de início e término.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para registrar as ausências que afetam a agenda do roteirizador.' },
+    { question: 'A ausência afeta a agenda?', answer: 'Sim. A ausência reduz a disponibilidade no período informado.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '28/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Ausência.' },
+  ]}
+/>

@@ -1,0 +1,131 @@
+---
+section: modulos
+routeSlug: roteirizador/jornada
+pageType: routine
+module: roteirizador
+moduleLabel: Field Routing
+lang: en
+title: Journey
+description: Registration of the Field Routing working journeys, with day of the week and start and end times.
+routineType: Registration
+permission: Yes
+impact: Defines the working days and hours considered in the schedule
+keywords: [journey, working journey, day of the week, time, start, end, schedule, field routing]
+tags: [modulo-roteirizador, cadastro]
+order: 7
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Journey** screen gathers the registration of the **working journeys** considered in the Field Routing schedule. Each journey defines a **day of the week** and the **start and end times**, delimiting the availability for services.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Working journeys', text: 'Defines the working days and hours.' },
+    { label: 'Use', title: 'Basis of the schedule', text: 'The journeys guide the availability in the schedule.' },
+    { label: 'Caution', title: 'Day and time', text: 'Check the day of the week and the start and end times.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a journey (working day and time).
+- Check the journeys already registered.
+- Adjust the day or the times of a journey.
+
+## How to access
+
+Field Routing → Journey
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Search area with the buttons "Search", "+ New" and "Clear Filters". There are the Excel and PDF export buttons.', 'Use the search to locate the journey.'],
+    ['Results', 'List of journeys with the "Day of the Week", "Start" and "End" columns and, on each row, the action icons.', 'The action icons are on the right of each row.'],
+    ['Registration (New / Edit)', 'Window with the day and the times of the journey.', 'Click "Save" to confirm.'],
+  ]}
+/>
+
+## Main fields
+
+### Journey registration (New / Edit)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Day of the Week', 'Day of the week of the journey.'],
+    ['Start', 'Start time.'],
+    ['End', 'End time.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the journeys.', 'Leave the filter empty to list all.'],
+    ['+ New', 'To register a new journey.', 'Opens the registration window.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+    ['Export to Excel / PDF', 'To export the journey list.', 'Generates a file with the listed data.'],
+    ['Details', 'To view the journey information.', 'It is read-only.'],
+    ['Edit', 'To change the journey data.', 'Click "Save" to confirm.'],
+    ['Delete', 'To remove the journey (red X icon).', 'Use with care.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Journey', 'Access to the screen', 'Allows opening the screen and viewing the journeys.'],
+    ['Journey registration and editing', 'New / Edit / Delete', 'Allows creating, changing and deleting journeys.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Schedule** — the journeys define the days and hours considered in the service schedule.
+- **Absence** — the absences reduce the availability of the journeys.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The journey is not reflected in the schedule', 'Incorrect day or time', 'Review "Day of the Week", "Start" and "End".'],
+    ['The journey does not appear in the search', 'Restrictive filter', 'Review the search and click "Search".'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the working journeys (day and time) considered in the Field Routing schedule.' },
+    { question: 'Does the journey affect the schedule?', answer: 'Yes. The journeys delimit the days and hours available in the service schedule.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/28/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Journey screen documentation.' },
+  ]}
+/>
