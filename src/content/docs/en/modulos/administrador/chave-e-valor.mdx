@@ -1,0 +1,156 @@
+---
+section: modulos
+routeSlug: administrador/chave-e-valor
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Key and Value
+description: Register configuration key/value pairs, grouped by parameter, used to adjust system behaviors.
+routineType: Registration and lookup
+permission: Yes
+impact: Configuration pairs that adjust system behaviors
+keywords: [key and value, configuration, parameter, key, value]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Key and Value** screen registers configuration **Key** and **Value** pairs, grouped by a **Parameter**. These pairs are used to adjust system behaviors flexibly — for example, defining which blocks appear on the home page for each profile.
+
+<Callout type="cuidado" title="Technical configuration">
+Changes here affect the system's behavior. Only make changes when you know the parameter and the expected effect, preferably with support from the technical team.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Flexible configuration', text: 'Holds key/value pairs that adjust system behaviors.' },
+    { label: 'Use', title: 'Grouped by parameter', text: 'Each pair belongs to a parameter that defines its context.' },
+    { label: 'Caution', title: 'Impact', text: 'Incorrect values can change how screens and routines work.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Look up the key/value pairs of a parameter.
+- Register or edit a configuration pair.
+- Activate or deactivate a pair.
+
+## How to access
+
+Administrator → Key and Value
+
+## Before you start
+
+- Know which **Parameter** the pair belongs to.
+- Have the correct **key** and **value** and know the expected effect.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Key, Value, Parameter and System Status, with the "Search", "+ New" and "Clear Filters" buttons.', 'Filter by parameter to find the desired group.'],
+    ['Results', 'List with the "Key", "Value", "Parameter", "System Status" and "Last Change Date" columns, with per-row actions.', 'Each row has History, Details, Edit and Delete.'],
+    ['Registration / editing', 'Window with Parameter, System Status, Key and Value.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Parameter', 'Parameter that groups and contextualizes the pair. The "+" button next to it registers a new parameter.'],
+    ['System Status', 'Pair status (Active or Inactive).'],
+    ['Key', 'Key that identifies the configuration.'],
+    ['Value', 'Value associated with the key.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the filters (Key, Value, Parameter, Status) and click **"Search"**.
+2. **Register** — click **"+ New"**, select the **Parameter**, enter **Key** and **Value**, set the **System Status** and click **"Save"**.
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **View history** — click the **History** icon on the row to see the changes.
+5. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list pairs according to the filters.', '—'],
+    ['+ New', 'To register a new pair.', '—'],
+    ['Details', 'To view a pair without changing it.', 'Read only.'],
+    ['History', 'To see the pair change history.', '—'],
+    ['Edit', 'To change an existing pair.', 'Confirm the expected effect before saving.'],
+    ['Delete', 'To remove a pair.', 'Irreversible action; it can affect the system behavior.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Key and Value', 'Access to the screen', 'Allows opening and using the Key and Value screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Configurable behaviors', 'The pairs adjust behaviors of screens and routines.', 'Change only when you know the effect.'],
+    ['Parameter', 'Each pair belongs to a parameter.', 'Use the correct parameter.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not validate the effect of the entered value — the content is the responsibility of whoever configures it.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['A configuration had no effect', 'Inactive pair or incorrect value', 'Check the System Status and the value.'],
+    ['I cannot find a pair', 'Wrong parameter filter', 'Adjust the Parameter filter.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register configuration key/value pairs, grouped by parameter, that adjust system behaviors.' },
+    { question: 'What is the "Parameter"?', answer: 'It is the grouper that contextualizes the key/value pairs.' },
+    { question: 'Can I change any value?', answer: 'Yes, but only when you know the expected effect, as it affects the system behavior.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Initial release of the Key and Value screen documentation.' },
+  ]}
+/>

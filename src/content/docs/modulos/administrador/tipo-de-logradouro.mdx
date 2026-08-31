@@ -1,0 +1,160 @@
+---
+section: modulos
+routeSlug: administrador/tipo-de-logradouro
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Tipo de Logradouro
+description: Cadastro e consulta dos tipos de logradouro (por exemplo, Rua, Avenida) usados em endereços e logradouros.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Tipos de logradouro usados em endereços
+keywords: [tipo de logradouro, rua, avenida, endereço, logradouro, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Tipo de Logradouro** mantém a lista dos tipos de logradouro (por exemplo, Rua, Avenida, Praça) usados na composição de endereços e logradouros. É um cadastro simples, com um único campo **Tipo**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Tipos de logradouro', text: 'Padroniza os tipos usados em endereços (Rua, Avenida, etc.).' },
+    { label: 'Uso', title: 'Composição de endereços', text: 'Os tipos ficam disponíveis para seleção em endereços e logradouros.' },
+    { label: 'Cuidado', title: 'Padronização', text: 'Evite tipos duplicados para manter os endereços consistentes.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo tipo de logradouro.
+- Consultar ou localizar um tipo existente.
+- Editar ou excluir um tipo.
+- Consultar os endereços e logradouros vinculados ao tipo.
+
+## Como acessar
+
+Administrador → Tipo de Logradouro
+
+## Antes de começar
+
+- Tenha a descrição do **Tipo** (ex.: Rua, Avenida).
+- Verifique se o tipo já não está cadastrado.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Tipo", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista dos tipos pela coluna "Tipo", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição (abas)', 'Janela com as abas "Tipo de Logradouro", "Endereços" e "Logradouros".', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Tipo de Logradouro"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Tipo', 'Descrição do tipo de logradouro (ex.: Rua, Avenida).'],
+  ]}
+/>
+
+### Abas complementares
+
+<DocTable
+  headers={['Aba', 'O que mostra']}
+  rows={[
+    ['Endereços', 'Endereços que usam este tipo de logradouro.'],
+    ['Logradouros', 'Logradouros vinculados a este tipo.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe o **"Tipo"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe o **Tipo** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os tipos conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar um novo tipo.', '—'],
+    ['Salvar e Continuar', 'Para salvar e seguir preenchendo as demais abas.', '—'],
+    ['Detalhes', 'Para consultar um tipo sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um tipo existente.', '—'],
+    ['Excluir', 'Para remover um tipo.', 'Ação sem retorno; evite excluir tipos já usados em endereços.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Tipo de Logradouro', 'Acesso à tela', 'Permite abrir e utilizar a tela de Tipo de Logradouro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Endereço', 'O tipo de logradouro compõe o endereço.', 'Mantenha os tipos padronizados.'],
+    ['Logradouro', 'Os logradouros usam o tipo cadastrado.', 'Evite duplicidades.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra endereços ou logradouros — apenas o tipo usado por eles.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro um tipo', 'Filtro muito restrito ou tipo não cadastrado', 'Ajuste o "Tipo" ou cadastre-o.'],
+    ['Não consigo excluir', 'Tipo já usado em endereços', 'Verifique os vínculos antes de excluir.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar e consultar os tipos de logradouro (Rua, Avenida, etc.) usados em endereços.' },
+    { question: 'Posso excluir um tipo?', answer: 'Sim, pelo ícone de Excluir, mas evite remover tipos já usados em endereços.' },
+    { question: 'Onde os tipos são usados?', answer: 'Na composição de endereços e logradouros.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Tipo de Logradouro.' },
+  ]}
+/>

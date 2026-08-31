@@ -5,6 +5,10 @@ export interface RoutineLink {
   title: string;
   slug: string;
   description?: string;
+  // true quando a tela existe no sistema mas não está acessível para documentar
+  // (ex.: retorna 404 / não carrega na homologação). No menu e no índice do módulo
+  // aparece em vermelho, não clicável, com o selo "Não disponível" e sem página.
+  unavailable?: boolean;
 }
 
 export interface ModuleDef {
@@ -48,6 +52,7 @@ export const tecnicoPages: TecnicoGroup[] = [
       { title: 'Cadastro de Clientes x Aprovações - Com Ignition', slug: 'criacao-de-cliente', description: 'Criação, cadastro e aprovação de clientes (PF, PJ e estrangeiro) com a fila Ignition.' },
       { title: 'Configuração de Produtos no Lounge', slug: 'configuracao-de-produtos-no-lounge', description: 'Parametrização de produtos por localidade e roteamento dos itens para o Lounge/Centro correto.' },
       { title: 'Cadastro de Clientes x Aprovações - Sem Ignition', slug: 'cadastro-clientes-sem-ignition', description: 'Cadastro e aprovação de clientes (PF, PJ e estrangeiro) pela fila SEM Ignition, com regra e etapas de aprovação.' },
+      { title: 'Aprovação de Pedidos - Sem Ignition', slug: 'aprovacao-de-pedidos-sem-ignition', description: 'Criação e aprovação de pedidos pela fila SEM Ignition (ADM, Crédito e Cobrança Nacional), com fluxograma da rota de aprovação.' },
     ],
   },
   { title: 'APIs', slug: 'apis', description: 'Integrações disponíveis para troca de informações com outros sistemas.', pages: [] },
@@ -111,7 +116,7 @@ export const modules: ModuleDef[] = [
       { title: 'Acompanhamento Ciclos de Aprovação', slug: 'acompanhamento-ciclos-de-aprovacao', description: 'Consulta e acompanhamento dos ciclos de aprovação e suas etapas.' },
       { title: 'Entidade de Aprovação', slug: 'entidade-de-aprovacao', description: 'Define o que pode ser submetido a aprovação.' },
       { title: 'Fila de Aprovações - Clientes', slug: 'nova-fila-de-aprovacao-clientes', description: 'Fila para aprovar, reprovar ou avaliar os clientes aguardando liberação.' },
-      { title: 'Fila de Aprovações - Contratos', slug: 'fila-de-aprovacoes-contratos', description: 'Fila para aprovar, reprovar ou avaliar os contratos aguardando liberação.' },
+      { title: 'Fila de Aprovações - Contratos', slug: 'fila-de-aprovacoes-contratos', description: 'Fila para aprovar, reprovar ou avaliar os contratos aguardando liberação.', unavailable: true },
       { title: 'Fila de Aprovações - Pedidos', slug: 'fila-de-aprovacoes-pedidos', description: 'Fila para aprovar, reprovar ou avaliar os pedidos aguardando liberação.' },
       { title: 'Regra de Aprovação', slug: 'regra-de-aprovacao', description: 'Define quem aprova e em qual condição.' },
       { title: 'Sub-Status - Ciclo de Aprovação', slug: 'sub-status-ciclo-de-aprovacao', description: 'Cadastro dos sub-status aplicados ao aprovar, reprovar ou enviar para avaliação.' },
@@ -176,7 +181,7 @@ export const modules: ModuleDef[] = [
     order: 6,
     routines: [
       { title: 'Análise DataMatrix', slug: 'analise-datamatrix', description: 'Conferência de códigos DataMatrix nas remessas.' },
-      { title: 'Buscar Remessa', slug: 'buscar-remessa', description: 'Consulta e busca de remessas.' },
+      { title: 'Buscar Remessa', slug: 'buscar-remessa', description: 'Consulta e busca de remessas.', unavailable: true },
       { title: 'Fechamento de Consignado', slug: 'fechamento-de-consignado', description: 'Encerramento de períodos de consignado.' },
       { title: 'Fila de Remessas Aguardando Separação', slug: 'fila-de-remessas-aguardando-separacao', description: 'Acompanhamento de remessas pendentes de separação.' },
       { title: 'Fila do Romaneio', slug: 'fila-do-romaneio', description: 'Acompanhamento das remessas na fila do romaneio.' },
@@ -228,7 +233,7 @@ export const modules: ModuleDef[] = [
     routines: [
       { title: 'Contagem Inventário', slug: 'contagem-inventario', description: 'Registro das contagens realizadas.' },
       { title: 'Inventário', slug: 'inventario', description: 'Cadastro e acompanhamento de inventários.' },
-      { title: 'Inventários Disponíveis', slug: 'inventarios-disponiveis', description: 'Lista de inventários abertos para contagem.' },
+      { title: 'Inventários Disponíveis', slug: 'inventarios-disponiveis', description: 'Lista de inventários abertos para contagem.', unavailable: true },
     ],
   },
   {
@@ -377,10 +382,10 @@ export const modules: ModuleDef[] = [
     description: 'Agendas, formulários e jornadas de atendimento em campo.',
     order: 19,
     routines: [
-      { title: 'Agenda', slug: 'agenda', description: 'Cadastro e acompanhamento de agendas.' },
+      { title: 'Agenda', slug: 'agenda', description: 'Cadastro e acompanhamento de agendas.', unavailable: true },
       { title: 'Ausência', slug: 'ausencia', description: 'Registro de ausências que afetam a agenda.' },
       { title: 'Formulário', slug: 'formulario', description: 'Cadastro de formulários usados em campo.' },
-      { title: 'Formulário Agenda', slug: 'formulario-agenda', description: 'Associação entre formulários e agendas.' },
+      { title: 'Formulário Agenda', slug: 'formulario-agenda', description: 'Associação entre formulários e agendas.', unavailable: true },
       { title: 'Campo do Formulário', slug: 'campo-do-formulario', description: 'Campos que compõem um formulário.' },
       { title: 'Tipo de Campo', slug: 'tipo-de-campo', description: 'Tipos de campo disponíveis para formulários.' },
       { title: 'Jornada', slug: 'jornada', description: 'Sequência de etapas de atendimento em campo.' },
@@ -624,6 +629,7 @@ export const tecnicoSubEn: Record<string, string> = {
   'fluxos/criacao-de-cliente': 'Customer Registration x Approvals - With Ignition',
   'fluxos/configuracao-de-produtos-no-lounge': 'Product Configuration in the Lounge',
   'fluxos/cadastro-clientes-sem-ignition': 'Customer Registration x Approvals - Without Ignition',
+  'fluxos/aprovacao-de-pedidos-sem-ignition': 'Order Approval - Without Ignition',
 };
 
 // --- Ordenação alfabética (locale-aware) da navegação ---

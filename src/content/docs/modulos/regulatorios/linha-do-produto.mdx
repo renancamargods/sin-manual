@@ -1,0 +1,129 @@
+---
+section: modulos
+routeSlug: regulatorios/linha-do-produto
+pageType: routine
+module: regulatorios
+moduleLabel: Regulatórios
+title: Linha do Produto
+description: Cadastro das linhas regulatórias associadas aos produtos, identificadas pela descrição da linha.
+routineType: Cadastro
+permission: Sim
+impact: Define as linhas usadas na classificação regulatória dos produtos
+keywords: [linha do produto, linha regulatória, classificação regulatória, produtos, regulatórios, cadastro]
+tags: [modulo-regulatorios, cadastro]
+order: 15
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Linha do Produto** mantém as **linhas regulatórias** associadas aos produtos. Cada linha é identificada pela sua **descrição** e apoia a classificação regulatória dos produtos.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Linha regulatória', text: 'Mantém as linhas usadas na classificação regulatória.' },
+    { label: 'Uso', title: 'Descrição da linha', text: 'Cada linha é identificada pela sua descrição.' },
+    { label: 'Natureza', title: 'Cadastro de apoio', text: 'Consultado na classificação regulatória dos produtos.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar as linhas regulatórias cadastradas.
+- Incluir uma nova linha.
+- Corrigir a descrição de uma linha.
+
+## Como acessar
+
+Regulatórios → Linha do Produto
+
+## Antes de começar
+
+- Tenha a **descrição** da linha.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Campos principais
+
+<DocTable
+  headers={['Campo / Coluna', 'O que é']}
+  rows={[
+    ['Linha do Produto', 'Descrição da linha regulatória associada ao produto.'],
+  ]}
+/>
+
+O formulário ("+ Novo") tem o campo **Linha do Produto**. Na listagem, cada linha tem os ícones de detalhes, editar e excluir.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as linhas.', '—'],
+    ['+ Novo', 'Para incluir uma linha.', 'Abre o formulário.'],
+    ['Salvar', 'Para guardar a linha.', 'Informe a descrição.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar a linha.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover a linha.', 'Confirme antes; pode estar em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Linha do Produto', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Grupo do Produto / Registros', 'A linha apoia a classificação regulatória do produto.', '—'],
+    ['Produto', 'A linha regulatória é associada aos produtos.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra os produtos — apenas as linhas regulatórias.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro a linha', 'Filtro restrito', 'Ajuste a descrição na pesquisa.'],
+    ['Não consigo excluir', 'Linha em uso', 'Verifique se há vínculos.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Linha do Produto?', answer: 'Para manter as linhas regulatórias usadas na classificação regulatória dos produtos.' },
+    { question: 'Quais campos a linha tem?', answer: 'Apenas a descrição (Linha do Produto).' },
+    { question: 'Posso excluir uma linha em uso?', answer: 'Não é recomendado; verifique antes se há vínculos.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Linha do Produto.' },
+  ]}
+/>

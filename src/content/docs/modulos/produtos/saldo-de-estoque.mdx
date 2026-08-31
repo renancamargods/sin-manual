@@ -1,0 +1,162 @@
+---
+section: modulos
+routeSlug: produtos/saldo-de-estoque
+pageType: routine
+module: produtos
+moduleLabel: Produtos
+title: Saldo de Estoque
+description: Consulta da posição de estoque dos produtos por Lounge e depósito, com quantidade e visibilidade do produto.
+routineType: Consulta
+permission: Sim
+impact: Mostra a posição de estoque dos produtos por Lounge e depósito
+keywords: [saldo de estoque, estoque, quantidade, lounge, depósito, produto visível, produtos, consulta]
+tags: [modulo-produtos, consulta]
+order: 10
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Saldo de Estoque** mostra a **posição de estoque** dos produtos por **Lounge** e por **depósito**, com a **quantidade** disponível e a **visibilidade** do produto. É usada para consultar quanto há de cada produto em cada unidade.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Posição de estoque', text: 'Mostra a quantidade de cada produto por Lounge e depósito.' },
+    { label: 'Uso', title: 'Filtrar por produto/Lounge', text: 'Filtra por Lounge, produto, descrição e visibilidade.' },
+    { label: 'Natureza', title: 'Consulta', text: 'Mostra a posição de estoque dos produtos.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar o saldo de estoque de um produto.
+- Ver a quantidade por Lounge e por depósito.
+- Filtrar os produtos por visibilidade.
+
+## Como acessar
+
+Produtos → Saldo de Estoque
+
+## Antes de começar
+
+- Saiba o **produto** ou o **Lounge** que quer consultar.
+- Confirme que o seu perfil tem acesso à tela.
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Lounge', 'Filtra pelo Lounge (unidade).'],
+    ['Produto', 'Filtra pelo produto.'],
+    ['Descrição', 'Filtra pela descrição do produto.'],
+    ['Produto Visível', 'Filtra por produtos visíveis (Sim) ou não (Não).'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Lounge', 'Lounge (unidade) do saldo.'],
+    ['Produto', 'Código do produto.'],
+    ['Descrição', 'Descrição do produto.'],
+    ['Quantidade', 'Quantidade em estoque.'],
+    ['Produto Visível', 'Indica se o produto está visível (Sim/Não).'],
+    ['Depósito', 'Depósito onde está o saldo (ex.: "EX02").'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os saldos conforme os filtros.', 'Combine Lounge e produto.'],
+    ['+ Novo / Editar', 'Para ajustar um registro de saldo (conforme a permissão).', 'Altera a posição de estoque; use com critério.'],
+    ['Limpar Filtros', 'Para zerar os filtros.', '—'],
+    ['Detalhes', 'Para consultar o registro de saldo.', 'Somente leitura.'],
+  ]}
+/>
+
+<Callout type="cuidado" title="Ajuste de estoque">
+Quando a tela permite incluir/editar um registro de saldo, a alteração muda a posição de estoque do produto. Faça ajustes apenas com autorização e critério.
+</Callout>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Saldo de Estoque', 'Acesso à tela', 'Permite abrir a tela e consultar os saldos.'],
+    ['Ajustar saldo', '+ Novo / Editar', 'Permite ajustar os registros de saldo.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Saldo por Lounge e depósito', 'A mesma referência pode ter saldo em diferentes Lounges/depósitos.', 'Filtre pelo Lounge desejado.'],
+    ['Visibilidade do produto', 'A coluna "Produto Visível" indica se o produto aparece para uso.', 'Use o filtro para focar.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Produto', 'O saldo é de produtos cadastrados.', '—'],
+    ['Saldo de Estoque Agrupado', 'Apresenta a posição de estoque de forma agrupada.', 'Use o agrupado para uma visão consolidada.'],
+    ['Inventários', 'As contagens de inventário afetam o saldo.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra o produto — ele vem do cadastro de Produto.
+- Não é um relatório de movimentação — mostra a posição atual.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o produto', 'Filtros restritos', 'Ajuste Lounge, produto ou visibilidade.'],
+    ['O saldo está diferente do esperado', 'Movimentações recentes ou inventário', 'Confira as movimentações e o inventário.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Saldo de Estoque?', answer: 'Para consultar a posição de estoque dos produtos por Lounge e depósito, com a quantidade e a visibilidade.' },
+    { question: 'Como filtro por unidade?', answer: 'Use o filtro "Lounge".' },
+    { question: 'Qual a diferença para o Saldo de Estoque Agrupado?', answer: 'O agrupado apresenta a posição de forma consolidada; esta tela mostra por Lounge/depósito.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Saldo de Estoque.' },
+  ]}
+/>

@@ -1,0 +1,156 @@
+---
+section: modulos
+routeSlug: administrador/impressora-de-etiqueta
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Label Printer
+description: Register the label printers per Lounge, with connection type (network or shared), default printer and status.
+routineType: Registration and lookup
+permission: Yes
+impact: Label printers used in label generation
+keywords: [label printer, label, printer, network, shared, lounge, zpl]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Label Printer** screen registers the printers used to generate labels in each **Lounge**. Each printer has a **Connection Type** (Network or Shared), can be set as the unit's **Default** and have an **Observation**.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Printers per Lounge', text: 'Registers the label printers of each unit.' },
+    { label: 'Use', title: 'Label generation', text: 'The printers are used in labeling routines.' },
+    { label: 'Caution', title: 'Default printer', text: 'Each Lounge should have a default printer defined.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new label printer.
+- Set the default printer of a Lounge.
+- Look up, edit or delete printers.
+
+## How to access
+
+Administrator → Label Printer
+
+## Before you start
+
+- Know the printer's **Lounge** (Center).
+- Define the **Connection Type**: Network (IP address and port) or Shared (shared path).
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'The "Name" field, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List with the "Name", "IP Address", "Port", "Name" (Lounge), "Connection Type", "Shared Path", "Default" and "Active" columns, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing', 'Window with the printer fields.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Name', 'Name that identifies the printer.'],
+    ['Connection Type', 'Network or Shared (defines how the system accesses the printer).'],
+    ['Center', 'Lounge (center) the printer belongs to.'],
+    ['Default', 'Defines whether it is the Lounge default printer (Yes/No).'],
+    ['Active', 'Printer status (Yes/No).'],
+    ['Observation', 'Additional notes about the printer.'],
+  ]}
+/>
+
+<Callout type="info" title="Connection type">
+For **Network** printers, enter the IP address and port. For **Shared** printers, enter the shared path (e.g., a network path to the ZPL printer).
+</Callout>
+
+## Main flows
+
+1. **Search** — enter the **"Name"** and click **"Search"**.
+2. **Register** — click **"+ New"**, enter the **Name**, choose the **Connection Type**, select the **Center**, set **Default** and **Active** and click **"Save"**.
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list printers according to the filter.', '—'],
+    ['+ New', 'To register a new printer.', '—'],
+    ['Details', 'To view a printer without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing printer.', '—'],
+    ['Delete', 'To remove a printer.', 'Irreversible action.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Label Printer', 'Access to the screen', 'Allows opening and using the Label Printer screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Lounge', 'Each printer belongs to a Lounge.', 'Associate the printer with the correct Lounge.'],
+    ['Label generation', 'The printers are used in labeling routines.', 'Set the default printer to avoid errors.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not print labels by itself — it only registers the printers used by the routines.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The label does not print', 'Inactive printer or wrong connection', 'Check "Active" and the Connection Type (IP/port or shared path).'],
+    ['There is no default printer', 'No printer marked as Default', 'Set a default printer for the Lounge.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the label printers used in each Lounge.' },
+    { question: 'What is the difference between Network and Shared?', answer: 'Network uses an IP address and port; Shared uses a network shared path.' },
+    { question: 'What is the "Default" printer?', answer: 'It is the printer used by default for that Lounge\'s labels.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Initial release of the Label Printer screen documentation.' },
+  ]}
+/>

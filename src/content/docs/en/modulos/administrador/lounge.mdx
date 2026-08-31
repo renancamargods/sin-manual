@@ -1,0 +1,211 @@
+---
+section: modulos
+routeSlug: administrador/lounge
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Lounge
+description: Register the Lounge units (centers), with tax data, company, invoicing parameters, bank details, stock, orders and freight rules.
+routineType: Registration and lookup
+permission: Yes
+impact: Lounge units used in stock, invoicing, orders and logistics
+keywords: [lounge, center, unit, tax id, company, invoicing, loading list, bank details, stock]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Lounge** screen registers the operation's units (centers) — the Lounges — gathering identification and tax data (Code, Name, Legal Name, Tax ID, State Registration), the **Company** they belong to and several **parameters** that define how the unit operates (invoicing, order integration, foreign trade, card payment, loading list, inventory, among others).
+
+It is a central screen: from the Lounge, additional tabs show the unit's stock, orders, invoices, addresses, freight rules and bindings.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Operation units', text: 'Registers the Lounges (centers) with tax data and operation parameters.' },
+    { label: 'Use', title: 'Stock and invoicing base', text: 'The Lounge is a reference for stock, orders, invoices and logistics.' },
+    { label: 'Caution', title: 'Operation parameters', text: 'The Yes/No options define important behaviors (invoicing, loading list, foreign trade).' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new Lounge unit.
+- Look up or find a Lounge by code.
+- Edit the tax data, company or operation parameters.
+- Review the Lounge's stock, orders, invoices, addresses, freight rules and bindings.
+
+## How to access
+
+Administrator → Lounge
+
+## Before you start
+
+- Have the tax data (Legal Name, Tax ID, State Registration) and the **ERP Code**.
+- Know which **Company** the Lounge belongs to.
+- Define the **operation parameters** (invoicing, integration, foreign trade, loading list, etc.).
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Code and ERP Code, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List of Lounges with columns such as Code, Name, Status and order integration, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing (tabs)', 'Window with the "Lounge", "Stock Balances", "Orders", "Invoices", "Primary Bindings", "Secondary Bindings", "Tertiary Bindings", "Address" and "Freight Rules" tabs.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+### "Lounge" tab — identification and tax data
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Code', 'Code that identifies the Lounge.'],
+    ['Name', 'Name of the Lounge.'],
+    ['Legal Name', 'Legal name of the unit.'],
+    ['Tax ID', 'Tax ID (CNPJ) of the unit.'],
+    ['State Registration', 'State registration of the unit.'],
+    ['Phone', 'Contact phone.'],
+    ['ERP Code', 'Corresponding code in the ERP (integration).'],
+    ['Company', 'Group company the Lounge belongs to.'],
+    ['Center Time Zone', 'Time zone used by the unit.'],
+    ['Warehouse', 'Warehouse associated with the Lounge.'],
+    ['Bank Details', 'Bank details of the unit (with the "+" button to register).'],
+    ['Payment Terms', 'Associated payment terms.'],
+    ['Smart Operations', 'Smart operations associated with the unit.'],
+    ['Users', 'Users linked to the Lounge (with the "+" button to register).'],
+  ]}
+/>
+
+### "Lounge" tab — operation parameters (Yes/No)
+
+<DocTable
+  headers={['Parameter', 'What it defines']}
+  rows={[
+    ['System Status', 'Whether the Lounge is Active or Inactive.'],
+    ['Available for Foreign Trade?', 'Whether the unit takes part in foreign trade operations.'],
+    ['Card Payment?', 'Whether the unit accepts card (POS) payment.'],
+    ['Follows the new Invoicing Flow?', 'Whether the unit uses the new invoicing flow.'],
+    ['Allows Order Integration', 'Whether the unit\'s orders are integrated with other systems.'],
+    ['Allows Generating Shortage Letter', 'Whether the unit can generate a shortage letter.'],
+    ['Available in Inventory? (Inactive lounges only)', 'Whether an inactive Lounge remains available for inventory.'],
+    ['Available for the Loading List Flow?', 'Whether the unit takes part in the loading list flow.'],
+  ]}
+/>
+
+### Additional tabs
+
+<DocTable
+  headers={['Tab', 'What it shows']}
+  rows={[
+    ['Stock Balances', 'Stock position of the unit.'],
+    ['Orders', 'Orders linked to the Lounge.'],
+    ['Invoices', 'Invoices of the unit.'],
+    ['Primary / Secondary / Tertiary Bindings', 'Invoicing/routing bindings of the unit at different levels.'],
+    ['Address', 'Address of the unit.'],
+    ['Freight Rules', 'Freight rules related to the Lounge.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter **Code** or **ERP Code** and click **"Search"**.
+2. **Register** — click **"+ New"**, fill in the tax data, select the **Company**, set the **operation parameters** and click **"Save"** (or **"Save and Continue"** to move through the other tabs).
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Review tabs** — open the Lounge and navigate the stock, orders, invoices, address, freight rules and bindings tabs.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list Lounges according to the filters.', '—'],
+    ['+ New', 'To register a new Lounge.', 'Opens the window with the tabs.'],
+    ['Save and Continue', 'To save and continue on the other tabs.', '—'],
+    ['Details', 'To view a Lounge without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing Lounge.', 'Review the operation parameters before saving.'],
+    ['Delete', 'To remove a Lounge.', 'Irreversible action; prefer deactivating (System Status) rather than deleting.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Lounge', 'Access to the screen', 'Allows opening and using the Lounge screen.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Operation parameters', 'The Yes/No options define invoicing, integration, foreign trade, loading list and inventory.', 'Confirm each option according to the unit\'s reality.'],
+    ['Link to the Company', 'The Lounge belongs to a group company.', 'Select the correct company.'],
+    ['Deactivation', 'Inactive Lounges stop operating but may remain available for inventory if flagged.', 'Prefer deactivating rather than deleting.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Company', 'Each Lounge belongs to a company.', 'Register the company before the Lounge.'],
+    ['Stock and Inventory', 'The Lounge is a reference for stock balance and inventories.', 'Check the "Stock Balances" tab.'],
+    ['Invoicing and Loading List', 'The parameters define participation in the invoicing and loading list flows.', 'Review the corresponding parameters.'],
+    ['Bank Details and Payment', 'The Lounge references bank details and payment terminals.', 'Keep the data up to date.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not move stock or issue invoices — it only registers the unit and shows the links.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The Lounge does not appear in a flow', 'Operation parameter unchecked', 'Check the corresponding Yes/No options (invoicing, loading list, foreign trade).'],
+    ['I cannot find a Lounge', 'Wrong code filter', 'Adjust the Code or ERP Code.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the Lounge units (centers), with tax data, company and operation parameters.' },
+    { question: 'What do the Yes/No parameters define?', answer: 'They define behaviors such as invoicing, order integration, foreign trade, loading list and inventory of the unit.' },
+    { question: 'Can I delete a Lounge?', answer: 'It is possible, but prefer deactivating it (System Status) to preserve the history.' },
+    { question: 'Where do I see the Lounge stock?', answer: 'On the "Stock Balances" tab inside the Lounge registration.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Initial release of the Lounge screen documentation.' },
+  ]}
+/>

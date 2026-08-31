@@ -1,0 +1,150 @@
+---
+section: modulos
+routeSlug: administrador/terminal-de-pagamento
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Terminal de Pagamento
+description: Cadastro dos terminais de pagamento (maquininhas POS) por Lounge, com descrição e código POS.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Terminais de pagamento (POS) usados nas unidades
+keywords: [terminal de pagamento, maquininha, pos, código pos, lounge, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Terminal de Pagamento** cadastra os terminais (maquininhas POS) usados nas unidades. Cada terminal reúne uma **Descrição**, o **Código POS** e o **Lounge** ao qual está associado.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Maquininhas POS', text: 'Cadastra os terminais de pagamento de cada Lounge.' },
+    { label: 'Uso', title: 'Pagamentos', text: 'Os terminais são usados nos pagamentos das unidades.' },
+    { label: 'Cuidado', title: 'Código POS', text: 'O código POS identifica o terminal e deve ser único e correto.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo terminal de pagamento.
+- Consultar ou localizar um terminal pela descrição ou código POS.
+- Editar ou excluir um terminal.
+
+## Como acessar
+
+Administrador → Terminal de Pagamento
+
+## Antes de começar
+
+- Tenha a **descrição** e o **Código POS** do terminal.
+- Saiba a qual **Lounge** o terminal pertence.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros por descrição/código, com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com as colunas "Descrição", "Código POS" e "Identificador" (Lounge), com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela (aba "Terminal de Pagamento") com os campos do terminal.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Terminal de Pagamento"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Descrição', 'Descrição do terminal (ex.: identificação da unidade e número).'],
+    ['Código POS', 'Código do terminal POS.'],
+    ['Lounge', 'Lounge ao qual o terminal está associado.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe os filtros e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe a **Descrição**, o **Código POS** e o **Lounge** e clique em **"Salvar"**.
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os terminais conforme os filtros.', '—'],
+    ['+ Novo', 'Para cadastrar um novo terminal.', '—'],
+    ['Detalhes', 'Para consultar um terminal sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um terminal existente.', '—'],
+    ['Excluir', 'Para remover um terminal.', 'Ação sem retorno.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Terminal de Pagamento', 'Acesso à tela', 'Permite abrir e utilizar a tela de Terminal de Pagamento.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Lounge', 'Cada terminal é associado a um Lounge.', 'Associe o terminal ao Lounge correto.'],
+    ['Pagamentos', 'Os terminais são usados nos pagamentos das unidades.', 'Confira o "Pagamento na Maquininha?" do Lounge.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não processa pagamentos — apenas cadastra os terminais usados nas unidades.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O terminal não aparece', 'Lounge incorreto ou terminal não cadastrado', 'Verifique o Lounge associado e o cadastro.'],
+    ['Não encontro um terminal', 'Filtro muito restrito', 'Ajuste os filtros (descrição/código POS).'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os terminais de pagamento (maquininhas POS) usados nas unidades.' },
+    { question: 'O que é o "Código POS"?', answer: 'É o código que identifica o terminal POS.' },
+    { question: 'Como associo o terminal a um Lounge?', answer: 'Selecione o Lounge no campo correspondente ao cadastrar o terminal.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Terminal de Pagamento.' },
+  ]}
+/>

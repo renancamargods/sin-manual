@@ -1,0 +1,134 @@
+---
+section: modulos
+routeSlug: regulatorios/grupo-do-produto
+pageType: routine
+module: regulatorios
+moduleLabel: Regulatory
+lang: en
+title: Product Group
+description: Registration of the product regulatory groups, identified by the group description.
+routineType: Registration
+permission: Yes
+impact: Defines the groups used in the products' regulatory classification
+keywords: [product group, regulatory group, regulatory classification, regulatory, registration]
+tags: [modulo-regulatorios, cadastro]
+order: 13
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Product Group** screen (in the Regulatory module) keeps the **regulatory groups** used to classify products from a regulatory point of view. Each group is identified by its **description**.
+
+<Callout type="info" title="Do not confuse with the Product Group (Products module)">
+There is also a **Product Group** in the **Products** module (commercial classification). This **Product Group** is in the **Regulatory** module and has a regulatory purpose.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Regulatory group', text: 'Keeps the groups used in regulatory classification.' },
+    { label: 'Use', title: 'Group description', text: 'Each group is identified by its description.' },
+    { label: 'Nature', title: 'Support registration', text: 'Queried in the products\' regulatory classification.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Query the registered regulatory groups.
+- Add a new group.
+- Fix a group's description.
+
+## How to access
+
+Regulatory → Product Group
+
+## Before you start
+
+- Have the group **description**.
+- Confirm that your profile allows maintaining this registration.
+
+## Main fields
+
+<DocTable
+  headers={['Field / Column', 'What it is']}
+  rows={[
+    ['Product Group', 'Description of the product regulatory group.'],
+  ]}
+/>
+
+The form ("+ New") has the **Product Group** field. In the listing, each row has the details, edit and delete icons.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the groups.', '—'],
+    ['+ New', 'To add a group.', 'Opens the form.'],
+    ['Save', 'To store the group.', 'Inform the description.'],
+    ['Details / Edit', 'To query or change the group.', 'Details is read-only.'],
+    ['Delete', 'To remove the group.', 'Confirm before; it may be in use.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Product Group', 'Screen access', 'Allows opening the screen and maintaining the registration.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Product Line / Records', 'The group supports the product\'s regulatory classification.', '—'],
+    ['Product', 'The regulatory group is associated with the products.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not register the products — only the regulatory groups.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the group', 'Restrictive filter', 'Adjust the description in the search.'],
+    ['I cannot delete', 'Group in use', 'Check whether there are links.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Product Group (Regulatory) for?', answer: 'To keep the groups used in the products\' regulatory classification.' },
+    { question: 'Is it the same as the Product Group in the Products module?', answer: 'No. This one is in the Regulatory module and has a regulatory purpose.' },
+    { question: 'Which fields does the group have?', answer: 'Only the description (Product Group).' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the Product Group (Regulatory) screen documentation.' },
+  ]}
+/>

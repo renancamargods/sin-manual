@@ -1,0 +1,171 @@
+---
+section: modulos
+routeSlug: administrador/pais
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: País
+description: Cadastro e consulta dos países usados em endereços, clientes, operações de comércio exterior e demais rotinas do sistema.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Países usados em endereços, estados, clientes e comércio exterior
+keywords: [país, pais, sigla, continente, moeda padrão, comércio exterior, endereço, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **País** mantém o cadastro dos países utilizados em todo o sistema — em endereços, no cadastro de estados e cidades, nos clientes e nas operações de comércio exterior. Cada país reúne informações como **Sigla**, **Continente**, **Grupo** e a **Moeda padrão** associada.
+
+É um cadastro de base: os países aqui registrados ficam disponíveis para seleção em outras telas (como Estado, Endereço e Porto de Destino).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Base de países', text: 'Centraliza os países usados em endereços, estados, clientes e comércio exterior.' },
+    { label: 'Uso', title: 'Cadastro de referência', text: 'Os países ficam disponíveis para seleção em várias telas do sistema.' },
+    { label: 'Cuidado', title: 'Moeda padrão', text: 'A moeda padrão do país influencia operações que dependem de conversão de moeda.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo país.
+- Consultar ou localizar um país existente.
+- Editar dados de um país (sigla, continente, grupo, moeda padrão).
+- Consultar os estados, imagens e territórios vinculados ao país.
+
+## Como acessar
+
+Administrador → País
+
+## Antes de começar
+
+- Tenha o **nome** e a **sigla** do país.
+- Saiba o **continente** e, se aplicável, o **grupo** e a **moeda padrão**.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Nome País", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use o nome para localizar rapidamente.'],
+    ['Resultados', 'Lista dos países pela coluna "Nome País", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição (abas)', 'Janela com as abas "País", "Estados", "Imagens" e "Territórios".', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "País"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome País', 'Nome do país.'],
+    ['Sigla', 'Sigla que identifica o país.'],
+    ['Continente', 'Continente ao qual o país pertence.'],
+    ['Grupo', 'Grupo usado para agrupar países em regras do sistema.'],
+    ['Moeda padrão', 'Moeda padrão associada ao país.'],
+  ]}
+/>
+
+### Abas complementares
+
+<DocTable
+  headers={['Aba', 'O que mostra']}
+  rows={[
+    ['Estados', 'Estados vinculados ao país.'],
+    ['Imagens', 'Imagens associadas ao país (ex.: bandeira).'],
+    ['Territórios', 'Territórios relacionados ao país.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe o **"Nome País"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, preencha os campos da aba "País" e clique em **"Salvar"** (ou **"Salvar e Continuar"** para seguir cadastrando dados nas demais abas).
+3. **Editar** — clique no ícone de **Editar** da linha, altere os campos e clique em **"Salvar"**.
+4. **Ver detalhes** — clique no ícone de **Detalhes** da linha.
+5. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os países conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar um novo país.', 'Abre a janela com as abas.'],
+    ['Salvar e Continuar', 'Para salvar e continuar preenchendo as demais abas.', '—'],
+    ['Detalhes', 'Para consultar um país sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um país existente.', 'Abre a janela com os dados preenchidos.'],
+    ['Excluir', 'Para remover um país.', 'Ação sem retorno; evite excluir países já usados em outros cadastros.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['País', 'Acesso à tela', 'Permite abrir e utilizar a tela de País.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Estado e Cidade', 'Os estados e cidades são vinculados a um país.', 'Cadastre o país antes de vincular estados e cidades.'],
+    ['Endereço', 'O país é selecionado no cadastro de endereços.', 'Mantenha o cadastro atualizado.'],
+    ['Comércio exterior', 'Países são usados em portos de destino e operações internacionais.', 'A moeda padrão apoia essas operações.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra estados ou cidades diretamente — isso é feito nas telas próprias (embora a aba "Estados" mostre os vinculados).
+- Não converte valores de moeda — apenas indica a moeda padrão do país.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro um país', 'Filtro muito restrito ou país não cadastrado', 'Ajuste o "Nome País" ou cadastre o país.'],
+    ['Não consigo excluir', 'País já utilizado em outros cadastros', 'Verifique vínculos (estados, endereços) antes de excluir.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar e consultar os países usados em endereços, estados, clientes e comércio exterior.' },
+    { question: 'O que é a moeda padrão?', answer: 'É a moeda associada ao país, usada como referência em operações que dependem de moeda.' },
+    { question: 'Onde os países são usados?', answer: 'Em endereços, no cadastro de estados e cidades, em clientes e em operações de comércio exterior.' },
+    { question: 'Posso excluir um país?', answer: 'Sim, pelo ícone de Excluir, mas evite remover países já usados em outros cadastros.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de País.' },
+  ]}
+/>

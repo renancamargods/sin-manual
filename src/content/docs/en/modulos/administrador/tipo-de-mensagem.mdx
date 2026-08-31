@@ -1,0 +1,159 @@
+---
+section: modulos
+routeSlug: administrador/tipo-de-mensagem
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Message Type
+description: Register the types that classify the custom messages used in orders and occurrences (e.g., rejection, approval, cancellation).
+routineType: Registration and lookup
+permission: Yes
+impact: Types that classify custom messages
+keywords: [message type, custom message, rejection, approval, cancellation, order]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Message Type** screen registers the categories that classify the system's **custom messages** (for example, RecusaPedidoCredito, AprovacaoPedidoPadraoAdm, CancelamentoPedido). Each type holds a **Code** and a **Description** and, on the "Custom Messages" tab, gathers the messages that belong to it.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Classify messages', text: 'Groups custom messages by category.' },
+    { label: 'Use', title: 'Base for messages', text: 'Each custom message belongs to a type.' },
+    { label: 'Caution', title: 'Code', text: 'The code identifies the type and is used internally by the routines.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new message type.
+- Look up or find a type by code or description.
+- Review the custom messages linked to the type.
+
+## How to access
+
+Administrator → Message Type
+
+## Before you start
+
+- Have the type's **code** and **description**.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Filters by code/description, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List with the "Code", "Description", "Registration Date" and "Name" columns, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing (tabs)', 'Window with the "Message Type" and "Custom Messages" tabs.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+### "Message Type" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Code', 'Code that identifies the type (e.g., RecusaPedidoCredito).'],
+    ['Description', 'Description of the message type.'],
+  ]}
+/>
+
+### "Custom Messages" tab
+
+<DocTable
+  headers={['Tab', 'What it shows']}
+  rows={[
+    ['Custom Messages', 'Standardized messages that belong to this type.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter **Code** or **Description** and click **"Search"**.
+2. **Register** — click **"+ New"**, enter **Code** and **Description** and click **"Save"** (or **"Save and Continue"**).
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list types according to the filters.', '—'],
+    ['+ New', 'To register a new type.', '—'],
+    ['Save and Continue', 'To save and keep reviewing the messages.', '—'],
+    ['Details', 'To view a type without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing type.', '—'],
+    ['Delete', 'To remove a type.', 'Irreversible action; avoid deleting types already used by messages.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Message Type', 'Access to the screen', 'Allows opening and using the Message Type screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Custom Message', 'Each custom message belongs to a type.', 'Register the type before the message.'],
+    ['Orders and Occurrences', 'Messages are used in the routines according to the type.', 'Keep the types consistent with the routines.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not register the messages themselves — that is done on the Custom Message screen (the tab only shows the linked ones).
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find a type', 'Filter too restrictive or type not registered', 'Adjust the filters or register the type.'],
+    ['The message is not applied', 'Wrong type on the message', 'Check the type linked to the message.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the types that classify custom messages.' },
+    { question: 'What is the relationship with "Custom Message"?', answer: 'Each custom message belongs to a type defined here.' },
+    { question: 'Can I delete a type?', answer: 'Yes, but avoid deleting types already used by messages.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Initial release of the Message Type screen documentation.' },
+  ]}
+/>

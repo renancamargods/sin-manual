@@ -1,0 +1,129 @@
+---
+section: modulos
+routeSlug: produtos/tipo-de-produto
+pageType: routine
+module: produtos
+moduleLabel: Produtos
+title: Tipo de Produto
+description: "Cadastro dos tipos de produto (ex.: Implante, Biomateriais, Componente Protético) usados na classificação dos produtos, por código e descrição."
+routineType: Cadastro
+permission: Sim
+impact: Define os tipos usados na classificação dos produtos
+keywords: [tipo de produto, tipo, implante, biomateriais, componente protético, código, descrição, produtos, cadastro]
+tags: [modulo-produtos, cadastro]
+order: 12
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Tipo de Produto** mantém os **tipos** usados para classificar os produtos — por exemplo, "Implante", "Biomateriais", "Componente Protético" e "Kits e Instrumentais". Cada tipo tem um **código** e uma **descrição**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Tipos de produto', text: 'Mantém os tipos usados na classificação dos produtos.' },
+    { label: 'Uso', title: 'Código e descrição', text: 'Cada tipo tem um código e uma descrição.' },
+    { label: 'Natureza', title: 'Cadastro de apoio', text: 'Consultado na classificação dos produtos.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar os tipos de produto cadastrados.
+- Incluir um novo tipo.
+- Corrigir o código ou a descrição de um tipo.
+
+## Como acessar
+
+Produtos → Tipo de Produto
+
+## Antes de começar
+
+- Tenha o **código** e a **descrição** do tipo.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Campos principais
+
+<DocTable
+  headers={['Campo / Coluna', 'O que é']}
+  rows={[
+    ['Código', 'Código que identifica o tipo de produto.'],
+    ['Descrição', 'Descrição do tipo (ex.: "Implante", "Biomateriais").'],
+  ]}
+/>
+
+O formulário ("+ Novo") tem os campos **Código** e **Descrição**. Na listagem, cada linha tem os ícones de detalhes, editar e excluir.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os tipos conforme os filtros.', 'Combine código e descrição.'],
+    ['+ Novo', 'Para incluir um tipo.', 'Abre o formulário.'],
+    ['Salvar', 'Para guardar o tipo.', 'Informe código e descrição.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar o tipo.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover o tipo.', 'Confirme antes; pode estar em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Tipo de Produto', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Produto', 'O tipo é usado na classificação do produto.', 'O tipo precisa existir para ser vinculado.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não classifica os produtos automaticamente — apenas mantém a lista de tipos.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o tipo', 'Filtros restritos', 'Ajuste o código ou a descrição.'],
+    ['Não consigo excluir', 'Tipo em uso', 'Verifique se há produtos vinculados.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Tipo de Produto?', answer: 'Para manter os tipos (ex.: Implante, Biomateriais) usados na classificação dos produtos.' },
+    { question: 'Quais campos o tipo tem?', answer: 'Código e Descrição.' },
+    { question: 'Posso excluir um tipo em uso?', answer: 'Não é recomendado; verifique antes se há produtos vinculados.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Tipo de Produto.' },
+  ]}
+/>

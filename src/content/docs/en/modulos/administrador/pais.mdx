@@ -1,0 +1,172 @@
+---
+section: modulos
+routeSlug: administrador/pais
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Country
+description: Register and look up the countries used in addresses, customers, foreign trade operations and other system routines.
+routineType: Registration and lookup
+permission: Yes
+impact: Countries used in addresses, states, customers and foreign trade
+keywords: [country, acronym, continent, default currency, foreign trade, address]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Country** screen keeps the register of countries used throughout the system — in addresses, in the register of states and cities, in customers and in foreign trade operations. Each country holds information such as **Acronym**, **Continent**, **Group** and the associated **Default currency**.
+
+It is a base register: the countries recorded here become available for selection on other screens (such as State, Address and Destination Port).
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Country base', text: 'Centralizes the countries used in addresses, states, customers and foreign trade.' },
+    { label: 'Use', title: 'Reference register', text: 'Countries become available for selection across several system screens.' },
+    { label: 'Caution', title: 'Default currency', text: 'The default currency influences operations that depend on currency conversion.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new country.
+- Look up or find an existing country.
+- Edit a country's data (acronym, continent, group, default currency).
+- Review the states, images and territories linked to the country.
+
+## How to access
+
+Administrator → Country
+
+## Before you start
+
+- Have the country's **name** and **acronym**.
+- Know the **continent** and, if applicable, the **group** and **default currency**.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'The "Country Name" field, with the "Search", "+ New" and "Clear Filters" buttons.', 'Use the name to find it quickly.'],
+    ['Results', 'List of countries in the "Country Name" column, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing (tabs)', 'Window with the "Country", "States", "Images" and "Territories" tabs.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+### "Country" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Country Name', 'Name of the country.'],
+    ['Acronym', 'Acronym that identifies the country.'],
+    ['Continent', 'Continent the country belongs to.'],
+    ['Group', 'Group used to cluster countries in system rules.'],
+    ['Default currency', 'Default currency associated with the country.'],
+  ]}
+/>
+
+### Additional tabs
+
+<DocTable
+  headers={['Tab', 'What it shows']}
+  rows={[
+    ['States', 'States linked to the country.'],
+    ['Images', 'Images associated with the country (e.g., flag).'],
+    ['Territories', 'Territories related to the country.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the **"Country Name"** and click **"Search"**.
+2. **Register** — click **"+ New"**, fill in the fields on the "Country" tab and click **"Save"** (or **"Save and Continue"** to keep filling in the other tabs).
+3. **Edit** — click the **Edit** icon on the row, change the fields and click **"Save"**.
+4. **View details** — click the **Details** icon on the row.
+5. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list countries according to the filter.', '—'],
+    ['+ New', 'To register a new country.', 'Opens the window with the tabs.'],
+    ['Save and Continue', 'To save and keep filling in the other tabs.', '—'],
+    ['Details', 'To view a country without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing country.', 'Opens the window with the data filled in.'],
+    ['Delete', 'To remove a country.', 'Irreversible action; avoid deleting countries already used in other records.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Country', 'Access to the screen', 'Allows opening and using the Country screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['State and City', 'States and cities are linked to a country.', 'Register the country before linking states and cities.'],
+    ['Address', 'The country is selected when registering addresses.', 'Keep the register up to date.'],
+    ['Foreign trade', 'Countries are used in destination ports and international operations.', 'The default currency supports these operations.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not register states or cities directly — that is done on their own screens (although the "States" tab shows the linked ones).
+- It does not convert currency values — it only indicates the country's default currency.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find a country', 'Filter too restrictive or country not registered', 'Adjust the "Country Name" or register the country.'],
+    ['I cannot delete it', 'Country already used in other records', 'Check links (states, addresses) before deleting.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register and look up the countries used in addresses, states, customers and foreign trade.' },
+    { question: 'What is the default currency?', answer: 'It is the currency associated with the country, used as a reference in operations that depend on currency.' },
+    { question: 'Where are countries used?', answer: 'In addresses, in the register of states and cities, in customers and in foreign trade operations.' },
+    { question: 'Can I delete a country?', answer: 'Yes, through the Delete icon, but avoid removing countries already used in other records.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Initial release of the Country screen documentation.' },
+  ]}
+/>

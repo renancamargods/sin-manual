@@ -1,0 +1,146 @@
+---
+section: modulos
+routeSlug: produtos/imagem-de-produto
+pageType: routine
+module: produtos
+moduleLabel: Produtos
+title: Imagem de Produto
+description: Cadastro das imagens vinculadas aos produtos, com arquivo, tipo, palavras-chave e produto.
+routineType: Cadastro
+permission: Sim
+impact: Guarda as imagens vinculadas aos produtos
+keywords: [imagem de produto, imagem, foto, arquivo, palavras chave, tipo, produto, cadastro]
+tags: [modulo-produtos, cadastro]
+order: 7
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Imagem de Produto** guarda as **imagens** vinculadas aos **produtos**. Cada imagem tem o **arquivo**, um **tipo**, **palavras-chave** e o **produto** ao qual pertence, sendo usada na exibição dos produtos (por exemplo, em catálogos).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Imagens dos produtos', text: 'Guarda as imagens vinculadas aos produtos.' },
+    { label: 'Uso', title: 'Arquivo + tipo', text: 'Cada imagem tem arquivo, tipo, palavras-chave e produto.' },
+    { label: 'Natureza', title: 'Cadastro de apoio', text: 'Usado na exibição dos produtos.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Vincular uma imagem a um produto.
+- Consultar as imagens por nome, palavras-chave, tipo ou produto.
+- Corrigir ou substituir a imagem de um produto.
+
+## Como acessar
+
+Produtos → Imagem de Produto
+
+## Antes de começar
+
+- Tenha o **arquivo** da imagem.
+- Saiba o **tipo** e o **produto** ao qual a imagem pertence.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Filtra pelo nome da imagem.'],
+    ['Palavras Chave', 'Filtra pelas palavras-chave.'],
+    ['Tipo', 'Filtra pelo tipo da imagem.'],
+    ['Produto', 'Filtra pelas imagens de um produto.'],
+  ]}
+/>
+
+### Cadastro (+ Novo)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Arquivo', 'Escolhe o arquivo de imagem ("Escolher arquivo").'],
+    ['Palavras Chave', 'Termos que ajudam a localizar a imagem.'],
+    ['Tipo', 'Tipo da imagem.'],
+    ['Produto', 'Produto ao qual a imagem será vinculada.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as imagens conforme os filtros.', 'Combine nome, tipo e produto.'],
+    ['+ Novo', 'Para vincular uma imagem.', 'Abre o formulário.'],
+    ['Salvar', 'Para guardar a imagem.', 'Escolha o arquivo e o produto.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar a imagem.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover a imagem.', 'Confirme antes.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Imagem de Produto', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Produto', 'A imagem é vinculada a um produto.', 'O produto precisa existir.'],
+    ['Hierarquia de Produto / Catálogo', 'As imagens são usadas na exibição dos produtos.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra o produto — apenas vincula a imagem a ele.
+- Não edita a imagem — apenas a armazena e a vincula.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro a imagem', 'Filtros restritos', 'Ajuste nome, tipo ou produto.'],
+    ['Não consigo vincular', 'Arquivo não escolhido ou produto não localizado', 'Escolha o arquivo e confira o produto.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Imagem de Produto?', answer: 'Para guardar as imagens vinculadas aos produtos, usadas na sua exibição.' },
+    { question: 'Quais campos a imagem tem?', answer: 'Arquivo, Palavras Chave, Tipo e Produto.' },
+    { question: 'Um produto pode ter várias imagens?', answer: 'Sim; cada registro vincula uma imagem a um produto.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Imagem de Produto.' },
+  ]}
+/>

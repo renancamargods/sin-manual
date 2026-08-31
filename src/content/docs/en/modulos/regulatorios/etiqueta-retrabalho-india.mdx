@@ -1,0 +1,130 @@
+---
+section: modulos
+routeSlug: regulatorios/etiqueta-retrabalho-india
+pageType: routine
+module: regulatorios
+moduleLabel: Regulatory
+lang: en
+title: Rework Label — India
+description: Registration of the rework label models for India, identified by description, used in the readjustment of labels for that market.
+routineType: Registration
+permission: Yes
+impact: Defines the rework label models for India
+keywords: [rework label, india, rework, label model, export, regulatory, registration]
+tags: [modulo-regulatorios, cadastro]
+order: 9
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Rework Label — India** screen keeps the **rework label models** specific to **India**. Each model is identified by a **description** and is used in the readjustment (rework) of the products' labels according to that market's regulatory requirements.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Rework labels', text: 'Keeps the rework label models for India.' },
+    { label: 'Use', title: 'Model description', text: 'Each model is identified by a description.' },
+    { label: 'Nature', title: 'Support registration', text: 'Queried in label rework for export.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Query the India rework label models.
+- Add a new model.
+- Fix a model's description.
+
+## How to access
+
+Regulatory → Rework Label — India
+
+## Before you start
+
+- Have the label model **description**.
+- Confirm that your profile allows maintaining this registration.
+
+## Main fields
+
+<DocTable
+  headers={['Field / Column', 'What it is']}
+  rows={[
+    ['Description', 'Description of the rework label model for India.'],
+  ]}
+/>
+
+The form ("+ New") has the **Description** field. In the listing, each row has the details, edit and delete icons.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the models according to the description.', '—'],
+    ['+ New', 'To add a model.', 'Opens the form.'],
+    ['Save', 'To store the model.', 'Inform the description.'],
+    ['Details / Edit', 'To query or change the model.', 'Details is read-only.'],
+    ['Delete', 'To remove the model.', 'Confirm before; it may be in use.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Rework Label — India', 'Screen access', 'Allows opening the screen and maintaining the registration.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Rework Labels (other countries) / Manual', 'They make up the set of rework labels by market.', '—'],
+    ['Product / Records', 'The model is used in the rework of the products\' labels.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not print the label — it only maintains the models.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the model', 'Restrictive filter', 'Adjust the description in the search.'],
+    ['I cannot delete', 'Model in use', 'Check whether there are links.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Rework Label — India for?', answer: 'To keep the rework label models specific to India.' },
+    { question: 'Which fields does the model have?', answer: 'Only the Description.' },
+    { question: 'Why is there a screen per country?', answer: 'Each market (country) may require specific rework label models.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the Rework Label — India screen documentation.' },
+  ]}
+/>

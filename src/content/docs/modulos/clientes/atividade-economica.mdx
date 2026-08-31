@@ -1,0 +1,142 @@
+---
+section: modulos
+routeSlug: clientes/atividade-economica
+pageType: routine
+module: clientes
+moduleLabel: Clientes
+title: Atividade Econômica
+description: Cadastro das atividades econômicas (padrão CNAE) usadas para classificar os clientes, por código e descrição.
+routineType: Cadastro
+permission: Sim
+impact: Define a lista de atividades econômicas usadas na classificação dos clientes
+keywords: [atividade econômica, cnae, código, descrição, classificação do cliente, clientes, cadastro]
+tags: [modulo-clientes, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Atividade Econômica** mantém a lista das **atividades econômicas** (no padrão **CNAE**) usadas para **classificar os clientes**. Cada atividade tem um **código** (ex.: "0111-3/01") e uma **descrição** (ex.: "Cultivo de arroz").
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Classificar clientes', text: 'Mantém as atividades econômicas usadas na classificação dos clientes.' },
+    { label: 'Uso', title: 'Código e descrição', text: 'Cada atividade tem um código (CNAE) e uma descrição.' },
+    { label: 'Natureza', title: 'Cadastro de apoio', text: 'É um cadastro consultado por outros cadastros e telas.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar as atividades econômicas cadastradas.
+- Incluir uma nova atividade econômica.
+- Corrigir o código ou a descrição de uma atividade.
+
+## Como acessar
+
+Clientes → Atividade Econômica
+
+## Antes de começar
+
+- Tenha o **código CNAE** e a **descrição** da atividade.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código', 'Filtra pelo código da atividade (padrão CNAE).'],
+    ['Descrição', 'Filtra pela descrição da atividade.'],
+  ]}
+/>
+
+### Colunas dos resultados e cadastro
+
+<DocTable
+  headers={['Campo / Coluna', 'O que é']}
+  rows={[
+    ['Código', 'Código que identifica a atividade econômica (ex.: "0111-3/01").'],
+    ['Descrição', 'Descrição da atividade (ex.: "Cultivo de arroz").'],
+  ]}
+/>
+
+O formulário ("+ Novo") tem apenas os campos **Código** e **Descrição**, com os botões **"Salvar"** e **"Fechar"**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as atividades conforme os filtros.', 'Combine código e descrição.'],
+    ['+ Novo', 'Para incluir uma nova atividade.', 'Abre o formulário.'],
+    ['Salvar', 'Para guardar a atividade.', 'Informe código e descrição.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar a atividade.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover a atividade.', 'Confirme antes; pode estar em uso por clientes.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Atividade Econômica', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Cliente', 'A atividade econômica é usada na classificação do cliente.', 'A atividade precisa existir para ser vinculada.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não classifica os clientes automaticamente — apenas mantém a lista de atividades.
+- Não altera dados fiscais do cliente.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro a atividade', 'Filtros restritos', 'Ajuste o código ou a descrição.'],
+    ['Não consigo excluir', 'Atividade em uso por clientes', 'Verifique se há clientes vinculados.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Atividade Econômica?', answer: 'Para manter a lista de atividades econômicas (padrão CNAE) usadas na classificação dos clientes.' },
+    { question: 'Quais campos a atividade tem?', answer: 'Código (CNAE) e Descrição.' },
+    { question: 'Posso excluir uma atividade em uso?', answer: 'Não é recomendado; verifique antes se há clientes vinculados a ela.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Atividade Econômica.' },
+  ]}
+/>

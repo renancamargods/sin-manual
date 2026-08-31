@@ -1,0 +1,327 @@
+---
+section: tecnico
+routeSlug: fluxos/aprovacao-de-pedidos-sem-ignition
+pageType: tecnico
+lang: en
+title: Order Approval - Without Ignition
+description: Process of the new order approval queue through the WITHOUT Ignition queue, from preparing the approval rule to creating the order and the approval steps (ADM, Credit and National Collections), with a flowchart of the approval route.
+moduleLabel: Orders Module
+routineType: Process flow
+impact: Creation and approval of orders through the WITHOUT Ignition queue
+keywords: [order, order approval, without ignition, approval rule, approval step, adm sales, credit, national collections, pix, card, receivables, awaiting approvals]
+tags: [tecnico, fluxo, pedido]
+order: 5
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Order Approval WITHOUT Ignition** flow describes, step by step, how an order is **created, sent and approved** through the **WITHOUT Ignition queue** — a faster, more direct path. The process has two parts: the **system preparation** (done once by the administrator) and the **day-to-day** (order creation and approval tracking).
+
+The approval path follows exactly the configured **Approval Rule**. Some steps only apply depending on the order characteristics — for example, the **Collections – National** step only happens when the payment method is **PIX or Card**.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Approve orders without Ignition', text: 'Standardizes the creation and approval of orders through the simplest path (Ignition disabled).' },
+    { label: 'Usage', title: 'Preparation and day-to-day', text: 'The administrator configures the approval rule once; users create and send the orders day to day.' },
+    { label: 'Caution', title: 'The rule drives the flow', text: 'The steps and order come from the Approval Rule; National Collections only applies for PIX or Card.' },
+  ]}
+/>
+
+## When to use this flow
+
+- Create a new order and send it for approval through the WITHOUT Ignition queue.
+- Prepare the approval rule and steps used by this flow.
+- Track the order through the approval steps until it is released.
+
+## How to access
+
+- Administrator module → Feature Control (preparation)
+- Approvals module → Approval Rule (preparation)
+- Orders module → Order (day-to-day use)
+
+## Quick glossary
+
+<DocTable
+  headers={['Term', 'What it means']}
+  rows={[
+    ['Ignition', 'A type of approval queue. In this process it is disabled, making the path faster and simpler.'],
+    ['Approval Rule', 'Configuration that defines who must approve the order and in which order.'],
+    ['Approval Step', 'Each step within the rule (e.g., "ADM Approval", "Credit Approval", "Collections – National").'],
+    ['Execution mode', 'Parallel (no order between approvers) or Sequential (follows the registered order).'],
+    ['AR (CAR)', 'Accounts Receivable. Collections checks whether the customer has any overdue receivable.'],
+    ['Awaiting approvals', 'Order status while it goes through the approval steps.'],
+  ]}
+/>
+
+## The process steps
+
+<DocTable
+  headers={['Step', 'What happens']}
+  rows={[
+    ['Preparation 1', 'Set the queue to NOT use Ignition (Feature Control).'],
+    ['Preparation 2', 'Configure the Approval Rule (name, entity and execution mode).'],
+    ['Preparation 3', 'Register the approval steps (group, order) and keep them active.'],
+    ['1. New order', 'Create the order and select the customer.'],
+    ['2. Order data', 'Fill in the required fields (in red).'],
+    ['3. Save and send', 'Save and Continue (generates the number) and send for approval.'],
+    ['4. Approvals', 'The order goes through the steps as per the rule (ADM, Credit and, when applicable, National Collections).'],
+    ['5. Released', 'After the applicable approvals, the order is released.'],
+  ]}
+/>
+
+## Before you start
+
+- Confirm with the administrator that the **approval rule** and the **steps** are already configured and active.
+- Have the **customer** the order will be created for.
+- Know the **payment method** of the order — it affects the National Collections step.
+
+## Part 1 — System preparation (done by the administrator)
+
+These steps are usually already configured. They only need to be done once.
+
+### Step 1 — Set whether the queue uses Ignition
+
+In the **Administrator** module, **Feature Control** screen, you can enable or disable the use of the Ignition queue. For this process, the option must be **ACTIVE so that the Ignition queue is NOT used** — the order follows the simplest path.
+
+### Step 2 — Configure the Approval Rule
+
+In the **Approvals** module, **Approval Rule** screen, define the **rule name**, the **approval entity** and the **execution mode**:
+
+<DocTable
+  headers={['Execution mode', 'What it means']}
+  rows={[
+    ['Parallel', 'There is no order between the approvers.'],
+    ['Sequential', 'Approval follows the order registered in the steps.'],
+  ]}
+/>
+
+### Step 3 — Register the approval steps
+
+Within the rule, click **"New approval step"** (or edit an existing one). Configure the **responsible group** and the **order**, keeping the step **ACTIVE** so it works in the process.
+
+## Part 2 — Order creation and sending (day-to-day use)
+
+### Step 1 — New order
+
+Access the **Orders** module, **Order** screen, and click **"+ New Order"**. Then **select the customer** for the order.
+
+### Step 2 — Fill in the order data
+
+Go to the **"Order Data"** tab and fill in the **required fields** (shown in **red**).
+
+### Step 3 — Save and send for approval
+
+Click **"Save and Continue"**. This saves the order, **generates the number** and enables the **"Send order for approval"** button. When sent, the order appears in the list as **"Awaiting approvals"**.
+
+## Part 3 — Approval by steps
+
+Once sent, the order follows the steps configured in the Approval Rule. In the current flow, the order is:
+
+<DocTable
+  headers={['Order', 'Step', 'Responsible group', 'When it applies']}
+  rows={[
+    ['1', 'ADM Approval', 'Sales ADM', 'Always.'],
+    ['2', 'Credit Approval', 'Credit', 'Always.'],
+    ['3', 'Collections – National', 'Collections', 'Only when the payment method is PIX or Card. Collections checks whether the customer has any overdue AR (accounts receivable).'],
+  ]}
+/>
+
+At each approval, opening the order shows the **most recent update**. When the payment method is **not** PIX or Card, the **Collections – National** step does not apply and, after ADM and Credit, the order is already **released**.
+
+<Callout type="info" title="The rule drives the flow">
+The approval path comes from the Approval Rule. If the steps, the order or the conditions change in the rule, the flow changes with it — always check the current configuration.
+</Callout>
+
+## Flowchart — order approval route
+
+The diagram below shows the order path and how the **payment method** determines whether the **Collections – National** step applies or is skipped.
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 860 900" width="860" role="img" aria-label="Flowchart of the order approval route without Ignition" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwp" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwp)">
+    <path d="M420,74 L420,96" />
+    <path d="M420,162 L420,188" />
+    <path d="M420,240 L420,266" />
+    <path d="M420,316 L420,344" />
+    <path d="M420,438 L420,472" />
+    <path d="M420,528 L420,560" />
+    <path d="M420,646 L420,764" />
+    <path d="M270,604 L226,604" />
+    <path d="M560,392 L790,392 L790,792 L582,792" />
+  </g>
+  <g font-size="12.5" fill="#5c6b7a">
+    <text x="432" y="458">Yes (PIX/Card)</text>
+    <text x="675" y="383" text-anchor="middle">No &#183; skip Collections</text>
+    <text x="432" y="712">No</text>
+    <text x="248" y="596" text-anchor="middle">Yes</text>
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="260" y="28" width="320" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="420" y="56" text-anchor="middle" font-weight="600">1 &#183; New order &#8212; select the customer</text>
+    <rect x="250" y="98" width="340" height="64" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="420" y="123" text-anchor="middle">2 &#183; Order data &#8594; Save and Continue</text>
+    <text x="420" y="144" text-anchor="middle" fill="#5c6b7a" font-size="12">Send &#8594; status &#8220;Awaiting approvals&#8221;</text>
+    <rect x="280" y="190" width="280" height="46" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="420" y="218" text-anchor="middle">Step 1 &#183; ADM Approval</text>
+    <rect x="280" y="266" width="280" height="46" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="420" y="294" text-anchor="middle">Step 2 &#183; Credit Approval</text>
+  </g>
+  <polygon points="420,346 560,392 420,438 280,392" fill="#fef3e2" stroke="#f18800" stroke-width="1.6"/>
+  <text x="420" y="388" text-anchor="middle" font-size="12.5" fill="#1a1417">Payment is</text>
+  <text x="420" y="404" text-anchor="middle" font-size="12.5" fill="#1a1417">PIX or Card?</text>
+  <rect x="270" y="474" width="300" height="54" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+  <text x="420" y="496" text-anchor="middle" font-size="13" fill="#1a1417">Step 3 &#183; Collections &#8211; National</text>
+  <text x="420" y="515" text-anchor="middle" font-size="11.5" fill="#5c6b7a">checks AR (accounts receivable)</text>
+  <polygon points="420,562 570,604 420,646 270,604" fill="#fef3e2" stroke="#f18800" stroke-width="1.6"/>
+  <text x="420" y="600" text-anchor="middle" font-size="12.5" fill="#1a1417">Customer with</text>
+  <text x="420" y="616" text-anchor="middle" font-size="12.5" fill="#1a1417">overdue AR?</text>
+  <rect x="40" y="580" width="180" height="48" rx="10" fill="#fbeaea" stroke="#cc093b" stroke-width="1.5"/>
+  <text x="130" y="601" text-anchor="middle" font-size="12" fill="#1a1417">Order held &#8212;</text>
+  <text x="130" y="617" text-anchor="middle" font-size="12" fill="#1a1417">Collections reviews</text>
+  <rect x="260" y="768" width="320" height="52" rx="10" fill="#e6f4ec" stroke="#1f9d63" stroke-width="1.8"/>
+  <text x="420" y="799" text-anchor="middle" font-size="14" font-weight="700" fill="#1f7a4d">Order RELEASED</text>
+</svg>
+</div>
+
+<Callout type="dica" title="How to read the flowchart">
+Every order goes through <strong>ADM</strong> and <strong>Credit</strong>. The <strong>Collections – National</strong> step only applies when the payment is <strong>PIX or Card</strong>; otherwise, it is skipped and the order is released after Credit.
+</Callout>
+
+## Flowchart by person type (Individual, Company and Foreign)
+
+Besides the payment method, the order approval path depends on the **customer person type**. Today the rule is set up like this: **Individual** and **Company** follow the **National** path (Sales ADM, Credit and Collections); **Foreign** follows the **Comex** path (Comex ADM and Comex Credit).
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 900 560" width="900" role="img" aria-label="Order approval flowchart by person type" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwt" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwt)">
+    <path d="M450,76 L450,106" />
+    <path d="M300,150 L150,150 L150,230" />
+    <path d="M450,190 L450,230" />
+    <path d="M600,150 L750,150 L750,230" />
+    <path d="M150,278 L150,300" />
+    <path d="M150,346 L150,368" />
+    <path d="M450,278 L450,300" />
+    <path d="M450,346 L450,368" />
+    <path d="M750,278 L750,300" />
+    <path d="M150,414 L150,497 L314,497" />
+    <path d="M450,414 L450,468" />
+    <path d="M750,346 L750,497 L586,497" />
+  </g>
+  <g font-size="12.5" fill="#5c6b7a">
+    <text x="222" y="142" text-anchor="middle">Individual</text>
+    <text x="462" y="214">Company</text>
+    <text x="680" y="142" text-anchor="middle">Foreign</text>
+  </g>
+  <rect x="300" y="22" width="300" height="54" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+  <text x="450" y="45" text-anchor="middle" font-size="13" fill="#1a1417" font-weight="600">Order sent for approval</text>
+  <text x="450" y="64" text-anchor="middle" font-size="12" fill="#5c6b7a">status “Awaiting approvals”</text>
+  <polygon points="450,110 600,150 450,190 300,150" fill="#fef3e2" stroke="#f18800" stroke-width="1.6"/>
+  <text x="450" y="155" text-anchor="middle" font-size="12.5" fill="#1a1417">Person type?</text>
+  <g font-size="12.5" fill="#1a1417">
+    <rect x="40" y="234" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="150" y="261" text-anchor="middle">Sales ADM – National</text>
+    <rect x="40" y="302" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="150" y="329" text-anchor="middle">Credit – National</text>
+    <rect x="40" y="370" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="150" y="397" text-anchor="middle">Collections – National</text>
+    <rect x="340" y="234" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="450" y="261" text-anchor="middle">Sales ADM – National</text>
+    <rect x="340" y="302" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="450" y="329" text-anchor="middle">Credit – National</text>
+    <rect x="340" y="370" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="450" y="397" text-anchor="middle">Collections – National</text>
+    <rect x="640" y="234" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="750" y="261" text-anchor="middle">ADM – Comex</text>
+    <rect x="640" y="302" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="750" y="329" text-anchor="middle">Credit – Comex</text>
+  </g>
+  <rect x="320" y="470" width="260" height="54" rx="10" fill="#e6f4ec" stroke="#1f9d63" stroke-width="1.8"/>
+  <text x="450" y="502" text-anchor="middle" font-size="14" font-weight="700" fill="#1f7a4d">Order RELEASED</text>
+</svg>
+</div>
+
+<Callout type="dica" title="How to read the flowchart">
+**Individual** and **Company** go through Sales ADM – National, Credit – National and Collections – National (Collections checks for overdue AR, relevant for PIX or Card). **Foreign** goes through ADM – Comex and Credit – Comex. At the end, the order is released.
+</Callout>
+
+## Quick summary
+
+1. Prepare the queue without Ignition and configure the approval rule (once).
+2. Create the new order and select the customer.
+3. Fill in the required data and click "Save and Continue".
+4. Send the order for approval ("Awaiting approvals").
+5. Approve by ADM and Credit; National Collections applies only for PIX/Card.
+6. After the applicable approvals, the order is released.
+
+## Rules and cautions
+
+- The **Ignition** option must be set so that the Ignition queue is **not** used in this flow.
+- Approvals follow the **Approval Rule**: the mode (Parallel/Sequential), the active steps and the conditions determine the path.
+- The **"Send order for approval"** button appears after **"Save and Continue"**.
+- The **Collections – National** step only happens for **PIX or Card** and checks for **overdue AR**.
+
+## Responsibilities
+
+<DocTable
+  headers={['Profile', 'Access', 'Responsibility']}
+  rows={[
+    ['Administrator', 'Preparation', 'Configures Feature Control, the Approval Rule and the steps.'],
+    ['Orders user', 'Orders module', 'Creates and sends the orders for approval.'],
+    ['Sales ADM', 'Approval step', 'ADM Approval.'],
+    ['Credit', 'Approval step', 'Credit approval.'],
+    ['Collections', 'Approval step', 'Collections – National (PIX/Card); checks overdue AR.'],
+  ]}
+/>
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The order is going through Ignition', 'Feature Control configured incorrectly', 'Confirm with the administrator that the option is set to NOT use the Ignition queue.'],
+    ['The send button does not appear', 'Order not saved yet', 'Click "Save and Continue" with the required fields filled in.'],
+    ['The order does not advance in approvals', 'Inactive or misconfigured steps', 'Review the steps and the order in the Approval Rule.'],
+    ['The order entered (or not) Collections unexpectedly', 'Payment method different from expected', 'Check the payment method: National Collections only applies for PIX or Card.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What does "WITHOUT Ignition" mean?', answer: 'It means the Ignition queue is disabled for this process, making the approval path faster and simpler.' },
+    { question: 'Who defines the approval path?', answer: 'The Approval Rule, configured in the Approvals module. The active steps and conditions determine the path.' },
+    { question: 'When does the National Collections step apply?', answer: 'Only when the payment method is PIX or Card. In that case, Collections checks whether the customer has any overdue AR (accounts receivable).' },
+    { question: 'What is the difference between Parallel and Sequential mode?', answer: 'In Parallel there is no order between approvers; in Sequential, approval follows the order registered in the steps.' },
+    { question: 'Where do I track the order during approval?', answer: 'In the order list, by the "Awaiting approvals" status and the order\'s most recent update.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Initial release of the order approval flow through the WITHOUT Ignition queue.' },
+  ]}
+/>

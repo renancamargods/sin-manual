@@ -1,0 +1,210 @@
+---
+section: modulos
+routeSlug: administrador/lounge
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Lounge
+description: Cadastro das unidades Lounge (centros), com dados fiscais, empresa, parâmetros de faturamento, dados bancários, estoque, pedidos e regras de frete.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Unidades Lounge usadas em estoque, faturamento, pedidos e logística
+keywords: [lounge, centro, unidade, cnpj, empresa, faturamento, romaneio, dados bancários, estoque, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Lounge** cadastra as unidades (centros) da operação — os Lounges — reunindo dados de identificação e fiscais (Código, Nome, Razão Social, CNPJ, Inscrição Estadual), a **Empresa** a que pertencem e diversos **parâmetros** que definem como a unidade opera (faturamento, integração de pedidos, comércio exterior, pagamento na maquininha, romaneio, inventário, entre outros).
+
+É uma tela central: a partir do Lounge, abas complementares mostram o estoque, os pedidos, as notas fiscais, os endereços, as regras de frete e as amarrações da unidade.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Unidades da operação', text: 'Cadastra os Lounges (centros) com dados fiscais e parâmetros de operação.' },
+    { label: 'Uso', title: 'Base de estoque e faturamento', text: 'O Lounge é referência para estoque, pedidos, notas fiscais e logística.' },
+    { label: 'Cuidado', title: 'Parâmetros de operação', text: 'As opções de Sim/Não definem comportamentos importantes (faturamento, romaneio, comex).' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova unidade Lounge.
+- Consultar ou localizar um Lounge por código.
+- Editar os dados fiscais, a empresa ou os parâmetros de operação.
+- Consultar estoque, pedidos, notas fiscais, endereços, regras de frete e amarrações do Lounge.
+
+## Como acessar
+
+Administrador → Lounge
+
+## Antes de começar
+
+- Tenha os dados fiscais (Razão Social, CNPJ, Inscrição Estadual) e o **Código ERP**.
+- Saiba a qual **Empresa** o Lounge pertence.
+- Defina os **parâmetros de operação** (faturamento, integração, comex, romaneio, etc.).
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Código e Código ERP, com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista dos Lounges com colunas como Código, Nome, Status e integração de pedidos, com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição (abas)', 'Janela com as abas "Lounge", "Saldos de Estoque", "Pedidos", "Notas Fiscais", "Amarrações Principais", "Amarrações Secundárias", "Amarrações Terciárias", "Endereço" e "Regras de Fretes".', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Lounge" — identificação e dados fiscais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código', 'Código que identifica o Lounge.'],
+    ['Nome', 'Nome do Lounge.'],
+    ['Razão Social', 'Razão social da unidade.'],
+    ['CNPJ', 'CNPJ da unidade.'],
+    ['Inscrição Estadual', 'Inscrição estadual da unidade.'],
+    ['Telefone', 'Telefone de contato.'],
+    ['Código ERP', 'Código correspondente no ERP (integração).'],
+    ['Empresa', 'Empresa do grupo a que o Lounge pertence.'],
+    ['Fuso Horário do Centro', 'Fuso horário usado pela unidade.'],
+    ['Depósito', 'Depósito associado ao Lounge.'],
+    ['Dados Bancários', 'Dados bancários da unidade (com o botão "+" para cadastrar).'],
+    ['Condições de Pagamento', 'Condições de pagamento associadas.'],
+    ['Operações Inteligentes', 'Operações inteligentes associadas à unidade.'],
+    ['Usuários', 'Usuários vinculados ao Lounge (com o botão "+" para cadastrar).'],
+  ]}
+/>
+
+### Aba "Lounge" — parâmetros de operação (Sim/Não)
+
+<DocTable
+  headers={['Parâmetro', 'O que define']}
+  rows={[
+    ['Status Sistema', 'Se o Lounge está Ativo ou Inativo.'],
+    ['Disponível Comex?', 'Se a unidade participa de operações de comércio exterior.'],
+    ['Pagamento na Maquininha?', 'Se a unidade aceita pagamento na maquininha (POS).'],
+    ['Segue novo Fluxo de Faturamento?', 'Se a unidade usa o novo fluxo de faturamento.'],
+    ['Permite Integração de Pedidos', 'Se os pedidos da unidade são integrados a outros sistemas.'],
+    ['Permite Gerar Carta de Falta', 'Se a unidade pode gerar carta de falta.'],
+    ['Disponível no Inventário? (Somente para lounges inativos)', 'Se um Lounge inativo continua disponível para inventário.'],
+    ['Disponível para o Fluxo do Romaneio?', 'Se a unidade participa do fluxo de romaneio.'],
+  ]}
+/>
+
+### Abas complementares
+
+<DocTable
+  headers={['Aba', 'O que mostra']}
+  rows={[
+    ['Saldos de Estoque', 'Posição de estoque da unidade.'],
+    ['Pedidos', 'Pedidos vinculados ao Lounge.'],
+    ['Notas Fiscais', 'Notas fiscais da unidade.'],
+    ['Amarrações Principais / Secundárias / Terciárias', 'Vínculos de faturamento/roteamento da unidade em diferentes níveis.'],
+    ['Endereço', 'Endereço da unidade.'],
+    ['Regras de Fretes', 'Regras de frete relacionadas ao Lounge.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe **Código** ou **Código ERP** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, preencha os dados fiscais, selecione a **Empresa**, defina os **parâmetros de operação** e clique em **"Salvar"** (ou **"Salvar e Continuar"** para seguir nas demais abas).
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Consultar abas** — abra o Lounge e navegue pelas abas de estoque, pedidos, notas fiscais, endereço, regras de frete e amarrações.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os Lounges conforme os filtros.', '—'],
+    ['+ Novo', 'Para cadastrar um novo Lounge.', 'Abre a janela com as abas.'],
+    ['Salvar e Continuar', 'Para salvar e continuar nas demais abas.', '—'],
+    ['Detalhes', 'Para consultar um Lounge sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um Lounge existente.', 'Reveja os parâmetros de operação antes de salvar.'],
+    ['Excluir', 'Para remover um Lounge.', 'Ação sem retorno; prefira inativar (Status Sistema) em vez de excluir.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Lounge', 'Acesso à tela', 'Permite abrir e utilizar a tela de Lounge.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Parâmetros de operação', 'As opções Sim/Não definem faturamento, integração, comex, romaneio e inventário.', 'Confirme cada opção conforme a realidade da unidade.'],
+    ['Vínculo com a Empresa', 'O Lounge pertence a uma empresa do grupo.', 'Selecione a empresa correta.'],
+    ['Inativação', 'Lounges inativos deixam de operar, mas podem seguir disponíveis para inventário se marcado.', 'Prefira inativar em vez de excluir.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Empresa', 'Cada Lounge pertence a uma empresa.', 'Cadastre a empresa antes do Lounge.'],
+    ['Estoque e Inventário', 'O Lounge é referência para saldo de estoque e inventários.', 'Confira a aba "Saldos de Estoque".'],
+    ['Faturamento e Romaneio', 'Os parâmetros definem a participação nos fluxos de faturamento e romaneio.', 'Revise os parâmetros correspondentes.'],
+    ['Dados Bancários e Pagamento', 'O Lounge referencia dados bancários e terminais de pagamento.', 'Mantenha os dados atualizados.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não movimenta estoque nem emite notas — apenas cadastra a unidade e mostra os vínculos.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O Lounge não aparece em um fluxo', 'Parâmetro de operação desmarcado', 'Verifique as opções Sim/Não correspondentes (faturamento, romaneio, comex).'],
+    ['Não encontro um Lounge', 'Filtro por código incorreto', 'Ajuste o Código ou o Código ERP.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as unidades Lounge (centros), com dados fiscais, empresa e parâmetros de operação.' },
+    { question: 'O que definem os parâmetros Sim/Não?', answer: 'Definem comportamentos como faturamento, integração de pedidos, comex, romaneio e inventário da unidade.' },
+    { question: 'Posso excluir um Lounge?', answer: 'É possível, mas prefira inativá-lo (Status Sistema) para preservar o histórico.' },
+    { question: 'Onde vejo o estoque do Lounge?', answer: 'Na aba "Saldos de Estoque" dentro do cadastro do Lounge.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Lounge.' },
+  ]}
+/>

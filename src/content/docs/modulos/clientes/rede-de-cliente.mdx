@@ -1,0 +1,150 @@
+---
+section: modulos
+routeSlug: clientes/rede-de-cliente
+pageType: routine
+module: clientes
+moduleLabel: Clientes
+title: Rede de Cliente
+description: Cadastro das redes de cliente que reúnem clientes da mesma rede, por descrição, com a lista de clientes de cada rede.
+routineType: Cadastro
+permission: Sim
+impact: Define as redes de cliente usadas em análises e regras comerciais
+keywords: [rede de cliente, rede, clientes, agrupamento por rede, digitação rápida, cadastro]
+tags: [modulo-clientes, cadastro]
+order: 12
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Rede de Cliente** reúne os **clientes que pertencem à mesma rede** (identificada por uma **descrição**). A rede facilita tratar em conjunto os clientes de uma mesma marca/grupo comercial e é usada em análises e regras comerciais. Cada rede tem a sua **lista de clientes**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Reunir por rede', text: 'Agrupa clientes que pertencem à mesma rede.' },
+    { label: 'Uso', title: 'Análises e regras', text: 'A rede é usada em análises e regras comerciais.' },
+    { label: 'Composição', title: 'Descrição + clientes', text: 'Cada rede tem uma descrição e a sua lista de clientes.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Criar uma rede para reunir clientes relacionados.
+- Consultar as redes cadastradas.
+- Incluir ou remover clientes de uma rede.
+
+## Como acessar
+
+Clientes → Rede de Cliente
+
+## Antes de começar
+
+- Defina a **descrição** da rede.
+- Saiba quais **clientes** farão parte dela.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtro por "Descrição", com "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use o filtro para localizar a rede.'],
+    ['Resultados', 'Lista das redes pela coluna "Descrição", com os ícones de detalhes, editar e excluir.', 'Os ícones ficam à direita da linha.'],
+    ['Cadastro (2 abas)', 'Aba "Rede de Cliente" (descrição) e aba "Clientes" (lista de clientes da rede).', 'Monte a lista de clientes na aba "Clientes".'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo / aba', 'O que é']}
+  rows={[
+    ['Descrição', 'Nome que identifica a rede.'],
+    ['Aba "Clientes"', 'Lista dos clientes da rede (colunas "Nome do Cliente" e "Código do Cliente"), com "Adicionar Cliente - Digitação Rápida".'],
+  ]}
+/>
+
+O formulário tem os botões **"Salvar e Continuar"**, **"Salvar"** e **"Fechar"**.
+
+## Fluxos principais
+
+1. **Criar a rede** — clique em **"+ Novo"** e informe a "Descrição".
+2. **Adicionar clientes** — na aba "Clientes", use **"Adicionar Cliente - Digitação Rápida"**.
+3. **Salvar** — use **"Salvar"** (ou "Salvar e Continuar").
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as redes conforme a descrição.', '—'],
+    ['+ Novo', 'Para criar uma rede.', 'Abre o cadastro.'],
+    ['Adicionar Cliente - Digitação Rápida', 'Para incluir clientes na rede.', '—'],
+    ['Salvar / Salvar e Continuar', 'Para guardar a rede.', 'Informe a descrição.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar a rede.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover a rede.', 'Confirme antes; pode estar em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Rede de Cliente', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Cliente', 'Os clientes da rede vêm do cadastro de Cliente.', 'O cliente precisa existir.'],
+    ['Políticas comerciais', 'A rede pode ser usada em regras e restrições comerciais.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra os clientes — eles vêm do cadastro de Cliente.
+- Não define preços ou descontos por si só — apenas agrupa clientes por rede.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro a rede', 'Filtro restrito', 'Ajuste a descrição na pesquisa.'],
+    ['Não consigo adicionar um cliente', 'Cliente não localizado', 'Confira o cadastro do cliente.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Rede de Cliente?', answer: 'Para reunir clientes que pertencem à mesma rede, usada em análises e regras comerciais.' },
+    { question: 'Como adiciono clientes à rede?', answer: 'Na aba "Clientes", use "Adicionar Cliente - Digitação Rápida".' },
+    { question: 'Qual a diferença entre Rede e Agrupamento de Cliente?', answer: 'Ambos reúnem clientes; a Rede representa a mesma rede comercial, enquanto o Agrupamento é um agrupamento livre para análises e regras.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Rede de Cliente.' },
+  ]}
+/>

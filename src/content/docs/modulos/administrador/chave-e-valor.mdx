@@ -1,0 +1,155 @@
+---
+section: modulos
+routeSlug: administrador/chave-e-valor
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Chave e Valor
+description: Cadastro de pares de chave e valor de configuração, agrupados por parâmetro, usados para ajustar comportamentos do sistema.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Pares de configuração que ajustam comportamentos do sistema
+keywords: [chave e valor, configuração, parâmetro, chave, valor, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Chave e Valor** cadastra pares de **Chave** e **Valor** de configuração, agrupados por um **Parâmetro**. Esses pares são usados para ajustar comportamentos do sistema de forma flexível — por exemplo, definir quais blocos aparecem na home para cada perfil.
+
+<Callout type="cuidado" title="Configuração técnica">
+Alterações aqui afetam o comportamento do sistema. Faça mudanças apenas com conhecimento do parâmetro e do efeito esperado, preferencialmente com apoio da equipe técnica.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Configuração flexível', text: 'Guarda pares chave/valor que ajustam comportamentos do sistema.' },
+    { label: 'Uso', title: 'Agrupado por parâmetro', text: 'Cada par pertence a um parâmetro que define seu contexto.' },
+    { label: 'Cuidado', title: 'Impacto', text: 'Valores incorretos podem alterar o funcionamento de telas e rotinas.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar os pares de chave e valor de um parâmetro.
+- Cadastrar ou editar um par de configuração.
+- Ativar ou inativar um par.
+
+## Como acessar
+
+Administrador → Chave e Valor
+
+## Antes de começar
+
+- Saiba a qual **Parâmetro** o par pertence.
+- Tenha a **chave** e o **valor** corretos e conheça o efeito esperado.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Chave, Valor, Parâmetro e Status Sistema, com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Filtre por parâmetro para localizar o grupo desejado.'],
+    ['Resultados', 'Lista com as colunas "Chave", "Valor", "Parâmetro", "Status Sistema" e "Data da Última Alteração", com as ações por linha.', 'Cada linha tem Histórico, Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela com Parâmetro, Status Sistema, Chave e Valor.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Parâmetro', 'Parâmetro que agrupa e contextualiza o par. O botão "+" ao lado permite cadastrar um novo parâmetro.'],
+    ['Status Sistema', 'Situação do par (Ativo ou Inativo).'],
+    ['Chave', 'Chave que identifica a configuração.'],
+    ['Valor', 'Valor associado à chave.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe os filtros (Chave, Valor, Parâmetro, Status) e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, selecione o **Parâmetro**, informe **Chave** e **Valor**, defina o **Status Sistema** e clique em **"Salvar"**.
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Ver histórico** — clique no ícone de **Histórico** da linha para ver as alterações.
+5. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os pares conforme os filtros.', '—'],
+    ['+ Novo', 'Para cadastrar um novo par.', '—'],
+    ['Detalhes', 'Para consultar um par sem alterar.', 'Somente leitura.'],
+    ['Histórico', 'Para ver o histórico de alterações do par.', '—'],
+    ['Editar', 'Para alterar um par existente.', 'Confirme o efeito esperado antes de salvar.'],
+    ['Excluir', 'Para remover um par.', 'Ação sem retorno; pode afetar o comportamento do sistema.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Chave e Valor', 'Acesso à tela', 'Permite abrir e utilizar a tela de Chave e Valor.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Comportamentos configuráveis', 'Os pares ajustam comportamentos de telas e rotinas.', 'Altere apenas com conhecimento do efeito.'],
+    ['Parâmetro', 'Cada par pertence a um parâmetro.', 'Use o parâmetro correto.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não valida o efeito do valor informado — a responsabilidade pelo conteúdo é de quem configura.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Uma configuração não teve efeito', 'Par inativo ou valor incorreto', 'Verifique o Status Sistema e o valor.'],
+    ['Não encontro um par', 'Filtro por parâmetro incorreto', 'Ajuste o filtro de Parâmetro.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar pares de chave e valor de configuração, agrupados por parâmetro, que ajustam comportamentos do sistema.' },
+    { question: 'O que é o "Parâmetro"?', answer: 'É o agrupador que contextualiza os pares de chave e valor.' },
+    { question: 'Posso alterar qualquer valor?', answer: 'Sim, mas apenas com conhecimento do efeito esperado, pois afeta o comportamento do sistema.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Chave e Valor.' },
+  ]}
+/>

@@ -1,0 +1,131 @@
+---
+section: modulos
+routeSlug: produtos/caixa-de-embalagem
+pageType: routine
+module: produtos
+moduleLabel: Produtos
+title: Caixa de Embalagem
+description: Cadastro das caixas de embalagem usadas nos produtos, identificadas por código e volume.
+routineType: Cadastro
+permission: Sim
+impact: Define as caixas de embalagem (código e volume) usadas na expedição dos produtos
+keywords: [caixa de embalagem, caixa, embalagem, volume, código da caixa, produtos, cadastro]
+tags: [modulo-produtos, cadastro]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Caixa de Embalagem** mantém o cadastro das **caixas** usadas para embalar os produtos. Cada caixa é identificada por um **código** e tem um **volume**, usados na expedição e no cálculo de volumes das remessas.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Caixas de embalagem', text: 'Mantém as caixas usadas para embalar os produtos.' },
+    { label: 'Uso', title: 'Código e volume', text: 'Cada caixa tem um código e um volume.' },
+    { label: 'Natureza', title: 'Cadastro de apoio', text: 'Consultado na embalagem e expedição.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar as caixas de embalagem cadastradas.
+- Incluir uma nova caixa.
+- Corrigir o código ou o volume de uma caixa.
+
+## Como acessar
+
+Produtos → Caixa de Embalagem
+
+## Antes de começar
+
+- Tenha o **código** e o **volume** da caixa.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Campos principais
+
+<DocTable
+  headers={['Campo / Coluna', 'O que é']}
+  rows={[
+    ['Código da Caixa', 'Código que identifica a caixa de embalagem.'],
+    ['Volume', 'Volume da caixa.'],
+  ]}
+/>
+
+O formulário ("+ Novo") tem os campos **Código da Caixa** e **Volume**. Na listagem, cada linha tem os ícones de detalhes, editar e excluir.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as caixas conforme o código.', '—'],
+    ['+ Novo', 'Para incluir uma caixa.', 'Abre o formulário.'],
+    ['Salvar', 'Para guardar a caixa.', 'Informe o código e o volume.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar a caixa.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover a caixa.', 'Confirme antes; pode estar em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Caixa de Embalagem', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Produto', 'A caixa é usada na embalagem dos produtos.', '—'],
+    ['Expedição / Romaneio', 'O volume da caixa contribui para o cálculo dos volumes das remessas.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra os produtos — apenas as caixas de embalagem.
+- Não calcula o frete — apenas mantém o volume da caixa.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro a caixa', 'Filtro restrito', 'Ajuste o código na pesquisa.'],
+    ['Não consigo excluir', 'Caixa em uso', 'Verifique se há produtos vinculados.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Caixa de Embalagem?', answer: 'Para manter as caixas (código e volume) usadas para embalar os produtos.' },
+    { question: 'Quais campos a caixa tem?', answer: 'Código da Caixa e Volume.' },
+    { question: 'Posso excluir uma caixa em uso?', answer: 'Não é recomendado; verifique antes se há produtos vinculados.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Caixa de Embalagem.' },
+  ]}
+/>

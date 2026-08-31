@@ -1,0 +1,155 @@
+---
+section: modulos
+routeSlug: administrador/incoterm
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Incoterm
+description: Cadastro e consulta dos Incoterms (termos internacionais de comércio) usados nas operações de comércio exterior.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Incoterms usados em operações de comércio exterior
+keywords: [incoterm, comércio exterior, comex, cif, fob, exw, termo internacional, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Incoterm** mantém o cadastro dos Incoterms (termos internacionais de comércio, como CIF, FOB e EXW) usados nas operações de comércio exterior. Cada Incoterm reúne o **Código do Incoterm**, o **Nome** e a **Descrição do Incoterm**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Termos de comércio', text: 'Padroniza os Incoterms usados nas operações de comércio exterior.' },
+    { label: 'Uso', title: 'Comércio exterior', text: 'Os Incoterms indicam responsabilidades de transporte e seguro.' },
+    { label: 'Cuidado', title: 'Código padrão', text: 'Use os códigos oficiais dos Incoterms (ex.: CIF, FOB, EXW).' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo Incoterm.
+- Consultar ou localizar um Incoterm pelo código.
+- Editar o nome ou a descrição de um Incoterm.
+
+## Como acessar
+
+Administrador → Incoterm
+
+## Antes de começar
+
+- Tenha o **código** oficial do Incoterm (ex.: CIF, FOB).
+- Tenha o **nome** e a **descrição** correspondentes.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Código do Incoterm", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista dos Incoterms com as colunas "Código do Incoterm", "Nome" e "Descrição do Incoterm", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela (aba "Incoterm") com os campos do Incoterm.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Incoterm"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código do Incoterm', 'Código oficial do Incoterm (ex.: CIF, FOB, EXW).'],
+    ['Nome', 'Nome do Incoterm.'],
+    ['Descrição do Incoterm', 'Descrição do que o Incoterm representa.'],
+  ]}
+/>
+
+<Callout type="info" title="Exemplos de Incoterms">
+Entre os Incoterms cadastrados estão: CIF (Custo, Seguro e Frete), CFR (Custo e Frete), FOB (Livre a Bordo), EXW (Na Origem), DAP (Entregue no Local), DDP (Entregue com Direitos Pagos), FCA (Livre no Transportador), FAS (Livre ao Lado do Navio), CIP (Transporte e Seguro Pagos até) e CPT (Transporte Pago até).
+</Callout>
+
+## Fluxos principais
+
+1. **Consultar** — informe o **"Código do Incoterm"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe **Código**, **Nome** e **Descrição** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os Incoterms conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar um novo Incoterm.', '—'],
+    ['Salvar e Continuar', 'Para salvar e seguir cadastrando.', '—'],
+    ['Detalhes', 'Para consultar um Incoterm sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um Incoterm existente.', '—'],
+    ['Excluir', 'Para remover um Incoterm.', 'Ação sem retorno; evite excluir Incoterms já usados.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Incoterm', 'Acesso à tela', 'Permite abrir e utilizar a tela de Incoterm.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Comércio exterior', 'Os Incoterms são usados nas operações internacionais.', 'Mantenha os códigos coerentes com o padrão oficial.'],
+    ['Porto de Destino', 'Compõem, junto com o porto, as informações de comércio exterior.', 'Confira as informações antes de operar.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não calcula custos de frete ou seguro — apenas cadastra o termo (Incoterm).
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro um Incoterm', 'Filtro muito restrito ou Incoterm não cadastrado', 'Ajuste o código ou cadastre o Incoterm.'],
+    ['Não consigo excluir', 'Incoterm já usado em operações', 'Verifique os vínculos antes de excluir.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar e consultar os Incoterms usados nas operações de comércio exterior.' },
+    { question: 'O que é um Incoterm?', answer: 'É um termo internacional de comércio (ex.: CIF, FOB) que define responsabilidades de transporte, seguro e custos.' },
+    { question: 'Posso excluir um Incoterm?', answer: 'Sim, pelo ícone de Excluir, mas evite remover Incoterms já usados em operações.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Incoterm.' },
+  ]}
+/>

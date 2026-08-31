@@ -1,0 +1,132 @@
+---
+section: modulos
+routeSlug: produtos/caixa-de-embalagem
+pageType: routine
+module: produtos
+moduleLabel: Products
+lang: en
+title: Packaging Box
+description: Registration of the packaging boxes used for products, identified by code and volume.
+routineType: Registration
+permission: Yes
+impact: Defines the packaging boxes (code and volume) used in product dispatch
+keywords: [packaging box, box, packaging, volume, box code, products, registration]
+tags: [modulo-produtos, cadastro]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Packaging Box** screen keeps the registration of the **boxes** used to pack products. Each box is identified by a **code** and has a **volume**, used in dispatch and in the calculation of shipment volumes.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Packaging boxes', text: 'Keeps the boxes used to pack products.' },
+    { label: 'Use', title: 'Code and volume', text: 'Each box has a code and a volume.' },
+    { label: 'Nature', title: 'Support registration', text: 'Queried in packaging and dispatch.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Query the registered packaging boxes.
+- Add a new box.
+- Fix the code or the volume of a box.
+
+## How to access
+
+Products → Packaging Box
+
+## Before you start
+
+- Have the box **code** and **volume**.
+- Confirm that your profile allows maintaining this registration.
+
+## Main fields
+
+<DocTable
+  headers={['Field / Column', 'What it is']}
+  rows={[
+    ['Box Code', 'Code that identifies the packaging box.'],
+    ['Volume', 'Volume of the box.'],
+  ]}
+/>
+
+The form ("+ New") has the **Box Code** and **Volume** fields. In the listing, each row has the details, edit and delete icons.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the boxes according to the code.', '—'],
+    ['+ New', 'To add a box.', 'Opens the form.'],
+    ['Save', 'To store the box.', 'Inform the code and the volume.'],
+    ['Details / Edit', 'To query or change the box.', 'Details is read-only.'],
+    ['Delete', 'To remove the box.', 'Confirm before; it may be in use.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Packaging Box', 'Screen access', 'Allows opening the screen and maintaining the registration.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Product', 'The box is used to pack the products.', '—'],
+    ['Dispatch / Loading List', 'The box volume contributes to the calculation of shipment volumes.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not register the products — only the packaging boxes.
+- It does not calculate freight — it only keeps the box volume.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the box', 'Restrictive filter', 'Adjust the code in the search.'],
+    ['I cannot delete', 'Box in use', 'Check whether there are linked products.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Packaging Box for?', answer: 'To keep the boxes (code and volume) used to pack the products.' },
+    { question: 'Which fields does the box have?', answer: 'Box Code and Volume.' },
+    { question: 'Can I delete a box in use?', answer: 'It is not recommended; check first whether there are linked products.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the Packaging Box screen documentation.' },
+  ]}
+/>

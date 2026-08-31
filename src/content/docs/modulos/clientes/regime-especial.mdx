@@ -1,0 +1,162 @@
+---
+section: modulos
+routeSlug: clientes/regime-especial
+pageType: routine
+module: clientes
+moduleLabel: Clientes
+title: Regime Especial
+description: Cadastro dos regimes especiais (tributários) aplicáveis aos clientes, com código, descrição, período de validade e lista de clientes.
+routineType: Cadastro
+permission: Sim
+impact: Define os regimes especiais e a sua vigência, aplicados aos clientes
+keywords: [regime especial, regime tributário, código, validade, vigência, clientes, fiscal, cadastro]
+tags: [modulo-clientes, cadastro]
+order: 13
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Regime Especial** mantém os **regimes especiais** (tributários) aplicáveis aos clientes. Cada regime tem um **código**, uma **descrição**, um **período de validade** (início e término) e um **status**, e pode ter a sua **lista de clientes**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Regimes especiais', text: 'Mantém os regimes especiais aplicáveis aos clientes.' },
+    { label: 'Uso', title: 'Com vigência', text: 'Cada regime tem um período de validade (início e término).' },
+    { label: 'Composição', title: 'Dados + clientes', text: 'Cada regime tem código, descrição, validade e a sua lista de clientes.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um regime especial e a sua vigência.
+- Consultar os regimes especiais cadastrados.
+- Associar clientes a um regime especial.
+- Ativar ou inativar um regime.
+
+## Como acessar
+
+Clientes → Regime Especial
+
+## Antes de começar
+
+- Tenha o **código** e a **descrição** do regime.
+- Defina o **período de validade** (início e término).
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros por "Código", "Descrição" e "Status Sistema" (Ativo/Inativo), com "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use os filtros para localizar regimes.'],
+    ['Resultados', 'Lista dos regimes com as colunas "Código" e "Descrição", e os ícones de histórico, detalhes, editar e excluir.', 'Os ícones ficam à direita da linha.'],
+    ['Cadastro (2 abas)', 'Aba "Regime Especial" (código, descrição, validade e status) e aba "Clientes" (lista de clientes do regime).', 'Monte a lista de clientes na aba "Clientes".'],
+  ]}
+/>
+
+## Campos principais
+
+### Cadastro (aba "Regime Especial")
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código', 'Código que identifica o regime especial.'],
+    ['Descrição', 'Descrição do regime.'],
+    ['Validade de Início', 'Data de início da vigência do regime.'],
+    ['Validade de Término', 'Data de término da vigência do regime.'],
+    ['Status Sistema', 'Define se o regime está Ativo ou Inativo.'],
+  ]}
+/>
+
+### Aba "Clientes"
+
+Lista dos **clientes** associados ao regime especial.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os regimes conforme os filtros.', 'Combine código, descrição e status.'],
+    ['+ Novo', 'Para cadastrar um regime.', 'Abre o cadastro.'],
+    ['Salvar / Salvar e Continuar', 'Para guardar o regime.', 'Confira o código, a descrição e a validade.'],
+    ['Detalhes / Editar / Histórico', 'Para consultar, alterar ou ver o histórico do regime.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover o regime.', 'Confirme antes; pode estar em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Regime Especial', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Vigência', 'O regime vale entre a "Validade de Início" e a "Validade de Término".', 'Defina o período com cuidado.'],
+    ['Ativo/Inativo', 'O status controla se o regime está disponível.', 'Inative em vez de excluir quando quiser preservar o histórico.'],
+    ['Clientes do regime', 'O regime pode ser associado a uma lista de clientes.', 'Mantenha a lista atualizada.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Cliente', 'O regime especial é associado a clientes.', 'O cliente precisa existir.'],
+    ['Fiscal', 'O regime especial afeta o tratamento tributário do cliente.', 'Confira a vigência.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra os clientes — eles vêm do cadastro de Cliente.
+- Não altera notas fiscais já emitidas.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o regime', 'Filtros restritos ou regime inativo', 'Ajuste código, descrição e status.'],
+    ['O regime não é aplicado', 'Fora do período de validade ou inativo', 'Confira a vigência e o "Status Sistema".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Regime Especial?', answer: 'Para manter os regimes especiais (tributários) aplicáveis aos clientes, com código, descrição e período de validade.' },
+    { question: 'O regime tem prazo?', answer: 'Sim. Ele vale entre a "Validade de Início" e a "Validade de Término".' },
+    { question: 'Como associo clientes a um regime?', answer: 'Na aba "Clientes" do cadastro do regime.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Regime Especial.' },
+  ]}
+/>

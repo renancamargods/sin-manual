@@ -1,0 +1,170 @@
+---
+section: modulos
+routeSlug: clientes/parametro-de-entidade-especial
+pageType: routine
+module: clientes
+moduleLabel: Clientes
+title: Parâmetro de Entidade Especial
+description: Configuração de tratamentos especiais por tipo (status de cadastro/pedido, informações financeiras, boletos, logística) para um cliente ou pedido, com período de controle.
+routineType: Cadastro
+permission: Sim
+impact: Define tratamentos especiais aplicados a um cliente ou pedido por tipo e período
+keywords: [parâmetro de entidade especial, entidade especial, tipo, controle de início, status do cadastro, status do pedido, informações financeiras, boletos, logística, clientes]
+tags: [modulo-clientes, cadastro]
+order: 9
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Parâmetro de Entidade Especial** define **tratamentos especiais** aplicados a um **cliente** ou **pedido**, por **tipo** (por exemplo, "Status do Cadastro", "Status do Pedido", "Informações Financeiras", "Boletos" e "Informações de Logística") e por um **período de controle** (início e término). É usada para configurar exceções ou tratamentos diferenciados de forma controlada.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Tratamento especial', text: 'Configura tratamentos especiais por tipo para um cliente ou pedido.' },
+    { label: 'Uso', title: 'Por período', text: 'Cada parâmetro vale por um período de controle (início e término).' },
+    { label: 'Escopo', title: 'Cliente ou pedido', text: 'O parâmetro pode ser vinculado a um cliente e/ou a um pedido.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Aplicar um tratamento especial a um cliente ou pedido por um período.
+- Consultar os parâmetros especiais cadastrados.
+- Ativar ou inativar um parâmetro.
+
+## Como acessar
+
+Clientes → Parâmetro de Entidade Especial
+
+## Antes de começar
+
+- Saiba o **tipo** de tratamento especial que será configurado.
+- Tenha o **cliente** e/ou o **pedido** e o **período** de controle.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros por "Tipo", período de "Controle de Início" e "Status Sistema" (Ativo/Inativo), com "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use os filtros para localizar parâmetros.'],
+    ['Resultados', 'Lista dos parâmetros com as colunas "Tipo", "Controle de Início" e "Status Sistema", e os ícones de histórico, detalhes, editar e excluir.', 'Os ícones ficam à direita da linha.'],
+    ['Cadastro', 'Formulário com o tipo, o período, o cliente, o pedido e o status.', 'Escolha o tipo antes de preencher.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Tipo', 'Filtra pelo tipo do parâmetro especial.'],
+    ['Controle de Início - Início / Término', 'Período do controle de início.'],
+    ['Status Sistema', 'Filtra por parâmetros Ativos ou Inativos.'],
+  ]}
+/>
+
+### Cadastro (+ Novo)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Tipo', 'Tipo do tratamento especial: "Status do Cadastro", "Status do Pedido", "Informações Financeiras", "Boletos" ou "Informações de Logística".'],
+    ['Controle de Início', 'Data de início do período de controle.'],
+    ['Controle de Término', 'Data de término do período de controle.'],
+    ['Cliente', 'Cliente ao qual o parâmetro se aplica.'],
+    ['Pedido', 'Pedido ao qual o parâmetro se aplica.'],
+    ['Status Sistema', 'Define se o parâmetro está Ativo ou Inativo.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os parâmetros conforme os filtros.', 'Combine tipo, período e status.'],
+    ['+ Novo', 'Para criar um parâmetro especial.', 'Abre o formulário.'],
+    ['Salvar', 'Para guardar o parâmetro.', 'Confira o tipo, o período e o escopo (cliente/pedido).'],
+    ['Detalhes / Editar / Histórico', 'Para consultar, alterar ou ver o histórico do parâmetro.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover o parâmetro.', 'Confirme antes; ação difícil de reverter.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Parâmetro de Entidade Especial', 'Acesso à tela', 'Permite abrir a tela e manter os parâmetros.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Tratamento por tipo', 'O tipo define qual tratamento especial é aplicado.', 'Escolha o tipo conforme a necessidade.'],
+    ['Período de controle', 'O parâmetro vale entre o início e o término informados.', 'Defina o período com cuidado.'],
+    ['Ativo/Inativo', 'O status controla se o parâmetro está em vigor.', 'Inative para suspender o tratamento.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Cliente', 'O parâmetro pode ser vinculado a um cliente.', '—'],
+    ['Pedido', 'O parâmetro pode ser vinculado a um pedido.', '—'],
+    ['Crédito / Logística / Fiscal', 'Conforme o tipo, o parâmetro afeta o tratamento financeiro, de boletos ou de logística.', 'Use com critério; afeta o processo.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cria o cliente nem o pedido — eles vêm de seus próprios cadastros.
+- Não é uma regra geral — cada parâmetro é específico e temporário.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o parâmetro', 'Filtros restritos ou parâmetro inativo', 'Ajuste tipo, período e status.'],
+    ['O tratamento não é aplicado', 'Período fora de vigência ou parâmetro inativo', 'Confira o período e o "Status Sistema".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Parâmetro de Entidade Especial?', answer: 'Para configurar tratamentos especiais por tipo (status de cadastro/pedido, informações financeiras, boletos, logística) a um cliente ou pedido, por um período.' },
+    { question: 'Quais são os tipos disponíveis?', answer: '"Status do Cadastro", "Status do Pedido", "Informações Financeiras", "Boletos" e "Informações de Logística".' },
+    { question: 'O parâmetro é permanente?', answer: 'Não. Ele vale pelo período de controle (início e término) e pode ser inativado.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Parâmetro de Entidade Especial.' },
+  ]}
+/>

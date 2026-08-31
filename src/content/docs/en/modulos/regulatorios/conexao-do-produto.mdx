@@ -1,0 +1,130 @@
+---
+section: modulos
+routeSlug: regulatorios/conexao-do-produto
+pageType: routine
+module: regulatorios
+moduleLabel: Regulatory
+lang: en
+title: Product Connection
+description: Registration of the connections associated with products (e.g., CM, HE, HI), used in the regulatory classification of implants.
+routineType: Registration
+permission: Yes
+impact: Defines the connections used in the products' regulatory classification
+keywords: [product connection, connection, morse taper, external hex, internal hex, implant, regulatory, registration]
+tags: [modulo-regulatorios, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Product Connection** screen keeps the list of **connections** associated with products — for example, "CM" (Morse Taper), "HE" (External Hex) and "HI" (Internal Hex). The connection is used in the **classification** of implants, including for regulatory purposes.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Product connections', text: 'Keeps the connections associated with products.' },
+    { label: 'Use', title: 'Classify implants', text: 'The connection helps to classify the implants.' },
+    { label: 'Nature', title: 'Support registration', text: 'Queried in regulatory classification.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Query the registered connections.
+- Add a new connection.
+- Fix a connection's description.
+
+## How to access
+
+Regulatory → Product Connection
+
+## Before you start
+
+- Have the connection **description**.
+- Confirm that your profile allows maintaining this registration.
+
+## Main fields
+
+<DocTable
+  headers={['Field / Column', 'What it is']}
+  rows={[
+    ['Product Connection', 'Description of the connection (e.g., "CM", "HE", "HI").'],
+  ]}
+/>
+
+The form ("+ New") has the **Product Connection** field. In the listing, each row has the details, edit and delete icons.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the connections.', '—'],
+    ['+ New', 'To add a connection.', 'Opens the form.'],
+    ['Save', 'To store the connection.', 'Inform the description.'],
+    ['Details / Edit', 'To query or change the connection.', 'Details is read-only.'],
+    ['Delete', 'To remove the connection.', 'Confirm before; it may be in use.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Product Connection', 'Screen access', 'Allows opening the screen and maintaining the registration.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Product', 'The connection is associated with the products (implants).', 'The connection must exist to be linked.'],
+    ['Product Line / Records', 'The connection supports the product\'s regulatory classification.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not register the products — only the connections.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the connection', 'Restrictive filter', 'Adjust the description in the search.'],
+    ['I cannot delete', 'Connection in use', 'Check whether there are linked products.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Product Connection for?', answer: 'To keep the connections (e.g., CM, HE, HI) associated with the products, used in the classification of implants.' },
+    { question: 'Which fields does the connection have?', answer: 'Only the Product Connection (description).' },
+    { question: 'Can I delete a connection in use?', answer: 'It is not recommended; check first whether there are linked products.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the Product Connection screen documentation.' },
+  ]}
+/>

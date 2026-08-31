@@ -1,0 +1,128 @@
+---
+section: modulos
+routeSlug: regulatorios/tipo-do-material-de-producao
+pageType: routine
+module: regulatorios
+moduleLabel: Regulatórios
+title: Tipo do Material de Produção
+description: Cadastro dos tipos de material usados na produção dos produtos, identificados por descrição, para fins regulatórios.
+routineType: Cadastro
+permission: Sim
+impact: Define os tipos de material de produção usados na classificação regulatória
+keywords: [tipo do material de produção, material de produção, material, regulatório, produção, regulatórios, cadastro]
+tags: [modulo-regulatorios, cadastro]
+order: 20
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Tipo do Material de Produção** mantém a lista dos **tipos de material** usados na **produção** dos produtos. Cada tipo é identificado por uma **descrição** e é usado para fins de classificação regulatória (por exemplo, o material do dispositivo).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Tipos de material', text: 'Mantém os tipos de material usados na produção.' },
+    { label: 'Uso', title: 'Descrição', text: 'Cada tipo é identificado por uma descrição.' },
+    { label: 'Natureza', title: 'Cadastro de apoio', text: 'Consultado na classificação regulatória dos produtos.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar os tipos de material de produção cadastrados.
+- Incluir um novo tipo.
+- Corrigir a descrição de um tipo.
+
+## Como acessar
+
+Regulatórios → Tipo do Material de Produção
+
+## Antes de começar
+
+- Tenha a **descrição** do tipo de material.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Campos principais
+
+<DocTable
+  headers={['Campo / Coluna', 'O que é']}
+  rows={[
+    ['Descrição', 'Descrição do tipo de material de produção.'],
+  ]}
+/>
+
+O formulário ("+ Novo") tem o campo **Descrição**. Na listagem, cada linha tem os ícones de detalhes, editar e excluir.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os tipos.', '—'],
+    ['+ Novo', 'Para incluir um tipo.', 'Abre o formulário.'],
+    ['Salvar', 'Para guardar o tipo.', 'Informe a descrição.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar o tipo.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover o tipo.', 'Confirme antes; pode estar em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Tipo do Material de Produção', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Produto / Registros', 'O tipo de material apoia a classificação regulatória do produto.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra os produtos — apenas os tipos de material de produção.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o tipo', 'Filtro restrito', 'Ajuste a descrição na pesquisa.'],
+    ['Não consigo excluir', 'Tipo em uso', 'Verifique se há vínculos.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Tipo do Material de Produção?', answer: 'Para manter os tipos de material usados na produção dos produtos, para fins de classificação regulatória.' },
+    { question: 'Quais campos o tipo tem?', answer: 'Apenas a Descrição.' },
+    { question: 'Posso excluir um tipo em uso?', answer: 'Não é recomendado; verifique antes se há vínculos.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Tipo do Material de Produção.' },
+  ]}
+/>

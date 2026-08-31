@@ -1,0 +1,143 @@
+---
+section: modulos
+routeSlug: clientes/perfil-de-consumo
+pageType: routine
+module: clientes
+moduleLabel: Clientes
+title: Perfil de Consumo
+description: "Cadastro dos perfis de consumo (ex.: Frequente, Inativo, Novo, Recuperado) usados em planejamento e metas, com a lista de clientes de cada perfil."
+routineType: Cadastro
+permission: Sim
+impact: Define os perfis de consumo usados na classificação dos clientes em planejamento e metas
+keywords: [perfil de consumo, consumo, frequente, inativo, novo, recuperado, planejamento, metas, clientes, cadastro]
+tags: [modulo-clientes, cadastro]
+order: 10
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Perfil de Consumo** mantém os **perfis de consumo** usados para classificar os clientes conforme o seu comportamento de compra — por exemplo, "Frequente", "Não Frequente", "Inativo", "Novo", "Recuperado" e "Ativo Distribuidor". Esses perfis são usados em **planejamento e metas**. Cada perfil pode ter a sua **lista de clientes**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Classificar por consumo', text: 'Mantém os perfis de consumo dos clientes.' },
+    { label: 'Uso', title: 'Planejamento e metas', text: 'Os perfis são usados no planejamento e nas metas.' },
+    { label: 'Composição', title: 'Descrição + clientes', text: 'Cada perfil tem uma descrição e a sua lista de clientes.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar os perfis de consumo cadastrados.
+- Criar um novo perfil de consumo.
+- Associar clientes a um perfil.
+
+## Como acessar
+
+Clientes → Perfil de Consumo
+
+## Antes de começar
+
+- Defina a **descrição** do perfil.
+- Saiba quais **clientes** pertencem a ele, se for o caso.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtro por "Descrição", com "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use o filtro para localizar o perfil.'],
+    ['Resultados', 'Lista dos perfis pela coluna "Descrição", com os ícones de detalhes, editar e excluir.', 'Os ícones ficam à direita da linha.'],
+    ['Cadastro (2 abas)', 'Aba "Perfil de Consumo" (descrição) e aba "Clientes" (lista de clientes do perfil).', 'Monte a lista de clientes na aba "Clientes".'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo / aba', 'O que é']}
+  rows={[
+    ['Descrição', 'Nome do perfil de consumo (ex.: "Frequente", "Inativo", "Novo").'],
+    ['Aba "Clientes"', 'Lista dos clientes associados ao perfil.'],
+  ]}
+/>
+
+O formulário tem os botões **"Salvar e Continuar"**, **"Salvar"** e **"Fechar"**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os perfis conforme a descrição.', '—'],
+    ['+ Novo', 'Para criar um perfil.', 'Abre o cadastro.'],
+    ['Salvar / Salvar e Continuar', 'Para guardar o perfil.', 'Informe a descrição.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar o perfil.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover o perfil.', 'Confirme antes; pode estar em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Perfil de Consumo', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Cliente', 'Os clientes do perfil vêm do cadastro de Cliente.', 'O cliente precisa existir.'],
+    ['Planejamento de Vendas', 'Os perfis de consumo são usados em planejamento e metas.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não calcula o consumo — apenas mantém os perfis e a associação de clientes.
+- Não cadastra os clientes — eles vêm do cadastro de Cliente.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o perfil', 'Filtro restrito', 'Ajuste a descrição na pesquisa.'],
+    ['Não consigo excluir', 'Perfil em uso', 'Verifique se há clientes vinculados.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Perfil de Consumo?', answer: 'Para classificar os clientes conforme o comportamento de compra (ex.: Frequente, Inativo, Novo) e usar essa classificação em planejamento e metas.' },
+    { question: 'Como associo clientes a um perfil?', answer: 'Na aba "Clientes" do cadastro do perfil.' },
+    { question: 'Onde os perfis são usados?', answer: 'Em planejamento de vendas e nas metas.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Perfil de Consumo.' },
+  ]}
+/>

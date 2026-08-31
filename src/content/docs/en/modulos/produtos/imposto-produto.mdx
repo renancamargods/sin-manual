@@ -1,0 +1,145 @@
+---
+section: modulos
+routeSlug: produtos/imposto-produto
+pageType: routine
+module: produtos
+moduleLabel: Products
+lang: en
+title: Product Tax
+description: Configuration of a product's (SKU) tax percentage by country, used in taxation — especially in international operations.
+routineType: Registration
+permission: Yes
+impact: Defines the product tax percentage by country
+keywords: [product tax, tax, taxation, tax percentage, country, sku, products, registration, fiscal]
+tags: [modulo-produtos, cadastro, fiscal]
+order: 8
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Product Tax** screen configures a **product's (SKU) tax percentage** by **country** — for example, "Portugal" with "23.00". It is used in taxation, especially in international operations, where the rate varies by country.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Tax by country', text: 'Defines the product tax percentage by country.' },
+    { label: 'Use', title: 'SKU + country + %', text: 'Each record relates a SKU, a country and the tax percentage.' },
+    { label: 'Nature', title: 'Fiscal registration', text: 'Queried in product taxation.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Configure a product's tax percentage by country.
+- Query the taxes by SKU or by country.
+- Fix a product's rate in a country.
+
+## How to access
+
+Products → Product Tax
+
+## Before you start
+
+- Have the product **code (SKU)**, the **country** and the **tax percentage**.
+- Confirm that your profile allows maintaining this registration.
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Code (SKU)', 'Filters by the product SKU.'],
+    ['Country', 'Filters by the country.'],
+  ]}
+/>
+
+### Results columns and registration
+
+<DocTable
+  headers={['Field / Column', 'What it is']}
+  rows={[
+    ['Sku Code', 'Product (SKU) the tax applies to.'],
+    ['Country / Country Name', 'Taxation country (e.g., "Portugal").'],
+    ['Tax Percentage', 'Tax rate (e.g., "23.00").'],
+  ]}
+/>
+
+The form ("+ New") has the **Sku Code**, **Country** and **Tax Percentage** fields, with the **"Save"** and **"Close"** buttons.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the taxes according to the filters.', 'Combine SKU and country.'],
+    ['+ New', 'To configure a tax.', 'Opens the form.'],
+    ['Save', 'To store the tax.', 'Inform SKU, country and percentage.'],
+    ['Details / Edit', 'To query or change the tax.', 'Details is read-only.'],
+    ['Delete', 'To remove the tax.', 'Confirm before; it affects taxation.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Product Tax', 'Screen access', 'Allows opening the screen and maintaining the registration.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Product', 'The tax is configured per product (SKU).', 'The product must exist.'],
+    ['Fiscal / Export', 'The percentage is used in taxation, especially in international operations.', 'Check the rate by country.'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not calculate the order tax — it only defines the percentage by product and country.
+- It does not register the product — it comes from the Product registration.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the tax', 'Restrictive filters', 'Adjust the SKU or the country.'],
+    ['The rate is wrong', 'Incorrect configuration', 'Edit the "Tax Percentage".'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Product Tax for?', answer: 'To configure a product\'s (SKU) tax percentage by country, used in taxation.' },
+    { question: 'Which fields does the tax have?', answer: 'Sku Code, Country and Tax Percentage.' },
+    { question: 'Can a product have different taxes by country?', answer: 'Yes; each record defines the percentage for a product/country pair.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the Product Tax screen documentation.' },
+  ]}
+/>

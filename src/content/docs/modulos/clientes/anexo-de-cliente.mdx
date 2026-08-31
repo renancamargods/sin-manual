@@ -1,0 +1,190 @@
+---
+section: modulos
+routeSlug: clientes/anexo-de-cliente
+pageType: routine
+module: clientes
+moduleLabel: Clientes
+title: Anexo de Cliente
+description: Cadastro de documentos (anexos) vinculados ao cadastro do cliente, com arquivo, descrição e palavras-chave.
+routineType: Cadastro
+permission: Sim
+impact: Guarda documentos vinculados ao cadastro do cliente
+keywords: [anexo de cliente, anexo, documento do cliente, arquivo, palavras chave, upload, clientes]
+tags: [modulo-clientes, cadastro]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Anexo de Cliente** guarda os **documentos (anexos)** vinculados a um **cliente** — por exemplo, comprovantes, documentos com foto e registros. Cada anexo tem o **arquivo**, uma **descrição** e **palavras-chave** que ajudam a localizá-lo.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Documentos do cliente', text: 'Guarda arquivos vinculados ao cadastro do cliente.' },
+    { label: 'Uso', title: 'Anexar e localizar', text: 'Envie o arquivo com descrição e palavras-chave para achar depois.' },
+    { label: 'Composição', title: 'Arquivo + dados', text: 'Cada anexo tem arquivo, descrição, palavras-chave e o cliente.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Anexar um documento ao cadastro de um cliente.
+- Consultar ou baixar os anexos de um cliente.
+- Localizar um anexo por cliente, descrição ou nome do arquivo.
+
+## Como acessar
+
+Clientes → Anexo de Cliente
+
+## Antes de começar
+
+- Tenha o **arquivo** que será anexado.
+- Saiba a qual **cliente** o anexo pertence.
+- Confirme que o seu perfil permite anexar documentos.
+
+<Callout type="cuidado" title="Dados pessoais">
+Os anexos podem conter documentos pessoais dos clientes. Trate os arquivos com cuidado e siga as regras de privacidade da empresa.
+</Callout>
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros por "Cliente", "Descrição" e "Nome" (do arquivo), com "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use os filtros para localizar anexos.'],
+    ['Resultados', 'Lista dos anexos com as colunas "Cliente", "Descrição" e "Nome", e os ícones de baixar, detalhes, editar e excluir por linha.', 'Use o ícone de baixar para abrir o arquivo.'],
+    ['Cadastro', 'Formulário com o arquivo, a descrição, as palavras-chave e o cliente.', 'Escolha o arquivo antes de salvar.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Cliente', 'Filtra pelos anexos de um cliente.'],
+    ['Descrição', 'Filtra pela descrição do anexo.'],
+    ['Nome', 'Filtra pelo nome do arquivo.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Cliente', 'Cliente ao qual o anexo pertence.'],
+    ['Descrição', 'Descrição do anexo.'],
+    ['Nome', 'Nome do arquivo anexado.'],
+  ]}
+/>
+
+### Cadastro (+ Novo)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Arquivo', 'Escolhe o arquivo a ser anexado ("Escolher arquivo").'],
+    ['Descrição', 'Descrição que identifica o anexo.'],
+    ['Palavras Chave', 'Termos que ajudam a localizar o anexo na busca.'],
+    ['Cliente', 'Cliente ao qual o anexo será vinculado.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Anexar** — clique em **"+ Novo"**, use **"Escolher arquivo"** e informe a descrição, as palavras-chave e o cliente.
+2. **Salvar** — clique em **"Salvar"**.
+3. **Consultar/baixar** — na listagem, use os ícones da linha para baixar ou ver os detalhes.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os anexos conforme os filtros.', 'Combine cliente, descrição e nome.'],
+    ['+ Novo', 'Para anexar um documento.', 'Abre o formulário do anexo.'],
+    ['Salvar', 'Para guardar o anexo.', 'Escolha o arquivo antes.'],
+    ['Baixar', 'Para abrir/baixar o arquivo do anexo.', 'Trate documentos pessoais com cuidado.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar o anexo.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover o anexo.', 'Confirme antes; ação difícil de reverter.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Anexo de Cliente', 'Acesso à tela', 'Permite abrir a tela e consultar os anexos.'],
+    ['Anexar/editar', '+ Novo / Editar', 'Permite anexar e alterar documentos.'],
+    ['Excluir', 'Excluir', 'Permite remover anexos.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Anexo por cliente', 'Cada anexo é vinculado a um cliente.', 'Confira o cliente antes de salvar.'],
+    ['Busca por palavras-chave', 'As palavras-chave ajudam a localizar o anexo.', 'Use termos claros na hora de anexar.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Cliente', 'O anexo é vinculado ao cadastro do cliente.', 'O cliente precisa existir.'],
+    ['Tipos de Anexo / Domínio de Anexo', 'A classificação de anexos vem dos cadastros do Administrador.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra o cliente — ele vem do cadastro de Cliente.
+- Não edita o conteúdo do arquivo — apenas o armazena e o vincula.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o anexo', 'Filtros restritos', 'Ajuste cliente, descrição ou nome.'],
+    ['Não consigo anexar', 'Arquivo não escolhido ou falta de permissão', 'Escolha o arquivo e verifique a permissão.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Anexo de Cliente?', answer: 'Para guardar documentos (anexos) vinculados ao cadastro de um cliente, com arquivo, descrição e palavras-chave.' },
+    { question: 'Como anexo um documento?', answer: 'Clique em "+ Novo", use "Escolher arquivo", informe a descrição, as palavras-chave e o cliente, e salve.' },
+    { question: 'Como localizo um anexo?', answer: 'Use os filtros "Cliente", "Descrição" e "Nome" na pesquisa.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Anexo de Cliente.' },
+  ]}
+/>

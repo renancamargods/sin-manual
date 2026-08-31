@@ -1,0 +1,149 @@
+---
+section: modulos
+routeSlug: administrador/porto-de-destino
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Porto de Destino
+description: Cadastro e consulta dos portos de destino usados nas operações de comércio exterior, vinculados a um país.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Portos de destino usados em comércio exterior
+keywords: [porto de destino, comércio exterior, comex, porto, país, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Porto de Destino** mantém o cadastro dos portos usados como destino nas operações de comércio exterior. Cada porto reúne o **Nome do Porto**, o **Código do Porto** e o **país** ao qual pertence.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Portos de destino', text: 'Centraliza os portos usados nas operações internacionais.' },
+    { label: 'Uso', title: 'Comércio exterior', text: 'Os portos ficam disponíveis para seleção nas operações comex.' },
+    { label: 'Cuidado', title: 'Vínculo com o país', text: 'Cada porto precisa estar associado ao país correto.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo porto de destino.
+- Consultar ou localizar um porto pelo nome.
+- Editar o código ou o país de um porto.
+
+## Como acessar
+
+Administrador → Porto de Destino
+
+## Antes de começar
+
+- Tenha o **nome** e o **código** do porto.
+- Saiba a qual **país** ele pertence (cadastre o país antes, se necessário).
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Nome do Porto", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista dos portos com as colunas "Nome do Porto", "Código do Porto" e "Nome País", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela com os campos do porto.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome do Porto', 'Nome do porto de destino.'],
+    ['Código do Porto', 'Código que identifica o porto.'],
+    ['Id País', 'País ao qual o porto pertence. O botão "+" ao lado permite cadastrar um novo país.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe o **"Nome do Porto"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe **Nome do Porto**, **Código do Porto** e **Id País** e clique em **"Salvar"**.
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os portos conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar um novo porto.', '—'],
+    ['+ (ao lado do país)', 'Para cadastrar um novo país.', 'Use quando o país ainda não existir.'],
+    ['Detalhes', 'Para consultar um porto sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um porto existente.', '—'],
+    ['Excluir', 'Para remover um porto.', 'Ação sem retorno; evite excluir portos já usados.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Porto de Destino', 'Acesso à tela', 'Permite abrir e utilizar a tela de Porto de Destino.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['País', 'Cada porto é vinculado a um país.', 'Cadastre o país antes do porto.'],
+    ['Comércio exterior', 'Os portos são usados como destino nas operações internacionais.', 'Mantenha o cadastro atualizado.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não calcula rotas ou custos de transporte — apenas cadastra o porto de destino.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro um porto', 'Filtro muito restrito ou porto não cadastrado', 'Ajuste o "Nome do Porto" ou cadastre-o.'],
+    ['Não consigo selecionar o país', 'País ainda não cadastrado', 'Cadastre o país pelo "+" ao lado do campo.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar e consultar os portos de destino usados nas operações de comércio exterior.' },
+    { question: 'Como vinculo o país?', answer: 'Selecione o país no campo "Id País" ou cadastre um novo pelo "+" ao lado.' },
+    { question: 'Posso excluir um porto?', answer: 'Sim, pelo ícone de Excluir, mas evite remover portos já usados em operações.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Porto de Destino.' },
+  ]}
+/>

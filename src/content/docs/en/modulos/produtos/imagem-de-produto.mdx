@@ -1,0 +1,147 @@
+---
+section: modulos
+routeSlug: produtos/imagem-de-produto
+pageType: routine
+module: produtos
+moduleLabel: Products
+lang: en
+title: Product Image
+description: Registration of the images linked to products, with file, type, keywords and product.
+routineType: Registration
+permission: Yes
+impact: Stores the images linked to products
+keywords: [product image, image, photo, file, keywords, type, product, registration]
+tags: [modulo-produtos, cadastro]
+order: 7
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Product Image** screen stores the **images** linked to the **products**. Each image has the **file**, a **type**, **keywords** and the **product** it belongs to, and is used to display the products (for example, in catalogs).
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Product images', text: 'Stores the images linked to the products.' },
+    { label: 'Use', title: 'File + type', text: 'Each image has file, type, keywords and product.' },
+    { label: 'Nature', title: 'Support registration', text: 'Used to display the products.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Link an image to a product.
+- Query the images by name, keywords, type or product.
+- Fix or replace a product's image.
+
+## How to access
+
+Products → Product Image
+
+## Before you start
+
+- Have the image **file**.
+- Know the **type** and the **product** the image belongs to.
+- Confirm that your profile allows maintaining this registration.
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Name', 'Filters by the image name.'],
+    ['Keywords', 'Filters by the keywords.'],
+    ['Type', 'Filters by the image type.'],
+    ['Product', 'Filters by a product\'s images.'],
+  ]}
+/>
+
+### Registration (+ New)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['File', 'Chooses the image file ("Choose file").'],
+    ['Keywords', 'Terms that help locate the image.'],
+    ['Type', 'Type of the image.'],
+    ['Product', 'Product the image will be linked to.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the images according to the filters.', 'Combine name, type and product.'],
+    ['+ New', 'To link an image.', 'Opens the form.'],
+    ['Save', 'To store the image.', 'Choose the file and the product.'],
+    ['Details / Edit', 'To query or change the image.', 'Details is read-only.'],
+    ['Delete', 'To remove the image.', 'Confirm before.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Product Image', 'Screen access', 'Allows opening the screen and maintaining the registration.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Product', 'The image is linked to a product.', 'The product must exist.'],
+    ['Product Hierarchy / Catalog', 'The images are used to display the products.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not register the product — it only links the image to it.
+- It does not edit the image — it only stores and links it.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the image', 'Restrictive filters', 'Adjust name, type or product.'],
+    ['I cannot link', 'File not chosen or product not found', 'Choose the file and check the product.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Product Image for?', answer: 'To store the images linked to the products, used to display them.' },
+    { question: 'Which fields does the image have?', answer: 'File, Keywords, Type and Product.' },
+    { question: 'Can a product have several images?', answer: 'Yes; each record links an image to a product.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the Product Image screen documentation.' },
+  ]}
+/>

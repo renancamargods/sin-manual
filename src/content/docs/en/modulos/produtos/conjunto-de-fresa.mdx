@@ -1,0 +1,156 @@
+---
+section: modulos
+routeSlug: produtos/conjunto-de-fresa
+pageType: routine
+module: produtos
+moduleLabel: Products
+lang: en
+title: Milling Set
+description: Registration of the milling sets, associating a surgical kit with its milling burs and implants.
+routineType: Registration
+permission: Yes
+impact: Defines the milling sets (surgical kit, milling burs and implants) used in products
+keywords: [milling set, milling bur, surgical kit, implants, products, registration]
+tags: [modulo-produtos, cadastro]
+order: 2
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Milling Set** screen registers the **milling sets** used in the procedures: each set has a **description**, is associated with a **surgical kit** and gathers its **milling burs** and **implants**.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Milling sets', text: 'Gathers the milling burs and implants of a surgical kit.' },
+    { label: 'Use', title: 'Kit + burs + implants', text: 'Associates the surgical kit with its milling burs and implants.' },
+    { label: 'Nature', title: 'Support registration', text: 'Queried in the registration and use of products.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Query the registered milling sets.
+- Create a new milling set.
+- Associate milling burs and implants with a set.
+
+## How to access
+
+Products → Milling Set
+
+## Before you start
+
+- Define the set **description** and the **surgical kit**.
+- Know which **milling burs** and **implants** make up the set.
+- Confirm that your profile allows maintaining this registration.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Filter by "Description", with "Search", "+ New" and "Clear Filters".', 'Use the filter to locate the set.'],
+    ['Results', 'List of the sets by the "Description" column, with the details, edit and delete icons.', '—'],
+    ['Registration (3 tabs)', 'Tab "Milling Set" (description and surgical kit), tab "Milling Burs" and tab "Implants".', 'Build the milling burs and implants in the corresponding tabs.'],
+  ]}
+/>
+
+## Main fields
+
+### "Milling Set" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Description', 'Name that identifies the milling set.'],
+    ['Surgical Kit', 'Surgical kit associated with the set.'],
+  ]}
+/>
+
+### "Milling Burs" and "Implants" tabs
+
+<DocTable
+  headers={['Tab', 'What it gathers']}
+  rows={[
+    ['Milling Burs', 'The milling burs that make up the set.'],
+    ['Implants', 'The implants related to the set.'],
+  ]}
+/>
+
+The form has the **"Save and Continue"**, **"Save"** and **"Close"** buttons.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the sets according to the description.', '—'],
+    ['+ New', 'To create a set.', 'Opens the registration.'],
+    ['Save / Save and Continue', 'To store the set.', 'Inform the description and the kit.'],
+    ['Details / Edit', 'To query or change the set.', 'Details is read-only.'],
+    ['Delete', 'To remove the set.', 'Confirm before; it may be in use.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Milling Set', 'Screen access', 'Allows opening the screen and maintaining the registration.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Product', 'The milling burs and implants come from the product registration.', 'The product must exist.'],
+    ['Surgical Kit', 'The set is associated with a surgical kit.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not register the milling burs or implants — they come from the product registration.
+- It does not control stock — it only organizes the set.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the set', 'Restrictive filter', 'Adjust the description in the search.'],
+    ['I cannot add a milling bur/implant', 'Item not found', 'Check the product registration.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Milling Set for?', answer: 'To gather the milling burs and implants of a surgical kit into a set identified by description.' },
+    { question: 'How do I associate milling burs and implants?', answer: 'In the "Milling Burs" and "Implants" tabs of the set registration.' },
+    { question: 'What is the Surgical Kit?', answer: 'It is the kit the milling set is associated with.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the Milling Set screen documentation.' },
+  ]}
+/>

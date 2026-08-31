@@ -1,0 +1,133 @@
+---
+section: modulos
+routeSlug: regulatorios/grupo-do-produto
+pageType: routine
+module: regulatorios
+moduleLabel: Regulatórios
+title: Grupo do Produto
+description: Cadastro dos grupos regulatórios do produto, identificados pela descrição do grupo.
+routineType: Cadastro
+permission: Sim
+impact: Define os grupos usados na classificação regulatória dos produtos
+keywords: [grupo do produto, grupo regulatório, classificação regulatória, regulatórios, cadastro]
+tags: [modulo-regulatorios, cadastro]
+order: 13
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Grupo do Produto** (no módulo Regulatórios) mantém os **grupos regulatórios** usados para classificar os produtos sob o ponto de vista regulatório. Cada grupo é identificado pela sua **descrição**.
+
+<Callout type="info" title="Não confundir com o Grupo de Produto (módulo Produtos)">
+Existe também um **Grupo de Produto** no módulo **Produtos** (classificação comercial). Este **Grupo do Produto** é do módulo **Regulatórios** e tem finalidade regulatória.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Grupo regulatório', text: 'Mantém os grupos usados na classificação regulatória.' },
+    { label: 'Uso', title: 'Descrição do grupo', text: 'Cada grupo é identificado pela sua descrição.' },
+    { label: 'Natureza', title: 'Cadastro de apoio', text: 'Consultado na classificação regulatória dos produtos.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar os grupos regulatórios cadastrados.
+- Incluir um novo grupo.
+- Corrigir a descrição de um grupo.
+
+## Como acessar
+
+Regulatórios → Grupo do Produto
+
+## Antes de começar
+
+- Tenha a **descrição** do grupo.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Campos principais
+
+<DocTable
+  headers={['Campo / Coluna', 'O que é']}
+  rows={[
+    ['Grupo do Produto', 'Descrição do grupo regulatório do produto.'],
+  ]}
+/>
+
+O formulário ("+ Novo") tem o campo **Grupo do Produto**. Na listagem, cada linha tem os ícones de detalhes, editar e excluir.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os grupos.', '—'],
+    ['+ Novo', 'Para incluir um grupo.', 'Abre o formulário.'],
+    ['Salvar', 'Para guardar o grupo.', 'Informe a descrição.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar o grupo.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover o grupo.', 'Confirme antes; pode estar em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Grupo do Produto', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Linha do Produto / Registros', 'O grupo apoia a classificação regulatória do produto.', '—'],
+    ['Produto', 'O grupo regulatório é associado aos produtos.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra os produtos — apenas os grupos regulatórios.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o grupo', 'Filtro restrito', 'Ajuste a descrição na pesquisa.'],
+    ['Não consigo excluir', 'Grupo em uso', 'Verifique se há vínculos.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Grupo do Produto (Regulatórios)?', answer: 'Para manter os grupos usados na classificação regulatória dos produtos.' },
+    { question: 'É o mesmo que o Grupo de Produto do módulo Produtos?', answer: 'Não. Este é do módulo Regulatórios e tem finalidade regulatória.' },
+    { question: 'Quais campos o grupo tem?', answer: 'Apenas a descrição (Grupo do Produto).' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Grupo do Produto (Regulatórios).' },
+  ]}
+/>

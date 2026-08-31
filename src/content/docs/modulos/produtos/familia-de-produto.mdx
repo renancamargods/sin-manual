@@ -1,0 +1,161 @@
+---
+section: modulos
+routeSlug: produtos/familia-de-produto
+pageType: routine
+module: produtos
+moduleLabel: Produtos
+title: Família de Produto
+description: Cadastro das famílias de produto, com código, descrição e tipo, ligando a família a grupos, metas de consumo, itens de políticas e campanhas e imagens.
+routineType: Cadastro
+permission: Sim
+impact: Define as famílias de produto usadas na classificação e em políticas comerciais e de contratos
+keywords: [família de produto, família, grupo, metas de consumo, política de contrato, política comercial, campanha, imagens, produtos, cadastro]
+tags: [modulo-produtos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Família de Produto** agrupa os produtos por **família** (ex.: "Consumíveis", "Instrumentais", "Kits"). Além dos dados básicos (código, descrição, tipo), a família funciona como um **ponto de ligação** com **grupos**, **metas de consumo**, **itens de políticas de contratos e comercial**, **itens de campanha** e **imagens**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Agrupar por família', text: 'Organiza os produtos por família.' },
+    { label: 'Uso', title: 'Ponto de ligação', text: 'Liga a família a grupos, metas, políticas e campanhas.' },
+    { label: 'Natureza', title: 'Cadastro de apoio', text: 'Consultado por políticas comerciais e de contratos.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar as famílias de produto cadastradas.
+- Criar uma nova família.
+- Ligar a família a grupos, metas de consumo, políticas e campanhas.
+
+## Como acessar
+
+Produtos → Família de Produto
+
+## Antes de começar
+
+- Defina o **código**, a **descrição** e o **tipo** da família.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros por "Código" e "Descrição", com "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use os filtros para localizar a família.'],
+    ['Resultados', 'Lista das famílias pela coluna "Descrição", com os ícones de detalhes, editar e excluir.', '—'],
+    ['Cadastro (abas)', 'Aba "Família de Produto" (código, descrição, observação, tipo) e as abas "Grupos", "Metas de Consumos", "Itens de Políticas de Contratos", "Itens de Política Comercial", "Itens de Campanha da Família" e "Imagens".', 'Cada aba liga a família a um contexto diferente.'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Família de Produto"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código', 'Código que identifica a família.'],
+    ['Descrição', 'Descrição da família.'],
+    ['Observação', 'Observações sobre a família.'],
+    ['Tipo', 'Tipo da família.'],
+  ]}
+/>
+
+### Demais abas
+
+<DocTable
+  headers={['Aba', 'O que reúne']}
+  rows={[
+    ['Grupos', 'Grupos de produto ligados à família.'],
+    ['Metas de Consumos', 'Metas de consumo relacionadas à família.'],
+    ['Itens de Políticas de Contratos', 'Itens de políticas de contratos vinculados à família.'],
+    ['Itens de Política Comercial', 'Itens de política comercial vinculados à família.'],
+    ['Itens de Campanha da Família', 'Itens de campanha relacionados à família.'],
+    ['Imagens', 'Imagens associadas à família.'],
+  ]}
+/>
+
+O formulário tem os botões **"Salvar e Continuar"**, **"Salvar"** e **"Fechar"**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as famílias conforme os filtros.', '—'],
+    ['+ Novo', 'Para criar uma família.', 'Abre o cadastro.'],
+    ['Salvar / Salvar e Continuar', 'Para guardar a família.', 'Informe código, descrição e tipo.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar a família.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover a família.', 'Confirme antes; pode estar em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Família de Produto', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Grupo de Produto', 'A família reúne grupos de produto.', '—'],
+    ['Política Comercial / Política de Contrato', 'A família tem itens ligados a essas políticas.', '—'],
+    ['Meta de Consumo / Campanha', 'A família participa de metas de consumo e campanhas.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra os produtos — apenas a família e as suas ligações.
+- Não controla estoque.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro a família', 'Filtros restritos', 'Ajuste código e descrição.'],
+    ['Não consigo excluir', 'Família em uso', 'Verifique se há produtos ou políticas vinculadas.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Família de Produto?', answer: 'Para agrupar os produtos por família e ligar a família a grupos, metas de consumo, políticas e campanhas.' },
+    { question: 'Quais são as abas do cadastro?', answer: 'Família de Produto, Grupos, Metas de Consumos, Itens de Políticas de Contratos, Itens de Política Comercial, Itens de Campanha da Família e Imagens.' },
+    { question: 'A família controla estoque?', answer: 'Não. Ela apenas organiza e liga os produtos a outros contextos.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Família de Produto.' },
+  ]}
+/>

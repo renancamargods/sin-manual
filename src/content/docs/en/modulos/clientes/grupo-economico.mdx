@@ -1,0 +1,190 @@
+---
+section: modulos
+routeSlug: clientes/grupo-economico
+pageType: routine
+module: clientes
+moduleLabel: Customers
+lang: en
+title: Economic Group
+description: Registration of the economic groups that gather customers of the same group, with a purpose (e.g., Credit), status and bulk application.
+routineType: Registration
+permission: Yes
+impact: Defines the economic groups used, for example, in the customers' credit handling
+keywords: [economic group, group, credit, purpose, customers, bulk apply, registration]
+tags: [modulo-clientes, cadastro]
+order: 8
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Economic Group** screen gathers the **customers that belong to the same economic group**. Each group has a **name**, a **purpose** (for example, "Credit") and a **status** (Active). The group is used to handle its customers together — for example, in credit tracking.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Gather by group', text: 'Groups customers that belong to the same economic group.' },
+    { label: 'Use', title: 'Purpose (e.g., Credit)', text: 'Each group has a purpose, such as credit handling.' },
+    { label: 'Productivity', title: 'Bulk application', text: 'Allows applying the economic group in bulk.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Create an economic group to gather related customers.
+- Query the registered economic groups.
+- Activate or deactivate a group.
+- Apply an economic group in bulk.
+
+## How to access
+
+Customers → Economic Group
+
+## Before you start
+
+- Define the group **name** and its **purpose** (e.g., "Credit").
+- Know which **customers** will be part of the group.
+- Confirm that your profile allows maintaining this registration.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Filters by "Economic Group", "Purpose" and "Active" (Yes/No), with "Search" and "Clear Filters".', 'Use the filters to locate groups.'],
+    ['Registration actions', 'Buttons "+ New Economic Group" and "+ Apply Economic Group in Bulk".', 'The bulk application affects several customers at once.'],
+    ['Results', 'List of the groups with the operation columns and, on each row, the expand and open actions.', 'Use the open action to see the group details.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Economic Group', 'Filters by the group name.'],
+    ['Purpose', 'Filters by the group purpose (e.g., "Credit").'],
+    ['Active', 'Filters by active (Yes) or inactive (No) groups.'],
+  ]}
+/>
+
+### Results columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Economic Group', 'Group name.'],
+    ['Purpose', 'Group purpose (e.g., "Credit").'],
+    ['Active', 'Indicates whether the group is active (Yes/No).'],
+    ['Date and Time', 'Group creation/change date and time.'],
+    ['Actions', 'Expand the row and open the group details.'],
+  ]}
+/>
+
+### Registration ("Register Economic Group")
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Economic Group', 'Name that identifies the group.'],
+    ['Purpose', 'Group purpose (e.g., "Credit").'],
+  ]}
+/>
+
+The registration starts from these data and uses **"Save and Advance"** to move on to the group's next steps (such as including the customers that are part of it).
+
+## Main flows
+
+1. **Create the group** — click **"+ New Economic Group"**, inform the name and purpose and use **"Save and Advance"**.
+2. **Compose the group** — follow the steps to include the group customers.
+3. **Apply in bulk** — when needed, use **"+ Apply Economic Group in Bulk"**.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the groups according to the filters.', '—'],
+    ['+ New Economic Group', 'To create a group from scratch.', 'Opens the registration.'],
+    ['+ Apply Economic Group in Bulk', 'To apply the group to several customers at once.', 'Check the selection before applying.'],
+    ['Save and Advance', 'To save and move on to the next steps.', 'Review the data before.'],
+    ['Expand / Open', 'To see the group details.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Economic Group', 'Screen access', 'Allows opening the screen and querying the groups.'],
+    ['Register/edit', '+ New / Edit', 'Allows creating and changing economic groups.'],
+    ['Apply in bulk', 'Bulk Application', 'Allows applying the group to several customers at once.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Group purpose', 'The purpose (e.g., "Credit") defines the group use.', 'Choose the purpose according to the goal.'],
+    ['Active/Inactive', 'The status controls whether the group is available for use.', 'Deactivate instead of deleting when you want to keep the history.'],
+    ['Bulk application', 'Allows associating the group with several customers at once.', 'Review the selection before confirming.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Customer', 'The group customers come from the Customer registration.', 'The customer must exist.'],
+    ['Credit', 'The "Credit" purpose links the group to the customers\' credit handling.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not register the customers — they come from the Customer registration.
+- It does not, by itself, define each customer's credit limit — it organizes the group.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the group', 'Restrictive filters or inactive group', 'Adjust the filters and the "Active".'],
+    ['I cannot apply in bulk', 'Missing permission or invalid selection', 'Check the permission and the selection.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Economic Group for?', answer: 'To gather customers that belong to the same economic group, with a purpose (e.g., Credit), and handle them together.' },
+    { question: 'What is the "Purpose"?', answer: 'It is the group goal, such as "Credit".' },
+    { question: 'What does "Apply Economic Group in Bulk" do?', answer: 'It allows applying the group to several customers at once.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the Economic Group screen documentation.' },
+  ]}
+/>

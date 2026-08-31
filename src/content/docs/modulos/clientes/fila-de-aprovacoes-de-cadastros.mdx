@@ -1,0 +1,188 @@
+---
+section: modulos
+routeSlug: clientes/fila-de-aprovacoes-de-cadastros
+pageType: routine
+module: clientes
+moduleLabel: Clientes
+title: Fila de Aprovações de Cadastros
+description: Fila dos cadastros de cliente aguardando aprovação, com filtros por tipo de pessoa e situação, totalizadores e as abas de clientes a liberar e em avaliação.
+routineType: Consulta e fila
+permission: Sim
+impact: Acompanha e apoia a liberação dos cadastros de cliente aguardando aprovação
+keywords: [fila de aprovações de cadastros, aprovação de cadastro, cliente, liberar cliente, primeira aprovação, reprovadas, clientes em avaliação, clientes]
+tags: [modulo-clientes, consulta]
+order: 7
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Fila de Aprovações de Cadastros** (cujo cabeçalho aparece como **"Fila de Aprovações - Clientes"**) reúne os **cadastros de cliente que aguardam aprovação**. A partir dela, a equipe responsável filtra os cadastros pendentes, acompanha os totalizadores e trata os clientes que estão **a liberar** ou **em avaliação**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Liberar cadastros', text: 'Reúne os cadastros de cliente aguardando aprovação.' },
+    { label: 'Uso', title: 'Filtrar e acompanhar', text: 'Filtra por tipo de pessoa e situação e acompanha a fila.' },
+    { label: 'Organização', title: 'Liberar x em avaliação', text: 'Separa os clientes a liberar dos que estão em avaliação.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Acompanhar os cadastros de cliente que aguardam aprovação.
+- Filtrar os cadastros por tipo de pessoa (Física, Jurídica, Estrangeiro) e por situação.
+- Ver os clientes a liberar e os que estão em avaliação.
+- Acompanhar a quantidade de clientes aguardando aprovação.
+
+## Como acessar
+
+Clientes → Fila de Aprovações de Cadastros
+
+## Antes de começar
+
+- Saiba quais cadastros quer acompanhar (cliente, tipo de pessoa, empresa).
+- Confirme que o seu perfil participa da aprovação de cadastros.
+
+<Callout type="info" title="Relação com os fluxos de aprovação">
+Esta fila faz parte dos fluxos de **Cadastro de Clientes x Aprovações** (com e sem Ignition). As etapas e os aprovadores seguem a regra de aprovação configurada.
+</Callout>
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros por "Cliente", "Tipo de Pessoa" (Física/Jurídica/Estrangeiro), "Situação" (Primeira Aprovação/Reprovadas) e "Empresas", com "Atualizar" e "Limpar Filtros".', 'Use os filtros para focar nos cadastros desejados.'],
+    ['Totalizadores de Clientes', 'Mostra a "Quantidade Clientes Aguardando Aprovação".', 'Acompanhe o volume pendente.'],
+    ['Abas', 'Aba "Clientes a Liberar" e aba "Clientes em Avaliação".', 'Separam os cadastros conforme a etapa.'],
+    ['Resultados', 'Grade com os cadastros e as colunas do cliente.', 'A grade fica vazia quando não há cadastros pendentes.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Cliente', 'Filtra pelo cliente do cadastro.'],
+    ['Tipo de Pessoa', 'Filtra por "Física", "Jurídica" ou "Estrangeiro".'],
+    ['Situação', 'Filtra por "Primeira Aprovação" ou "Reprovadas".'],
+    ['Empresas', 'Filtra pela empresa (ex.: "1 - S.I.N Brasil").'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Iniciado em', 'Data em que o cadastro entrou na fila.'],
+    ['Status de Cadastro', 'Situação atual do cadastro.'],
+    ['Código do Cliente', 'Código do cliente.'],
+    ['Nome', 'Nome do cliente.'],
+    ['Ramo de Atividade', 'Ramo de atividade do cliente.'],
+    ['Documento (CPF/CNPJ)', 'Documento do cliente.'],
+    ['Cliente em Lounge', 'Indica se o cliente está vinculado a um Lounge.'],
+    ['Cliente com Pedido em Rascunho', 'Indica se o cliente tem pedido em rascunho.'],
+    ['Empresas', 'Empresa(s) do cadastro.'],
+  ]}
+/>
+
+## Abas
+
+<DocTable
+  headers={['Aba', 'O que mostra']}
+  rows={[
+    ['Clientes a Liberar', 'Cadastros de cliente pendentes de liberação (aprovação).'],
+    ['Clientes em Avaliação', 'Cadastros que estão em avaliação.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Atualizar', 'Para atualizar a fila conforme os filtros.', 'Combine tipo de pessoa e situação.'],
+    ['Limpar Filtros', 'Para zerar os filtros.', '—'],
+    ['Abrir o cadastro', 'Para analisar e tratar um cadastro pendente.', 'A liberação segue a regra de aprovação.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Fila de Aprovações de Cadastros', 'Acesso à tela', 'Permite abrir a fila e consultar os cadastros pendentes.'],
+    ['Aprovar/reprovar cadastro', 'Liberação', 'Permite liberar ou reprovar os cadastros de cliente, conforme a regra de aprovação.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Fila de pendências', 'A tela mostra apenas os cadastros aguardando aprovação.', 'Após a liberação, saem da fila.'],
+    ['Etapas da aprovação', 'Os cadastros passam por "a liberar" e "em avaliação".', 'Acompanhe pela aba correspondente.'],
+    ['Regra de aprovação', 'Quem aprova e em que ordem depende da regra configurada.', 'Consulte os fluxos de Cadastro de Clientes x Aprovações.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Cliente', 'A fila trata os cadastros vindos da tela de Cliente.', '—'],
+    ['Aprovações (Regra de Aprovação)', 'A liberação segue a regra de aprovação configurada.', '—'],
+    ['Fluxos: Cadastro de Clientes x Aprovações', 'Esta fila é a etapa de aprovação dos cadastros.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cria o cadastro do cliente — apenas trata os que aguardam aprovação.
+- Não define, por si só, a regra de aprovação — ela vem do módulo de Aprovações.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A fila aparece vazia', 'Não há cadastros pendentes ou filtros restritos', 'Ajuste ou limpe os filtros.'],
+    ['Não consigo liberar um cadastro', 'Falta de permissão ou etapa de aprovação diferente', 'Verifique a permissão e a regra de aprovação.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta fila?', answer: 'Para acompanhar e tratar os cadastros de cliente que aguardam aprovação, separando os que estão a liberar dos que estão em avaliação.' },
+    { question: 'Como filtro por tipo de cliente?', answer: 'Use o filtro "Tipo de Pessoa": Física, Jurídica ou Estrangeiro.' },
+    { question: 'Qual a diferença entre "Clientes a Liberar" e "Clientes em Avaliação"?', answer: 'A primeira aba traz os cadastros pendentes de liberação; a segunda, os que estão em avaliação.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Fila de Aprovações de Cadastros.' },
+  ]}
+/>

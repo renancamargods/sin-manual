@@ -161,6 +161,66 @@ Na prática, cada tipo de cliente segue um caminho um pouco diferente até ser a
 O caminho de aprovação de cada tipo de pessoa vem da Regra de Aprovação. Se as etapas ou a ordem mudarem na regra, o fluxo muda junto — sempre confira a configuração atual.
 </Callout>
 
+## Fluxograma — caminho de aprovação por tipo de cliente
+
+O diagrama abaixo mostra o caminho de aprovação conforme o **tipo de pessoa** (Física, Jurídica ou Estrangeiro) até a ativação e a geração do Código SAP.
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 900 560" width="900" role="img" aria-label="Fluxograma de aprovação de clientes por tipo de pessoa" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwc" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwc)">
+    <path d="M450,76 L450,106" />
+    <path d="M300,150 L150,150 L150,230" />
+    <path d="M450,190 L450,230" />
+    <path d="M600,150 L760,150 L760,230" />
+    <path d="M150,278 L150,300" />
+    <path d="M450,278 L450,300" />
+    <path d="M450,346 L450,368" />
+    <path d="M760,278 L760,300" />
+    <path d="M150,346 L150,479 L314,479" />
+    <path d="M450,414 L450,450" />
+    <path d="M760,346 L760,479 L586,479" />
+  </g>
+  <g font-size="12.5" fill="#5c6b7a">
+    <text x="222" y="142" text-anchor="middle">F&#237;sica</text>
+    <text x="462" y="214">Jur&#237;dica</text>
+    <text x="680" y="142" text-anchor="middle">Estrangeiro</text>
+  </g>
+  <rect x="300" y="22" width="300" height="54" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+  <text x="450" y="45" text-anchor="middle" font-size="13" fill="#1a1417" font-weight="600">Cliente enviado para aprova&#231;&#227;o</text>
+  <text x="450" y="64" text-anchor="middle" font-size="12" fill="#5c6b7a">status &#8220;Aguardando aprova&#231;&#245;es&#8221;</text>
+  <polygon points="450,110 600,150 450,190 300,150" fill="#fef3e2" stroke="#f18800" stroke-width="1.6"/>
+  <text x="450" y="155" text-anchor="middle" font-size="12.5" fill="#1a1417">Tipo de pessoa?</text>
+  <g font-size="12.5" fill="#1a1417">
+    <rect x="40" y="234" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="150" y="261" text-anchor="middle">Aprova&#231;&#227;o ADM Vendas</text>
+    <rect x="40" y="302" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="150" y="329" text-anchor="middle">Aprova&#231;&#227;o Cr&#233;dito</text>
+    <rect x="340" y="234" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="450" y="261" text-anchor="middle">Aprova&#231;&#227;o ADM Vendas</text>
+    <rect x="340" y="302" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="450" y="329" text-anchor="middle">Aprova&#231;&#227;o Cr&#233;dito</text>
+    <rect x="340" y="370" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="450" y="397" text-anchor="middle">Aprova&#231;&#227;o Fiscal</text>
+    <rect x="650" y="234" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="760" y="261" text-anchor="middle">Aprova&#231;&#227;o Cr&#233;dito Comex</text>
+    <rect x="650" y="302" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="760" y="329" text-anchor="middle">Aprova&#231;&#227;o Fiscal Comex</text>
+  </g>
+  <rect x="320" y="452" width="260" height="54" rx="10" fill="#e6f4ec" stroke="#1f9d63" stroke-width="1.8"/>
+  <text x="450" y="476" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1f7a4d">Cliente ATIVO</text>
+  <text x="450" y="494" text-anchor="middle" font-size="12" fill="#1f7a4d">+ C&#243;digo SAP</text>
+</svg>
+</div>
+
+<Callout type="dica" title="Como ler o fluxograma">
+O caminho depende do **tipo de pessoa**: <strong>Física</strong> passa por ADM Vendas e Crédito; <strong>Jurídica</strong> tem ainda a etapa Fiscal; <strong>Estrangeiro</strong> segue por Crédito Comex e Fiscal Comex. Ao final, o cliente é ativado e recebe o Código SAP.
+</Callout>
+
 ## Ativação final do cadastro
 
 Depois de alguns segundos ou minutos, o sistema **ativa o cadastro automaticamente**, independentemente do tipo de cliente. Nesse momento é possível ver a **atualização mais recente** e o **Código SAP**, gerado pelo próprio sistema para identificar aquele cliente. A partir daí, o processo está concluído e o cliente já está pronto para uso.

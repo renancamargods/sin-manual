@@ -1,0 +1,129 @@
+---
+section: modulos
+routeSlug: regulatorios/cartucho
+pageType: routine
+module: regulatorios
+moduleLabel: Regulatórios
+title: Cartucho
+description: Cadastro dos cartuchos relacionados aos produtos, identificados pelo código do cartucho, usados no processo de encartuchamento.
+routineType: Cadastro
+permission: Sim
+impact: Define os cartuchos usados no encartuchamento e na rastreabilidade regulatória
+keywords: [cartucho, código do cartucho, encartuchadora, encartuchamento, regulatórios, cadastro]
+tags: [modulo-regulatorios, cadastro]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Cartucho** mantém o cadastro dos **cartuchos** relacionados aos produtos, identificados pelo **código do cartucho** (ex.: "EC0007"). Os cartuchos são usados no processo de **encartuchamento** e na rastreabilidade regulatória.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cartuchos dos produtos', text: 'Mantém os cartuchos relacionados aos produtos.' },
+    { label: 'Uso', title: 'Código do cartucho', text: 'Cada cartucho é identificado por um código.' },
+    { label: 'Natureza', title: 'Cadastro de apoio', text: 'Usado no encartuchamento e na rastreabilidade.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar os cartuchos cadastrados.
+- Incluir um novo cartucho.
+- Corrigir o código de um cartucho.
+
+## Como acessar
+
+Regulatórios → Cartucho
+
+## Antes de começar
+
+- Tenha o **código** do cartucho.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Campos principais
+
+<DocTable
+  headers={['Campo / Coluna', 'O que é']}
+  rows={[
+    ['Codigo do Cartucho', 'Código que identifica o cartucho (ex.: "EC0007").'],
+  ]}
+/>
+
+O formulário ("+ Novo") tem o campo **Codigo do Cartucho**. Na listagem, cada linha tem os ícones de detalhes, editar e excluir.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os cartuchos conforme o código.', '—'],
+    ['+ Novo', 'Para incluir um cartucho.', 'Abre o formulário.'],
+    ['Salvar', 'Para guardar o cartucho.', 'Informe o código.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar o cartucho.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover o cartucho.', 'Confirme antes; pode estar em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Cartucho', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Etiqueta Encartuchadora', 'O cartucho é usado no processo de encartuchamento e nas etiquetas.', '—'],
+    ['Produto', 'O cartucho está relacionado aos produtos.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra os produtos — apenas os cartuchos.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o cartucho', 'Filtro restrito', 'Ajuste o código na pesquisa.'],
+    ['Não consigo excluir', 'Cartucho em uso', 'Verifique se há produtos/etiquetas vinculadas.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Cartucho?', answer: 'Para manter os cartuchos (código) relacionados aos produtos, usados no encartuchamento e na rastreabilidade regulatória.' },
+    { question: 'Quais campos o cartucho tem?', answer: 'Apenas o Codigo do Cartucho.' },
+    { question: 'Posso excluir um cartucho em uso?', answer: 'Não é recomendado; verifique antes se há vínculos.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Cartucho.' },
+  ]}
+/>

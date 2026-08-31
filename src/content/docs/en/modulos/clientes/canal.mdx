@@ -1,0 +1,131 @@
+---
+section: modulos
+routeSlug: clientes/canal
+pageType: routine
+module: clientes
+moduleLabel: Customers
+lang: en
+title: Channel
+description: Registration of the sales channels associated with customers (e.g., Retail, Distributor, Key Account, International), by description.
+routineType: Registration
+permission: Yes
+impact: Defines the sales channels used in customer classification
+keywords: [channel, sales channel, retail, distributor, key account, international, customers, registration]
+tags: [modulo-clientes, cadastro]
+order: 4
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Channel** screen keeps the list of **sales channels** associated with customers — for example, "Retail", "Distributor", "Key Account" and "International". The channel helps to **classify** the customer and is used in commercial rules and analyses.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Sales channels', text: 'Keeps the sales channels associated with customers.' },
+    { label: 'Use', title: 'Classify the customer', text: 'The channel helps classify the customer for commercial rules.' },
+    { label: 'Nature', title: 'Support registration', text: 'Simple registration, queried by other screens.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Query the registered channels.
+- Add a new sales channel.
+- Fix the description of a channel.
+
+## How to access
+
+Customers → Channel
+
+## Before you start
+
+- Define the channel **description**.
+- Confirm that your profile allows maintaining this registration.
+
+## Main fields
+
+<DocTable
+  headers={['Field / Column', 'What it is']}
+  rows={[
+    ['Description', 'Name of the sales channel (e.g., "Retail", "Distributor", "Key Account").'],
+  ]}
+/>
+
+The form ("+ New") has only the **Description** field, with the **"Save and Continue"**, **"Save"** and **"Close"** buttons. In the listing, each row has the details, edit and delete icons.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the channels according to the description.', '—'],
+    ['+ New', 'To add a channel.', 'Opens the form.'],
+    ['Save / Save and Continue', 'To store the channel.', 'Inform the description.'],
+    ['Details / Edit', 'To query or change the channel.', 'Details is read-only.'],
+    ['Delete', 'To remove the channel.', 'Confirm before; it may be in use by customers.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Channel', 'Screen access', 'Allows opening the screen and maintaining the registration.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Customer', 'The channel is associated with the customer in its classification.', 'The channel must exist to be linked.'],
+    ['Commercial policies', 'The channel can be used in commercial rules and restrictions.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not classify the customer automatically — it only maintains the list of channels.
+- It does not define prices or discounts by itself.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the channel', 'Restrictive filter', 'Adjust the description in the search.'],
+    ['I cannot delete', 'Channel in use by customers', 'Check whether there are linked customers.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Channel for?', answer: 'To keep the sales channels (e.g., Retail, Distributor, Key Account) associated with customers.' },
+    { question: 'Which fields does the channel have?', answer: 'Only the Description.' },
+    { question: 'Can I delete a channel in use?', answer: 'It is not recommended; check first whether there are linked customers.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the Channel screen documentation.' },
+  ]}
+/>

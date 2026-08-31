@@ -1,0 +1,169 @@
+---
+section: modulos
+routeSlug: produtos/hierarquia-de-produto
+pageType: routine
+module: produtos
+moduleLabel: Produtos
+title: Hierarquia de Produto
+description: Estrutura hierárquica (em árvore) usada para organizar os produtos por níveis, com título, nível, pai, filhos, produtos e imagem — usada, por exemplo, no aplicativo de catálogos.
+routineType: Cadastro
+permission: Sim
+impact: Define a estrutura hierárquica usada para organizar e exibir os produtos
+keywords: [hierarquia de produto, hierarquia, árvore, nível, pai, filhos, catálogo, aplicativo de catálogos, produtos, cadastro]
+tags: [modulo-produtos, cadastro]
+order: 6
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Hierarquia de Produto** monta a **estrutura hierárquica** (em árvore) usada para **organizar os produtos por níveis**. Cada nó tem um **título**, um **nível**, um **pai** e pode ter **filhos**, além dos **produtos** e uma **imagem**. Essa estrutura é usada, por exemplo, no **aplicativo de catálogos**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Organizar em árvore', text: 'Estrutura os produtos por níveis (pai e filhos).' },
+    { label: 'Uso', title: 'Catálogos', text: 'Usada, por exemplo, no aplicativo de catálogos.' },
+    { label: 'Composição', title: 'Nó + produtos', text: 'Cada nó tem título, nível, pai, filhos, produtos e imagem.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Montar ou ajustar a hierarquia de produtos.
+- Definir os níveis, pais e filhos da estrutura.
+- Associar produtos a um nó da hierarquia.
+
+## Como acessar
+
+Produtos → Hierarquia de Produto
+
+## Antes de começar
+
+- Planeje a estrutura (níveis, pais e filhos).
+- Saiba quais **produtos** entram em cada nó.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa', 'Botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista dos nós pela coluna "Título", com os ícones de detalhes, editar e excluir.', '—'],
+    ['Cadastro (3 abas)', 'Aba "Hierarquia de Produto" (dados do nó), aba "Filhos" (nós filhos) e aba "Imagem".', 'Monte os filhos na aba "Filhos".'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Hierarquia de Produto"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Título', 'Nome que identifica o nó da hierarquia.'],
+    ['Nível', 'Nível do nó na estrutura.'],
+    ['Tipo', 'Tipo da hierarquia (ex.: "Aplicativo de Catálogos").'],
+    ['Exibir Produtos?', 'Define se o nó exibe produtos (Sim ou Não).'],
+    ['Pai', 'Nó pai ao qual este nó pertence.'],
+    ['Produtos', 'Produtos associados ao nó.'],
+  ]}
+/>
+
+### Abas "Filhos" e "Imagem"
+
+<DocTable
+  headers={['Aba', 'O que reúne']}
+  rows={[
+    ['Filhos', 'Os nós filhos deste nó.'],
+    ['Imagem', 'A imagem associada ao nó.'],
+  ]}
+/>
+
+O formulário tem os botões **"Salvar e Continuar"**, **"Salvar"** e **"Fechar"**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os nós.', '—'],
+    ['+ Novo', 'Para criar um nó da hierarquia.', 'Abre o cadastro.'],
+    ['Salvar / Salvar e Continuar', 'Para guardar o nó.', 'Informe título, nível e pai.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar o nó.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover o nó.', 'Confirme antes; pode ter filhos vinculados.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Hierarquia de Produto', 'Acesso à tela', 'Permite abrir a tela e manter a hierarquia.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Estrutura em árvore', 'Cada nó tem um pai e pode ter filhos.', 'Monte a hierarquia de cima para baixo.'],
+    ['Exibição de produtos', 'A opção "Exibir Produtos?" controla se o nó mostra produtos.', 'Use conforme o nível da hierarquia.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Produto', 'Os produtos associados ao nó vêm do cadastro de produtos.', 'O produto precisa existir.'],
+    ['Aplicativo de Catálogos', 'A hierarquia organiza os produtos exibidos no catálogo.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra os produtos — apenas os organiza na hierarquia.
+- Não controla estoque nem preços.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o nó', 'Filtro restrito', 'Ajuste a pesquisa.'],
+    ['Não consigo excluir', 'Nó com filhos ou produtos vinculados', 'Verifique os filhos e produtos do nó.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Hierarquia de Produto?', answer: 'Para organizar os produtos em uma estrutura em árvore (níveis, pais e filhos), usada por exemplo no aplicativo de catálogos.' },
+    { question: 'Como defino os filhos de um nó?', answer: 'Na aba "Filhos" do cadastro do nó.' },
+    { question: 'O que é "Exibir Produtos?"', answer: 'Define se aquele nó exibe produtos na hierarquia.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Hierarquia de Produto.' },
+  ]}
+/>

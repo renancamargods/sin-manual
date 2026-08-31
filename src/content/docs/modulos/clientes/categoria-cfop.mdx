@@ -1,0 +1,131 @@
+---
+section: modulos
+routeSlug: clientes/categoria-cfop
+pageType: routine
+module: clientes
+moduleLabel: Clientes
+title: Categoria CFOP
+description: Cadastro das categorias de CFOP usadas nas operações fiscais dos clientes, por código e descrição.
+routineType: Cadastro
+permission: Sim
+impact: Define as categorias de CFOP usadas na classificação fiscal dos clientes
+keywords: [categoria cfop, cfop, categoria fiscal, código da categoria, clientes, cadastro, fiscal]
+tags: [modulo-clientes, cadastro]
+order: 5
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Categoria CFOP** mantém as **categorias de CFOP** usadas nas **operações fiscais** dos clientes — por exemplo, "Cliente Agrícola", "Cliente Isento", "Prestações de Serviços" e "Transportes". Cada categoria tem um **código** e uma **descrição**, e ajuda a definir o tratamento fiscal aplicado ao cliente.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Categorias de CFOP', text: 'Mantém as categorias de CFOP usadas nas operações fiscais dos clientes.' },
+    { label: 'Uso', title: 'Código e descrição', text: 'Cada categoria tem um código e uma descrição.' },
+    { label: 'Natureza', title: 'Cadastro fiscal de apoio', text: 'Cadastro consultado na classificação fiscal do cliente.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar as categorias de CFOP cadastradas.
+- Incluir uma nova categoria de CFOP.
+- Corrigir o código ou a descrição de uma categoria.
+
+## Como acessar
+
+Clientes → Categoria CFOP
+
+## Antes de começar
+
+- Tenha o **código** e a **descrição** da categoria de CFOP.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Campos principais
+
+<DocTable
+  headers={['Campo / Coluna', 'O que é']}
+  rows={[
+    ['Código da Categoria', 'Código que identifica a categoria de CFOP (ex.: "07").'],
+    ['Descrição da categoria CFOP', 'Descrição da categoria (ex.: "Cliente Agrícola", "Prestações de Serviços").'],
+  ]}
+/>
+
+O formulário ("+ Novo") tem os campos **Código da Categoria** e **Descrição da categoria CFOP**. Na listagem, cada linha tem os ícones de detalhes, editar e excluir.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as categorias conforme a descrição.', '—'],
+    ['+ Novo', 'Para incluir uma categoria.', 'Abre o formulário.'],
+    ['Salvar', 'Para guardar a categoria.', 'Informe código e descrição.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar a categoria.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover a categoria.', 'Confirme antes; pode estar em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Categoria CFOP', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Cliente', 'A categoria de CFOP é usada na classificação fiscal do cliente.', 'A categoria precisa existir para ser vinculada.'],
+    ['Fiscal', 'A categoria orienta o tratamento fiscal (CFOP) das operações.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não define os CFOPs em si — apenas as categorias usadas na classificação.
+- Não altera notas fiscais.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro a categoria', 'Filtro restrito', 'Ajuste a descrição na pesquisa.'],
+    ['Não consigo excluir', 'Categoria em uso', 'Verifique se há clientes vinculados.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Categoria CFOP?', answer: 'Para manter as categorias de CFOP usadas nas operações fiscais e na classificação fiscal dos clientes.' },
+    { question: 'Quais campos a categoria tem?', answer: 'Código da Categoria e Descrição da categoria CFOP.' },
+    { question: 'Posso excluir uma categoria em uso?', answer: 'Não é recomendado; verifique antes se há clientes vinculados.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Categoria CFOP.' },
+  ]}
+/>

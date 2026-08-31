@@ -1,0 +1,144 @@
+---
+section: modulos
+routeSlug: produtos/saldo-de-estoque-agrupado
+pageType: routine
+module: produtos
+moduleLabel: Produtos
+title: Saldo de Estoque Agrupado
+description: Consulta da posição de estoque dos produtos de forma agrupada (consolidada), por Lounge, produto e descrição.
+routineType: Consulta
+permission: Sim
+impact: Mostra a posição de estoque dos produtos de forma agrupada
+keywords: [saldo de estoque agrupado, estoque agrupado, saldo consolidado, quantidade, lounge, produtos, consulta]
+tags: [modulo-produtos, consulta]
+order: 11
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Saldo de Estoque Agrupado** mostra a **posição de estoque** dos produtos de forma **agrupada (consolidada)**, por **Lounge**, **produto** e **descrição**, com a **quantidade**. É uma visão resumida, complementar ao **Saldo de Estoque** (que detalha por depósito).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Estoque consolidado', text: 'Mostra o saldo de estoque de forma agrupada.' },
+    { label: 'Uso', title: 'Filtrar e consolidar', text: 'Filtra por Lounge, produto e descrição.' },
+    { label: 'Natureza', title: 'Consulta', text: 'Apresenta a posição de estoque de forma resumida.' },
+  ]}
+/>
+
+<Callout type="atencao" title="Carregamento com erro no ambiente consultado">
+No momento da elaboração deste documento, o **carregamento dos dados** desta tela retornou um erro no ambiente de homologação (mensagem de erro ao processar a informação, referente ao campo interno de lote), e a lista ficou vazia. Por isso, esta página descreve a tela de forma **conservadora**, com base na sua finalidade e nos filtros/colunas visíveis. Os dados devem carregar normalmente quando o problema estiver resolvido.
+</Callout>
+
+## Quando usar esta tela
+
+- Consultar o saldo de estoque de forma consolidada.
+- Ver a quantidade agrupada por Lounge e produto.
+
+## Como acessar
+
+Produtos → Saldo de Estoque Agrupado
+
+## Antes de começar
+
+- Saiba o **produto** ou o **Lounge** que quer consultar.
+- Confirme que o seu perfil tem acesso à tela.
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Lounge', 'Filtra pelo Lounge (unidade).'],
+    ['Produto', 'Filtra pelo produto.'],
+    ['Descrição', 'Filtra pela descrição do produto.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Lounge', 'Lounge (unidade) do saldo.'],
+    ['Produto', 'Código do produto.'],
+    ['Descrição', 'Descrição do produto.'],
+    ['Quantidade', 'Quantidade em estoque (agrupada).'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os saldos agrupados conforme os filtros.', 'Combine Lounge e produto.'],
+    ['Limpar Filtros', 'Para zerar os filtros.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Saldo de Estoque Agrupado', 'Acesso à tela', 'Permite abrir a tela e consultar o saldo agrupado.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Saldo de Estoque', 'Esta tela apresenta o saldo de forma agrupada; o Saldo de Estoque detalha por depósito.', 'Use o detalhado para ver por depósito.'],
+    ['Produto', 'O saldo é de produtos cadastrados.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra o produto — ele vem do cadastro de Produto.
+- Não ajusta o estoque — é uma consulta.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A lista fica vazia / erro ao processar', 'Falha no carregamento dos dados no ambiente', 'Tente novamente mais tarde ou consulte o Saldo de Estoque; avise o administrador se persistir.'],
+    ['Não encontro o produto', 'Filtros restritos', 'Ajuste Lounge, produto ou descrição.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Saldo de Estoque Agrupado?', answer: 'Para consultar a posição de estoque dos produtos de forma agrupada (consolidada), por Lounge e produto.' },
+    { question: 'Qual a diferença para o Saldo de Estoque?', answer: 'O Saldo de Estoque detalha por depósito; o agrupado apresenta a quantidade de forma consolidada.' },
+    { question: 'Por que a lista pode aparecer vazia?', answer: 'No ambiente consultado houve um erro no carregamento dos dados. Tente novamente e avise o administrador se persistir.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial (conservadora — dados não carregaram no ambiente de homologação no momento da elaboração).' },
+  ]}
+/>

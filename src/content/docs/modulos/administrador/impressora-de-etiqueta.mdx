@@ -1,0 +1,155 @@
+---
+section: modulos
+routeSlug: administrador/impressora-de-etiqueta
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Impressora de Etiqueta
+description: Cadastro das impressoras de etiqueta por Lounge, com tipo de conexão (rede ou compartilhada), impressora padrão e situação.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Impressoras de etiqueta usadas na geração de etiquetas
+keywords: [impressora de etiqueta, etiqueta, impressora, rede, compartilhada, lounge, zpl, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Impressora de Etiqueta** cadastra as impressoras usadas para gerar etiquetas em cada **Lounge**. Cada impressora tem um **Tipo de Conexão** (Rede ou Compartilhada), pode ser definida como **Padrão** da unidade e ter uma **Observação**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Impressoras por Lounge', text: 'Cadastra as impressoras de etiqueta de cada unidade.' },
+    { label: 'Uso', title: 'Geração de etiquetas', text: 'As impressoras são usadas nas rotinas de etiquetagem.' },
+    { label: 'Cuidado', title: 'Impressora padrão', text: 'Cada Lounge deve ter uma impressora padrão definida.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova impressora de etiqueta.
+- Definir a impressora padrão de um Lounge.
+- Consultar, editar ou excluir impressoras.
+
+## Como acessar
+
+Administrador → Impressora de Etiqueta
+
+## Antes de começar
+
+- Saiba o **Lounge** (Centro) da impressora.
+- Defina o **Tipo de Conexão**: Rede (endereço IP e porta) ou Compartilhada (caminho compartilhado).
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Nome", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com as colunas "Nome", "Endereço IP", "Porta", "Nome" (Lounge), "Tipo de Conexão", "Caminho Compartilhado", "Padrão" e "Ativa", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela com os campos da impressora.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Nome que identifica a impressora.'],
+    ['Tipo de Conexão', 'Rede ou Compartilhada (define como o sistema acessa a impressora).'],
+    ['Centro', 'Lounge (centro) ao qual a impressora pertence.'],
+    ['Padrão', 'Define se é a impressora padrão do Lounge (Sim/Não).'],
+    ['Ativa', 'Situação da impressora (Sim/Não).'],
+    ['Observação', 'Observações adicionais sobre a impressora.'],
+  ]}
+/>
+
+<Callout type="info" title="Tipo de conexão">
+Em impressoras de **Rede**, informe o endereço IP e a porta. Em impressoras **Compartilhadas**, informe o caminho compartilhado (ex.: um caminho de rede para a impressora ZPL).
+</Callout>
+
+## Fluxos principais
+
+1. **Consultar** — informe o **"Nome"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe o **Nome**, escolha o **Tipo de Conexão**, selecione o **Centro**, defina **Padrão** e **Ativa** e clique em **"Salvar"**.
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as impressoras conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar uma nova impressora.', '—'],
+    ['Detalhes', 'Para consultar uma impressora sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar uma impressora existente.', '—'],
+    ['Excluir', 'Para remover uma impressora.', 'Ação sem retorno.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Impressora de Etiqueta', 'Acesso à tela', 'Permite abrir e utilizar a tela de Impressora de Etiqueta.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Lounge', 'Cada impressora pertence a um Lounge.', 'Associe a impressora ao Lounge correto.'],
+    ['Geração de etiquetas', 'As impressoras são usadas nas rotinas de etiquetagem.', 'Defina a impressora padrão para evitar erros.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não imprime etiquetas por si — apenas cadastra as impressoras usadas pelas rotinas.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A etiqueta não imprime', 'Impressora inativa ou conexão incorreta', 'Verifique "Ativa" e o Tipo de Conexão (IP/porta ou caminho compartilhado).'],
+    ['Não há impressora padrão', 'Nenhuma impressora marcada como Padrão', 'Defina uma impressora padrão para o Lounge.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as impressoras de etiqueta usadas em cada Lounge.' },
+    { question: 'Qual a diferença entre Rede e Compartilhada?', answer: 'Rede usa endereço IP e porta; Compartilhada usa um caminho compartilhado de rede.' },
+    { question: 'O que é a impressora "Padrão"?', answer: 'É a impressora usada por padrão nas etiquetas daquele Lounge.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Impressora de Etiqueta.' },
+  ]}
+/>

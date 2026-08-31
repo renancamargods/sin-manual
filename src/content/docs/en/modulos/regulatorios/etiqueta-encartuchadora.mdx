@@ -1,0 +1,130 @@
+---
+section: modulos
+routeSlug: regulatorios/etiqueta-encartuchadora
+pageType: routine
+module: regulatorios
+moduleLabel: Regulatory
+lang: en
+title: Cartoning Label
+description: Registration of the label models used in the cartoning machine, identified by description.
+routineType: Registration
+permission: Yes
+impact: Defines the label models used in the cartoning machine
+keywords: [cartoning label, cartoning, cartoning machine, cartridge, label model, regulatory, registration]
+tags: [modulo-regulatorios, cadastro]
+order: 6
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Cartoning Label** screen keeps the **label models** used in the **cartoning machine** (cartoning equipment). Each model is identified by a **description** and is used in generating the labels in the cartoning process.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Label models', text: 'Keeps the cartoning machine label models.' },
+    { label: 'Use', title: 'Model description', text: 'Each model is identified by a description.' },
+    { label: 'Nature', title: 'Support registration', text: 'Queried in the cartoning process.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Query the cartoning machine label models.
+- Add a new model.
+- Fix a model's description.
+
+## How to access
+
+Regulatory → Cartoning Label
+
+## Before you start
+
+- Have the label model **description**.
+- Confirm that your profile allows maintaining this registration.
+
+## Main fields
+
+<DocTable
+  headers={['Field / Column', 'What it is']}
+  rows={[
+    ['Description', 'Description of the cartoning machine label model.'],
+  ]}
+/>
+
+The form ("+ New") has the **Description** field. In the listing, each row has the details, edit and delete icons.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the models according to the description.', '—'],
+    ['+ New', 'To add a model.', 'Opens the form.'],
+    ['Save', 'To store the model.', 'Inform the description.'],
+    ['Details / Edit', 'To query or change the model.', 'Details is read-only.'],
+    ['Delete', 'To remove the model.', 'Confirm before; it may be in use.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Cartoning Label', 'Screen access', 'Allows opening the screen and maintaining the registration.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Cartridge', 'The cartoning machine uses the registered cartridges.', '—'],
+    ['Product / Records', 'The model is used in generating the labels in cartoning.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not print the label — it only maintains the models.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the model', 'Restrictive filter', 'Adjust the description in the search.'],
+    ['I cannot delete', 'Model in use', 'Check whether there are links.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Cartoning Label for?', answer: 'To keep the label models used in the cartoning machine.' },
+    { question: 'Which fields does the model have?', answer: 'Only the Description.' },
+    { question: 'Can I delete a model in use?', answer: 'It is not recommended; check first whether there are links.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the Cartoning Label screen documentation.' },
+  ]}
+/>

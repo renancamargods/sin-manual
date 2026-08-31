@@ -1,0 +1,169 @@
+---
+section: modulos
+routeSlug: administrador/cidade
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Cidade
+description: Cadastro e consulta das cidades vinculadas a cada estado, com código de município, usadas em endereços, logradouros e regras de frete.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Cidades usadas em endereços, logradouros e regras de frete
+keywords: [cidade, município, código de município, estado, endereço, logradouro, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Cidade** mantém o cadastro das cidades, cada uma vinculada a um **Estado** e identificada também pelo **Código de Município**. As cidades são usadas em endereços, logradouros, regras de frete e amarrações de faturamento por centro.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Base de cidades', text: 'Centraliza as cidades vinculadas a cada estado.' },
+    { label: 'Uso', title: 'Endereços e logística', text: 'As cidades apoiam endereços, logradouros e regras de frete.' },
+    { label: 'Cuidado', title: 'Código de Município', text: 'O código de município é usado em rotinas fiscais e de integração.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova cidade.
+- Consultar ou localizar uma cidade pelo nome.
+- Editar o estado ou o código de município de uma cidade.
+- Consultar logradouros, regras de frete e amarrações de faturamento da cidade.
+
+## Como acessar
+
+Administrador → Cidade
+
+## Antes de começar
+
+- Tenha o **nome** da cidade.
+- Saiba a qual **estado** ela pertence (cadastre o estado antes, se necessário).
+- Tenha o **código de município** quando aplicável.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Nome", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use o nome para localizar rapidamente.'],
+    ['Resultados', 'Lista das cidades pela coluna "Nome", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição (abas)', 'Janela com as abas "Cidade", "Logradouros", "Regras de Fretes" e "Amarrações de Faturamentos por Centros".', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Cidade"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Nome da cidade.'],
+    ['Estado', 'Estado ao qual a cidade pertence. O botão "+" ao lado permite cadastrar um novo estado.'],
+    ['Código de Município', 'Código do município, usado em rotinas fiscais e de integração.'],
+  ]}
+/>
+
+### Abas complementares
+
+<DocTable
+  headers={['Aba', 'O que mostra']}
+  rows={[
+    ['Logradouros', 'Logradouros vinculados à cidade.'],
+    ['Regras de Fretes', 'Regras de frete relacionadas à cidade.'],
+    ['Amarrações de Faturamentos por Centros', 'Vínculos de faturamento por centro relacionados à cidade.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe o **"Nome"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe **Nome**, **Estado** e **Código de Município** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere os campos e clique em **"Salvar"**.
+4. **Ver detalhes** — clique no ícone de **Detalhes** da linha.
+5. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as cidades conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar uma nova cidade.', 'Abre a janela com as abas.'],
+    ['+ (ao lado do estado)', 'Para cadastrar um novo estado.', 'Use quando o estado ainda não existir.'],
+    ['Salvar e Continuar', 'Para salvar e continuar preenchendo as demais abas.', '—'],
+    ['Detalhes', 'Para consultar uma cidade sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar uma cidade existente.', '—'],
+    ['Excluir', 'Para remover uma cidade.', 'Ação sem retorno; evite excluir cidades já usadas.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Cidade', 'Acesso à tela', 'Permite abrir e utilizar a tela de Cidade.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Estado', 'Cada cidade é vinculada a um estado.', 'Cadastre o estado antes da cidade.'],
+    ['Endereço e Logradouro', 'As cidades são usadas em endereços e logradouros.', 'Mantenha o cadastro atualizado.'],
+    ['Regra de frete e faturamento', 'Cidades apoiam regras de frete e amarrações de faturamento por centro.', 'Confira os vínculos nas abas correspondentes.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra logradouros diretamente — a aba "Logradouros" apenas mostra os vinculados.
+- Não define valores de frete — apenas relaciona as regras existentes.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro uma cidade', 'Filtro muito restrito ou cidade não cadastrada', 'Ajuste o "Nome" ou cadastre a cidade.'],
+    ['Não consigo selecionar o estado', 'Estado ainda não cadastrado', 'Cadastre o estado pelo "+" ao lado do campo.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar e consultar as cidades vinculadas a cada estado.' },
+    { question: 'O que é o Código de Município?', answer: 'É o código do município, usado em rotinas fiscais e de integração.' },
+    { question: 'Onde as cidades são usadas?', answer: 'Em endereços, logradouros, regras de frete e amarrações de faturamento por centro.' },
+    { question: 'Posso excluir uma cidade?', answer: 'Sim, pelo ícone de Excluir, mas evite remover cidades já usadas em outros cadastros.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Cidade.' },
+  ]}
+/>

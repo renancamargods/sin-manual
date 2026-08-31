@@ -1,0 +1,167 @@
+---
+section: modulos
+routeSlug: administrador/estado
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Estado
+description: Cadastro e consulta dos estados (UF) vinculados a cada país, usados em endereços, cidades, regras de frete e amarrações de faturamento.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Estados usados em endereços, cidades e regras de frete
+keywords: [estado, uf, sigla, país, regra de frete, endereço, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Estado** mantém o cadastro dos estados (identificados por uma **Sigla**) e o **País** ao qual cada um pertence. Os estados são usados em endereços, no cadastro de cidades, em regras de frete e nas amarrações de faturamento por Lounge.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Base de estados', text: 'Centraliza os estados (UF) vinculados a cada país.' },
+    { label: 'Uso', title: 'Endereços e logística', text: 'Os estados apoiam endereços, cidades, regras de frete e faturamento.' },
+    { label: 'Cuidado', title: 'Vínculo com o país', text: 'Cada estado precisa estar associado ao país correto.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo estado.
+- Consultar ou localizar um estado pela sigla.
+- Editar um estado ou seu país.
+- Consultar as cidades, regras de frete e amarrações de faturamento do estado.
+
+## Como acessar
+
+Administrador → Estado
+
+## Antes de começar
+
+- Tenha a **sigla** do estado.
+- Saiba a qual **país** ele pertence (cadastre o país antes, se necessário).
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Sigla", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use a sigla para localizar rapidamente.'],
+    ['Resultados', 'Lista dos estados pela coluna "Sigla", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição (abas)', 'Janela com as abas "Estado", "Cidades", "Regras de Fretes" e "Amarrações de Faturamentos por Lounges".', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Estado"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Sigla', 'Sigla que identifica o estado (UF).'],
+    ['País', 'País ao qual o estado pertence. O botão "+" ao lado permite cadastrar um novo país.'],
+  ]}
+/>
+
+### Abas complementares
+
+<DocTable
+  headers={['Aba', 'O que mostra']}
+  rows={[
+    ['Cidades', 'Cidades vinculadas ao estado.'],
+    ['Regras de Fretes', 'Regras de frete relacionadas ao estado.'],
+    ['Amarrações de Faturamentos por Lounges', 'Vínculos de faturamento por Lounge relacionados ao estado.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe a **"Sigla"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe a **Sigla** e o **País** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere os campos e clique em **"Salvar"**.
+4. **Ver detalhes** — clique no ícone de **Detalhes** da linha.
+5. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os estados conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar um novo estado.', 'Abre a janela com as abas.'],
+    ['+ (ao lado do país)', 'Para cadastrar um novo país.', 'Use quando o país ainda não existir.'],
+    ['Salvar e Continuar', 'Para salvar e continuar preenchendo as demais abas.', '—'],
+    ['Detalhes', 'Para consultar um estado sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um estado existente.', '—'],
+    ['Excluir', 'Para remover um estado.', 'Ação sem retorno; evite excluir estados já usados.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Estado', 'Acesso à tela', 'Permite abrir e utilizar a tela de Estado.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['País', 'Cada estado é vinculado a um país.', 'Cadastre o país antes do estado.'],
+    ['Cidade', 'As cidades são vinculadas a um estado.', 'Cadastre o estado antes das cidades.'],
+    ['Regra de frete e faturamento', 'Estados apoiam regras de frete e amarrações de faturamento.', 'Confira os vínculos nas abas correspondentes.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra cidades diretamente — isso é feito na tela de Cidade (a aba "Cidades" apenas mostra as vinculadas).
+- Não define valores de frete — apenas relaciona as regras existentes.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro um estado', 'Filtro muito restrito ou estado não cadastrado', 'Ajuste a "Sigla" ou cadastre o estado.'],
+    ['Não consigo selecionar o país', 'País ainda não cadastrado', 'Cadastre o país pelo "+" ao lado do campo.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar e consultar os estados (UF) vinculados a cada país.' },
+    { question: 'Como cadastro o país de um estado?', answer: 'Selecione o país no campo "País" ou cadastre um novo pelo "+" ao lado.' },
+    { question: 'Onde os estados são usados?', answer: 'Em endereços, cidades, regras de frete e amarrações de faturamento por Lounge.' },
+    { question: 'Posso excluir um estado?', answer: 'Sim, pelo ícone de Excluir, mas evite remover estados já usados em outros cadastros.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Estado.' },
+  ]}
+/>

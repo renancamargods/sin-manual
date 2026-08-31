@@ -1,0 +1,161 @@
+---
+section: modulos
+routeSlug: regulatorios/registros
+pageType: routine
+module: regulatorios
+moduleLabel: Regulatórios
+title: Registros
+description: Cadastro dos registros regulatórios dos produtos por país e agência reguladora, com número do registro, classe de risco, listing number e device ID.
+routineType: Cadastro
+permission: Sim
+impact: Define os registros regulatórios (número, classe de risco, país, agência) dos produtos
+keywords: [registros, registro regulatório, anvisa, fda, classe de risco, listing number, device id, país, agência reguladora, regulatórios]
+tags: [modulo-regulatorios, cadastro]
+order: 18
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Registros** mantém os **registros regulatórios** dos produtos por **país** e **agência reguladora**. Cada registro guarda o **número do registro**, a **classe de risco**, o **listing number** e o **device ID**, servindo de base para o controle regulatório dos produtos.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Registros regulatórios', text: 'Mantém os registros dos produtos por país e agência.' },
+    { label: 'Uso', title: 'Número e classe', text: 'Guarda o número do registro, a classe de risco e identificadores.' },
+    { label: 'Natureza', title: 'Base regulatória', text: 'Consultado no controle regulatório e na Lista Geral de Produtos.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar o registro regulatório de um produto em um país/agência.
+- Consultar os registros por classe de risco, número ou device ID.
+- Corrigir os dados de um registro.
+
+## Como acessar
+
+Regulatórios → Registros
+
+## Antes de começar
+
+- Tenha o **país**, a **agência reguladora** e o **número do registro**.
+- Saiba a **classe de risco** e os identificadores (listing number, device ID).
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Classe de Risco', 'Filtra pela classe de risco do registro.'],
+    ['Listing Number', 'Filtra pelo listing number.'],
+    ['Número do Registro', 'Filtra pelo número do registro.'],
+    ['Device ID', 'Filtra pelo device ID.'],
+  ]}
+/>
+
+### Cadastro (+ Novo)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome País', 'País do registro.'],
+    ['Nome Agência Reguladora', 'Agência reguladora do registro (ex.: "ANVISA", "FDA").'],
+    ['Número do Registro', 'Número do registro regulatório.'],
+    ['Classe de Risco', 'Classe de risco do produto (ex.: "III").'],
+    ['Listing Number', 'Número de listagem do registro.'],
+    ['Device ID', 'Identificador do dispositivo (device ID).'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Classe de Risco', 'Classe de risco do registro.'],
+    ['Listing Number', 'Listing number.'],
+    ['Número do Registro', 'Número do registro regulatório.'],
+    ['Device ID', 'Identificador do dispositivo.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os registros conforme os filtros.', 'Combine classe de risco, número e device ID.'],
+    ['+ Novo', 'Para cadastrar um registro.', 'Abre o formulário.'],
+    ['Salvar', 'Para guardar o registro.', 'Informe país, agência e número.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar o registro.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover o registro.', 'Confirme antes; afeta o controle regulatório.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Registros', 'Acesso à tela', 'Permite abrir a tela e manter os registros.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Agência Reguladora / País', 'O registro é vinculado a uma agência e a um país.', 'A agência precisa existir.'],
+    ['Lista Geral de Produtos', 'O número do registro aparece na visão consolidada dos produtos.', '—'],
+    ['Status Regulatórios', 'O status regulatório do produto depende dos registros.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não emite o registro na agência — apenas guarda os dados do registro.
+- Não cadastra o produto base.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o registro', 'Filtros restritos', 'Ajuste classe de risco, número ou device ID.'],
+    ['Não consigo salvar', 'Dados obrigatórios ausentes', 'Confira país, agência e número do registro.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a tela Registros?', answer: 'Para manter os registros regulatórios dos produtos por país e agência, com número, classe de risco, listing number e device ID.' },
+    { question: 'Quais campos o registro tem?', answer: 'Nome País, Nome Agência Reguladora, Número do Registro, Classe de Risco, Listing Number e Device ID.' },
+    { question: 'A tela emite o registro na agência?', answer: 'Não. Ela apenas guarda os dados do registro no sistema.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Registros.' },
+  ]}
+/>

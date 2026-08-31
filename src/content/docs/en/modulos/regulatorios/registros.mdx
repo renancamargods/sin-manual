@@ -1,0 +1,162 @@
+---
+section: modulos
+routeSlug: regulatorios/registros
+pageType: routine
+module: regulatorios
+moduleLabel: Regulatory
+lang: en
+title: Records
+description: Registration of the products' regulatory records by country and regulatory agency, with registration number, risk class, listing number and device ID.
+routineType: Registration
+permission: Yes
+impact: Defines the products' regulatory records (number, risk class, country, agency)
+keywords: [records, regulatory record, anvisa, fda, risk class, listing number, device id, country, regulatory agency, regulatory]
+tags: [modulo-regulatorios, cadastro]
+order: 18
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Records** screen keeps the products' **regulatory records** by **country** and **regulatory agency**. Each record stores the **registration number**, the **risk class**, the **listing number** and the **device ID**, serving as the basis for the products' regulatory control.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Regulatory records', text: 'Keeps the products\' records by country and agency.' },
+    { label: 'Use', title: 'Number and class', text: 'Stores the registration number, risk class and identifiers.' },
+    { label: 'Nature', title: 'Regulatory base', text: 'Queried in regulatory control and in the General Product List.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a product's regulatory record in a country/agency.
+- Query the records by risk class, number or device ID.
+- Fix a record's data.
+
+## How to access
+
+Regulatory → Records
+
+## Before you start
+
+- Have the **country**, the **regulatory agency** and the **registration number**.
+- Know the **risk class** and the identifiers (listing number, device ID).
+- Confirm that your profile allows maintaining this registration.
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Risk Class', 'Filters by the record risk class.'],
+    ['Listing Number', 'Filters by the listing number.'],
+    ['Registration Number', 'Filters by the registration number.'],
+    ['Device ID', 'Filters by the device ID.'],
+  ]}
+/>
+
+### Registration (+ New)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Country Name', 'Country of the record.'],
+    ['Regulatory Agency Name', 'Regulatory agency of the record (e.g., "ANVISA", "FDA").'],
+    ['Registration Number', 'Regulatory registration number.'],
+    ['Risk Class', 'Product risk class (e.g., "III").'],
+    ['Listing Number', 'Listing number of the record.'],
+    ['Device ID', 'Device identifier (device ID).'],
+  ]}
+/>
+
+### Results columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Risk Class', 'Record risk class.'],
+    ['Listing Number', 'Listing number.'],
+    ['Registration Number', 'Regulatory registration number.'],
+    ['Device ID', 'Device identifier.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the records according to the filters.', 'Combine risk class, number and device ID.'],
+    ['+ New', 'To register a record.', 'Opens the form.'],
+    ['Save', 'To store the record.', 'Inform country, agency and number.'],
+    ['Details / Edit', 'To query or change the record.', 'Details is read-only.'],
+    ['Delete', 'To remove the record.', 'Confirm before; it affects regulatory control.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Records', 'Screen access', 'Allows opening the screen and maintaining the records.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Regulatory Agency / Country', 'The record is linked to an agency and a country.', 'The agency must exist.'],
+    ['General Product List', 'The registration number appears in the products\' consolidated view.', '—'],
+    ['Regulatory Status', 'The product\'s regulatory status depends on the records.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not issue the registration at the agency — it only stores the record data.
+- It does not register the base product.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the record', 'Restrictive filters', 'Adjust risk class, number or device ID.'],
+    ['I cannot save', 'Missing required data', 'Check country, agency and registration number.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Records screen for?', answer: 'To keep the products\' regulatory records by country and agency, with number, risk class, listing number and device ID.' },
+    { question: 'Which fields does the record have?', answer: 'Country Name, Regulatory Agency Name, Registration Number, Risk Class, Listing Number and Device ID.' },
+    { question: 'Does the screen issue the registration at the agency?', answer: 'No. It only stores the record data in the system.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the Records screen documentation.' },
+  ]}
+/>

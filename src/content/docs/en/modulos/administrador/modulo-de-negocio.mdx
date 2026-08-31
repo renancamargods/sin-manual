@@ -1,0 +1,157 @@
+---
+section: modulos
+routeSlug: administrador/modulo-de-negocio
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Business Module
+description: Register the business modules (e.g., Orders, Consignment, Exchanges, Returns), with code, description, status and payment terms.
+routineType: Registration and lookup
+permission: Yes
+impact: Business modules used in orders and operations
+keywords: [business module, consignment, orders, exchanges, returns, payment term]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Business Module** screen registers the modules that classify the system's operation types (for example, Orders, Consignment, TDC Exchanges, TDC Returns). Each module holds a **Module Code**, a **Description**, the **System Status** and the associated **Payment Terms**.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Operation types', text: 'Classifies system operations (orders, consignment, exchanges, returns).' },
+    { label: 'Use', title: 'Rules per module', text: 'Payment terms may vary by business module.' },
+    { label: 'Caution', title: 'Status', text: 'Inactive modules should not be used in new operations.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new business module.
+- Look up or find a module by its code.
+- Edit a module's description, status or payment terms.
+
+## How to access
+
+Administrator → Business Module
+
+## Before you start
+
+- Have the module's **code** and **description**.
+- Know the applicable **payment terms**.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'The "Module Code" field, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List with the "Module Code", "Description" and "System Status" columns, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing', 'Window ("Business Module" tab) with the module fields.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+### "Business Module" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Module Code', 'Code that identifies the module (e.g., pedidos, consignado, troca).'],
+    ['Description', 'Description of the business module.'],
+    ['System Status', 'Module status (Active or Inactive).'],
+    ['Payment Terms', 'Payment terms associated with the module.'],
+  ]}
+/>
+
+<Callout type="info" title="Module examples">
+Registered modules include: Orders, Consignment, TDC Exchanges and TDC Returns.
+</Callout>
+
+## Main flows
+
+1. **Search** — enter the **"Module Code"** and click **"Search"**.
+2. **Register** — click **"+ New"**, enter **Code**, **Description**, set the **System Status** and the **Payment Terms** and click **"Save"** (or **"Save and Continue"**).
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list modules according to the filter.', '—'],
+    ['+ New', 'To register a new module.', '—'],
+    ['Save and Continue', 'To save and keep configuring.', '—'],
+    ['Details', 'To view a module without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing module.', '—'],
+    ['Delete', 'To remove a module.', 'Irreversible action; prefer deactivating rather than deleting modules already in use.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Business Module', 'Access to the screen', 'Allows opening and using the Business Module screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Orders and operations', 'Modules classify the operation types.', 'Use the correct module in the operation.'],
+    ['Payment Term', 'Payment terms may vary by module.', 'Check the linked terms.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not run the operation — it only classifies and configures the business module.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find a module', 'Filter too restrictive or module not registered', 'Adjust the code or register the module.'],
+    ['The module does not appear in the operation', 'Inactive module', 'Check the System Status.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the modules that classify operation types (Orders, Consignment, Exchanges, Returns).' },
+    { question: 'What are the "Payment Terms"?', answer: 'They are the payment terms associated with the module, which may vary by operation type.' },
+    { question: 'Can I delete a module?', answer: 'Yes, but prefer deactivating it if it has already been used in operations.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Initial release of the Business Module screen documentation.' },
+  ]}
+/>

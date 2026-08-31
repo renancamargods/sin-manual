@@ -1,0 +1,144 @@
+---
+section: modulos
+routeSlug: clientes/classificacao-comercial
+pageType: routine
+module: clientes
+moduleLabel: Customers
+lang: en
+title: Commercial Classification
+description: Registration of the commercial classifications (e.g., A, B, C, Platinum) used in commercial policies, with the customer list of each classification.
+routineType: Registration
+permission: Yes
+impact: Defines the commercial classifications used in commercial policies
+keywords: [commercial classification, classification, code, customers, commercial policy, rating, registration]
+tags: [modulo-clientes, cadastro]
+order: 6
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Commercial Classification** screen keeps the **commercial classifications** (identified by a **code**, e.g., "A", "B", "C", "Platinum") used in **commercial policies**. Each classification can have its own **customer list**.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Classify commercially', text: 'Keeps the classifications used in commercial policies.' },
+    { label: 'Use', title: 'Code + customers', text: 'Each classification has a code and its customer list.' },
+    { label: 'Nature', title: 'Support registration', text: 'Queried by commercial policies and rules.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Query the registered commercial classifications.
+- Create a new classification.
+- Associate customers with a classification.
+
+## How to access
+
+Customers → Commercial Classification
+
+## Before you start
+
+- Define the classification **code**.
+- Know which **customers** belong to it, if applicable.
+- Confirm that your profile allows maintaining this registration.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Filter by "Code", with "Search", "+ New" and "Clear Filters".', 'Use the filter to locate the classification.'],
+    ['Results', 'List of the classifications by the "Code" column, with the details, edit and delete icons.', 'The icons are on the right of the row.'],
+    ['Registration (2 tabs)', 'Tab "Commercial Classification" (code) and tab "Customers" (list of customers in the classification).', 'Build the customer list in the "Customers" tab.'],
+  ]}
+/>
+
+## Main fields
+
+<DocTable
+  headers={['Field / tab', 'What it is']}
+  rows={[
+    ['Code', 'Code that identifies the commercial classification.'],
+    ['"Customers" tab', 'List of customers associated with the classification.'],
+  ]}
+/>
+
+The form has the **"Save and Continue"**, **"Save"** and **"Close"** buttons.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the classifications according to the code.', '—'],
+    ['+ New', 'To create a classification.', 'Opens the registration.'],
+    ['Save / Save and Continue', 'To store the classification.', 'Inform the code.'],
+    ['Details / Edit', 'To query or change the classification.', 'Details is read-only.'],
+    ['Delete', 'To remove the classification.', 'Confirm before; it may be in use.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Commercial Classification', 'Screen access', 'Allows opening the screen and maintaining the registration.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Customer', 'The classification customers come from the Customer registration.', 'The customer must exist.'],
+    ['Commercial Policy', 'The classification is used in commercial policies and rules.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not define prices or discounts by itself — it only classifies commercially.
+- It does not register the customers — they come from the Customer registration.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the classification', 'Restrictive filter', 'Adjust the code in the search.'],
+    ['I cannot delete', 'Classification in use', 'Check whether there are linked customers or policies.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Commercial Classification for?', answer: 'To keep the classifications (by code) used in commercial policies, with the customer list of each one.' },
+    { question: 'How do I associate customers with a classification?', answer: 'In the "Customers" tab of the classification registration.' },
+    { question: 'Where is the classification used?', answer: 'In commercial policies and rules.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the Commercial Classification screen documentation.' },
+  ]}
+/>

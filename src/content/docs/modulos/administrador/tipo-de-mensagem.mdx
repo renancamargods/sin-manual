@@ -1,0 +1,158 @@
+---
+section: modulos
+routeSlug: administrador/tipo-de-mensagem
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Tipo de Mensagem
+description: "Cadastro dos tipos que classificam as mensagens personalizadas usadas em pedidos e ocorrências (ex.: recusa, aprovação, cancelamento)."
+routineType: Cadastro e consulta
+permission: Sim
+impact: Tipos que classificam as mensagens personalizadas
+keywords: [tipo de mensagem, mensagem personalizada, recusa, aprovação, cancelamento, pedido, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Tipo de Mensagem** cadastra as categorias que classificam as **mensagens personalizadas** do sistema (por exemplo, RecusaPedidoCredito, AprovacaoPedidoPadraoAdm, CancelamentoPedido). Cada tipo reúne um **Código** e uma **Descrição** e concentra, na aba "Mensagens Personalizadas", as mensagens que pertencem a ele.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Classificar mensagens', text: 'Agrupa as mensagens personalizadas por categoria.' },
+    { label: 'Uso', title: 'Base das mensagens', text: 'Cada mensagem personalizada pertence a um tipo.' },
+    { label: 'Cuidado', title: 'Código', text: 'O código identifica o tipo e é usado internamente pelas rotinas.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo tipo de mensagem.
+- Consultar ou localizar um tipo por código ou descrição.
+- Consultar as mensagens personalizadas vinculadas ao tipo.
+
+## Como acessar
+
+Administrador → Tipo de Mensagem
+
+## Antes de começar
+
+- Tenha o **código** e a **descrição** do tipo.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros por código/descrição, com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com as colunas "Código", "Descrição", "Data do Cadastro" e "Nome", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição (abas)', 'Janela com as abas "Tipo de Mensagem" e "Mensagens Personalizadas".', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Tipo de Mensagem"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código', 'Código que identifica o tipo (ex.: RecusaPedidoCredito).'],
+    ['Descrição', 'Descrição do tipo de mensagem.'],
+  ]}
+/>
+
+### Aba "Mensagens Personalizadas"
+
+<DocTable
+  headers={['Aba', 'O que mostra']}
+  rows={[
+    ['Mensagens Personalizadas', 'Mensagens padronizadas que pertencem a este tipo.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe **Código** ou **Descrição** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe **Código** e **Descrição** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os tipos conforme os filtros.', '—'],
+    ['+ Novo', 'Para cadastrar um novo tipo.', '—'],
+    ['Salvar e Continuar', 'Para salvar e seguir consultando as mensagens.', '—'],
+    ['Detalhes', 'Para consultar um tipo sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um tipo existente.', '—'],
+    ['Excluir', 'Para remover um tipo.', 'Ação sem retorno; evite excluir tipos já usados por mensagens.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Tipo de Mensagem', 'Acesso à tela', 'Permite abrir e utilizar a tela de Tipo de Mensagem.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Mensagem Personalizada', 'Cada mensagem personalizada pertence a um tipo.', 'Cadastre o tipo antes da mensagem.'],
+    ['Pedidos e Ocorrências', 'As mensagens são usadas nas rotinas conforme o tipo.', 'Mantenha os tipos coerentes com as rotinas.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra as mensagens em si — isso é feito na tela Mensagem Personalizada (a aba apenas mostra as vinculadas).
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro um tipo', 'Filtro muito restrito ou tipo não cadastrado', 'Ajuste os filtros ou cadastre o tipo.'],
+    ['A mensagem não é aplicada', 'Tipo incorreto na mensagem', 'Verifique o tipo vinculado à mensagem.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os tipos que classificam as mensagens personalizadas.' },
+    { question: 'Qual a relação com "Mensagem Personalizada"?', answer: 'Cada mensagem personalizada pertence a um tipo definido aqui.' },
+    { question: 'Posso excluir um tipo?', answer: 'Sim, mas evite excluir tipos já usados por mensagens.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Tipo de Mensagem.' },
+  ]}
+/>

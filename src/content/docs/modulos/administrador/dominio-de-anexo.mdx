@@ -1,0 +1,163 @@
+---
+section: modulos
+routeSlug: administrador/dominio-de-anexo
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Domínio de Anexo
+description: Cadastro dos domínios (origens) que agrupam os tipos de anexo, por exemplo Clientes, StatusLead e PesquisaResposta.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Domínios que organizam os tipos de anexo por origem
+keywords: [domínio de anexo, anexo, tipos de anexo, origem, clientes, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Domínio de Anexo** cadastra os **domínios** (origens) que agrupam os tipos de anexo do sistema. Cada domínio reúne um **Código** e uma **Descrição** e concentra, na aba "Tipos de Anexo", os tipos que pertencem a ele (por exemplo, o domínio "Clientes" agrupa os tipos de anexo dos clientes).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Organização de anexos', text: 'Agrupa os tipos de anexo por origem (domínio).' },
+    { label: 'Uso', title: 'Base para os anexos', text: 'Cada tipo de anexo pertence a um domínio.' },
+    { label: 'Cuidado', title: 'Código', text: 'O código identifica o domínio e é usado internamente pelo sistema.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo domínio de anexo.
+- Consultar ou localizar um domínio por código ou descrição.
+- Consultar os tipos de anexo vinculados ao domínio.
+
+## Como acessar
+
+Administrador → Domínio de Anexo
+
+## Antes de começar
+
+- Tenha o **código** e a **descrição** do domínio.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Descrição, Código e Data de Cadastro, com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista dos domínios com as colunas "Código", "Descrição", "Data de Cadastro" e "Nome", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição (abas)', 'Janela com as abas "Domínio de Anexo" e "Tipos de Anexo".', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Domínio de Anexo"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código', 'Código que identifica o domínio (ex.: Clientes, StatusLead).'],
+    ['Descrição', 'Descrição do domínio.'],
+  ]}
+/>
+
+### Aba "Tipos de Anexo"
+
+<DocTable
+  headers={['Aba', 'O que mostra']}
+  rows={[
+    ['Tipos de Anexo', 'Tipos de anexo que pertencem a este domínio.'],
+  ]}
+/>
+
+<Callout type="info" title="Exemplos de domínios">
+Entre os domínios cadastrados estão: Clientes (anexos do cliente), StatusLead (anexos para interações no histórico dos leads) e PesquisaResposta (anexos para as respostas das pesquisas).
+</Callout>
+
+## Fluxos principais
+
+1. **Consultar** — informe **Descrição** ou **Código** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe **Código** e **Descrição** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os domínios conforme os filtros.', '—'],
+    ['+ Novo', 'Para cadastrar um novo domínio.', '—'],
+    ['Salvar e Continuar', 'Para salvar e seguir preenchendo os tipos de anexo.', '—'],
+    ['Detalhes', 'Para consultar um domínio sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um domínio existente.', '—'],
+    ['Excluir', 'Para remover um domínio.', 'Ação sem retorno; evite excluir domínios com tipos de anexo vinculados.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Domínio de Anexo', 'Acesso à tela', 'Permite abrir e utilizar a tela de Domínio de Anexo.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Tipos de Anexo', 'Cada tipo de anexo pertence a um domínio.', 'Cadastre o domínio antes dos tipos.'],
+    ['Anexos', 'Os anexos usam os tipos organizados por domínio.', 'Mantenha a estrutura coerente.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra os tipos de anexo diretamente — a aba "Tipos de Anexo" apenas mostra os vinculados.
+- Não armazena os arquivos anexados — apenas organiza as origens.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro um domínio', 'Filtro muito restrito ou domínio não cadastrado', 'Ajuste os filtros ou cadastre o domínio.'],
+    ['Não consigo excluir', 'Domínio com tipos de anexo vinculados', 'Verifique os vínculos antes de excluir.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os domínios (origens) que agrupam os tipos de anexo.' },
+    { question: 'Qual a diferença para "Tipos de Anexo"?', answer: 'O domínio é a origem que agrupa os tipos; o tipo é a classificação específica do anexo.' },
+    { question: 'Posso excluir um domínio?', answer: 'Sim, mas evite excluir domínios com tipos de anexo vinculados.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Domínio de Anexo.' },
+  ]}
+/>

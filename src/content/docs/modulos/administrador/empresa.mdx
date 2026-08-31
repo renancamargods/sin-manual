@@ -1,0 +1,171 @@
+---
+section: modulos
+routeSlug: administrador/empresa
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Empresa
+description: Cadastro das empresas do grupo, com código, nome, nome fantasia, usuários e status, e as abas de Lounges, clientes, canais e políticas.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Empresas do grupo usadas por Lounges, clientes e políticas
+keywords: [empresa, grupo, nome fantasia, lounges, clientes, políticas, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Empresa** cadastra as empresas do grupo (por exemplo, S.I.N Brasil, S.I.N Singular, Biohorizons Camlog Portugal). Cada empresa reúne **Código Empresa**, **Nome Empresa**, **Nome Fantasia**, os **Usuários** vinculados e o **Status Sistema**, além de abas que mostram os Lounges, clientes, canais, ramos, classificações e políticas relacionados.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Empresas do grupo', text: 'Cadastra as pessoas jurídicas que compõem o grupo.' },
+    { label: 'Uso', title: 'Base organizacional', text: 'A empresa é referência para Lounges, clientes e políticas.' },
+    { label: 'Cuidado', title: 'Status', text: 'Empresas inativas não devem ser usadas em novos vínculos.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova empresa do grupo.
+- Consultar ou localizar uma empresa por código, nome ou nome fantasia.
+- Editar os dados ou o status de uma empresa.
+- Consultar os Lounges, clientes, canais e políticas vinculados.
+
+## Como acessar
+
+Administrador → Empresa
+
+## Antes de começar
+
+- Tenha o **código**, o **nome** e o **nome fantasia** da empresa.
+- Saiba os **usuários** que devem estar vinculados.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Código Empresa", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com as colunas "Código Empresa", "Nome Empresa", "Nome Fantasia", "Status Sistema" e "Data da Última Alteração", com as ações por linha.', 'Cada linha tem Histórico, Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição (abas)', 'Janela com as abas "Empresa", "Lounges", "Clientes", "Perfis de Consumos", "Canais", "Ramos de Atividades", "Classificações Comerciais", "SIN Partners", "Políticas Comerciais" e "Políticas de Contrato".', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Empresa"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código Empresa', 'Código que identifica a empresa.'],
+    ['Nome Empresa', 'Razão social / nome da empresa.'],
+    ['Nome Fantasia', 'Nome fantasia da empresa.'],
+    ['Usuários', 'Usuários vinculados à empresa (com o botão "+" para cadastrar).'],
+    ['Status Sistema', 'Situação da empresa (Ativo ou Inativo).'],
+  ]}
+/>
+
+### Abas complementares
+
+<DocTable
+  headers={['Aba', 'O que mostra']}
+  rows={[
+    ['Lounges', 'Lounges pertencentes à empresa.'],
+    ['Clientes', 'Clientes vinculados à empresa.'],
+    ['Perfis de Consumos', 'Perfis de consumo relacionados.'],
+    ['Canais', 'Canais associados à empresa.'],
+    ['Ramos de Atividades', 'Ramos de atividade relacionados.'],
+    ['Classificações Comerciais', 'Classificações comerciais da empresa.'],
+    ['SIN Partners', 'Parceiros SIN Partner vinculados.'],
+    ['Políticas Comerciais / Políticas de Contrato', 'Políticas comerciais e de contrato relacionadas.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe o **"Código Empresa"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe **Código**, **Nome**, **Nome Fantasia**, selecione os **Usuários** e o **Status** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Consultar abas** — abra a empresa e navegue pelas abas de Lounges, clientes, canais e políticas.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as empresas conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar uma nova empresa.', 'Abre a janela com as abas.'],
+    ['Salvar e Continuar', 'Para salvar e continuar nas demais abas.', '—'],
+    ['Detalhes', 'Para consultar uma empresa sem alterar.', 'Somente leitura.'],
+    ['Histórico', 'Para ver o histórico de alterações.', '—'],
+    ['Editar', 'Para alterar uma empresa existente.', '—'],
+    ['Excluir', 'Para remover uma empresa.', 'Ação sem retorno; prefira inativar em vez de excluir.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Empresa', 'Acesso à tela', 'Permite abrir e utilizar a tela de Empresa.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Lounge', 'Cada Lounge pertence a uma empresa.', 'Cadastre a empresa antes do Lounge.'],
+    ['Clientes e políticas', 'Clientes e políticas são vinculados à empresa.', 'Confira os vínculos nas abas.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra Lounges, clientes ou políticas diretamente — as abas apenas mostram os vinculados.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro uma empresa', 'Filtro muito restrito ou empresa não cadastrada', 'Ajuste o código ou cadastre a empresa.'],
+    ['A empresa não aparece para vínculo', 'Empresa inativa', 'Verifique o Status Sistema.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as empresas do grupo e consultar seus Lounges, clientes, canais e políticas.' },
+    { question: 'Qual a diferença entre Nome Empresa e Nome Fantasia?', answer: 'Nome Empresa é a razão social; Nome Fantasia é o nome comercial da empresa.' },
+    { question: 'Posso excluir uma empresa?', answer: 'É possível, mas prefira inativá-la para preservar o histórico e os vínculos.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Empresa.' },
+  ]}
+/>

@@ -1,0 +1,150 @@
+---
+section: modulos
+routeSlug: administrador/porto-de-destino
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Destination Port
+description: Register and look up the destination ports used in foreign trade operations, linked to a country.
+routineType: Registration and lookup
+permission: Yes
+impact: Destination ports used in foreign trade
+keywords: [destination port, foreign trade, port, country]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Destination Port** screen keeps the register of ports used as destinations in foreign trade operations. Each port holds the **Port Name**, the **Port Code** and the **country** it belongs to.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Destination ports', text: 'Centralizes the ports used in international operations.' },
+    { label: 'Use', title: 'Foreign trade', text: 'Ports become available for selection in foreign trade operations.' },
+    { label: 'Caution', title: 'Link to country', text: 'Each port must be associated with the correct country.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new destination port.
+- Look up or find a port by its name.
+- Edit a port's code or country.
+
+## How to access
+
+Administrator → Destination Port
+
+## Before you start
+
+- Have the port's **name** and **code**.
+- Know which **country** it belongs to (register the country first, if needed).
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'The "Port Name" field, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List of ports with the "Port Name", "Port Code" and "Country Name" columns, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing', 'Window with the port fields.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Port Name', 'Name of the destination port.'],
+    ['Port Code', 'Code that identifies the port.'],
+    ['Country Id', 'Country the port belongs to. The "+" button next to it registers a new country.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the **"Port Name"** and click **"Search"**.
+2. **Register** — click **"+ New"**, enter **Port Name**, **Port Code** and **Country Id** and click **"Save"**.
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list ports according to the filter.', '—'],
+    ['+ New', 'To register a new port.', '—'],
+    ['+ (next to country)', 'To register a new country.', 'Use when the country does not yet exist.'],
+    ['Details', 'To view a port without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing port.', '—'],
+    ['Delete', 'To remove a port.', 'Irreversible action; avoid deleting ports already in use.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Destination Port', 'Access to the screen', 'Allows opening and using the Destination Port screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Country', 'Each port is linked to a country.', 'Register the country before the port.'],
+    ['Foreign trade', 'Ports are used as destinations in international operations.', 'Keep the register up to date.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not calculate routes or transport costs — it only registers the destination port.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find a port', 'Filter too restrictive or port not registered', 'Adjust the "Port Name" or register it.'],
+    ['I cannot select the country', 'Country not yet registered', 'Register the country using the "+" next to the field.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register and look up the destination ports used in foreign trade operations.' },
+    { question: 'How do I link the country?', answer: 'Select the country in the "Country Id" field or register a new one using the "+" next to it.' },
+    { question: 'Can I delete a port?', answer: 'Yes, through the Delete icon, but avoid removing ports already used in operations.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Initial release of the Destination Port screen documentation.' },
+  ]}
+/>

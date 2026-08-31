@@ -1,0 +1,182 @@
+---
+section: modulos
+routeSlug: clientes/agrupamento-de-cliente
+pageType: routine
+module: clientes
+moduleLabel: Customers
+lang: en
+title: Customer Grouping
+description: Registration of groupings that gather several customers under the same description, for analyses and commercial rules.
+routineType: Registration
+permission: Yes
+impact: Defines customer groupings used in analyses and commercial rules
+keywords: [customer grouping, grouping, customer group, customers, registration, quick entry]
+tags: [modulo-clientes, cadastro]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Customer Grouping** screen lets you gather several **customers** under the same **grouping** (identified by a description). This grouping is used in **analyses** and in **commercial rules**, making it easier to handle a set of customers together.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Gather customers', text: 'Groups several customers under the same description.' },
+    { label: 'Use', title: 'Analyses and rules', text: 'The grouping is used in analyses and commercial rules.' },
+    { label: 'Composition', title: 'Customer list', text: 'Each grouping has its own customer list.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Create a grouping to handle a set of customers together.
+- Add or remove customers from a grouping.
+- Query the groupings already registered.
+- Activate or deactivate a grouping.
+
+## How to access
+
+Customers → Customer Grouping
+
+## Before you start
+
+- Know which **customers** will be part of the grouping.
+- Define a clear **description** to identify the grouping.
+- Confirm that your profile allows registering groupings.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Filters by "Description" and "System Status" (Active/Inactive), with "Search", "+ New" and "Clear Filters".', 'Use the filters to locate groupings.'],
+    ['Results', 'List of the groupings by the "Description" column, with the history, details, edit and delete icons per row.', 'The action icons are on the right of the row.'],
+    ['Registration (2 tabs)', 'Tab "Customer Grouping" (description and status) and tab "Customers" (list of customers in the grouping).', 'Build the customer list in the "Customers" tab.'],
+  ]}
+/>
+
+## Main fields
+
+### "Customer Grouping" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Description', 'Name that identifies the grouping.'],
+    ['System Status', 'Defines whether the grouping is Active or Inactive.'],
+  ]}
+/>
+
+### "Customers" tab
+
+Grid **"Customers"** with the customers that make up the grouping.
+
+<DocTable
+  headers={['Column / action', 'What it is']}
+  rows={[
+    ['Customer Name', 'Name of the customer included in the grouping.'],
+    ['Customer Code', 'Customer code.'],
+    ['Add Customer - Quick Entry', 'Adds customers to the grouping in quick entry.'],
+  ]}
+/>
+
+<Callout type="info" title="List starts empty">
+When starting a grouping, the "Customers" tab shows "No record to display". Use "Add Customer - Quick Entry" to include the customers.
+</Callout>
+
+## Main flows
+
+1. **Create the grouping** — click **"+ New"** and inform the "Description".
+2. **Add customers** — in the "Customers" tab, use **"Add Customer - Quick Entry"** to include the customers.
+3. **Save** — use **"Save"** (or "Save and Continue" to keep editing).
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the groupings according to the filters.', '—'],
+    ['+ New', 'To create a grouping from scratch.', 'Opens the registration.'],
+    ['Add Customer - Quick Entry', 'To include customers in the grouping.', '—'],
+    ['Save and Continue', 'To save and keep editing.', '—'],
+    ['Save', 'To save and close the registration.', '—'],
+    ['Edit / Details / History', 'To change, query or see the grouping history.', 'Details is read-only.'],
+    ['Delete', 'To remove the grouping.', 'Confirm before; hard to reverse.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Customer Grouping', 'Screen access', 'Allows opening the screen and querying the groupings.'],
+    ['Register/edit', '+ New / Edit', 'Allows creating and changing groupings.'],
+    ['Delete', 'Delete', 'Allows removing groupings.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Active/Inactive', 'The status controls whether the grouping is available for use.', 'Deactivate instead of deleting when you want to keep the history.'],
+    ['Several customers per grouping', 'A grouping gathers several customers.', 'Keep the list updated.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Customer', 'The grouping customers come from the Customer registration.', 'The customer must exist to be included.'],
+    ['Commercial policies', 'Groupings can be used in analyses and commercial rules.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not register the customers — they come from the Customer registration.
+- It does not, by itself, define prices or discounts — it only groups customers.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the grouping', 'Restrictive filters or inactive grouping', 'Adjust the filters and the "System Status".'],
+    ['I cannot add a customer', 'Customer not found', 'Check the customer registration.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is Customer Grouping for?', answer: 'To gather several customers under the same description, used in analyses and commercial rules.' },
+    { question: 'How do I add customers to the grouping?', answer: 'In the "Customers" tab, use "Add Customer - Quick Entry".' },
+    { question: 'Can I deactivate a grouping?', answer: 'Yes. Use the "System Status" to set it Active or Inactive.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the Customer Grouping screen documentation.' },
+  ]}
+/>

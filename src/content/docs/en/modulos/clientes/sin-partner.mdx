@@ -1,0 +1,144 @@
+---
+section: modulos
+routeSlug: clientes/sin-partner
+pageType: routine
+module: clientes
+moduleLabel: Customers
+lang: en
+title: SIN Partner
+description: Registration of the SIN Partner program partners, by description, with the customer list of each partner.
+routineType: Registration
+permission: Yes
+impact: Defines the SIN Partner program partners and the linked customers
+keywords: [sin partner, partner, partner program, customers, registration]
+tags: [modulo-clientes, cadastro]
+order: 14
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **SIN Partner** screen keeps the **SIN Partner program partners** (identified by a **description**). Each partner can have its own **customer list**, allowing the customers linked to each partnership to be handled together.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'SIN Partner partners', text: 'Keeps the SIN Partner program partners.' },
+    { label: 'Use', title: 'Description + customers', text: 'Each partner has a description and its customer list.' },
+    { label: 'Nature', title: 'Support registration', text: 'Registration queried by other screens and rules.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Query the registered SIN Partner partners.
+- Create a new partner.
+- Associate customers with a partner.
+
+## How to access
+
+Customers → SIN Partner
+
+## Before you start
+
+- Define the partner **description**.
+- Know which **customers** belong to it, if applicable.
+- Confirm that your profile allows maintaining this registration.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Filter by "Description", with "Search", "+ New" and "Clear Filters".', 'Use the filter to locate the partner.'],
+    ['Results', 'List of the partners by the "Description" column, with the details, edit and delete icons.', 'The icons are on the right of the row.'],
+    ['Registration (2 tabs)', 'Tab "SIN Partner" (description) and tab "Customers" (list of customers in the partner).', 'Build the customer list in the "Customers" tab.'],
+  ]}
+/>
+
+## Main fields
+
+<DocTable
+  headers={['Field / tab', 'What it is']}
+  rows={[
+    ['Description', 'Name that identifies the partner.'],
+    ['"Customers" tab', 'List of customers associated with the partner.'],
+  ]}
+/>
+
+The form has the **"Save and Continue"**, **"Save"** and **"Close"** buttons.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the partners according to the description.', '—'],
+    ['+ New', 'To create a partner.', 'Opens the registration.'],
+    ['Save / Save and Continue', 'To store the partner.', 'Inform the description.'],
+    ['Details / Edit', 'To query or change the partner.', 'Details is read-only.'],
+    ['Delete', 'To remove the partner.', 'Confirm before; it may be in use.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['SIN Partner', 'Screen access', 'Allows opening the screen and maintaining the registration.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Customer', 'The partner customers come from the Customer registration.', 'The customer must exist.'],
+    ['Commercial policies', 'The partner can be used in commercial rules and analyses.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not register the customers — they come from the Customer registration.
+- It does not define prices or discounts by itself.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the partner', 'Restrictive filter', 'Adjust the description in the search.'],
+    ['I cannot add a customer', 'Customer not found', 'Check the customer registration.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is SIN Partner for?', answer: 'To keep the SIN Partner program partners, with the customer list of each partner.' },
+    { question: 'How do I associate customers with a partner?', answer: 'In the "Customers" tab of the partner registration.' },
+    { question: 'Which fields does the partner have?', answer: 'The Description and the customer list in the "Customers" tab.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the SIN Partner screen documentation.' },
+  ]}
+/>

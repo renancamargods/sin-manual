@@ -1,0 +1,156 @@
+---
+section: modulos
+routeSlug: administrador/modulo-de-negocio
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Módulo de Negócio
+description: "Cadastro dos módulos de negócio (ex.: Pedidos, Consignado, Trocas, Devoluções), com código, descrição, status e condições de pagamento."
+routineType: Cadastro e consulta
+permission: Sim
+impact: Módulos de negócio usados em pedidos e operações
+keywords: [módulo de negócio, consignado, pedidos, trocas, devoluções, condição de pagamento, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Módulo de Negócio** cadastra os módulos que classificam os tipos de operação do sistema (por exemplo, Pedidos, Consignado, Trocas TDC, Devoluções TDC). Cada módulo reúne um **Código do Módulo**, uma **Descrição**, o **Status Sistema** e as **Condições de Pagamento** associadas.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Tipos de operação', text: 'Classifica as operações do sistema (pedidos, consignado, trocas, devoluções).' },
+    { label: 'Uso', title: 'Regras por módulo', text: 'As condições de pagamento podem variar por módulo de negócio.' },
+    { label: 'Cuidado', title: 'Status', text: 'Módulos inativos não devem ser usados em novas operações.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo módulo de negócio.
+- Consultar ou localizar um módulo pelo código.
+- Editar a descrição, o status ou as condições de pagamento de um módulo.
+
+## Como acessar
+
+Administrador → Módulo de Negócio
+
+## Antes de começar
+
+- Tenha o **código** e a **descrição** do módulo.
+- Saiba as **condições de pagamento** aplicáveis.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Código do Módulo", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com as colunas "Codigo do Módulo", "Descrição" e "Status Sistema", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela (aba "Módulo de Negócio") com os campos do módulo.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Módulo de Negócio"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Codigo do Módulo', 'Código que identifica o módulo (ex.: pedidos, consignado, troca).'],
+    ['Descrição', 'Descrição do módulo de negócio.'],
+    ['Status Sistema', 'Situação do módulo (Ativo ou Inativo).'],
+    ['Condições de Pagamento', 'Condições de pagamento associadas ao módulo.'],
+  ]}
+/>
+
+<Callout type="info" title="Exemplos de módulos">
+Entre os módulos cadastrados estão: Pedidos, Consignado, Trocas TDC e Devoluções TDC.
+</Callout>
+
+## Fluxos principais
+
+1. **Consultar** — informe o **"Código do Módulo"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe **Código**, **Descrição**, defina o **Status Sistema** e as **Condições de Pagamento** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os módulos conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar um novo módulo.', '—'],
+    ['Salvar e Continuar', 'Para salvar e seguir configurando.', '—'],
+    ['Detalhes', 'Para consultar um módulo sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um módulo existente.', '—'],
+    ['Excluir', 'Para remover um módulo.', 'Ação sem retorno; prefira inativar em vez de excluir módulos já usados.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Módulo de Negócio', 'Acesso à tela', 'Permite abrir e utilizar a tela de Módulo de Negócio.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Pedidos e operações', 'Os módulos classificam os tipos de operação.', 'Use o módulo correto na operação.'],
+    ['Condição de Pagamento', 'As condições de pagamento podem variar por módulo.', 'Confira as condições vinculadas.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não executa a operação — apenas classifica e configura o módulo de negócio.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro um módulo', 'Filtro muito restrito ou módulo não cadastrado', 'Ajuste o código ou cadastre o módulo.'],
+    ['O módulo não aparece na operação', 'Módulo inativo', 'Verifique o Status Sistema.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os módulos que classificam os tipos de operação (Pedidos, Consignado, Trocas, Devoluções).' },
+    { question: 'O que são as "Condições de Pagamento"?', answer: 'São as condições de pagamento associadas ao módulo, que podem variar por tipo de operação.' },
+    { question: 'Posso excluir um módulo?', answer: 'Sim, mas prefira inativá-lo se ele já foi usado em operações.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Módulo de Negócio.' },
+  ]}
+/>

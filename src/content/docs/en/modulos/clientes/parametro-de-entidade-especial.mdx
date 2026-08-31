@@ -1,0 +1,171 @@
+---
+section: modulos
+routeSlug: clientes/parametro-de-entidade-especial
+pageType: routine
+module: clientes
+moduleLabel: Customers
+lang: en
+title: Special Entity Parameter
+description: Configuration of special handling by type (registration/order status, financial information, bank slips, logistics) for a customer or order, with a control period.
+routineType: Registration
+permission: Yes
+impact: Defines special handling applied to a customer or order by type and period
+keywords: [special entity parameter, special entity, type, control start, registration status, order status, financial information, bank slips, logistics, customers]
+tags: [modulo-clientes, cadastro]
+order: 9
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Special Entity Parameter** screen defines **special handling** applied to a **customer** or **order**, by **type** (for example, "Registration Status", "Order Status", "Financial Information", "Bank Slips" and "Logistics Information") and by a **control period** (start and end). It is used to configure exceptions or differentiated handling in a controlled way.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Special handling', text: 'Configures special handling by type for a customer or order.' },
+    { label: 'Use', title: 'By period', text: 'Each parameter is valid for a control period (start and end).' },
+    { label: 'Scope', title: 'Customer or order', text: 'The parameter can be linked to a customer and/or an order.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Apply special handling to a customer or order for a period.
+- Query the registered special parameters.
+- Activate or deactivate a parameter.
+
+## How to access
+
+Customers → Special Entity Parameter
+
+## Before you start
+
+- Know the **type** of special handling that will be configured.
+- Have the **customer** and/or the **order** and the control **period**.
+- Confirm that your profile allows maintaining this registration.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Filters by "Type", "Control Start" period and "System Status" (Active/Inactive), with "Search", "+ New" and "Clear Filters".', 'Use the filters to locate parameters.'],
+    ['Results', 'List of the parameters with the "Type", "Control Start" and "System Status" columns, and the history, details, edit and delete icons.', 'The icons are on the right of the row.'],
+    ['Registration', 'Form with the type, the period, the customer, the order and the status.', 'Choose the type before filling in.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Type', 'Filters by the special parameter type.'],
+    ['Control Start - Start / End', 'Control start period.'],
+    ['System Status', 'Filters by Active or Inactive parameters.'],
+  ]}
+/>
+
+### Registration (+ New)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Type', 'Type of the special handling: "Registration Status", "Order Status", "Financial Information", "Bank Slips" or "Logistics Information".'],
+    ['Control Start', 'Start date of the control period.'],
+    ['Control End', 'End date of the control period.'],
+    ['Customer', 'Customer the parameter applies to.'],
+    ['Order', 'Order the parameter applies to.'],
+    ['System Status', 'Defines whether the parameter is Active or Inactive.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the parameters according to the filters.', 'Combine type, period and status.'],
+    ['+ New', 'To create a special parameter.', 'Opens the form.'],
+    ['Save', 'To store the parameter.', 'Check the type, the period and the scope (customer/order).'],
+    ['Details / Edit / History', 'To query, change or see the parameter history.', 'Details is read-only.'],
+    ['Delete', 'To remove the parameter.', 'Confirm before; hard to reverse.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Special Entity Parameter', 'Screen access', 'Allows opening the screen and maintaining the parameters.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Handling by type', 'The type defines which special handling is applied.', 'Choose the type according to the need.'],
+    ['Control period', 'The parameter is valid between the informed start and end.', 'Define the period carefully.'],
+    ['Active/Inactive', 'The status controls whether the parameter is in effect.', 'Deactivate to suspend the handling.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Customer', 'The parameter can be linked to a customer.', '—'],
+    ['Order', 'The parameter can be linked to an order.', '—'],
+    ['Credit / Logistics / Fiscal', 'Depending on the type, the parameter affects the financial, bank-slip or logistics handling.', 'Use with judgment; it affects the process.'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not create the customer or the order — they come from their own registrations.
+- It is not a general rule — each parameter is specific and temporary.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the parameter', 'Restrictive filters or inactive parameter', 'Adjust type, period and status.'],
+    ['The handling is not applied', 'Period out of effect or inactive parameter', 'Check the period and the "System Status".'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Special Entity Parameter for?', answer: 'To configure special handling by type (registration/order status, financial information, bank slips, logistics) for a customer or order, for a period.' },
+    { question: 'What are the available types?', answer: '"Registration Status", "Order Status", "Financial Information", "Bank Slips" and "Logistics Information".' },
+    { question: 'Is the parameter permanent?', answer: 'No. It is valid for the control period (start and end) and can be deactivated.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the Special Entity Parameter screen documentation.' },
+  ]}
+/>

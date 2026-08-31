@@ -26,6 +26,10 @@ const headManual = isEn ? 'System Manual' : 'Manual do Sistema SIN';
 const headModules = isEn ? 'Modules' : 'Módulos';
 const headTecnico = isEn ? 'Technical Docs & Settings' : 'Doc. Técnicas e Configurações';
 const soonLabel = isEn ? 'soon' : 'em breve';
+const naLabel = isEn ? 'unavailable' : 'não disponível';
+const naTitle = isEn
+  ? 'Screen not available in the system'
+  : 'Tela não disponível no sistema';
 
 const isActive = (href: string) => currentPath === href || currentPath === `${href}/`;
 const linkBase =
@@ -33,6 +37,7 @@ const linkBase =
 const activeClasses = 'bg-brand-red/10 text-brand-red font-semibold';
 const inactiveClasses = 'text-gray-600 hover:bg-gray-100 hover:text-gray-900';
 const mutedClasses = 'text-gray-500 cursor-default';
+const unavailableClasses = 'text-brand-red/70 cursor-not-allowed';
 ---
 
 <nav class="text-sm" aria-label="Navegação do manual">
@@ -83,7 +88,12 @@ const mutedClasses = 'text-gray-500 cursor-default';
                     const label = routineLabel(mod.id, r.slug, r.title);
                     return (
                       <li>
-                        {isAvailable ? (
+                        {r.unavailable ? (
+                          <span class:list={[linkBase, unavailableClasses, 'flex items-center justify-between gap-2']} title={naTitle}>
+                            {label}
+                            <span class="text-[10px] uppercase tracking-wide text-brand-red/80">{naLabel}</span>
+                          </span>
+                        ) : isAvailable ? (
                           <a href={href} class:list={[linkBase, isActive(href) ? activeClasses : inactiveClasses]}>{label}</a>
                         ) : (
                           <span class:list={[linkBase, mutedClasses, 'flex items-center justify-between']}>
@@ -131,7 +141,12 @@ const mutedClasses = 'text-gray-500 cursor-default';
                     const label = tecnicoSubLabel(group.slug, sub.slug, sub.title);
                     return (
                       <li>
-                        {isAvailable ? (
+                        {sub.unavailable ? (
+                          <span class:list={[linkBase, unavailableClasses, 'flex items-center justify-between gap-2']} title={naTitle}>
+                            {label}
+                            <span class="text-[10px] uppercase tracking-wide text-brand-red/80">{naLabel}</span>
+                          </span>
+                        ) : isAvailable ? (
                           <a href={href} class:list={[linkBase, isActive(href) ? activeClasses : inactiveClasses]}>{label}</a>
                         ) : (
                           <span class:list={[linkBase, mutedClasses, 'flex items-center justify-between']}>

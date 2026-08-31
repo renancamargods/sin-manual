@@ -1,0 +1,191 @@
+---
+section: modulos
+routeSlug: clientes/anexo-de-cliente
+pageType: routine
+module: clientes
+moduleLabel: Customers
+lang: en
+title: Customer Attachment
+description: Registration of documents (attachments) linked to the customer registration, with file, description and keywords.
+routineType: Registration
+permission: Yes
+impact: Stores documents linked to the customer registration
+keywords: [customer attachment, attachment, customer document, file, keywords, upload, customers]
+tags: [modulo-clientes, cadastro]
+order: 2
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Customer Attachment** screen stores the **documents (attachments)** linked to a **customer** — for example, receipts, photo IDs and records. Each attachment has the **file**, a **description** and **keywords** that help locate it.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Customer documents', text: 'Stores files linked to the customer registration.' },
+    { label: 'Use', title: 'Attach and locate', text: 'Upload the file with description and keywords to find it later.' },
+    { label: 'Composition', title: 'File + data', text: 'Each attachment has file, description, keywords and the customer.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Attach a document to a customer's registration.
+- Query or download a customer's attachments.
+- Locate an attachment by customer, description or file name.
+
+## How to access
+
+Customers → Customer Attachment
+
+## Before you start
+
+- Have the **file** that will be attached.
+- Know which **customer** the attachment belongs to.
+- Confirm that your profile allows attaching documents.
+
+<Callout type="cuidado" title="Personal data">
+Attachments may contain customers' personal documents. Handle the files carefully and follow the company's privacy rules.
+</Callout>
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Filters by "Customer", "Description" and "Name" (of the file), with "Search", "+ New" and "Clear Filters".', 'Use the filters to locate attachments.'],
+    ['Results', 'List of the attachments with the "Customer", "Description" and "Name" columns, and the download, details, edit and delete icons per row.', 'Use the download icon to open the file.'],
+    ['Registration', 'Form with the file, the description, the keywords and the customer.', 'Choose the file before saving.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Customer', 'Filters by a customer\'s attachments.'],
+    ['Description', 'Filters by the attachment description.'],
+    ['Name', 'Filters by the file name.'],
+  ]}
+/>
+
+### Results columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Customer', 'Customer the attachment belongs to.'],
+    ['Description', 'Attachment description.'],
+    ['Name', 'Name of the attached file.'],
+  ]}
+/>
+
+### Registration (+ New)
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['File', 'Chooses the file to be attached ("Choose file").'],
+    ['Description', 'Description that identifies the attachment.'],
+    ['Keywords', 'Terms that help locate the attachment in the search.'],
+    ['Customer', 'Customer the attachment will be linked to.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Attach** — click **"+ New"**, use **"Choose file"** and inform the description, keywords and customer.
+2. **Save** — click **"Save"**.
+3. **Query/download** — in the listing, use the row icons to download or see the details.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the attachments according to the filters.', 'Combine customer, description and name.'],
+    ['+ New', 'To attach a document.', 'Opens the attachment form.'],
+    ['Save', 'To store the attachment.', 'Choose the file first.'],
+    ['Download', 'To open/download the attachment file.', 'Handle personal documents carefully.'],
+    ['Details / Edit', 'To query or change the attachment.', 'Details is read-only.'],
+    ['Delete', 'To remove the attachment.', 'Confirm before; hard to reverse.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Customer Attachment', 'Screen access', 'Allows opening the screen and querying the attachments.'],
+    ['Attach/edit', '+ New / Edit', 'Allows attaching and changing documents.'],
+    ['Delete', 'Delete', 'Allows removing attachments.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Attachment per customer', 'Each attachment is linked to a customer.', 'Check the customer before saving.'],
+    ['Keyword search', 'The keywords help locate the attachment.', 'Use clear terms when attaching.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Customer', 'The attachment is linked to the customer registration.', 'The customer must exist.'],
+    ['Attachment Types / Attachment Domain', 'The attachment classification comes from the Administrator registrations.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not register the customer — it comes from the Customer registration.
+- It does not edit the file content — it only stores and links it.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the attachment', 'Restrictive filters', 'Adjust customer, description or name.'],
+    ['I cannot attach', 'File not chosen or missing permission', 'Choose the file and check the permission.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is Customer Attachment for?', answer: 'To store documents (attachments) linked to a customer\'s registration, with file, description and keywords.' },
+    { question: 'How do I attach a document?', answer: 'Click "+ New", use "Choose file", inform the description, keywords and customer, and save.' },
+    { question: 'How do I locate an attachment?', answer: 'Use the "Customer", "Description" and "Name" filters in the search.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the Customer Attachment screen documentation.' },
+  ]}
+/>

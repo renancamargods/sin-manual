@@ -1,0 +1,129 @@
+---
+section: modulos
+routeSlug: regulatorios/agencia-reguladora
+pageType: routine
+module: regulatorios
+moduleLabel: Regulatórios
+title: Agência Reguladora
+description: "Cadastro das agências reguladoras aplicáveis aos produtos (ex.: ANVISA, FDA), pelo nome da agência."
+routineType: Cadastro
+permission: Sim
+impact: Define as agências reguladoras usadas nos registros regulatórios
+keywords: [agência reguladora, anvisa, fda, regulatório, regulatórios, cadastro]
+tags: [modulo-regulatorios, cadastro]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Agência Reguladora** mantém a lista das **agências reguladoras** aplicáveis aos produtos — por exemplo, "ANVISA" (Brasil) e "FDA" (EUA). Essas agências são usadas nos **registros regulatórios** dos produtos.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Agências reguladoras', text: 'Mantém as agências reguladoras aplicáveis aos produtos.' },
+    { label: 'Uso', title: 'Nome da agência', text: 'Cada agência é identificada pelo seu nome.' },
+    { label: 'Natureza', title: 'Cadastro de apoio', text: 'Consultado nos registros regulatórios.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar as agências reguladoras cadastradas.
+- Incluir uma nova agência.
+- Corrigir o nome de uma agência.
+
+## Como acessar
+
+Regulatórios → Agência Reguladora
+
+## Antes de começar
+
+- Tenha o **nome** da agência reguladora.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Campos principais
+
+<DocTable
+  headers={['Campo / Coluna', 'O que é']}
+  rows={[
+    ['Nome Agência Reguladora', 'Nome da agência reguladora (ex.: "ANVISA", "FDA").'],
+  ]}
+/>
+
+O formulário ("+ Novo") tem o campo **Nome Agência Reguladora**. Na listagem, cada linha tem os ícones de detalhes, editar e excluir.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as agências conforme o nome.', '—'],
+    ['+ Novo', 'Para incluir uma agência.', 'Abre o formulário.'],
+    ['Salvar', 'Para guardar a agência.', 'Informe o nome.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar a agência.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover a agência.', 'Confirme antes; pode estar em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Agência Reguladora', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Registros', 'A agência reguladora é usada nos registros regulatórios dos produtos.', 'A agência precisa existir para ser vinculada.'],
+    ['Status Regulatórios', 'A situação regulatória do produto pode depender da agência.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não emite registros — apenas mantém a lista de agências.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro a agência', 'Filtro restrito', 'Ajuste o nome na pesquisa.'],
+    ['Não consigo excluir', 'Agência em uso', 'Verifique se há registros vinculados.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Agência Reguladora?', answer: 'Para manter as agências reguladoras (ex.: ANVISA, FDA) usadas nos registros regulatórios dos produtos.' },
+    { question: 'Quais campos a agência tem?', answer: 'Apenas o Nome Agência Reguladora.' },
+    { question: 'Posso excluir uma agência em uso?', answer: 'Não é recomendado; verifique antes se há registros vinculados.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Agência Reguladora.' },
+  ]}
+/>

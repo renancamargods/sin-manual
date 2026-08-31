@@ -1,0 +1,194 @@
+---
+section: modulos
+routeSlug: administrador/endereco
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Address
+description: Central lookup and registration of system addresses, with search by ZIP code, address type and status, used by customers and other records.
+routineType: Registration and lookup
+permission: Yes
+impact: Addresses used by customers and other records
+keywords: [address, zip code, street, city, state, address type, delivery, billing, correspondence]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Address** screen centralizes the lookup and registration of the addresses used in the system. Each address holds the full street data (type, street, number, complement, district), the **ZIP code**, the **city**, the **state**, the **address type** (Delivery, Billing or Correspondence) and the **status**.
+
+When registering, entering the **ZIP code** and clicking search automatically fills in the address data (street, district, city and state) when available.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Address base', text: 'Centralizes the addresses used by customers and other records.' },
+    { label: 'Use', title: 'Lookup and registration', text: 'Lets you find addresses by ZIP code, street, type and status.' },
+    { label: 'Caution', title: 'Main address', text: 'An address may be marked as main — check before changing it.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Look up addresses by ZIP code, street, type or status.
+- Register a new address from the ZIP code.
+- Edit or review an address's data.
+
+## How to access
+
+Administrator → Address
+
+## Before you start
+
+- Have the **ZIP code** (the search fills in the other fields when available).
+- Know the **address type** (Delivery, Billing or Correspondence).
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Address Type (Delivery/Billing/Correspondence), ZIP code, Street and System Status (Active/Inactive), with the "Search", "+ New" and "Clear Filters" buttons.', 'Combine the filters to narrow the results.'],
+    ['Results', 'List of addresses with several columns and per-row actions.', 'Each row has History/Logs, Details, Edit and Delete.'],
+    ['Registration / editing', 'Window with Country, ZIP code (with search) and Address Type; the address data is filled from the ZIP code.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Address Type', 'Filters by Delivery, Billing or Correspondence.'],
+    ['ZIP code', 'Searches by the address ZIP code.'],
+    ['Street', 'Searches by the street.'],
+    ['System Status', 'Filters by Active or Inactive.'],
+  ]}
+/>
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Street Type', 'Type of the street (e.g., Street, Avenue).'],
+    ['Street', 'Name of the street.'],
+    ['Number', 'Address number.'],
+    ['Complement', 'Complement (room, apartment, etc.).'],
+    ['ZIP code', 'Address ZIP code.'],
+    ['City', 'Address city.'],
+    ['State', 'Address state.'],
+    ['District', 'Address district.'],
+    ['Address Type', 'Delivery, Billing or Correspondence.'],
+    ['Main Address?', 'Indicates whether it is the main address (Yes/No).'],
+    ['Status', 'Address status (Active/Inactive).'],
+  ]}
+/>
+
+### Address registration
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Country', 'Country of the address.'],
+    ['ZIP code', 'ZIP code used to look up and fill the address automatically (search button next to it).'],
+    ['Address Type', 'Delivery, Billing or Correspondence.'],
+  ]}
+/>
+
+<Callout type="info" title="ZIP code lookup">
+When you enter the ZIP code and trigger the search, the system automatically fills in the street, district, city and state when the data is available. International addresses or those without a ZIP-code base may require filling the fields manually.
+</Callout>
+
+## Main flows
+
+1. **Search** — enter the filters (Address Type, ZIP code, Street, Status) and click **"Search"**.
+2. **Register** — click **"+ New"**, select the **Country**, enter the **ZIP code** and trigger the search, adjust the data if needed, set the **Address Type** and click **"Save"**.
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **View details / history** — use the **Details** and **History/Logs** icons on the row.
+5. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list addresses according to the filters.', '—'],
+    ['+ New', 'To register a new address.', 'Start with the ZIP code to fill the fields.'],
+    ['Details', 'To view an address without changing it.', 'Read only.'],
+    ['History / Logs', 'To see the address change history.', '—'],
+    ['Edit', 'To change an existing address.', 'Check whether it is the main address before changing.'],
+    ['Delete', 'To remove an address.', 'Irreversible action; avoid deleting addresses in use.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Address', 'Access to the screen', 'Allows opening and using the Address screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Customer', 'Addresses are used in customer records.', 'Keep the address type correct.'],
+    ['City and State', 'The address references city and state.', 'Register city/state when not found by ZIP code.'],
+    ['Street Type', 'The address uses the registered street type.', 'Keep the types standardized.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not validate the physical existence of the address — it only records the data entered.
+- It does not define which address a customer uses in each operation — that is handled in the records that consume the address.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The ZIP code search does not fill in', 'ZIP code not in the base or international address', 'Fill in the fields manually.'],
+    ['I cannot find an address', 'Filters too restrictive', 'Adjust the filters (ZIP code, Street, Type, Status).'],
+    ['I cannot delete it', 'Address in use by a record', 'Check the links before deleting.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To look up and register the addresses used in the system, with search by ZIP code and by address type.' },
+    { question: 'What is the "Address Type"?', answer: 'It classifies the address as Delivery, Billing or Correspondence.' },
+    { question: 'Does the ZIP code search fill everything?', answer: 'It fills street, district, city and state when the data is available; otherwise, complete manually.' },
+    { question: 'What is "Main Address?"', answer: 'It indicates whether the address is the main one of the record (Yes/No).' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Initial release of the Address screen documentation.' },
+  ]}
+/>

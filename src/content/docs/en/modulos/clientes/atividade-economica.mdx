@@ -1,0 +1,143 @@
+---
+section: modulos
+routeSlug: clientes/atividade-economica
+pageType: routine
+module: clientes
+moduleLabel: Customers
+lang: en
+title: Economic Activity
+description: Registration of the economic activities (CNAE standard) used to classify customers, by code and description.
+routineType: Registration
+permission: Yes
+impact: Defines the list of economic activities used in customer classification
+keywords: [economic activity, cnae, code, description, customer classification, customers, registration]
+tags: [modulo-clientes, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Economic Activity** screen keeps the list of **economic activities** (in the **CNAE** standard) used to **classify customers**. Each activity has a **code** (e.g., "0111-3/01") and a **description** (e.g., "Rice growing").
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Classify customers', text: 'Keeps the economic activities used in customer classification.' },
+    { label: 'Use', title: 'Code and description', text: 'Each activity has a code (CNAE) and a description.' },
+    { label: 'Nature', title: 'Support registration', text: 'It is a registration queried by other registrations and screens.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Query the registered economic activities.
+- Add a new economic activity.
+- Fix the code or description of an activity.
+
+## How to access
+
+Customers → Economic Activity
+
+## Before you start
+
+- Have the **CNAE code** and the **description** of the activity.
+- Confirm that your profile allows maintaining this registration.
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Code', 'Filters by the activity code (CNAE standard).'],
+    ['Description', 'Filters by the activity description.'],
+  ]}
+/>
+
+### Results columns and registration
+
+<DocTable
+  headers={['Field / Column', 'What it is']}
+  rows={[
+    ['Code', 'Code that identifies the economic activity (e.g., "0111-3/01").'],
+    ['Description', 'Description of the activity (e.g., "Rice growing").'],
+  ]}
+/>
+
+The form ("+ New") has only the **Code** and **Description** fields, with the **"Save"** and **"Close"** buttons.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the activities according to the filters.', 'Combine code and description.'],
+    ['+ New', 'To add a new activity.', 'Opens the form.'],
+    ['Save', 'To store the activity.', 'Inform code and description.'],
+    ['Details / Edit', 'To query or change the activity.', 'Details is read-only.'],
+    ['Delete', 'To remove the activity.', 'Confirm before; it may be in use by customers.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Economic Activity', 'Screen access', 'Allows opening the screen and maintaining the registration.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Customer', 'The economic activity is used in the customer classification.', 'The activity must exist to be linked.'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not classify customers automatically — it only maintains the list of activities.
+- It does not change the customer's fiscal data.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the activity', 'Restrictive filters', 'Adjust the code or the description.'],
+    ['I cannot delete', 'Activity in use by customers', 'Check whether there are linked customers.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is Economic Activity for?', answer: 'To keep the list of economic activities (CNAE standard) used in customer classification.' },
+    { question: 'Which fields does the activity have?', answer: 'Code (CNAE) and Description.' },
+    { question: 'Can I delete an activity in use?', answer: 'It is not recommended; check first whether there are customers linked to it.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the Economic Activity screen documentation.' },
+  ]}
+/>

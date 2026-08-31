@@ -1,0 +1,173 @@
+---
+section: modulos
+routeSlug: regulatorios/lista-geral-de-produtos
+pageType: routine
+module: regulatorios
+moduleLabel: Regulatory
+lang: en
+title: General Product List
+description: General query of the products with regulatory information (group, line, connection, status, Anvisa registration, GTIN), with full export and spreadsheet import.
+routineType: Query and registration
+permission: Yes
+impact: Gathers the products' regulatory information and allows bulk export/import
+keywords: [general product list, regulatory, anvisa registration, gtin, product status, sterile product, accessory, export, import spreadsheet, regulatory]
+tags: [modulo-regulatorios, consulta]
+order: 16
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **General Product List** screen is the **consolidated regulatory view** of the products. It gathers, for each product, the regulatory information — **group**, **line**, **connection**, **status**, **Anvisa registration number** and **GTIN** — and allows **exporting** and **importing** this information in bulk.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Regulatory view', text: 'Consolidates the products\' regulatory information.' },
+    { label: 'Use', title: 'Filter and export', text: 'Filters by registration, country, status and others and exports the result.' },
+    { label: 'Productivity', title: 'Import spreadsheet', text: 'Allows updating the information in bulk by spreadsheet.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Query a product's regulatory information.
+- Filter the products by registration, country, status or characteristics (sterile, accessory).
+- Export the complete list for analysis.
+- Update the information in bulk by spreadsheet import.
+
+## How to access
+
+Regulatory → General Product List
+
+## Before you start
+
+- Know the product, registration or filters you want to apply.
+- To import, have the **spreadsheet** in the expected format.
+- Confirm that your profile allows querying and maintaining this information.
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Product Code', 'Filters by the product code.'],
+    ['Product Group', 'Filters by the product group.'],
+    ['Registration Number', 'Filters by the regulatory registration number.'],
+    ['Country', 'Filters by the country.'],
+    ['Product Status', 'Filters by the product regulatory status.'],
+    ['Sterile Product?', 'Filters by sterile products (Yes or No).'],
+    ['Accessory?', 'Filters by accessories (Yes or No).'],
+    ['Has Records', 'Filters by products that have records (Yes or No).'],
+  ]}
+/>
+
+### Results columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Product Code', 'Product code.'],
+    ['Product Status', 'Product regulatory status.'],
+    ['Product Group', 'Product regulatory group.'],
+    ['Product Line', 'Product regulatory line.'],
+    ['Product Connection', 'Product connection.'],
+    ['Portuguese Description', 'Product description in Portuguese.'],
+    ['Anvisa Registration Number', 'Product registration number at Anvisa.'],
+    ['GTIN Code', 'Product GTIN code.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the products according to the filters.', 'Combine registration, country and status.'],
+    ['+ New', 'To add/edit a product\'s regulatory information.', 'Opens the record form.'],
+    ['Full Export', 'To export the complete list of regulatory information.', '—'],
+    ['Import Spreadsheet', 'To update the information in bulk from a spreadsheet.', 'Use the expected format; review before importing.'],
+    ['Export table to Excel / PDF', 'To export the current result.', '—'],
+    ['Clear Filters', 'To reset the filters.', '—'],
+  ]}
+/>
+
+<Callout type="cuidado" title="Bulk import">
+"Import Spreadsheet" updates the information of several products at once. Check the spreadsheet and the format before importing, as it changes regulatory data.
+</Callout>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['General Product List', 'Screen access', 'Allows opening the screen and querying the information.'],
+    ['Import/update', 'Import Spreadsheet / + New', 'Allows updating the regulatory information.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Consolidated view', 'The list gathers group, line, connection, status, registration and GTIN per product.', 'Use the filters to focus.'],
+    ['Export/Import', 'Allows handling the information in bulk.', 'Review the spreadsheet before importing.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Records / Regulatory Status', 'The list reflects the products\' records and regulatory status.', '—'],
+    ['Product Group / Product Line / Product Connection', 'The list uses these regulatory classifications.', '—'],
+    ['Product GTIN', 'The list shows the product GTIN.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not register the base product — it gathers its regulatory information.
+- It does not issue the Anvisa registration — it only records the number and the status.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The list appears empty (0/0)', 'Restrictive filters or no matching products', 'Adjust or clear the filters.'],
+    ['The import did not update', 'Spreadsheet out of format', 'Check the expected format and reimport.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the General Product List for?', answer: 'To query, in a consolidated way, the products\' regulatory information (group, line, connection, status, Anvisa registration, GTIN) and export/import in bulk.' },
+    { question: 'How do I update several pieces of information at once?', answer: 'Use "Import Spreadsheet" with the file in the expected format.' },
+    { question: 'How do I export the list?', answer: 'Use "Full Export" or "Export table to Excel/PDF".' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the General Product List screen documentation.' },
+  ]}
+/>

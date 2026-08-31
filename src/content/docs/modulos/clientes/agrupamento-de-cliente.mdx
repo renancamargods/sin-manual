@@ -1,0 +1,181 @@
+---
+section: modulos
+routeSlug: clientes/agrupamento-de-cliente
+pageType: routine
+module: clientes
+moduleLabel: Clientes
+title: Agrupamento de Cliente
+description: Cadastro de agrupamentos que reúnem vários clientes sob uma mesma descrição, para análises e regras comerciais.
+routineType: Cadastro
+permission: Sim
+impact: Define agrupamentos de clientes usados em análises e regras comerciais
+keywords: [agrupamento de cliente, agrupamento, grupo de clientes, clientes, cadastro, digitação rápida]
+tags: [modulo-clientes, cadastro]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Agrupamento de Cliente** permite reunir vários **clientes** sob um mesmo **agrupamento** (identificado por uma descrição). Esse agrupamento é usado em **análises** e em **regras comerciais**, facilitando tratar um conjunto de clientes em conjunto.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Reunir clientes', text: 'Agrupa vários clientes sob uma mesma descrição.' },
+    { label: 'Uso', title: 'Análises e regras', text: 'O agrupamento é usado em análises e regras comerciais.' },
+    { label: 'Composição', title: 'Lista de clientes', text: 'Cada agrupamento tem a sua lista de clientes.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Criar um agrupamento para tratar um conjunto de clientes em conjunto.
+- Incluir ou remover clientes de um agrupamento.
+- Consultar os agrupamentos já cadastrados.
+- Ativar ou inativar um agrupamento.
+
+## Como acessar
+
+Clientes → Agrupamento de Cliente
+
+## Antes de começar
+
+- Saiba quais **clientes** farão parte do agrupamento.
+- Defina uma **descrição** clara para identificar o agrupamento.
+- Confirme que o seu perfil permite cadastrar agrupamentos.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros por "Descrição" e "Status Sistema" (Ativo/Inativo), com "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use os filtros para localizar agrupamentos.'],
+    ['Resultados', 'Lista dos agrupamentos pela coluna "Descrição", com os ícones de histórico, detalhes, editar e excluir por linha.', 'Os ícones de ação ficam à direita da linha.'],
+    ['Cadastro (2 abas)', 'Aba "Agrupamento de Cliente" (descrição e status) e aba "Clientes" (lista de clientes do agrupamento).', 'Monte a lista de clientes na aba "Clientes".'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Agrupamento de Cliente"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Descrição', 'Nome que identifica o agrupamento.'],
+    ['Status Sistema', 'Define se o agrupamento está Ativo ou Inativo.'],
+  ]}
+/>
+
+### Aba "Clientes"
+
+Grade **"Clientes"** com os clientes que compõem o agrupamento.
+
+<DocTable
+  headers={['Coluna / ação', 'O que é']}
+  rows={[
+    ['Nome do Cliente', 'Nome do cliente incluído no agrupamento.'],
+    ['Código do Cliente', 'Código do cliente.'],
+    ['Adicionar Cliente - Digitação Rápida', 'Adiciona clientes ao agrupamento em digitação rápida.'],
+  ]}
+/>
+
+<Callout type="info" title="Lista começa vazia">
+Ao iniciar um agrupamento, a aba "Clientes" exibe "Não há registro para ser exibido". Use "Adicionar Cliente - Digitação Rápida" para incluir os clientes.
+</Callout>
+
+## Fluxos principais
+
+1. **Criar o agrupamento** — clique em **"+ Novo"** e informe a "Descrição".
+2. **Adicionar clientes** — na aba "Clientes", use **"Adicionar Cliente - Digitação Rápida"** para incluir os clientes.
+3. **Salvar** — use **"Salvar"** (ou "Salvar e Continuar" para seguir editando).
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os agrupamentos conforme os filtros.', '—'],
+    ['+ Novo', 'Para criar um agrupamento do zero.', 'Abre o cadastro.'],
+    ['Adicionar Cliente - Digitação Rápida', 'Para incluir clientes no agrupamento.', '—'],
+    ['Salvar e Continuar', 'Para salvar e seguir editando.', '—'],
+    ['Salvar', 'Para salvar e fechar o cadastro.', '—'],
+    ['Editar / Detalhes / Histórico', 'Para alterar, consultar ou ver o histórico do agrupamento.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover o agrupamento.', 'Confirme antes; ação difícil de reverter.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Agrupamento de Cliente', 'Acesso à tela', 'Permite abrir a tela e consultar os agrupamentos.'],
+    ['Cadastrar/editar', '+ Novo / Editar', 'Permite criar e alterar agrupamentos.'],
+    ['Excluir', 'Excluir', 'Permite remover agrupamentos.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Ativo/Inativo', 'O status controla se o agrupamento fica disponível para uso.', 'Inative em vez de excluir quando quiser preservar o histórico.'],
+    ['Vários clientes por agrupamento', 'Um agrupamento reúne vários clientes.', 'Mantenha a lista atualizada.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Cliente', 'Os clientes do agrupamento vêm do cadastro de Cliente.', 'O cliente precisa existir para ser incluído.'],
+    ['Políticas comerciais', 'Agrupamentos podem ser usados em análises e regras comerciais.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra os clientes — eles vêm do cadastro de Cliente.
+- Não define, por si só, preços ou descontos — apenas agrupa clientes.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o agrupamento', 'Filtros restritos ou agrupamento inativo', 'Ajuste os filtros e o "Status Sistema".'],
+    ['Não consigo adicionar um cliente', 'Cliente não localizado', 'Confira o cadastro do cliente.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Agrupamento de Cliente?', answer: 'Para reunir vários clientes sob uma mesma descrição, usada em análises e regras comerciais.' },
+    { question: 'Como adiciono clientes ao agrupamento?', answer: 'Na aba "Clientes", use "Adicionar Cliente - Digitação Rápida".' },
+    { question: 'Posso inativar um agrupamento?', answer: 'Sim. Use o "Status Sistema" para deixá-lo Ativo ou Inativo.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Agrupamento de Cliente.' },
+  ]}
+/>

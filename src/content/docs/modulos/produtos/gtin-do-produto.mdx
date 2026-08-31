@@ -1,0 +1,155 @@
+---
+section: modulos
+routeSlug: produtos/gtin-do-produto
+pageType: routine
+module: produtos
+moduleLabel: Produtos
+title: GTIN do Produto
+description: Cadastro dos códigos de barras GTIN vinculados aos produtos, por GTIN e SKU do produto.
+routineType: Cadastro
+permission: Sim
+impact: Define os GTINs (códigos de barras) vinculados a cada produto
+keywords: [gtin do produto, gtin, código de barras, sku, produto, ean, cadastro]
+tags: [modulo-produtos, cadastro]
+order: 5
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **GTIN do Produto** vincula os **códigos de barras GTIN** aos **produtos**. Cada registro relaciona um **GTIN** a um **produto** (SKU), permitindo identificar o produto pela leitura do código de barras.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'GTIN por produto', text: 'Vincula os códigos de barras GTIN aos produtos.' },
+    { label: 'Uso', title: 'GTIN e SKU', text: 'Cada registro relaciona um GTIN a um produto.' },
+    { label: 'Natureza', title: 'Cadastro de apoio', text: 'Usado na identificação e leitura dos produtos.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Vincular um GTIN a um produto.
+- Consultar os GTINs cadastrados por produto ou SKU.
+- Corrigir o vínculo entre GTIN e produto.
+
+## Como acessar
+
+Produtos → GTIN do Produto
+
+## Antes de começar
+
+- Tenha o **GTIN** (código de barras) e o **produto** (SKU) a vincular.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Gtin', 'Filtra pelo código GTIN.'],
+    ['Código SKU', 'Filtra pelo SKU do produto.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Gtin', 'Código de barras GTIN.'],
+    ['Produto', 'Produto (SKU) vinculado.'],
+    ['Descrição', 'Descrição do produto.'],
+    ['Data do Cadastro', 'Data em que o vínculo foi cadastrado.'],
+    ['Data da Última Alteração', 'Data da última alteração.'],
+    ['Nome', 'Usuário responsável pelo registro.'],
+  ]}
+/>
+
+### Cadastro (+ Novo)
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Gtin', 'Código de barras GTIN.'],
+    ['Produto', 'Produto (SKU) ao qual o GTIN será vinculado.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os GTINs conforme os filtros.', 'Combine GTIN e SKU.'],
+    ['+ Novo', 'Para vincular um GTIN a um produto.', 'Abre o formulário.'],
+    ['Salvar', 'Para guardar o vínculo.', 'Informe o GTIN e o produto.'],
+    ['Detalhes / Editar / Histórico', 'Para consultar, alterar ou ver o histórico.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover o vínculo.', 'Confirme antes.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['GTIN do Produto', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Produto', 'O GTIN é vinculado a um produto.', 'O produto precisa existir.'],
+    ['Expedição / Rastreabilidade', 'O GTIN é usado na leitura e identificação dos produtos.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra o produto — apenas vincula o GTIN a ele.
+- Não gera os códigos de barras — apenas os registra.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o GTIN', 'Filtros restritos', 'Ajuste o GTIN ou o SKU.'],
+    ['Não consigo vincular', 'Produto não localizado', 'Confira o cadastro do produto.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o GTIN do Produto?', answer: 'Para vincular os códigos de barras GTIN aos produtos, permitindo identificá-los pela leitura do código.' },
+    { question: 'Quais campos o vínculo tem?', answer: 'GTIN e Produto (SKU).' },
+    { question: 'Um produto pode ter mais de um GTIN?', answer: 'Sim; cada registro vincula um GTIN a um produto.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela GTIN do Produto.' },
+  ]}
+/>

@@ -1,0 +1,144 @@
+---
+section: modulos
+routeSlug: produtos/imposto-produto
+pageType: routine
+module: produtos
+moduleLabel: Produtos
+title: Imposto Produto
+description: Configuração da porcentagem de imposto de um produto (SKU) por país, usada na tributação — especialmente em operações internacionais.
+routineType: Cadastro
+permission: Sim
+impact: Define a porcentagem de imposto do produto por país
+keywords: [imposto produto, imposto, tributação, porcentagem imposto, país, sku, produtos, cadastro, fiscal]
+tags: [modulo-produtos, cadastro, fiscal]
+order: 8
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Imposto Produto** configura a **porcentagem de imposto** de um **produto (SKU)** por **país** — por exemplo, "Portugal" com "23,00". É usada na tributação, especialmente em operações internacionais, onde a alíquota varia conforme o país.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Imposto por país', text: 'Define a porcentagem de imposto do produto por país.' },
+    { label: 'Uso', title: 'SKU + país + %', text: 'Cada registro relaciona um SKU, um país e a porcentagem de imposto.' },
+    { label: 'Natureza', title: 'Cadastro fiscal', text: 'Consultado na tributação dos produtos.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Configurar a porcentagem de imposto de um produto por país.
+- Consultar os impostos por SKU ou por país.
+- Corrigir a alíquota de um produto em um país.
+
+## Como acessar
+
+Produtos → Imposto Produto
+
+## Antes de começar
+
+- Tenha o **código (SKU)** do produto, o **país** e a **porcentagem de imposto**.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código (SKU)', 'Filtra pelo SKU do produto.'],
+    ['País', 'Filtra pelo país.'],
+  ]}
+/>
+
+### Colunas dos resultados e cadastro
+
+<DocTable
+  headers={['Campo / Coluna', 'O que é']}
+  rows={[
+    ['Código Sku', 'Produto (SKU) ao qual o imposto se aplica.'],
+    ['País / Nome País', 'País da tributação (ex.: "Portugal").'],
+    ['Porcentagem Imposto', 'Alíquota do imposto (ex.: "23,00").'],
+  ]}
+/>
+
+O formulário ("+ Novo") tem os campos **Código Sku**, **País** e **Porcentagem Imposto**, com os botões **"Salvar"** e **"Fechar"**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os impostos conforme os filtros.', 'Combine SKU e país.'],
+    ['+ Novo', 'Para configurar um imposto.', 'Abre o formulário.'],
+    ['Salvar', 'Para guardar o imposto.', 'Informe SKU, país e porcentagem.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar o imposto.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover o imposto.', 'Confirme antes; afeta a tributação.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Imposto Produto', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Produto', 'O imposto é configurado por produto (SKU).', 'O produto precisa existir.'],
+    ['Fiscal / Exportação', 'A porcentagem é usada na tributação, especialmente em operações internacionais.', 'Confira a alíquota por país.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não calcula o imposto do pedido — apenas define a porcentagem por produto e país.
+- Não cadastra o produto — ele vem do cadastro de Produto.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o imposto', 'Filtros restritos', 'Ajuste o SKU ou o país.'],
+    ['A alíquota está errada', 'Configuração incorreta', 'Edite a "Porcentagem Imposto".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Imposto Produto?', answer: 'Para configurar a porcentagem de imposto de um produto (SKU) por país, usada na tributação.' },
+    { question: 'Quais campos o imposto tem?', answer: 'Código Sku, País e Porcentagem Imposto.' },
+    { question: 'Um produto pode ter impostos diferentes por país?', answer: 'Sim; cada registro define a porcentagem para um par produto/país.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Imposto Produto.' },
+  ]}
+/>

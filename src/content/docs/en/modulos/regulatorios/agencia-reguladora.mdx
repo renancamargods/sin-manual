@@ -1,0 +1,130 @@
+---
+section: modulos
+routeSlug: regulatorios/agencia-reguladora
+pageType: routine
+module: regulatorios
+moduleLabel: Regulatory
+lang: en
+title: Regulatory Agency
+description: Registration of the regulatory agencies applicable to products (e.g., ANVISA, FDA), by agency name.
+routineType: Registration
+permission: Yes
+impact: Defines the regulatory agencies used in regulatory records
+keywords: [regulatory agency, anvisa, fda, regulatory, registration]
+tags: [modulo-regulatorios, cadastro]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Regulatory Agency** screen keeps the list of **regulatory agencies** applicable to products — for example, "ANVISA" (Brazil) and "FDA" (USA). These agencies are used in the products' **regulatory records**.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Regulatory agencies', text: 'Keeps the regulatory agencies applicable to products.' },
+    { label: 'Use', title: 'Agency name', text: 'Each agency is identified by its name.' },
+    { label: 'Nature', title: 'Support registration', text: 'Queried in the regulatory records.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Query the registered regulatory agencies.
+- Add a new agency.
+- Fix an agency's name.
+
+## How to access
+
+Regulatory → Regulatory Agency
+
+## Before you start
+
+- Have the regulatory agency **name**.
+- Confirm that your profile allows maintaining this registration.
+
+## Main fields
+
+<DocTable
+  headers={['Field / Column', 'What it is']}
+  rows={[
+    ['Regulatory Agency Name', 'Name of the regulatory agency (e.g., "ANVISA", "FDA").'],
+  ]}
+/>
+
+The form ("+ New") has the **Regulatory Agency Name** field. In the listing, each row has the details, edit and delete icons.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the agencies according to the name.', '—'],
+    ['+ New', 'To add an agency.', 'Opens the form.'],
+    ['Save', 'To store the agency.', 'Inform the name.'],
+    ['Details / Edit', 'To query or change the agency.', 'Details is read-only.'],
+    ['Delete', 'To remove the agency.', 'Confirm before; it may be in use.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Regulatory Agency', 'Screen access', 'Allows opening the screen and maintaining the registration.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Records', 'The regulatory agency is used in the products\' regulatory records.', 'The agency must exist to be linked.'],
+    ['Regulatory Status', 'The product\'s regulatory status may depend on the agency.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not issue records — it only maintains the list of agencies.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the agency', 'Restrictive filter', 'Adjust the name in the search.'],
+    ['I cannot delete', 'Agency in use', 'Check whether there are linked records.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Regulatory Agency for?', answer: 'To keep the regulatory agencies (e.g., ANVISA, FDA) used in the products\' regulatory records.' },
+    { question: 'Which fields does the agency have?', answer: 'Only the Regulatory Agency Name.' },
+    { question: 'Can I delete an agency in use?', answer: 'It is not recommended; check first whether there are linked records.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the Regulatory Agency screen documentation.' },
+  ]}
+/>

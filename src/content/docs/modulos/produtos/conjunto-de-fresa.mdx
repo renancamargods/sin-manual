@@ -1,0 +1,155 @@
+---
+section: modulos
+routeSlug: produtos/conjunto-de-fresa
+pageType: routine
+module: produtos
+moduleLabel: Produtos
+title: Conjunto de Fresa
+description: Cadastro dos conjuntos de fresa, associando um kit cirúrgico às suas fresas e implantes.
+routineType: Cadastro
+permission: Sim
+impact: Define os conjuntos de fresa (kit cirúrgico, fresas e implantes) usados nos produtos
+keywords: [conjunto de fresa, fresa, kit cirúrgico, implantes, produtos, cadastro]
+tags: [modulo-produtos, cadastro]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Conjunto de Fresa** cadastra os **conjuntos de fresa** usados nos procedimentos: cada conjunto tem uma **descrição**, é associado a um **kit cirúrgico** e reúne as suas **fresas** e **implantes**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Conjuntos de fresa', text: 'Reúne as fresas e implantes de um kit cirúrgico.' },
+    { label: 'Uso', title: 'Kit + fresas + implantes', text: 'Associa o kit cirúrgico às suas fresas e implantes.' },
+    { label: 'Natureza', title: 'Cadastro de apoio', text: 'Consultado no cadastro e uso dos produtos.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar os conjuntos de fresa cadastrados.
+- Criar um novo conjunto de fresa.
+- Associar fresas e implantes a um conjunto.
+
+## Como acessar
+
+Produtos → Conjunto de Fresa
+
+## Antes de começar
+
+- Defina a **descrição** do conjunto e o **kit cirúrgico**.
+- Saiba quais **fresas** e **implantes** compõem o conjunto.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtro por "Descrição", com "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use o filtro para localizar o conjunto.'],
+    ['Resultados', 'Lista dos conjuntos pela coluna "Descrição", com os ícones de detalhes, editar e excluir.', '—'],
+    ['Cadastro (3 abas)', 'Aba "Conjunto de Fresa" (descrição e kit cirúrgico), aba "Fresas" e aba "Implantes".', 'Monte as fresas e implantes nas abas correspondentes.'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Conjunto de Fresa"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Descrição', 'Nome que identifica o conjunto de fresa.'],
+    ['Kit Cirúrgico', 'Kit cirúrgico associado ao conjunto.'],
+  ]}
+/>
+
+### Abas "Fresas" e "Implantes"
+
+<DocTable
+  headers={['Aba', 'O que reúne']}
+  rows={[
+    ['Fresas', 'As fresas que compõem o conjunto.'],
+    ['Implantes', 'Os implantes relacionados ao conjunto.'],
+  ]}
+/>
+
+O formulário tem os botões **"Salvar e Continuar"**, **"Salvar"** e **"Fechar"**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os conjuntos conforme a descrição.', '—'],
+    ['+ Novo', 'Para criar um conjunto.', 'Abre o cadastro.'],
+    ['Salvar / Salvar e Continuar', 'Para guardar o conjunto.', 'Informe a descrição e o kit.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar o conjunto.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover o conjunto.', 'Confirme antes; pode estar em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Conjunto de Fresa', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Produto', 'As fresas e implantes vêm do cadastro de produtos.', 'O produto precisa existir.'],
+    ['Kit Cirúrgico', 'O conjunto é associado a um kit cirúrgico.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra as fresas nem os implantes — eles vêm do cadastro de produtos.
+- Não controla estoque — apenas organiza o conjunto.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o conjunto', 'Filtro restrito', 'Ajuste a descrição na pesquisa.'],
+    ['Não consigo adicionar fresa/implante', 'Item não localizado', 'Confira o cadastro do produto.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Conjunto de Fresa?', answer: 'Para reunir as fresas e implantes de um kit cirúrgico em um conjunto identificado por descrição.' },
+    { question: 'Como associo fresas e implantes?', answer: 'Nas abas "Fresas" e "Implantes" do cadastro do conjunto.' },
+    { question: 'O que é o Kit Cirúrgico?', answer: 'É o kit ao qual o conjunto de fresa está associado.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Conjunto de Fresa.' },
+  ]}
+/>

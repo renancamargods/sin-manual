@@ -1,0 +1,144 @@
+---
+section: modulos
+routeSlug: administrador/trabalho
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Trabalho
+description: Cadastro de trabalhos do sistema, com descrição e perfil associado.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Trabalhos vinculados a perfis
+keywords: [trabalho, perfil, descrição, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Trabalho** mantém o cadastro de trabalhos do sistema. Cada trabalho reúne uma **Descrição** e um **Perfil** associado. É um cadastro simples de apoio.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cadastro de trabalhos', text: 'Registra trabalhos vinculados a um perfil.' },
+    { label: 'Uso', title: 'Apoio', text: 'Os trabalhos ficam disponíveis conforme o perfil associado.' },
+    { label: 'Cuidado', title: 'Perfil', text: 'Associe o perfil correto ao trabalho.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo trabalho.
+- Consultar ou localizar um trabalho pela descrição ou perfil.
+- Editar ou excluir um trabalho.
+
+## Como acessar
+
+Administrador → Trabalho
+
+## Antes de começar
+
+- Tenha a **descrição** do trabalho.
+- Saiba o **perfil** associado.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros por descrição/perfil, com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com as colunas "Descrição", "Perfil", "Data de Cadastro" e "Nome", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela com os campos Descrição e Perfil.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Descrição', 'Descrição do trabalho.'],
+    ['Perfil', 'Perfil associado ao trabalho (campo com pesquisa).'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe os filtros e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe a **Descrição**, selecione o **Perfil** e clique em **"Salvar"**.
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os trabalhos conforme os filtros.', '—'],
+    ['+ Novo', 'Para cadastrar um novo trabalho.', '—'],
+    ['Detalhes', 'Para consultar um trabalho sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um trabalho existente.', '—'],
+    ['Excluir', 'Para remover um trabalho.', 'Ação sem retorno.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Trabalho', 'Acesso à tela', 'Permite abrir e utilizar a tela de Trabalho.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Perfil', 'Cada trabalho é associado a um perfil.', 'Use o perfil correto.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não executa o trabalho — apenas mantém o cadastro (descrição e perfil).
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro um trabalho', 'Filtro muito restrito ou trabalho não cadastrado', 'Ajuste os filtros ou cadastre o trabalho.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar trabalhos do sistema, com descrição e perfil associado.' },
+    { question: 'O que é o campo "Perfil"?', answer: 'É o perfil associado ao trabalho.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Trabalho.' },
+  ]}
+/>

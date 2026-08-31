@@ -1,0 +1,129 @@
+---
+section: modulos
+routeSlug: produtos/marca-de-produto
+pageType: routine
+module: produtos
+moduleLabel: Produtos
+title: Marca de Produto
+description: Cadastro das marcas associadas aos produtos, por código e descrição.
+routineType: Cadastro
+permission: Sim
+impact: Define as marcas usadas na classificação dos produtos
+keywords: [marca de produto, marca, código, descrição, produtos, cadastro]
+tags: [modulo-produtos, cadastro]
+order: 9
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Marca de Produto** mantém as **marcas** associadas aos produtos (ex.: "SIN", "Singular"). Cada marca tem um **código** e uma **descrição**, e ajuda a classificar os produtos.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Marcas dos produtos', text: 'Mantém as marcas associadas aos produtos.' },
+    { label: 'Uso', title: 'Código e descrição', text: 'Cada marca tem um código e uma descrição.' },
+    { label: 'Natureza', title: 'Cadastro de apoio', text: 'Consultado na classificação dos produtos.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar as marcas cadastradas.
+- Incluir uma nova marca.
+- Corrigir o código ou a descrição de uma marca.
+
+## Como acessar
+
+Produtos → Marca de Produto
+
+## Antes de começar
+
+- Tenha o **código** e a **descrição** da marca.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Campos principais
+
+<DocTable
+  headers={['Campo / Coluna', 'O que é']}
+  rows={[
+    ['Código', 'Código que identifica a marca.'],
+    ['Descrição', 'Descrição da marca (ex.: "SIN", "Singular").'],
+  ]}
+/>
+
+O formulário ("+ Novo") tem os campos **Código** e **Descrição**. Na listagem, cada linha tem os ícones de detalhes, editar e excluir.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as marcas conforme os filtros.', 'Combine código e descrição.'],
+    ['+ Novo', 'Para incluir uma marca.', 'Abre o formulário.'],
+    ['Salvar', 'Para guardar a marca.', 'Informe código e descrição.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar a marca.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover a marca.', 'Confirme antes; pode estar em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Marca de Produto', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Produto', 'A marca é usada na classificação do produto.', 'A marca precisa existir para ser vinculada.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não classifica os produtos automaticamente — apenas mantém a lista de marcas.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro a marca', 'Filtros restritos', 'Ajuste o código ou a descrição.'],
+    ['Não consigo excluir', 'Marca em uso', 'Verifique se há produtos vinculados.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Marca de Produto?', answer: 'Para manter as marcas (código e descrição) associadas aos produtos.' },
+    { question: 'Quais campos a marca tem?', answer: 'Código e Descrição.' },
+    { question: 'Posso excluir uma marca em uso?', answer: 'Não é recomendado; verifique antes se há produtos vinculados.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Marca de Produto.' },
+  ]}
+/>

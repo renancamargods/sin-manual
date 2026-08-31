@@ -1,0 +1,189 @@
+---
+section: modulos
+routeSlug: clientes/grupo-economico
+pageType: routine
+module: clientes
+moduleLabel: Clientes
+title: Grupo Econômico
+description: "Cadastro dos grupos econômicos que reúnem clientes do mesmo grupo, com finalidade (ex.: Crédito), status e aplicação em massa."
+routineType: Cadastro
+permission: Sim
+impact: Define os grupos econômicos usados, por exemplo, no tratamento de crédito dos clientes
+keywords: [grupo econômico, grupo, crédito, finalidade, clientes, aplicar em massa, cadastro]
+tags: [modulo-clientes, cadastro]
+order: 8
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Grupo Econômico** reúne os **clientes que pertencem ao mesmo grupo econômico**. Cada grupo tem um **nome**, uma **finalidade** (por exemplo, "Crédito") e um **status** (Ativo). O grupo é usado para tratar os seus clientes em conjunto — por exemplo, no acompanhamento de crédito.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Reunir por grupo', text: 'Agrupa clientes que pertencem ao mesmo grupo econômico.' },
+    { label: 'Uso', title: 'Finalidade (ex.: Crédito)', text: 'Cada grupo tem uma finalidade, como o tratamento de crédito.' },
+    { label: 'Produtividade', title: 'Aplicação em massa', text: 'Permite aplicar o grupo econômico em massa.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Criar um grupo econômico para reunir clientes relacionados.
+- Consultar os grupos econômicos cadastrados.
+- Ativar ou inativar um grupo.
+- Aplicar um grupo econômico em massa.
+
+## Como acessar
+
+Clientes → Grupo Econômico
+
+## Antes de começar
+
+- Defina o **nome** do grupo e a sua **finalidade** (ex.: "Crédito").
+- Saiba quais **clientes** farão parte do grupo.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros por "Grupo Econômico", "Finalidade" e "Ativo" (Sim/Não), com "Pesquisar" e "Limpar Filtros".', 'Use os filtros para localizar grupos.'],
+    ['Ações de cadastro', 'Botões "+ Novo Grupo Econômico" e "+ Aplicar Grupo Econômico em Massa".', 'A aplicação em massa afeta vários clientes de uma vez.'],
+    ['Resultados', 'Lista dos grupos com as colunas da operação e, em cada linha, as ações de expandir e abrir.', 'Use a ação de abrir para ver os detalhes do grupo.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Grupo Econômico', 'Filtra pelo nome do grupo.'],
+    ['Finalidade', 'Filtra pela finalidade do grupo (ex.: "Crédito").'],
+    ['Ativo', 'Filtra por grupos ativos (Sim) ou inativos (Não).'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Grupo Econômico', 'Nome do grupo.'],
+    ['Finalidade', 'Finalidade do grupo (ex.: "Crédito").'],
+    ['Ativo', 'Indica se o grupo está ativo (Sim/Não).'],
+    ['Data e Hora', 'Data e hora de criação/alteração do grupo.'],
+    ['Ações', 'Expandir a linha e abrir os detalhes do grupo.'],
+  ]}
+/>
+
+### Cadastro ("Registrar Grupo Econômico")
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Grupo Econômico', 'Nome que identifica o grupo.'],
+    ['Finalidade', 'Finalidade do grupo (ex.: "Crédito").'],
+  ]}
+/>
+
+O cadastro começa por esses dados e usa **"Salvar e Avançar"** para seguir às próximas etapas do grupo (como incluir os clientes que fazem parte dele).
+
+## Fluxos principais
+
+1. **Criar o grupo** — clique em **"+ Novo Grupo Econômico"**, informe o nome e a finalidade e use **"Salvar e Avançar"**.
+2. **Compor o grupo** — siga as etapas para incluir os clientes do grupo.
+3. **Aplicar em massa** — quando necessário, use **"+ Aplicar Grupo Econômico em Massa"**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os grupos conforme os filtros.', '—'],
+    ['+ Novo Grupo Econômico', 'Para criar um grupo do zero.', 'Abre o cadastro.'],
+    ['+ Aplicar Grupo Econômico em Massa', 'Para aplicar o grupo a vários clientes de uma vez.', 'Confira a seleção antes de aplicar.'],
+    ['Salvar e Avançar', 'Para salvar e seguir às próximas etapas.', 'Revise os dados antes.'],
+    ['Expandir / Abrir', 'Para ver os detalhes do grupo.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Grupo Econômico', 'Acesso à tela', 'Permite abrir a tela e consultar os grupos.'],
+    ['Cadastrar/editar', '+ Novo / Editar', 'Permite criar e alterar grupos econômicos.'],
+    ['Aplicar em massa', 'Aplicação em Massa', 'Permite aplicar o grupo a vários clientes de uma vez.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Finalidade do grupo', 'A finalidade (ex.: "Crédito") define o uso do grupo.', 'Escolha a finalidade conforme o objetivo.'],
+    ['Ativo/Inativo', 'O status controla se o grupo fica disponível para uso.', 'Inative em vez de excluir quando quiser preservar o histórico.'],
+    ['Aplicação em massa', 'Permite associar o grupo a vários clientes de uma vez.', 'Revise a seleção antes de confirmar.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Cliente', 'Os clientes do grupo vêm do cadastro de Cliente.', 'O cliente precisa existir.'],
+    ['Crédito', 'A finalidade "Crédito" liga o grupo ao tratamento de crédito dos clientes.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra os clientes — eles vêm do cadastro de Cliente.
+- Não define, por si só, o limite de crédito de cada cliente — organiza o grupo.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o grupo', 'Filtros restritos ou grupo inativo', 'Ajuste os filtros e o "Ativo".'],
+    ['Não consigo aplicar em massa', 'Falta de permissão ou seleção inválida', 'Verifique a permissão e a seleção.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Grupo Econômico?', answer: 'Para reunir clientes que pertencem ao mesmo grupo econômico, com uma finalidade (ex.: Crédito), e tratá-los em conjunto.' },
+    { question: 'O que é a "Finalidade"?', answer: 'É o objetivo do grupo, como "Crédito".' },
+    { question: 'O que faz "Aplicar Grupo Econômico em Massa"?', answer: 'Permite aplicar o grupo a vários clientes de uma vez.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Grupo Econômico.' },
+  ]}
+/>

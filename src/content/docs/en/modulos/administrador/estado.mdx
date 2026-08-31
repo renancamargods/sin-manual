@@ -1,0 +1,168 @@
+---
+section: modulos
+routeSlug: administrador/estado
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: State
+description: Register and look up the states linked to each country, used in addresses, cities, freight rules and invoicing bindings.
+routineType: Registration and lookup
+permission: Yes
+impact: States used in addresses, cities and freight rules
+keywords: [state, acronym, country, freight rule, address]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **State** screen keeps the register of states (identified by an **Acronym**) and the **Country** each one belongs to. States are used in addresses, in the register of cities, in freight rules and in invoicing bindings by Lounge.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'State base', text: 'Centralizes the states linked to each country.' },
+    { label: 'Use', title: 'Addresses and logistics', text: 'States support addresses, cities, freight rules and invoicing.' },
+    { label: 'Caution', title: 'Link to country', text: 'Each state must be associated with the correct country.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new state.
+- Look up or find a state by its acronym.
+- Edit a state or its country.
+- Review the cities, freight rules and invoicing bindings of the state.
+
+## How to access
+
+Administrator → State
+
+## Before you start
+
+- Have the state's **acronym**.
+- Know which **country** it belongs to (register the country first, if needed).
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'The "Acronym" field, with the "Search", "+ New" and "Clear Filters" buttons.', 'Use the acronym to find it quickly.'],
+    ['Results', 'List of states in the "Acronym" column, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing (tabs)', 'Window with the "State", "Cities", "Freight Rules" and "Invoicing Bindings by Lounge" tabs.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+### "State" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Acronym', 'Acronym that identifies the state.'],
+    ['Country', 'Country the state belongs to. The "+" button next to it registers a new country.'],
+  ]}
+/>
+
+### Additional tabs
+
+<DocTable
+  headers={['Tab', 'What it shows']}
+  rows={[
+    ['Cities', 'Cities linked to the state.'],
+    ['Freight Rules', 'Freight rules related to the state.'],
+    ['Invoicing Bindings by Lounge', 'Invoicing bindings by Lounge related to the state.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the **"Acronym"** and click **"Search"**.
+2. **Register** — click **"+ New"**, enter the **Acronym** and the **Country** and click **"Save"** (or **"Save and Continue"**).
+3. **Edit** — click the **Edit** icon on the row, change the fields and click **"Save"**.
+4. **View details** — click the **Details** icon on the row.
+5. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list states according to the filter.', '—'],
+    ['+ New', 'To register a new state.', 'Opens the window with the tabs.'],
+    ['+ (next to country)', 'To register a new country.', 'Use when the country does not yet exist.'],
+    ['Save and Continue', 'To save and keep filling in the other tabs.', '—'],
+    ['Details', 'To view a state without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing state.', '—'],
+    ['Delete', 'To remove a state.', 'Irreversible action; avoid deleting states already in use.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['State', 'Access to the screen', 'Allows opening and using the State screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Country', 'Each state is linked to a country.', 'Register the country before the state.'],
+    ['City', 'Cities are linked to a state.', 'Register the state before the cities.'],
+    ['Freight rule and invoicing', 'States support freight rules and invoicing bindings.', 'Check the links on the corresponding tabs.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not register cities directly — that is done on the City screen (the "Cities" tab only shows the linked ones).
+- It does not define freight amounts — it only relates the existing rules.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find a state', 'Filter too restrictive or state not registered', 'Adjust the "Acronym" or register the state.'],
+    ['I cannot select the country', 'Country not yet registered', 'Register the country using the "+" next to the field.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register and look up the states linked to each country.' },
+    { question: 'How do I set a state\'s country?', answer: 'Select the country in the "Country" field or register a new one using the "+" next to it.' },
+    { question: 'Where are states used?', answer: 'In addresses, cities, freight rules and invoicing bindings by Lounge.' },
+    { question: 'Can I delete a state?', answer: 'Yes, through the Delete icon, but avoid removing states already used in other records.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Initial release of the State screen documentation.' },
+  ]}
+/>

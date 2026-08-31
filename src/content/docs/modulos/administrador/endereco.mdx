@@ -1,0 +1,193 @@
+---
+section: modulos
+routeSlug: administrador/endereco
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Endereço
+description: Consulta e cadastro central dos endereços do sistema, com busca por CEP, tipo de endereço e status, usados por clientes e demais cadastros.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Endereços usados por clientes e demais cadastros
+keywords: [endereço, cep, logradouro, cidade, estado, tipo de endereço, entrega, cobrança, correspondência, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Endereço** centraliza a consulta e o cadastro dos endereços utilizados no sistema. Cada endereço reúne o logradouro completo (tipo, logradouro, número, complemento, bairro), o **CEP**, a **cidade**, o **estado**, o **tipo de endereço** (Entrega, Cobrança ou Correspondência) e o **status**.
+
+No cadastro, ao informar o **CEP** e clicar na busca, o sistema preenche automaticamente os dados do endereço (logradouro, bairro, cidade e estado) quando disponíveis.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Base de endereços', text: 'Centraliza os endereços usados por clientes e demais cadastros.' },
+    { label: 'Uso', title: 'Consulta e cadastro', text: 'Permite localizar endereços por CEP, logradouro, tipo e status.' },
+    { label: 'Cuidado', title: 'Endereço principal', text: 'Um endereço pode estar marcado como principal — confira antes de alterar.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar endereços por CEP, logradouro, tipo ou status.
+- Cadastrar um novo endereço a partir do CEP.
+- Editar ou consultar os dados de um endereço.
+
+## Como acessar
+
+Administrador → Endereço
+
+## Antes de começar
+
+- Tenha o **CEP** do endereço (a busca preenche os demais campos quando disponíveis).
+- Saiba o **tipo de endereço** (Entrega, Cobrança ou Correspondência).
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Tipo de Endereço (Entrega/Cobrança/Correspondência), CEP, Logradouro e Status Sistema (Ativo/Inativo), com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Combine os filtros para restringir os resultados.'],
+    ['Resultados', 'Lista dos endereços com diversas colunas e as ações por linha.', 'Cada linha tem Histórico/Logs, Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela com País, CEP (com busca) e Tipo de Endereço; os dados do endereço são preenchidos a partir do CEP.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Tipo de Endereço', 'Filtra por Entrega, Cobrança ou Correspondência.'],
+    ['CEP', 'Busca pelo CEP do endereço.'],
+    ['Logradouro', 'Busca pelo logradouro.'],
+    ['Status Sistema', 'Filtra por Ativo ou Inativo.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Tipo de Logradouro', 'Tipo do logradouro (ex.: Rua, Avenida).'],
+    ['Logradouro', 'Nome do logradouro.'],
+    ['Numero', 'Número do endereço.'],
+    ['Complemento', 'Complemento (sala, apartamento, etc.).'],
+    ['CEP', 'CEP do endereço.'],
+    ['Cidade', 'Cidade do endereço.'],
+    ['Estado', 'Estado (UF) do endereço.'],
+    ['Bairro', 'Bairro do endereço.'],
+    ['Tipo de Endereço', 'Entrega, Cobrança ou Correspondência.'],
+    ['Endereço Principal?', 'Indica se é o endereço principal (Sim/Não).'],
+    ['Status', 'Situação do endereço (Ativo/Inativo).'],
+  ]}
+/>
+
+### Cadastro do endereço
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['País', 'País do endereço.'],
+    ['CEP', 'CEP usado para buscar e preencher o endereço automaticamente (botão de busca ao lado).'],
+    ['Tipo de Endereço', 'Entrega, Cobrança ou Correspondência.'],
+  ]}
+/>
+
+<Callout type="info" title="Busca por CEP">
+Ao informar o CEP e acionar a busca, o sistema preenche automaticamente o logradouro, bairro, cidade e estado quando os dados estão disponíveis. Endereços internacionais ou sem base de CEP podem exigir preenchimento manual dos campos.
+</Callout>
+
+## Fluxos principais
+
+1. **Consultar** — informe os filtros (Tipo de Endereço, CEP, Logradouro, Status) e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, selecione o **País**, informe o **CEP** e acione a busca, ajuste os dados se necessário, defina o **Tipo de Endereço** e clique em **"Salvar"**.
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Ver detalhes / histórico** — use os ícones de **Detalhes** e de **Histórico/Logs** da linha.
+5. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os endereços conforme os filtros.', '—'],
+    ['+ Novo', 'Para cadastrar um novo endereço.', 'Comece pelo CEP para preencher os campos.'],
+    ['Detalhes', 'Para consultar um endereço sem alterar.', 'Somente leitura.'],
+    ['Histórico / Logs', 'Para ver o histórico de alterações do endereço.', '—'],
+    ['Editar', 'Para alterar um endereço existente.', 'Confira se é o endereço principal antes de alterar.'],
+    ['Excluir', 'Para remover um endereço.', 'Ação sem retorno; evite excluir endereços em uso.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Endereço', 'Acesso à tela', 'Permite abrir e utilizar a tela de Endereço.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Cliente', 'Os endereços são usados nos cadastros de clientes.', 'Mantenha o tipo de endereço correto.'],
+    ['Cidade e Estado', 'O endereço referencia cidade e estado.', 'Cadastre cidade/estado quando não forem encontrados pelo CEP.'],
+    ['Tipo de Logradouro', 'O endereço usa o tipo de logradouro cadastrado.', 'Mantenha os tipos padronizados.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não valida a existência física do endereço — apenas registra os dados informados.
+- Não define qual endereço um cliente usa em cada operação — isso é tratado nos cadastros que consomem o endereço.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A busca por CEP não preenche', 'CEP inexistente na base ou endereço internacional', 'Preencha os campos manualmente.'],
+    ['Não encontro um endereço', 'Filtros muito restritos', 'Ajuste os filtros (CEP, Logradouro, Tipo, Status).'],
+    ['Não consigo excluir', 'Endereço em uso por um cadastro', 'Verifique os vínculos antes de excluir.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para consultar e cadastrar os endereços usados no sistema, com busca por CEP e por tipo de endereço.' },
+    { question: 'O que é o "Tipo de Endereço"?', answer: 'Classifica o endereço como Entrega, Cobrança ou Correspondência.' },
+    { question: 'A busca por CEP preenche tudo?', answer: 'Preenche logradouro, bairro, cidade e estado quando os dados estão disponíveis; caso contrário, complete manualmente.' },
+    { question: 'O que é "Endereço Principal?"', answer: 'Indica se o endereço é o principal do cadastro (Sim/Não).' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Endereço.' },
+  ]}
+/>

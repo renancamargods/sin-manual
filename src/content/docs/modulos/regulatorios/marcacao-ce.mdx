@@ -1,0 +1,129 @@
+---
+section: modulos
+routeSlug: regulatorios/marcacao-ce
+pageType: routine
+module: regulatorios
+moduleLabel: Regulatórios
+title: Marcação CE
+description: Cadastro e controle da marcação CE (conformidade europeia) aplicável aos produtos, identificada por descrição.
+routineType: Cadastro
+permission: Sim
+impact: Controla a marcação CE usada na classificação regulatória dos produtos
+keywords: [marcação ce, ce, conformidade europeia, regulatório, exportação, regulatórios, cadastro]
+tags: [modulo-regulatorios, cadastro]
+order: 17
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Marcação CE** controla a **marcação CE** (conformidade europeia) aplicável aos produtos. Cada registro é identificado por uma **descrição** e é usado no controle regulatório dos produtos destinados ao mercado europeu.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Marcação CE', text: 'Controla a marcação CE aplicável aos produtos.' },
+    { label: 'Uso', title: 'Descrição', text: 'Cada registro é identificado por uma descrição.' },
+    { label: 'Natureza', title: 'Cadastro de apoio', text: 'Consultado no controle regulatório dos produtos.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar os registros de marcação CE.
+- Incluir um novo registro.
+- Corrigir a descrição de um registro.
+
+## Como acessar
+
+Regulatórios → Marcação CE
+
+## Antes de começar
+
+- Tenha a **descrição** do registro de marcação CE.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Campos principais
+
+<DocTable
+  headers={['Campo / Coluna', 'O que é']}
+  rows={[
+    ['Marcação CE', 'Descrição do registro de marcação CE.'],
+  ]}
+/>
+
+O formulário ("+ Novo") tem o campo **Marcação CE**. Na listagem, cada linha tem os ícones de detalhes, editar e excluir.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os registros.', '—'],
+    ['+ Novo', 'Para incluir um registro.', 'Abre o formulário.'],
+    ['Salvar', 'Para guardar o registro.', 'Informe a descrição.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar o registro.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover o registro.', 'Confirme antes; pode estar em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Marcação CE', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Registros / Status Regulatórios', 'A marcação CE apoia o controle regulatório dos produtos para o mercado europeu.', '—'],
+    ['Produto', 'A marcação CE é associada aos produtos.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não emite a certificação CE — apenas registra e controla a informação.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o registro', 'Filtro restrito', 'Ajuste a descrição na pesquisa.'],
+    ['Não consigo excluir', 'Registro em uso', 'Verifique se há vínculos.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Marcação CE?', answer: 'Para controlar a marcação CE (conformidade europeia) aplicável aos produtos.' },
+    { question: 'Quais campos o registro tem?', answer: 'Apenas a descrição (Marcação CE).' },
+    { question: 'A tela emite o certificado CE?', answer: 'Não. Ela apenas registra e controla a informação de marcação CE.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Marcação CE.' },
+  ]}
+/>

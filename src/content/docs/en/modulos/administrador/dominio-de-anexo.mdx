@@ -1,0 +1,164 @@
+---
+section: modulos
+routeSlug: administrador/dominio-de-anexo
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Attachment Domain
+description: Register the domains (origins) that group attachment types, for example Customers, LeadStatus and SurveyAnswer.
+routineType: Registration and lookup
+permission: Yes
+impact: Domains that organize attachment types by origin
+keywords: [attachment domain, attachment, attachment types, origin, customers]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Attachment Domain** screen registers the **domains** (origins) that group the system's attachment types. Each domain holds a **Code** and a **Description** and, on the "Attachment Types" tab, gathers the types that belong to it (for example, the "Customers" domain groups the customer attachment types).
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Attachment organization', text: 'Groups attachment types by origin (domain).' },
+    { label: 'Use', title: 'Base for attachments', text: 'Each attachment type belongs to a domain.' },
+    { label: 'Caution', title: 'Code', text: 'The code identifies the domain and is used internally by the system.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new attachment domain.
+- Look up or find a domain by code or description.
+- Review the attachment types linked to the domain.
+
+## How to access
+
+Administrator → Attachment Domain
+
+## Before you start
+
+- Have the domain's **code** and **description**.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Description, Code and Registration Date, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List of domains with the "Code", "Description", "Registration Date" and "Name" columns, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing (tabs)', 'Window with the "Attachment Domain" and "Attachment Types" tabs.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+### "Attachment Domain" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Code', 'Code that identifies the domain (e.g., Customers, LeadStatus).'],
+    ['Description', 'Description of the domain.'],
+  ]}
+/>
+
+### "Attachment Types" tab
+
+<DocTable
+  headers={['Tab', 'What it shows']}
+  rows={[
+    ['Attachment Types', 'Attachment types that belong to this domain.'],
+  ]}
+/>
+
+<Callout type="info" title="Domain examples">
+Registered domains include: Customers (customer attachments), LeadStatus (attachments for interactions in the leads history) and SurveyAnswer (attachments for survey answers).
+</Callout>
+
+## Main flows
+
+1. **Search** — enter **Description** or **Code** and click **"Search"**.
+2. **Register** — click **"+ New"**, enter **Code** and **Description** and click **"Save"** (or **"Save and Continue"**).
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list domains according to the filters.', '—'],
+    ['+ New', 'To register a new domain.', '—'],
+    ['Save and Continue', 'To save and keep filling in the attachment types.', '—'],
+    ['Details', 'To view a domain without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing domain.', '—'],
+    ['Delete', 'To remove a domain.', 'Irreversible action; avoid deleting domains with linked attachment types.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Attachment Domain', 'Access to the screen', 'Allows opening and using the Attachment Domain screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Attachment Types', 'Each attachment type belongs to a domain.', 'Register the domain before the types.'],
+    ['Attachments', 'Attachments use the types organized by domain.', 'Keep the structure consistent.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not register attachment types directly — the "Attachment Types" tab only shows the linked ones.
+- It does not store the attached files — it only organizes the origins.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find a domain', 'Filter too restrictive or domain not registered', 'Adjust the filters or register the domain.'],
+    ['I cannot delete it', 'Domain with linked attachment types', 'Check the links before deleting.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the domains (origins) that group attachment types.' },
+    { question: 'What is the difference from "Attachment Types"?', answer: 'The domain is the origin that groups the types; the type is the attachment\'s specific classification.' },
+    { question: 'Can I delete a domain?', answer: 'Yes, but avoid deleting domains with linked attachment types.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Initial release of the Attachment Domain screen documentation.' },
+  ]}
+/>

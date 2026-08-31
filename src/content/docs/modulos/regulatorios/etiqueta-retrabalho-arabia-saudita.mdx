@@ -1,0 +1,129 @@
+---
+section: modulos
+routeSlug: regulatorios/etiqueta-retrabalho-arabia-saudita
+pageType: routine
+module: regulatorios
+moduleLabel: Regulatórios
+title: Etiqueta Retrabalho Arábia Saudita
+description: Cadastro dos modelos de etiqueta de retrabalho para a Arábia Saudita, identificados por descrição, usados na readequação de etiquetas para esse mercado.
+routineType: Cadastro
+permission: Sim
+impact: Define os modelos de etiqueta de retrabalho para a Arábia Saudita
+keywords: [etiqueta retrabalho, arábia saudita, retrabalho, modelo de etiqueta, exportação, regulatórios, cadastro]
+tags: [modulo-regulatorios, cadastro]
+order: 7
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Etiqueta Retrabalho Arábia Saudita** mantém os **modelos de etiqueta de retrabalho** específicos para a **Arábia Saudita**. Cada modelo é identificado por uma **descrição** e é usado na readequação (retrabalho) das etiquetas dos produtos conforme as exigências regulatórias desse mercado.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Etiquetas de retrabalho', text: 'Mantém os modelos de etiqueta de retrabalho para a Arábia Saudita.' },
+    { label: 'Uso', title: 'Descrição do modelo', text: 'Cada modelo é identificado por uma descrição.' },
+    { label: 'Natureza', title: 'Cadastro de apoio', text: 'Consultado no retrabalho de etiquetas para exportação.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar os modelos de etiqueta de retrabalho da Arábia Saudita.
+- Incluir um novo modelo.
+- Corrigir a descrição de um modelo.
+
+## Como acessar
+
+Regulatórios → Etiqueta Retrabalho Arábia Saudita
+
+## Antes de começar
+
+- Tenha a **descrição** do modelo de etiqueta.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Campos principais
+
+<DocTable
+  headers={['Campo / Coluna', 'O que é']}
+  rows={[
+    ['Descrição', 'Descrição do modelo de etiqueta de retrabalho para a Arábia Saudita.'],
+  ]}
+/>
+
+O formulário ("+ Novo") tem o campo **Descrição**. Na listagem, cada linha tem os ícones de detalhes, editar e excluir.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os modelos conforme a descrição.', '—'],
+    ['+ Novo', 'Para incluir um modelo.', 'Abre o formulário.'],
+    ['Salvar', 'Para guardar o modelo.', 'Informe a descrição.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar o modelo.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover o modelo.', 'Confirme antes; pode estar em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Etiqueta Retrabalho Arábia Saudita', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Etiquetas de Retrabalho (outros países) / Manual', 'Compõem o conjunto de etiquetas de retrabalho por mercado.', '—'],
+    ['Produto / Registros', 'O modelo é usado no retrabalho das etiquetas dos produtos.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não imprime a etiqueta — apenas mantém os modelos.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o modelo', 'Filtro restrito', 'Ajuste a descrição na pesquisa.'],
+    ['Não consigo excluir', 'Modelo em uso', 'Verifique se há vínculos.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Etiqueta Retrabalho Arábia Saudita?', answer: 'Para manter os modelos de etiqueta de retrabalho específicos para a Arábia Saudita.' },
+    { question: 'Quais campos o modelo tem?', answer: 'Apenas a Descrição.' },
+    { question: 'Por que existe uma tela por país?', answer: 'Cada mercado (país) pode exigir modelos de etiqueta de retrabalho específicos.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Etiqueta Retrabalho Arábia Saudita.' },
+  ]}
+/>

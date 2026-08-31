@@ -1,0 +1,172 @@
+---
+section: modulos
+routeSlug: regulatorios/lista-geral-de-produtos
+pageType: routine
+module: regulatorios
+moduleLabel: Regulatórios
+title: Lista Geral de Produtos
+description: Consulta geral dos produtos com informações regulatórias (grupo, linha, conexão, status, registro Anvisa, GTIN), com exportação completa e importação por planilha.
+routineType: Consulta e cadastro
+permission: Sim
+impact: Reúne as informações regulatórias dos produtos e permite exportar/importar em massa
+keywords: [lista geral de produtos, regulatório, registro anvisa, gtin, status do produto, produto estéril, acessório, exportação, importar planilha, regulatórios]
+tags: [modulo-regulatorios, consulta]
+order: 16
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Lista Geral de Produtos** é a **visão regulatória consolidada** dos produtos. Ela reúne, para cada produto, as informações regulatórias — **grupo**, **linha**, **conexão**, **status**, **número do registro da Anvisa** e **GTIN** — e permite **exportar** e **importar** essas informações em massa.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Visão regulatória', text: 'Consolida as informações regulatórias dos produtos.' },
+    { label: 'Uso', title: 'Filtrar e exportar', text: 'Filtra por registro, país, status e outros e exporta o resultado.' },
+    { label: 'Produtividade', title: 'Importar planilha', text: 'Permite atualizar as informações em massa por planilha.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar as informações regulatórias de um produto.
+- Filtrar os produtos por registro, país, status ou características (estéril, acessório).
+- Exportar a lista completa para análise.
+- Atualizar as informações em massa por importação de planilha.
+
+## Como acessar
+
+Regulatórios → Lista Geral de Produtos
+
+## Antes de começar
+
+- Saiba o produto, o registro ou os filtros que quer aplicar.
+- Para importar, tenha a **planilha** no formato esperado.
+- Confirme que o seu perfil permite consultar e manter estas informações.
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código do Produto', 'Filtra pelo código do produto.'],
+    ['Grupo de Produtos', 'Filtra pelo grupo de produtos.'],
+    ['Número do Registro', 'Filtra pelo número do registro regulatório.'],
+    ['País', 'Filtra pelo país.'],
+    ['Status do Produto', 'Filtra pelo status regulatório do produto.'],
+    ['Produto Estéril?', 'Filtra por produtos estéreis (Sim ou Não).'],
+    ['Acessório?', 'Filtra por acessórios (Sim ou Não).'],
+    ['Possui Registros', 'Filtra por produtos que possuem registros (Sim ou Não).'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Código do Produto', 'Código do produto.'],
+    ['Status do Produto', 'Status regulatório do produto.'],
+    ['Grupo do Produto', 'Grupo regulatório do produto.'],
+    ['Linha do Produto', 'Linha regulatória do produto.'],
+    ['Conexão do Produto', 'Conexão do produto.'],
+    ['Descrição Português', 'Descrição do produto em português.'],
+    ['Número do Registro da Anvisa', 'Número do registro do produto na Anvisa.'],
+    ['Código GTIN', 'Código GTIN do produto.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os produtos conforme os filtros.', 'Combine registro, país e status.'],
+    ['+ Novo', 'Para incluir/editar as informações regulatórias de um produto.', 'Abre o formulário do registro.'],
+    ['Exportação Completa', 'Para exportar a lista completa das informações regulatórias.', '—'],
+    ['Importar Planilha', 'Para atualizar as informações em massa a partir de uma planilha.', 'Use o formato esperado; revise antes de importar.'],
+    ['Exportar tabela para Excel / PDF', 'Para exportar o resultado atual.', '—'],
+    ['Limpar Filtros', 'Para zerar os filtros.', '—'],
+  ]}
+/>
+
+<Callout type="cuidado" title="Importação em massa">
+A "Importar Planilha" atualiza informações de vários produtos de uma vez. Confira a planilha e o formato antes de importar, pois altera dados regulatórios.
+</Callout>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Lista Geral de Produtos', 'Acesso à tela', 'Permite abrir a tela e consultar as informações.'],
+    ['Importar/atualizar', 'Importar Planilha / + Novo', 'Permite atualizar as informações regulatórias.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Visão consolidada', 'A lista reúne grupo, linha, conexão, status, registro e GTIN por produto.', 'Use os filtros para focar.'],
+    ['Exportação/Importação', 'Permite tratar as informações em massa.', 'Revise a planilha antes de importar.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Registros / Status Regulatórios', 'A lista reflete os registros e o status regulatório dos produtos.', '—'],
+    ['Grupo do Produto / Linha do Produto / Conexão do Produto', 'A lista usa essas classificações regulatórias.', '—'],
+    ['GTIN do Produto', 'A lista mostra o GTIN do produto.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra o produto base — reúne as suas informações regulatórias.
+- Não emite o registro na Anvisa — apenas registra o número e o status.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A lista aparece vazia (0/0)', 'Filtros restritos ou sem produtos que atendam', 'Ajuste ou limpe os filtros.'],
+    ['A importação não atualizou', 'Planilha fora do formato', 'Confira o formato esperado e reimporte.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Lista Geral de Produtos?', answer: 'Para consultar, de forma consolidada, as informações regulatórias dos produtos (grupo, linha, conexão, status, registro Anvisa, GTIN) e exportar/importar em massa.' },
+    { question: 'Como atualizo várias informações de uma vez?', answer: 'Use "Importar Planilha" com o arquivo no formato esperado.' },
+    { question: 'Como exporto a lista?', answer: 'Use "Exportação Completa" ou "Exportar tabela para Excel/PDF".' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Lista Geral de Produtos.' },
+  ]}
+/>

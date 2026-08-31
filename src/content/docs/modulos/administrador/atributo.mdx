@@ -1,0 +1,160 @@
+---
+section: modulos
+routeSlug: administrador/atributo
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Atributo
+description: Cadastro de atributos personalizados vinculados a entidades (Cliente, Pedido ou Produto), com nome, tipo e valores.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Atributos personalizados usados em clientes, pedidos e produtos
+keywords: [atributo, entidade, cliente, pedido, produto, valores, campo personalizado, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Atributo** permite cadastrar atributos personalizados que podem ser associados a uma **Entidade** do sistema — **Cliente**, **Pedido** ou **Produto**. Cada atributo tem um **Nome**, um **Tipo** e um conjunto de **Valores** (na aba "Valores"), servindo como um campo adicional configurável para aquela entidade.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Campos personalizados', text: 'Cria atributos adicionais para clientes, pedidos ou produtos.' },
+    { label: 'Uso', title: 'Configuração', text: 'Os atributos ficam disponíveis nas entidades às quais foram vinculados.' },
+    { label: 'Cuidado', title: 'Entidade e tipo', text: 'Defina corretamente a entidade e o tipo do atributo antes de usá-lo.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo atributo para Cliente, Pedido ou Produto.
+- Definir os valores possíveis de um atributo.
+- Consultar, editar ou excluir atributos existentes.
+
+## Como acessar
+
+Administrador → Atributo
+
+## Antes de começar
+
+- Defina a **entidade** (Cliente, Pedido ou Produto) que receberá o atributo.
+- Tenha o **nome** e o **tipo** do atributo.
+- Liste os **valores** possíveis, se aplicável.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Entidade (Cliente/Pedido/Produto) e Nome, com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use a entidade para restringir os resultados.'],
+    ['Resultados', 'Lista dos atributos com as colunas "Entidade" e "Nome", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição (abas)', 'Janela com as abas "Atributo" e "Valores".', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Atributo"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Entidade', 'Entidade à qual o atributo pertence: Cliente, Pedido ou Produto.'],
+    ['Nome', 'Nome do atributo.'],
+    ['Tipo', 'Tipo do atributo (define o formato do valor).'],
+  ]}
+/>
+
+### Aba "Valores"
+
+<DocTable
+  headers={['Aba', 'O que mostra']}
+  rows={[
+    ['Valores', 'Lista dos valores possíveis do atributo.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — selecione a **Entidade** e/ou informe o **Nome** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, escolha a **Entidade**, informe **Nome** e **Tipo**, cadastre os **Valores** na aba correspondente e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os atributos conforme os filtros.', '—'],
+    ['+ Novo', 'Para cadastrar um novo atributo.', 'Abre a janela com as abas.'],
+    ['Salvar e Continuar', 'Para salvar e seguir preenchendo os valores.', '—'],
+    ['Detalhes', 'Para consultar um atributo sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um atributo existente.', '—'],
+    ['Excluir', 'Para remover um atributo.', 'Ação sem retorno; evite excluir atributos já usados.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Atributo', 'Acesso à tela', 'Permite abrir e utilizar a tela de Atributo.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Cliente, Pedido e Produto', 'Os atributos ficam disponíveis na entidade associada.', 'Escolha a entidade correta.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não preenche o valor do atributo em um registro específico — apenas define o atributo e seus valores possíveis.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro um atributo', 'Filtro por entidade ou nome muito restrito', 'Ajuste os filtros.'],
+    ['O atributo não aparece na entidade', 'Entidade incorreta', 'Confira a entidade vinculada.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar atributos personalizados vinculados a Cliente, Pedido ou Produto.' },
+    { question: 'O que é a "Entidade"?', answer: 'É a que recebe o atributo: Cliente, Pedido ou Produto.' },
+    { question: 'Como defino os valores possíveis?', answer: 'Na aba "Valores", dentro do cadastro do atributo.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Atributo.' },
+  ]}
+/>

@@ -1,0 +1,169 @@
+---
+section: modulos
+routeSlug: administrador/dado-bancario
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Bank Details
+description: Register the bank details (domestic and international) used by the units, with branch, account, IBAN, SWIFT and PIX key.
+routineType: Registration and lookup
+permission: Yes
+impact: Bank details used by Lounges and operations
+keywords: [bank details, bank, branch, checking account, iban, swift, pix, aba]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Bank Details** screen registers the bank accounts used by the units, both **domestic** and **international**. In addition to branch and account data, the screen covers international operation fields (IBAN, SWIFT, ABA, AC. Number) and the **PIX key**, plus the link with the **Lounges**.
+
+<Callout type="atencao" title="Sensitive data">
+Bank details are sensitive company information. Carefully check each field and keep the register up to date — incorrect values affect receipts and payments.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Bank accounts', text: 'Centralizes the units\' bank details (domestic and international).' },
+    { label: 'Use', title: 'Receipts and payments', text: 'The data is linked to the Lounges and used in operations.' },
+    { label: 'Caution', title: 'Locality', text: 'Choose Domestic or International; the applicable fields vary.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register new bank details (domestic or international).
+- Look up or find an account by code.
+- Edit an account's data or status.
+
+## How to access
+
+Administrator → Bank Details
+
+## Before you start
+
+- Have the complete account data (branch, account, check digits).
+- For international accounts, have IBAN, SWIFT, ABA and AC. Number.
+- Know which **Lounge** the account applies to.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'The "Code" field, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List with columns such as "Code", "Name" and "System Status", with per-row actions.', 'Each row has History, Details, Edit and Delete.'],
+    ['Registration / editing', 'Window with the bank account fields.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Code', 'Code that identifies the bank details.'],
+    ['Name', 'Bank name / account identification.'],
+    ['Locality', 'Defines whether the account is Domestic or International.'],
+    ['Branch', 'Branch number.'],
+    ['Branch Check Digit', 'Branch check digit.'],
+    ['Checking Account', 'Checking account number.'],
+    ['Account Check Digit', 'Account check digit.'],
+    ['IBAN', 'IBAN code (international accounts).'],
+    ['ABA', 'ABA code (US accounts).'],
+    ['SWIFT', 'SWIFT/BIC code (international accounts).'],
+    ['AC. Number', 'International account number.'],
+    ['Beneficiary', 'Account beneficiary.'],
+    ['Address', 'Address linked to the account.'],
+    ['PIX Key Type', 'Type of the PIX key (when applicable).'],
+    ['PIX Key', 'Account PIX key.'],
+    ['Lounges', 'Lounges the bank details apply to (with the "+" button to register).'],
+    ['System Status', 'Bank details status (Active or Inactive).'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the **"Code"** and click **"Search"**.
+2. **Register** — click **"+ New"**, choose the **Locality**, fill in the applicable fields, link the **Lounge**, set the **Status** and click **"Save"**.
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list bank details according to the filter.', '—'],
+    ['+ New', 'To register new bank details.', '—'],
+    ['Details', 'To view an account without changing it.', 'Read only.'],
+    ['History', 'To see the change history.', '—'],
+    ['Edit', 'To change an existing account.', 'Check the sensitive fields before saving.'],
+    ['Delete', 'To remove an account.', 'Irreversible action; prefer deactivating rather than deleting accounts in use.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Bank Details', 'Access to the screen', 'Allows opening and using the Bank Details screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Lounge', 'Bank details are linked to Lounges.', 'Associate the account with the correct Lounge.'],
+    ['Receipts and payments', 'Accounts are used in financial operations.', 'Keep the data up to date.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not perform transactions — it only registers the account data.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['International fields do not apply', 'Locality set to Domestic', 'Set the Locality to International.'],
+    ['I cannot find an account', 'Wrong code filter', 'Adjust the Code.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the bank details (domestic and international) used by the units.' },
+    { question: 'When do I use IBAN and SWIFT?', answer: 'For international accounts; for domestic accounts, use branch and checking account.' },
+    { question: 'Can I delete an account?', answer: 'It is possible, but prefer deactivating it if it is already in use.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Initial release of the Bank Details screen documentation.' },
+  ]}
+/>

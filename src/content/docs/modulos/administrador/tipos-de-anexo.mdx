@@ -1,0 +1,156 @@
+---
+section: modulos
+routeSlug: administrador/tipos-de-anexo
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Tipos de Anexo
+description: Cadastro dos tipos (classificações) de anexo, vinculados a um domínio, com indicação de obrigatoriedade e tipo de pessoa aplicável.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Tipos de anexo usados nas rotinas de anexos
+keywords: [tipos de anexo, tipo de anexo, domínio de anexo, obrigatório, documento de identificação, contrato social, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Tipos de Anexo** cadastra as classificações de anexo usadas no sistema (por exemplo, Documento de Identificação, Contrato Social, Comprovante de Endereço). Cada tipo é vinculado a um **Domínio de Anexo**, pode ser marcado como **Obrigatório** e ser restringido por **Tipos de Pessoa**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Classificar anexos', text: 'Padroniza os tipos de documento aceitos como anexo.' },
+    { label: 'Uso', title: 'Anexos por domínio', text: 'Cada tipo pertence a um domínio (ex.: Clientes).' },
+    { label: 'Cuidado', title: 'Obrigatoriedade', text: 'Tipos marcados como obrigatórios devem ser anexados na rotina correspondente.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo tipo de anexo.
+- Definir se um tipo é obrigatório e para quais tipos de pessoa se aplica.
+- Consultar, editar ou excluir tipos existentes.
+
+## Como acessar
+
+Administrador → Tipos de Anexo
+
+## Antes de começar
+
+- Saiba a qual **Domínio de Anexo** o tipo pertence (cadastre o domínio antes, se necessário).
+- Defina se o tipo é **obrigatório** e o **tipo de pessoa** aplicável.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros por descrição/domínio, com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com as colunas "Descrição", "Data de Cadastro", "Usuário de Criação" e "Domínio de Anexo", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela (aba "Tipos de Anexo") com os campos do tipo.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Tipos de Anexo"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Domínio de Anexo', 'Domínio ao qual o tipo pertence. O botão "+" ao lado permite cadastrar um novo domínio.'],
+    ['Descrição', 'Descrição do tipo de anexo (ex.: Documento de Identificação).'],
+    ['Obrigatório', 'Define se o anexo desse tipo é obrigatório (Sim/Não).'],
+    ['Tipos de Pessoa', 'Tipos de pessoa aos quais o tipo se aplica.'],
+  ]}
+/>
+
+<Callout type="info" title="Exemplos de tipos de anexo">
+Entre os tipos cadastrados estão: Documento de Identificação, Documento de Identificação dos Sócios, Comprovante de CRO, Comprovante de Endereço, Declaração de Aluno, Contrato Social, Receita e Proposta.
+</Callout>
+
+## Fluxos principais
+
+1. **Consultar** — informe os filtros e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, selecione o **Domínio de Anexo**, informe a **Descrição**, defina **Obrigatório** e **Tipos de Pessoa** e clique em **"Salvar"**.
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os tipos conforme os filtros.', '—'],
+    ['+ Novo', 'Para cadastrar um novo tipo de anexo.', '—'],
+    ['+ (ao lado do domínio)', 'Para cadastrar um novo domínio de anexo.', 'Use quando o domínio ainda não existir.'],
+    ['Detalhes', 'Para consultar um tipo sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um tipo existente.', '—'],
+    ['Excluir', 'Para remover um tipo.', 'Ação sem retorno; evite excluir tipos já usados em anexos.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Tipos de Anexo', 'Acesso à tela', 'Permite abrir e utilizar a tela de Tipos de Anexo.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Domínio de Anexo', 'Cada tipo pertence a um domínio.', 'Cadastre o domínio antes do tipo.'],
+    ['Anexos', 'Os anexos são classificados pelos tipos cadastrados aqui.', 'Confira a obrigatoriedade conforme a rotina.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não armazena os arquivos — apenas define os tipos e suas regras (obrigatoriedade, tipo de pessoa).
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro um tipo', 'Filtro muito restrito ou tipo não cadastrado', 'Ajuste os filtros ou cadastre o tipo.'],
+    ['O tipo não é exigido na rotina', 'Marcado como não obrigatório', 'Verifique o campo "Obrigatório".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os tipos (classificações) de anexo, vinculados a um domínio.' },
+    { question: 'O que significa "Obrigatório"?', answer: 'Indica se um anexo desse tipo é exigido na rotina correspondente.' },
+    { question: 'Qual a diferença para "Domínio de Anexo"?', answer: 'O domínio é a origem que agrupa os tipos; o tipo é a classificação específica do anexo.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Tipos de Anexo.' },
+  ]}
+/>

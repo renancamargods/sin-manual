@@ -1,0 +1,130 @@
+---
+section: modulos
+routeSlug: regulatorios/etiqueta-retrabalho-manual
+pageType: routine
+module: regulatorios
+moduleLabel: Regulatory
+lang: en
+title: Manual Rework Label
+description: Registration of the manually generated rework label models, identified by description.
+routineType: Registration
+permission: Yes
+impact: Defines the manually generated rework label models
+keywords: [manual rework label, rework, manual, label model, kit, regulatory, registration]
+tags: [modulo-regulatorios, cadastro]
+order: 11
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Manual Rework Label** screen keeps the **manually generated rework label models** (e.g., "EE0034_KIT_A_REV03", "EE0044_COMP_NEST_C"). Each model is identified by a **description** and is used in the manual rework of the products' labels.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Manual rework', text: 'Keeps the manually generated rework label models.' },
+    { label: 'Use', title: 'Model description', text: 'Each model is identified by a description.' },
+    { label: 'Nature', title: 'Support registration', text: 'Queried in the manual rework of the labels.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Query the manual rework label models.
+- Add a new model.
+- Fix a model's description.
+
+## How to access
+
+Regulatory → Manual Rework Label
+
+## Before you start
+
+- Have the label model **description**.
+- Confirm that your profile allows maintaining this registration.
+
+## Main fields
+
+<DocTable
+  headers={['Field / Column', 'What it is']}
+  rows={[
+    ['Description', 'Description of the manual rework label model (e.g., "EE0034_KIT_A_REV03").'],
+  ]}
+/>
+
+The form ("+ New") has the **Description** field. In the listing, each row has the details, edit and delete icons.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the models according to the description.', '—'],
+    ['+ New', 'To add a model.', 'Opens the form.'],
+    ['Save', 'To store the model.', 'Inform the description.'],
+    ['Details / Edit', 'To query or change the model.', 'Details is read-only.'],
+    ['Delete', 'To remove the model.', 'Confirm before; it may be in use.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Manual Rework Label', 'Screen access', 'Allows opening the screen and maintaining the registration.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Rework Labels (by country)', 'They make up the set of rework labels; this is the manually generated version.', '—'],
+    ['Product / Records', 'The model is used in the rework of the products\' labels.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not print the label — it only maintains the models.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the model', 'Restrictive filter', 'Adjust the description in the search.'],
+    ['I cannot delete', 'Model in use', 'Check whether there are links.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Manual Rework Label for?', answer: 'To keep the manually generated rework label models.' },
+    { question: 'Which fields does the model have?', answer: 'Only the Description.' },
+    { question: 'What is the difference from the rework labels by country?', answer: 'This one handles the manually generated models; the others are specific by market (country).' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the Manual Rework Label screen documentation.' },
+  ]}
+/>

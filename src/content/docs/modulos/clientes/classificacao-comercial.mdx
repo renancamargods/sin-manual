@@ -1,0 +1,143 @@
+---
+section: modulos
+routeSlug: clientes/classificacao-comercial
+pageType: routine
+module: clientes
+moduleLabel: Clientes
+title: Classificação Comercial
+description: "Cadastro das classificações comerciais (ex.: A, B, C, Platinum) usadas em políticas comerciais, com a lista de clientes de cada classificação."
+routineType: Cadastro
+permission: Sim
+impact: Define as classificações comerciais usadas nas políticas comerciais
+keywords: [classificação comercial, classificação, código, clientes, política comercial, rating, cadastro]
+tags: [modulo-clientes, cadastro]
+order: 6
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Classificação Comercial** mantém as **classificações comerciais** (identificadas por um **código**, ex.: "A", "B", "C", "Platinum") usadas em **políticas comerciais**. Cada classificação pode ter a sua **lista de clientes**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Classificar comercialmente', text: 'Mantém as classificações usadas em políticas comerciais.' },
+    { label: 'Uso', title: 'Código + clientes', text: 'Cada classificação tem um código e a sua lista de clientes.' },
+    { label: 'Natureza', title: 'Cadastro de apoio', text: 'Consultado por políticas e regras comerciais.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar as classificações comerciais cadastradas.
+- Criar uma nova classificação.
+- Associar clientes a uma classificação.
+
+## Como acessar
+
+Clientes → Classificação Comercial
+
+## Antes de começar
+
+- Defina o **código** da classificação.
+- Saiba quais **clientes** pertencem a ela, se for o caso.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtro por "Código", com "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use o filtro para localizar a classificação.'],
+    ['Resultados', 'Lista das classificações pela coluna "Código", com os ícones de detalhes, editar e excluir.', 'Os ícones ficam à direita da linha.'],
+    ['Cadastro (2 abas)', 'Aba "Classificação Comercial" (código) e aba "Clientes" (lista de clientes da classificação).', 'Monte a lista de clientes na aba "Clientes".'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo / aba', 'O que é']}
+  rows={[
+    ['Código', 'Código que identifica a classificação comercial.'],
+    ['Aba "Clientes"', 'Lista dos clientes associados à classificação.'],
+  ]}
+/>
+
+O formulário tem os botões **"Salvar e Continuar"**, **"Salvar"** e **"Fechar"**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as classificações conforme o código.', '—'],
+    ['+ Novo', 'Para criar uma classificação.', 'Abre o cadastro.'],
+    ['Salvar / Salvar e Continuar', 'Para guardar a classificação.', 'Informe o código.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar a classificação.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover a classificação.', 'Confirme antes; pode estar em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Classificação Comercial', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Cliente', 'Os clientes da classificação vêm do cadastro de Cliente.', 'O cliente precisa existir.'],
+    ['Política Comercial', 'A classificação é usada em políticas e regras comerciais.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não define preços ou descontos por si só — apenas classifica comercialmente.
+- Não cadastra os clientes — eles vêm do cadastro de Cliente.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro a classificação', 'Filtro restrito', 'Ajuste o código na pesquisa.'],
+    ['Não consigo excluir', 'Classificação em uso', 'Verifique se há clientes ou políticas vinculadas.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Classificação Comercial?', answer: 'Para manter as classificações (por código) usadas em políticas comerciais, com a lista de clientes de cada uma.' },
+    { question: 'Como associo clientes a uma classificação?', answer: 'Na aba "Clientes" do cadastro da classificação.' },
+    { question: 'Onde a classificação é usada?', answer: 'Em políticas e regras comerciais.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Classificação Comercial.' },
+  ]}
+/>

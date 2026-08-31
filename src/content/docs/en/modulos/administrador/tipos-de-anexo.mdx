@@ -1,0 +1,157 @@
+---
+section: modulos
+routeSlug: administrador/tipos-de-anexo
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Attachment Types
+description: Register the attachment types (classifications), linked to a domain, with a required flag and applicable person type.
+routineType: Registration and lookup
+permission: Yes
+impact: Attachment types used in attachment routines
+keywords: [attachment types, attachment type, attachment domain, required, id document, articles of association]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Attachment Types** screen registers the attachment classifications used in the system (for example, ID Document, Articles of Association, Proof of Address). Each type is linked to an **Attachment Domain**, can be marked as **Required** and be restricted by **Person Types**.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Classify attachments', text: 'Standardizes the document types accepted as attachments.' },
+    { label: 'Use', title: 'Attachments by domain', text: 'Each type belongs to a domain (e.g., Customers).' },
+    { label: 'Caution', title: 'Required flag', text: 'Types marked as required must be attached in the corresponding routine.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new attachment type.
+- Define whether a type is required and which person types it applies to.
+- Look up, edit or delete existing types.
+
+## How to access
+
+Administrator → Attachment Types
+
+## Before you start
+
+- Know which **Attachment Domain** the type belongs to (register the domain first, if needed).
+- Define whether the type is **required** and the applicable **person type**.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Filters by description/domain, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List with the "Description", "Registration Date", "Creation User" and "Attachment Domain" columns, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing', 'Window ("Attachment Types" tab) with the type fields.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+### "Attachment Types" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Attachment Domain', 'Domain the type belongs to. The "+" button next to it registers a new domain.'],
+    ['Description', 'Description of the attachment type (e.g., ID Document).'],
+    ['Required', 'Defines whether an attachment of this type is required (Yes/No).'],
+    ['Person Types', 'Person types the type applies to.'],
+  ]}
+/>
+
+<Callout type="info" title="Attachment type examples">
+Registered types include: ID Document, Partners' ID Document, CRO Proof, Proof of Address, Student Declaration, Articles of Association, Invoice and Proposal.
+</Callout>
+
+## Main flows
+
+1. **Search** — enter the filters and click **"Search"**.
+2. **Register** — click **"+ New"**, select the **Attachment Domain**, enter the **Description**, set **Required** and **Person Types** and click **"Save"**.
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list types according to the filters.', '—'],
+    ['+ New', 'To register a new attachment type.', '—'],
+    ['+ (next to domain)', 'To register a new attachment domain.', 'Use when the domain does not yet exist.'],
+    ['Details', 'To view a type without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing type.', '—'],
+    ['Delete', 'To remove a type.', 'Irreversible action; avoid deleting types already used in attachments.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Attachment Types', 'Access to the screen', 'Allows opening and using the Attachment Types screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Attachment Domain', 'Each type belongs to a domain.', 'Register the domain before the type.'],
+    ['Attachments', 'Attachments are classified by the types registered here.', 'Check the required flag per routine.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not store the files — it only defines the types and their rules (required flag, person type).
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find a type', 'Filter too restrictive or type not registered', 'Adjust the filters or register the type.'],
+    ['The type is not required in the routine', 'Marked as not required', 'Check the "Required" field.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the attachment types (classifications), linked to a domain.' },
+    { question: 'What does "Required" mean?', answer: 'It indicates whether an attachment of this type is required in the corresponding routine.' },
+    { question: 'What is the difference from "Attachment Domain"?', answer: 'The domain is the origin that groups the types; the type is the attachment\'s specific classification.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Initial release of the Attachment Types screen documentation.' },
+  ]}
+/>

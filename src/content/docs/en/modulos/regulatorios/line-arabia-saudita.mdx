@@ -1,0 +1,130 @@
+---
+section: modulos
+routeSlug: regulatorios/line-arabia-saudita
+pageType: routine
+module: regulatorios
+moduleLabel: Regulatory
+lang: en
+title: Line — Saudi Arabia
+description: Registration of the regulatory line configuration for Saudi Arabia, identified by description.
+routineType: Registration
+permission: Yes
+impact: Defines the regulatory line configuration for Saudi Arabia
+keywords: [line saudi arabia, line, saudi arabia, regulatory line, export, regulatory, registration]
+tags: [modulo-regulatorios, cadastro]
+order: 14
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Line — Saudi Arabia** screen keeps the **regulatory line configuration** specific to **Saudi Arabia**. Each record is identified by a **description** and supports the products' regulatory adjustment for that market.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Line (Saudi Arabia)', text: 'Keeps the regulatory line configuration for Saudi Arabia.' },
+    { label: 'Use', title: 'Description', text: 'Each record is identified by a description.' },
+    { label: 'Nature', title: 'Support registration', text: 'Queried in regulatory adjustment for export.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Query the Saudi Arabia line records.
+- Add a new record.
+- Fix a record's description.
+
+## How to access
+
+Regulatory → Line — Saudi Arabia
+
+## Before you start
+
+- Have the record **description**.
+- Confirm that your profile allows maintaining this registration.
+
+## Main fields
+
+<DocTable
+  headers={['Field / Column', 'What it is']}
+  rows={[
+    ['Description', 'Description of the line configuration for Saudi Arabia.'],
+  ]}
+/>
+
+The form ("+ New") has the **Description** field. In the listing, each row has the details, edit and delete icons.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the records according to the description.', '—'],
+    ['+ New', 'To add a record.', 'Opens the form.'],
+    ['Save', 'To store the record.', 'Inform the description.'],
+    ['Details / Edit', 'To query or change the record.', 'Details is read-only.'],
+    ['Delete', 'To remove the record.', 'Confirm before; it may be in use.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Line — Saudi Arabia', 'Screen access', 'Allows opening the screen and maintaining the registration.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Product Line / Records', 'Supports the product\'s regulatory classification and adjustment.', '—'],
+    ['Rework Label — Saudi Arabia', 'They make up the regulatory adjustment for the Saudi Arabia market.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not register the products — only the line configuration.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the record', 'Restrictive filter', 'Adjust the description in the search.'],
+    ['I cannot delete', 'Record in use', 'Check whether there are links.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Line — Saudi Arabia for?', answer: 'To keep the regulatory line configuration specific to Saudi Arabia.' },
+    { question: 'Which fields does the record have?', answer: 'Only the Description.' },
+    { question: 'Why is it specific to Saudi Arabia?', answer: 'The regulatory adjustment can vary by market (country).' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the Line — Saudi Arabia screen documentation.' },
+  ]}
+/>

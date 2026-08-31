@@ -1,0 +1,130 @@
+---
+section: modulos
+routeSlug: clientes/canal
+pageType: routine
+module: clientes
+moduleLabel: Clientes
+title: Canal
+description: "Cadastro dos canais de venda associados aos clientes (ex.: Varejo, Distribuidor, Key Account, Internacional), por descrição."
+routineType: Cadastro
+permission: Sim
+impact: Define os canais de venda usados na classificação dos clientes
+keywords: [canal, canal de venda, varejo, distribuidor, key account, internacional, clientes, cadastro]
+tags: [modulo-clientes, cadastro]
+order: 4
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Canal** mantém a lista dos **canais de venda** associados aos clientes — por exemplo, "Varejo", "Distribuidor", "Key Account" e "Internacional". O canal ajuda a **classificar** o cliente e é usado em regras e análises comerciais.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Canais de venda', text: 'Mantém os canais de venda associados aos clientes.' },
+    { label: 'Uso', title: 'Classificar o cliente', text: 'O canal ajuda a classificar o cliente para regras comerciais.' },
+    { label: 'Natureza', title: 'Cadastro de apoio', text: 'Cadastro simples, consultado por outras telas.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar os canais cadastrados.
+- Incluir um novo canal de venda.
+- Corrigir a descrição de um canal.
+
+## Como acessar
+
+Clientes → Canal
+
+## Antes de começar
+
+- Defina a **descrição** do canal.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Campos principais
+
+<DocTable
+  headers={['Campo / Coluna', 'O que é']}
+  rows={[
+    ['Descrição', 'Nome do canal de venda (ex.: "Varejo", "Distribuidor", "Key Account").'],
+  ]}
+/>
+
+O formulário ("+ Novo") tem apenas o campo **Descrição**, com os botões **"Salvar e Continuar"**, **"Salvar"** e **"Fechar"**. Na listagem, cada linha tem os ícones de detalhes, editar e excluir.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os canais conforme a descrição.', '—'],
+    ['+ Novo', 'Para incluir um canal.', 'Abre o formulário.'],
+    ['Salvar / Salvar e Continuar', 'Para guardar o canal.', 'Informe a descrição.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar o canal.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover o canal.', 'Confirme antes; pode estar em uso por clientes.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Canal', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Cliente', 'O canal é associado ao cliente na sua classificação.', 'O canal precisa existir para ser vinculado.'],
+    ['Políticas comerciais', 'O canal pode ser usado em regras e restrições comerciais.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não classifica o cliente automaticamente — apenas mantém a lista de canais.
+- Não define preços ou descontos por si só.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o canal', 'Filtro restrito', 'Ajuste a descrição na pesquisa.'],
+    ['Não consigo excluir', 'Canal em uso por clientes', 'Verifique se há clientes vinculados.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Canal?', answer: 'Para manter os canais de venda (ex.: Varejo, Distribuidor, Key Account) associados aos clientes.' },
+    { question: 'Quais campos o canal tem?', answer: 'Apenas a Descrição.' },
+    { question: 'Posso excluir um canal em uso?', answer: 'Não é recomendado; verifique antes se há clientes vinculados.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Canal.' },
+  ]}
+/>

@@ -1,0 +1,155 @@
+---
+section: modulos
+routeSlug: administrador/canal-de-entrada
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Canal de Entrada
+description: Cadastro dos canais de entrada de registros (por exemplo, Marketing, Site, Indicação de Cliente), com nome, grupos e status.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Canais de entrada usados na origem de leads e registros
+keywords: [canal de entrada, origem, marketing, site, indicação de cliente, lead, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Canal de Entrada** mantém o cadastro dos canais que identificam a **origem** de registros no sistema (por exemplo, Marketing, Site, Indicação de Cliente, Interno, Passivo). Cada canal reúne o **Nome**, os **Grupos** associados e o **Status**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Origem dos registros', text: 'Identifica de onde vieram os leads e demais registros.' },
+    { label: 'Uso', title: 'Prospecção e cadastro', text: 'Os canais ficam disponíveis para seleção nas telas que registram a origem.' },
+    { label: 'Cuidado', title: 'Status', text: 'Canais inativos não devem mais ser usados em novos registros.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo canal de entrada.
+- Consultar ou localizar um canal pelo nome.
+- Editar os grupos ou o status de um canal.
+
+## Como acessar
+
+Administrador → Canal de Entrada
+
+## Antes de começar
+
+- Tenha o **nome** do canal.
+- Saiba os **grupos** que se aplicam, se houver.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Nome", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista dos canais com as colunas "ID Canal de Entrada" e "Nome", com as ações por linha.', 'Cada linha tem Histórico, Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela "Dados do Canal de Entrada" com a seção "Informações".', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Seção "Informações"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Nome do canal de entrada.'],
+    ['Grupos', 'Grupos associados ao canal (campo com pesquisa).'],
+    ['Status', 'Situação do canal (Ativo ou Inativo).'],
+  ]}
+/>
+
+<Callout type="info" title="Exemplos de canais">
+Entre os canais cadastrados estão: Marketing, Site, Indicação de Cliente, Interno, Passivo, Ativo, Cursos, Ação CS e Ação TradeUp.
+</Callout>
+
+## Fluxos principais
+
+1. **Consultar** — informe o **"Nome"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe **Nome**, selecione os **Grupos** e o **Status** e clique em **"Salvar"**.
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Ver detalhes / histórico** — use os ícones de **Detalhes** e de **Histórico** da linha.
+5. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os canais conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar um novo canal.', '—'],
+    ['Detalhes', 'Para consultar um canal sem alterar.', 'Somente leitura.'],
+    ['Histórico', 'Para ver o histórico de alterações do canal.', '—'],
+    ['Editar', 'Para alterar um canal existente.', '—'],
+    ['Excluir', 'Para remover um canal.', 'Ação sem retorno; prefira inativar em vez de excluir canais já usados.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Canal de Entrada', 'Acesso à tela', 'Permite abrir e utilizar a tela de Canal de Entrada.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Leads e prospecção', 'Os canais identificam a origem de leads e registros.', 'Mantenha os canais atualizados e padronizados.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não registra os leads em si — apenas os canais usados para identificar a origem.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro um canal', 'Filtro muito restrito ou canal não cadastrado', 'Ajuste o "Nome" ou cadastre-o.'],
+    ['O canal não aparece para seleção', 'Canal inativo', 'Verifique o status do canal.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os canais que identificam a origem de leads e registros (ex.: Marketing, Site).' },
+    { question: 'O que é o campo "Grupos"?', answer: 'Grupos associados ao canal, usados para organizar e aplicar regras.' },
+    { question: 'Posso excluir um canal?', answer: 'Sim, mas prefira inativá-lo se ele já foi usado em registros.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Canal de Entrada.' },
+  ]}
+/>

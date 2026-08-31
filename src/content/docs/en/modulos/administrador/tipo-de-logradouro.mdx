@@ -1,0 +1,161 @@
+---
+section: modulos
+routeSlug: administrador/tipo-de-logradouro
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Street Type
+description: Register and look up the street types (for example, Street, Avenue) used in addresses and streets.
+routineType: Registration and lookup
+permission: Yes
+impact: Street types used in addresses
+keywords: [street type, street, avenue, address]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Street Type** screen keeps the list of street types (for example, Street, Avenue, Square) used to compose addresses and streets. It is a simple register, with a single **Type** field.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Street types', text: 'Standardizes the types used in addresses (Street, Avenue, etc.).' },
+    { label: 'Use', title: 'Address composition', text: 'Types become available for selection in addresses and streets.' },
+    { label: 'Caution', title: 'Standardization', text: 'Avoid duplicate types to keep addresses consistent.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new street type.
+- Look up or find an existing type.
+- Edit or delete a type.
+- Review the addresses and streets linked to the type.
+
+## How to access
+
+Administrator → Street Type
+
+## Before you start
+
+- Have the **Type** description (e.g., Street, Avenue).
+- Check whether the type is not already registered.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'The "Type" field, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List of types in the "Type" column, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing (tabs)', 'Window with the "Street Type", "Addresses" and "Streets" tabs.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+### "Street Type" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Type', 'Description of the street type (e.g., Street, Avenue).'],
+  ]}
+/>
+
+### Additional tabs
+
+<DocTable
+  headers={['Tab', 'What it shows']}
+  rows={[
+    ['Addresses', 'Addresses that use this street type.'],
+    ['Streets', 'Streets linked to this type.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the **"Type"** and click **"Search"**.
+2. **Register** — click **"+ New"**, enter the **Type** and click **"Save"** (or **"Save and Continue"**).
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list types according to the filter.', '—'],
+    ['+ New', 'To register a new type.', '—'],
+    ['Save and Continue', 'To save and keep filling in the other tabs.', '—'],
+    ['Details', 'To view a type without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing type.', '—'],
+    ['Delete', 'To remove a type.', 'Irreversible action; avoid deleting types already used in addresses.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Street Type', 'Access to the screen', 'Allows opening and using the Street Type screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Address', 'The street type composes the address.', 'Keep the types standardized.'],
+    ['Street', 'Streets use the registered type.', 'Avoid duplicates.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not register addresses or streets — only the type used by them.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find a type', 'Filter too restrictive or type not registered', 'Adjust the "Type" or register it.'],
+    ['I cannot delete it', 'Type already used in addresses', 'Check the links before deleting.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register and look up the street types (Street, Avenue, etc.) used in addresses.' },
+    { question: 'Can I delete a type?', answer: 'Yes, through the Delete icon, but avoid removing types already used in addresses.' },
+    { question: 'Where are types used?', answer: 'In the composition of addresses and streets.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Initial release of the Street Type screen documentation.' },
+  ]}
+/>

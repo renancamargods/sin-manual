@@ -1,0 +1,145 @@
+---
+section: modulos
+routeSlug: produtos/saldo-de-estoque-agrupado
+pageType: routine
+module: produtos
+moduleLabel: Products
+lang: en
+title: Grouped Stock Balance
+description: Query of the products' stock position in a grouped (consolidated) way, by Lounge, product and description.
+routineType: Query
+permission: Yes
+impact: Shows the products' stock position in a grouped way
+keywords: [grouped stock balance, grouped stock, consolidated balance, quantity, lounge, products, query]
+tags: [modulo-produtos, consulta]
+order: 11
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Grouped Stock Balance** screen shows the products' **stock position** in a **grouped (consolidated)** way, by **Lounge**, **product** and **description**, with the **quantity**. It is a summarized view, complementary to the **Stock Balance** (which details by warehouse).
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Consolidated stock', text: 'Shows the stock balance in a grouped way.' },
+    { label: 'Use', title: 'Filter and consolidate', text: 'Filters by Lounge, product and description.' },
+    { label: 'Nature', title: 'Query', text: 'Presents the stock position in a summarized way.' },
+  ]}
+/>
+
+<Callout type="atencao" title="Loading error in the checked environment">
+At the time this document was prepared, the **data loading** of this screen returned an error in the staging environment (error processing the information, related to the internal lot field), and the list stayed empty. Therefore, this page describes the screen **conservatively**, based on its purpose and the visible filters/columns. The data should load normally once the issue is resolved.
+</Callout>
+
+## When to use this screen
+
+- Query the stock balance in a consolidated way.
+- See the grouped quantity by Lounge and product.
+
+## How to access
+
+Products → Grouped Stock Balance
+
+## Before you start
+
+- Know the **product** or the **Lounge** you want to query.
+- Confirm that your profile has access to the screen.
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Lounge', 'Filters by the Lounge (unit).'],
+    ['Product', 'Filters by the product.'],
+    ['Description', 'Filters by the product description.'],
+  ]}
+/>
+
+### Results columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Lounge', 'Lounge (unit) of the balance.'],
+    ['Product', 'Product code.'],
+    ['Description', 'Product description.'],
+    ['Quantity', 'Quantity in stock (grouped).'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the grouped balances according to the filters.', 'Combine Lounge and product.'],
+    ['Clear Filters', 'To reset the filters.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Grouped Stock Balance', 'Screen access', 'Allows opening the screen and querying the grouped balance.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Stock Balance', 'This screen presents the balance in a grouped way; the Stock Balance details by warehouse.', 'Use the detailed one to see by warehouse.'],
+    ['Product', 'The balance is of registered products.', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not register the product — it comes from the Product registration.
+- It does not adjust stock — it is a query.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['The list stays empty / processing error', 'Failure loading the data in the environment', 'Try again later or use the Stock Balance; notify the administrator if it persists.'],
+    ['I cannot find the product', 'Restrictive filters', 'Adjust Lounge, product or description.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Grouped Stock Balance for?', answer: 'To query the products\' stock position in a grouped (consolidated) way, by Lounge and product.' },
+    { question: 'What is the difference from the Stock Balance?', answer: 'The Stock Balance details by warehouse; the grouped one presents the quantity in a consolidated way.' },
+    { question: 'Why might the list appear empty?', answer: 'In the checked environment there was an error loading the data. Try again and notify the administrator if it persists.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release (conservative — data did not load in the staging environment at preparation time).' },
+  ]}
+/>

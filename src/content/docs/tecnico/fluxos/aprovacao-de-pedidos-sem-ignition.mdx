@@ -1,0 +1,326 @@
+---
+section: tecnico
+routeSlug: fluxos/aprovacao-de-pedidos-sem-ignition
+pageType: tecnico
+title: Aprovação de Pedidos - Sem Ignition
+description: Processo da nova fila de aprovações de PEDIDOS pela fila SEM Ignition, da preparação da regra de aprovação à criação do pedido e às etapas de aprovação (ADM, Crédito e Cobrança Nacional), com fluxograma da rota de aprovação.
+moduleLabel: Módulo Pedidos
+routineType: Fluxo de processo
+impact: Criação e aprovação de pedidos pela fila SEM Ignition
+keywords: [pedido, aprovação de pedidos, sem ignition, regra de aprovação, etapa de aprovação, adm vendas, crédito, cobrança nacional, pix, cartão, car, contas a receber, aguardando aprovações]
+tags: [tecnico, fluxo, pedido]
+order: 5
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+O fluxo de **Aprovação de Pedidos SEM Ignition** descreve, passo a passo, como um pedido é **criado, enviado e aprovado** utilizando a **fila SEM Ignition** — um caminho mais rápido e direto. O processo tem duas partes: a **preparação do sistema** (feita uma única vez pelo administrador) e o **dia a dia** (criação do pedido e acompanhamento das aprovações).
+
+O caminho de aprovação segue exatamente a **Regra de Aprovação** configurada. Algumas etapas só entram conforme a característica do pedido — por exemplo, a etapa de **Cobrança – Nacional** só ocorre quando a forma de pagamento é **PIX ou Cartão**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Aprovar pedidos sem Ignition', text: 'Padroniza a criação e a aprovação de pedidos pelo caminho mais simples (Ignition desativado).' },
+    { label: 'Uso', title: 'Preparação e dia a dia', text: 'O administrador configura a regra de aprovação uma vez; os usuários criam e enviam os pedidos no dia a dia.' },
+    { label: 'Cuidado', title: 'A regra manda no fluxo', text: 'As etapas e a ordem vêm da Regra de Aprovação; a Cobrança Nacional só entra para PIX ou Cartão.' },
+  ]}
+/>
+
+## Quando usar este fluxo
+
+- Criar um novo pedido e enviá-lo para aprovação pela fila SEM Ignition.
+- Preparar a regra e as etapas de aprovação usadas por esse fluxo.
+- Acompanhar o pedido pelas etapas de aprovação até ficar liberado.
+
+## Como acessar
+
+- Módulo Administrador → Controle de Funcionalidade (preparação)
+- Módulo Aprovações → Regra de Aprovação (preparação)
+- Módulo Pedidos → Pedido (uso do dia a dia)
+
+## Glossário rápido
+
+<DocTable
+  headers={['Termo', 'O que significa']}
+  rows={[
+    ['Ignition', 'Um tipo de fila de aprovação. Neste processo ela fica desativada, o que torna o caminho mais rápido e simples.'],
+    ['Regra de Aprovação', 'Configuração que define quem precisa aprovar o pedido e em qual ordem.'],
+    ['Etapa de Aprovação', 'Cada passo dentro da regra (ex.: "Aprovação ADM", "Aprovação Crédito", "Cobrança – Nacional").'],
+    ['Modo de execução', 'Paralelo (sem ordem entre aprovadores) ou Sequencial (segue a ordem cadastrada).'],
+    ['CAR', 'Contas a Receber. A Cobrança verifica se o cliente tem algum CAR vencido.'],
+    ['Aguardando aprovações', 'Status do pedido enquanto ele passa pelas etapas de aprovação.'],
+  ]}
+/>
+
+## As etapas do processo
+
+<DocTable
+  headers={['Etapa', 'O que acontece']}
+  rows={[
+    ['Preparação 1', 'Definir que a fila NÃO usa Ignition (Controle de Funcionalidade).'],
+    ['Preparação 2', 'Configurar a Regra de Aprovação (nome, entidade e modo de execução).'],
+    ['Preparação 3', 'Cadastrar as etapas de aprovação (grupo, ordem) e deixá-las ativas.'],
+    ['1. Novo pedido', 'Criar o pedido e selecionar o cliente.'],
+    ['2. Dados do pedido', 'Preencher os campos obrigatórios (em vermelho).'],
+    ['3. Salvar e enviar', 'Salvar e Continuar (gera o número) e enviar para aprovação.'],
+    ['4. Aprovações', 'O pedido passa pelas etapas conforme a regra (ADM, Crédito e, quando aplicável, Cobrança Nacional).'],
+    ['5. Liberado', 'Após as aprovações aplicáveis, o pedido fica liberado.'],
+  ]}
+/>
+
+## Antes de começar
+
+- Confirme com o administrador que a **regra de aprovação** e as **etapas** já estão configuradas e ativas.
+- Tenha o **cliente** para o qual o pedido será feito.
+- Saiba a **forma de pagamento** do pedido — ela influencia a etapa de Cobrança Nacional.
+
+## Parte 1 — Preparação do sistema (feita pelo administrador)
+
+Estes passos normalmente já estarão configurados. Eles só precisam ser feitos uma vez.
+
+### Passo 1 — Definir se a fila usa Ignition
+
+No módulo **Administrador**, tela **Controle de Funcionalidade**, é possível ativar ou inativar o uso da fila Ignition. Para este processo, a opção deve ficar **ATIVA para que a fila do Ignition NÃO seja usada** — o pedido segue pelo caminho mais simples.
+
+### Passo 2 — Configurar a Regra de Aprovação
+
+No módulo **Aprovações**, tela **Regra de Aprovação**, defina o **nome da regra**, a **entidade de aprovação** e o **modo de execução**:
+
+<DocTable
+  headers={['Modo de execução', 'O que significa']}
+  rows={[
+    ['Paralelo', 'Não existe ordem entre os aprovadores.'],
+    ['Sequencial', 'A aprovação segue a ordem cadastrada nas etapas.'],
+  ]}
+/>
+
+### Passo 3 — Cadastrar as etapas de aprovação
+
+Dentro da regra, clique em **"Nova etapa de aprovação"** (ou edite uma existente). Configure o **grupo responsável** e a **ordem**, deixando a etapa **ATIVA** para que funcione no processo.
+
+## Parte 2 — Criação e envio do pedido (uso do dia a dia)
+
+### Passo 1 — Novo pedido
+
+Acesse o módulo **Pedidos**, tela **Pedido**, e clique em **"+ Novo Pedido"**. Em seguida, **selecione o cliente** desejado para o pedido.
+
+### Passo 2 — Preencher os dados do pedido
+
+Vá para a aba **"Dados do Pedido"** e preencha os **campos obrigatórios** (exibidos em **vermelho**).
+
+### Passo 3 — Salvar e enviar para aprovação
+
+Clique em **"Salvar e Continuar"**. Isso salva o pedido, **gera o número** e habilita o botão **"Enviar pedido para aprovação"**. Ao enviar, o pedido aparece na lista como **"Aguardando aprovações"**.
+
+## Parte 3 — Aprovação por etapas
+
+Com o pedido enviado, ele segue as etapas configuradas na Regra de Aprovação. No fluxo atual, a ordem é:
+
+<DocTable
+  headers={['Ordem', 'Etapa', 'Grupo responsável', 'Quando entra']}
+  rows={[
+    ['1', 'Aprovação ADM', 'ADM de Vendas', 'Sempre.'],
+    ['2', 'Aprovação Crédito', 'Crédito', 'Sempre.'],
+    ['3', 'Cobrança – Nacional', 'Cobrança', 'Apenas quando a forma de pagamento é PIX ou Cartão. A Cobrança verifica se o cliente tem algum CAR (contas a receber) vencido.'],
+  ]}
+/>
+
+A cada aprovação, ao acessar o pedido é possível ver a **atualização mais recente**. Quando a forma de pagamento **não** é PIX nem Cartão, a etapa de **Cobrança – Nacional não entra** e, após ADM e Crédito, o pedido já fica **liberado**.
+
+<Callout type="info" title="A regra manda no fluxo">
+O caminho de aprovação vem da Regra de Aprovação. Se as etapas, a ordem ou as condições mudarem na regra, o fluxo muda junto — sempre confira a configuração atual.
+</Callout>
+
+## Fluxograma — rota de aprovação do pedido
+
+O diagrama abaixo mostra o caminho do pedido e como a **forma de pagamento** define se a etapa de **Cobrança – Nacional** entra ou é pulada.
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 860 900" width="860" role="img" aria-label="Fluxograma da rota de aprovação do pedido sem Ignition" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwp" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwp)">
+    <path d="M420,74 L420,96" />
+    <path d="M420,162 L420,188" />
+    <path d="M420,240 L420,266" />
+    <path d="M420,316 L420,344" />
+    <path d="M420,438 L420,472" />
+    <path d="M420,528 L420,560" />
+    <path d="M420,646 L420,764" />
+    <path d="M270,604 L226,604" />
+    <path d="M560,392 L790,392 L790,792 L582,792" />
+  </g>
+  <g font-size="12.5" fill="#5c6b7a">
+    <text x="432" y="458">Sim (PIX/Cartão)</text>
+    <text x="675" y="383" text-anchor="middle">Não &#183; pula Cobrança</text>
+    <text x="432" y="712">Não</text>
+    <text x="248" y="596" text-anchor="middle">Sim</text>
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="260" y="28" width="320" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="420" y="56" text-anchor="middle" font-weight="600">1 &#183; Novo pedido &#8212; seleciona o cliente</text>
+    <rect x="250" y="98" width="340" height="64" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="420" y="123" text-anchor="middle">2 &#183; Dados do pedido &#8594; Salvar e Continuar</text>
+    <text x="420" y="144" text-anchor="middle" fill="#5c6b7a" font-size="12">Enviar &#8594; status &#8220;Aguardando aprova&#231;&#245;es&#8221;</text>
+    <rect x="280" y="190" width="280" height="46" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="420" y="218" text-anchor="middle">Etapa 1 &#183; Aprova&#231;&#227;o ADM</text>
+    <rect x="280" y="266" width="280" height="46" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="420" y="294" text-anchor="middle">Etapa 2 &#183; Aprova&#231;&#227;o Cr&#233;dito</text>
+  </g>
+  <polygon points="420,346 560,392 420,438 280,392" fill="#fef3e2" stroke="#f18800" stroke-width="1.6"/>
+  <text x="420" y="388" text-anchor="middle" font-size="12.5" fill="#1a1417">Pagamento &#233;</text>
+  <text x="420" y="404" text-anchor="middle" font-size="12.5" fill="#1a1417">PIX ou Cart&#227;o?</text>
+  <rect x="270" y="474" width="300" height="54" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+  <text x="420" y="496" text-anchor="middle" font-size="13" fill="#1a1417">Etapa 3 &#183; Cobran&#231;a &#8211; Nacional</text>
+  <text x="420" y="515" text-anchor="middle" font-size="11.5" fill="#5c6b7a">verifica CAR (contas a receber)</text>
+  <polygon points="420,562 570,604 420,646 270,604" fill="#fef3e2" stroke="#f18800" stroke-width="1.6"/>
+  <text x="420" y="600" text-anchor="middle" font-size="12.5" fill="#1a1417">Cliente com</text>
+  <text x="420" y="616" text-anchor="middle" font-size="12.5" fill="#1a1417">CAR vencido?</text>
+  <rect x="40" y="580" width="180" height="48" rx="10" fill="#fbeaea" stroke="#cc093b" stroke-width="1.5"/>
+  <text x="130" y="601" text-anchor="middle" font-size="12" fill="#1a1417">Pedido retido &#8212;</text>
+  <text x="130" y="617" text-anchor="middle" font-size="12" fill="#1a1417">Cobran&#231;a avalia</text>
+  <rect x="260" y="768" width="320" height="52" rx="10" fill="#e6f4ec" stroke="#1f9d63" stroke-width="1.8"/>
+  <text x="420" y="799" text-anchor="middle" font-size="14" font-weight="700" fill="#1f7a4d">Pedido LIBERADO</text>
+</svg>
+</div>
+
+<Callout type="dica" title="Como ler o fluxograma">
+Todo pedido passa por <strong>ADM</strong> e <strong>Crédito</strong>. A etapa de <strong>Cobrança – Nacional</strong> só entra quando o pagamento é <strong>PIX ou Cartão</strong>; nos demais casos, ela é pulada e o pedido é liberado após o Crédito.
+</Callout>
+
+## Fluxograma por tipo de pessoa (Física, Jurídica e Estrangeiro)
+
+Além da forma de pagamento, o caminho de aprovação do pedido depende do **tipo de pessoa do cliente**. Hoje, a regra está montada assim: **Física** e **Jurídica** seguem o caminho **Nacional** (ADM Vendas, Crédito e Cobrança); **Estrangeiro** segue o caminho **Comex** (ADM Comex e Crédito Comex).
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 900 560" width="900" role="img" aria-label="Fluxograma de aprovação de pedidos por tipo de pessoa" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwt" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwt)">
+    <path d="M450,76 L450,106" />
+    <path d="M300,150 L150,150 L150,230" />
+    <path d="M450,190 L450,230" />
+    <path d="M600,150 L750,150 L750,230" />
+    <path d="M150,278 L150,300" />
+    <path d="M150,346 L150,368" />
+    <path d="M450,278 L450,300" />
+    <path d="M450,346 L450,368" />
+    <path d="M750,278 L750,300" />
+    <path d="M150,414 L150,497 L314,497" />
+    <path d="M450,414 L450,468" />
+    <path d="M750,346 L750,497 L586,497" />
+  </g>
+  <g font-size="12.5" fill="#5c6b7a">
+    <text x="222" y="142" text-anchor="middle">Física</text>
+    <text x="462" y="214">Jurídica</text>
+    <text x="680" y="142" text-anchor="middle">Estrangeiro</text>
+  </g>
+  <rect x="300" y="22" width="300" height="54" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+  <text x="450" y="45" text-anchor="middle" font-size="13" fill="#1a1417" font-weight="600">Pedido enviado para aprovação</text>
+  <text x="450" y="64" text-anchor="middle" font-size="12" fill="#5c6b7a">status “Aguardando aprovações”</text>
+  <polygon points="450,110 600,150 450,190 300,150" fill="#fef3e2" stroke="#f18800" stroke-width="1.6"/>
+  <text x="450" y="155" text-anchor="middle" font-size="12.5" fill="#1a1417">Tipo de pessoa?</text>
+  <g font-size="12.5" fill="#1a1417">
+    <rect x="40" y="234" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="150" y="261" text-anchor="middle">ADM Vendas – Nacional</text>
+    <rect x="40" y="302" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="150" y="329" text-anchor="middle">Crédito – Nacional</text>
+    <rect x="40" y="370" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="150" y="397" text-anchor="middle">Cobrança – Nacional</text>
+    <rect x="340" y="234" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="450" y="261" text-anchor="middle">ADM Vendas – Nacional</text>
+    <rect x="340" y="302" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="450" y="329" text-anchor="middle">Crédito – Nacional</text>
+    <rect x="340" y="370" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="450" y="397" text-anchor="middle">Cobrança – Nacional</text>
+    <rect x="640" y="234" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="750" y="261" text-anchor="middle">ADM – Comex</text>
+    <rect x="640" y="302" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="750" y="329" text-anchor="middle">Crédito – Comex</text>
+  </g>
+  <rect x="320" y="470" width="260" height="54" rx="10" fill="#e6f4ec" stroke="#1f9d63" stroke-width="1.8"/>
+  <text x="450" y="502" text-anchor="middle" font-size="14" font-weight="700" fill="#1f7a4d">Pedido LIBERADO</text>
+</svg>
+</div>
+
+<Callout type="dica" title="Como ler o fluxograma">
+**Física** e **Jurídica** passam por ADM Vendas – Nacional, Crédito – Nacional e Cobrança – Nacional (a Cobrança verifica CAR vencido, relevante para PIX ou Cartão). **Estrangeiro** passa por ADM – Comex e Crédito – Comex. Ao final, o pedido é liberado.
+</Callout>
+
+## Resumo rápido
+
+1. Preparar a fila sem Ignition e configurar a regra de aprovação (uma única vez).
+2. Criar o novo pedido e selecionar o cliente.
+3. Preencher os dados obrigatórios e clicar em "Salvar e Continuar".
+4. Enviar o pedido para aprovação ("Aguardando aprovações").
+5. Aprovar por ADM e Crédito; a Cobrança Nacional entra apenas para PIX/Cartão.
+6. Após as aprovações aplicáveis, o pedido fica liberado.
+
+## Regras e cuidados
+
+- A opção do **Ignition** deve estar configurada para que a fila do Ignition **não** seja usada neste fluxo.
+- As aprovações seguem a **Regra de Aprovação**: o modo (Paralelo/Sequencial), as etapas ativas e as condições determinam o caminho.
+- O botão **"Enviar pedido para aprovação"** aparece após **"Salvar e Continuar"**.
+- A etapa **Cobrança – Nacional** só ocorre para **PIX ou Cartão** e verifica **CAR vencido**.
+
+## Responsabilidades
+
+<DocTable
+  headers={['Perfil', 'Acesso', 'Responsabilidade']}
+  rows={[
+    ['Administrador', 'Preparação', 'Configura o Controle de Funcionalidade, a Regra de Aprovação e as etapas.'],
+    ['Usuário de pedidos', 'Módulo Pedidos', 'Cria e envia os pedidos para aprovação.'],
+    ['ADM de Vendas', 'Etapa de aprovação', 'Aprovação ADM.'],
+    ['Crédito', 'Etapa de aprovação', 'Aprovação de crédito.'],
+    ['Cobrança', 'Etapa de aprovação', 'Cobrança – Nacional (PIX/Cartão); verifica CAR vencido.'],
+  ]}
+/>
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O pedido está seguindo pelo Ignition', 'Controle de Funcionalidade configurado incorretamente', 'Confirme com o administrador que a opção está ajustada para NÃO usar a fila do Ignition.'],
+    ['O botão de enviar não aparece', 'Pedido ainda não salvo', 'Clique em "Salvar e Continuar" com os campos obrigatórios preenchidos.'],
+    ['O pedido não avança nas aprovações', 'Etapas inativas ou mal configuradas', 'Revise as etapas e a ordem na Regra de Aprovação.'],
+    ['O pedido entrou (ou não) na Cobrança inesperadamente', 'Forma de pagamento diferente do esperado', 'Confira a forma de pagamento: a Cobrança Nacional só entra para PIX ou Cartão.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'O que significa "SEM Ignition"?', answer: 'Significa que a fila do Ignition está desativada para este processo, deixando o caminho de aprovação mais rápido e simples.' },
+    { question: 'Quem define o caminho de aprovação?', answer: 'A Regra de Aprovação, configurada no módulo Aprovações. As etapas ativas e as condições determinam o caminho.' },
+    { question: 'Quando a etapa de Cobrança Nacional entra?', answer: 'Apenas quando a forma de pagamento é PIX ou Cartão. Nesse caso, a Cobrança verifica se o cliente tem algum CAR (contas a receber) vencido.' },
+    { question: 'Qual a diferença entre modo Paralelo e Sequencial?', answer: 'No Paralelo não há ordem entre os aprovadores; no Sequencial, a aprovação segue a ordem cadastrada nas etapas.' },
+    { question: 'Onde acompanho o pedido durante a aprovação?', answer: 'Na lista de pedidos, pelo status "Aguardando aprovações" e pela atualização mais recente do pedido.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial do fluxo de aprovação de pedidos pela fila SEM Ignition.' },
+  ]}
+/>

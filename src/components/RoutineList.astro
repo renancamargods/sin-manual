@@ -6,6 +6,7 @@ interface Routine {
   title: string;
   slug: string;
   description?: string;
+  unavailable?: boolean;
 }
 
 interface Props {
@@ -36,27 +37,35 @@ const sortedRoutines = [...routines].sort((a, b) =>
 ) : (
   <div class="not-prose my-6 grid gap-3 sm:grid-cols-2">
     {sortedRoutines.map((r) => {
-      const available = availableSlugs.includes(r.slug);
+      const unavailable = r.unavailable === true;
+      const available = !unavailable && availableSlugs.includes(r.slug);
       const href = `${basePath}/${r.slug}`;
       const Tag = available ? 'a' : 'div';
       return (
         <Tag
           href={available ? href : undefined}
+          title={unavailable ? (isEn ? 'Screen not available in the system' : 'Tela não disponível no sistema') : undefined}
           class:list={[
             'group flex items-start justify-between gap-3 rounded-xl2 border px-4 py-3.5 transition',
             available
               ? 'border-gray-200 bg-white shadow-card hover:border-brand-red/30 hover:shadow-card-hover'
-              : 'border-dashed border-gray-200 bg-gray-50',
+              : unavailable
+                ? 'border-dashed border-brand-red/30 bg-brand-red/5 cursor-not-allowed'
+                : 'border-dashed border-gray-200 bg-gray-50',
           ]}
         >
           <div>
-            <p class:list={['text-sm font-semibold', available ? 'text-gray-900 group-hover:text-brand-red' : 'text-gray-500']}>
+            <p class:list={['text-sm font-semibold', available ? 'text-gray-900 group-hover:text-brand-red' : unavailable ? 'text-brand-red/80' : 'text-gray-500']}>
               {routineLabel(r.slug, r.title)}
             </p>
             {r.description && <p class="mt-1 text-xs leading-5 text-gray-500">{r.description}</p>}
           </div>
           {available ? (
             <Icon name="arrow-right" class="mt-1 h-4 w-4 flex-shrink-0 text-gray-300 transition group-hover:translate-x-0.5 group-hover:text-brand-red" />
+          ) : unavailable ? (
+            <span class="mt-0.5 flex-shrink-0 rounded-full bg-brand-red/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-brand-red/80">
+              {isEn ? 'Unavailable' : 'Não disponível'}
+            </span>
           ) : (
             <span class="mt-0.5 flex-shrink-0 rounded-full bg-gray-200 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-gray-500">
               {isEn ? 'Coming soon' : 'Em breve'}

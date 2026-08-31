@@ -1,0 +1,129 @@
+---
+section: modulos
+routeSlug: regulatorios/status-regulatorios
+pageType: routine
+module: regulatorios
+moduleLabel: Regulatórios
+title: Status Regulatórios
+description: Cadastro dos status regulatórios usados para indicar a situação regulatória atual dos produtos, identificados por descrição.
+routineType: Cadastro
+permission: Sim
+impact: Define os status usados na situação regulatória dos produtos
+keywords: [status regulatórios, status regulatório, situação regulatória, produto, regulatórios, cadastro]
+tags: [modulo-regulatorios, cadastro]
+order: 19
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Status Regulatórios** mantém a lista dos **status** usados para indicar a **situação regulatória** atual dos produtos. Cada status é identificado por uma **descrição** e é aplicado aos produtos para acompanhar a sua situação perante os órgãos reguladores.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Status regulatórios', text: 'Mantém os status usados na situação regulatória dos produtos.' },
+    { label: 'Uso', title: 'Descrição', text: 'Cada status é identificado por uma descrição.' },
+    { label: 'Natureza', title: 'Cadastro de apoio', text: 'Consultado na classificação regulatória dos produtos.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar os status regulatórios cadastrados.
+- Incluir um novo status.
+- Corrigir a descrição de um status.
+
+## Como acessar
+
+Regulatórios → Status Regulatórios
+
+## Antes de começar
+
+- Tenha a **descrição** do status.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Campos principais
+
+<DocTable
+  headers={['Campo / Coluna', 'O que é']}
+  rows={[
+    ['Descrição', 'Descrição do status regulatório.'],
+  ]}
+/>
+
+O formulário ("+ Novo") tem o campo **Descrição**. Na listagem, cada linha tem os ícones de detalhes, editar e excluir.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os status.', '—'],
+    ['+ Novo', 'Para incluir um status.', 'Abre o formulário.'],
+    ['Salvar', 'Para guardar o status.', 'Informe a descrição.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar o status.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover o status.', 'Confirme antes; pode estar em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Status Regulatórios', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Lista Geral de Produtos', 'O status regulatório aparece na visão consolidada dos produtos.', '—'],
+    ['Registros', 'A situação regulatória depende dos registros e do status.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não altera a situação real do produto perante o órgão — apenas mantém a lista de status.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o status', 'Filtro restrito', 'Ajuste a descrição na pesquisa.'],
+    ['Não consigo excluir', 'Status em uso', 'Verifique se há produtos vinculados.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o Status Regulatórios?', answer: 'Para manter os status usados para indicar a situação regulatória atual dos produtos.' },
+    { question: 'Quais campos o status tem?', answer: 'Apenas a Descrição.' },
+    { question: 'Posso excluir um status em uso?', answer: 'Não é recomendado; verifique antes se há produtos vinculados.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Status Regulatórios.' },
+  ]}
+/>

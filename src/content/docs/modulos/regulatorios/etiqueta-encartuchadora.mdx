@@ -1,0 +1,129 @@
+---
+section: modulos
+routeSlug: regulatorios/etiqueta-encartuchadora
+pageType: routine
+module: regulatorios
+moduleLabel: Regulatórios
+title: Etiqueta Encartuchadora
+description: Cadastro dos modelos de etiqueta usados na encartuchadora (encartuchamento), identificados por descrição.
+routineType: Cadastro
+permission: Sim
+impact: Define os modelos de etiqueta usados na encartuchadora
+keywords: [etiqueta encartuchadora, encartuchadora, encartuchamento, cartucho, modelo de etiqueta, regulatórios, cadastro]
+tags: [modulo-regulatorios, cadastro]
+order: 6
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Etiqueta Encartuchadora** mantém os **modelos de etiqueta** usados na **encartuchadora** (equipamento de encartuchamento). Cada modelo é identificado por uma **descrição** e é usado na geração das etiquetas no processo de encartuchamento.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Modelos de etiqueta', text: 'Mantém os modelos de etiqueta da encartuchadora.' },
+    { label: 'Uso', title: 'Descrição do modelo', text: 'Cada modelo é identificado por uma descrição.' },
+    { label: 'Natureza', title: 'Cadastro de apoio', text: 'Consultado no processo de encartuchamento.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar os modelos de etiqueta da encartuchadora.
+- Incluir um novo modelo.
+- Corrigir a descrição de um modelo.
+
+## Como acessar
+
+Regulatórios → Etiqueta Encartuchadora
+
+## Antes de começar
+
+- Tenha a **descrição** do modelo de etiqueta.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Campos principais
+
+<DocTable
+  headers={['Campo / Coluna', 'O que é']}
+  rows={[
+    ['Descrição', 'Descrição do modelo de etiqueta da encartuchadora.'],
+  ]}
+/>
+
+O formulário ("+ Novo") tem o campo **Descrição**. Na listagem, cada linha tem os ícones de detalhes, editar e excluir.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os modelos conforme a descrição.', '—'],
+    ['+ Novo', 'Para incluir um modelo.', 'Abre o formulário.'],
+    ['Salvar', 'Para guardar o modelo.', 'Informe a descrição.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar o modelo.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover o modelo.', 'Confirme antes; pode estar em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Etiqueta Encartuchadora', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Cartucho', 'A encartuchadora usa os cartuchos cadastrados.', '—'],
+    ['Produto / Registros', 'O modelo é usado na geração das etiquetas no encartuchamento.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não imprime a etiqueta — apenas mantém os modelos.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o modelo', 'Filtro restrito', 'Ajuste a descrição na pesquisa.'],
+    ['Não consigo excluir', 'Modelo em uso', 'Verifique se há vínculos.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve a Etiqueta Encartuchadora?', answer: 'Para manter os modelos de etiqueta usados na encartuchadora (encartuchamento).' },
+    { question: 'Quais campos o modelo tem?', answer: 'Apenas a Descrição.' },
+    { question: 'Posso excluir um modelo em uso?', answer: 'Não é recomendado; verifique antes se há vínculos.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela Etiqueta Encartuchadora.' },
+  ]}
+/>

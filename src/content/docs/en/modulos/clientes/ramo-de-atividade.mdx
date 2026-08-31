@@ -1,0 +1,131 @@
+---
+section: modulos
+routeSlug: clientes/ramo-de-atividade
+pageType: routine
+module: clientes
+moduleLabel: Customers
+lang: en
+title: Line of Business
+description: Registration of the customers' lines of business (e.g., Clinic, Office, Student, Foreign Customer), by description.
+routineType: Registration
+permission: Yes
+impact: Defines the lines of business used in customer classification and in contracts
+keywords: [line of business, business, clinic, office, student, foreign customer, customers, registration]
+tags: [modulo-clientes, cadastro]
+order: 11
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Line of Business** screen keeps the list of the customers' **lines of business** — for example, "Clinic", "Office", "Student", "Foreign Customer" and "Dental Distributor". The line of business helps to **classify** the customer and is used in other screens and in **contracts**.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Lines of business', text: 'Keeps the customers\' lines of business.' },
+    { label: 'Use', title: 'Classify the customer', text: 'The line of business helps classify the customer and is used in contracts.' },
+    { label: 'Nature', title: 'Support registration', text: 'Simple registration, queried by other screens.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Query the registered lines of business.
+- Add a new line of business.
+- Fix the description of a line of business.
+
+## How to access
+
+Customers → Line of Business
+
+## Before you start
+
+- Define the line of business **description**.
+- Confirm that your profile allows maintaining this registration.
+
+## Main fields
+
+<DocTable
+  headers={['Field / Column', 'What it is']}
+  rows={[
+    ['Description', 'Name of the line of business (e.g., "Clinic", "Office", "Student").'],
+  ]}
+/>
+
+The form ("+ New") has the **Description** field. In the listing, each row has the details, edit and delete icons.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the lines of business according to the description.', '—'],
+    ['+ New', 'To add a line of business.', 'Opens the form.'],
+    ['Save', 'To store the line of business.', 'Inform the description.'],
+    ['Details / Edit', 'To query or change the line of business.', 'Details is read-only.'],
+    ['Delete', 'To remove the line of business.', 'Confirm before; it may be in use by customers.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Line of Business', 'Screen access', 'Allows opening the screen and maintaining the registration.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process / screen', 'Relationship', 'Caution']}
+  rows={[
+    ['Customer', 'The line of business is used in the customer classification.', 'It must exist to be linked.'],
+    ['Contracts', 'The line of business appears in contracts (e.g., Line of Business I/II).', '—'],
+  ]}
+/>
+
+## What the screen does not do
+
+- It does not classify customers automatically — it only maintains the list.
+- It does not define commercial rules by itself.
+
+## Common issues
+
+<DocTable
+  headers={['Issue', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find the line of business', 'Restrictive filter', 'Adjust the description in the search.'],
+    ['I cannot delete', 'In use by customers', 'Check whether there are linked customers.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the Line of Business for?', answer: 'To keep the lines of business (e.g., Clinic, Office, Student) used in customer classification and in contracts.' },
+    { question: 'Which fields does it have?', answer: 'Only the Description.' },
+    { question: 'Can I delete one in use?', answer: 'It is not recommended; check first whether there are linked customers.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '08/29/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/29/2026', author: 'Renan Camargo', description: 'Initial release of the Line of Business screen documentation.' },
+  ]}
+/>

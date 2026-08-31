@@ -1,0 +1,172 @@
+---
+section: modulos
+routeSlug: administrador/empresa
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Company
+description: Register the group companies, with code, name, trade name, users and status, and the Lounges, customers, channels and policies tabs.
+routineType: Registration and lookup
+permission: Yes
+impact: Group companies used by Lounges, customers and policies
+keywords: [company, group, trade name, lounges, customers, policies]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Company** screen registers the group companies (for example, S.I.N Brasil, S.I.N Singular, Biohorizons Camlog Portugal). Each company holds **Company Code**, **Company Name**, **Trade Name**, the linked **Users** and the **System Status**, plus tabs showing the related Lounges, customers, channels, lines of business, classifications and policies.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Group companies', text: 'Registers the legal entities that make up the group.' },
+    { label: 'Use', title: 'Organizational base', text: 'The company is a reference for Lounges, customers and policies.' },
+    { label: 'Caution', title: 'Status', text: 'Inactive companies should not be used in new links.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new group company.
+- Look up or find a company by code, name or trade name.
+- Edit a company's data or status.
+- Review the linked Lounges, customers, channels and policies.
+
+## How to access
+
+Administrator → Company
+
+## Before you start
+
+- Have the company's **code**, **name** and **trade name**.
+- Know the **users** that should be linked.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'The "Company Code" field, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List with the "Company Code", "Company Name", "Trade Name", "System Status" and "Last Change Date" columns, with per-row actions.', 'Each row has History, Details, Edit and Delete.'],
+    ['Registration / editing (tabs)', 'Window with the "Company", "Lounges", "Customers", "Consumption Profiles", "Channels", "Lines of Business", "Commercial Classifications", "SIN Partners", "Commercial Policies" and "Contract Policies" tabs.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+### "Company" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Company Code', 'Code that identifies the company.'],
+    ['Company Name', 'Legal name / name of the company.'],
+    ['Trade Name', 'Trade name of the company.'],
+    ['Users', 'Users linked to the company (with the "+" button to register).'],
+    ['System Status', 'Company status (Active or Inactive).'],
+  ]}
+/>
+
+### Additional tabs
+
+<DocTable
+  headers={['Tab', 'What it shows']}
+  rows={[
+    ['Lounges', 'Lounges belonging to the company.'],
+    ['Customers', 'Customers linked to the company.'],
+    ['Consumption Profiles', 'Related consumption profiles.'],
+    ['Channels', 'Channels associated with the company.'],
+    ['Lines of Business', 'Related lines of business.'],
+    ['Commercial Classifications', 'Commercial classifications of the company.'],
+    ['SIN Partners', 'Linked SIN Partner partners.'],
+    ['Commercial Policies / Contract Policies', 'Related commercial and contract policies.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the **"Company Code"** and click **"Search"**.
+2. **Register** — click **"+ New"**, enter **Code**, **Name**, **Trade Name**, select the **Users** and the **Status** and click **"Save"** (or **"Save and Continue"**).
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Review tabs** — open the company and navigate the Lounges, customers, channels and policies tabs.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list companies according to the filter.', '—'],
+    ['+ New', 'To register a new company.', 'Opens the window with the tabs.'],
+    ['Save and Continue', 'To save and continue on the other tabs.', '—'],
+    ['Details', 'To view a company without changing it.', 'Read only.'],
+    ['History', 'To see the change history.', '—'],
+    ['Edit', 'To change an existing company.', '—'],
+    ['Delete', 'To remove a company.', 'Irreversible action; prefer deactivating rather than deleting.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Company', 'Access to the screen', 'Allows opening and using the Company screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Lounge', 'Each Lounge belongs to a company.', 'Register the company before the Lounge.'],
+    ['Customers and policies', 'Customers and policies are linked to the company.', 'Check the links on the tabs.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not register Lounges, customers or policies directly — the tabs only show the linked ones.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find a company', 'Filter too restrictive or company not registered', 'Adjust the code or register the company.'],
+    ['The company does not appear for linking', 'Inactive company', 'Check the System Status.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the group companies and review their Lounges, customers, channels and policies.' },
+    { question: 'What is the difference between Company Name and Trade Name?', answer: 'Company Name is the legal name; Trade Name is the company\'s commercial name.' },
+    { question: 'Can I delete a company?', answer: 'It is possible, but prefer deactivating it to preserve the history and the links.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Initial release of the Company screen documentation.' },
+  ]}
+/>

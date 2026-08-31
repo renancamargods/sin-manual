@@ -1,0 +1,143 @@
+---
+section: modulos
+routeSlug: clientes/sin-partner
+pageType: routine
+module: clientes
+moduleLabel: Clientes
+title: SIN Partner
+description: Cadastro dos parceiros do programa SIN Partner, por descrição, com a lista de clientes de cada parceiro.
+routineType: Cadastro
+permission: Sim
+impact: Define os parceiros do programa SIN Partner e os clientes vinculados
+keywords: [sin partner, partner, programa de parceiros, parceiro, clientes, cadastro]
+tags: [modulo-clientes, cadastro]
+order: 14
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **SIN Partner** mantém os **parceiros do programa SIN Partner** (identificados por uma **descrição**). Cada parceiro pode ter a sua **lista de clientes**, permitindo tratar em conjunto os clientes vinculados a cada parceria.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Parceiros SIN Partner', text: 'Mantém os parceiros do programa SIN Partner.' },
+    { label: 'Uso', title: 'Descrição + clientes', text: 'Cada parceiro tem uma descrição e a sua lista de clientes.' },
+    { label: 'Natureza', title: 'Cadastro de apoio', text: 'Cadastro consultado por outras telas e regras.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar os parceiros SIN Partner cadastrados.
+- Criar um novo parceiro.
+- Associar clientes a um parceiro.
+
+## Como acessar
+
+Clientes → SIN Partner
+
+## Antes de começar
+
+- Defina a **descrição** do parceiro.
+- Saiba quais **clientes** pertencem a ele, se for o caso.
+- Confirme que o seu perfil permite manter este cadastro.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtro por "Descrição", com "Pesquisar", "+ Novo" e "Limpar Filtros".', 'Use o filtro para localizar o parceiro.'],
+    ['Resultados', 'Lista dos parceiros pela coluna "Descrição", com os ícones de detalhes, editar e excluir.', 'Os ícones ficam à direita da linha.'],
+    ['Cadastro (2 abas)', 'Aba "SIN Partner" (descrição) e aba "Clientes" (lista de clientes do parceiro).', 'Monte a lista de clientes na aba "Clientes".'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo / aba', 'O que é']}
+  rows={[
+    ['Descrição', 'Nome que identifica o parceiro.'],
+    ['Aba "Clientes"', 'Lista dos clientes associados ao parceiro.'],
+  ]}
+/>
+
+O formulário tem os botões **"Salvar e Continuar"**, **"Salvar"** e **"Fechar"**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os parceiros conforme a descrição.', '—'],
+    ['+ Novo', 'Para criar um parceiro.', 'Abre o cadastro.'],
+    ['Salvar / Salvar e Continuar', 'Para guardar o parceiro.', 'Informe a descrição.'],
+    ['Detalhes / Editar', 'Para consultar ou alterar o parceiro.', 'Detalhes é somente leitura.'],
+    ['Excluir', 'Para remover o parceiro.', 'Confirme antes; pode estar em uso.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['SIN Partner', 'Acesso à tela', 'Permite abrir a tela e manter o cadastro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo / tela', 'Relação', 'Cuidado']}
+  rows={[
+    ['Cliente', 'Os clientes do parceiro vêm do cadastro de Cliente.', 'O cliente precisa existir.'],
+    ['Políticas comerciais', 'O parceiro pode ser usado em regras e análises comerciais.', '—'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra os clientes — eles vêm do cadastro de Cliente.
+- Não define preços ou descontos por si só.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro o parceiro', 'Filtro restrito', 'Ajuste a descrição na pesquisa.'],
+    ['Não consigo adicionar um cliente', 'Cliente não localizado', 'Confira o cadastro do cliente.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve o SIN Partner?', answer: 'Para manter os parceiros do programa SIN Partner, com a lista de clientes de cada parceiro.' },
+    { question: 'Como associo clientes a um parceiro?', answer: 'Na aba "Clientes" do cadastro do parceiro.' },
+    { question: 'Quais campos o parceiro tem?', answer: 'A Descrição e a lista de clientes na aba "Clientes".' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '29/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '29/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela SIN Partner.' },
+  ]}
+/>

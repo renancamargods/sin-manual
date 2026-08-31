@@ -1,0 +1,168 @@
+---
+section: modulos
+routeSlug: administrador/dado-bancario
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Dado Bancário
+description: Cadastro dos dados bancários (nacionais e internacionais) usados nas unidades, com agência, conta, IBAN, SWIFT e chave PIX.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Dados bancários usados por Lounges e operações
+keywords: [dado bancário, banco, agência, conta corrente, iban, swift, pix, aba, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Dado Bancário** cadastra as contas bancárias usadas pelas unidades, tanto **nacionais** quanto **internacionais**. Além dos dados de agência e conta, a tela contempla campos de operações internacionais (IBAN, SWIFT, ABA, AC. Number) e a **chave PIX**, além do vínculo com os **Lounges**.
+
+<Callout type="atencao" title="Dados sensíveis">
+Os dados bancários são informações sensíveis da empresa. Confira cuidadosamente cada campo e mantenha o cadastro atualizado — valores incorretos afetam recebimentos e pagamentos.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Contas bancárias', text: 'Centraliza os dados bancários das unidades (nacionais e internacionais).' },
+    { label: 'Uso', title: 'Recebimentos e pagamentos', text: 'Os dados são vinculados aos Lounges e usados nas operações.' },
+    { label: 'Cuidado', title: 'Localidade', text: 'Escolha Nacional ou Internacional; os campos aplicáveis variam.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo dado bancário (nacional ou internacional).
+- Consultar ou localizar uma conta pelo código.
+- Editar os dados de uma conta ou seu status.
+
+## Como acessar
+
+Administrador → Dado Bancário
+
+## Antes de começar
+
+- Tenha os dados completos da conta (agência, conta, dígitos verificadores).
+- Para contas internacionais, tenha IBAN, SWIFT, ABA e AC. Number.
+- Saiba a qual **Lounge** a conta se aplica.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Código", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com colunas como "Código", "Nome" e "Status Sistema", com as ações por linha.', 'Cada linha tem Histórico, Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela com os campos da conta bancária.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código', 'Código que identifica o dado bancário.'],
+    ['Nome', 'Nome do banco / identificação da conta.'],
+    ['Localidade', 'Define se a conta é Nacional ou Internacional.'],
+    ['Agência', 'Número da agência.'],
+    ['DV Agência', 'Dígito verificador da agência.'],
+    ['Conta Corrente', 'Número da conta corrente.'],
+    ['DV Conta Corrente', 'Dígito verificador da conta.'],
+    ['C. Iban', 'Código IBAN (contas internacionais).'],
+    ['ABA', 'Código ABA (contas nos EUA).'],
+    ['SWIFT', 'Código SWIFT/BIC (contas internacionais).'],
+    ['AC. Number', 'Número da conta internacional (Account Number).'],
+    ['Beneficiário', 'Beneficiário da conta.'],
+    ['Endereço', 'Endereço vinculado à conta.'],
+    ['Tipo de Chave PIX', 'Tipo da chave PIX (quando aplicável).'],
+    ['Chave PIX', 'Chave PIX da conta.'],
+    ['Lounges', 'Lounges aos quais o dado bancário se aplica (com o botão "+" para cadastrar).'],
+    ['Status Sistema', 'Situação do dado bancário (Ativo ou Inativo).'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe o **"Código"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, escolha a **Localidade**, preencha os campos aplicáveis, vincule o **Lounge**, defina o **Status** e clique em **"Salvar"**.
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os dados bancários conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar um novo dado bancário.', '—'],
+    ['Detalhes', 'Para consultar uma conta sem alterar.', 'Somente leitura.'],
+    ['Histórico', 'Para ver o histórico de alterações.', '—'],
+    ['Editar', 'Para alterar uma conta existente.', 'Confira os campos sensíveis antes de salvar.'],
+    ['Excluir', 'Para remover uma conta.', 'Ação sem retorno; prefira inativar em vez de excluir contas em uso.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Dado Bancário', 'Acesso à tela', 'Permite abrir e utilizar a tela de Dado Bancário.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Lounge', 'Os dados bancários são vinculados a Lounges.', 'Associe a conta ao Lounge correto.'],
+    ['Recebimentos e pagamentos', 'As contas são usadas nas operações financeiras.', 'Mantenha os dados atualizados.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não realiza transações — apenas cadastra os dados da conta.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Campos internacionais não se aplicam', 'Localidade definida como Nacional', 'Ajuste a Localidade para Internacional.'],
+    ['Não encontro uma conta', 'Filtro por código incorreto', 'Ajuste o Código.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os dados bancários (nacionais e internacionais) usados pelas unidades.' },
+    { question: 'Quando uso IBAN e SWIFT?', answer: 'Em contas internacionais; para contas nacionais, use agência e conta corrente.' },
+    { question: 'Posso excluir uma conta?', answer: 'É possível, mas prefira inativá-la se ela já estiver em uso.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Dado Bancário.' },
+  ]}
+/>

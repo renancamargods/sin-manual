@@ -1,0 +1,170 @@
+---
+section: modulos
+routeSlug: administrador/cidade
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: City
+description: Register and look up the cities linked to each state, with a municipality code, used in addresses, streets and freight rules.
+routineType: Registration and lookup
+permission: Yes
+impact: Cities used in addresses, streets and freight rules
+keywords: [city, municipality, municipality code, state, address, street]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **City** screen keeps the register of cities, each linked to a **State** and also identified by a **Municipality Code**. Cities are used in addresses, streets, freight rules and invoicing bindings by center.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'City base', text: 'Centralizes the cities linked to each state.' },
+    { label: 'Use', title: 'Addresses and logistics', text: 'Cities support addresses, streets and freight rules.' },
+    { label: 'Caution', title: 'Municipality Code', text: 'The municipality code is used in tax and integration routines.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new city.
+- Look up or find a city by its name.
+- Edit a city's state or municipality code.
+- Review streets, freight rules and invoicing bindings of the city.
+
+## How to access
+
+Administrator → City
+
+## Before you start
+
+- Have the city's **name**.
+- Know which **state** it belongs to (register the state first, if needed).
+- Have the **municipality code** where applicable.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'The "Name" field, with the "Search", "+ New" and "Clear Filters" buttons.', 'Use the name to find it quickly.'],
+    ['Results', 'List of cities in the "Name" column, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing (tabs)', 'Window with the "City", "Streets", "Freight Rules" and "Invoicing Bindings by Center" tabs.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+### "City" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Name', 'Name of the city.'],
+    ['State', 'State the city belongs to. The "+" button next to it registers a new state.'],
+    ['Municipality Code', 'Code of the municipality, used in tax and integration routines.'],
+  ]}
+/>
+
+### Additional tabs
+
+<DocTable
+  headers={['Tab', 'What it shows']}
+  rows={[
+    ['Streets', 'Streets linked to the city.'],
+    ['Freight Rules', 'Freight rules related to the city.'],
+    ['Invoicing Bindings by Center', 'Invoicing bindings by center related to the city.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the **"Name"** and click **"Search"**.
+2. **Register** — click **"+ New"**, enter **Name**, **State** and **Municipality Code** and click **"Save"** (or **"Save and Continue"**).
+3. **Edit** — click the **Edit** icon on the row, change the fields and click **"Save"**.
+4. **View details** — click the **Details** icon on the row.
+5. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list cities according to the filter.', '—'],
+    ['+ New', 'To register a new city.', 'Opens the window with the tabs.'],
+    ['+ (next to state)', 'To register a new state.', 'Use when the state does not yet exist.'],
+    ['Save and Continue', 'To save and keep filling in the other tabs.', '—'],
+    ['Details', 'To view a city without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing city.', '—'],
+    ['Delete', 'To remove a city.', 'Irreversible action; avoid deleting cities already in use.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['City', 'Access to the screen', 'Allows opening and using the City screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['State', 'Each city is linked to a state.', 'Register the state before the city.'],
+    ['Address and Street', 'Cities are used in addresses and streets.', 'Keep the register up to date.'],
+    ['Freight rule and invoicing', 'Cities support freight rules and invoicing bindings by center.', 'Check the links on the corresponding tabs.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not register streets directly — the "Streets" tab only shows the linked ones.
+- It does not define freight amounts — it only relates the existing rules.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find a city', 'Filter too restrictive or city not registered', 'Adjust the "Name" or register the city.'],
+    ['I cannot select the state', 'State not yet registered', 'Register the state using the "+" next to the field.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register and look up the cities linked to each state.' },
+    { question: 'What is the Municipality Code?', answer: 'It is the code of the municipality, used in tax and integration routines.' },
+    { question: 'Where are cities used?', answer: 'In addresses, streets, freight rules and invoicing bindings by center.' },
+    { question: 'Can I delete a city?', answer: 'Yes, through the Delete icon, but avoid removing cities already used in other records.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '30/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '30/08/2026', author: 'Renan Camargo', description: 'Initial release of the City screen documentation.' },
+  ]}
+/>
