@@ -4,11 +4,11 @@ routeSlug: fluxos/romaneio
 pageType: tecnico
 lang: en
 title: Loading List Flow (Romaneio)
-description: Complete flow of picking, labeling, loading list and shipment collection, from the initial setup to sending to SimuleFrete.
+description: Complete flow of picking, labeling, loading list and shipment collection, from the initial setup to sending to the TMS.
 moduleLabel: Invoicing / Quality
 routineType: Process flow
 impact: Shipment dispatch
-keywords: [loading list, romaneio, shipment, picking, label, volume, collection, dispatch, invoicing, simulefrete]
+keywords: [loading list, romaneio, shipment, picking, label, volume, collection, dispatch, invoicing, tms, sap]
 tags: [tecnico, fluxo, romaneio]
 order: 1
 ---
@@ -21,15 +21,28 @@ import DocControl from '../../../../../components/DocControl.astro';
 
 ## Overview
 
-The **Loading List (Romaneio)** flow standardizes the shipment dispatch process of the S.I.N Implant System, from the initial setup of the records to the creation, checking, collection and sending of the shipment. The goal is to ensure standardization across operators, shipment traceability and compliance with the company’s quality criteria.
+The **Loading List (Romaneio)** flow standardizes the shipment dispatch process of the S.I.N Implante System, from the initial setup of registrations to the creation, checking, collection and sending of the shipment. The goal is to ensure standardization across operators, shipment traceability and compliance with the company's quality criteria.
 
-The flow goes through the screens of the **Orders**, **Administrator** and **Invoicing** modules, and ends with sending the collected shipment to **SimuleFrete**.
+The flow goes through screens in the **Orders**, **Administrator** and **Invoicing** modules, and ends by sending the collected shipment to the **TMS** (external transportation management system).
 
 <QuickCards
   cards={[
-    { label: 'Purpose', title: 'Standardized dispatch', text: 'Organizes the picking, labeling, loading list and collection of shipments in a traceable way.' },
+    { label: 'Purpose', title: 'Standardized dispatch', text: 'Organizes picking, labeling, loading list and shipment collection in a traceable way.' },
     { label: 'Usage', title: 'Invoicing and dispatch', text: 'Used by the invoicing and dispatch team to prepare and send shipments.' },
-    { label: 'Caution', title: 'Records and checking', text: 'Depends on correct records and on checking 100% of the volumes before generating the document.' },
+    { label: 'Caution', title: 'Registrations and checking', text: 'Depends on correct registrations and on checking 100% of the volumes before generating the document.' },
+  ]}
+/>
+
+## Definitions and acronyms
+
+<DocTable
+  headers={['Term', 'Definition']}
+  rows={[
+    ['Loading List (Romaneio)', 'Document that consolidates one or more shipments, with the list of volumes, carrier and collection data, used to formalize the dispatch.'],
+    ['Shipment (Remessa)', 'Product picking unit linked to an order, originating in a Center (Lounge), that follows the picking, labeling and loading list flow.'],
+    ['Volume', 'Physical dispatch unit (box, package or label) generated within a shipment; identified by the barcode in the VOL-NNN-REMESSA pattern.'],
+    ['SAP', 'Enterprise resource planning system (ERP) integrated with the S.I.N Implante System, which receives the invoicing data sent by the Shipments Awaiting Picking Queue.'],
+    ['TMS', 'External transportation management system (TMS) to which the loading list is sent after collection is confirmed, ending the cycle within the S.I.N Implante System.'],
   ]}
 />
 
@@ -38,7 +51,7 @@ The flow goes through the screens of the **Orders**, **Administrator** and **Inv
 - Prepare a shipment for dispatch, from picking to collection.
 - Generate and print the volume labels of a shipment.
 - Group shipments into a loading list and check their volumes.
-- Record the collection and send the loading list to SimuleFrete.
+- Record the collection and send the loading list to the TMS.
 
 ## How to access
 
@@ -51,42 +64,42 @@ The screens involved in this flow are:
 - Invoicing → Label Generation Queue
 - Invoicing → Loading List Queue
 
-## The 6 stages of the process
+## The 6 process steps
 
 <DocTable
-  headers={['Stage', 'What happens']}
+  headers={['Step', 'What happens']}
   rows={[
-    ['1. Records', 'Configuration of carrier, center (lounge) and label printer.'],
+    ['1. Registrations', 'Setup of carrier and center (lounge).'],
     ['2. Picking', 'Scanning the products and sending the shipment to invoicing, in the Shipments Awaiting Picking Queue.'],
-    ['3. Labels', 'Generation and printing of the volume labels, in the Label Generation Queue.'],
-    ['4. Loading list creation', 'Grouping the shipments into a loading list, in the Shipments Awaiting Loading List tab.'],
-    ['5. Checking and collection', 'Scanning the volumes, generating the document and confirming the collection, in the Created Loading Lists tab.'],
-    ['6. Sending', 'Sending the loading list to SimuleFrete, ending the flow.'],
+    ['3. Labels', 'Generating and printing the volume labels, in the Label Generation Queue.'],
+    ['4. Loading list creation', 'Grouping shipments into a loading list, in the Shipments Awaiting Loading List tab.'],
+    ['5. Checking, document and collection', 'Scanning the volumes, generating the document and confirming the collection, in the Created Loading Lists tab.'],
+    ['6. Sending', 'Sending the loading list to the TMS, ending the flow.'],
   ]}
 />
 
-<Callout type="info" title="Records stage">
-Stage 1 is an administrative prerequisite: it is not part of the dispatch operator’s daily routine and must be done in advance by the team responsible for the records.
+<Callout type="info" title="Registration step">
+Step 1 is an administrative prerequisite: it is not part of the dispatch operator's daily routine and must be done in advance by the team responsible for registrations.
 </Callout>
 
 ## Before you start
 
-Before operating the flow day to day, the records below must be configured.
+Before running the flow day to day, the registrations below must be configured.
 
 ### Carrier (Orders module)
 
-In **Orders → Carrier**, the **"Available in the Loading List?"** option must be set to **Yes** so that the carrier appears in the selection during the shipment. It is this setting that makes the carrier appear in the selection field, both in the Shipments Awaiting Picking Queue and at the picking finalization.
+In **Orders → Carrier**, the **"Available in Loading List?"** option must be set to **Yes** so the carrier appears in the selection during the shipment. This setting is what makes the carrier show up in the selection field, both in the Shipments Awaiting Picking Queue and at picking finalization.
 
 ### Center / Lounge (Administrator module)
 
-In **Administrator → Center (Lounge)**, the **"Available for the Loading List Flow?"** option defines the lounge path:
+In **Administrator → Center (Lounge)**, the **"Available for the Loading List Flow?"** option defines the lounge's path:
 
-- **Yes** — the lounge starts to appear in the Shipments Awaiting Picking Queue, entering the loading list flow.
+- **Yes** — the lounge starts appearing in the Shipments Awaiting Picking Queue, entering the loading list flow.
 - **No** — the lounge follows the standard operational flow, without going through the loading list.
 
 ### Label printer (Administrator module)
 
-The printer record must exist to enable label printing. The connection type defines the required fields:
+The printer registration must exist to enable label printing. The connection type defines the required fields:
 
 <DocTable
   headers={['Connection type', 'Required fields']}
@@ -96,32 +109,36 @@ The printer record must exist to enable label printing. The connection type defi
   ]}
 />
 
-## Step by step of the process
+## Step by step
 
 ### 1. Shipments Awaiting Picking Queue
 
 Invoicing module.
 
-1. **Lounge identification** — when the screen opens, the system checks the shipment’s source lounge and applies the settings from the records stage. If the lounge is enabled and the carrier is correctly configured, the **Carrier** field is shown.
+1. **Lounge identification** — when the screen opens, the system checks the shipment's origin lounge and applies the registration settings. If the lounge is enabled and the carrier is correctly configured, the **Carrier** field is shown.
 2. **Scanning and saving** — the operator scans the shipment products and saves the information.
-3. **Picking finalization** — when clicking **"Send Order for Invoicing"**, the **"Finalize Picking"** modal opens with two required fields: **Volumes** (number of labels for the shipment) and **Carrier**.
-4. **Confirmation and sending to SAP** — the operator clicks **"Confirm and Send to SAP"** (green button) and the system sends the shipment for invoicing.
+3. **Picking finalization** — clicking **"Send Order to Invoicing"** opens the **"Finalize Picking"** modal with two required fields: **Volumes** (number of shipment labels) and **Carrier**.
+4. **Confirmation and sending to SAP** — the operator clicks **"Confirm and Send SAP"** (green button) and the system sends the shipment to invoicing.
 
 <Callout type="info" title="How to fill in the finalization">
-The **Carrier** field already comes filled in with the order information and the SAP return; change it only if necessary. The **Volumes** field must be entered by the operator. When finished, the system returns to the initial screen and shows the message **"Reading saved successfully"**.
+The **Carrier** field already comes filled with the order and SAP return information; change it only if needed. The **Volumes** field must be entered by the operator. When done, the system returns to the initial screen and shows the message **"Reading saved successfully"**.
+</Callout>
+
+<Callout type="atencao" title="Manual carrier selection">
+The carrier is selected manually until the development change responsible for automatically importing SAP data into SIN SALES is completed.
 </Callout>
 
 ### 2. Label Generation Queue
 
 Invoicing module.
 
-1. **List of completed shipments** — the screen shows only shipments that are completed and sent to invoicing. By default, the **"With Carrier?"** and **"With Volume?"** filters are set to **Yes**.
-2. **Opening the shipment** — the operator selects the shipment and clicks **"Edit"**, opening the "Shipment Label Generation" screen with the shipment, order, customer, carrier and volume data.
-3. **Generating and printing the labels** — when clicking **"Generate Labels"**, the system shows the labels and enables the **Print** button (individual or **"Print All"**). When printing, the **"Select Printer"** popup opens with the registered printers.
-4. **Sending to the loading list** — after printing all labels, the **"Send to Loading List"** button is enabled. When triggered, the shipment leaves this queue and appears in the Loading List Queue.
+1. **Listing completed shipments** — the screen shows only shipments completed and sent to invoicing. By default, the **"With Carrier?"** and **"With Volume?"** filters are set to **Yes**.
+2. **Opening the shipment** — the operator selects the shipment and clicks **"Edit"**, opening the "Shipment Label Generation" screen with the shipment, SAP order, customer, carrier and volume data.
+3. **Generating and printing labels** — clicking **"Generate Labels"** runs the checkout and shows the labels, enabling the **Print** button (individual or **"Print All"**). On printing, the **"Select Printer"** popup opens with the registered printers.
+4. **Sending to loading list** — after printing all labels, the **"Send to Loading List"** button is enabled. When triggered, the shipment leaves this queue and moves to the Loading List Queue.
 
 <Callout type="atencao" title="Label printing">
-When physical label printing is disabled in the system settings, it is possible to move forward in the flow without printing. Otherwise, all labels must be printed to release the sending to the loading list.
+When the system parameter **EnviarZplParaImpressora** is set to **false**, the system allows advancing without physically printing the labels. Otherwise, all labels must be printed to release the send to the loading list.
 </Callout>
 
 ### 3. Loading List Queue
@@ -131,50 +148,81 @@ Invoicing module. The screen has two tabs: **Shipments Awaiting Loading List** a
 **"Shipments Awaiting Loading List" tab**
 
 1. **Shipment selection** — select at least one available shipment and click **"Create Loading List"**.
-2. **Loading list creation** — the system opens the "Create Loading List" screen with the selected shipments. After confirming, the loading list appears in the **Created Loading Lists** tab with the initial status **Under Checking**.
+2. **Loading list creation** — the system opens the "Create Loading List" screen with the selected shipments. After confirmation, the loading list appears in the **Created Loading Lists** tab with the initial status **In Checking**.
 
 **"Created Loading Lists" tab — status cycle**
 
-Each loading list goes through four statuses, each on a tab of the detail screen:
+Each loading list goes through four statuses, each in a tab of the detail screen:
 
-1. **Under Checking** — initial status. You can edit or delete the loading list. When clicking **Edit**, the **"Volume Checking"** enables scanning by barcode (pattern **VOL-NNN-SHIPMENT**). After checking all volumes, the **"Generate Document"** button is enabled.
-2. **Checked** — when clicking **"Generate Document"**, the loading list moves to the **Document** tab and opens the "Loading List Checking" screen. When clicking **Print**, the loading list PDF is generated.
-3. **Collection** — on the **Collection** tab, fill in the required data and click **"Confirm Collection"**. The status changes to **Collected**.
-4. **Collected / Sent** — after confirming the collection, the flow sends the loading list to SimuleFrete. Once the sending is complete, the final status becomes **Sent**, ending the shipment cycle.
+1. **In Checking** — initial status. You can edit or delete the loading list. Clicking **Edit**, the **"Volume Checking"** enables barcode scanning (**VOL-NNN-REMESSA** pattern). After checking all volumes, the **"Generate Document"** button is enabled.
+2. **Checked** — clicking **"Generate Document"**, the loading list moves to the **Document** tab and opens the "Loading List Check" screen. Clicking **Print** generates the PDF; then **"View Document"** opens the document on screen, with a floating **Print** button to generate the PDF.
+3. **Collection** — in the **Collection** tab, fill in the required data and click **"Confirm Collection"**. The status changes to **Collected**.
+4. **Collected / Sent** — after confirming the collection, the flow sends the loading list to the TMS. Once sent, the final status becomes **Sent**, ending the shipment cycle.
 
-<Callout type="atencao" title="Send to SimuleFrete button">
-While the automatic integration with SimuleFrete is temporarily unavailable, the **"Send to SimuleFrete"** button appears as an alternative. It is shown whenever the loading list is in the **Collected** status and has not been sent yet.
+<Callout type="info" title="Loading list listing filters">
+The loading list listing offers filters to find a specific loading list: **Loading List No.**, **Date from** and **Date to** (creation period), **Loading List Status**, **Carrier** and **Lounge**.
 </Callout>
 
-## Loading list statuses
+<Callout type="info" title="The loading list document">
+The document consolidates the shipment information: loading list identification (number and date), carrier, list of linked shipments and volumes, and collection data. The address shown always corresponds to the **origin Lounge address** of the shipment.
+</Callout>
+
+### Collection data
+
+In the **Collection** tab, the fill-in rules are:
 
 <DocTable
-  headers={['Status', 'What triggers it', 'What is allowed / generated', 'Tab']}
+  headers={['Field', 'Rule']}
   rows={[
-    ['Under Checking', 'Created by clicking "Create Loading List"', 'Edit and delete the loading list; scan the volumes (VOL-NNN-SHIPMENT). Enables "Generate Document" after the full check.', 'Created Loading Lists'],
-    ['Checked', 'Clicking "Generate Document" after the full scan', 'Opens the "Loading List Checking" screen; generates the PDF when printing.', 'Document'],
-    ['Collected', 'Collection data filled in + "Confirm Collection"', 'Enables the "Send to SimuleFrete" button.', 'Collection'],
-    ['Sent', 'Sending confirmed to SimuleFrete', 'Ends the loading list flow for the shipment.', '—'],
+    ['Collection Date and Time', 'Required. Comes prefilled with the current date and time, and can be edited by the user when needed.'],
+    ['Driver Name', 'Required. Must be entered manually.'],
+    ['Vehicle Plate', 'Optional. It is no longer required.'],
+  ]}
+/>
+
+<Callout type="atencao" title="Send TMS button">
+While the automatic integration with the TMS is temporarily unavailable, the **"Send TMS"** button appears as an alternative. It is shown whenever the loading list is in the **Collected** status and has not been sent yet. The **"Send TMS"** wording replaces the former reference to SimuleFrete; automatic sending remains conditioned on the availability of the other transport integration APIs.
+</Callout>
+
+## Loading list status
+
+<DocTable
+  headers={['Status', 'Trigger', 'What is allowed / generated', 'Tab']}
+  rows={[
+    ['In Checking', 'Created by clicking "Create Loading List"', 'Edit and delete the loading list; scan the volumes (VOL-NNN-REMESSA). Enables "Generate Document" after full checking.', 'Created Loading Lists'],
+    ['Checked', 'Click "Generate Document" after full scanning', 'Opens the "Loading List Check" screen; generates the PDF on print; "View Document" shows the loading list.', 'Document'],
+    ['Collected', 'Collection data filled + "Confirm Collection"', 'Enables the "Send TMS" button.', 'Collection'],
+    ['Sent', 'Sending confirmed to the TMS', 'Ends the loading list flow for the shipment.', '—'],
   ]}
 />
 
 ## Rules and cautions
 
-- The Label Generation Queue only shows shipments with **carrier** and **volume** filled in; without this data, the shipment does not appear.
-- The **"Generate Document"** button is only enabled after scanning **100% of the volumes** of the shipment.
-- Each volume’s barcode must follow the **VOL-NNN-SHIPMENT** pattern; discrepancies prevent the checking.
-- The **"Send to SimuleFrete"** button only appears after the shipment reaches the **Collected** status.
-- Changes to the carrier or center/lounge settings take immediate effect on the operational screens; validate the impact before changing records in production.
+- The Label Generation Queue only shows shipments with **carrier** and **volume** filled; without that data, the shipment does not appear.
+- The **"Generate Document"** button only enables after scanning **100% of the volumes** of the shipment.
+- Each volume's barcode must follow the **VOL-NNN-REMESSA** pattern; deviations prevent checking.
+- The **"Send TMS"** button only appears after the shipment reaches the **Collected** status.
+- Changes to the carrier or center/lounge settings take effect immediately on the operational screens; validate the impact before changing registrations in production.
+
+### Deleting shipments linked to a loading list
+
+<DocTable
+  headers={['Loading list situation', 'Shipment deletion rule']}
+  rows={[
+    ['Other than "Collected"', 'Allows deleting the shipment, as long as no other business restriction applies.'],
+    ['Equal to "Collected"', 'Blocks the deletion. The system shows an informative message, e.g.: "The shipment cannot be deleted because the Loading List has already been collected."'],
+  ]}
+/>
 
 ## Responsibilities
 
 <DocTable
   headers={['Role', 'Responsibility']}
   rows={[
-    ['Records administrator', 'Keep the carrier and center/lounge settings up to date, as well as the printer records.'],
+    ['Registration administrator', 'Keep the carrier and center/lounge settings up to date, as well as the label printer registration.'],
     ['Picking operator', 'Scan the products and correctly fill in the picking finalization.'],
     ['Invoicing / dispatch operator', 'Generate and print the labels; create, check and confirm the collection of the loading lists.'],
-    ['Quality and processes', 'Periodically review this flow, ensuring adherence to the system.'],
+    ['Quality and processes', 'Periodically review this flow, ensuring alignment with the system.'],
   ]}
 />
 
@@ -183,11 +231,12 @@ While the automatic integration with SimuleFrete is temporarily unavailable, the
 <DocTable
   headers={['Problem', 'Possible cause', 'What to check']}
   rows={[
-    ['The shipment does not appear in the Label Generation Queue', 'Shipment without carrier or without volume', 'Confirm the shipment was finalized with carrier and volume quantity filled in.'],
-    ['The "Generate Document" button is not enabled', 'Incomplete volume checking', 'Scan all volumes of the shipment; the button only releases after checking 100%.'],
-    ['The carrier does not appear for selection', 'Carrier without the "Available in the Loading List" option', 'Check the carrier record in the Orders module.'],
-    ['The lounge does not enter the loading list flow', 'Center/lounge without the "Available for the Loading List Flow" option', 'Adjust the center setting in the Administrator module.'],
-    ['A volume check is not accepted', 'Barcode out of pattern', 'Confirm the code follows the VOL-NNN-SHIPMENT pattern.'],
+    ['The shipment does not appear in the Label Generation Queue', 'Shipment without carrier or without volume', 'Confirm the shipment was finalized with carrier and volume quantity filled.'],
+    ['The "Generate Document" button does not enable', 'Volume checking incomplete', 'Scan all volumes of the shipment; the button only releases after checking 100%.'],
+    ['The carrier does not appear for selection', 'Carrier without the "Available in Loading List" option', 'Check the carrier registration in the Orders module.'],
+    ['The lounge does not enter the loading list flow', 'Center/lounge without the "Available for the Loading List Flow" option', 'Adjust the center configuration in the Administrator module.'],
+    ['A volume check is not accepted', 'Barcode out of pattern', 'Confirm the code follows the VOL-NNN-REMESSA pattern.'],
+    ['I cannot delete a shipment', 'The loading list is already in the "Collected" status', 'Shipments of already collected loading lists cannot be deleted.'],
   ]}
 />
 
@@ -196,10 +245,11 @@ While the automatic integration with SimuleFrete is temporarily unavailable, the
 <FaqAccordion
   items={[
     { question: 'What is the loading list (romaneio)?', answer: 'It is the document that gathers one or more shipments, with the list of volumes, carrier and collection data, used to formalize the dispatch.' },
-    { question: 'Do I need to print the labels to move forward?', answer: 'In general yes. When physical printing is disabled in the system settings, it is possible to move forward without printing.' },
-    { question: 'Why does the "Send to SimuleFrete" button appear?', answer: 'It works as an alternative while the automatic integration is unavailable, whenever the loading list is in the Collected status and has not been sent yet.' },
-    { question: 'Can I delete a loading list?', answer: 'Yes, while it is in the Under Checking status.' },
-    { question: 'What does the VOL-NNN-SHIPMENT pattern mean?', answer: 'It is the barcode format of each volume: VOL, followed by the label number and the shipment number.' },
+    { question: 'Do I need to print the labels to move forward?', answer: 'Generally yes. When the EnviarZplParaImpressora parameter is set to false, you can move forward without physical printing.' },
+    { question: 'Why does the "Send TMS" button appear?', answer: 'It works as an alternative while the automatic TMS integration is unavailable, whenever the loading list is in the Collected status and has not been sent yet. The wording replaces the former SimuleFrete reference.' },
+    { question: 'Is the vehicle plate required at collection?', answer: 'No. The Vehicle Plate is now optional. The Collection Date and Time (prefilled) and the Driver Name remain required.' },
+    { question: 'Can I delete a loading list?', answer: 'Yes, while it is in the In Checking status.' },
+    { question: 'What does the VOL-NNN-REMESSA pattern mean?', answer: 'It is the barcode format of each volume: VOL, followed by the label number and the shipment number.' },
   ]}
 />
 
@@ -207,11 +257,12 @@ While the automatic integration with SimuleFrete is temporarily unavailable, the
 
 <DocControl
   signers={[
-    { role: 'Prepared by', name: 'Quality Team / QA', date: '10/08/2026' },
-    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Prepared by', name: 'Quality / QA Team', date: '08/10/2026' },
+    { role: 'Reviewed by', name: 'Renan Camargo', date: '08/31/2026' },
     { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
   ]}
   versions={[
-    { version: '1.0', date: '10/08/2026', author: 'Quality Team / QA', description: 'Initial release of the Loading List module process manual.' },
+    { version: '1.0', date: '08/10/2026', author: 'Quality / QA Team', description: 'Initial release of the Loading List module process manual.' },
+    { version: '1.1', date: '08/31/2026', author: 'Renan Camargo', description: 'Consolidation of operational texts (loading list filters, document viewing, collection fields and deletion rules) and standardization of "SimuleFrete" to "Send TMS".' },
   ]}
 />

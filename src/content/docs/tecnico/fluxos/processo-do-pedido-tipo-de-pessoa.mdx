@@ -1,0 +1,147 @@
+---
+section: tecnico
+routeSlug: fluxos/processo-do-pedido-tipo-de-pessoa
+pageType: tecnico
+title: Processo do Pedido - Por Tipo de Pessoa
+description: Parte 2 do processo do pedido — como o Tipo de Pessoa (Física, Jurídica ou Estrangeiro) do cliente define a moeda, o caminho nacional ou internacional e os grupos de análise, com as diferenças de cada um.
+moduleLabel: Módulo Pedidos
+routineType: Fluxo de processo
+impact: Ramificação do pedido por tipo de pessoa (nacional x internacional)
+keywords: [pedido, tipo de pessoa, pessoa física, pessoa jurídica, estrangeiro, nacional, internacional, comex, moeda, moeda estrangeira, moeda x tipo de pessoa, análise nacional, análise internacional]
+tags: [tecnico, fluxo, pedido]
+order: 5
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+Esta é a **Parte 2** do [Processo do Pedido](/tecnico/fluxos/processo-do-pedido). Aqui detalhamos a primeira grande ramificação: o **Tipo de Pessoa** do cliente. É ele que determina a **moeda**, se o pedido segue o caminho **nacional ou internacional** e por quais **grupos de análise** o pedido passa.
+
+Existem três tipos de pessoa: **Física**, **Jurídica** e **Estrangeiro**. Física e Jurídica seguem o **caminho nacional**; Estrangeiro é tratado como **cliente do comércio exterior (comex)** e segue o **caminho internacional**.
+
+<Callout type="info" title="O tipo de pessoa vem do cliente">
+Você não escolhe o tipo de pessoa no pedido — ele já vem do **cliente** selecionado. Por isso o cliente é o primeiro passo e o mais decisivo do processo.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Entender a ramificação', text: 'Saber o que muda no pedido conforme o cliente é Física, Jurídica ou Estrangeiro.' },
+    { label: 'Uso', title: 'Nacional x internacional', text: 'Física/Jurídica = nacional; Estrangeiro = internacional (comex).' },
+    { label: 'Cuidado', title: 'Moeda e preço', text: 'O tipo de pessoa define a moeda disponível e como o preço do item é considerado.' },
+  ]}
+/>
+
+## Quando usar
+
+- Entender por que um pedido ficou nacional ou internacional.
+- Saber qual moeda e quais grupos de análise se aplicam ao cliente.
+- Diagnosticar diferenças de preço (moeda nacional x moeda estrangeira).
+
+## Os três tipos de pessoa
+
+<DocTable
+  headers={['Tipo de Pessoa', 'Quem é', 'Caminho']}
+  rows={[
+    ['Física', 'Cliente pessoa física nacional (identificado por CPF).', 'Nacional.'],
+    ['Jurídica', 'Cliente pessoa jurídica nacional (identificado por CNPJ).', 'Nacional.'],
+    ['Estrangeiro', 'Cliente do exterior (comércio exterior / comex).', 'Internacional.'],
+  ]}
+/>
+
+## Nacional ou Internacional: como é decidido
+
+O campo **Nacional/Internacional** do pedido é definido pela **localização do endereço**: se o **país do endereço é o Brasil**, o pedido é **Nacional**; caso contrário, é **Internacional**. Essa comparação usa o parâmetro **`IdPaisBrasil`** (que indica ao sistema qual é o país Brasil).
+
+Na prática, isso se alinha ao tipo de pessoa: clientes **Física/Jurídica** (nacionais) resultam em pedido **Nacional**, e clientes **Estrangeiro** resultam em pedido **Internacional**. O **frete** acompanha: Estrangeiro → **frete internacional**; demais → **frete nacional**.
+
+<Callout type="atencao" title="É o endereço que decide">
+Como a definição olha o país do endereço, mantenha o endereço do cliente correto. Endereço errado pode classificar o pedido como nacional/internacional de forma indevida e afetar moeda, frete e análise.
+</Callout>
+
+## Moeda por tipo de pessoa
+
+As moedas disponíveis para o pedido dependem do tipo de pessoa. Essa associação é feita na tela **Moeda × Tipo de Pessoa** (módulo Pedidos), que vincula cada **moeda** a um ou mais **tipos de pessoa**.
+
+<DocTable
+  headers={['Caminho', 'Moeda típica', 'Como o preço é considerado']}
+  rows={[
+    ['Nacional (Física / Jurídica)', 'Moeda nacional (ex.: BRL).', 'Preço do item pela nota de referência (valor nacional).'],
+    ['Internacional (Estrangeiro / comex)', 'Moeda estrangeira (ex.: USD, EUR).', 'Preço do item pelo valor unitário em moeda estrangeira.'],
+  ]}
+/>
+
+## O que muda em cada caminho
+
+<DocTable
+  headers={['Aspecto', 'Nacional (Física / Jurídica)', 'Internacional (Estrangeiro)']}
+  rows={[
+    ['Classificação do pedido', 'Nacional (país do endereço = Brasil).', 'Internacional (país do endereço ≠ Brasil).'],
+    ['Moeda', 'Moeda nacional (conforme Moeda × Tipo de Pessoa).', 'Moeda estrangeira (conforme Moeda × Tipo de Pessoa).'],
+    ['Preço do item', 'Valor pela nota de referência.', 'Valor unitário em moeda estrangeira.'],
+    ['Frete', 'Frete nacional.', 'Frete internacional.'],
+    ['Análise / Aprovação', 'Grupos Nacional (Administrativo Nacional e Crédito Nacional).', 'Grupos Internacional (Administrativo Internacional e Crédito Internacional).'],
+    ['Identificação do cliente', 'CPF (Física) ou CNPJ (Jurídica).', 'Documentos do cliente estrangeiro / comex.'],
+  ]}
+/>
+
+<Callout type="dica" title="Onde os grupos de análise são configurados">
+Os grupos de e-mail que recebem a análise (Administrativo e Crédito, Nacional ou Internacional) são parâmetros do sistema (`ConfiguracoesDeGruposDeEmailAprovacoes`). Quem aprova de fato cada etapa vem da **Regra de Aprovação** — ver o fluxo <em>Aprovação de Pedidos - Sem Ignition</em>.
+</Callout>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Cadastro de Clientes', 'O tipo de pessoa e o endereço são definidos no cadastro do cliente.', 'Ver os fluxos de Cadastro de Clientes (Com e Sem Ignition).'],
+    ['Moeda × Tipo de Pessoa', 'Define quais moedas ficam disponíveis para cada tipo de pessoa.', 'Cadastre a moeda para o tipo de pessoa correto.'],
+    ['Itens do pedido', 'O preço do item é considerado conforme nacional/internacional.', 'Ver a Parte 3 - Itens.'],
+    ['Aprovação de Pedidos', 'Os grupos de análise variam entre nacional e internacional.', 'Ver o fluxo de Aprovação de Pedidos.'],
+  ]}
+/>
+
+## O que este trecho não faz
+
+- Não cadastra o cliente nem o endereço — isso é feito no módulo Clientes.
+- Não define quem aprova — isso vem da Regra de Aprovação (fluxo de Aprovação de Pedidos).
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Pedido saiu como nacional/internacional errado', 'País do endereço incorreto', 'Confira o endereço do cliente (o país decide) e o parâmetro IdPaisBrasil.'],
+    ['Moeda esperada não aparece', 'Moeda não vinculada ao tipo de pessoa', 'Verifique a tela Moeda × Tipo de Pessoa.'],
+    ['Preço veio em moeda errada', 'Cliente comex tratado como nacional (ou vice-versa)', 'Confirme o tipo de pessoa do cliente.'],
+    ['A análise foi para o grupo errado', 'Tipo de pessoa ou configuração de grupo incorreta', 'Verifique o tipo de pessoa e os grupos de e-mail (nacional/internacional).'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Quem define o tipo de pessoa do pedido?', answer: 'O cliente. O tipo de pessoa (Física, Jurídica ou Estrangeiro) vem do cadastro do cliente.' },
+    { question: 'Como o sistema sabe se o pedido é nacional ou internacional?', answer: 'Pelo país do endereço: se for o Brasil, é nacional; senão, internacional (parâmetro IdPaisBrasil).' },
+    { question: 'Por que o preço do item mudou?', answer: 'Clientes estrangeiros (comex) usam o valor em moeda estrangeira; nacionais usam o valor pela nota de referência.' },
+    { question: 'Física e Jurídica têm o mesmo caminho?', answer: 'Sim, ambos seguem o caminho nacional. A diferença principal é a identificação (CPF x CNPJ) e as validações do cadastro do cliente.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial — Parte 2 (por tipo de pessoa) do processo do pedido.' },
+  ]}
+/>

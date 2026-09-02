@@ -1,0 +1,210 @@
+---
+section: tecnico
+routeSlug: fluxos/processo-do-pedido
+pageType: tecnico
+title: Processo do Pedido - Visão Geral
+description: Fluxo completo de criação do pedido no S.I.N — do cliente e tipo de pessoa aos itens, pagamento, políticas de compra, envio, análise e integração ao SAP, com os campos obrigatórios, o ciclo de status, permissões e parâmetros.
+moduleLabel: Módulo Pedidos
+routineType: Fluxo de processo
+impact: Criação e ciclo de vida do pedido de venda
+keywords: [pedido, criar pedido, processo, tipo de pessoa, física, jurídica, estrangeiro, nacional, internacional, itens, bonificação, política comercial, campanha, pagamento, boleto, pix, cartão, status do pedido, integração sap]
+tags: [tecnico, fluxo, pedido]
+order: 5
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+import SeriesTable from '../../../../components/SeriesTable.astro';
+
+## Visão geral
+
+Este é o **mapa do processo de criação de um pedido de venda** no S.I.N — a espinha que conecta cliente, itens, pagamento, políticas e a integração com o SAP. Ele serve tanto para o **usuário** (entender o caminho de ponta a ponta) quanto para o **suporte** (saber onde cada regra, permissão e parâmetro atua).
+
+O pedido é montado em cima de um **cliente**. É o cliente que define o **Tipo de Pessoa** (Física, Jurídica ou Estrangeiro) e, a partir daí, se o pedido é **Nacional ou Internacional** e qual **moeda** se aplica. Sobre essa base entram os **itens**, a **forma de pagamento** e as **políticas de compra**; ao ser enviado, o pedido passa por **análise/aprovação** e, quando liberado, é **integrado ao SAP** e segue para **faturamento e separação**.
+
+<Callout type="info" title="Esta é a Parte 1 (o mapa)">
+Esta página é a visão geral. O detalhamento de cada trecho está nas partes da série (por tipo de pessoa, itens, pagamento, políticas, permissões e parâmetros) — listadas ao final. O caminho de **aprovação** propriamente dito está no fluxo <em>Aprovação de Pedidos - Sem Ignition</em>.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Ver o pedido de ponta a ponta', text: 'Do cliente à integração no SAP, com os pontos onde regras e parâmetros atuam.' },
+    { label: 'Uso', title: 'Usuário e suporte', text: 'O usuário segue o caminho; o suporte usa como mapa para diagnosticar.' },
+    { label: 'Cuidado', title: 'O cliente comanda o início', text: 'Tipo de pessoa, nacional/internacional e moeda vêm do cliente selecionado.' },
+  ]}
+/>
+
+## Quando usar este fluxo
+
+- Entender o caminho completo de criação de um pedido antes de operar a tela.
+- Localizar em que etapa uma regra, permissão ou parâmetro atua.
+- Servir de índice para as partes detalhadas (tipo de pessoa, itens, pagamento, políticas).
+
+## Como acessar
+
+- Módulo **Pedidos → Pedido** (criação e acompanhamento)
+- Módulo **Pedidos → Orçamento** (quando o pedido nasce de um orçamento)
+
+## Glossário rápido
+
+<DocTable
+  headers={['Termo', 'O que significa']}
+  rows={[
+    ['Tipo de Pessoa', 'Classificação do cliente: Física, Jurídica ou Estrangeiro. Define moeda e o caminho nacional/internacional.'],
+    ['Nacional / Internacional', 'Abrangência do pedido. Clientes estrangeiros seguem o caminho internacional (outra moeda e regras de comércio exterior).'],
+    ['Pré-pedido / Itens do pré-pedido', 'A "cesta" de itens do pedido antes do envio. Cada item tem produto, tipo, quantidade e preço.'],
+    ['Tipo do Item', 'Classificação do item no pedido: Venda, Bonificação, entre outros.'],
+    ['Operação Inteligente', 'Regra que relaciona o tipo de pedido à ordem do SAP; controla, por exemplo, quais operações aceitam itens bonificados.'],
+    ['Política Comercial / Campanha', 'Regras de preço e condições aplicadas aos itens (descontos, valores por campanha).'],
+    ['Estrutura comercial', 'Hierarquia do responsável comercial: Consultor FVE/FVI, GD, GR, GNV.'],
+    ['Status do Pedido', 'Situação do pedido no seu ciclo de vida (ex.: Rascunho, Liberado, Análise de Crédito, Integrado, Faturado).'],
+  ]}
+/>
+
+## O processo em etapas
+
+<DocTable
+  headers={['#', 'Etapa', 'O que acontece', 'Onde detalhar']}
+  rows={[
+    ['1', 'Cliente', 'Seleciona-se o cliente. Ele define o Tipo de Pessoa (Física / Jurídica / Estrangeiro), o caminho Nacional/Internacional e a moeda.', 'Parte 2 - Tipo de pessoa'],
+    ['2', 'Estrutura comercial', 'O pedido carrega o responsável comercial (Consultor FVE/FVI, GD, GR, GNV) — campos obrigatórios.', 'Parte 2'],
+    ['3', 'Lounge e Lista de Preço', 'Define-se o Lounge (necessário para o saldo de estoque) e a Lista de Preço que dá o preço dos itens.', 'Parte 3 - Itens'],
+    ['4', 'Itens do pedido', 'Adicionam-se os itens (produto, tipo, quantidade, preço). O sistema valida produto existente, duplicidade e regras por tipo de item.', 'Parte 3'],
+    ['5', 'Políticas de compra', 'Campanhas e Políticas Comerciais são aplicadas aos itens (preços, descontos, valores por campanha).', 'Parte 5 - Políticas'],
+    ['6', 'Frete e previsões', 'Definem-se Tipo de Frete, Prioridade/Urgência e as previsões de Entrega e de Faturamento (obrigatórias).', 'Parte 1 (abaixo)'],
+    ['7', 'Pagamento', 'Escolhe-se a forma de pagamento (boleto, PIX, cartão, misto), com as regras de cada uma.', 'Parte 4 - Pagamento'],
+    ['8', 'Envio', 'O pedido é enviado. Passa da montagem (Rascunho) para a análise conforme a regra.', 'Fluxo: Aprovação de Pedidos'],
+    ['9', 'Análise / Aprovação', 'O pedido passa por Análise de Crédito e/ou Administrativa e pelas etapas da Regra de Aprovação até ser Liberado.', 'Fluxo: Aprovação de Pedidos'],
+    ['10', 'Integração SAP', 'Liberado, o pedido é integrado ao SAP e segue para faturamento e separação (romaneio).', 'Fluxo: Romaneio'],
+  ]}
+/>
+
+<Callout type="dica" title="Pedido a partir de Orçamento">
+O pedido pode nascer de um **Orçamento** já montado (com Lounge, lista de preço e itens). Nesse caso, as etapas 3 a 5 já vêm preenchidas do orçamento; confira antes de enviar.
+</Callout>
+
+## Pontos de ramificação
+
+O que muda no pedido depende de alguns pontos de decisão. Cada um tem uma parte dedicada:
+
+<DocTable
+  headers={['Ramificação', 'O que decide', 'O que muda']}
+  rows={[
+    ['Tipo de Pessoa', 'Física, Jurídica ou Estrangeiro (vem do cliente)', 'Moeda, caminho nacional/internacional, documentos e validações.'],
+    ['Nacional / Internacional', 'Abrangência do pedido', 'Moeda estrangeira, regras de comércio exterior, campos específicos.'],
+    ['Tipo do Item', 'Venda, Bonificação, etc.', 'Regras por item — ex.: bonificado exige Operação Inteligente permitida.'],
+    ['Forma de Pagamento', 'Boleto, PIX, Cartão, Misto', 'Campos e validações do pagamento; etapas de cobrança na aprovação.'],
+    ['Políticas de compra', 'Campanha / Política Comercial aplicada', 'Preço, desconto e valores exigidos por item.'],
+  ]}
+/>
+
+## Campos obrigatórios do pedido
+
+Estes campos são exigidos pelo sistema ao montar/enviar o pedido (validação real da tela de Pedido):
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Cliente', 'Obrigatório — define tipo de pessoa, moeda e nacional/internacional.'],
+    ['Nacional / Internacional', 'Obrigatório.'],
+    ['Estrutura comercial (Consultor FVE, Consultor FVI, GD, GR, GNV)', 'Obrigatórios.'],
+    ['Tipo de Frete', 'Obrigatório.'],
+    ['Prioridade e Urgente', 'Obrigatórios.'],
+    ['Previsão de Entrega', 'Obrigatória (com validação de data).'],
+    ['Previsão de Faturamento', 'Obrigatória.'],
+    ['Pedido Especial', 'Obrigatório (Sim/Não).'],
+    ['Desconto Total (%)', 'Entre 0% e 100%.'],
+    ['Observação / Observação da Nota Fiscal', 'Até 4000 caracteres cada.'],
+    ['Ordem de Compra', 'Até 50 caracteres.'],
+  ]}
+/>
+
+<Callout type="atencao" title="Regras por item e por política">
+Além dos campos acima, o envio valida os **itens**: produto precisa existir, não pode haver **produto + tipo de item duplicado**, itens **bonificados** só passam com uma **Operação Inteligente permitida**, e itens de **campanha** precisam bater o valor exigido pela política. O detalhe está nas Partes 3 e 5.
+</Callout>
+
+## Ciclo de status do pedido
+
+O pedido evolui por um conjunto amplo de status. Os principais, agrupados por fase:
+
+<DocTable
+  headers={['Fase', 'Status principais', 'O que indica']}
+  rows={[
+    ['Montagem', 'Rascunho', 'Pedido em construção, ainda não enviado.'],
+    ['Análise', 'Análise de Crédito, Análise Administrativo, Em Avaliação (Crédito/Administrativo), Repasse Crédito', 'Pedido passando pelas análises e etapas de aprovação.'],
+    ['Pagamento', 'Aguardando Token, Aguardando Pagamento Cartão, Aguardando Pagamento PIX, Link Pix Gerado, Pagamento Negado/Cancelado', 'Estados do pagamento por cartão/PIX (quando aplicável).'],
+    ['Liberação', 'Liberado, Pedido Aprovado Automaticamente, Pedido TDC Liberado Automaticamente', 'Pedido aprovado e pronto para integrar.'],
+    ['Integração', 'Em Processamento, Integrado, Erro na Integração / Erro Integração SAP', 'Envio ao SAP e seu resultado.'],
+    ['Faturamento / Separação', 'Enviado para Faturamento, Aguardando Faturamento, Faturado, Faturado Parcial, Aguardando Separação, Em Separação, Separado (Parcial/Completo), Folha de Picking Gerada', 'Após a integração, o pedido segue para faturamento e separação (romaneio).'],
+    ['Recusa / Cancelamento', 'Recusa Análise Crédito/Administrativo, Cancelado, Cancelado SAP, Cancelado Financeiro/Administrativo', 'Caminhos de recusa e cancelamento.'],
+  ]}
+/>
+
+## Permissões e parâmetros (visão geral)
+
+<DocTable
+  headers={['Tipo', 'Como afeta o pedido', 'Onde detalhar']}
+  rows={[
+    ['Permissões', 'Controlam quem acessa a tela de Pedido e quem pode executar cada ação (criar, enviar, aprovar). O aprovador de cada etapa vem da Regra de Aprovação.', 'Parte 6 - Permissões & Parâmetros'],
+    ['Parâmetros (AppSettings / Chave e Valor / Controle de Funcionalidade)', 'Ajustam o comportamento do fluxo — por exemplo, quais Operações Inteligentes aceitam itens bonificados, ou se o caminho Ignition está ligado.', 'Parte 6'],
+  ]}
+/>
+
+## Esta série
+
+Este processo é detalhado em partes. Clique numa parte publicada para abri-la:
+
+<SeriesTable
+  items={[
+    { part: '1. Visão geral', content: 'O mapa do processo, campos obrigatórios, status, ramificações.', current: true },
+    { part: '2. Por tipo de pessoa', content: 'Física, Jurídica e Estrangeiro — moeda, nacional/internacional e validações de cada um.', href: '/tecnico/fluxos/processo-do-pedido-tipo-de-pessoa' },
+    { part: '3. Itens e tipos de item', content: 'Venda, Bonificação e demais; lista de preço, duplicidade e produto válido.', href: '/tecnico/fluxos/processo-do-pedido-itens' },
+    { part: '4. Pagamento', content: 'Boleto, PIX, cartão e pagamento misto — campos e regras por forma.', href: '/tecnico/fluxos/processo-do-pedido-pagamento' },
+    { part: '5. Políticas de compra', content: 'Campanha e Política Comercial (valores por item), descontos e restrições de venda.', soon: true },
+    { part: '6. Permissões & Parâmetros', content: 'Permissões da tela/ações e parâmetros que controlam o fluxo.', soon: true },
+  ]}
+/>
+
+## O que este fluxo não faz
+
+- Não substitui a tela de **Pedido** — descreve o processo; a operação é feita na tela.
+- Não detalha a **rota de aprovação** — isso está no fluxo <em>Aprovação de Pedidos - Sem Ignition</em>.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não consigo verificar o estoque ao montar o pedido', 'Lounge não selecionado', 'Selecione o Lounge (ele é necessário para o saldo de estoque).'],
+    ['O envio é barrado por causa de um item', 'Produto inexistente, item duplicado, bonificado sem operação permitida ou valor de campanha divergente', 'Reveja os itens conforme as Partes 3 e 5.'],
+    ['Campo obrigatório impedindo o envio', 'Falta cliente, estrutura comercial, frete, prioridade ou previsões', 'Confira a lista de campos obrigatórios acima.'],
+    ['O pedido não integrou no SAP', 'Erro de integração', 'Verifique o status (Erro Integração SAP) e o Log de Faturamento SAP / integração.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'O que define se o pedido é nacional ou internacional?', answer: 'O cliente. Clientes estrangeiros seguem o caminho internacional, com moeda estrangeira e regras de comércio exterior.' },
+    { question: 'Preciso de um orçamento para criar um pedido?', answer: 'Não obrigatoriamente. O pedido pode nascer direto ou a partir de um orçamento já montado.' },
+    { question: 'Por que o pedido pede tantos campos obrigatórios?', answer: 'Eles garantem que o pedido tenha responsável comercial, frete, prazos e classificação corretos para seguir para análise e integração.' },
+    { question: 'Onde vejo o caminho de aprovação?', answer: 'No fluxo "Aprovação de Pedidos - Sem Ignition". Esta página cobre a montagem do pedido até o envio.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial — Parte 1 (visão geral) do processo de criação do pedido.' },
+  ]}
+/>

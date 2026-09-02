@@ -1,0 +1,180 @@
+---
+section: tecnico
+routeSlug: fluxos/processo-do-pedido-itens
+pageType: tecnico
+lang: en
+title: Order Process - Items and Item Types
+description: Part 3 of the order process — the order items, the item types (Sale, Bonus, Campaign, Consignment and others), where the price comes from, the fields and the validation rules on submission.
+moduleLabel: Orders Module
+routineType: Process flow
+impact: Composition and validation of the order items
+keywords: [order, order items, item type, sale, bonus, campaign, consignment, exchange, return, price list, table price, unit price, discount, smart operation]
+tags: [tecnico, fluxo, pedido]
+order: 5
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+This is **Part 3** of the [Order Process](/en/tecnico/fluxos/processo-do-pedido). Here we detail the order **items**: each item is a **product** with an **Item Type**, a **quantity** and a **price**. The **Table Price** comes from the **Price List**, and **discounts** (by item or by policy) may apply on top of it.
+
+The item type defines the product's role in the order (normal sale, bonus, campaign, etc.) and, in some cases, activates its own rules — for example, a **bonus** item is only accepted with an **allowed Smart Operation**.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Compose the order', text: 'Add products with type, quantity and price, respecting each type\'s rules.' },
+    { label: 'Use', title: 'Price and discount', text: 'The table price comes from the price list; discounts adjust the item value.' },
+    { label: 'Caution', title: 'Rules by type', text: 'Some types (bonus, campaign) have their own validations on submission.' },
+  ]}
+/>
+
+## When to use
+
+- Understand which item types exist and what each one means.
+- Know where the price comes from and how the discount is applied.
+- Diagnose why an item blocked the order submission.
+
+## Item types
+
+<DocTable
+  headers={['Item Type', 'What it represents']}
+  rows={[
+    ['Sale', 'Normal sale item — the product is sold to the customer.'],
+    ['Bonus', 'Bonus item (no charge to the customer). It has its own rule on submission (see below).'],
+    ['Campaign', 'Item linked to a campaign / commercial policy, with a value required by the policy.'],
+    ['Consignment', 'Consignment item (used in the consignment flow).'],
+    ['Exchange', 'Exchange item (used in the Exchanges/Returns - TDC flows).'],
+    ['Return', 'Return item (used in the Exchanges/Returns - TDC flows).'],
+    ['OPL Storage Shipment', 'Item shipped for storage at the logistics operator (OPL).'],
+    ['Bonus YBPF', 'Bonus variant used in specific operations.'],
+  ]}
+/>
+
+<Callout type="info" title="Types tied to specific flows">
+Some types (Consignment, Exchange, Return) belong to their own flows (consignment and Exchanges/Returns - TDC). In the common sales order, the most used are **Sale**, **Bonus** and **Campaign**.
+</Callout>
+
+## Where the price comes from
+
+<DocTable
+  headers={['Field', 'Where it comes from / how it works']}
+  rows={[
+    ['Table Price', 'Comes from the order\'s Price List (the product value in that list). Required and greater than zero.'],
+    ['Unit Price', 'Price charged per unit after adjustments. Required and greater than zero.'],
+    ['Currency', 'For domestic customers, the price is considered in domestic currency; for foreign customers (foreign trade), in foreign currency (see Part 2).'],
+    ['Discounts', 'Can be applied by item (percentage or value) and by policy; they adjust the net value.'],
+  ]}
+/>
+
+## Item fields
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Sequence', 'Required — the item position/order in the order.'],
+    ['Product', 'Required — the product must exist and be available.'],
+    ['Item Type', 'Defines the item role (Sale, Bonus, Campaign, etc.).'],
+    ['Requested Quantity', 'Required.'],
+    ['Fulfilled / Cancelled Quantity', 'Greater than or equal to zero.'],
+    ['Table Price', 'Required and greater than zero.'],
+    ['Unit Price', 'Required and greater than zero.'],
+    ['Gross Total Value', 'Required and greater than or equal to zero.'],
+    ['% Discount', 'Between 0% and 100%.'],
+    ['Discount Value / Policy Discount % and Value', 'Greater than or equal to zero.'],
+    ['Net Total Value', 'Greater than or equal to zero.'],
+    ['Delivery Forecast (of the item)', 'Date validation.'],
+    ['Observation', 'Text with a length limit.'],
+  ]}
+/>
+
+## Item validation rules (on submission)
+
+Beyond the fields above, on submitting the order the system validates the set of items:
+
+<DocTable
+  headers={['Rule', 'What the system checks', 'If it fails']}
+  rows={[
+    ['Existing product', 'Each item must point to a valid/findable product.', 'Blocks submission, indicating the product and the item position.'],
+    ['No duplication', 'The same product with the same item type cannot be repeated.', 'Blocks submission, pointing to the duplicate item (product and type).'],
+    ['Bonus x Smart Operation', 'If the order has only bonus items, it requires an allowed Smart Operation (system parameter).', 'Blocks submission until a valid operation is indicated.'],
+    ['Campaign x policy value', 'Campaign items must match the value required by the policy (value × quantity).', 'Blocks if the submitted value is greater or lower than specified in the policy.'],
+  ]}
+/>
+
+<Callout type="atencao" title="Bonus requires an allowed operation">
+**Bonus** items only pass when there is an **allowed Smart Operation** for bonus. The list of accepted operations comes from a **system parameter** (`IdsOperacoesInteligentesDeBonificacao`). See Part 6 - Permissions & Parameters.
+</Callout>
+
+## How to add items
+
+<DocTable
+  headers={['Method', 'When to use']}
+  rows={[
+    ['Add item (individual)', 'To include one product at a time, choosing type, quantity and checking the price.'],
+    ['Quick Entry', 'To include several items quickly.'],
+    ['Import from Excel', 'To bring many items from a spreadsheet (check the template before importing).'],
+  ]}
+/>
+
+<Callout type="dica" title="Stock depends on the Lounge">
+For the system to check the item stock balance, the **Lounge** must be selected in the order/quote header (see Part 1).
+</Callout>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Price List / Price List Item', 'The item Table Price comes from the price list.', 'The list must be valid and contain the product.'],
+    ['Products', 'The item points to a valid product available in the Lounge.', 'See Product Configuration in the Lounge.'],
+    ['Smart Operation', 'Controls the acceptance of bonus items.', 'See Part 6.'],
+    ['Purchase policies', 'Campaigns and policies define prices and required values per item.', 'See Part 5 - Policies.'],
+  ]}
+/>
+
+## What this stretch does not do
+
+- It does not register products or price lists — it only uses the items in the order.
+- It does not define the campaign/policy rules themselves — that is in Part 5.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['Submission blocks saying it could not find the product', 'Nonexistent or unavailable product', 'Check the product and its availability in the Lounge.'],
+    ['Duplicate item error', 'Same product and same type repeated', 'Remove the duplication or adjust the item type.'],
+    ['Bonus item does not pass', 'Missing allowed Smart Operation', 'Select a valid operation (see Part 6).'],
+    ['Divergent campaign value', 'Item value different from the one required by the policy', 'Adjust the value according to the policy (see Part 5).'],
+    ['Table or unit price rejected', 'Zero or empty value', 'The table price and the unit price must be greater than zero.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Where does the item Table Price come from?', answer: 'From the order\'s Price List — it is the product value in that list.' },
+    { question: 'What is the difference between Sale, Bonus and Campaign?', answer: 'Sale is the item sold normally; Bonus is free of charge (with an allowed-operation rule); Campaign is linked to a policy, with a required value.' },
+    { question: 'Why did my bonus item not pass?', answer: 'Bonus items require an allowed Smart Operation (system parameter). See Part 6.' },
+    { question: 'Can I have the same product twice?', answer: 'Not with the same item type — the system blocks a duplicate product + type.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release — Part 3 (items and item types) of the order process.' },
+  ]}
+/>

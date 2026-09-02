@@ -1,0 +1,211 @@
+---
+section: tecnico
+routeSlug: fluxos/processo-do-pedido
+pageType: tecnico
+lang: en
+title: Order Process - Overview
+description: The full order creation flow in S.I.N — from the customer and person type to items, payment, purchase policies, submission, review and SAP integration, with required fields, the status lifecycle, permissions and parameters.
+moduleLabel: Orders Module
+routineType: Process flow
+impact: Creation and lifecycle of the sales order
+keywords: [order, create order, process, person type, individual, company, foreign, domestic, international, items, bonus, commercial policy, campaign, payment, boleto, pix, card, order status, sap integration]
+tags: [tecnico, fluxo, pedido]
+order: 5
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+import SeriesTable from '../../../../../components/SeriesTable.astro';
+
+## Overview
+
+This is the **map of the sales order creation process** in S.I.N — the backbone that connects customer, items, payment, policies and the SAP integration. It serves both the **user** (to understand the end-to-end path) and **support** (to know where each rule, permission and parameter applies).
+
+The order is built on top of a **customer**. It is the customer that defines the **Person Type** (Individual, Company or Foreign) and, from there, whether the order is **Domestic or International** and which **currency** applies. On top of that base come the **items**, the **payment method** and the **purchase policies**; when submitted, the order goes through **review/approval** and, once released, is **integrated into SAP** and moves on to **invoicing and picking**.
+
+<Callout type="info" title="This is Part 1 (the map)">
+This page is the overview. The detail of each stretch is in the series parts (by person type, items, payment, policies, permissions and parameters) — listed at the end. The **approval** path itself is in the <em>Order Approval - Without Ignition</em> flow.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'See the order end to end', text: 'From the customer to the SAP integration, with the points where rules and parameters apply.' },
+    { label: 'Use', title: 'User and support', text: 'The user follows the path; support uses it as a map to diagnose.' },
+    { label: 'Caution', title: 'The customer drives the start', text: 'Person type, domestic/international and currency come from the selected customer.' },
+  ]}
+/>
+
+## When to use this flow
+
+- Understand the full order creation path before operating the screen.
+- Locate at which step a rule, permission or parameter applies.
+- Serve as an index for the detailed parts (person type, items, payment, policies).
+
+## How to access
+
+- **Orders → Order** module (creation and tracking)
+- **Orders → Quote** module (when the order comes from a quote)
+
+## Quick glossary
+
+<DocTable
+  headers={['Term', 'What it means']}
+  rows={[
+    ['Person Type', 'Customer classification: Individual, Company or Foreign. Defines currency and the domestic/international path.'],
+    ['Domestic / International', 'Order scope. Foreign customers follow the international path (another currency and foreign trade rules).'],
+    ['Pre-order / Pre-order items', 'The "basket" of order items before submission. Each item has product, type, quantity and price.'],
+    ['Item Type', 'Item classification in the order: Sale, Bonus, among others.'],
+    ['Smart Operation', 'Rule that relates the order type to the SAP order; it controls, for example, which operations accept bonus items.'],
+    ['Commercial Policy / Campaign', 'Price rules and conditions applied to items (discounts, campaign values).'],
+    ['Commercial structure', 'Hierarchy of the commercial owner: FVE/FVI Consultant, GD, GR, GNV.'],
+    ['Order Status', 'The order situation in its lifecycle (e.g., Draft, Released, Credit Review, Integrated, Invoiced).'],
+  ]}
+/>
+
+## The process step by step
+
+<DocTable
+  headers={['#', 'Step', 'What happens', 'Where to detail']}
+  rows={[
+    ['1', 'Customer', 'A customer is selected. It defines the Person Type (Individual / Company / Foreign), the Domestic/International path and the currency.', 'Part 2 - Person type'],
+    ['2', 'Commercial structure', 'The order carries the commercial owner (FVE/FVI Consultant, GD, GR, GNV) — required fields.', 'Part 2'],
+    ['3', 'Lounge and Price List', 'The Lounge is set (needed for the stock balance) and the Price List that gives the item prices.', 'Part 3 - Items'],
+    ['4', 'Order items', 'Items are added (product, type, quantity, price). The system validates existing product, duplication and rules by item type.', 'Part 3'],
+    ['5', 'Purchase policies', 'Campaigns and Commercial Policies are applied to the items (prices, discounts, campaign values).', 'Part 5 - Policies'],
+    ['6', 'Freight and forecasts', 'Freight Type, Priority/Urgency and the Delivery and Invoicing forecasts are set (required).', 'Part 1 (below)'],
+    ['7', 'Payment', 'The payment method is chosen (boleto, PIX, card, mixed), with each one\'s rules.', 'Part 4 - Payment'],
+    ['8', 'Submission', 'The order is submitted. It moves from building (Draft) to review according to the rule.', 'Flow: Order Approval'],
+    ['9', 'Review / Approval', 'The order goes through Credit and/or Administrative review and the Approval Rule steps until it is Released.', 'Flow: Order Approval'],
+    ['10', 'SAP Integration', 'Once released, the order is integrated into SAP and moves on to invoicing and picking (loading list).', 'Flow: Loading List'],
+  ]}
+/>
+
+<Callout type="dica" title="Order from a Quote">
+The order can start from an already built **Quote** (with Lounge, price list and items). In that case, steps 3 to 5 come pre-filled from the quote; check before submitting.
+</Callout>
+
+## Branch points
+
+What changes in the order depends on a few decision points. Each has a dedicated part:
+
+<DocTable
+  headers={['Branch', 'What it decides', 'What changes']}
+  rows={[
+    ['Person Type', 'Individual, Company or Foreign (comes from the customer)', 'Currency, domestic/international path, documents and validations.'],
+    ['Domestic / International', 'Order scope', 'Foreign currency, foreign trade rules, specific fields.'],
+    ['Item Type', 'Sale, Bonus, etc.', 'Rules by item — e.g., a bonus item requires an allowed Smart Operation.'],
+    ['Payment Method', 'Boleto, PIX, Card, Mixed', 'Payment fields and validations; collection steps in the approval.'],
+    ['Purchase policies', 'Applied Campaign / Commercial Policy', 'Price, discount and values required per item.'],
+  ]}
+/>
+
+## Required order fields
+
+These fields are required by the system when building/submitting the order (real validation of the Order screen):
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Customer', 'Required — defines person type, currency and domestic/international.'],
+    ['Domestic / International', 'Required.'],
+    ['Commercial structure (FVE Consultant, FVI Consultant, GD, GR, GNV)', 'Required.'],
+    ['Freight Type', 'Required.'],
+    ['Priority and Urgent', 'Required.'],
+    ['Delivery Forecast', 'Required (with date validation).'],
+    ['Invoicing Forecast', 'Required.'],
+    ['Special Order', 'Required (Yes/No).'],
+    ['Total Discount (%)', 'Between 0% and 100%.'],
+    ['Observation / Invoice Observation', 'Up to 4000 characters each.'],
+    ['Purchase Order', 'Up to 50 characters.'],
+  ]}
+/>
+
+<Callout type="atencao" title="Rules by item and by policy">
+Beyond the fields above, submission validates the **items**: the product must exist, there can be no **product + item type duplicate**, **bonus** items only pass with an **allowed Smart Operation**, and **campaign** items must match the value required by the policy. The detail is in Parts 3 and 5.
+</Callout>
+
+## Order status lifecycle
+
+The order evolves through a broad set of statuses. The main ones, grouped by phase:
+
+<DocTable
+  headers={['Phase', 'Main statuses', 'What it indicates']}
+  rows={[
+    ['Building', 'Draft', 'Order under construction, not yet submitted.'],
+    ['Review', 'Credit Review, Administrative Review, Under Evaluation (Credit/Administrative), Credit Pass-through', 'Order going through reviews and approval steps.'],
+    ['Payment', 'Awaiting Token, Awaiting Card Payment, Awaiting PIX Payment, Pix Link Generated, Payment Denied/Cancelled', 'Card/PIX payment states (when applicable).'],
+    ['Release', 'Released, Order Automatically Approved, TDC Order Automatically Released', 'Order approved and ready to integrate.'],
+    ['Integration', 'Processing, Integrated, Integration Error / SAP Integration Error', 'Submission to SAP and its result.'],
+    ['Invoicing / Picking', 'Sent to Invoicing, Awaiting Invoicing, Invoiced, Partially Invoiced, Awaiting Picking, In Picking, Picked (Partial/Complete), Picking Sheet Generated', 'After integration, the order moves on to invoicing and picking (loading list).'],
+    ['Rejection / Cancellation', 'Credit/Administrative Review Rejection, Cancelled, SAP Cancelled, Financial/Administrative Cancelled', 'Rejection and cancellation paths.'],
+  ]}
+/>
+
+## Permissions and parameters (overview)
+
+<DocTable
+  headers={['Type', 'How it affects the order', 'Where to detail']}
+  rows={[
+    ['Permissions', 'Control who accesses the Order screen and who can perform each action (create, submit, approve). Each step\'s approver comes from the Approval Rule.', 'Part 6 - Permissions & Parameters'],
+    ['Parameters (AppSettings / Key and Value / Feature Control)', 'Adjust the flow behavior — for example, which Smart Operations accept bonus items, or whether the Ignition path is on.', 'Part 6'],
+  ]}
+/>
+
+## This series
+
+This process is detailed in parts. Click a published part to open it:
+
+<SeriesTable
+  items={[
+    { part: '1. Overview', content: 'The process map, required fields, statuses, branches.', current: true },
+    { part: '2. By person type', content: 'Individual, Company and Foreign — currency, domestic/international and each one\'s validations.', href: '/en/tecnico/fluxos/processo-do-pedido-tipo-de-pessoa' },
+    { part: '3. Items and item types', content: 'Sale, Bonus and others; price list, duplication and valid product.', href: '/en/tecnico/fluxos/processo-do-pedido-itens' },
+    { part: '4. Payment', content: 'Boleto, PIX, card and mixed payment — fields and rules by method.', href: '/en/tecnico/fluxos/processo-do-pedido-pagamento' },
+    { part: '5. Purchase policies', content: 'Campaign and Commercial Policy (values per item), discounts and sales restrictions.', soon: true },
+    { part: '6. Permissions & Parameters', content: 'Screen/action permissions and parameters that control the flow.', soon: true },
+  ]}
+/>
+
+## What this flow does not do
+
+- It does not replace the **Order** screen — it describes the process; the operation is done on the screen.
+- It does not detail the **approval route** — that is in the <em>Order Approval - Without Ignition</em> flow.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot check the stock while building the order', 'Lounge not selected', 'Select the Lounge (it is needed for the stock balance).'],
+    ['Submission is blocked because of an item', 'Nonexistent product, duplicate item, bonus without an allowed operation, or divergent campaign value', 'Review the items per Parts 3 and 5.'],
+    ['A required field is blocking submission', 'Missing customer, commercial structure, freight, priority or forecasts', 'Check the required fields list above.'],
+    ['The order did not integrate into SAP', 'Integration error', 'Check the status (SAP Integration Error) and the SAP Invoicing / integration log.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What defines whether the order is domestic or international?', answer: 'The customer. Foreign customers follow the international path, with foreign currency and foreign trade rules.' },
+    { question: 'Do I need a quote to create an order?', answer: 'Not necessarily. The order can start directly or from an already built quote.' },
+    { question: 'Why does the order require so many mandatory fields?', answer: 'They ensure the order has the correct commercial owner, freight, deadlines and classification to move on to review and integration.' },
+    { question: 'Where do I see the approval path?', answer: 'In the "Order Approval - Without Ignition" flow. This page covers building the order up to submission.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release — Part 1 (overview) of the order creation process.' },
+  ]}
+/>

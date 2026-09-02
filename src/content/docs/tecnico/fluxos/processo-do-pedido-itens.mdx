@@ -1,0 +1,179 @@
+---
+section: tecnico
+routeSlug: fluxos/processo-do-pedido-itens
+pageType: tecnico
+title: Processo do Pedido - Itens e Tipos de Item
+description: Parte 3 do processo do pedido — os itens do pedido, os tipos de item (Venda, Bonificação, Campanha, Consignado e outros), de onde vem o preço, os campos e as regras de validação no envio.
+moduleLabel: Módulo Pedidos
+routineType: Fluxo de processo
+impact: Composição e validação dos itens do pedido
+keywords: [pedido, itens do pedido, tipo de item, venda, bonificação, campanha, consignado, troca, devolução, lista de preço, preço de tabela, preço unitário, desconto, operação inteligente]
+tags: [tecnico, fluxo, pedido]
+order: 5
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+Esta é a **Parte 3** do [Processo do Pedido](/tecnico/fluxos/processo-do-pedido). Aqui detalhamos os **itens** do pedido: cada item é um **produto** com um **Tipo do Item**, uma **quantidade** e um **preço**. O **Preço de Tabela** vem da **Lista de Preço**, e sobre ele podem incidir **descontos** (por item ou por política).
+
+O tipo de item define o papel daquele produto no pedido (venda normal, bonificação, campanha, etc.) e, em alguns casos, ativa regras próprias — por exemplo, um item **bonificado** só é aceito com uma **Operação Inteligente permitida**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Compor o pedido', text: 'Adicionar produtos com tipo, quantidade e preço, respeitando as regras de cada tipo.' },
+    { label: 'Uso', title: 'Preço e desconto', text: 'O preço de tabela vem da lista de preço; descontos ajustam o valor do item.' },
+    { label: 'Cuidado', title: 'Regras por tipo', text: 'Alguns tipos (bonificação, campanha) têm validações próprias no envio.' },
+  ]}
+/>
+
+## Quando usar
+
+- Entender quais tipos de item existem e o que cada um significa.
+- Saber de onde vem o preço e como o desconto é aplicado.
+- Diagnosticar por que um item barrou o envio do pedido.
+
+## Tipos de item
+
+<DocTable
+  headers={['Tipo do Item', 'O que representa']}
+  rows={[
+    ['Venda', 'Item de venda normal — o produto é vendido ao cliente.'],
+    ['Bonificação', 'Item bonificado (sem cobrança ao cliente). Tem regra própria no envio (ver abaixo).'],
+    ['Campanha', 'Item vinculado a uma campanha / política comercial, com valor exigido pela política.'],
+    ['Consignado', 'Item de consignação (usado no fluxo de consignado).'],
+    ['Troca', 'Item de troca (usado nos fluxos de Trocas/Devoluções - TDC).'],
+    ['Devolução', 'Item de devolução (usado nos fluxos de Trocas/Devoluções - TDC).'],
+    ['Remessa Armazenagem OPL', 'Item de remessa para armazenagem no operador logístico (OPL).'],
+    ['Bonificação YBPF', 'Variante de bonificação usada em operações específicas.'],
+  ]}
+/>
+
+<Callout type="info" title="Tipos ligados a fluxos específicos">
+Alguns tipos (Consignado, Troca, Devolução) pertencem a fluxos próprios (consignado e Trocas/Devoluções - TDC). No pedido de venda comum, os mais usados são **Venda**, **Bonificação** e **Campanha**.
+</Callout>
+
+## De onde vem o preço
+
+<DocTable
+  headers={['Campo', 'De onde vem / como funciona']}
+  rows={[
+    ['Preço de Tabela', 'Vem da Lista de Preço do pedido (o valor do produto naquela lista). Obrigatório e maior que zero.'],
+    ['Preço Unitário', 'Preço praticado por unidade após ajustes. Obrigatório e maior que zero.'],
+    ['Moeda', 'Para clientes nacionais, o preço é considerado em moeda nacional; para clientes estrangeiros (comex), em moeda estrangeira (ver Parte 2).'],
+    ['Descontos', 'Podem ser aplicados por item (percentual ou valor) e por política; ajustam o valor líquido.'],
+  ]}
+/>
+
+## Campos do item
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Sequencial', 'Obrigatório — a posição/ordem do item no pedido.'],
+    ['Produto', 'Obrigatório — o produto precisa existir e estar disponível.'],
+    ['Tipo do Item', 'Define o papel do item (Venda, Bonificação, Campanha, etc.).'],
+    ['Quantidade Solicitada', 'Obrigatória.'],
+    ['Quantidade Atendida / Cancelada', 'Maior ou igual a zero.'],
+    ['Preço de Tabela', 'Obrigatório e maior que zero.'],
+    ['Preço Unitário', 'Obrigatório e maior que zero.'],
+    ['Valor Total Bruto', 'Obrigatório e maior ou igual a zero.'],
+    ['% Desconto', 'Entre 0% e 100%.'],
+    ['Valor Desconto / % e Valor de Desconto da Política', 'Maior ou igual a zero.'],
+    ['Valor Total Líquido', 'Maior ou igual a zero.'],
+    ['Previsão de Entrega (do item)', 'Validação de data.'],
+    ['Observação', 'Texto com limite de tamanho.'],
+  ]}
+/>
+
+## Regras de validação dos itens (no envio)
+
+Além dos campos acima, ao enviar o pedido o sistema valida o conjunto de itens:
+
+<DocTable
+  headers={['Regra', 'O que o sistema verifica', 'Se falhar']}
+  rows={[
+    ['Produto existente', 'Cada item precisa apontar para um produto válido/localizável.', 'Barra o envio informando o produto e a posição do item.'],
+    ['Sem duplicidade', 'Não pode haver o mesmo produto com o mesmo tipo de item repetido.', 'Barra o envio apontando o item duplicado (produto e tipo).'],
+    ['Bonificação x Operação Inteligente', 'Se o pedido for só de itens bonificados, exige uma Operação Inteligente permitida (parâmetro do sistema).', 'Barra o envio até indicar uma operação válida.'],
+    ['Campanha x valor da política', 'Itens de campanha precisam bater o valor exigido pela política (valor × quantidade).', 'Barra se o valor enviado for maior ou menor do que o especificado na política.'],
+  ]}
+/>
+
+<Callout type="atencao" title="Bonificação exige operação permitida">
+Itens **bonificados** só passam quando existe uma **Operação Inteligente permitida** para bonificação. A lista de operações aceitas vem de um **parâmetro do sistema** (`IdsOperacoesInteligentesDeBonificacao`). Ver a Parte 6 - Permissões & Parâmetros.
+</Callout>
+
+## Como adicionar itens
+
+<DocTable
+  headers={['Forma', 'Quando usar']}
+  rows={[
+    ['Adicionar item (individual)', 'Para incluir um produto por vez, escolhendo tipo, quantidade e conferindo o preço.'],
+    ['Digitação Rápida', 'Para incluir vários itens de forma ágil.'],
+    ['Importar do Excel', 'Para trazer muitos itens de uma planilha (confira o modelo antes de importar).'],
+  ]}
+/>
+
+<Callout type="dica" title="Estoque depende do Lounge">
+Para o sistema conferir o saldo de estoque dos itens, o **Lounge** precisa estar selecionado no cabeçalho do pedido/orçamento (ver Parte 1).
+</Callout>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Lista de Preço / Item Lista de Preço', 'O Preço de Tabela do item vem da lista de preço.', 'A lista precisa estar vigente e conter o produto.'],
+    ['Produtos', 'O item aponta para um produto válido e disponível no Lounge.', 'Ver Configuração de Produtos no Lounge.'],
+    ['Operação Inteligente', 'Controla a aceitação de itens bonificados.', 'Ver Parte 6.'],
+    ['Políticas de compra', 'Campanhas e políticas definem preços e valores exigidos por item.', 'Ver Parte 5 - Políticas.'],
+  ]}
+/>
+
+## O que este trecho não faz
+
+- Não cadastra produtos nem listas de preço — apenas usa os itens no pedido.
+- Não define as regras de campanha/política em si — isso está na Parte 5.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O envio barra dizendo que não localizou o produto', 'Produto inexistente ou indisponível', 'Confira o produto e sua disponibilidade no Lounge.'],
+    ['Erro de item duplicado', 'Mesmo produto e mesmo tipo repetidos', 'Remova a duplicidade ou ajuste o tipo do item.'],
+    ['Item bonificado não passa', 'Falta de Operação Inteligente permitida', 'Selecione uma operação válida (ver Parte 6).'],
+    ['Valor da campanha divergente', 'Valor do item diferente do exigido pela política', 'Ajuste o valor conforme a política (ver Parte 5).'],
+    ['Preço de tabela ou unitário rejeitado', 'Valor zero ou vazio', 'O preço de tabela e o unitário precisam ser maiores que zero.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'De onde vem o Preço de Tabela do item?', answer: 'Da Lista de Preço do pedido — é o valor do produto naquela lista.' },
+    { question: 'Qual a diferença entre Venda, Bonificação e Campanha?', answer: 'Venda é o item vendido normalmente; Bonificação é sem cobrança (com regra de operação permitida); Campanha é vinculado a uma política, com valor exigido.' },
+    { question: 'Por que meu item bonificado não passou?', answer: 'Itens bonificados exigem uma Operação Inteligente permitida (parâmetro do sistema). Ver Parte 6.' },
+    { question: 'Posso ter o mesmo produto duas vezes?', answer: 'Não com o mesmo tipo de item — o sistema barra produto + tipo duplicado.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial — Parte 3 (itens e tipos de item) do processo do pedido.' },
+  ]}
+/>

@@ -3,11 +3,11 @@ section: tecnico
 routeSlug: fluxos/romaneio
 pageType: tecnico
 title: Fluxo de Romaneio
-description: Fluxo completo de separação, etiquetagem, romaneio e coleta de remessas, do cadastro inicial ao envio ao SimuleFrete.
+description: Fluxo completo de separação, etiquetagem, romaneio e coleta de remessas, do cadastro inicial ao envio ao TMS.
 moduleLabel: Faturamento / Qualidade
 routineType: Fluxo de processo
 impact: Expedição de remessas
-keywords: [romaneio, remessa, separação, etiqueta, volume, coleta, expedição, faturamento, simulefrete, separacao]
+keywords: [romaneio, remessa, separação, etiqueta, volume, coleta, expedição, faturamento, tms, sap, separacao]
 tags: [tecnico, fluxo, romaneio]
 order: 1
 ---
@@ -20,9 +20,9 @@ import DocControl from '../../../../components/DocControl.astro';
 
 ## Visão geral
 
-O fluxo de **Romaneio** padroniza o processo de expedição de remessas do S.I.N Implant System, desde a configuração inicial dos cadastros até a criação, conferência, coleta e envio da remessa. O objetivo é garantir a padronização entre os operadores, a rastreabilidade das remessas e a conformidade com os critérios de qualidade da empresa.
+O fluxo de **Romaneio** padroniza o processo de expedição de remessas do S.I.N Implante System, desde a configuração inicial dos cadastros até a criação, conferência, coleta e envio da remessa. O objetivo é garantir a padronização entre os operadores, a rastreabilidade das remessas e a conformidade com os critérios de qualidade da empresa.
 
-O fluxo passa pelas telas dos módulos **Pedidos**, **Administrador** e **Faturamento**, e se encerra com o envio da remessa coletada ao **SimuleFrete**.
+O fluxo passa pelas telas dos módulos **Pedidos**, **Administrador** e **Faturamento**, e se encerra com o envio da remessa coletada ao **TMS** (sistema externo de gestão de transportes).
 
 <QuickCards
   cards={[
@@ -32,12 +32,25 @@ O fluxo passa pelas telas dos módulos **Pedidos**, **Administrador** e **Fatura
   ]}
 />
 
+## Definições e siglas
+
+<DocTable
+  headers={['Termo', 'Definição']}
+  rows={[
+    ['Romaneio', 'Documento que consolida uma ou mais remessas, com a relação de volumes, transportadora e dados de coleta, usado para formalizar a expedição.'],
+    ['Remessa', 'Unidade de separação de produtos vinculada a um pedido, originada em um Centro (Lounge), que segue o fluxo de separação, etiquetagem e romaneio.'],
+    ['Volume', 'Unidade física de expedição (caixa, pacote ou etiqueta) gerada dentro de uma remessa; identificada pelo código de barras no padrão VOL-NNN-REMESSA.'],
+    ['SAP', 'Sistema de gestão empresarial (ERP) integrado ao S.I.N Implante System, que recebe os dados de faturamento enviados pela Fila de Remessas Aguardando Separação.'],
+    ['TMS', 'Sistema externo de gestão de transportes (Transportation Management System) para o qual o romaneio é enviado após a confirmação da coleta, encerrando o ciclo dentro do S.I.N Implante System.'],
+  ]}
+/>
+
 ## Quando usar este fluxo
 
 - Preparar uma remessa para expedição, da separação até a coleta.
 - Gerar e imprimir as etiquetas dos volumes de uma remessa.
 - Agrupar remessas em um romaneio e conferir seus volumes.
-- Registrar a coleta e enviar o romaneio ao SimuleFrete.
+- Registrar a coleta e enviar o romaneio ao TMS.
 
 ## Como acessar
 
@@ -55,12 +68,12 @@ As telas envolvidas neste fluxo são:
 <DocTable
   headers={['Etapa', 'O que acontece']}
   rows={[
-    ['1. Cadastros', 'Configuração de transportadora, centro (lounge) e impressora de etiqueta.'],
+    ['1. Cadastros', 'Configuração de transportadora e centro (lounge).'],
     ['2. Separação', 'Bipagem dos produtos e envio da remessa ao faturamento, na Fila de Remessas Aguardando Separação.'],
     ['3. Etiquetas', 'Geração e impressão das etiquetas dos volumes, na Fila de Geração de Etiquetas.'],
     ['4. Criação do romaneio', 'Agrupamento das remessas em um romaneio, na aba Remessas Aguardando Romaneio.'],
-    ['5. Conferência e coleta', 'Bipagem dos volumes, geração do documento e confirmação da coleta, na aba Romaneios Criados.'],
-    ['6. Envio', 'Envio do romaneio ao SimuleFrete, encerrando o fluxo.'],
+    ['5. Conferência, documento e coleta', 'Bipagem dos volumes, geração do documento e confirmação da coleta, na aba Romaneios Criados.'],
+    ['6. Envio', 'Envio do romaneio ao TMS, encerrando o fluxo.'],
   ]}
 />
 
@@ -110,17 +123,21 @@ Módulo Faturamento.
 O campo **Transportadora** já vem preenchido com as informações do pedido e do retorno do SAP; altere apenas se necessário. O campo **Volumes** precisa ser informado pelo operador. Ao concluir, o sistema retorna à tela inicial e exibe a mensagem **"Leitura salva com sucesso"**.
 </Callout>
 
+<Callout type="atencao" title="Seleção manual da transportadora">
+A seleção da transportadora é feita manualmente até a conclusão do ajuste de desenvolvimento responsável pela importação automática dos dados do SAP para o SIN SALES.
+</Callout>
+
 ### 2. Fila de Geração de Etiquetas
 
 Módulo Faturamento.
 
 1. **Listagem das remessas concluídas** — a tela exibe apenas remessas concluídas e enviadas ao faturamento. Por padrão, os filtros **"Com Transportadora?"** e **"Com Volume?"** ficam como **Sim**.
-2. **Abertura da remessa** — o operador seleciona a remessa e clica em **"Editar"**, abrindo a tela "Geração de Etiquetas da Remessa" com os dados de remessa, pedido, cliente, transportadora e volume.
-3. **Geração e impressão das etiquetas** — ao clicar em **"Gerar Etiquetas"**, o sistema exibe as etiquetas e habilita o botão **Imprimir** (individual ou **"Imprimir Todas"**). Ao imprimir, abre o popup **"Selecionar Impressora"** com as impressoras cadastradas.
+2. **Abertura da remessa** — o operador seleciona a remessa e clica em **"Editar"**, abrindo a tela "Geração de Etiquetas da Remessa" com os dados de remessa, pedido SAP, cliente, transportadora e volume.
+3. **Geração e impressão das etiquetas** — ao clicar em **"Gerar Etiquetas"**, o sistema faz o checkout e exibe as etiquetas, habilitando o botão **Imprimir** (individual ou **"Imprimir Todas"**). Ao imprimir, abre o popup **"Selecionar Impressora"** com as impressoras cadastradas.
 4. **Envio para romaneio** — após imprimir todas as etiquetas, o botão **"Enviar para Romaneio"** é habilitado. Ao acioná-lo, a remessa sai desta fila e passa a constar na Fila de Romaneio.
 
 <Callout type="atencao" title="Impressão de etiquetas">
-Quando a impressão física de etiquetas está desativada nas configurações do sistema, é possível avançar no fluxo sem imprimir. Caso contrário, todas as etiquetas precisam ser impressas para liberar o envio ao romaneio.
+Quando o parâmetro de sistema **EnviarZplParaImpressora** está definido como **false**, o sistema permite avançar no fluxo sem a impressão física das etiquetas. Caso contrário, todas as etiquetas precisam ser impressas para liberar o envio ao romaneio.
 </Callout>
 
 ### 3. Fila de Romaneio
@@ -137,12 +154,33 @@ Módulo Faturamento. A tela tem duas abas: **Remessas Aguardando Romaneio** e **
 Cada romaneio percorre quatro status, cada um em uma aba da tela de detalhe:
 
 1. **Em Conferência** — status inicial. É possível editar ou excluir o romaneio. Ao clicar em **Editar**, a **"Conferência de Volumes"** habilita a bipagem por código de barras (padrão **VOL-NNN-REMESSA**). Após conferir todos os volumes, o botão **"Gerar Documento"** é habilitado.
-2. **Conferido** — ao clicar em **"Gerar Documento"**, o romaneio vai para a aba **Documento** e abre a tela "Conferência do Romaneio". Ao clicar em **Imprimir**, é gerado o PDF do romaneio.
+2. **Conferido** — ao clicar em **"Gerar Documento"**, o romaneio vai para a aba **Documento** e abre a tela "Conferência do Romaneio". Ao clicar em **Imprimir**, é gerado o PDF do romaneio; em seguida, **"Visualizar Documento"** abre o documento na tela, com um botão flutuante **Imprimir** para gerar o PDF.
 3. **Coleta** — na aba **Coleta**, preencha os dados obrigatórios e clique em **"Confirmar Coleta"**. O status passa para **Coletado**.
-4. **Coletado / Enviado** — após confirmar a coleta, o fluxo envia o romaneio ao SimuleFrete. Concluído o envio, o status final passa a **Enviado**, encerrando o ciclo da remessa.
+4. **Coletado / Enviado** — após confirmar a coleta, o fluxo envia o romaneio ao TMS. Concluído o envio, o status final passa a **Enviado**, encerrando o ciclo da remessa.
 
-<Callout type="atencao" title="Botão Enviar para SimuleFrete">
-Enquanto a integração automática com o SimuleFrete está temporariamente indisponível, o botão **"Enviar para SimuleFrete"** aparece como alternativa. Ele é exibido sempre que o romaneio está no status **Coletado** e ainda não foi enviado.
+<Callout type="info" title="Filtros da listagem de romaneios">
+A listagem de romaneios oferece filtros para localizar um romaneio específico: **Nº do Romaneio**, **Data de** e **Data até** (período de criação), **Status do Romaneio**, **Transportadora** e **Lounge**.
+</Callout>
+
+<Callout type="info" title="O documento de romaneio">
+O documento consolida as informações da(s) remessa(s): identificação do romaneio (número e data), transportadora, relação de remessas e volumes vinculados e dados de coleta. O endereço exibido corresponde sempre ao **endereço do Lounge de origem** da remessa.
+</Callout>
+
+### Dados da coleta
+
+Na aba **Coleta**, as regras de preenchimento são:
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Data e Hora da Coleta', 'Obrigatório. Já vem preenchido automaticamente com a data e a hora correntes, podendo ser editado pelo usuário quando necessário.'],
+    ['Nome do Motorista', 'Obrigatório. Deve ser preenchido manualmente.'],
+    ['Placa do Veículo', 'Opcional. Deixou de ser obrigatório.'],
+  ]}
+/>
+
+<Callout type="atencao" title="Botão Enviar TMS">
+Enquanto a integração automática com o TMS está temporariamente indisponível, o botão **"Enviar TMS"** aparece como alternativa. Ele é exibido sempre que o romaneio está no status **Coletado** e ainda não foi enviado. A nomenclatura **"Enviar TMS"** substitui a antiga referência ao SimuleFrete; o envio automático permanece condicionado à disponibilização das demais APIs de integração de transporte.
 </Callout>
 
 ## Status do romaneio
@@ -151,9 +189,9 @@ Enquanto a integração automática com o SimuleFrete está temporariamente indi
   headers={['Status', 'O que dispara', 'O que é permitido / gerado', 'Aba']}
   rows={[
     ['Em Conferência', 'Criado ao clicar em "Criar Romaneio"', 'Editar e excluir o romaneio; bipar os volumes (VOL-NNN-REMESSA). Habilita "Gerar Documento" após a conferência completa.', 'Romaneios Criados'],
-    ['Conferido', 'Clique em "Gerar Documento" após a bipagem completa', 'Abre a tela "Conferência do Romaneio"; gera o PDF ao imprimir.', 'Documento'],
-    ['Coletado', 'Dados da coleta preenchidos + "Confirmar Coleta"', 'Habilita o botão "Enviar para SimuleFrete".', 'Coleta'],
-    ['Enviado', 'Envio confirmado ao SimuleFrete', 'Encerra o fluxo do romaneio para a remessa.', '—'],
+    ['Conferido', 'Clique em "Gerar Documento" após a bipagem completa', 'Abre a tela "Conferência do Romaneio"; gera o PDF ao imprimir; "Visualizar Documento" exibe o romaneio.', 'Documento'],
+    ['Coletado', 'Dados da coleta preenchidos + "Confirmar Coleta"', 'Habilita o botão "Enviar TMS".', 'Coleta'],
+    ['Enviado', 'Envio confirmado ao TMS', 'Encerra o fluxo do romaneio para a remessa.', '—'],
   ]}
 />
 
@@ -162,8 +200,18 @@ Enquanto a integração automática com o SimuleFrete está temporariamente indi
 - A Fila de Geração de Etiquetas só exibe remessas com **transportadora** e **volume** preenchidos; sem esses dados, a remessa não aparece.
 - O botão **"Gerar Documento"** só habilita após a bipagem de **100% dos volumes** da remessa.
 - O código de barras de cada volume deve seguir o padrão **VOL-NNN-REMESSA**; divergências impedem a conferência.
-- O botão **"Enviar para SimuleFrete"** só aparece depois que a remessa atinge o status **Coletado**.
+- O botão **"Enviar TMS"** só aparece depois que a remessa atinge o status **Coletado**.
 - Alterações nas configurações de transportadora ou centro/lounge têm efeito imediato nas telas operacionais; valide o impacto antes de alterar cadastros em produção.
+
+### Exclusão de remessas vinculadas a um romaneio
+
+<DocTable
+  headers={['Situação do romaneio', 'Regra de exclusão da remessa']}
+  rows={[
+    ['Diferente de "Coletado"', 'Permite excluir a remessa, desde que não exista outra restrição de negócio aplicável.'],
+    ['Igual a "Coletado"', 'Bloqueia a exclusão. O sistema exibe uma mensagem informativa, por exemplo: "Não é possível excluir a remessa, pois o Romaneio já foi coletado."'],
+  ]}
+/>
 
 ## Responsabilidades
 
@@ -187,6 +235,7 @@ Enquanto a integração automática com o SimuleFrete está temporariamente indi
     ['A transportadora não aparece para seleção', 'Transportadora sem a opção "Disponível no Romaneio"', 'Verifique o cadastro da transportadora no módulo Pedidos.'],
     ['O lounge não entra no fluxo de romaneio', 'Centro/lounge sem a opção "Disponível para o Fluxo do Romaneio"', 'Ajuste a configuração do centro no módulo Administrador.'],
     ['A conferência de um volume não é aceita', 'Código de barras fora do padrão', 'Confirme que o código segue o padrão VOL-NNN-REMESSA.'],
+    ['Não consigo excluir uma remessa', 'O romaneio já está no status "Coletado"', 'Remessas de romaneios já coletados não podem ser excluídas.'],
   ]}
 />
 
@@ -195,8 +244,9 @@ Enquanto a integração automática com o SimuleFrete está temporariamente indi
 <FaqAccordion
   items={[
     { question: 'O que é o romaneio?', answer: 'É o documento que reúne uma ou mais remessas, com a relação de volumes, transportadora e dados de coleta, usado para formalizar a expedição.' },
-    { question: 'Preciso imprimir as etiquetas para avançar?', answer: 'Em geral sim. Quando a impressão física está desativada nas configurações do sistema, é possível avançar sem imprimir.' },
-    { question: 'Por que aparece o botão "Enviar para SimuleFrete"?', answer: 'Ele funciona como alternativa enquanto a integração automática está indisponível, sempre que o romaneio está no status Coletado e ainda não foi enviado.' },
+    { question: 'Preciso imprimir as etiquetas para avançar?', answer: 'Em geral sim. Quando o parâmetro EnviarZplParaImpressora está definido como false, é possível avançar sem a impressão física.' },
+    { question: 'Por que aparece o botão "Enviar TMS"?', answer: 'Ele funciona como alternativa enquanto a integração automática com o TMS está indisponível, sempre que o romaneio está no status Coletado e ainda não foi enviado. A nomenclatura substitui a antiga referência ao SimuleFrete.' },
+    { question: 'A placa do veículo é obrigatória na coleta?', answer: 'Não. A Placa do Veículo passou a ser opcional. Continuam obrigatórios a Data e Hora da Coleta (já preenchida automaticamente) e o Nome do Motorista.' },
     { question: 'Posso excluir um romaneio?', answer: 'Sim, enquanto ele estiver no status Em Conferência.' },
     { question: 'O que significa o padrão VOL-NNN-REMESSA?', answer: 'É o formato do código de barras de cada volume: VOL, seguido do número da etiqueta e do número da remessa.' },
   ]}
@@ -207,10 +257,11 @@ Enquanto a integração automática com o SimuleFrete está temporariamente indi
 <DocControl
   signers={[
     { role: 'Elaborado por', name: 'Equipe de Qualidade / QA', date: '10/08/2026' },
-    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Revisado por', name: 'Renan Camargo', date: '31/08/2026' },
     { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
   ]}
   versions={[
     { version: '1.0', date: '10/08/2026', author: 'Equipe de Qualidade / QA', description: 'Emissão inicial do manual de processo do módulo de Romaneio.' },
+    { version: '1.1', date: '31/08/2026', author: 'Renan Camargo', description: 'Consolidação dos textos operacionais (filtros do romaneio, visualização do documento, campos da coleta e regras de exclusão) e padronização de "SimuleFrete" para "Enviar TMS".' },
   ]}
 />

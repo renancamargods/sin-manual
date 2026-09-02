@@ -2,12 +2,12 @@
 section: tecnico
 routeSlug: fluxos/execucao-qa-docker-manager
 pageType: tecnico
-title: Execução do QA Docker Manager (Docker)
-description: "Fluxo de build e execução do QA Docker Manager via Docker: imagem multi-stage, docker compose e acesso à interface, do terminal ao ambiente no ar."
+title: Ambiente de Testes por Branch via Docker (QA Docker Manager)
+description: "Procedimento de QA para subir ambientes de teste isolados por branch usando o QA Docker Manager, da preparação local da ferramenta à validação da aplicação."
 moduleLabel: Qualidade / QA
 routineType: Fluxo de processo
-impact: Ambiente de testes em containers
-keywords: [docker, dockerfile, docker compose, multi-stage, qa docker manager, container, build, imagem, dood, socket, kestrel, blazor]
+impact: Ambiente de testes por branch
+keywords: [docker, qa docker manager, branch, ambiente de teste, container, docker compose, docker desktop, git, github, isolado, qa]
 tags: [tecnico, fluxo, execucao-qa-docker-manager]
 order: 6
 ---
@@ -20,250 +20,352 @@ import DocControl from '../../../../components/DocControl.astro';
 
 ## Visão geral
 
-O **QA Docker Manager** é a ferramenta web (Blazor Server) que a equipe de QA usa para **subir e gerenciar ambientes de teste em containers** a partir de repositórios Git. Este fluxo descreve como **colocar a própria ferramenta no ar** usando Docker, desde o terminal até o acesso à interface no navegador.
+Este fluxo padroniza a criação de **ambientes de teste isolados**, a partir de **branches** específicas de um repositório Git, usando a ferramenta interna **QA Docker Manager**. O objetivo é permitir que analistas de QA subam, de forma independente e **sem conhecimento avançado de Docker ou Git**, um ambiente completo para validar uma funcionalidade antes da sua integração à branch principal.
 
-A imagem é construída em **multi-stage** (vários estágios), o que mantém a imagem final enxuta: os estágios de compilação usam o SDK do .NET, mas a imagem que roda em produção leva apenas o necessário para executar (runtime do ASP.NET, "git" e o cliente "docker"). A execução é orquestrada por um único comando de **docker compose**.
+O escopo cobre a **criação, o acompanhamento e o acesso** aos containers Docker gerados a partir de branches hospedadas no GitHub. Não fazem parte deste fluxo a execução dos casos de teste em si, nem os critérios de aprovação funcional — apenas a **preparação do ambiente** onde os testes serão executados.
 
 <QuickCards
   cards={[
-    { label: 'Finalidade', title: 'Subir a ferramenta', text: 'Construir a imagem multi-stage e colocar o QA Docker Manager no ar de forma padronizada.' },
-    { label: 'Uso', title: 'Ambiente de QA', text: 'Executado por QA/DevOps para disponibilizar a ferramenta que gerencia os containers de teste.' },
-    { label: 'Cuidado', title: 'Socket do Docker', text: 'A ferramenta comanda o Docker do host pelo socket; sem esse acesso, ela sobe mas não cria ambientes.' },
+    { label: 'Finalidade', title: 'Testar uma branch isolada', text: 'Subir um ambiente completo de uma branch específica, sem interferir em outras validações em andamento.' },
+    { label: 'Uso', title: 'QA e desenvolvimento', text: 'Usado por QA para validar funcionalidades e por desenvolvedores para conferir uma branch antes do merge.' },
+    { label: 'Cuidado', title: 'Docker Desktop ativo', text: 'O Docker Desktop precisa estar instalado, aberto e em execução antes de iniciar; sem ele, todos os comandos falham.' },
   ]}
 />
 
 ## Quando usar este fluxo
 
-- Colocar o QA Docker Manager no ar pela primeira vez em um servidor.
-- Atualizar a ferramenta após uma mudança no código (reconstruir a imagem).
-- Reiniciar, parar ou inspecionar o container da ferramenta.
-- Validar que o ambiente ficou acessível pela interface web.
+- Validar uma funcionalidade em uma branch específica antes do merge.
+- Testar várias branches ao mesmo tempo, em ambientes isolados.
+- Disponibilizar rapidamente um ambiente para um novo integrante de QA, sem exigir experiência prévia em Docker ou Git.
 
-## Como acessar
-
-O fluxo é executado no **terminal**, na pasta do projeto onde ficam os arquivos de container:
-
-- `Dockerfile` — receita de build multi-stage da imagem.
-- `docker-compose.yml` — orquestração (porta, socket do Docker, volumes, limites).
-- `.dockerignore` — evita enviar `bin/`, `obj/`, `temp/` e `data/` para o build.
-
-Após subir, a interface fica disponível em **`http://localhost:5058`** (ou pelo IP do servidor).
-
-## As etapas do build (multi-stage)
-
-O `Dockerfile` é dividido em estágios encadeados. Cada estágio aproveita o resultado do anterior, e só o estágio **final** vira a imagem que roda.
-
-<DocTable
-  headers={['Estágio', 'O que faz']}
-  rows={[
-    ['1. base', 'Parte do runtime do ASP.NET e instala as ferramentas de execução: "git" (para clonar repositórios) e o cliente "docker" + "compose" (para comandar o Docker do host).'],
-    ['2. restore', 'Usa o SDK do .NET e restaura as dependências a partir do arquivo de projeto. Camada reaproveitada por cache enquanto as dependências não mudam.'],
-    ['3. build', 'Compila o projeto em modo Release, reaproveitando o restore já feito.'],
-    ['4. publish', 'Gera os arquivos publicados, prontos para produção.'],
-    ['5. final', 'Parte do estágio "base" e recebe apenas os arquivos publicados. É a imagem enxuta que efetivamente executa.'],
-  ]}
-/>
-
-<Callout type="info" title="Por que multi-stage">
-O SDK do .NET (necessário para compilar) é grande. Ao separar a compilação da execução, a imagem final não carrega o SDK — só o runtime e os arquivos publicados. O resultado é uma imagem menor, mais rápida de distribuir e com menor superfície de ataque.
-</Callout>
-
-## Antes de começar
-
-O servidor onde a ferramenta vai rodar precisa ter os pré-requisitos abaixo.
-
-<DocTable
-  headers={['Pré-requisito', 'Observação']}
-  rows={[
-    ['Docker Engine', 'Versão 24 ou superior (necessário para o "docker compose" v2).'],
-    ['Docker Compose v2', 'Já vem embutido no Docker moderno (comando "docker compose", sem hífen).'],
-    ['Acesso ao Docker', 'O usuário precisa poder executar comandos "docker" (no Linux, pertencer ao grupo "docker").'],
-    ['Porta 5058 livre', 'É a porta em que a interface é publicada no host.'],
-    ['Acesso à internet', 'Para baixar as imagens base e clonar os repositórios de teste.'],
-  ]}
-/>
-
-Para conferir se está tudo instalado:
-
-```bash
-docker --version
-docker compose version
-```
-
-## Passo a passo do processo
-
-### 1. Abrir o terminal na pasta do projeto
-
-Navegue até a pasta onde está o `docker-compose.yml`:
-
-```bash
-cd caminho/para/QaDockerManager
-```
-
-### 2. Subir a aplicação
-
-Construa a imagem (se ainda não existir) e suba o container em segundo plano:
-
-```bash
-docker compose up -d --build
-```
-
-- A opção **"--build"** força a construção da imagem a partir do `Dockerfile`.
-- A opção **"-d"** sobe em segundo plano, liberando o terminal.
-- Na **primeira execução**, o Docker baixa as imagens base (SDK do .NET, runtime e cliente Docker); pode levar alguns minutos. Nas próximas vezes é quase instantâneo por causa do cache.
-
-### 3. Verificar se subiu
-
-```bash
-docker compose ps
-```
-
-O serviço **"qa-docker-manager"** deve aparecer como **"running"** e, após alguns segundos, **"healthy"**.
-
-<Callout type="dica" title="Se não subir">
-Consulte os registros da aplicação para entender o motivo:
-
-```bash
-docker compose logs -f qa-docker-manager
-```
-</Callout>
-
-### 4. Acessar a interface
-
-Abra o navegador em **`http://localhost:5058`**. Para acessar de outra máquina, troque `localhost` pelo **IP ou nome do servidor**: `http://SEU-SERVIDOR:5058`.
-
-Pronto — a ferramenta está no ar e o QA já pode cadastrar repositórios e subir ambientes pela tela.
-
-## Comandos do dia a dia
-
-<DocTable
-  headers={['Ação', 'Comando']}
-  rows={[
-    ['Subir / reconstruir', 'docker compose up -d --build'],
-    ['Ver status', 'docker compose ps'],
-    ['Ver registros em tempo real', 'docker compose logs -f qa-docker-manager'],
-    ['Parar (mantém os dados)', 'docker compose stop'],
-    ['Parar e remover o container', 'docker compose down'],
-    ['Reiniciar', 'docker compose restart'],
-    ['Atualizar após mudança no código', 'docker compose up -d --build'],
-  ]}
-/>
-
-## Regras e cuidados
-
-- A ferramenta comanda o **Docker do host** pelo socket `/var/run/docker.sock` (padrão "Docker fora do Docker"). Sem esse mapeamento no `docker-compose.yml`, ela sobe mas **não consegue** criar ambientes.
-- As pastas **"temp"** (repositórios clonados) e **"data"** (registro de ambientes) são persistidas por volume; não devem ser apagadas com a ferramenta em uso.
-- O `.dockerignore` é obrigatório: sem ele, o build envia `bin/`, `obj/`, `temp/` e `data/` para dentro da imagem, deixando o build lento e a imagem contaminada com dados de execução.
-- O comando **"docker compose down"** remove apenas o container da ferramenta; os ambientes de teste que ela criou continuam existindo no Docker do host.
-- Para mudar a porta de acesso, altere só o lado esquerdo do mapeamento no `docker-compose.yml` (ex.: **"8090:8080"** para acessar em `http://localhost:8090`).
+**Público-alvo:** analistas de QA responsáveis pela validação em branches; desenvolvedores que precisem validar uma branch isolada antes do merge; e novos integrantes do time de QA sem experiência prévia em Docker ou Git.
 
 ## Responsabilidades
 
 <DocTable
   headers={['Papel', 'Responsabilidade']}
   rows={[
-    ['QA / DevOps', 'Executar o build e a subida da ferramenta; manter a porta e os volumes configurados.'],
-    ['Infraestrutura', 'Garantir Docker Engine e Compose no servidor, além do acesso ao socket do Docker.'],
-    ['Qualidade e processos', 'Revisar periodicamente este fluxo, garantindo aderência à ferramenta.'],
+    ['Analista de QA', 'Executar a subida do ambiente e validar a aplicação na branch indicada.'],
+    ['Desenvolvedor (branch)', 'Disponibilizar a branch a ser testada, funcional e atualizada em relação à branch base.'],
+    ['Desenvolvedor (ferramenta)', 'Manter o QA Docker Manager e dar suporte a falhas de infraestrutura (Docker, rede, credenciais de acesso ao GitHub).'],
   ]}
 />
+
+## Sistemas e ferramentas envolvidas
+
+<DocTable
+  headers={['Ferramenta', 'Finalidade']}
+  rows={[
+    ['Docker Desktop', 'Motor de execução dos containers. Deve estar instalado, ativo e aberto durante todo o procedimento.'],
+    ['Git / Git Bash', 'Clonagem do repositório da ferramenta QA Docker Manager.'],
+    ['GitHub', 'Hospedagem dos repositórios e branches a serem testados.'],
+    ['Visual Studio Code (ou similar)', 'Edição e execução de comandos para subir a ferramenta localmente.'],
+    ['QA Docker Manager', 'Aplicação web interna que automatiza a clonagem da branch de teste e a criação do container Docker.'],
+  ]}
+/>
+
+## Pré-condições
+
+- O **Docker Desktop** deve estar instalado, ativo e em execução antes de iniciar — condição obrigatória para todas as etapas seguintes.
+- O usuário deve ter **Git** instalado na máquina.
+- O usuário deve ter acesso ao repositório do QA Docker Manager e ao(s) repositório(s)/branch(es) a testar no GitHub.
+- Deve haver conectividade de rede/VPN com os serviços necessários, quando aplicável.
+- O acesso aos repositórios e branches segue **estritamente os acessos já liberados** conforme as permissões do S.I.N Implante System — a ferramenta não concede nenhum acesso adicional.
+- A autenticação é feita com o **próprio usuário do Git** de cada colaborador; não há usuário genérico ou compartilhado para clonagem.
+
+### Requisitos mínimos do Docker Desktop (Windows)
+
+<DocTable
+  headers={['Item', 'Requisito']}
+  rows={[
+    ['Sistema operacional', 'Windows 10 64-bit (versão 21H2 / build 19044 ou superior) ou Windows 11. Recomenda-se Windows 11 23H2 (build 22631) ou superior.'],
+    ['Processador', 'CPU 64-bit (Intel, AMD ou ARM64) com suporte a Second Level Address Translation (SLAT).'],
+    ['Virtualização', 'Virtualização por hardware (Intel VT-x ou AMD-V) habilitada na BIOS/UEFI. Sem ela, o Docker Desktop não inicia.'],
+    ['Memória RAM', 'Mínimo de 4 GB; recomendado 8 GB ou mais para executar os serviços em container sem gargalos.'],
+    ['Disco', 'No mínimo 6 GB livres (preferencialmente em SSD). Imagens e containers crescem rapidamente.'],
+    ['WSL 2', 'WSL 2 habilitado (o instalador do Docker Desktop pode configurá-lo automaticamente em um sistema novo).'],
+    ['Permissão', 'A instalação exige direitos de administrador na máquina.'],
+  ]}
+/>
+
+<Callout type="atencao" title="Requisitos podem mudar">
+Estes são os requisitos gerais do Docker Desktop. Confira a configuração e a versão mais recente diretamente na documentação oficial (docs.docker.com) no momento da instalação, pois os requisitos podem ser atualizados a cada nova versão.
+</Callout>
+
+## Visão geral do fluxo
+
+O processo se divide em dois grandes blocos:
+
+- **Bloco A — Preparação do ambiente local:** instalar e subir a ferramenta QA Docker Manager (Etapas 1 a 6).
+- **Bloco B — Criação do ambiente de testes da branch:** usar a ferramenta para clonar e subir o container da branch (Etapas 7 a 11).
+
+<Callout type="atencao" title="Pré-condição obrigatória">
+O Docker Desktop precisa estar ativo e aberto antes da Etapa 1. Se não estiver em execução, todos os comandos Docker das etapas seguintes falharão.
+</Callout>
+
+## Passo a passo — Bloco A (preparar a ferramenta)
+
+### Etapa 1 — Clonar o repositório do QA Docker Manager
+
+Obter o código-fonte da ferramenta.
+
+1. Acessar o repositório `https://github.com/pablosdlima/QaDockerManager`.
+2. Clicar no botão **"Code"**.
+3. Clicar no ícone de copiar para copiar a **URL de clonagem (HTTPS)**.
+
+**Resultado esperado:** URL do repositório copiada, pronta para o comando de clonagem.
+
+### Etapa 2 — Abrir o terminal Git Bash
+
+1. Acessar a Área de Trabalho (ou outro diretório de fácil acesso).
+2. Clicar com o botão direito em uma área vazia.
+3. Selecionar **"Open Git Bash Here"**.
+
+**Resultado esperado:** terminal Git Bash aberto no diretório selecionado.
+
+### Etapa 3 — Clonar o repositório via linha de comando
+
+No terminal Git Bash, executar:
+
+```bash
+git clone https://github.com/pablosdlima/QaDockerManager.git
+```
+
+**Resultado esperado:** uma nova pasta **"QaDockerManager"** é criada no diretório, com os arquivos do projeto.
+
+### Etapa 4 — Subir a ferramenta via Docker Compose
+
+1. Abrir a pasta **"QaDockerManager"** no VS Code (ou editor similar).
+2. Abrir o terminal integrado do editor.
+3. Executar:
+
+```bash
+docker compose up -d --build
+```
+
+4. Aguardar a finalização do build.
+
+**Resultado esperado:** mensagem de conclusão com status **"DONE"** e indicação de que a imagem foi **"Built"**, a rede **"Created"** e o container **"Started"**.
+
+<Callout type="atencao" title="Se o build falhar">
+O tempo de build varia conforme a máquina, a conexão de rede e o volume de dependências — não há um tempo fixo. Se o build falhar, o terminal exibe a mensagem de erro e o processo não conclui (não aparece "DONE" nem "Started") — nesse caso, o ambiente não subiu.
+</Callout>
+
+### Etapa 5 — Verificar o container no Docker Desktop
+
+1. Abrir o Docker Desktop.
+2. Acessar o menu **"Containers"**.
+3. Localizar o container correspondente (ex.: **"qa-docker-manager"**) com status em execução (indicador verde).
+
+**Resultado esperado:** container listado como ativo, com a porta mapeada na coluna **"Port(s)"** (ex.: **5058:8080**).
+
+### Etapa 6 — Abrir a ferramenta no navegador
+
+No Docker Desktop, clicar sobre a porta exibida para o container (ex.: **5058:8080**).
+
+**Resultado esperado:** o navegador abre `localhost:5058`, exibindo a tela inicial do QA Docker Manager.
+
+## Passo a passo — Bloco B (criar o ambiente da branch)
+
+### Etapa 7 — Preencher os dados do novo container
+
+Na tela **"Novo Container"**, informar:
+
+1. **"URL do Repositório"** — a URL do repositório a ser testado, **sem a extensão ".git"** ao final (ex.: `https://github.com/empresa/projeto`, e não `.../projeto.git`).
+2. **"Branch"** — o nome da branch a testar (ex.: `feature/QA-123-fix-login`).
+3. **"Nome do Container"** — informar ou aceitar o nome sugerido; é usado para diferenciar o ambiente entre os containers em execução.
+
+**Resultado esperado:** formulário preenchido com URL (sem ".git"), branch e nome do container, pronto para envio.
+
+<Callout type="cuidado" title="URL sem &quot;.git&quot;">
+A URL deve ser informada **sem o sufixo ".git"**. Incluir essa extensão pode causar falha na identificação/clonagem do repositório pela ferramenta.
+</Callout>
+
+### Etapa 8 — Selecionar a branch a ser testada
+
+Identificar, no repositório de origem, a branch específica que será validada.
+
+1. Acessar o repositório de origem (no manual, o exemplo é `https://github.com/pablosdlima/TesteDockerQA`).
+2. Copiar a **URL do repositório** e o **nome da branch** desejada para usar no formulário da Etapa 7.
+
+**Resultado esperado:** URL e branch identificadas e prontas para uso.
+
+### Etapa 9 — Subir o container da branch
+
+1. Clicar em **"SUBIR CONTAINER"**.
+2. Aguardar a clonagem do repositório informado.
+3. Aguardar a finalização da subida do(s) container(es) da branch.
+
+**Resultado esperado:** o container aparece na lista **"Containers Existentes"**, com o nome informado, status **"rodando"** (ex.: **3/3 rodando**), a branch associada e as portas de cada serviço (ex.: 5200, 5100, 5050).
+
+### Etapa 10 — Acessar o ambiente de teste da branch
+
+Abrir a aplicação testada, publicada em uma das portas geradas para o container.
+
+- Na lista **"Containers Existentes"**, clicar na porta do serviço a acessar (ex.: **:5200**), pelo navegador; **ou**
+- No **Docker Desktop**, localizar o container/serviço e acessá-lo pela porta mapeada na coluna **"Port(s)"**.
+
+**Resultado esperado:** a aplicação da branch testada é aberta, pelo navegador (via QA Docker Manager) ou diretamente pelo Docker Desktop.
+
+### Etapa 11 — Validar a aplicação testada
+
+1. Verificar se a página inicial da aplicação carrega corretamente.
+2. Navegar pelas funcionalidades conforme o roteiro de testes da funcionalidade em análise.
+
+**Resultado esperado:** aplicação carregada com sucesso, disponível para os testes funcionais planejados pelo analista.
+
+## Validações
+
+Antes de iniciar os testes funcionais, confirme:
+
+- O container da ferramenta **QA Docker Manager** está ativo no Docker Desktop.
+- O container criado para a branch está **"rodando"** em todos os serviços esperados (ex.: 3/3 rodando).
+- A branch associada corresponde exatamente à informada no formulário (Etapa 7).
+- A aplicação é acessível pela porta indicada, sem erros de carregamento.
+
+<Callout type="info" title="Tempo esperado de subida">
+O tempo de subida depende diretamente da clonagem do repositório e gira, em média, em torno de **3 a 5 minutos**. Variações acima disso costumam estar associadas ao tamanho do repositório ou à qualidade da conexão de rede.
+</Callout>
+
+## Encerramento do ambiente de teste
+
+Após concluir os testes, encerre o ambiente para liberar recursos. A tela **"Containers Existentes"** oferece os botões **"PARAR"** e **"REMOVER"**:
+
+- **"PARAR"** — interrompe a execução dos serviços do container, mantendo-o disponível para nova inicialização.
+- **"REMOVER"** — exclui definitivamente o container, limpando também a imagem Docker gerada localmente para aquele ambiente.
+
+<Callout type="cuidado" title="Cuidado ao remover">
+Como o **"REMOVER"** limpa a imagem Docker gerada localmente (não só o container), use-o apenas após confirmar que os testes na branch foram concluídos — uma nova subida da mesma branch exigirá reconstrução completa da imagem.
+</Callout>
+
+## Padrão de nomenclatura de branches
+
+Como o nome da branch é digitado diretamente no QA Docker Manager, padronizar a nomenclatura reduz o risco de erro de digitação e evita falhas por caracteres não compatíveis com URL (ex.: "#"). Padrão oficial:
+
+```text
+<tipo>/<numero-da-demanda>-<descricao-curta-em-kebab-case>
+Exemplo: bugfix/4313-ajuste-botao-fila-romaneio
+```
+
+- **Tipo:** vocabulário fixo, em minúsculas — `feature`, `bugfix`, `hotfix`, `refactor`, `chore` ou `docs`.
+- **Número da demanda:** apenas o número do work item do Azure DevOps, sem prefixos ("TASK-") ou símbolos ("#").
+- **Descrição:** curta (3 a 6 palavras), em kebab-case, minúsculas e sem acentuação.
+- **Nome do autor:** não incluído na branch — a autoria já é rastreada pelo Git/Azure DevOps.
+
+## Tratamento de exceções
+
+Os cenários abaixo foram mapeados como pontos de atenção. A coluna **"Ação recomendada"** será complementada pelo time técnico em revisão futura, à medida que cada erro for reproduzido e reportado.
+
+<DocTable
+  headers={['Cenário', 'Sintoma observado', 'Ação recomendada']}
+  rows={[
+    ['Docker Desktop não está em execução', 'Comandos Docker falham ao iniciar o procedimento', 'A definir'],
+    ['Porta padrão já em uso (ex.: 5058)', 'Falha ao subir a ferramenta ou o container da branch', 'A definir'],
+    ['Branch informada não existe / nome incorreto', 'Falha na clonagem ou container não sobe', 'A definir'],
+    ['Falha de autenticação/permissão no repositório', 'Clonagem não conclui', 'A definir'],
+    ['Container fica com status de erro', 'Serviço não atinge "rodando"', 'A definir'],
+  ]}
+/>
+
+<Callout type="info" title="Seção em construção">
+Esta seção será consolidada como uma futura "Solução de problemas": à medida que cada erro for reproduzido pelo time de QA, registra-se aqui a mensagem exata da ferramenta e o passo a passo de resolução. Até lá, os campos permanecem como **"A definir"**, sem suposições.
+</Callout>
 
 ## Problemas comuns
 
 <DocTable
   headers={['Problema', 'Possível causa', 'O que verificar']}
   rows={[
-    ['A interface não abre em localhost:5058', 'Container não subiu ou porta ocupada', 'Rode "docker compose ps" e "docker compose logs"; troque a porta no compose se estiver em uso.'],
-    ['A ferramenta sobe, mas dá erro ao criar ambientes', 'Socket do Docker não montado ou sem permissão', 'Confirme o volume do "docker.sock" no compose; no Linux, verifique se o usuário está no grupo "docker".'],
-    ['Erro ao clonar repositório privado', 'Falta de credencial de acesso', 'O repositório precisa ser acessível; a autenticação por token ainda não está configurada.'],
-    ['Build muito lento ou imagem muito grande', 'Build enviando arquivos indevidos', 'Garanta que o ".dockerignore" existe e ignora "bin", "obj", "temp" e "data".'],
-    ['Ambiente com pasta local não sobe corretamente', 'Caminho da pasta é resolvido no host, não no container', 'Monte a pasta "temp" no mesmo caminho no host e no container (ver observação no Dockerfile).'],
+    ['Comandos Docker falham logo no início', 'Docker Desktop não está aberto/ativo', 'Abra o Docker Desktop e aguarde ficar em execução antes da Etapa 1.'],
+    ['A ferramenta não abre em localhost:5058', 'Container não subiu ou porta 5058 em uso', 'Confirme na Etapa 5 o container ativo e a porta mapeada; verifique se a 5058 não está ocupada.'],
+    ['O container da branch não fica "rodando"', 'Branch inexistente, nome incorreto ou falha de autenticação', 'Reveja a branch informada na Etapa 7 e os acessos ao repositório no GitHub.'],
+    ['Falha ao clonar o repositório da branch', 'URL informada com ".git" no final', 'Informe a URL sem o sufixo ".git" (ver Etapa 7).'],
+    ['Ambiente de outro colega parado/removido por engano', 'Nomes de container pouco descritivos em máquina compartilhada', 'Use nomes descritivos e siga o padrão de nomenclatura de branches.'],
   ]}
 />
 
-## Fluxograma — build e execução
+## Fluxograma — do zero à validação da branch
 
-O diagrama abaixo mostra o caminho do comando único (**"docker compose up -d --build"**) até o ambiente no ar, passando pelo build multi-stage.
+O diagrama resume os dois blocos: preparar a ferramenta (Bloco A) e criar/validar o ambiente da branch (Bloco B).
 
 <div style="overflow-x:auto; margin: 1.25rem 0;">
-<svg viewBox="0 0 820 880" width="820" role="img" aria-label="Fluxograma de build e execução do QA Docker Manager" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+<svg viewBox="0 0 820 920" width="820" role="img" aria-label="Fluxograma do processo de criação de ambiente de testes por branch via QA Docker Manager" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
   <defs>
-    <marker id="arwd" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+    <marker id="arwq" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
       <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
     </marker>
   </defs>
-  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwd)">
-    <path d="M410,74 L410,100" />
-    <path d="M410,198 L410,224" />
-    <path d="M410,274 L410,300" />
-    <path d="M410,398 L410,424" />
-    <path d="M410,476 L410,500" />
-    <path d="M410,552 L410,576" />
-    <path d="M410,632 L410,658" />
-    <path d="M410,756 L410,782" />
-    <path d="M565,150 L598,150" />
-    <path d="M565,348 L598,348" />
-    <path d="M255,708 L222,708" />
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwq)">
+    <path d="M410,88 L410,112" />
+    <path d="M410,162 L410,188" />
+    <path d="M410,288 L410,314" />
+    <path d="M410,366 L410,392" />
+    <path d="M410,440 L410,478" />
+    <path d="M410,534 L410,560" />
+    <path d="M410,610 L410,636" />
+    <path d="M410,736 L410,762" />
+    <path d="M410,814 L410,840" />
+    <path d="M565,240 L598,240" />
+    <path d="M255,688 L222,688" />
   </g>
   <g font-size="12.5" fill="#5c6b7a">
-    <text x="422" y="216" text-anchor="start">Sim</text>
-    <text x="582" y="142" text-anchor="middle">Não</text>
-    <text x="582" y="340" text-anchor="middle">Sim</text>
-    <text x="422" y="774" text-anchor="start">Sim</text>
-    <text x="248" y="700" text-anchor="middle">Não</text>
+    <text x="422" y="306" text-anchor="start">Sim (DONE)</text>
+    <text x="582" y="232" text-anchor="middle">Não</text>
+    <text x="422" y="754" text-anchor="start">Sim</text>
+    <text x="248" y="680" text-anchor="middle">Não</text>
   </g>
+  <text x="30" y="26" font-size="12" font-weight="700" fill="#cc093b" letter-spacing="0.5">BLOCO A &#183; PREPARAR A FERRAMENTA</text>
+  <text x="30" y="466" font-size="12" font-weight="700" fill="#cc093b" letter-spacing="0.5">BLOCO B &#183; CRIAR O AMBIENTE DA BRANCH</text>
   <g font-size="13" fill="#1a1417">
-    <rect x="220" y="26" width="380" height="48" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
-    <text x="410" y="55" text-anchor="middle" font-weight="600">1 &#183; Terminal na pasta do QA Docker Manager</text>
-    <rect x="220" y="224" width="380" height="50" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
-    <text x="410" y="254" text-anchor="middle">2 &#183; docker compose up -d --build</text>
-    <rect x="220" y="424" width="380" height="52" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
-    <text x="410" y="447" text-anchor="middle">3 &#183; Build multi-stage</text>
-    <text x="410" y="466" text-anchor="middle" fill="#5c6b7a" font-size="12">restore &#8594; build &#8594; publish</text>
-    <rect x="220" y="500" width="380" height="52" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
-    <text x="410" y="523" text-anchor="middle">4 &#183; Imagem final (enxuta)</text>
-    <text x="410" y="542" text-anchor="middle" fill="#5c6b7a" font-size="12">runtime + git + docker CLI + compose</text>
-    <rect x="220" y="576" width="380" height="56" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
-    <text x="410" y="599" text-anchor="middle">5 &#183; Container sobe (Kestrel :8080 &#8594; host :5058)</text>
-    <text x="410" y="618" text-anchor="middle" fill="#5c6b7a" font-size="12">volumes: docker.sock, temp, data</text>
+    <rect x="220" y="40" width="380" height="48" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="410" y="69" text-anchor="middle" font-weight="600">1 &#183; git clone do QA Docker Manager</text>
+    <rect x="220" y="112" width="380" height="50" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="410" y="142" text-anchor="middle">2-4 &#183; docker compose up -d --build</text>
+    <rect x="220" y="314" width="380" height="52" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="410" y="337" text-anchor="middle">5 &#183; Verificar container no Docker Desktop</text>
+    <text x="410" y="356" text-anchor="middle" fill="#5c6b7a" font-size="12">porta 5058:8080</text>
+    <rect x="220" y="392" width="380" height="48" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="410" y="421" text-anchor="middle">6 &#183; Abrir localhost:5058 (interface)</text>
+    <rect x="220" y="478" width="380" height="56" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="410" y="501" text-anchor="middle">7 &#183; Novo Container: URL (sem .git),</text>
+    <text x="410" y="520" text-anchor="middle">Branch e Nome</text>
+    <rect x="220" y="560" width="380" height="50" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="410" y="590" text-anchor="middle">8-9 &#183; SUBIR CONTAINER (clona a branch)</text>
+    <rect x="220" y="762" width="380" height="52" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="410" y="785" text-anchor="middle">10 &#183; Acessar a porta do servi&#231;o</text>
+    <text x="410" y="804" text-anchor="middle" fill="#5c6b7a" font-size="12">ex.: :5200</text>
   </g>
-  <polygon points="410,100 565,150 410,198 255,150" fill="#fef3e2" stroke="#f18800" stroke-width="1.6"/>
-  <text x="410" y="146" text-anchor="middle" font-size="12.5" fill="#1a1417">Docker + Compose</text>
-  <text x="410" y="162" text-anchor="middle" font-size="12.5" fill="#1a1417">instalados?</text>
-  <rect x="600" y="126" width="200" height="48" rx="10" fill="#fbeaea" stroke="#cc093b" stroke-width="1.5"/>
-  <text x="700" y="147" text-anchor="middle" font-size="12" fill="#1a1417">Instalar Docker Engine</text>
-  <text x="700" y="163" text-anchor="middle" font-size="12" fill="#1a1417">+ Compose v2</text>
-  <polygon points="410,300 565,348 410,398 255,348" fill="#fef3e2" stroke="#f18800" stroke-width="1.6"/>
-  <text x="410" y="344" text-anchor="middle" font-size="12.5" fill="#1a1417">Primeira</text>
-  <text x="410" y="360" text-anchor="middle" font-size="12.5" fill="#1a1417">execução?</text>
-  <rect x="600" y="324" width="200" height="48" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
-  <text x="700" y="345" text-anchor="middle" font-size="12" fill="#1a1417">Baixa imagens base</text>
-  <text x="700" y="361" text-anchor="middle" font-size="12" fill="#5c6b7a">.NET SDK / runtime / CLI</text>
-  <polygon points="410,658 565,708 410,758 255,708" fill="#fef3e2" stroke="#f18800" stroke-width="1.6"/>
-  <text x="410" y="704" text-anchor="middle" font-size="12.5" fill="#1a1417">running /</text>
-  <text x="410" y="720" text-anchor="middle" font-size="12.5" fill="#1a1417">healthy?</text>
-  <rect x="20" y="684" width="202" height="48" rx="10" fill="#fbeaea" stroke="#cc093b" stroke-width="1.5"/>
-  <text x="121" y="705" text-anchor="middle" font-size="12" fill="#1a1417">docker compose logs -f</text>
-  <text x="121" y="721" text-anchor="middle" font-size="12" fill="#5c6b7a">investigar o erro</text>
-  <rect x="220" y="782" width="380" height="54" rx="10" fill="#e6f4ec" stroke="#1f9d63" stroke-width="1.8"/>
-  <text x="410" y="806" text-anchor="middle" font-size="14" font-weight="700" fill="#1f7a4d">Ambiente no ar</text>
-  <text x="410" y="825" text-anchor="middle" font-size="12" fill="#1f7a4d">http://localhost:5058</text>
+  <polygon points="410,192 565,240 410,288 255,240" fill="#fef3e2" stroke="#f18800" stroke-width="1.6"/>
+  <text x="410" y="236" text-anchor="middle" font-size="12.5" fill="#1a1417">Build concluiu</text>
+  <text x="410" y="252" text-anchor="middle" font-size="12.5" fill="#1a1417">(DONE)?</text>
+  <rect x="600" y="216" width="200" height="48" rx="10" fill="#fbeaea" stroke="#cc093b" stroke-width="1.5"/>
+  <text x="700" y="237" text-anchor="middle" font-size="12" fill="#1a1417">Erro no terminal &#8212;</text>
+  <text x="700" y="253" text-anchor="middle" font-size="12" fill="#1a1417">ambiente n&#227;o sobe</text>
+  <polygon points="410,640 565,688 410,736 255,688" fill="#fef3e2" stroke="#f18800" stroke-width="1.6"/>
+  <text x="410" y="684" text-anchor="middle" font-size="12.5" fill="#1a1417">Status</text>
+  <text x="410" y="700" text-anchor="middle" font-size="12.5" fill="#1a1417">rodando (3/3)?</text>
+  <rect x="20" y="664" width="202" height="48" rx="10" fill="#fbeaea" stroke="#cc093b" stroke-width="1.5"/>
+  <text x="121" y="685" text-anchor="middle" font-size="12" fill="#1a1417">Verificar branch /</text>
+  <text x="121" y="701" text-anchor="middle" font-size="12" fill="#1a1417">credenciais do repo</text>
+  <rect x="220" y="840" width="380" height="56" rx="10" fill="#e6f4ec" stroke="#1f9d63" stroke-width="1.8"/>
+  <text x="410" y="864" text-anchor="middle" font-size="14" font-weight="700" fill="#1f7a4d">11 &#183; Aplica&#231;&#227;o da branch validada</text>
+  <text x="410" y="883" text-anchor="middle" font-size="12" fill="#1f7a4d">pronta para os testes funcionais</text>
 </svg>
 </div>
 
 <Callout type="dica" title="Como ler o fluxograma">
-Um único comando (<strong>docker compose up -d --build</strong>) dispara o build <strong>multi-stage</strong> e sobe o container. Na primeira vez, o Docker baixa as imagens base; nas próximas, aproveita o cache. Quando o status fica <strong>healthy</strong>, a interface está pronta em <strong>http://localhost:5058</strong>.
+O <strong>Bloco A</strong> prepara a ferramenta uma vez (clonar e subir o QA Docker Manager). O <strong>Bloco B</strong> se repete a cada branch: preencher os dados, clicar em <strong>SUBIR CONTAINER</strong> e, quando os serviços ficam <strong>rodando</strong>, acessar a aplicação pela porta gerada.
 </Callout>
 
 ## FAQ
 
 <FaqAccordion
   items={[
-    { question: 'O que é build multi-stage?', answer: 'É dividir o Dockerfile em estágios: um para compilar (com o SDK) e outro para executar (só com o runtime). A imagem final leva apenas o necessário para rodar, ficando menor e mais segura.' },
-    { question: 'Por que a ferramenta precisa do socket do Docker?', answer: 'Porque ela não roda um Docker próprio: ela comanda o Docker do servidor (host) para criar e gerenciar os containers de teste. Esse acesso vem do mapeamento do docker.sock no compose.' },
-    { question: 'A primeira execução é sempre demorada?', answer: 'A primeira sim, porque o Docker baixa as imagens base e compila o projeto. As execuções seguintes reaproveitam o cache e são bem mais rápidas.' },
-    { question: 'Como mudo a porta de acesso?', answer: 'No docker-compose.yml, altere o lado esquerdo do mapeamento de portas. Por exemplo, "8090:8080" passa a publicar a interface em http://localhost:8090.' },
-    { question: 'O "docker compose down" apaga os ambientes de teste?', answer: 'Não. Ele remove apenas o container da ferramenta. Os ambientes criados por ela continuam no Docker do host, e as pastas temp e data são preservadas.' },
+    { question: 'Preciso saber Docker ou Git para usar?', answer: 'Não. A preparação inicial (Bloco A) usa dois comandos prontos, e o dia a dia (Bloco B) é feito por um formulário na tela da ferramenta. O QA Docker Manager abstrai os comandos de Docker e Git.' },
+    { question: 'Posso testar mais de uma branch ao mesmo tempo?', answer: 'Sim. Cada ambiente é isolado, então é possível subir e validar várias branches simultaneamente sem conflito entre elas.' },
+    { question: 'Por que a URL do repositório não pode ter ".git"?', answer: 'Incluir o sufixo ".git" pode causar falha na identificação e na clonagem do repositório pela ferramenta. Informe a URL sem essa extensão.' },
+    { question: 'Qual a diferença entre PARAR e REMOVER?', answer: 'PARAR interrompe os serviços mas mantém o container para reiniciar depois. REMOVER exclui o container e também limpa a imagem gerada localmente, exigindo reconstrução completa em uma nova subida.' },
+    { question: 'Quanto tempo leva para o ambiente subir?', answer: 'Em média de 3 a 5 minutos, dependendo do tamanho do repositório e da conexão de rede.' },
   ]}
 />
 
@@ -271,11 +373,12 @@ Um único comando (<strong>docker compose up -d --build</strong>) dispara o buil
 
 <DocControl
   signers={[
-    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '19/08/2026' },
     { role: 'Revisado por', name: 'A definir', date: 'A definir' },
-    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'Renan Camargo', date: '19/08/2026' },
   ]}
   versions={[
-    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial do fluxo de build e execução do QA Docker Manager via Docker (multi-stage + compose).' },
+    { version: '1.0', date: '18/08/2026', author: 'Renan Camargo', description: 'Revisão, padronização e reestruturação do documento original em formato de manual de QA.' },
+    { version: '1.1', date: '19/08/2026', author: 'Renan Camargo', description: 'Inclusão dos requisitos do Docker Desktop, tempo médio de subida (3–5 min), padrão de nomenclatura de branches e fluxograma do processo.' },
   ]}
 />

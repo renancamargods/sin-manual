@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import { manualPages, moduleEn, manualPageEn, tecnicoGroupEn, routineTitleEn, tecnicoSubEn, sortedModules, sortedRoutines, sortedTecnicoPages, sortedTecnicoSubPages } from '../data/modules';
+import { manualPages, moduleEn, manualPageEn, tecnicoGroupEn, routineTitleEn, tecnicoSubEn, sortedModules, sortedRoutines, sortedTecnicoPages, sortedTecnicoSubPages, groupedTecnicoSubPages } from '../data/modules';
 
 interface Props {
   currentPath: string;
@@ -119,7 +119,8 @@ const unavailableClasses = 'text-brand-red/70 cursor-not-allowed';
       {sortedTecnicoPages(isEn).map((group) => {
         const groupHref = L(`/tecnico/${group.slug}`);
         const activeGroup = currentPath.startsWith(`${groupHref}/`) || isActive(groupHref);
-        const pages = sortedTecnicoSubPages(group, isEn);
+        const subgroups = groupedTecnicoSubPages(group, isEn);
+        const hasPages = subgroups.some((sg) => sg.pages.length > 0);
         return (
           <li>
             <details open={activeGroup || undefined} class="group">
@@ -133,31 +134,40 @@ const unavailableClasses = 'text-brand-red/70 cursor-not-allowed';
                 </a>
                 <Icon name="chevron-right" class="h-3.5 w-3.5 flex-shrink-0 text-gray-400 transition-transform duration-150 group-open:rotate-90" />
               </summary>
-              {pages.length > 0 && (
-                <ul class="mt-0.5 space-y-0.5 border-l border-gray-200 pl-3">
-                  {pages.map((sub) => {
-                    const href = `${groupHref}/${sub.slug}`;
-                    const isAvailable = availableTecnicoSlugs.includes(`${group.slug}/${sub.slug}`);
-                    const label = tecnicoSubLabel(group.slug, sub.slug, sub.title);
-                    return (
-                      <li>
-                        {sub.unavailable ? (
-                          <span class:list={[linkBase, unavailableClasses, 'flex items-center justify-between gap-2']} title={naTitle}>
-                            {label}
-                            <span class="text-[10px] uppercase tracking-wide text-brand-red/80">{naLabel}</span>
-                          </span>
-                        ) : isAvailable ? (
-                          <a href={href} class:list={[linkBase, isActive(href) ? activeClasses : inactiveClasses]}>{label}</a>
-                        ) : (
-                          <span class:list={[linkBase, mutedClasses, 'flex items-center justify-between']}>
-                            {label}
-                            <span class="text-[10px] uppercase tracking-wide text-gray-500">{soonLabel}</span>
-                          </span>
-                        )}
-                      </li>
-                    );
-                  })}
-                </ul>
+              {hasPages && (
+                <div class="mt-0.5 space-y-1.5 border-l border-gray-200 pl-3">
+                  {subgroups.map((sg) => (
+                    <div>
+                      {sg.label && (
+                        <p class="px-2.5 pb-0.5 pt-1 text-[10px] font-semibold uppercase tracking-wider text-gray-400">{sg.label}</p>
+                      )}
+                      <ul class="space-y-0.5">
+                        {sg.pages.map((sub) => {
+                          const href = `${groupHref}/${sub.slug}`;
+                          const isAvailable = availableTecnicoSlugs.includes(`${group.slug}/${sub.slug}`);
+                          const label = tecnicoSubLabel(group.slug, sub.slug, sub.title);
+                          return (
+                            <li>
+                              {sub.unavailable ? (
+                                <span class:list={[linkBase, unavailableClasses, 'flex items-center justify-between gap-2']} title={naTitle}>
+                                  {label}
+                                  <span class="text-[10px] uppercase tracking-wide text-brand-red/80">{naLabel}</span>
+                                </span>
+                              ) : isAvailable ? (
+                                <a href={href} class:list={[linkBase, isActive(href) ? activeClasses : inactiveClasses]}>{label}</a>
+                              ) : (
+                                <span class:list={[linkBase, mutedClasses, 'flex items-center justify-between']}>
+                                  {label}
+                                  <span class="text-[10px] uppercase tracking-wide text-gray-500">{soonLabel}</span>
+                                </span>
+                              )}
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
               )}
             </details>
           </li>

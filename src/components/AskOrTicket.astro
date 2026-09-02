@@ -1,0 +1,84 @@
+---
+// AskOrTicket — box de "última milha" no fim de cada página do manual.
+// Ideia: o usuário tenta se resolver no manual (autoatendimento); se não achou,
+// abre uma pergunta/chamado para o suporte. A resposta recorrente vira conteúdo.
+//
+// Canal atual: mailto (mesmo padrão do "Sugerir melhoria" do SiteFooter).
+// Para trocar por Azure DevOps / ferramenta de chamado, basta alterar o
+// destino (SUPPORT_TARGET) e, se for uma URL http, o script abre em nova aba.
+import Icon from './Icon.astro';
+
+const isEn = Astro.url.pathname === '/en' || Astro.url.pathname.startsWith('/en/');
+
+// Destino do chamado. Provisório — trocar pelo e-mail/URL oficial do suporte.
+const SUPPORT_TARGET = 'mailto:renansinimplante@gmail.com';
+
+const t = isEn
+  ? {
+      title: "Didn't find what you needed?",
+      text: 'Ask your question or open a support ticket. We answer — and if it makes sense, it becomes part of this manual.',
+      button: 'Ask / Open a ticket',
+    }
+  : {
+      title: 'Não encontrou o que precisava?',
+      text: 'Faça sua pergunta ou abra um chamado para o suporte. A gente responde — e, se fizer sentido, isso vira conteúdo do manual.',
+      button: 'Pergunte / Abra chamado',
+    };
+---
+
+<aside
+  class="not-prose mt-12 rounded-xl2 border border-gray-200 bg-gray-50 p-5 sm:flex sm:items-center sm:justify-between sm:gap-6"
+  data-ask-target={SUPPORT_TARGET}
+  data-ask-lang={isEn ? 'en' : 'pt'}
+>
+  <div class="sm:max-w-xl">
+    <p class="flex items-center gap-2 text-sm font-semibold text-gray-900">
+      <Icon name="info" class="h-4 w-4 text-brand-red" />
+      {t.title}
+    </p>
+    <p class="mt-1 text-sm text-gray-600">{t.text}</p>
+  </div>
+  <a
+    id="ask-ticket-link"
+    href={SUPPORT_TARGET}
+    class="mt-4 inline-flex w-fit shrink-0 items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 shadow-card transition hover:border-brand-red/40 hover:text-brand-red sm:mt-0"
+  >
+    {t.button}
+    <Icon name="arrow-right" class="h-4 w-4 text-brand-red" />
+  </a>
+</aside>
+
+<script is:inline>
+  (function () {
+    var box = document.querySelector('[data-ask-target]');
+    var a = document.getElementById('ask-ticket-link');
+    if (!box || !a) return;
+
+    var target = box.getAttribute('data-ask-target') || '';
+    var isEn = box.getAttribute('data-ask-lang') === 'en';
+
+    var page = (document.title || '').replace(' · Manual S.I.N.', '').trim();
+    if (!page) page = 'Manual';
+
+    var subject = isEn
+      ? 'Question / Ticket - S.I.N Manual: ' + page
+      : 'Pergunta / Chamado - Manual S.I.N: ' + page;
+
+    var body = isEn
+      ? 'Page: ' + page + '\nURL: ' + location.href + '\n\nMy question:\n'
+      : 'Página: ' + page + '\nEndereço: ' + location.href + '\n\nMinha pergunta:\n';
+
+    if (target.indexOf('mailto:') === 0) {
+      a.href =
+        target +
+        '?subject=' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(body);
+    } else {
+      // Destino http (ex.: ferramenta de chamado): abre em nova aba já com contexto.
+      var sep = target.indexOf('?') === -1 ? '?' : '&';
+      a.href = target + sep + 'origem=' + encodeURIComponent(location.href);
+      a.target = '_blank';
+      a.rel = 'noopener';
+    }
+  })();
+</script>

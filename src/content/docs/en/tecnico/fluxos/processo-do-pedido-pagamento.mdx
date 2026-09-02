@@ -1,0 +1,158 @@
+---
+section: tecnico
+routeSlug: fluxos/processo-do-pedido-pagamento
+pageType: tecnico
+lang: en
+title: Order Process - Payment
+description: Part 4 of the order process — the payment methods (boleto, PIX, card and mixed payment), their rules and fields, the payment statuses and the link to the collection step in the approval.
+moduleLabel: Orders Module
+routineType: Process flow
+impact: Order payment methods and rules
+keywords: [order, payment, payment method, payment term, boleto, boleto day, pix, card, mixed payment, remaining amount, collection, token]
+tags: [tecnico, fluxo, pedido]
+order: 5
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+This is **Part 4** of the [Order Process](/en/tecnico/fluxos/processo-do-pedido). Here we detail the **payment**: the order uses a **Payment Term** (which carries the **Payment Method**). The most common methods are **boleto**, **PIX** and **card**, and you can combine methods in a **mixed payment**.
+
+The chosen method defines its own fields and rules — for example, **boleto** asks for the due day, and **PIX/card** go through a token/link flow with their own statuses. The method also influences the **approval**: orders with **PIX or card** trigger the **Collection** step.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Define the payment', text: 'Choose payment method and term and, if needed, split into a mixed payment.' },
+    { label: 'Use', title: 'Rules by method', text: 'Boleto asks for the day; PIX and card go through token/link.' },
+    { label: 'Caution', title: 'Impact on approval', text: 'PIX and card trigger the Collection step in the approval route.' },
+  ]}
+/>
+
+## When to use
+
+- Choose the order's payment method and term.
+- Split the payment across more than one method (mixed payment).
+- Understand the payment statuses (token, PIX, card) and why collection came in.
+
+## Payment methods
+
+<DocTable
+  headers={['Method', 'How it works', 'Point of attention']}
+  rows={[
+    ['Boleto', 'Generates a boleto with a defined due day.', 'Requires the "Boleto Payment Day" (see below).'],
+    ['PIX', 'Generates a PIX link/charge; the order waits for confirmation.', 'Goes through its own statuses (Awaiting Pix Generation, Pix Link Generated, Awaiting PIX Payment). Triggers Collection in the approval.'],
+    ['Card', 'Generates a card link/charge; goes through a token.', 'Own statuses (Awaiting Token, Awaiting Card Payment, Error Generating Link). Triggers Collection in the approval.'],
+    ['Mixed', 'Combines two or more methods/terms, splitting the total value.', 'Each installment has rules (see Mixed payment).'],
+  ]}
+/>
+
+<Callout type="info" title="Method x Payment Term">
+The **Payment Method** (boleto, PIX, card…) and the **Payment Term** (deadlines/installments) are records of the **Policies** module. The order selects a **Payment Term**, which already carries the associated method.
+</Callout>
+
+## Boleto — payment day
+
+When payment is by **boleto**, the **Boleto Payment Day** field is required and must be a **valid day of the month**:
+
+<DocTable
+  headers={['Rule', 'Value']}
+  rows={[
+    ['Required for boleto', 'The day must be entered when the term is boleto.'],
+    ['Minimum value', 'Cannot be less than 1.'],
+    ['Maximum value', 'Cannot be greater than 31.'],
+  ]}
+/>
+
+## Mixed payment
+
+The **mixed payment** splits the order total across two or more methods/terms. Each mixed payment line has its own rules:
+
+<DocTable
+  headers={['Line field', 'Rule']}
+  rows={[
+    ['Payment Method', 'Required — select the method for that installment.'],
+    ['Payment Term', 'Required — select the term for that installment.'],
+    ['Payment Value', 'Required and greater than zero.'],
+    ['Value x Remaining', 'The installment value cannot be greater than the Remaining Amount (what is still left to pay of the total).'],
+  ]}
+/>
+
+<Callout type="atencao" title="The sum must add up">
+In mixed payment, the system controls the **Remaining Amount**. Each installment consumes part of the total; none can exceed what is left. Close the total value by distributing it across the methods.
+</Callout>
+
+## Payment statuses (PIX and card)
+
+Orders with PIX or card go through specific payment statuses until confirmation:
+
+<DocTable
+  headers={['Group', 'Status', 'What it indicates']}
+  rows={[
+    ['Card', 'Awaiting Token, Awaiting Card Payment, Token Expired, Token Cancelled, Error Generating Card Link', 'Card payment steps (with token/link).'],
+    ['PIX', 'Awaiting Pix Generation, Pix Link Generated, Awaiting PIX Payment, Error Generating Pix', 'PIX payment steps.'],
+    ['Result', 'Paid Successfully, Payment Denied, Payment Cancelled, Payment Failure', 'Payment outcome.'],
+    ['Mixed', 'Awaiting Mixed Payments Generation, Mixed Payments Generated, Awaiting Mixed Payments, Awaiting SAP Integration', 'Steps when the payment is mixed.'],
+  ]}
+/>
+
+## Link to the approval
+
+The payment method influences the approval route: orders with **PIX or card** trigger the **Collection** step (financial check). The exact step and order come from the **Approval Rule** — see the <em>Order Approval - Without Ignition</em> flow.
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Payment Term / Payment Method (Policies)', 'The order uses a term, which carries the method.', 'Register the correct term/method first.'],
+    ['PIX Reconciler', 'Reconciles PIX payments with orders and SAP.', 'See the PIX Reconciler screen (Administrator).'],
+    ['Payment Terminal', 'Terminals (POS) per Lounge, when applicable.', 'See Payment Terminal and the Lounge\'s "Card Payment?" parameter.'],
+    ['Order Approval', 'PIX/card trigger the Collection step.', 'See the Order Approval flow.'],
+  ]}
+/>
+
+## What this stretch does not do
+
+- It does not register payment methods/terms — that is done in the Policies module.
+- It does not process the transaction — it only defines the method and rules in the order.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The boleto is not accepted', 'Payment day outside 1 to 31 or not entered', 'Enter a valid day of the month (1 to 31).'],
+    ['The mixed payment does not close', 'Sum of installments different from the total or installment greater than the remaining', 'Adjust the values; no installment can exceed the Remaining Amount.'],
+    ['The order is stuck awaiting payment', 'PIX/card not yet confirmed or link/token error', 'Check the payment statuses (Awaiting/Error) and the provider.'],
+    ['An unexpected collection step came in', 'PIX or card method', 'Orders with PIX/card trigger Collection (see Order Approval).'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Where do I choose the payment method?', answer: 'Through the order\'s Payment Term — it already carries the associated method (boleto, PIX, card…).' },
+    { question: 'What is a valid boleto day?', answer: 'A day of the month between 1 and 31; it is required when payment is by boleto.' },
+    { question: 'How does mixed payment work?', answer: 'You split the total into installments with different methods/terms; each installment needs a value greater than zero and cannot exceed the remaining amount.' },
+    { question: 'Why did my order trigger Collection?', answer: 'Orders with PIX or card trigger the Collection step in the approval route.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release — Part 4 (payment) of the order process.' },
+  ]}
+/>

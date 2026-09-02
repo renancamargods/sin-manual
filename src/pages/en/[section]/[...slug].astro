@@ -2,6 +2,7 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import DocsLayout from '../../../layouts/DocsLayout.astro';
 import RoutineList from '../../../components/RoutineList.astro';
+import AskOrTicket from '../../../components/AskOrTicket.astro';
 import { getModule, tecnicoPages, manualPages, moduleEn, manualPageEn, tecnicoGroupEn, routineTitleEn, tecnicoSubEn, sortedModules, sortedRoutines, sortedTecnicoPages, sortedTecnicoSubPages } from '../../../data/modules';
 
 // Rotas em inglês. Geram uma URL /en/* para cada página PT (canônica).
@@ -174,6 +175,8 @@ const backToModule =
       </a>
     </p>
   )}
+
+  <AskOrTicket />
 
   {(prevPage || nextPage) && (
     <nav class="not-prose mt-8 grid gap-3 border-t border-gray-200 pt-6 sm:grid-cols-2" aria-label="Page navigation">

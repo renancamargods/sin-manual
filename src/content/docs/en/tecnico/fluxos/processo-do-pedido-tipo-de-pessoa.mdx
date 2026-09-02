@@ -1,0 +1,148 @@
+---
+section: tecnico
+routeSlug: fluxos/processo-do-pedido-tipo-de-pessoa
+pageType: tecnico
+lang: en
+title: Order Process - By Person Type
+description: Part 2 of the order process — how the customer's Person Type (Individual, Company or Foreign) defines the currency, the domestic or international path and the review groups, with the differences of each one.
+moduleLabel: Orders Module
+routineType: Process flow
+impact: Order branching by person type (domestic x international)
+keywords: [order, person type, individual, company, foreign, domestic, international, foreign trade, currency, foreign currency, currency x person type, domestic review, international review]
+tags: [tecnico, fluxo, pedido]
+order: 5
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+This is **Part 2** of the [Order Process](/en/tecnico/fluxos/processo-do-pedido). Here we detail the first major branch: the customer's **Person Type**. It determines the **currency**, whether the order follows the **domestic or international** path and which **review groups** the order goes through.
+
+There are three person types: **Individual**, **Company** and **Foreign**. Individual and Company follow the **domestic path**; Foreign is treated as a **foreign trade customer** and follows the **international path**.
+
+<Callout type="info" title="Person type comes from the customer">
+You do not choose the person type on the order — it already comes from the selected **customer**. That is why the customer is the first and most decisive step of the process.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Understand the branch', text: 'Know what changes in the order depending on whether the customer is Individual, Company or Foreign.' },
+    { label: 'Use', title: 'Domestic x international', text: 'Individual/Company = domestic; Foreign = international (foreign trade).' },
+    { label: 'Caution', title: 'Currency and price', text: 'The person type defines the available currency and how the item price is considered.' },
+  ]}
+/>
+
+## When to use
+
+- Understand why an order became domestic or international.
+- Know which currency and which review groups apply to the customer.
+- Diagnose price differences (domestic currency x foreign currency).
+
+## The three person types
+
+<DocTable
+  headers={['Person Type', 'Who it is', 'Path']}
+  rows={[
+    ['Individual', 'Domestic individual customer (identified by CPF).', 'Domestic.'],
+    ['Company', 'Domestic legal entity customer (identified by CNPJ).', 'Domestic.'],
+    ['Foreign', 'Customer from abroad (foreign trade).', 'International.'],
+  ]}
+/>
+
+## Domestic or International: how it is decided
+
+The order's **Domestic/International** field is set by the **address location**: if the **address country is Brazil**, the order is **Domestic**; otherwise, it is **International**. This comparison uses the **`IdPaisBrasil`** parameter (which tells the system which country is Brazil).
+
+In practice, this aligns with the person type: **Individual/Company** (domestic) customers result in a **Domestic** order, and **Foreign** customers result in an **International** order. **Freight** follows: Foreign → **international freight**; the others → **domestic freight**.
+
+<Callout type="atencao" title="The address decides">
+Since the definition looks at the address country, keep the customer's address correct. A wrong address can classify the order as domestic/international incorrectly and affect currency, freight and review.
+</Callout>
+
+## Currency by person type
+
+The currencies available for the order depend on the person type. This association is done on the **Currency × Person Type** screen (Orders module), which links each **currency** to one or more **person types**.
+
+<DocTable
+  headers={['Path', 'Typical currency', 'How the price is considered']}
+  rows={[
+    ['Domestic (Individual / Company)', 'Domestic currency (e.g., BRL).', 'Item price by the reference invoice (domestic value).'],
+    ['International (Foreign / foreign trade)', 'Foreign currency (e.g., USD, EUR).', 'Item price by the foreign-currency unit value.'],
+  ]}
+/>
+
+## What changes in each path
+
+<DocTable
+  headers={['Aspect', 'Domestic (Individual / Company)', 'International (Foreign)']}
+  rows={[
+    ['Order classification', 'Domestic (address country = Brazil).', 'International (address country ≠ Brazil).'],
+    ['Currency', 'Domestic currency (per Currency × Person Type).', 'Foreign currency (per Currency × Person Type).'],
+    ['Item price', 'Value by the reference invoice.', 'Foreign-currency unit value.'],
+    ['Freight', 'Domestic freight.', 'International freight.'],
+    ['Review / Approval', 'Domestic groups (Administrative Domestic and Credit Domestic).', 'International groups (Administrative International and Credit International).'],
+    ['Customer identification', 'CPF (Individual) or CNPJ (Company).', 'Foreign / foreign trade customer documents.'],
+  ]}
+/>
+
+<Callout type="dica" title="Where the review groups are configured">
+The email groups that receive the review (Administrative and Credit, Domestic or International) are system parameters (`ConfiguracoesDeGruposDeEmailAprovacoes`). Who actually approves each step comes from the **Approval Rule** — see the <em>Order Approval - Without Ignition</em> flow.
+</Callout>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Customer Registration', 'The person type and address are defined in the customer registration.', 'See the Customer Registration flows (With and Without Ignition).'],
+    ['Currency × Person Type', 'Defines which currencies are available for each person type.', 'Register the currency for the correct person type.'],
+    ['Order items', 'The item price is considered according to domestic/international.', 'See Part 3 - Items.'],
+    ['Order Approval', 'The review groups vary between domestic and international.', 'See the Order Approval flow.'],
+  ]}
+/>
+
+## What this stretch does not do
+
+- It does not register the customer or the address — that is done in the Customers module.
+- It does not define who approves — that comes from the Approval Rule (Order Approval flow).
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['Order came out as the wrong domestic/international', 'Wrong address country', 'Check the customer address (the country decides) and the IdPaisBrasil parameter.'],
+    ['Expected currency does not appear', 'Currency not linked to the person type', 'Check the Currency × Person Type screen.'],
+    ['Price came in the wrong currency', 'Foreign trade customer treated as domestic (or vice versa)', 'Confirm the customer person type.'],
+    ['The review went to the wrong group', 'Wrong person type or group configuration', 'Check the person type and the email groups (domestic/international).'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Who defines the order\'s person type?', answer: 'The customer. The person type (Individual, Company or Foreign) comes from the customer registration.' },
+    { question: 'How does the system know if the order is domestic or international?', answer: 'By the address country: if it is Brazil, it is domestic; otherwise, international (IdPaisBrasil parameter).' },
+    { question: 'Why did the item price change?', answer: 'Foreign customers (foreign trade) use the foreign-currency value; domestic ones use the reference-invoice value.' },
+    { question: 'Do Individual and Company follow the same path?', answer: 'Yes, both follow the domestic path. The main difference is the identification (CPF x CNPJ) and the customer registration validations.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release — Part 2 (by person type) of the order process.' },
+  ]}
+/>

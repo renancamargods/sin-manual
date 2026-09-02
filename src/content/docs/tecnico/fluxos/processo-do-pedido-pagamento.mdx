@@ -1,0 +1,157 @@
+---
+section: tecnico
+routeSlug: fluxos/processo-do-pedido-pagamento
+pageType: tecnico
+title: Processo do Pedido - Pagamento
+description: Parte 4 do processo do pedido — as formas de pagamento (boleto, PIX, cartão e pagamento misto), suas regras e campos, os status de pagamento e a ligação com a etapa de cobrança na aprovação.
+moduleLabel: Módulo Pedidos
+routineType: Fluxo de processo
+impact: Formas e regras de pagamento do pedido
+keywords: [pedido, pagamento, forma de pagamento, condição de pagamento, boleto, dia do boleto, pix, cartão, pagamento misto, valor remanescente, cobrança, token]
+tags: [tecnico, fluxo, pedido]
+order: 5
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+Esta é a **Parte 4** do [Processo do Pedido](/tecnico/fluxos/processo-do-pedido). Aqui detalhamos o **pagamento**: o pedido usa uma **Condição de Pagamento** (que carrega a **Forma de Pagamento**). As formas mais comuns são **boleto**, **PIX** e **cartão**, e é possível combinar formas num **pagamento misto**.
+
+A forma escolhida define campos e regras próprias — por exemplo, o **boleto** pede o dia de vencimento, e **PIX/cartão** passam por um fluxo de token/link com status próprios. A forma também influencia a **aprovação**: pedidos com **PIX ou cartão** acionam a etapa de **Cobrança**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Definir o pagamento', text: 'Escolher forma e condição de pagamento e, se preciso, dividir em pagamento misto.' },
+    { label: 'Uso', title: 'Regras por forma', text: 'Boleto pede o dia; PIX e cartão passam por token/link.' },
+    { label: 'Cuidado', title: 'Impacto na aprovação', text: 'PIX e cartão acionam a etapa de Cobrança na rota de aprovação.' },
+  ]}
+/>
+
+## Quando usar
+
+- Escolher a forma e a condição de pagamento do pedido.
+- Dividir o pagamento em mais de uma forma (pagamento misto).
+- Entender os status de pagamento (token, PIX, cartão) e por que a cobrança entrou.
+
+## Formas de pagamento
+
+<DocTable
+  headers={['Forma', 'Como funciona', 'Ponto de atenção']}
+  rows={[
+    ['Boleto', 'Gera boleto com um dia de vencimento definido.', 'Exige o "Dia de Pagamento do Boleto" (ver abaixo).'],
+    ['PIX', 'Gera um link/cobrança PIX; o pedido aguarda a confirmação.', 'Passa por status próprios (Aguardando Gerar Pix, Link Pix Gerado, Aguardando Pagamento PIX). Aciona a Cobrança na aprovação.'],
+    ['Cartão', 'Gera link/cobrança no cartão; passa por token.', 'Status próprios (Aguardando Token, Aguardando Pagamento Cartão, Erro ao Gerar Link). Aciona a Cobrança na aprovação.'],
+    ['Misto', 'Combina duas ou mais formas/condições, dividindo o valor total.', 'Cada parcela tem regras (ver Pagamento misto).'],
+  ]}
+/>
+
+<Callout type="info" title="Forma x Condição de Pagamento">
+A **Forma de Pagamento** (boleto, PIX, cartão…) e a **Condição de Pagamento** (prazos/parcelas) são cadastros do módulo **Políticas**. O pedido seleciona uma **Condição de Pagamento**, que já traz a forma associada.
+</Callout>
+
+## Boleto — dia de pagamento
+
+Quando o pagamento é por **boleto**, o campo **Dia de Pagamento do Boleto** é exigido e precisa ser um **dia do mês válido**:
+
+<DocTable
+  headers={['Regra', 'Valor']}
+  rows={[
+    ['Obrigatório para boleto', 'O dia precisa ser informado quando a condição é boleto.'],
+    ['Valor mínimo', 'Não pode ser menor que 1.'],
+    ['Valor máximo', 'Não pode ser maior que 31.'],
+  ]}
+/>
+
+## Pagamento misto
+
+O **pagamento misto** divide o valor total do pedido entre duas ou mais formas/condições. Cada linha do pagamento misto tem suas próprias regras:
+
+<DocTable
+  headers={['Campo da linha', 'Regra']}
+  rows={[
+    ['Forma de Pagamento', 'Obrigatória — selecione a forma daquela parcela.'],
+    ['Condição de Pagamento', 'Obrigatória — selecione a condição daquela parcela.'],
+    ['Valor de Pagamento', 'Obrigatório e maior que zero.'],
+    ['Valor x Remanescente', 'O valor da parcela não pode ser maior que o Valor Remanescente (o que ainda falta pagar do total).'],
+  ]}
+/>
+
+<Callout type="atencao" title="A soma tem que fechar">
+No pagamento misto, o sistema controla o **Valor Remanescente**. Cada parcela consome parte do total; nenhuma pode exceder o que resta. Feche o valor total distribuindo entre as formas.
+</Callout>
+
+## Status de pagamento (PIX e cartão)
+
+Pedidos com PIX ou cartão passam por status específicos de pagamento até a confirmação:
+
+<DocTable
+  headers={['Grupo', 'Status', 'O que indica']}
+  rows={[
+    ['Cartão', 'Aguardando Token, Aguardando Pagamento Cartão, Token Expirado, Token Cancelado, Erro ao Gerar Link do Cartão', 'Etapas do pagamento por cartão (com token/link).'],
+    ['PIX', 'Aguardando Gerar Pix, Link Pix Gerado, Aguardando Pagamento PIX, Erro ao Gerar Pix', 'Etapas do pagamento por PIX.'],
+    ['Resultado', 'Pago com Sucesso, Pagamento Negado, Pagamento Cancelado, Falha no Pagamento', 'Desfecho do pagamento.'],
+    ['Misto', 'Aguardando Gerar Pagamentos Mistos, Pagamentos Mistos Gerados, Aguardando Pagamentos Mistos, Aguardando Integração SAP', 'Etapas quando o pagamento é misto.'],
+  ]}
+/>
+
+## Ligação com a aprovação
+
+A forma de pagamento influencia a rota de aprovação: pedidos com **PIX ou cartão** acionam a etapa de **Cobrança** (verificação financeira). A etapa e a ordem exatas vêm da **Regra de Aprovação** — ver o fluxo <em>Aprovação de Pedidos - Sem Ignition</em>.
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Condição de Pagamento / Forma de Pagamento (Políticas)', 'O pedido usa uma condição, que traz a forma.', 'Cadastre a condição/forma corretas antes.'],
+    ['Conciliadora Pix', 'Concilia os pagamentos PIX com os pedidos e o SAP.', 'Ver a tela Conciliadora Pix (Administrador).'],
+    ['Terminal de Pagamento', 'Terminais (maquininha/POS) por Lounge, quando aplicável.', 'Ver Terminal de Pagamento e o parâmetro "Pagamento na Maquininha?" do Lounge.'],
+    ['Aprovação de Pedidos', 'PIX/cartão acionam a etapa de Cobrança.', 'Ver o fluxo de Aprovação de Pedidos.'],
+  ]}
+/>
+
+## O que este trecho não faz
+
+- Não cadastra formas/condições de pagamento — isso é feito no módulo Políticas.
+- Não processa a transação — apenas define a forma e as regras no pedido.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O boleto não é aceito', 'Dia de pagamento fora de 1 a 31 ou não informado', 'Informe um dia válido do mês (1 a 31).'],
+    ['O pagamento misto não fecha', 'Soma das parcelas diferente do total ou parcela maior que o remanescente', 'Ajuste os valores; nenhuma parcela pode exceder o Valor Remanescente.'],
+    ['O pedido travou aguardando pagamento', 'PIX/cartão ainda não confirmado ou erro de link/token', 'Verifique os status de pagamento (Aguardando/Erro) e o provedor.'],
+    ['Entrou uma etapa de cobrança inesperada', 'Forma PIX ou cartão', 'Pedidos com PIX/cartão acionam a Cobrança (ver Aprovação de Pedidos).'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Onde escolho a forma de pagamento?', answer: 'Pela Condição de Pagamento do pedido — ela já traz a forma associada (boleto, PIX, cartão…).' },
+    { question: 'Qual o dia válido do boleto?', answer: 'Um dia do mês entre 1 e 31; é obrigatório quando o pagamento é por boleto.' },
+    { question: 'Como funciona o pagamento misto?', answer: 'Você divide o total em parcelas com formas/condições diferentes; cada parcela precisa de valor maior que zero e não pode passar do valor remanescente.' },
+    { question: 'Por que meu pedido acionou a Cobrança?', answer: 'Pedidos com PIX ou cartão acionam a etapa de Cobrança na rota de aprovação.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial — Parte 4 (pagamento) do processo do pedido.' },
+  ]}
+/>

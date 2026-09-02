@@ -9,6 +9,11 @@ export interface RoutineLink {
   // (ex.: retorna 404 / não carrega na homologação). No menu e no índice do módulo
   // aparece em vermelho, não clicável, com o selo "Não disponível" e sem página.
   unavailable?: boolean;
+  // Subgrupo dentro de um grupo técnico (ex.: em "Fluxos": Clientes, Pedido, Produtos,
+  // Romaneio, Docker). Quando presente, o menu agrupa as páginas por subgrupo.
+  subgroup?: string;
+  // Ordem dentro do subgrupo (menor primeiro; ex.: Visão Geral = 1). Fallback: alfabético.
+  order?: number;
 }
 
 export interface ModuleDef {
@@ -48,12 +53,16 @@ export const tecnicoPages: TecnicoGroup[] = [
     slug: 'fluxos',
     description: 'Como os principais processos se conectam entre módulos.',
     pages: [
-      { title: 'Romaneio', slug: 'romaneio', description: 'Fluxo de separação, etiquetagem, romaneio e coleta de remessas.' },
-      { title: 'Cadastro de Clientes x Aprovações - Com Ignition', slug: 'criacao-de-cliente', description: 'Criação, cadastro e aprovação de clientes (PF, PJ e estrangeiro) com a fila Ignition.' },
-      { title: 'Configuração de Produtos no Lounge', slug: 'configuracao-de-produtos-no-lounge', description: 'Parametrização de produtos por localidade e roteamento dos itens para o Lounge/Centro correto.' },
-      { title: 'Cadastro de Clientes x Aprovações - Sem Ignition', slug: 'cadastro-clientes-sem-ignition', description: 'Cadastro e aprovação de clientes (PF, PJ e estrangeiro) pela fila SEM Ignition, com regra e etapas de aprovação.' },
-      { title: 'Aprovação de Pedidos - Sem Ignition', slug: 'aprovacao-de-pedidos-sem-ignition', description: 'Criação e aprovação de pedidos pela fila SEM Ignition (ADM, Crédito e Cobrança Nacional), com fluxograma da rota de aprovação.' },
-      { title: 'Execução do QA Docker Manager (Docker)', slug: 'execucao-qa-docker-manager', description: 'Build multi-stage e execução do QA Docker Manager via docker compose, do terminal ao ambiente no ar.' },
+      { title: 'Cadastro de Clientes x Aprovações - Com Ignition', slug: 'criacao-de-cliente', subgroup: 'Clientes', order: 1, description: 'Criação, cadastro e aprovação de clientes (PF, PJ e estrangeiro) com a fila Ignition.' },
+      { title: 'Cadastro de Clientes x Aprovações - Sem Ignition', slug: 'cadastro-clientes-sem-ignition', subgroup: 'Clientes', order: 2, description: 'Cadastro e aprovação de clientes (PF, PJ e estrangeiro) pela fila SEM Ignition, com regra e etapas de aprovação.' },
+      { title: 'Processo do Pedido - Visão Geral', slug: 'processo-do-pedido', subgroup: 'Pedido', order: 1, description: 'Fluxo completo de criação do pedido: do cliente e tipo de pessoa aos itens, pagamento, políticas, envio, análise e integração ao SAP, com campos obrigatórios, permissões e parâmetros.' },
+      { title: 'Processo do Pedido - Por Tipo de Pessoa', slug: 'processo-do-pedido-tipo-de-pessoa', subgroup: 'Pedido', order: 2, description: 'Parte 2: como o tipo de pessoa (Física, Jurídica ou Estrangeiro) do cliente define moeda, caminho nacional/internacional e grupos de análise.' },
+      { title: 'Processo do Pedido - Itens e Tipos de Item', slug: 'processo-do-pedido-itens', subgroup: 'Pedido', order: 3, description: 'Parte 3: os itens do pedido, os tipos de item (Venda, Bonificação, Campanha e outros), de onde vem o preço, os campos e as regras de validação no envio.' },
+      { title: 'Processo do Pedido - Pagamento', slug: 'processo-do-pedido-pagamento', subgroup: 'Pedido', order: 4, description: 'Parte 4: formas de pagamento (boleto, PIX, cartão e pagamento misto), regras e campos, status de pagamento e ligação com a etapa de cobrança na aprovação.' },
+      { title: 'Aprovação de Pedidos - Sem Ignition', slug: 'aprovacao-de-pedidos-sem-ignition', subgroup: 'Pedido', order: 20, description: 'Criação e aprovação de pedidos pela fila SEM Ignition (ADM, Crédito e Cobrança Nacional), com fluxograma da rota de aprovação.' },
+      { title: 'Configuração de Produtos no Lounge', slug: 'configuracao-de-produtos-no-lounge', subgroup: 'Produtos', order: 1, description: 'Parametrização de produtos por localidade e roteamento dos itens para o Lounge/Centro correto.' },
+      { title: 'Romaneio', slug: 'romaneio', subgroup: 'Romaneio', order: 1, description: 'Fluxo de separação, etiquetagem, romaneio e coleta de remessas.' },
+      { title: 'Ambiente de Testes por Branch via Docker (QA Docker Manager)', slug: 'execucao-qa-docker-manager', subgroup: 'Docker', order: 1, description: 'Procedimento de QA para subir ambientes de teste isolados por branch com o QA Docker Manager, da preparação local à validação da aplicação.' },
     ],
   },
   { title: 'APIs', slug: 'apis', description: 'Integrações disponíveis para troca de informações com outros sistemas.', pages: [] },
@@ -631,7 +640,11 @@ export const tecnicoSubEn: Record<string, string> = {
   'fluxos/configuracao-de-produtos-no-lounge': 'Product Configuration in the Lounge',
   'fluxos/cadastro-clientes-sem-ignition': 'Customer Registration x Approvals - Without Ignition',
   'fluxos/aprovacao-de-pedidos-sem-ignition': 'Order Approval - Without Ignition',
-  'fluxos/execucao-qa-docker-manager': 'Running the QA Docker Manager (Docker)',
+  'fluxos/execucao-qa-docker-manager': 'Branch Test Environment via Docker (QA Docker Manager)',
+  'fluxos/processo-do-pedido': 'Order Process - Overview',
+  'fluxos/processo-do-pedido-tipo-de-pessoa': 'Order Process - By Person Type',
+  'fluxos/processo-do-pedido-itens': 'Order Process - Items and Item Types',
+  'fluxos/processo-do-pedido-pagamento': 'Order Process - Payment',
 };
 
 // --- Ordenação alfabética (locale-aware) da navegação ---
@@ -669,11 +682,49 @@ export function sortedTecnicoPages(isEn = false): TecnicoGroup[] {
   );
 }
 
+// Rótulos EN dos subgrupos de Fluxos (ex.: "Clientes" -> "Customers").
+export const tecnicoSubgroupEn: Record<string, string> = {
+  Clientes: 'Customers',
+  Pedido: 'Orders',
+  Produtos: 'Products',
+  Romaneio: 'Loading List',
+  Docker: 'Docker',
+};
+
+function subgroupLabelOf(sub: RoutineLink, isEn: boolean): string {
+  if (!sub.subgroup) return '';
+  return isEn ? tecnicoSubgroupEn[sub.subgroup] ?? sub.subgroup : sub.subgroup;
+}
+
+// Ordena as subpáginas de um grupo técnico por: subgrupo (alfabético) -> order -> título.
+// Mantém a mesma ordem usada no menu e no paginador.
 export function sortedTecnicoSubPages(group: TecnicoGroup, isEn = false): RoutineLink[] {
-  return [...(group.pages ?? [])].sort((a, b) =>
-    collatorFor(isEn).compare(
-      isEn ? tecnicoSubEn[`${group.slug}/${a.slug}`] ?? a.title : a.title,
-      isEn ? tecnicoSubEn[`${group.slug}/${b.slug}`] ?? b.title : b.title,
-    ),
-  );
+  const collator = collatorFor(isEn);
+  const titleOf = (p: RoutineLink) =>
+    isEn ? tecnicoSubEn[`${group.slug}/${p.slug}`] ?? p.title : p.title;
+  return [...(group.pages ?? [])].sort((a, b) => {
+    const g = collator.compare(subgroupLabelOf(a, isEn), subgroupLabelOf(b, isEn));
+    if (g !== 0) return g;
+    const oa = a.order ?? 999;
+    const ob = b.order ?? 999;
+    if (oa !== ob) return oa - ob;
+    return collator.compare(titleOf(a), titleOf(b));
+  });
+}
+
+// Agrupa as subpáginas de um grupo técnico por subgrupo, na ordem de sortedTecnicoSubPages.
+// Retorna [{ label, pages }]. label = '' quando a página não tem subgrupo (render plano).
+export function groupedTecnicoSubPages(
+  group: TecnicoGroup,
+  isEn = false,
+): { label: string; pages: RoutineLink[] }[] {
+  const ordered = sortedTecnicoSubPages(group, isEn);
+  const out: { label: string; pages: RoutineLink[] }[] = [];
+  for (const page of ordered) {
+    const label = subgroupLabelOf(page, isEn);
+    const last = out[out.length - 1];
+    if (last && last.label === label) last.pages.push(page);
+    else out.push({ label, pages: [page] });
+  }
+  return out;
 }
