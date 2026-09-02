@@ -1,0 +1,167 @@
+---
+section: modulos
+routeSlug: pedidos/operacao-inteligente
+pageType: routine
+module: pedidos
+moduleLabel: Pedidos
+title: Operação Inteligente
+description: Cadastro das regras que relacionam o tipo de pedido às ordens do ERP, com parâmetros de comex, operação TDC, integração e tipos de ordem de origem.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Regras automáticas aplicadas na criação de pedidos
+keywords: [operação inteligente, tipo de pedido, ordem erp, comex, tdc, integração, pedidos]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Operação Inteligente** cadastra as regras que relacionam o **Tipo de Pedido** (por exemplo, Bonificação, Campanha, Venda, Devolução) à **Ordem ERP** correspondente, definindo parâmetros como disponibilidade em comércio exterior, **Operação TDC Relacionada** (Devolução, Troca, Consignado), integração e os **Tipos de Ordem de Origem**. É por meio dessas regras que o sistema automatiza o comportamento na criação de pedidos.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Regras automáticas', text: 'Relaciona tipos de pedido às ordens do ERP e suas regras.' },
+    { label: 'Uso', title: 'Criação de pedidos', text: 'As regras automatizam o comportamento do pedido.' },
+    { label: 'Cuidado', title: 'Parâmetros', text: 'As opções de comex, TDC e integração alteram o fluxo do pedido.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova operação inteligente para um tipo de pedido.
+- Definir a ordem ERP e as regras (comex, TDC, integração) de um tipo de pedido.
+- Consultar, editar ou excluir operações.
+
+## Como acessar
+
+Pedidos → Operação Inteligente
+
+## Antes de começar
+
+- Saiba o **Tipo de Pedido** e a **Ordem ERP** correspondente.
+- Defina as regras (comex, operação TDC, integração) e os tipos de ordem de origem.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Observação e Status (Ativo/Inativo), com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com colunas como "Tipo de Pedido", "Observação", "Status" e "Tipo Ordem de Origem", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição (abas)', 'Janela com as abas "Operação Inteligente" e "Pedidos".', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Operação Inteligente"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Observação', 'Descrição/observação da operação.'],
+    ['Ordem ERP', 'Ordem correspondente no ERP.'],
+    ['Tipo de Pedido', 'Tipo de pedido (ex.: Bonificação, Campanha, Venda, Devolução).'],
+    ['Disponível Comex?', 'Se a operação está disponível para comércio exterior (Sim/Não).'],
+    ['Operação TDC Relacionada', 'Operação TDC relacionada: Devolução, Troca ou Consignado.'],
+    ['Disponível apenas Pedidos Integração?', 'Se a operação vale apenas para pedidos de integração (Sim/Não).'],
+    ['Status', 'Situação da operação (Ativo/Inativo).'],
+    ['Disponível para Regra ZP/P?', 'Se a operação está disponível para a regra ZP/P (Sim/Não).'],
+    ['Tipo Ordem de Origem', 'Tipos de ordem de origem, separados por ponto e vírgula (ex.: ORB;YTRO;ZTNS).'],
+  ]}
+/>
+
+### Aba "Pedidos"
+
+<DocTable
+  headers={['Aba', 'O que mostra']}
+  rows={[
+    ['Pedidos', 'Pedidos relacionados à operação.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe a **Observação** e/ou o **Status** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe a **Observação**, a **Ordem ERP**, o **Tipo de Pedido** e as regras (comex, TDC, integração, ZP/P, tipos de ordem de origem) e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as operações conforme os filtros.', '—'],
+    ['+ Novo', 'Para cadastrar uma nova operação.', '—'],
+    ['Salvar e Continuar', 'Para salvar e continuar na aba Pedidos.', '—'],
+    ['Detalhes', 'Para consultar uma operação sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar uma operação existente.', 'Reveja as regras antes de salvar.'],
+    ['Excluir', 'Para remover uma operação.', 'Ação sem retorno; pode afetar a criação de pedidos.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Operação Inteligente', 'Acesso à tela', 'Permite abrir e utilizar a tela de Operação Inteligente.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Pedidos', 'As regras automatizam o comportamento na criação de pedidos.', 'Use o tipo de pedido correto.'],
+    ['Integração ERP', 'A Ordem ERP e os tipos de ordem de origem apoiam a integração.', 'Confira os códigos no ERP.'],
+    ['Trocas/Devoluções/Consignado (TDC)', 'A operação TDC relacionada define o vínculo com esses fluxos.', 'Escolha a operação TDC correta.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cria o pedido — apenas define as regras aplicadas na sua criação.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A regra não é aplicada', 'Operação inativa ou tipo de pedido incorreto', 'Verifique o Status e o Tipo de Pedido.'],
+    ['A ordem ERP saiu errada', 'Ordem ERP ou tipo de ordem de origem incorreto', 'Confira a Ordem ERP e o Tipo Ordem de Origem.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as regras que relacionam o tipo de pedido às ordens do ERP e automatizam o comportamento na criação de pedidos.' },
+    { question: 'O que é a "Operação TDC Relacionada"?', answer: 'Indica o vínculo com Devolução, Troca ou Consignado (TDC).' },
+    { question: 'Como informo os tipos de ordem de origem?', answer: 'No campo "Tipo Ordem de Origem", separados por ponto e vírgula (ex.: ORB;YTRO;ZTNS).' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Operação Inteligente.' },
+  ]}
+/>

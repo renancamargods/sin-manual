@@ -1,0 +1,163 @@
+---
+section: modulos
+routeSlug: administrador/controle-de-funcionalidade
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Controle de Funcionalidade
+description: Ativa e controla funcionalidades do sistema por chave, com valor tipado (booleano, texto, número ou JSON) e situação de habilitação.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Habilitação e configuração de funcionalidades do sistema
+keywords: [controle de funcionalidade, feature flag, chave, habilitada, valor, booleano, json, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Controle de Funcionalidade** administra as funcionalidades do sistema por meio de uma **Chave Identificadora**. Cada funcionalidade pode ser **Habilitada** ou não, tem um **Tipo do Valor** (Booleano, Texto, Número ou Json) e um **Valor** correspondente, além de **Nome** e **Descrição**. É o mecanismo de *feature flags* do sistema.
+
+<Callout type="cuidado" title="Configuração técnica">
+Alterar uma funcionalidade muda o comportamento do sistema. Faça mudanças apenas com conhecimento da chave e do efeito esperado, preferencialmente com apoio da equipe técnica.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Feature flags', text: 'Habilita e configura funcionalidades do sistema por chave.' },
+    { label: 'Uso', title: 'Valor tipado', text: 'O valor pode ser booleano, texto, número ou JSON.' },
+    { label: 'Cuidado', title: 'Impacto', text: 'Habilitar/desabilitar afeta o comportamento de telas e fluxos.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova funcionalidade controlada por chave.
+- Habilitar ou desabilitar uma funcionalidade.
+- Ajustar o valor de uma funcionalidade.
+
+## Como acessar
+
+Administrador → Controle de Funcionalidade
+
+## Antes de começar
+
+- Tenha a **Chave Identificadora** da funcionalidade.
+- Saiba o **Tipo do Valor** (Booleano, Texto, Número ou Json) e o **Valor** correto.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Chave Identificadora da Funcionalidade", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com as colunas "Chave Identificadora da Funcionalidade", "Nome", "Habilitada" e "Status Sistema", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela (aba "Controle de Funcionalidade") com os campos da funcionalidade.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Controle de Funcionalidade"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Chave Identificadora da Funcionalidade', 'Chave única que identifica a funcionalidade (ex.: Gateway.Pagamento.PayGo).'],
+    ['Nome', 'Nome descritivo da funcionalidade.'],
+    ['Habilitada', 'Define se a funcionalidade está habilitada (Sim/Não).'],
+    ['Status Sistema', 'Situação do registro (Ativo/Inativo).'],
+    ['Tipo do Valor da Funcionalidade', 'Booleano, Texto, Número ou Json.'],
+    ['Valor', 'Valor da funcionalidade, conforme o tipo.'],
+    ['Descrição', 'Descrição do que a funcionalidade faz.'],
+  ]}
+/>
+
+<Callout type="info" title="Exemplos de funcionalidades">
+Entre as funcionalidades cadastradas estão: Gateway.Pagamento.PayGo, Fila.Pedidos.SemIgnition, Fila.Clientes.SemIgnition e Contratos.Vigencia.Bloqueio.Manual.
+</Callout>
+
+## Fluxos principais
+
+1. **Consultar** — informe a **"Chave Identificadora da Funcionalidade"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe **Chave**, **Nome**, **Descrição**, o **Tipo do Valor** e o **Valor**, defina **Habilitada** e o **Status Sistema** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar / habilitar** — clique no ícone de **Editar** da linha, ajuste **Habilitada** ou o **Valor** e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as funcionalidades conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar uma nova funcionalidade.', '—'],
+    ['Salvar e Continuar', 'Para salvar e seguir configurando.', '—'],
+    ['Detalhes', 'Para consultar uma funcionalidade sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para habilitar/desabilitar ou alterar o valor.', 'Confirme o efeito esperado antes de salvar.'],
+    ['Excluir', 'Para remover uma funcionalidade.', 'Ação sem retorno; pode afetar o comportamento do sistema.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Controle de Funcionalidade', 'Acesso à tela', 'Permite abrir e utilizar a tela de Controle de Funcionalidade.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Funcionalidades do sistema', 'As chaves habilitam ou configuram comportamentos.', 'Altere apenas com conhecimento do efeito.'],
+    ['Fluxos com/sem Ignition', 'Chaves como Fila.Pedidos.SemIgnition afetam o roteamento das filas.', 'Confirme o impacto no fluxo antes de alterar.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não valida o efeito do valor informado — a responsabilidade pelo conteúdo é de quem configura.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Uma funcionalidade não teve efeito', 'Habilitada = Não ou valor incorreto', 'Verifique "Habilitada" e o "Valor".'],
+    ['Não encontro uma funcionalidade', 'Chave incorreta', 'Ajuste a Chave Identificadora.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para habilitar e configurar funcionalidades do sistema por chave (feature flags).' },
+    { question: 'O que é o "Tipo do Valor"?', answer: 'Define o formato do valor: Booleano, Texto, Número ou Json.' },
+    { question: 'Como habilito uma funcionalidade?', answer: 'Edite o registro e defina "Habilitada" como Sim.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Controle de Funcionalidade.' },
+  ]}
+/>

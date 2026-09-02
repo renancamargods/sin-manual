@@ -1,0 +1,156 @@
+---
+section: modulos
+routeSlug: pedidos/configuracao-de-produtos-no-lounge
+pageType: routine
+module: pedidos
+moduleLabel: Pedidos
+title: Configuração de Produtos no Lounge
+description: Define quais produtos ficam disponíveis e buscáveis em cada Lounge, com ordem de busca e abrangência por país, estado e cidade.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Disponibilidade e ordem de busca dos produtos por Lounge
+keywords: [configuração de produtos no lounge, produto, lounge, sku, ordem de busca, disponibilidade, pedidos]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Configuração de Produtos no Lounge** define quais produtos (por **Código SKU**) ficam disponíveis e buscáveis em cada **Lounge**, com uma **Ordem de Busca** e a abrangência por **país, estado e cidade**. É por meio dela que o sistema sabe quais produtos oferecer em cada unidade e localidade.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Produtos por Lounge', text: 'Define os produtos disponíveis e buscáveis em cada Lounge.' },
+    { label: 'Uso', title: 'Disponibilidade e busca', text: 'A ordem de busca prioriza os produtos na consulta.' },
+    { label: 'Cuidado', title: 'Abrangência', text: 'A configuração vale conforme país, estado e cidade.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Configurar a disponibilidade de um produto em um Lounge.
+- Definir a ordem de busca e a abrangência geográfica de um produto.
+- Consultar, editar ou excluir configurações.
+
+## Como acessar
+
+Pedidos → Configuração de Produtos no Lounge
+
+## Antes de começar
+
+- Tenha o **Código SKU** do produto e o **Lounge**.
+- Defina a **ordem de busca** e a abrangência (país/estado/cidade), se aplicável.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Família e Grupo (entre outros), com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com as colunas "Código (SKU)", "Família", "Grupo", "Ordem de Busca", "Nome Lounge", "Países", "Estados", "Cidades" e "Status Sistema", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela com os campos da configuração.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código (SKU)', 'Produto (por SKU) a configurar.'],
+    ['Ordem de Busca', 'Ordem/prioridade do produto na busca.'],
+    ['País', 'País de abrangência da configuração.'],
+    ['Nome Lounge', 'Lounge ao qual a configuração se aplica.'],
+    ['Status Sistema', 'Situação da configuração (Ativo/Inativo).'],
+  ]}
+/>
+
+<Callout type="info" title="Abrangência por localidade">
+A configuração pode valer para um país, um estado e/ou uma cidade. As colunas "Países", "Estados" e "Cidades" indicam a abrangência de cada registro.
+</Callout>
+
+## Fluxos principais
+
+1. **Consultar** — informe **Família**, **Grupo** ou os demais filtros e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, selecione o **Código (SKU)**, informe a **Ordem de Busca**, o **País** e o **Nome Lounge**, defina o **Status** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as configurações conforme os filtros.', '—'],
+    ['+ Novo', 'Para cadastrar uma nova configuração.', '—'],
+    ['Salvar e Continuar', 'Para salvar e seguir configurando.', '—'],
+    ['Detalhes', 'Para consultar uma configuração sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar uma configuração existente.', '—'],
+    ['Excluir', 'Para remover uma configuração.', 'Ação sem retorno; pode afetar a disponibilidade do produto.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Configuração de Produtos no Lounge', 'Acesso à tela', 'Permite abrir e utilizar a tela de Configuração de Produtos no Lounge.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Produtos', 'A configuração define a disponibilidade dos produtos por Lounge.', 'Cadastre o produto antes de configurá-lo.'],
+    ['Lounge', 'A disponibilidade é por Lounge e localidade.', 'Confira o Lounge e a abrangência.'],
+    ['Pedidos e Orçamentos', 'Os produtos disponíveis aparecem nas operações do Lounge.', 'Mantenha a configuração atualizada.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra o produto — apenas configura sua disponibilidade e busca por Lounge.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O produto não aparece no Lounge', 'Configuração inativa ou abrangência incorreta', 'Verifique o Status e a abrangência (país/estado/cidade).'],
+    ['A ordem de busca está errada', 'Ordem de Busca mal definida', 'Ajuste a "Ordem de Busca".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para definir quais produtos ficam disponíveis e buscáveis em cada Lounge, com ordem de busca e abrangência.' },
+    { question: 'O que é a "Ordem de Busca"?', answer: 'É a prioridade do produto na busca dentro do Lounge.' },
+    { question: 'A configuração vale para todo o país?', answer: 'Depende da abrangência definida (país, estado e/ou cidade).' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Configuração de Produtos no Lounge.' },
+  ]}
+/>

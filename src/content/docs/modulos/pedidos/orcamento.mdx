@@ -1,0 +1,184 @@
+---
+section: modulos
+routeSlug: pedidos/orcamento
+pageType: routine
+module: pedidos
+moduleLabel: Pedidos
+title: Orçamento
+description: Cadastro e acompanhamento de orçamentos, com Lounge, lista de preço, desconto financeiro e itens de venda (produto, quantidade e preços).
+routineType: Cadastro e consulta
+permission: Sim
+impact: Orçamentos que antecedem os pedidos de venda
+keywords: [orçamento, itens de venda, lista de preço, lounge, desconto, negociação, pedidos]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Orçamento** permite cadastrar e acompanhar os orçamentos de venda. Cada orçamento tem um **Cabeçalho** (Lounge, Lista de Preço, Observação e % Desconto Financeiro) e uma lista de **Itens de Venda** (produto, tipo, quantidade, preços e desconto). O orçamento evolui por um **Status** (por exemplo, "Em Negociação") e antecede a criação do pedido.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Orçamentos de venda', text: 'Monta a proposta de venda antes do pedido.' },
+    { label: 'Uso', title: 'Cabeçalho e itens', text: 'Define Lounge, lista de preço e os itens de venda.' },
+    { label: 'Cuidado', title: 'Saldo de estoque', text: 'Sem Lounge selecionado, não é possível verificar o saldo de estoque.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo orçamento.
+- Adicionar itens de venda ao orçamento (manualmente, por digitação rápida ou importando do Excel).
+- Acompanhar o status do orçamento.
+
+## Como acessar
+
+Pedidos → Orçamento
+
+## Antes de começar
+
+- Selecione o **Lounge** (necessário para verificar o saldo de estoque).
+- Escolha a **Lista de Preço** e defina o **% Desconto Financeiro**, se houver.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Número do Orçamento, Usuário de Emissão e "Orçamento Cancelado?" (Sim/Não), com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com colunas como Número do Orçamento, Emissão, Valor Total Líquido e Status Orçamento.', 'Cada linha tem as ações do orçamento.'],
+    ['Cabeçalho do Orçamento', 'Número, Emissão, Usuário de Emissão, Status Orçamento, Lounge, Lista de Preço, Observação e % Desconto Financeiro.', 'Selecione o Lounge para verificar o estoque.'],
+    ['Dados do Orçamento (Itens)', 'Aba "Itens do Orçamento" com a grade "Itens de Venda" e os botões de adicionar itens.', 'Cada item tem produto, quantidade, preços e desconto.'],
+  ]}
+/>
+
+## Campos principais
+
+### Cabeçalho do Orçamento
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Número do Orçamento', 'Número que identifica o orçamento.'],
+    ['Emissão / Usuário de Emissão', 'Data e usuário da emissão.'],
+    ['Status Orçamento', 'Situação do orçamento (ex.: Em Negociação).'],
+    ['Lounge', 'Lounge do orçamento (necessário para o saldo de estoque).'],
+    ['Lista de Preço', 'Lista de preço usada nos itens.'],
+    ['Observação', 'Observações do orçamento.'],
+    ['% Desconto Financeiro', 'Percentual de desconto financeiro aplicado.'],
+  ]}
+/>
+
+### Itens de Venda (grade)
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Produto', 'Produto do item.'],
+    ['Descrição', 'Descrição do item.'],
+    ['Tipo', 'Tipo do item.'],
+    ['Preço de Tabela', 'Preço de tabela do item.'],
+    ['Quantidade', 'Quantidade do item.'],
+    ['Preço Unitário', 'Preço unitário aplicado.'],
+    ['Preço Total', 'Preço total do item.'],
+    ['Desconto', 'Desconto aplicado ao item.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe o **Número do Orçamento** ou o **Usuário de Emissão** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, selecione o **Lounge** e a **Lista de Preço**, ajuste o **% Desconto Financeiro** e adicione os itens.
+3. **Adicionar itens** — use **"+ Adicionar Item de Orçamento"**, **"Adicionar Item - Digitação Rápida"** ou **"Importar Itens do Excel"**.
+4. **Acompanhar** — verifique o **Status Orçamento** e o **Valor Total Líquido**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os orçamentos conforme os filtros.', '—'],
+    ['+ Novo', 'Para cadastrar um novo orçamento.', 'Selecione o Lounge para verificar estoque.'],
+    ['+ Adicionar Item de Orçamento', 'Para adicionar um item ao orçamento.', '—'],
+    ['Adicionar Item - Digitação Rápida', 'Para adicionar itens rapidamente.', '—'],
+    ['Importar Itens do Excel', 'Para importar itens de uma planilha.', 'Confira o modelo antes de importar.'],
+    ['Fechar', 'Para fechar a janela.', 'Feche sem salvar quando estiver apenas consultando.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Orçamento', 'Acesso à tela', 'Permite abrir e utilizar a tela de Orçamento.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Lounge x saldo de estoque', 'Sem Lounge selecionado, o sistema não verifica o saldo de estoque.', 'Selecione o Lounge no cabeçalho.'],
+    ['Status do orçamento', 'O orçamento evolui por status (ex.: Em Negociação).', 'Acompanhe o status até a conversão em pedido.'],
+    ['Lista de preço', 'Os preços dos itens vêm da lista de preço selecionada.', 'Confira a lista e a validade.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Pedido', 'O orçamento antecede o pedido de venda.', 'Confira os itens antes de converter em pedido.'],
+    ['Lista de Preço', 'Define os preços dos itens.', 'Selecione a lista correta.'],
+    ['Item Orçamento', 'Os itens do orçamento são gerenciados aqui.', 'Use os botões de adicionar itens.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não emite a nota fiscal — o orçamento antecede o pedido e o faturamento.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não consigo verificar o estoque', 'Lounge não selecionado', 'Selecione o Lounge no cabeçalho.'],
+    ['O preço do item veio errado', 'Lista de preço incorreta ou fora da validade', 'Confira a Lista de Preço e a validade.'],
+    ['Não encontro um orçamento', 'Filtros muito restritos', 'Ajuste os filtros (Número, Usuário de Emissão).'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar e acompanhar os orçamentos de venda antes do pedido.' },
+    { question: 'Por que preciso selecionar o Lounge?', answer: 'Sem Lounge, o sistema não verifica o saldo de estoque dos itens.' },
+    { question: 'Como adiciono vários itens de uma vez?', answer: 'Use "Adicionar Item - Digitação Rápida" ou "Importar Itens do Excel".' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Orçamento.' },
+  ]}
+/>

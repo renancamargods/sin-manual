@@ -1,0 +1,166 @@
+---
+section: modulos
+routeSlug: administrador/post
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Post
+description: Cadastro de publicações e avisos exibidos no sistema (notificações ou enquetes), com período de exibição, forma de divulgação e editor visual.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Publicações e avisos exibidos aos usuários do sistema
+keywords: [post, publicação, aviso, notificação, enquete, divulgação, editor visual, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Post** cadastra as publicações e avisos exibidos no sistema. Cada post tem um **Título**, um período de exibição (**Data de Disponibilização** e **Exibir Até**), um **Tipo** (Notificação ou Enquete) e uma **Forma de Divulgação** (Geral, Perfil, Empresa ou Misto). O conteúdo é montado em um **Editor Visual** (ou pela aba "Código").
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Avisos e enquetes', text: 'Publica notificações e enquetes para os usuários do sistema.' },
+    { label: 'Uso', title: 'Segmentação e período', text: 'Define o público (forma de divulgação) e o período de exibição.' },
+    { label: 'Cuidado', title: 'Datas', text: 'A publicação só aparece dentro do período de disponibilização.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova publicação (notificação ou enquete).
+- Definir o público e o período de exibição.
+- Montar o conteúdo no editor visual.
+- Consultar, editar ou excluir publicações.
+
+## Como acessar
+
+Administrador → Post
+
+## Antes de começar
+
+- Tenha o **título** e o **conteúdo** da publicação.
+- Defina o **tipo** (Notificação ou Enquete), a **forma de divulgação** e o **período**.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Título, Tipo (Notificação/Enquete) e Perfil, com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com as colunas "Título", "Data de Disponibilização" e "Exibir Até", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição (abas)', 'Janela com as abas "Post" e "Código", e o botão "Prosseguir para o Editor Visual".', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Post"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Título', 'Título da publicação.'],
+    ['Data de Disponibilização', 'Data em que a publicação passa a ser exibida.'],
+    ['Exibir Até', 'Data em que a publicação deixa de ser exibida.'],
+    ['Tipo', 'Notificação ou Enquete.'],
+    ['Forma de Divulgação', 'Geral, Perfil, Empresa ou Misto — define o público.'],
+    ['Status Sistema', 'Situação da publicação (Ativo/Inativo).'],
+  ]}
+/>
+
+### Aba "Código" e Editor Visual
+
+<DocTable
+  headers={['Recurso', 'O que faz']}
+  rows={[
+    ['Prosseguir para o Editor Visual', 'Abre o editor visual para montar o conteúdo da publicação.'],
+    ['Aba "Código"', 'Permite trabalhar o conteúdo em formato de código.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe **Título**, **Tipo** ou **Perfil** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, preencha os dados (título, datas, tipo, forma de divulgação), clique em **"Prosseguir para o Editor Visual"** para montar o conteúdo e salve.
+3. **Editar** — clique no ícone de **Editar** da linha, ajuste os dados/conteúdo e salve.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as publicações conforme os filtros.', '—'],
+    ['+ Novo', 'Para cadastrar uma nova publicação.', '—'],
+    ['Prosseguir para o Editor Visual', 'Para montar o conteúdo da publicação.', '—'],
+    ['Detalhes', 'Para consultar uma publicação sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar uma publicação existente.', 'Confira as datas de exibição.'],
+    ['Excluir', 'Para remover uma publicação.', 'Ação sem retorno.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Post', 'Acesso à tela', 'Permite abrir e utilizar a tela de Post.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Período de exibição', 'A publicação só aparece entre a Data de Disponibilização e o Exibir Até.', 'Confira as datas antes de publicar.'],
+    ['Forma de divulgação', 'Define quem vê a publicação (Geral, Perfil, Empresa ou Misto).', 'Escolha o público correto.'],
+    ['Tipo Enquete', 'Publicações do tipo Enquete coletam respostas dos usuários.', 'Use quando quiser coletar feedback.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não envia e-mails externos — a publicação é exibida dentro do sistema conforme a forma de divulgação.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A publicação não aparece', 'Fora do período ou público incorreto', 'Verifique as datas e a Forma de Divulgação.'],
+    ['Não encontro uma publicação', 'Filtros muito restritos', 'Ajuste os filtros (Título, Tipo, Perfil).'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar publicações e avisos exibidos no sistema (notificações ou enquetes).' },
+    { question: 'Qual a diferença entre Notificação e Enquete?', answer: 'A Notificação apenas informa; a Enquete coleta respostas dos usuários.' },
+    { question: 'O que define quem vê a publicação?', answer: 'A Forma de Divulgação (Geral, Perfil, Empresa ou Misto).' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Post.' },
+  ]}
+/>

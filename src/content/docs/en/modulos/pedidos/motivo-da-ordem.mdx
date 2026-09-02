@@ -1,0 +1,154 @@
+---
+section: modulos
+routeSlug: pedidos/motivo-da-ordem
+pageType: routine
+module: pedidos
+moduleLabel: Orders
+lang: en
+title: Order Reason
+description: Register the reasons used in orders, with an ERP identifier code, applicability to the TDC operation type and status.
+routineType: Registration and lookup
+permission: Yes
+impact: Reasons used in orders and ERP integrations
+keywords: [order reason, order, erp, tdc, identifier code]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Order Reason** screen registers the reasons used in the system's orders. Each reason holds an **ERP Identifier Code**, a **Description**, the indication of which **TDC Operation Type** it applies to, the **System Status** and a **Details** field.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Order reasons', text: 'Standardizes the reasons used in orders.' },
+    { label: 'Use', title: 'ERP integration', text: 'The ERP identifier code links the reason to the ERP.' },
+    { label: 'Caution', title: 'Operation type', text: 'Set the applicability to the TDC operation type correctly.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new order reason.
+- Look up or find a reason.
+- Activate or deactivate a reason.
+
+## How to access
+
+Orders → Order Reason
+
+## Before you start
+
+- Have the **ERP Identifier Code** and the **Description**.
+- Know the applicable **TDC Operation Type**.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Reason filters, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List with columns such as "Identifier Code", "Description" and "System Status", with per-row actions.', 'Each row has History, Details, Edit and Delete.'],
+    ['Registration / editing', 'The "Order Reason Data" window with the "Information" section.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+### "Information" section
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['ERP Identifier Code', 'Code that identifies the reason in the ERP.'],
+    ['Description', 'Description of the reason.'],
+    ['Applicable to the TDC Operation Type', 'Operation type (TDC) the reason applies to.'],
+    ['System Status', 'Reason status (Active/Inactive).'],
+    ['Details', 'Additional information about the reason.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the filters and click **"Search"**.
+2. **Register** — click **"+ New"**, enter **ERP Identifier Code**, **Description**, the **TDC Operation Type** and the **Status** and click **"Save"**.
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list reasons according to the filters.', '—'],
+    ['+ New', 'To register a new reason.', '—'],
+    ['Details', 'To view a reason without changing it.', 'Read only.'],
+    ['History', 'To see the change history.', '—'],
+    ['Edit', 'To change an existing reason.', '—'],
+    ['Delete', 'To remove a reason.', 'Irreversible action; prefer deactivating rather than deleting.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Order Reason', 'Access to the screen', 'Allows opening and using the Order Reason screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Orders', 'The reasons are used in orders.', 'Use the correct reason according to the operation.'],
+    ['ERP Integration', 'The identifier code links the reason to the ERP.', 'Check the code in the ERP.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not create the order — it only registers the reasons used by it.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The reason does not appear in the order', 'Inactive reason or wrong operation type', 'Check the Status and the TDC Operation Type.'],
+    ['I cannot find a reason', 'Wrong filter', 'Adjust the filters.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the reasons used in orders, with an ERP code and TDC operation type.' },
+    { question: 'What is the "ERP Identifier Code"?', answer: 'It is the code that identifies the reason in the ERP for the integration.' },
+    { question: 'Can I delete a reason?', answer: 'Yes, but prefer deactivating it if it has already been used.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Order Reason screen documentation.' },
+  ]}
+/>

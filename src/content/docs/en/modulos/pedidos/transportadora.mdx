@@ -1,0 +1,169 @@
+---
+section: modulos
+routeSlug: pedidos/transportadora
+pageType: routine
+module: pedidos
+moduleLabel: Orders
+lang: en
+title: Carrier
+description: Register the carriers used for delivery, with contact, tax ID, SAP code, availability in order/loading list and address.
+routineType: Registration and lookup
+permission: Yes
+impact: Carriers used for order delivery and in the loading list
+keywords: [carrier, delivery, tax id, sap, loading list, freight]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Carrier** screen registers the carriers used to deliver orders. Each carrier holds contact data (Name, Tax ID, Area Code, Phone/Mobile, Email, Contact Name), the **SAP Code**, the **Domestic or International?** indication and the availability options (**Available in Order?**, **Available in Loading List?**), plus the **Address** (its own tab).
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Carriers', text: 'Registers the carriers used for delivery.' },
+    { label: 'Use', title: 'Order and loading list', text: 'The carrier becomes available according to the marked options.' },
+    { label: 'Caution', title: 'Availability', text: 'The available-in-order/loading-list options control where it appears.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new carrier.
+- Define the carrier's availability in orders and the loading list.
+- Look up, edit or delete carriers.
+
+## How to access
+
+Orders → Carrier
+
+## Before you start
+
+- Have the **contact** data and the **tax ID**.
+- Know the **SAP Code** and whether it is **Domestic/International**.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Name and Active, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List in the "Name" column, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing (tabs)', 'Window with the "Carrier" and "Address" tabs.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+### "Carrier" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Name', 'Carrier name.'],
+    ['Tax ID', 'Carrier tax ID (CNPJ).'],
+    ['Area Code / Phone/Mobile', 'Phone contact.'],
+    ['Email', 'Contact email.'],
+    ['Contact Name', 'Contact person at the carrier.'],
+    ['Active', 'Carrier status (Yes/No).'],
+    ['Available in Order?', 'Whether it appears for selection in orders (Yes/No).'],
+    ['Available in Loading List?', 'Whether it takes part in the loading list flow (Yes/No).'],
+    ['SAP Code', 'Corresponding code in SAP.'],
+    ['Domestic or International?', 'Scope: Domestic, International or Both.'],
+  ]}
+/>
+
+### "Address" tab
+
+<DocTable
+  headers={['Tab', 'What it shows']}
+  rows={[
+    ['Address', 'Carrier address.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the **"Name"** and/or the **Active** filter and click **"Search"**.
+2. **Register** — click **"+ New"**, fill in the contact data, set **SAP Code**, **Domestic/International** and the availability options, enter the **Address** and click **"Save"** (or **"Save and Continue"**).
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list carriers according to the filters.', '—'],
+    ['+ New', 'To register a new carrier.', '—'],
+    ['Save and Continue', 'To save and continue on the address.', '—'],
+    ['Details', 'To view a carrier without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing carrier.', '—'],
+    ['Delete', 'To remove a carrier.', 'Irreversible action; prefer deactivating rather than deleting.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Carrier', 'Access to the screen', 'Allows opening and using the Carrier screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Orders', 'The carrier is used to deliver orders.', 'Set "Available in Order?" so it appears.'],
+    ['Loading List', 'The carrier takes part in the loading list flow.', 'Set "Available in Loading List?" when applicable.'],
+    ['Freight Rule', 'Freight rules may indicate the carrier.', 'Check the link in the rules.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not calculate freight — it only registers the carrier (the calculation is in Freight Rule).
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The carrier does not appear in the order', '"Available in Order?" = No or inactive', 'Check the availability options and Active.'],
+    ['I cannot find a carrier', 'Wrong filter', 'Adjust the "Name" and the Active filter.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the carriers used for order delivery and in the loading list.' },
+    { question: 'How do I make the carrier appear in the order?', answer: 'Set "Available in Order?" to Yes.' },
+    { question: 'Where do I enter the address?', answer: 'On the "Address" tab inside the carrier registration.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Carrier screen documentation.' },
+  ]}
+/>

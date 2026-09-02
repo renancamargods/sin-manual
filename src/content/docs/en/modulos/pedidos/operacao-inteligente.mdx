@@ -1,0 +1,168 @@
+---
+section: modulos
+routeSlug: pedidos/operacao-inteligente
+pageType: routine
+module: pedidos
+moduleLabel: Orders
+lang: en
+title: Smart Operation
+description: Register the rules that relate the order type to the ERP orders, with foreign trade, TDC operation, integration and origin order type parameters.
+routineType: Registration and lookup
+permission: Yes
+impact: Automatic rules applied when creating orders
+keywords: [smart operation, order type, erp order, foreign trade, tdc, integration]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Smart Operation** screen registers the rules that relate the **Order Type** (for example, Bonus, Campaign, Sale, Return) to the corresponding **ERP Order**, defining parameters such as foreign trade availability, **Related TDC Operation** (Return, Exchange, Consignment), integration and the **Origin Order Types**. It is through these rules that the system automates the behavior when creating orders.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Automatic rules', text: 'Relates order types to the ERP orders and their rules.' },
+    { label: 'Use', title: 'Order creation', text: 'The rules automate the order behavior.' },
+    { label: 'Caution', title: 'Parameters', text: 'The foreign trade, TDC and integration options change the order flow.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new smart operation for an order type.
+- Define the ERP order and the rules (foreign trade, TDC, integration) of an order type.
+- Look up, edit or delete operations.
+
+## How to access
+
+Orders → Smart Operation
+
+## Before you start
+
+- Know the **Order Type** and the corresponding **ERP Order**.
+- Define the rules (foreign trade, TDC operation, integration) and the origin order types.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Observation and Status (Active/Inactive), with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List with columns such as "Order Type", "Observation", "Status" and "Origin Order Type", with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing (tabs)', 'Window with the "Smart Operation" and "Orders" tabs.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+### "Smart Operation" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Observation', 'Description/observation of the operation.'],
+    ['ERP Order', 'Corresponding order in the ERP.'],
+    ['Order Type', 'Order type (e.g., Bonus, Campaign, Sale, Return).'],
+    ['Available for Foreign Trade?', 'Whether the operation is available for foreign trade (Yes/No).'],
+    ['Related TDC Operation', 'Related TDC operation: Return, Exchange or Consignment.'],
+    ['Available only for Integration Orders?', 'Whether the operation applies only to integration orders (Yes/No).'],
+    ['Status', 'Operation status (Active/Inactive).'],
+    ['Available for ZP/P Rule?', 'Whether the operation is available for the ZP/P rule (Yes/No).'],
+    ['Origin Order Type', 'Origin order types, separated by semicolons (e.g., ORB;YTRO;ZTNS).'],
+  ]}
+/>
+
+### "Orders" tab
+
+<DocTable
+  headers={['Tab', 'What it shows']}
+  rows={[
+    ['Orders', 'Orders related to the operation.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the **Observation** and/or the **Status** and click **"Search"**.
+2. **Register** — click **"+ New"**, enter the **Observation**, the **ERP Order**, the **Order Type** and the rules (foreign trade, TDC, integration, ZP/P, origin order types) and click **"Save"** (or **"Save and Continue"**).
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list operations according to the filters.', '—'],
+    ['+ New', 'To register a new operation.', '—'],
+    ['Save and Continue', 'To save and continue on the Orders tab.', '—'],
+    ['Details', 'To view an operation without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing operation.', 'Review the rules before saving.'],
+    ['Delete', 'To remove an operation.', 'Irreversible action; it can affect order creation.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Smart Operation', 'Access to the screen', 'Allows opening and using the Smart Operation screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Orders', 'The rules automate the behavior when creating orders.', 'Use the correct order type.'],
+    ['ERP Integration', 'The ERP Order and the origin order types support the integration.', 'Check the codes in the ERP.'],
+    ['Exchanges/Returns/Consignment (TDC)', 'The related TDC operation defines the link with these flows.', 'Choose the correct TDC operation.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not create the order — it only defines the rules applied when creating it.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The rule is not applied', 'Inactive operation or wrong order type', 'Check the Status and the Order Type.'],
+    ['The ERP order came out wrong', 'Wrong ERP Order or origin order type', 'Check the ERP Order and the Origin Order Type.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the rules that relate the order type to the ERP orders and automate the behavior when creating orders.' },
+    { question: 'What is the "Related TDC Operation"?', answer: 'It indicates the link with Return, Exchange or Consignment (TDC).' },
+    { question: 'How do I enter the origin order types?', answer: 'In the "Origin Order Type" field, separated by semicolons (e.g., ORB;YTRO;ZTNS).' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Smart Operation screen documentation.' },
+  ]}
+/>

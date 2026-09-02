@@ -1,0 +1,120 @@
+---
+section: modulos
+routeSlug: administrador/gerenciador-de-usuarios-conectados
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Gerenciador de Usuários Conectados
+description: Monitor em tempo real dos usuários conectados ao sistema, com total de ativos e a lista de nome, e-mail e horário de autenticação.
+routineType: Consulta
+permission: Sim
+impact: Monitoramento em tempo real dos usuários conectados
+keywords: [usuários conectados, gerenciador, sessões, online, tempo real, administrador]
+tags: [modulo-administrador, consulta]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Gerenciador de Usuários Conectados** mostra, em tempo real, os usuários atualmente conectados ao sistema. Apresenta o **Total de Usuários Ativos** e uma lista com **Nome**, **E-Mail** e o horário de **Autenticado em**.
+
+<Callout type="info" title="Tela de monitoramento">
+Esta é uma tela apenas de consulta (monitoramento em tempo real). Não há cadastro nem edição — a lista se atualiza conforme os usuários entram e saem do sistema.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Usuários online', text: 'Mostra quem está conectado ao sistema agora.' },
+    { label: 'Uso', title: 'Monitoramento', text: 'Acompanhe o total de ativos e os detalhes de cada sessão.' },
+    { label: 'Cuidado', title: 'Somente leitura', text: 'A tela não altera nem encerra sessões — apenas informa.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Verificar quantos e quais usuários estão conectados no momento.
+- Consultar o horário de autenticação de cada usuário conectado.
+
+## Como acessar
+
+Administrador → Gerenciador de Usuários Conectados
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Total de Usuários Ativos', 'Contador com o número de usuários conectados no momento.', 'Atualiza em tempo real.'],
+    ['Lista de conectados', 'Tabela com as colunas "Nome", "E-Mail" e "Autenticado em".', 'Somente leitura.'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Nome', 'Nome do usuário conectado.'],
+    ['E-Mail', 'E-mail do usuário conectado.'],
+    ['Autenticado em', 'Data e hora em que o usuário se autenticou.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — abra a tela e veja o **Total de Usuários Ativos** e a lista de conectados.
+2. **Acompanhar** — a lista se atualiza em tempo real conforme os usuários entram e saem.
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Gerenciador de Usuários Conectados', 'Acesso à tela', 'Permite abrir e consultar a tela de usuários conectados.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não encerra sessões nem desconecta usuários — apenas exibe quem está conectado.
+- Não cadastra nem edita usuários (isso é feito no módulo Autenticador).
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A lista não atualiza', 'Conexão em tempo real interrompida', 'Recarregue a tela e verifique a conexão.'],
+    ['Um usuário não aparece', 'Sessão encerrada ou não autenticada', 'A lista mostra apenas usuários conectados no momento.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para monitorar, em tempo real, os usuários atualmente conectados ao sistema.' },
+    { question: 'Consigo desconectar um usuário por aqui?', answer: 'Não; a tela é apenas de consulta/monitoramento.' },
+    { question: 'A lista atualiza sozinha?', answer: 'Sim; ela reflete em tempo real quem está conectado.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Gerenciador de Usuários Conectados.' },
+  ]}
+/>

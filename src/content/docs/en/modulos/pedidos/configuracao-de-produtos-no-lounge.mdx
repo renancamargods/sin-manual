@@ -1,0 +1,157 @@
+---
+section: modulos
+routeSlug: pedidos/configuracao-de-produtos-no-lounge
+pageType: routine
+module: pedidos
+moduleLabel: Orders
+lang: en
+title: Product Configuration in the Lounge
+description: Defines which products are available and searchable in each Lounge, with a search order and scope by country, state and city.
+routineType: Registration and lookup
+permission: Yes
+impact: Product availability and search order by Lounge
+keywords: [product configuration lounge, product, lounge, sku, search order, availability]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Product Configuration in the Lounge** screen defines which products (by **SKU Code**) are available and searchable in each **Lounge**, with a **Search Order** and the scope by **country, state and city**. It is through this screen that the system knows which products to offer in each unit and location.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Products per Lounge', text: 'Defines the products available and searchable in each Lounge.' },
+    { label: 'Use', title: 'Availability and search', text: 'The search order prioritizes the products in the lookup.' },
+    { label: 'Caution', title: 'Scope', text: 'The configuration applies according to country, state and city.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Configure a product's availability in a Lounge.
+- Define the search order and the geographic scope of a product.
+- Look up, edit or delete configurations.
+
+## How to access
+
+Orders → Product Configuration in the Lounge
+
+## Before you start
+
+- Have the product's **SKU Code** and the **Lounge**.
+- Define the **search order** and the scope (country/state/city), if applicable.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Family and Group (among others), with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List with the "SKU Code", "Family", "Group", "Search Order", "Lounge Name", "Countries", "States", "Cities" and "System Status" columns, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing', 'Window with the configuration fields.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['SKU Code', 'Product (by SKU) to configure.'],
+    ['Search Order', 'Order/priority of the product in the search.'],
+    ['Country', 'Country scope of the configuration.'],
+    ['Lounge Name', 'Lounge the configuration applies to.'],
+    ['System Status', 'Configuration status (Active/Inactive).'],
+  ]}
+/>
+
+<Callout type="info" title="Scope by location">
+The configuration can apply to a country, a state and/or a city. The "Countries", "States" and "Cities" columns indicate the scope of each record.
+</Callout>
+
+## Main flows
+
+1. **Search** — enter **Family**, **Group** or the other filters and click **"Search"**.
+2. **Register** — click **"+ New"**, select the **SKU Code**, enter the **Search Order**, the **Country** and the **Lounge Name**, set the **Status** and click **"Save"** (or **"Save and Continue"**).
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list configurations according to the filters.', '—'],
+    ['+ New', 'To register a new configuration.', '—'],
+    ['Save and Continue', 'To save and keep configuring.', '—'],
+    ['Details', 'To view a configuration without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing configuration.', '—'],
+    ['Delete', 'To remove a configuration.', 'Irreversible action; it can affect product availability.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Product Configuration in the Lounge', 'Access to the screen', 'Allows opening and using the Product Configuration in the Lounge screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Products', 'The configuration defines product availability per Lounge.', 'Register the product before configuring it.'],
+    ['Lounge', 'Availability is by Lounge and location.', 'Check the Lounge and the scope.'],
+    ['Orders and Quotes', 'The available products appear in the Lounge operations.', 'Keep the configuration up to date.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not register the product — it only configures its availability and search by Lounge.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The product does not appear in the Lounge', 'Inactive configuration or wrong scope', 'Check the Status and the scope (country/state/city).'],
+    ['The search order is wrong', 'Poorly defined Search Order', 'Adjust the "Search Order".'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To define which products are available and searchable in each Lounge, with a search order and scope.' },
+    { question: 'What is the "Search Order"?', answer: 'It is the product priority in the search within the Lounge.' },
+    { question: 'Does the configuration apply to the whole country?', answer: 'It depends on the defined scope (country, state and/or city).' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Product Configuration in the Lounge screen documentation.' },
+  ]}
+/>

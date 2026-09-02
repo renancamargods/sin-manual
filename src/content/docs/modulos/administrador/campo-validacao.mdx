@@ -1,0 +1,162 @@
+---
+section: modulos
+routeSlug: administrador/campo-validacao
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Campo Validação
+description: Define quais campos, ao serem alterados, devolvem um cliente, pedido ou produto para reanálise (Crédito, Fiscal ou ambos).
+routineType: Cadastro e consulta
+permission: Sim
+impact: Campos que disparam reanálise de crédito ou fiscal ao serem alterados
+keywords: [campo validação, validação, reanálise, crédito, fiscal, cliente, pedido, produto, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Campo Validação** define quais campos de uma **Entidade** (Cliente, Pedido ou Produto), quando alterados, fazem o registro **voltar para análise** — de Crédito, Fiscal ou ambos. Por exemplo, se o endereço ou a inscrição estadual de um cliente for alterado, o cadastro pode retornar para a fila de análise correspondente.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Reanálise por alteração', text: 'Marca os campos que reabrem a análise quando são alterados.' },
+    { label: 'Uso', title: 'Crédito e Fiscal', text: 'Cada campo aponta o tipo de análise que deve ser refeita.' },
+    { label: 'Cuidado', title: 'Impacto no fluxo', text: 'Campos configurados aqui devolvem registros para análise ao serem alterados.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um campo que deve disparar reanálise ao ser alterado.
+- Definir o tipo de análise (Crédito, Fiscal ou Ambos) para cada campo.
+- Consultar, editar ou excluir campos configurados.
+
+## Como acessar
+
+Administrador → Campo Validação
+
+## Antes de começar
+
+- Defina a **Entidade** (Cliente, Pedido ou Produto).
+- Saiba o **campo** que dispara a reanálise e o **tipo de análise** correspondente.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Nome", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com as colunas "Nome", "Tipo Análise", "Descrição" e "Entidade", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela (aba "Campo Validação") com os campos da regra.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Campo Validação"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Entidade', 'Entidade a que o campo pertence: Cliente, Pedido ou Produto.'],
+    ['Nome', 'Campo que, ao ser alterado, dispara a reanálise.'],
+    ['Descrição', 'Descrição da regra (ex.: "Endereços deve parar para análise do Crédito caso seja alterado").'],
+    ['Tipo Análise', 'Tipo de análise que deve ser refeita: Em Análise Crédito, Em Análise Fiscal ou Ambos.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe o **"Nome"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, escolha a **Entidade**, selecione o **Nome** do campo, informe a **Descrição**, defina o **Tipo Análise** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os campos conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar um novo campo de validação.', '—'],
+    ['Salvar e Continuar', 'Para salvar e seguir cadastrando.', '—'],
+    ['Detalhes', 'Para consultar um campo sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um campo existente.', '—'],
+    ['Excluir', 'Para remover um campo.', 'Ação sem retorno; deixa de disparar a reanálise.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Campo Validação', 'Acesso à tela', 'Permite abrir e utilizar a tela de Campo Validação.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Reanálise ao alterar', 'Quando o campo configurado é alterado, o registro volta para a análise indicada.', 'Configure apenas os campos que realmente devem reabrir a análise.'],
+    ['Tipo de análise', 'Define se a reanálise é de Crédito, Fiscal ou ambos.', 'Escolha o tipo conforme o impacto do campo.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Aprovações (Crédito e Fiscal)', 'A alteração do campo devolve o registro para a fila de análise correspondente.', 'Alinhe com as regras de aprovação.'],
+    ['Cliente, Pedido e Produto', 'Os campos pertencem a essas entidades.', 'Escolha a entidade correta.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não realiza a análise — apenas define quais alterações a disparam novamente.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Uma alteração não reabriu a análise', 'Campo não configurado aqui', 'Cadastre o campo com o tipo de análise correto.'],
+    ['A análise reabre sem necessidade', 'Campo configurado indevidamente', 'Revise ou exclua a regra do campo.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para definir quais campos, ao serem alterados, devolvem o registro para reanálise (Crédito, Fiscal ou ambos).' },
+    { question: 'O que é o "Tipo Análise"?', answer: 'Indica se a alteração reabre a análise de Crédito, Fiscal ou ambas.' },
+    { question: 'A quais entidades se aplica?', answer: 'A Cliente, Pedido ou Produto, conforme a Entidade escolhida.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Campo Validação.' },
+  ]}
+/>

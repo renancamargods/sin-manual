@@ -1,0 +1,153 @@
+---
+section: modulos
+routeSlug: administrador/modo-projeto
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Modo Projeto
+description: Configura modos especiais de operação por período (como o Modo Feira), com datas, parâmetros, usuários e habilitação.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Modos especiais de operação do sistema por período
+keywords: [modo projeto, modo feira, evento, período, parâmetro, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Modo Projeto** configura modos especiais de operação do sistema durante um **período** — por exemplo, o **Modo Feira** usado em eventos (como o CIOSP). Cada modo tem **Descrição**, **Data de Início** e **Data de Término**, **Parâmetro**, **Observação**, os **Usuários** aos quais se aplica e a opção **Habilitar Modo Feira**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Operação por período', text: 'Ativa modos especiais (como o Modo Feira) em datas definidas.' },
+    { label: 'Uso', title: 'Eventos', text: 'Usado em feiras e eventos com regras temporárias.' },
+    { label: 'Cuidado', title: 'Vigência', text: 'Confirme as datas de início e término para o modo valer no período certo.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo modo de operação para um período.
+- Habilitar o Modo Feira em um evento.
+- Consultar, editar ou excluir modos configurados.
+
+## Como acessar
+
+Administrador → Modo Projeto
+
+## Antes de começar
+
+- Tenha a **descrição** e as **datas** de início e término.
+- Saiba os **usuários** e o **parâmetro** aplicáveis.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Descrição", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista pela coluna "Descrição", com as ações por linha.', 'Cada linha tem Histórico, Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela com os campos do modo.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Descrição', 'Descrição do modo (ex.: "Modo Feira - CIOSP").'],
+    ['Data de Início', 'Data em que o modo passa a valer.'],
+    ['Data de Término', 'Data em que o modo deixa de valer.'],
+    ['Parâmetro', 'Parâmetros do modo.'],
+    ['Observação', 'Observações adicionais.'],
+    ['Usuários', 'Usuários aos quais o modo se aplica (com o botão "+" para cadastrar).'],
+    ['Status Sistema', 'Situação do registro (Ativo/Inativo).'],
+    ['Habilitar Modo Feira', 'Ativa o Modo Feira (Sim/Não).'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe a **"Descrição"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe **Descrição**, **datas**, **Parâmetro**, **Usuários** e defina **Habilitar Modo Feira** e o **Status** e clique em **"Salvar"**.
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os modos conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar um novo modo.', '—'],
+    ['Detalhes', 'Para consultar um modo sem alterar.', 'Somente leitura.'],
+    ['Histórico', 'Para ver o histórico de alterações.', '—'],
+    ['Editar', 'Para alterar um modo existente.', 'Confira as datas de vigência.'],
+    ['Excluir', 'Para remover um modo.', 'Ação sem retorno.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Modo Projeto', 'Acesso à tela', 'Permite abrir e utilizar a tela de Modo Projeto.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Operação em eventos', 'O Modo Feira ajusta a operação durante o evento.', 'Confirme as datas e os usuários.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não altera cadastros permanentes — apenas define o modo especial de operação no período.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O Modo Feira não está valendo', 'Fora do período ou "Habilitar Modo Feira" = Não', 'Verifique as datas e a opção de habilitação.'],
+    ['Não encontro um modo', 'Filtro por descrição incorreto', 'Ajuste a "Descrição".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para configurar modos especiais de operação por período, como o Modo Feira usado em eventos.' },
+    { question: 'O que é "Habilitar Modo Feira"?', answer: 'É a opção que ativa o Modo Feira para o período configurado.' },
+    { question: 'As datas são obrigatórias?', answer: 'As datas de início e término definem a vigência do modo; confirme-as ao cadastrar.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Modo Projeto.' },
+  ]}
+/>

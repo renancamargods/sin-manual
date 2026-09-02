@@ -1,0 +1,154 @@
+---
+section: modulos
+routeSlug: administrador/amarracao-de-faturamento-por-lounge
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Amarração de Faturamento por Lounge
+description: Vincula uma região (estado, cidade e logradouro) aos Lounges principal, secundário e terciário usados no roteamento do faturamento.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Roteamento de faturamento por região para os Lounges
+keywords: [amarração de faturamento, lounge, roteamento, estado, cidade, logradouro, faturamento, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Amarração de Faturamento por Lounge** define, para uma **região** (Estado, Cidade e Logradouro), quais Lounges atendem ao faturamento em ordem de prioridade: **Lounge Principal**, **Lounge Secundário** e **Lounge Terciário**. É uma regra de roteamento: a partir da localização, o sistema sabe qual unidade deve faturar.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Roteamento por região', text: 'Vincula regiões geográficas aos Lounges de faturamento.' },
+    { label: 'Uso', title: 'Prioridade principal/secundário/terciário', text: 'Define a ordem de atendimento entre os Lounges.' },
+    { label: 'Cuidado', title: 'Cobertura', text: 'Amarrações incompletas podem deixar regiões sem Lounge definido.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova amarração de faturamento para uma região.
+- Definir os Lounges principal, secundário e terciário de uma região.
+- Consultar, editar ou excluir amarrações existentes.
+
+## Como acessar
+
+Administrador → Amarração de Faturamento por Lounge
+
+## Antes de começar
+
+- Tenha a **região** (Estado, Cidade e, se aplicável, Logradouro).
+- Saiba os **Lounges** que devem atender em cada nível de prioridade.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Título", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com as colunas "Título", "Lounge o Principal", "Estado" e "Cidade", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela com os campos da amarração.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Título', 'Nome que identifica a amarração.'],
+    ['Estado', 'Estado da região atendida (com o botão "+" para cadastrar).'],
+    ['Cidade', 'Cidade da região atendida (com o botão "+" para cadastrar).'],
+    ['Logradouro', 'Logradouro da região atendida (com o botão "+" para cadastrar).'],
+    ['Lounge Principal', 'Lounge que atende em primeiro lugar (com o botão "+" para cadastrar).'],
+    ['Lounge Secundário', 'Lounge que atende quando o principal não atende.'],
+    ['Lounge Terciário', 'Lounge que atende quando o secundário não atende.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe o **"Título"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe o **Título**, a região (**Estado**, **Cidade**, **Logradouro**) e os **Lounges** (principal, secundário, terciário) e clique em **"Salvar"**.
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as amarrações conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar uma nova amarração.', '—'],
+    ['+ (ao lado dos campos)', 'Para cadastrar estado, cidade, logradouro ou Lounge.', 'Use quando o registro ainda não existir.'],
+    ['Detalhes', 'Para consultar uma amarração sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar uma amarração existente.', '—'],
+    ['Excluir', 'Para remover uma amarração.', 'Ação sem retorno; pode deixar a região sem roteamento.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Amarração de Faturamento por Lounge', 'Acesso à tela', 'Permite abrir e utilizar a tela.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Lounge', 'A amarração aponta para os Lounges de faturamento.', 'Cadastre os Lounges antes da amarração.'],
+    ['Faturamento', 'Define qual unidade fatura conforme a região.', 'Garanta a cobertura das regiões atendidas.'],
+    ['Estado, Cidade e Logradouro', 'A região é composta por esses cadastros.', 'Mantenha os cadastros geográficos atualizados.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não fatura — apenas define o roteamento (qual Lounge atende cada região).
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Uma região não tem Lounge de faturamento', 'Falta de amarração para a região', 'Cadastre a amarração da região.'],
+    ['Não encontro uma amarração', 'Filtro por título incorreto', 'Ajuste o "Título".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para vincular uma região aos Lounges principal, secundário e terciário usados no faturamento.' },
+    { question: 'Qual a diferença entre principal, secundário e terciário?', answer: 'É a ordem de prioridade: o principal atende primeiro; os demais atendem quando o anterior não atende.' },
+    { question: 'O que acontece se faltar uma amarração?', answer: 'A região pode ficar sem um Lounge de faturamento definido; cadastre a amarração correspondente.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Amarração de Faturamento por Lounge.' },
+  ]}
+/>

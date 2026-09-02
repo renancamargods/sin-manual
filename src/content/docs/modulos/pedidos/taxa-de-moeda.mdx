@@ -1,0 +1,149 @@
+---
+section: modulos
+routeSlug: pedidos/taxa-de-moeda
+pageType: routine
+module: pedidos
+moduleLabel: Pedidos
+title: Taxa de Moeda
+description: Cadastro das cotações usadas na conversão entre moedas, por data de referência, com duas taxas de conversão e a moeda.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Cotações usadas na conversão de valores entre moedas
+keywords: [taxa de moeda, cotação, conversão, câmbio, moeda, data de referência, pedidos]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Taxa de Moeda** cadastra as cotações usadas na conversão entre moedas. Cada registro tem uma **Data de Referência**, duas **Taxas de Conversão** (Taxa de Conversão 1 e Taxa de Conversão 2) e a **Moeda** correspondente.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cotações', text: 'Guarda as taxas de conversão entre moedas por data.' },
+    { label: 'Uso', title: 'Conversão de valores', text: 'As taxas apoiam a conversão em pedidos e orçamentos.' },
+    { label: 'Cuidado', title: 'Data de referência', text: 'A taxa vale para a data de referência informada.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova cotação para uma moeda em uma data.
+- Consultar as cotações por data de referência.
+- Editar ou excluir uma cotação.
+
+## Como acessar
+
+Pedidos → Taxa de Moeda
+
+## Antes de começar
+
+- Tenha a **Data de Referência**, as **taxas de conversão** e a **moeda**.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Data de Referência", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista pela coluna "Data de Referência", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela com os campos da cotação.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Data de Referência', 'Data para a qual a cotação é válida.'],
+    ['Taxa de Conversão 1', 'Primeira taxa de conversão.'],
+    ['Taxa de Conversão 2', 'Segunda taxa de conversão.'],
+    ['Moeda', 'Moeda à qual a cotação se aplica (com o botão "+" para cadastrar).'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe a **"Data de Referência"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe a **Data de Referência**, as **taxas** e a **Moeda** e clique em **"Salvar"**.
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as cotações conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar uma nova cotação.', '—'],
+    ['+ (ao lado da moeda)', 'Para cadastrar uma nova moeda.', 'Use quando a moeda ainda não existir.'],
+    ['Detalhes', 'Para consultar uma cotação sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar uma cotação existente.', '—'],
+    ['Excluir', 'Para remover uma cotação.', 'Ação sem retorno.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Taxa de Moeda', 'Acesso à tela', 'Permite abrir e utilizar a tela de Taxa de Moeda.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Moeda', 'A cotação é vinculada a uma moeda.', 'Cadastre a moeda antes da cotação.'],
+    ['Pedidos e Orçamentos', 'As taxas apoiam a conversão de valores.', 'Mantenha as cotações atualizadas.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não define a moeda — apenas as cotações; a moeda fica em Moeda.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A conversão usa taxa desatualizada', 'Cotação antiga', 'Cadastre a cotação da data correta.'],
+    ['Não encontro uma cotação', 'Data de referência incorreta', 'Ajuste a "Data de Referência".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as cotações usadas na conversão entre moedas, por data de referência.' },
+    { question: 'Por que há duas taxas de conversão?', answer: 'A tela contempla duas taxas (Taxa de Conversão 1 e 2) para a cotação.' },
+    { question: 'Como cadastro a moeda?', answer: 'Selecione no campo Moeda ou cadastre uma nova pelo "+" ao lado.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Taxa de Moeda.' },
+  ]}
+/>

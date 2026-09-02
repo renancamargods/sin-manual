@@ -1,0 +1,165 @@
+---
+section: modulos
+routeSlug: pedidos/lista-de-preco
+pageType: routine
+module: pedidos
+moduleLabel: Orders
+lang: en
+title: Price List
+description: Register the commercial price lists, with validity and currency, and the linked items, orders and customers tabs.
+routineType: Registration and lookup
+permission: Yes
+impact: Price lists used in quotes and orders
+keywords: [price list, price, validity, currency, item]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Price List** screen registers the commercial price lists used in quotes and orders. Each list has a **Description**, a **Validity** period (Start and End), a **Currency** and a **System Status**, and gathers, on tabs, the linked items, orders and customers.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Price lists', text: 'Centralizes the price lists used in sales.' },
+    { label: 'Use', title: 'Quotes and orders', text: 'The list defines the prices applied in operations.' },
+    { label: 'Caution', title: 'Validity and currency', text: 'Check the validity and the currency of the list.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new price list.
+- Define the validity and the currency of the list.
+- Review the list's items, orders and customers.
+
+## How to access
+
+Orders → Price List
+
+## Before you start
+
+- Have the **description**, the **validity** period and the **currency**.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'The "Description" field, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List in the "Description" column, with per-row actions.', 'Each row has History, Details, Edit and Delete.'],
+    ['Registration / editing (tabs)', 'Window with the "Price List", "Items", "Orders" and "Customers" tabs.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+### "Price List" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Description', 'Description/name of the price list.'],
+    ['Validity - Start', 'Date the list starts being valid.'],
+    ['Validity - End', 'Date the list stops being valid.'],
+    ['Currency', 'List currency (with the "+" button to register).'],
+    ['System Status', 'List status (Active/Inactive).'],
+  ]}
+/>
+
+### Additional tabs
+
+<DocTable
+  headers={['Tab', 'What it shows']}
+  rows={[
+    ['Items', 'Items (products and prices) of the list.'],
+    ['Orders', 'Orders that use the list.'],
+    ['Customers', 'Customers linked to the list.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the **"Description"** and click **"Search"**.
+2. **Register** — click **"+ New"**, enter **Description**, the **validity**, the **Currency** and the **Status** and click **"Save"** (or **"Save and Continue"**).
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Review items** — open the list and access the **"Items"** tab.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list price lists according to the filter.', '—'],
+    ['+ New', 'To register a new list.', '—'],
+    ['Save and Continue', 'To save and continue on the other tabs.', '—'],
+    ['Details', 'To view a list without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing list.', 'Check the validity.'],
+    ['Delete', 'To remove a list.', 'Irreversible action; avoid deleting lists in use.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Price List', 'Access to the screen', 'Allows opening and using the Price List screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Price List Item', 'The product prices are in the list items.', 'Register the items on the "Items" tab or on their own screen.'],
+    ['Quote and Order', 'The list defines the applied prices.', 'Check the list used in the operation.'],
+    ['Currency', 'The list uses a currency.', 'Register the currency before the list.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not register prices item by item here — that is done in Price List Item (or on the "Items" tab).
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The list does not apply prices', 'Outside validity or no items', 'Check the validity and the list items.'],
+    ['I cannot find a list', 'Wrong description filter', 'Adjust the "Description".'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the price lists used in quotes and orders.' },
+    { question: 'Where are the product prices?', answer: 'In the list items (the "Items" tab or the Price List Item screen).' },
+    { question: 'How do I set the validity?', answer: 'Through the Validity - Start and Validity - End fields.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Price List screen documentation.' },
+  ]}
+/>

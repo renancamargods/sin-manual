@@ -1,0 +1,142 @@
+---
+section: modulos
+routeSlug: pedidos/unidade-negocio
+pageType: routine
+module: pedidos
+moduleLabel: Pedidos
+title: Unidade Negócio
+description: Cadastro das unidades de negócio associadas aos pedidos, identificadas pela descrição.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Unidades de negócio associadas aos pedidos
+keywords: [unidade negócio, unidade de negócio, pedido, pedidos]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Unidade Negócio** cadastra as unidades de negócio associadas aos pedidos. É um cadastro simples, identificado apenas pela **Descrição Unidade Negócio**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Unidades de negócio', text: 'Cadastra as unidades de negócio usadas nos pedidos.' },
+    { label: 'Uso', title: 'Associação ao pedido', text: 'A unidade fica disponível para associação ao pedido.' },
+    { label: 'Cuidado', title: 'Padronização', text: 'Evite descrições duplicadas.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova unidade de negócio.
+- Consultar ou localizar uma unidade pela descrição.
+- Editar ou excluir uma unidade.
+
+## Como acessar
+
+Pedidos → Unidade Negócio
+
+## Antes de começar
+
+- Tenha a **Descrição Unidade Negócio**.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Descrição Unidade Negócio", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista pela coluna "Descrição Unidade Negócio", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela (aba "Unidade Negócio") com o campo Descrição.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Descrição Unidade Negócio', 'Descrição que identifica a unidade de negócio.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe a **"Descrição Unidade Negócio"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe a **Descrição** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as unidades conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar uma nova unidade.', '—'],
+    ['Detalhes', 'Para consultar uma unidade sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar uma unidade existente.', '—'],
+    ['Excluir', 'Para remover uma unidade.', 'Ação sem retorno; evite excluir unidades em uso.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Unidade Negócio', 'Acesso à tela', 'Permite abrir e utilizar a tela de Unidade Negócio.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Pedidos', 'A unidade de negócio é associada ao pedido.', 'Use a unidade correta.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cria pedidos — apenas cadastra as unidades de negócio.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro uma unidade', 'Filtro por descrição incorreto', 'Ajuste a "Descrição Unidade Negócio".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as unidades de negócio associadas aos pedidos.' },
+    { question: 'Posso excluir uma unidade?', answer: 'Sim, mas evite remover unidades já associadas a pedidos.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Unidade Negócio.' },
+  ]}
+/>

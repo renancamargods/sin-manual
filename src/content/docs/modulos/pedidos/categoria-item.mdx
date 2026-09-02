@@ -1,0 +1,153 @@
+---
+section: modulos
+routeSlug: pedidos/categoria-item
+pageType: routine
+module: pedidos
+moduleLabel: Pedidos
+title: Categoria Item
+description: Cadastro das categorias de item do pedido, com ordem ERP, descrição e SchedType, usadas na classificação e integração dos itens.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Categorias de item usadas na classificação e integração de pedidos
+keywords: [categoria item, ordem erp, schedtype, item, pedido, integração, pedidos]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Categoria Item** cadastra as categorias usadas para classificar os itens do pedido, relacionando-as ao **Ordem ERP** (tipo de ordem no ERP) e ao **SchedType**. Cada categoria reúne **Categoria do Item**, **Ordem ERP**, **Descrição Categoria Item** e **SchedType**.
+
+<Callout type="info" title="Classificação técnica">
+Esta tela relaciona a categoria do item aos códigos de tipo de ordem do ERP (Ordem ERP e SchedType). É usada na integração dos pedidos.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Classificar itens', text: 'Relaciona categorias de item aos tipos de ordem do ERP.' },
+    { label: 'Uso', title: 'Integração de pedidos', text: 'Os códigos apoiam a integração dos itens com o ERP.' },
+    { label: 'Cuidado', title: 'Códigos corretos', text: 'Use o Ordem ERP e o SchedType corretos.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova categoria de item.
+- Consultar ou localizar uma categoria por descrição ou ordem ERP.
+- Editar os códigos de uma categoria.
+
+## Como acessar
+
+Pedidos → Categoria Item
+
+## Antes de começar
+
+- Tenha a **Categoria do Item**, o **Ordem ERP** e o **SchedType** correspondentes.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Categoria do Item e Ordem ERP, com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com as colunas "Categoria do Item", "Ordem ERP", "Descrição Categoria Item" e "SchedType", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela com os campos da categoria.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Categoria do Item', 'Categoria que classifica o item.'],
+    ['Ordem ERP', 'Tipo de ordem correspondente no ERP.'],
+    ['Descrição Categoria Item', 'Descrição da categoria do item.'],
+    ['SchedType', 'Tipo de agendamento (SchedType) usado na integração.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe **Categoria do Item** ou **Ordem ERP** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe **Categoria do Item**, **Ordem ERP**, **Descrição** e **SchedType** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as categorias conforme os filtros.', '—'],
+    ['+ Novo', 'Para cadastrar uma nova categoria.', '—'],
+    ['Salvar e Continuar', 'Para salvar e seguir cadastrando.', '—'],
+    ['Detalhes', 'Para consultar uma categoria sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar uma categoria existente.', '—'],
+    ['Excluir', 'Para remover uma categoria.', 'Ação sem retorno; pode afetar a integração.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Categoria Item', 'Acesso à tela', 'Permite abrir e utilizar a tela de Categoria Item.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Itens do pedido', 'A categoria classifica os itens do pedido.', 'Use a categoria correta.'],
+    ['Integração ERP', 'Ordem ERP e SchedType apoiam a integração.', 'Confira os códigos no ERP.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cria itens de pedido — apenas classifica as categorias usadas por eles.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A categoria não integra corretamente', 'Ordem ERP ou SchedType incorreto', 'Verifique os códigos cadastrados.'],
+    ['Não encontro uma categoria', 'Filtro incorreto', 'Ajuste os filtros (Categoria do Item, Ordem ERP).'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as categorias de item do pedido e relacioná-las aos tipos de ordem do ERP.' },
+    { question: 'O que é o "Ordem ERP"?', answer: 'É o tipo de ordem correspondente no ERP, usado na integração.' },
+    { question: 'O que é o "SchedType"?', answer: 'É o tipo de agendamento usado na integração dos itens.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Categoria Item.' },
+  ]}
+/>

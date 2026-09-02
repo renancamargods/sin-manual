@@ -1,0 +1,185 @@
+---
+section: modulos
+routeSlug: pedidos/orcamento
+pageType: routine
+module: pedidos
+moduleLabel: Orders
+lang: en
+title: Quote
+description: Register and track quotes, with Lounge, price list, financial discount and sale items (product, quantity and prices).
+routineType: Registration and lookup
+permission: Yes
+impact: Quotes that precede sales orders
+keywords: [quote, sale items, price list, lounge, discount, negotiation]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Quote** screen lets you register and track sales quotes. Each quote has a **Header** (Lounge, Price List, Observation and % Financial Discount) and a list of **Sale Items** (product, type, quantity, prices and discount). The quote evolves through a **Status** (for example, "In Negotiation") and precedes the creation of the order.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Sales quotes', text: 'Builds the sales proposal before the order.' },
+    { label: 'Use', title: 'Header and items', text: 'Defines Lounge, price list and the sale items.' },
+    { label: 'Caution', title: 'Stock balance', text: 'Without a Lounge selected, the stock balance cannot be checked.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new quote.
+- Add sale items to the quote (manually, by quick entry or importing from Excel).
+- Track the quote status.
+
+## How to access
+
+Orders → Quote
+
+## Before you start
+
+- Select the **Lounge** (needed to check the stock balance).
+- Choose the **Price List** and set the **% Financial Discount**, if any.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Quote Number, Issuing User and "Quote Cancelled?" (Yes/No), with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List with columns such as Quote Number, Issue, Net Total Value and Quote Status.', 'Each row has the quote actions.'],
+    ['Quote Header', 'Number, Issue, Issuing User, Quote Status, Lounge, Price List, Observation and % Financial Discount.', 'Select the Lounge to check stock.'],
+    ['Quote Data (Items)', 'The "Quote Items" tab with the "Sale Items" grid and the add-item buttons.', 'Each item has product, quantity, prices and discount.'],
+  ]}
+/>
+
+## Main fields
+
+### Quote Header
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Quote Number', 'Number that identifies the quote.'],
+    ['Issue / Issuing User', 'Date and user of the issue.'],
+    ['Quote Status', 'Quote status (e.g., In Negotiation).'],
+    ['Lounge', 'Quote Lounge (needed for the stock balance).'],
+    ['Price List', 'Price list used in the items.'],
+    ['Observation', 'Quote notes.'],
+    ['% Financial Discount', 'Financial discount percentage applied.'],
+  ]}
+/>
+
+### Sale Items (grid)
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Product', 'Item product.'],
+    ['Description', 'Item description.'],
+    ['Type', 'Item type.'],
+    ['Table Price', 'Item table price.'],
+    ['Quantity', 'Item quantity.'],
+    ['Unit Price', 'Applied unit price.'],
+    ['Total Price', 'Item total price.'],
+    ['Discount', 'Discount applied to the item.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the **Quote Number** or the **Issuing User** and click **"Search"**.
+2. **Register** — click **"+ New"**, select the **Lounge** and the **Price List**, adjust the **% Financial Discount** and add the items.
+3. **Add items** — use **"+ Add Quote Item"**, **"Add Item - Quick Entry"** or **"Import Items from Excel"**.
+4. **Track** — check the **Quote Status** and the **Net Total Value**.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list quotes according to the filters.', '—'],
+    ['+ New', 'To register a new quote.', 'Select the Lounge to check stock.'],
+    ['+ Add Quote Item', 'To add an item to the quote.', '—'],
+    ['Add Item - Quick Entry', 'To add items quickly.', '—'],
+    ['Import Items from Excel', 'To import items from a spreadsheet.', 'Check the template before importing.'],
+    ['Close', 'To close the window.', 'Close without saving when only viewing.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Quote', 'Access to the screen', 'Allows opening and using the Quote screen.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Lounge x stock balance', 'Without a Lounge selected, the system does not check the stock balance.', 'Select the Lounge in the header.'],
+    ['Quote status', 'The quote evolves through statuses (e.g., In Negotiation).', 'Track the status until conversion into an order.'],
+    ['Price list', 'The item prices come from the selected price list.', 'Check the list and the validity.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Order', 'The quote precedes the sales order.', 'Check the items before converting into an order.'],
+    ['Price List', 'Defines the item prices.', 'Select the correct list.'],
+    ['Quote Item', 'The quote items are managed here.', 'Use the add-item buttons.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not issue the invoice — the quote precedes the order and invoicing.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot check the stock', 'Lounge not selected', 'Select the Lounge in the header.'],
+    ['The item price came out wrong', 'Wrong price list or outside validity', 'Check the Price List and the validity.'],
+    ['I cannot find a quote', 'Filters too restrictive', 'Adjust the filters (Number, Issuing User).'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register and track sales quotes before the order.' },
+    { question: 'Why do I need to select the Lounge?', answer: 'Without a Lounge, the system does not check the item stock balance.' },
+    { question: 'How do I add several items at once?', answer: 'Use "Add Item - Quick Entry" or "Import Items from Excel".' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Quote screen documentation.' },
+  ]}
+/>

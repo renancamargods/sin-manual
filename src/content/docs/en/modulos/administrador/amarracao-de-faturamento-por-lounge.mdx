@@ -1,0 +1,155 @@
+---
+section: modulos
+routeSlug: administrador/amarracao-de-faturamento-por-lounge
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Lounge Invoicing Binding
+description: Binds a region (state, city and street) to the primary, secondary and tertiary Lounges used in invoicing routing.
+routineType: Registration and lookup
+permission: Yes
+impact: Invoicing routing by region to the Lounges
+keywords: [invoicing binding, lounge, routing, state, city, street, invoicing]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Lounge Invoicing Binding** screen defines, for a **region** (State, City and Street), which Lounges handle invoicing in priority order: **Primary Lounge**, **Secondary Lounge** and **Tertiary Lounge**. It is a routing rule: from the location, the system knows which unit should invoice.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Routing by region', text: 'Binds geographic regions to the invoicing Lounges.' },
+    { label: 'Use', title: 'Primary/secondary/tertiary priority', text: 'Defines the order in which the Lounges are used.' },
+    { label: 'Caution', title: 'Coverage', text: 'Incomplete bindings can leave regions without a defined Lounge.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new invoicing binding for a region.
+- Define the primary, secondary and tertiary Lounges of a region.
+- Look up, edit or delete existing bindings.
+
+## How to access
+
+Administrator → Lounge Invoicing Binding
+
+## Before you start
+
+- Have the **region** (State, City and, if applicable, Street).
+- Know the **Lounges** that should handle each priority level.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'The "Title" field, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List with the "Title", "Primary Lounge", "State" and "City" columns, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing', 'Window with the binding fields.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Title', 'Name that identifies the binding.'],
+    ['State', 'State of the served region (with the "+" button to register).'],
+    ['City', 'City of the served region (with the "+" button to register).'],
+    ['Street', 'Street of the served region (with the "+" button to register).'],
+    ['Primary Lounge', 'Lounge that handles first (with the "+" button to register).'],
+    ['Secondary Lounge', 'Lounge that handles when the primary does not.'],
+    ['Tertiary Lounge', 'Lounge that handles when the secondary does not.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the **"Title"** and click **"Search"**.
+2. **Register** — click **"+ New"**, enter the **Title**, the region (**State**, **City**, **Street**) and the **Lounges** (primary, secondary, tertiary) and click **"Save"**.
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list bindings according to the filter.', '—'],
+    ['+ New', 'To register a new binding.', '—'],
+    ['+ (next to the fields)', 'To register state, city, street or Lounge.', 'Use when the record does not yet exist.'],
+    ['Details', 'To view a binding without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing binding.', '—'],
+    ['Delete', 'To remove a binding.', 'Irreversible action; it can leave the region without routing.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Lounge Invoicing Binding', 'Access to the screen', 'Allows opening and using the screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Lounge', 'The binding points to the invoicing Lounges.', 'Register the Lounges before the binding.'],
+    ['Invoicing', 'Defines which unit invoices according to the region.', 'Ensure coverage of the served regions.'],
+    ['State, City and Street', 'The region is made up of these records.', 'Keep the geographic records up to date.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not invoice — it only defines the routing (which Lounge handles each region).
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['A region has no invoicing Lounge', 'Missing binding for the region', 'Register the region binding.'],
+    ['I cannot find a binding', 'Wrong title filter', 'Adjust the "Title".'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To bind a region to the primary, secondary and tertiary Lounges used in invoicing.' },
+    { question: 'What is the difference between primary, secondary and tertiary?', answer: 'It is the priority order: the primary handles first; the others handle when the previous one does not.' },
+    { question: 'What happens if a binding is missing?', answer: 'The region may be left without a defined invoicing Lounge; register the corresponding binding.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Lounge Invoicing Binding screen documentation.' },
+  ]}
+/>

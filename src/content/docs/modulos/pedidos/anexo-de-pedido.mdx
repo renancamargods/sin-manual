@@ -1,0 +1,149 @@
+---
+section: modulos
+routeSlug: pedidos/anexo-de-pedido
+pageType: routine
+module: pedidos
+moduleLabel: Pedidos
+title: Anexo de Pedido
+description: Consulta e cadastro dos documentos anexados aos pedidos, com arquivo, palavras-chave, descrição e vínculo ao pedido.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Documentos anexados aos pedidos
+keywords: [anexo de pedido, anexo, documento, arquivo, pedido, comprovante, pedidos]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Anexo de Pedido** permite consultar e anexar documentos vinculados aos pedidos (por exemplo, comprovantes e aprovações). Cada anexo reúne o **Arquivo**, **Palavras Chave**, uma **Descrição** e o **Pedido** ao qual pertence.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Documentos do pedido', text: 'Centraliza os arquivos anexados aos pedidos.' },
+    { label: 'Uso', title: 'Consulta e anexação', text: 'Permite localizar e anexar documentos por pedido.' },
+    { label: 'Cuidado', title: 'Vínculo ao pedido', text: 'Associe o anexo ao pedido correto.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Anexar um documento a um pedido.
+- Consultar ou localizar um anexo pelo nome.
+- Baixar, editar ou excluir um anexo.
+
+## Como acessar
+
+Pedidos → Anexo de Pedido
+
+## Antes de começar
+
+- Tenha o **arquivo** a anexar e o **pedido** correspondente.
+- Defina **palavras-chave** e uma **descrição** para facilitar a busca.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Nome", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com as colunas "Nome" e "Tipo de Conteúdo", com as ações por linha.', 'Cada linha tem baixar/download, Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela com Arquivo, Palavras Chave, Descrição e Pedido.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Arquivo', 'Arquivo a anexar (botão "Escolher arquivo").'],
+    ['Palavras Chave', 'Palavras-chave para facilitar a busca.'],
+    ['Descrição', 'Descrição do anexo.'],
+    ['Pedido', 'Pedido ao qual o anexo é vinculado (com o botão "+" para cadastrar).'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe o **"Nome"** e clique em **"Pesquisar"**.
+2. **Anexar** — clique em **"+ Novo"**, escolha o **Arquivo**, informe **Palavras Chave** e **Descrição**, selecione o **Pedido** e clique em **"Salvar"**.
+3. **Baixar** — use o ícone de download na linha do anexo.
+4. **Editar / Excluir** — use os ícones de **Editar** e **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os anexos conforme o filtro.', '—'],
+    ['+ Novo', 'Para anexar um novo documento.', '—'],
+    ['Baixar', 'Para baixar o arquivo anexado.', '—'],
+    ['Detalhes', 'Para consultar um anexo sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar os dados de um anexo.', '—'],
+    ['Excluir', 'Para remover um anexo.', 'Ação sem retorno.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Anexo de Pedido', 'Acesso à tela', 'Permite abrir e utilizar a tela de Anexo de Pedido.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Pedido', 'Os anexos são vinculados ao pedido.', 'Associe ao pedido correto.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não altera o pedido — apenas gerencia os documentos anexados a ele.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro um anexo', 'Filtro por nome incorreto', 'Ajuste o "Nome" ou as palavras-chave.'],
+    ['O anexo não abre no pedido', 'Vínculo incorreto', 'Verifique o Pedido vinculado.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para consultar e anexar documentos aos pedidos.' },
+    { question: 'Como baixo um anexo?', answer: 'Use o ícone de download na linha do anexo.' },
+    { question: 'Posso excluir um anexo?', answer: 'Sim, pelo ícone de Excluir da linha.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Anexo de Pedido.' },
+  ]}
+/>

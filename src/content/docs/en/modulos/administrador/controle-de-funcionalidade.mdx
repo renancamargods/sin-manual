@@ -1,0 +1,164 @@
+---
+section: modulos
+routeSlug: administrador/controle-de-funcionalidade
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Feature Control
+description: Enables and controls system features by key, with a typed value (boolean, text, number or JSON) and an enablement status.
+routineType: Registration and lookup
+permission: Yes
+impact: Enablement and configuration of system features
+keywords: [feature control, feature flag, key, enabled, value, boolean, json]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Feature Control** screen manages system features through an **Identifier Key**. Each feature can be **Enabled** or not, has a **Value Type** (Boolean, Text, Number or Json) and a corresponding **Value**, plus a **Name** and **Description**. It is the system's *feature flags* mechanism.
+
+<Callout type="cuidado" title="Technical configuration">
+Changing a feature changes the system's behavior. Only make changes when you know the key and the expected effect, preferably with support from the technical team.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Feature flags', text: 'Enables and configures system features by key.' },
+    { label: 'Use', title: 'Typed value', text: 'The value can be boolean, text, number or JSON.' },
+    { label: 'Caution', title: 'Impact', text: 'Enabling/disabling affects the behavior of screens and flows.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new feature controlled by a key.
+- Enable or disable a feature.
+- Adjust a feature's value.
+
+## How to access
+
+Administrator → Feature Control
+
+## Before you start
+
+- Have the feature's **Identifier Key**.
+- Know the **Value Type** (Boolean, Text, Number or Json) and the correct **Value**.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'The "Feature Identifier Key" field, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List with the "Feature Identifier Key", "Name", "Enabled" and "System Status" columns, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing', 'Window ("Feature Control" tab) with the feature fields.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+### "Feature Control" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Feature Identifier Key', 'Unique key that identifies the feature (e.g., Gateway.Pagamento.PayGo).'],
+    ['Name', 'Descriptive name of the feature.'],
+    ['Enabled', 'Defines whether the feature is enabled (Yes/No).'],
+    ['System Status', 'Record status (Active/Inactive).'],
+    ['Feature Value Type', 'Boolean, Text, Number or Json.'],
+    ['Value', 'Feature value, according to the type.'],
+    ['Description', 'Description of what the feature does.'],
+  ]}
+/>
+
+<Callout type="info" title="Feature examples">
+Registered features include: Gateway.Pagamento.PayGo, Fila.Pedidos.SemIgnition, Fila.Clientes.SemIgnition and Contratos.Vigencia.Bloqueio.Manual.
+</Callout>
+
+## Main flows
+
+1. **Search** — enter the **"Feature Identifier Key"** and click **"Search"**.
+2. **Register** — click **"+ New"**, enter **Key**, **Name**, **Description**, the **Value Type** and the **Value**, set **Enabled** and the **System Status** and click **"Save"** (or **"Save and Continue"**).
+3. **Edit / enable** — click the **Edit** icon on the row, adjust **Enabled** or the **Value** and click **"Save"**.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list features according to the filter.', '—'],
+    ['+ New', 'To register a new feature.', '—'],
+    ['Save and Continue', 'To save and keep configuring.', '—'],
+    ['Details', 'To view a feature without changing it.', 'Read only.'],
+    ['Edit', 'To enable/disable or change the value.', 'Confirm the expected effect before saving.'],
+    ['Delete', 'To remove a feature.', 'Irreversible action; it can affect the system behavior.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Feature Control', 'Access to the screen', 'Allows opening and using the Feature Control screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['System features', 'The keys enable or configure behaviors.', 'Change only when you know the effect.'],
+    ['Flows with/without Ignition', 'Keys such as Fila.Pedidos.SemIgnition affect the queue routing.', 'Confirm the flow impact before changing.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not validate the effect of the entered value — the content is the responsibility of whoever configures it.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['A feature had no effect', 'Enabled = No or incorrect value', 'Check "Enabled" and the "Value".'],
+    ['I cannot find a feature', 'Wrong key', 'Adjust the Identifier Key.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To enable and configure system features by key (feature flags).' },
+    { question: 'What is the "Value Type"?', answer: 'It defines the value format: Boolean, Text, Number or Json.' },
+    { question: 'How do I enable a feature?', answer: 'Edit the record and set "Enabled" to Yes.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Feature Control screen documentation.' },
+  ]}
+/>

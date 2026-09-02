@@ -1,0 +1,165 @@
+---
+section: modulos
+routeSlug: pedidos/moeda
+pageType: routine
+module: pedidos
+moduleLabel: Pedidos
+title: Moeda
+description: Cadastro das moedas usadas em pedidos e orçamentos, com símbolo, tipo, tipo de pessoa e empresa, além de listas de preços, taxas e clientes.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Moedas usadas em pedidos, orçamentos e listas de preço
+keywords: [moeda, símbolo, real, dólar, euro, taxa, lista de preço, pedidos]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Moeda** cadastra as moedas usadas em pedidos, orçamentos e listas de preço (por exemplo, BRL, USD, EUR). Cada moeda reúne **Nome**, **Símbolo**, **Tipo de Moeda**, **Tipo de Pessoa** e **Empresa**, e concentra, em abas, as listas de preços, as taxas e os clientes relacionados.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Moedas do sistema', text: 'Centraliza as moedas usadas em pedidos e orçamentos.' },
+    { label: 'Uso', title: 'Preços e taxas', text: 'As moedas apoiam listas de preço e taxas de conversão.' },
+    { label: 'Cuidado', title: 'Empresa e tipo', text: 'Associe a moeda à empresa e ao tipo corretos.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova moeda.
+- Consultar ou localizar uma moeda pelo nome.
+- Consultar as listas de preço, taxas e clientes de uma moeda.
+
+## Como acessar
+
+Pedidos → Moeda
+
+## Antes de começar
+
+- Tenha o **nome** e o **símbolo** da moeda.
+- Saiba o **tipo de moeda**, o **tipo de pessoa** e a **empresa**.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Nome", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com as colunas "Nome", "Simbolo" e "Nome Empresa", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição (abas)', 'Janela com as abas "Moeda", "Listas de Preços", "Taxas" e "Clientes".', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Moeda"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Nome/código da moeda (ex.: BRL, USD, EUR).'],
+    ['Simbolo', 'Símbolo da moeda (ex.: R$, $, €).'],
+    ['Tipo de Moeda', 'Tipo da moeda.'],
+    ['Tipo de Pessoa', 'Tipo de pessoa associado.'],
+    ['Empresa', 'Empresa à qual a moeda está associada.'],
+  ]}
+/>
+
+### Abas complementares
+
+<DocTable
+  headers={['Aba', 'O que mostra']}
+  rows={[
+    ['Listas de Preços', 'Listas de preço que usam a moeda.'],
+    ['Taxas', 'Taxas de conversão relacionadas à moeda.'],
+    ['Clientes', 'Clientes relacionados à moeda.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe o **"Nome"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe **Nome**, **Simbolo**, **Tipo de Moeda**, **Tipo de Pessoa** e **Empresa** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as moedas conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar uma nova moeda.', '—'],
+    ['Salvar e Continuar', 'Para salvar e continuar nas demais abas.', '—'],
+    ['Detalhes', 'Para consultar uma moeda sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar uma moeda existente.', '—'],
+    ['Excluir', 'Para remover uma moeda.', 'Ação sem retorno; evite excluir moedas em uso.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Moeda', 'Acesso à tela', 'Permite abrir e utilizar a tela de Moeda.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Taxa de Moeda', 'As taxas de conversão são vinculadas à moeda.', 'Mantenha as taxas atualizadas.'],
+    ['Lista de Preço', 'As listas de preço usam a moeda.', 'Confira a moeda da lista.'],
+    ['Pedidos e Orçamentos', 'A moeda é usada na composição de valores.', 'Use a moeda correta na operação.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não converte valores — apenas cadastra a moeda; as taxas ficam em Taxa de Moeda.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro uma moeda', 'Filtro por nome incorreto', 'Ajuste o "Nome".'],
+    ['A moeda não tem taxa', 'Taxa não cadastrada', 'Cadastre a taxa em Taxa de Moeda.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as moedas usadas em pedidos, orçamentos e listas de preço.' },
+    { question: 'Onde ficam as taxas de conversão?', answer: 'Na tela Taxa de Moeda (também acessível pela aba "Taxas").' },
+    { question: 'Posso excluir uma moeda?', answer: 'Sim, mas evite remover moedas já usadas em preços ou pedidos.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Moeda.' },
+  ]}
+/>

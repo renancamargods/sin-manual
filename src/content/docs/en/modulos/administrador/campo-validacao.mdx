@@ -1,0 +1,163 @@
+---
+section: modulos
+routeSlug: administrador/campo-validacao
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Field Validation
+description: Defines which fields, when changed, send a customer, order or product back to review (Credit, Tax or both).
+routineType: Registration and lookup
+permission: Yes
+impact: Fields that trigger credit or tax review when changed
+keywords: [field validation, validation, review, credit, tax, customer, order, product]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Field Validation** screen defines which fields of an **Entity** (Customer, Order or Product), when changed, make the record **go back to review** — Credit, Tax or both. For example, if a customer's address or state registration is changed, the record may return to the corresponding review queue.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Review on change', text: 'Marks the fields that reopen review when they are changed.' },
+    { label: 'Use', title: 'Credit and Tax', text: 'Each field points to the review type that must be redone.' },
+    { label: 'Caution', title: 'Flow impact', text: 'Fields configured here send records back to review when changed.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a field that should trigger review when changed.
+- Define the review type (Credit, Tax or Both) for each field.
+- Look up, edit or delete configured fields.
+
+## How to access
+
+Administrator → Field Validation
+
+## Before you start
+
+- Define the **Entity** (Customer, Order or Product).
+- Know the **field** that triggers the review and the corresponding **review type**.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'The "Name" field, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List with the "Name", "Review Type", "Description" and "Entity" columns, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing', 'Window ("Field Validation" tab) with the rule fields.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+### "Field Validation" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Entity', 'Entity the field belongs to: Customer, Order or Product.'],
+    ['Name', 'Field that, when changed, triggers the review.'],
+    ['Description', 'Description of the rule (e.g., "Address must stop for Credit review when changed").'],
+    ['Review Type', 'Review type that must be redone: Credit Review, Tax Review or Both.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the **"Name"** and click **"Search"**.
+2. **Register** — click **"+ New"**, choose the **Entity**, select the field **Name**, enter the **Description**, set the **Review Type** and click **"Save"** (or **"Save and Continue"**).
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list fields according to the filter.', '—'],
+    ['+ New', 'To register a new validation field.', '—'],
+    ['Save and Continue', 'To save and keep registering.', '—'],
+    ['Details', 'To view a field without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing field.', '—'],
+    ['Delete', 'To remove a field.', 'Irreversible action; it stops triggering the review.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Field Validation', 'Access to the screen', 'Allows opening and using the Field Validation screen.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Review on change', 'When the configured field is changed, the record goes back to the indicated review.', 'Configure only the fields that should really reopen the review.'],
+    ['Review type', 'Defines whether the review is Credit, Tax or both.', 'Choose the type according to the field impact.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Approvals (Credit and Tax)', 'Changing the field sends the record back to the corresponding review queue.', 'Align with the approval rules.'],
+    ['Customer, Order and Product', 'The fields belong to these entities.', 'Choose the correct entity.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not perform the review — it only defines which changes trigger it again.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['A change did not reopen the review', 'Field not configured here', 'Register the field with the correct review type.'],
+    ['The review reopens unnecessarily', 'Field configured improperly', 'Review or delete the field rule.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To define which fields, when changed, send the record back to review (Credit, Tax or both).' },
+    { question: 'What is the "Review Type"?', answer: 'It indicates whether the change reopens the Credit review, the Tax review or both.' },
+    { question: 'Which entities does it apply to?', answer: 'To Customer, Order or Product, according to the chosen Entity.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Field Validation screen documentation.' },
+  ]}
+/>

@@ -1,0 +1,121 @@
+---
+section: modulos
+routeSlug: administrador/gerenciador-de-usuarios-conectados
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Connected Users Manager
+description: Real-time monitor of the users connected to the system, with the active total and a list of name, email and authentication time.
+routineType: Lookup
+permission: Yes
+impact: Real-time monitoring of connected users
+keywords: [connected users, manager, sessions, online, real time]
+tags: [modulo-administrador, consulta]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Connected Users Manager** screen shows, in real time, the users currently connected to the system. It presents the **Total of Active Users** and a list with **Name**, **Email** and the **Authenticated at** time.
+
+<Callout type="info" title="Monitoring screen">
+This is a lookup-only screen (real-time monitoring). There is no registration or editing — the list updates as users enter and leave the system.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Online users', text: 'Shows who is connected to the system right now.' },
+    { label: 'Use', title: 'Monitoring', text: 'Track the active total and the details of each session.' },
+    { label: 'Caution', title: 'Read only', text: 'The screen does not change or end sessions — it only informs.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Check how many and which users are connected at the moment.
+- Look up each connected user's authentication time.
+
+## How to access
+
+Administrator → Connected Users Manager
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Total of Active Users', 'Counter with the number of users connected at the moment.', 'Updates in real time.'],
+    ['Connected list', 'Table with the "Name", "Email" and "Authenticated at" columns.', 'Read only.'],
+  ]}
+/>
+
+## Main fields
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Name', 'Name of the connected user.'],
+    ['Email', 'Email of the connected user.'],
+    ['Authenticated at', 'Date and time the user authenticated.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Look up** — open the screen and see the **Total of Active Users** and the connected list.
+2. **Follow** — the list updates in real time as users enter and leave.
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Connected Users Manager', 'Access to the screen', 'Allows opening and viewing the connected users screen.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not end sessions or disconnect users — it only shows who is connected.
+- It does not register or edit users (that is done in the Authenticator module).
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The list does not update', 'Real-time connection interrupted', 'Reload the screen and check the connection.'],
+    ['A user does not appear', 'Session ended or not authenticated', 'The list only shows users connected at the moment.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To monitor, in real time, the users currently connected to the system.' },
+    { question: 'Can I disconnect a user here?', answer: 'No; the screen is lookup/monitoring only.' },
+    { question: 'Does the list update by itself?', answer: 'Yes; it reflects in real time who is connected.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Connected Users Manager screen documentation.' },
+  ]}
+/>

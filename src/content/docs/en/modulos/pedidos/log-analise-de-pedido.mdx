@@ -1,0 +1,148 @@
+---
+section: modulos
+routeSlug: pedidos/log-analise-de-pedido
+pageType: routine
+module: pedidos
+moduleLabel: Orders
+lang: en
+title: Order Review Log
+description: Look up the history of the automatic order reviews, with the applied rule, the reason and the result by execution date.
+routineType: Lookup
+permission: Yes
+impact: Traceability of the automatic order reviews
+keywords: [order review log, review, applied rule, reason, result, order]
+tags: [modulo-pedidos, consulta]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Order Review Log** screen lets you look up the history of the automatic reviews applied to orders. For each execution, the log shows the **Order Number**, the **Customer Code**, the **Applied Rule**, the **Reason** and the **Result**, with the **Execution Date**.
+
+<Callout type="info" title="Lookup screen">
+This is a lookup screen (log). It records what the system did in the order reviews, serving for traceability.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Traceability', text: 'Shows the applied rules and the result of the order reviews.' },
+    { label: 'Use', title: 'Lookup', text: 'Filter by order, customer or applied rule.' },
+    { label: 'Caution', title: 'Read only', text: 'The screen only looks up the history; it does not change orders.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Look up which rules were applied in an order's review.
+- Check the reason and the result of a review.
+
+## How to access
+
+Orders → Order Review Log
+
+## Before you start
+
+- Have, if needed, the **Order Number**, the **Customer Code** or the **Applied Rule** to filter.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Order Number, Customer Code and Applied Rule, with the "Search" and "Clear Filters" buttons.', 'Combine the filters to narrow the results.'],
+    ['Results', 'List with the "Execution Date", "Order Number", "Customer Code", "Applied Rule", "Reason" and "Result" columns.', 'Read only.'],
+  ]}
+/>
+
+## Main fields
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Execution Date', 'Date and time the review was executed.'],
+    ['Order Number', 'Reviewed order.'],
+    ['Customer Code', 'Order customer.'],
+    ['Applied Rule', 'Review rule applied.'],
+    ['Reason', 'Reason associated with the result.'],
+    ['Result', 'Result of the review.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the filters (Order Number, Customer Code, Applied Rule) and click **"Search"**.
+2. **Analyze** — check the applied rule, the reason and the result of each execution.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the records according to the filters.', '—'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Order Review Log', 'Access to the screen', 'Allows opening and viewing the order review log.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Orders', 'The log records the reviews applied to orders.', 'Use it to audit the rule behavior.'],
+    ['Review rules', 'It shows which rule was applied.', 'Compare it with the registered rules.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not change the order or re-run the review — it only looks up the history.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find a record', 'Filters too restrictive', 'Adjust the filters (order, customer, rule).'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To look up the history of the automatic reviews applied to orders.' },
+    { question: 'Can I change anything here?', answer: 'No; it is a lookup screen (log).' },
+    { question: 'How do I filter by an order?', answer: 'Enter the Order Number and click Search.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Order Review Log screen documentation.' },
+  ]}
+/>

@@ -1,0 +1,126 @@
+---
+section: modulos
+routeSlug: administrador/atualizador-de-arquivos-json
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Atualizador de Arquivos Json
+description: Editor dos arquivos de configuração JSON (AppSettings) dos serviços do sistema, selecionados por grupo de serviço.
+routineType: Configuração técnica
+permission: Sim
+impact: Edição dos arquivos de configuração (AppSettings) dos serviços
+keywords: [atualizador de arquivos json, editor json, appsettings, configuração, serviços, administrador]
+tags: [modulo-administrador, tecnico]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Atualizador de Arquivos Json** é um **Editor JSON** dos arquivos de configuração (**AppSettings**) dos serviços do sistema. Você seleciona o arquivo desejado por grupo de serviço e edita o seu conteúdo JSON.
+
+<Callout type="cuidado" title="Tela técnica">
+Esta é uma tela técnica. A edição incorreta dos arquivos de configuração pode afetar o funcionamento dos serviços do sistema. Faça alterações apenas com conhecimento do conteúdo e, preferencialmente, com apoio da equipe técnica.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Editar AppSettings', text: 'Edita os arquivos de configuração JSON dos serviços.' },
+    { label: 'Uso', title: 'Por grupo de serviço', text: 'Selecione o arquivo do serviço desejado para editar.' },
+    { label: 'Cuidado', title: 'Impacto técnico', text: 'Alterações afetam o comportamento dos serviços.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar o conteúdo de um arquivo de configuração JSON.
+- Ajustar parâmetros de configuração de um serviço.
+
+## Como acessar
+
+Administrador → Atualizador de Arquivos Json
+
+## Antes de começar
+
+- Saiba **qual arquivo** (grupo de serviço) precisa editar.
+- Conheça o **conteúdo** e o efeito da alteração.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Seleção do arquivo', 'Campo "Selecione o arquivo json para edição" com os grupos de serviço disponíveis.', 'Escolha o arquivo correto.'],
+    ['Editor', 'Área de edição do conteúdo JSON do arquivo selecionado.', 'Mantenha o JSON válido.'],
+  ]}
+/>
+
+## Arquivos disponíveis
+
+<DocTable
+  headers={['Arquivo (grupo de serviço)', 'O que configura']}
+  rows={[
+    ['AppSettings - Serviços Rest', 'Configuração dos serviços REST.'],
+    ['AppSettings - Serviços de Integrações', 'Configuração dos serviços de integrações.'],
+    ['AppSettings - Serviços Exe&Prompt', 'Configuração dos serviços de execução (Exe/Prompt).'],
+    ['AppSettings - Serviços Cliente Web - Blazor', 'Configuração do cliente web (Blazor).'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Selecionar** — no campo "Selecione o arquivo json para edição", escolha o grupo de serviço desejado.
+2. **Consultar / editar** — o conteúdo do arquivo é carregado no editor para consulta ou edição.
+3. **Salvar** — grave as alterações (confirme que o JSON está válido).
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Atualizador de Arquivos Json', 'Acesso à tela', 'Permite abrir e utilizar o Editor JSON de configuração.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não reinicia serviços — apenas edita os arquivos de configuração.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O arquivo não carrega', 'Arquivo não selecionado', 'Selecione o grupo de serviço no campo correspondente.'],
+    ['A alteração causou erro', 'JSON inválido', 'Revise a sintaxe do JSON antes de salvar.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para editar os arquivos de configuração JSON (AppSettings) dos serviços do sistema.' },
+    { question: 'Quais arquivos posso editar?', answer: 'Os AppSettings dos serviços Rest, de Integrações, Exe&Prompt e Cliente Web - Blazor.' },
+    { question: 'Preciso de cuidado ao editar?', answer: 'Sim; é uma tela técnica e o JSON precisa permanecer válido, pois afeta os serviços.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Atualizador de Arquivos Json.' },
+  ]}
+/>

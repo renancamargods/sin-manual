@@ -1,0 +1,164 @@
+---
+section: modulos
+routeSlug: pedidos/lista-de-preco
+pageType: routine
+module: pedidos
+moduleLabel: Pedidos
+title: Lista de Preço
+description: Cadastro das listas de preço comerciais, com validade e moeda, e as abas de itens, pedidos e clientes vinculados.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Listas de preço usadas em orçamentos e pedidos
+keywords: [lista de preço, preço, validade, moeda, item, pedidos]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Lista de Preço** cadastra as listas de preço comerciais usadas em orçamentos e pedidos. Cada lista tem uma **Descrição**, um período de **Validade** (Início e Término), uma **Moeda** e um **Status Sistema**, e concentra, em abas, os itens, os pedidos e os clientes vinculados.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Listas de preço', text: 'Centraliza as listas de preço usadas nas vendas.' },
+    { label: 'Uso', title: 'Orçamentos e pedidos', text: 'A lista define os preços aplicados nas operações.' },
+    { label: 'Cuidado', title: 'Validade e moeda', text: 'Confira a vigência e a moeda da lista.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova lista de preço.
+- Definir a validade e a moeda da lista.
+- Consultar os itens, pedidos e clientes da lista.
+
+## Como acessar
+
+Pedidos → Lista de Preço
+
+## Antes de começar
+
+- Tenha a **descrição**, o período de **validade** e a **moeda**.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Descrição", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista pela coluna "Descrição", com as ações por linha.', 'Cada linha tem Histórico, Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição (abas)', 'Janela com as abas "Lista de Preço", "Itens", "Pedidos" e "Clientes".', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Lista de Preço"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Descrição', 'Descrição/nome da lista de preço.'],
+    ['Validade - Início', 'Data em que a lista passa a valer.'],
+    ['Validade - Término', 'Data em que a lista deixa de valer.'],
+    ['Moeda', 'Moeda da lista (com o botão "+" para cadastrar).'],
+    ['Status Sistema', 'Situação da lista (Ativo/Inativo).'],
+  ]}
+/>
+
+### Abas complementares
+
+<DocTable
+  headers={['Aba', 'O que mostra']}
+  rows={[
+    ['Itens', 'Itens (produtos e preços) da lista.'],
+    ['Pedidos', 'Pedidos que usam a lista.'],
+    ['Clientes', 'Clientes vinculados à lista.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe a **"Descrição"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe **Descrição**, a **validade**, a **Moeda** e o **Status** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Consultar itens** — abra a lista e acesse a aba **"Itens"**.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as listas de preço conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar uma nova lista.', '—'],
+    ['Salvar e Continuar', 'Para salvar e continuar nas demais abas.', '—'],
+    ['Detalhes', 'Para consultar uma lista sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar uma lista existente.', 'Confira a validade.'],
+    ['Excluir', 'Para remover uma lista.', 'Ação sem retorno; evite excluir listas em uso.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Lista de Preço', 'Acesso à tela', 'Permite abrir e utilizar a tela de Lista de Preço.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Item Lista de Preço', 'Os preços dos produtos ficam nos itens da lista.', 'Cadastre os itens na aba "Itens" ou na tela própria.'],
+    ['Orçamento e Pedido', 'A lista define os preços aplicados.', 'Confira a lista usada na operação.'],
+    ['Moeda', 'A lista usa uma moeda.', 'Cadastre a moeda antes da lista.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cadastra os preços item a item aqui — isso é feito em Item Lista de Preço (ou na aba "Itens").
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A lista não aplica preços', 'Fora da validade ou sem itens', 'Verifique a validade e os itens da lista.'],
+    ['Não encontro uma lista', 'Filtro por descrição incorreto', 'Ajuste a "Descrição".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as listas de preço usadas em orçamentos e pedidos.' },
+    { question: 'Onde ficam os preços dos produtos?', answer: 'Nos itens da lista (aba "Itens" ou tela Item Lista de Preço).' },
+    { question: 'Como defino a vigência?', answer: 'Pelos campos Validade - Início e Validade - Término.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Lista de Preço.' },
+  ]}
+/>

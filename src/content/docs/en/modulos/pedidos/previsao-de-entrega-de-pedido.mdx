@@ -1,0 +1,151 @@
+---
+section: modulos
+routeSlug: pedidos/previsao-de-entrega-de-pedido
+pageType: routine
+module: pedidos
+moduleLabel: Orders
+lang: en
+title: Order Delivery Forecast
+description: Defines the invoicing and delivery lead times by Lounge and scope (street, city, state or customer).
+routineType: Registration and lookup
+permission: Yes
+impact: Invoicing and delivery lead times used in the order forecast
+keywords: [delivery forecast, lead time, invoicing days, delivery days, lounge]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Order Delivery Forecast** screen defines the lead times used to estimate the order delivery: the **Days to Invoice** and the **Days to Deliver**, by **Lounge** and by scope **Type** (Street, City, State or Customer).
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Delivery lead times', text: 'Defines the days to invoice and deliver by Lounge.' },
+    { label: 'Use', title: 'Order estimate', text: 'The lead times support the order delivery forecast.' },
+    { label: 'Caution', title: 'Scope (Type)', text: 'The lead time can vary by street, city, state or customer.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register the invoicing and delivery lead times of a Lounge.
+- Define different lead times by scope (street, city, state or customer).
+- Look up, edit or delete lead times.
+
+## How to access
+
+Orders → Order Delivery Forecast
+
+## Before you start
+
+- Know the **Lounge** and the scope **Type**.
+- Have the **Days to Invoice** and the **Days to Deliver**.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'The "Lounge" field, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List with the "Lounge", "Type", "Days to Invoice" and "Days to Deliver" columns, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing', 'Window with the lead time fields.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Lounge', 'Lounge the lead time applies to (with the "+" button to register).'],
+    ['Days to Invoice', 'Number of days forecast for invoicing.'],
+    ['Days to Deliver', 'Number of days forecast for delivery.'],
+    ['Type', 'Lead time scope: Street, City, State or Customer.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the **"Lounge"** and click **"Search"**.
+2. **Register** — click **"+ New"**, select the **Lounge**, enter the **Days to Invoice** and the **Days to Deliver**, choose the **Type** and click **"Save"** (or **"Save and Continue"**).
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list lead times according to the filter.', '—'],
+    ['+ New', 'To register a new lead time.', '—'],
+    ['Save and Continue', 'To save and keep registering.', '—'],
+    ['Details', 'To view a lead time without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing lead time.', '—'],
+    ['Delete', 'To remove a lead time.', 'Irreversible action; it can affect the delivery forecast.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Order Delivery Forecast', 'Access to the screen', 'Allows opening and using the Order Delivery Forecast screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Orders', 'The lead times support the order delivery forecast.', 'Check the Lounge and the scope.'],
+    ['Lounge', 'The lead times are defined by Lounge.', 'Register the Lounge first.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not perform the delivery — it only defines the lead times used in the forecast.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The forecast came out different than expected', 'Lead time registered with the wrong scope', 'Check the Type and the registered days.'],
+    ['I cannot find a lead time', 'Wrong Lounge filter', 'Adjust the "Lounge" filter.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To define the invoicing and delivery lead times by Lounge and scope.' },
+    { question: 'What is the "Type"?', answer: 'The lead time scope: Street, City, State or Customer.' },
+    { question: 'Can I have different lead times per city?', answer: 'Yes; use the "City" Type for city-based lead times.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Order Delivery Forecast screen documentation.' },
+  ]}
+/>

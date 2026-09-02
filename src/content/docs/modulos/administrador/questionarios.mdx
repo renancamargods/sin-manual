@@ -1,0 +1,159 @@
+---
+section: modulos
+routeSlug: administrador/questionarios
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Questionários
+description: Cadastro de questionários com suas questões (descrição, tipo de pergunta e obrigatoriedade) e a consulta das respostas.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Questionários e respostas usados no sistema
+keywords: [questionário, questionarios, pergunta, questão, resposta, obrigatório, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Questionários** permite montar questionários com suas **questões** e consultar as **respostas**. Cada questionário tem um **Nome**, uma situação (Ativo/Inativo) e uma lista de questões — cada uma com **Descrição**, **Tipo da Pergunta** e a indicação de **Obrigatório?**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Montar questionários', text: 'Cria questionários com questões configuráveis.' },
+    { label: 'Uso', title: 'Perguntas e respostas', text: 'Define as questões e consulta as respostas recebidas.' },
+    { label: 'Cuidado', title: 'Obrigatoriedade', text: 'Questões obrigatórias precisam ser respondidas.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo questionário.
+- Adicionar questões com seu tipo e obrigatoriedade.
+- Consultar as respostas de um questionário.
+
+## Como acessar
+
+Administrador → Questionários
+
+## Antes de começar
+
+- Tenha o **nome** do questionário e a lista de **questões**.
+- Defina o **tipo** de cada pergunta e se é **obrigatória**.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros do questionário, com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista dos questionários, com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição (abas)', 'Janela com as abas "Dados do Questionario" e "Respostas do Questionário".', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Dados do Questionario"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Nome do questionário.'],
+    ['Status Sistema', 'Situação do questionário (Ativo/Inativo).'],
+    ['Potenciais Itens do Questionário', 'Grade das questões, com "Descrição", "Tipo da Pergunta" e "Obrigatório?", e o botão "+ Nova Questão".'],
+  ]}
+/>
+
+### Aba "Respostas do Questionário"
+
+<DocTable
+  headers={['Aba', 'O que mostra']}
+  rows={[
+    ['Respostas do Questionário', 'Respostas recebidas para o questionário.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe os filtros e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe o **Nome**, defina o **Status**, adicione as questões com **"+ Nova Questão"** (Descrição, Tipo da Pergunta, Obrigatório?) e clique em **"Salvar"**.
+3. **Consultar respostas** — abra o questionário e acesse a aba **"Respostas do Questionário"**.
+4. **Editar / Excluir** — use os ícones de **Editar** e **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os questionários conforme os filtros.', '—'],
+    ['+ Novo', 'Para cadastrar um novo questionário.', '—'],
+    ['+ Nova Questão', 'Para adicionar uma questão ao questionário.', 'Defina o tipo e a obrigatoriedade.'],
+    ['Detalhes', 'Para consultar um questionário sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um questionário existente.', '—'],
+    ['Excluir', 'Para remover um questionário.', 'Ação sem retorno.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Questionários', 'Acesso à tela', 'Permite abrir e utilizar a tela de Questionários.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Coleta de respostas', 'As respostas ficam registradas na aba correspondente.', 'Consulte as respostas pela aba do questionário.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não aplica o questionário sozinha — apenas o define e mostra as respostas registradas.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Uma questão não aparece', 'Questão não adicionada ou questionário inativo', 'Verifique as questões e o Status Sistema.'],
+    ['Não vejo as respostas', 'Aba incorreta', 'Acesse a aba "Respostas do Questionário".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para montar questionários com suas questões e consultar as respostas.' },
+    { question: 'Como adiciono uma pergunta?', answer: 'Use o botão "+ Nova Questão" e informe Descrição, Tipo da Pergunta e se é Obrigatório.' },
+    { question: 'Onde vejo as respostas?', answer: 'Na aba "Respostas do Questionário" dentro do cadastro.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Questionários.' },
+  ]}
+/>

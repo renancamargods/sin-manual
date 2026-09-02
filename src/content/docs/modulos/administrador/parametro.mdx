@@ -1,0 +1,146 @@
+---
+section: modulos
+routeSlug: administrador/parametro
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Parâmetro
+description: Cadastro dos parâmetros gerais que agrupam e contextualizam os pares de Chave e Valor de configuração do sistema.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Parâmetros que agrupam as configurações de Chave e Valor
+keywords: [parâmetro, configuração, chave e valor, agrupador, administrador]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Parâmetro** cadastra os parâmetros gerais que **agrupam e contextualizam** os pares de configuração da tela [Chave e Valor](/modulos/administrador/chave-e-valor). Cada parâmetro tem um nome e uma situação (Ativo/Inativo).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Agrupador de configuração', text: 'Reúne os pares de Chave e Valor sob um mesmo contexto.' },
+    { label: 'Uso', title: 'Base para Chave e Valor', text: 'Cada par de chave/valor pertence a um parâmetro.' },
+    { label: 'Cuidado', title: 'Status', text: 'Parâmetros inativos não devem ser usados em novos pares.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo parâmetro de configuração.
+- Consultar ou localizar um parâmetro pelo nome.
+- Ativar ou inativar um parâmetro.
+
+## Como acessar
+
+Administrador → Parâmetro
+
+## Antes de começar
+
+- Tenha o **nome** do parâmetro.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Parâmetro e Status Sistema, com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com as colunas "Parâmetro", "Status Sistema" e "Data da Última Alteração", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela com os campos Parâmetro e Status Sistema.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Parâmetro', 'Nome do parâmetro (agrupador dos pares de chave e valor).'],
+    ['Status Sistema', 'Situação do parâmetro (Ativo ou Inativo).'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe o **"Parâmetro"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe o **Parâmetro**, defina o **Status Sistema** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os parâmetros conforme os filtros.', '—'],
+    ['+ Novo', 'Para cadastrar um novo parâmetro.', '—'],
+    ['Salvar e Continuar', 'Para salvar e seguir cadastrando.', '—'],
+    ['Detalhes', 'Para consultar um parâmetro sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um parâmetro existente.', '—'],
+    ['Excluir', 'Para remover um parâmetro.', 'Ação sem retorno; evite excluir parâmetros com pares de chave/valor vinculados.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Parâmetro', 'Acesso à tela', 'Permite abrir e utilizar a tela de Parâmetro.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Chave e Valor', 'Cada par de chave/valor pertence a um parâmetro.', 'Cadastre o parâmetro antes dos pares.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não define os valores de configuração — isso é feito na tela de Chave e Valor.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O parâmetro não aparece em Chave e Valor', 'Parâmetro inativo', 'Verifique o Status Sistema.'],
+    ['Não encontro um parâmetro', 'Filtro incorreto', 'Ajuste o filtro de Parâmetro.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os parâmetros que agrupam os pares de Chave e Valor de configuração.' },
+    { question: 'Qual a relação com "Chave e Valor"?', answer: 'Cada par de chave e valor pertence a um parâmetro definido aqui.' },
+    { question: 'Posso excluir um parâmetro?', answer: 'Sim, mas evite excluir parâmetros com pares de chave/valor vinculados.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Parâmetro.' },
+  ]}
+/>

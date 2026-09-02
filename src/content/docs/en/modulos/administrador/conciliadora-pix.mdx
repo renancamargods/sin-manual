@@ -1,0 +1,165 @@
+---
+section: modulos
+routeSlug: administrador/conciliadora-pix
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: PIX Reconciler
+description: Look up and run the reconciliation of PIX payments, relating the PIX code to the order and the SAP update result.
+routineType: Lookup and action
+permission: Yes
+impact: Reconciliation of PIX payments with orders and SAP
+keywords: [pix reconciler, pix, reconciliation, payment, order, sap]
+tags: [modulo-administrador, consulta]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **PIX Reconciler** screen lets you **look up** and **run** the reconciliation of payments made via PIX. It relates the **PIX Code** to the **Order** and the **Customer**, and shows the result of the document update in **SAP** (message and type).
+
+<Callout type="info" title="Lookup and action screen">
+This is a lookup and execution screen: besides listing the reconciliations, it lets you trigger the reconciliation (Run Reconciliation). It is not a common register.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Reconcile PIX', text: 'Relates PIX payments to orders and updates SAP.' },
+    { label: 'Use', title: 'Lookup and execution', text: 'Look up the status or run the reconciliation by period/order.' },
+    { label: 'Caution', title: 'SAP return', text: 'The message column indicates the result of the SAP update.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Look up PIX reconciliations by code, customer, order or date.
+- Check the SAP update return of each payment.
+- Run the PIX reconciliation.
+
+## How to access
+
+Administrator → PIX Reconciler
+
+## Before you start
+
+- Have, if needed, the **PIX Code**, the **Order**, the **Customer** or the **Date** to filter.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'PIX Code, Customer, Order, Date and the "Run Reconciliation" option, with the "Search", "New" and "Clear Filters" buttons.', 'Use the filters to narrow the results.'],
+    ['Results', 'List with the "Order", "Customer", "PIX Code", "Date", "SAP Message" and "Message Type" columns.', 'The message indicates the result of the SAP update.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['PIX Code', 'Searches by the PIX payment code.'],
+    ['Customer', 'Filters by customer.'],
+    ['Order', 'Filters by order.'],
+    ['Date', 'Filters by date.'],
+    ['Run Reconciliation', 'Triggers the reconciliation of PIX payments.'],
+  ]}
+/>
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['Order', 'Order related to the payment.'],
+    ['Customer', 'Customer related to the payment.'],
+    ['PIX Code', 'PIX payment code.'],
+    ['Date', 'Date of the payment/reconciliation.'],
+    ['SAP Message', 'Return of the document update in SAP.'],
+    ['Message Type', 'Type of the return (e.g., Success).'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the filters (PIX Code, Customer, Order, Date) and click **"Search"**.
+2. **Run reconciliation** — use the **"Run Reconciliation"** option and click **"Search"** to trigger the process.
+3. **Check the return** — analyze the "SAP Message" and "Message Type" columns to confirm the result.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list reconciliations according to the filters.', '—'],
+    ['Run Reconciliation', 'To trigger the reconciliation of PIX payments.', 'Check the SAP return after running.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['PIX Reconciler', 'Access to the screen', 'Allows opening and using the PIX Reconciler screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Orders', 'The reconciliation relates the PIX to the order.', 'Check the corresponding order.'],
+    ['SAP Integration', 'The reconciliation updates the document in SAP.', 'Follow the return in the "SAP Message".'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not generate the PIX payment — it only reconciles existing payments with orders and SAP.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The reconciliation returned an error', 'Failure in the SAP update', 'Check the "SAP Message" and "Message Type".'],
+    ['I cannot find a payment', 'Filters too restrictive', 'Adjust the filters (PIX Code, Order, Date).'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To look up and run the reconciliation of PIX payments, relating them to orders and SAP.' },
+    { question: 'What does the "SAP Message" show?', answer: 'The return of the document update in SAP for that payment.' },
+    { question: 'Is it a register?', answer: 'No; it is a lookup and reconciliation execution screen.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the PIX Reconciler screen documentation.' },
+  ]}
+/>

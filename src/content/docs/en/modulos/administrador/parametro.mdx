@@ -1,0 +1,147 @@
+---
+section: modulos
+routeSlug: administrador/parametro
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Parameter
+description: Register the general parameters that group and contextualize the system's Key and Value configuration pairs.
+routineType: Registration and lookup
+permission: Yes
+impact: Parameters that group the Key and Value settings
+keywords: [parameter, configuration, key and value, grouper]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Parameter** screen registers the general parameters that **group and contextualize** the configuration pairs on the [Key and Value](/en/modulos/administrador/chave-e-valor) screen. Each parameter has a name and a status (Active/Inactive).
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Configuration grouper', text: 'Gathers the Key and Value pairs under the same context.' },
+    { label: 'Use', title: 'Base for Key and Value', text: 'Each key/value pair belongs to a parameter.' },
+    { label: 'Caution', title: 'Status', text: 'Inactive parameters should not be used in new pairs.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new configuration parameter.
+- Look up or find a parameter by name.
+- Activate or deactivate a parameter.
+
+## How to access
+
+Administrator → Parameter
+
+## Before you start
+
+- Have the parameter's **name**.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Parameter and System Status, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List with the "Parameter", "System Status" and "Last Change Date" columns, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing', 'Window with the Parameter and System Status fields.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Parameter', 'Name of the parameter (grouper of the key/value pairs).'],
+    ['System Status', 'Parameter status (Active or Inactive).'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the **"Parameter"** and click **"Search"**.
+2. **Register** — click **"+ New"**, enter the **Parameter**, set the **System Status** and click **"Save"** (or **"Save and Continue"**).
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list parameters according to the filters.', '—'],
+    ['+ New', 'To register a new parameter.', '—'],
+    ['Save and Continue', 'To save and keep registering.', '—'],
+    ['Details', 'To view a parameter without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing parameter.', '—'],
+    ['Delete', 'To remove a parameter.', 'Irreversible action; avoid deleting parameters with linked key/value pairs.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Parameter', 'Access to the screen', 'Allows opening and using the Parameter screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Key and Value', 'Each key/value pair belongs to a parameter.', 'Register the parameter before the pairs.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not define the configuration values — that is done on the Key and Value screen.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The parameter does not appear in Key and Value', 'Inactive parameter', 'Check the System Status.'],
+    ['I cannot find a parameter', 'Wrong filter', 'Adjust the Parameter filter.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the parameters that group the Key and Value configuration pairs.' },
+    { question: 'What is the relationship with "Key and Value"?', answer: 'Each key/value pair belongs to a parameter defined here.' },
+    { question: 'Can I delete a parameter?', answer: 'Yes, but avoid deleting parameters with linked key/value pairs.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Parameter screen documentation.' },
+  ]}
+/>

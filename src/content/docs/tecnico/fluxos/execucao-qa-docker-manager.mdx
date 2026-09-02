@@ -1,0 +1,281 @@
+---
+section: tecnico
+routeSlug: fluxos/execucao-qa-docker-manager
+pageType: tecnico
+title: Execução do QA Docker Manager (Docker)
+description: "Fluxo de build e execução do QA Docker Manager via Docker: imagem multi-stage, docker compose e acesso à interface, do terminal ao ambiente no ar."
+moduleLabel: Qualidade / QA
+routineType: Fluxo de processo
+impact: Ambiente de testes em containers
+keywords: [docker, dockerfile, docker compose, multi-stage, qa docker manager, container, build, imagem, dood, socket, kestrel, blazor]
+tags: [tecnico, fluxo, execucao-qa-docker-manager]
+order: 6
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+O **QA Docker Manager** é a ferramenta web (Blazor Server) que a equipe de QA usa para **subir e gerenciar ambientes de teste em containers** a partir de repositórios Git. Este fluxo descreve como **colocar a própria ferramenta no ar** usando Docker, desde o terminal até o acesso à interface no navegador.
+
+A imagem é construída em **multi-stage** (vários estágios), o que mantém a imagem final enxuta: os estágios de compilação usam o SDK do .NET, mas a imagem que roda em produção leva apenas o necessário para executar (runtime do ASP.NET, "git" e o cliente "docker"). A execução é orquestrada por um único comando de **docker compose**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Subir a ferramenta', text: 'Construir a imagem multi-stage e colocar o QA Docker Manager no ar de forma padronizada.' },
+    { label: 'Uso', title: 'Ambiente de QA', text: 'Executado por QA/DevOps para disponibilizar a ferramenta que gerencia os containers de teste.' },
+    { label: 'Cuidado', title: 'Socket do Docker', text: 'A ferramenta comanda o Docker do host pelo socket; sem esse acesso, ela sobe mas não cria ambientes.' },
+  ]}
+/>
+
+## Quando usar este fluxo
+
+- Colocar o QA Docker Manager no ar pela primeira vez em um servidor.
+- Atualizar a ferramenta após uma mudança no código (reconstruir a imagem).
+- Reiniciar, parar ou inspecionar o container da ferramenta.
+- Validar que o ambiente ficou acessível pela interface web.
+
+## Como acessar
+
+O fluxo é executado no **terminal**, na pasta do projeto onde ficam os arquivos de container:
+
+- `Dockerfile` — receita de build multi-stage da imagem.
+- `docker-compose.yml` — orquestração (porta, socket do Docker, volumes, limites).
+- `.dockerignore` — evita enviar `bin/`, `obj/`, `temp/` e `data/` para o build.
+
+Após subir, a interface fica disponível em **`http://localhost:5058`** (ou pelo IP do servidor).
+
+## As etapas do build (multi-stage)
+
+O `Dockerfile` é dividido em estágios encadeados. Cada estágio aproveita o resultado do anterior, e só o estágio **final** vira a imagem que roda.
+
+<DocTable
+  headers={['Estágio', 'O que faz']}
+  rows={[
+    ['1. base', 'Parte do runtime do ASP.NET e instala as ferramentas de execução: "git" (para clonar repositórios) e o cliente "docker" + "compose" (para comandar o Docker do host).'],
+    ['2. restore', 'Usa o SDK do .NET e restaura as dependências a partir do arquivo de projeto. Camada reaproveitada por cache enquanto as dependências não mudam.'],
+    ['3. build', 'Compila o projeto em modo Release, reaproveitando o restore já feito.'],
+    ['4. publish', 'Gera os arquivos publicados, prontos para produção.'],
+    ['5. final', 'Parte do estágio "base" e recebe apenas os arquivos publicados. É a imagem enxuta que efetivamente executa.'],
+  ]}
+/>
+
+<Callout type="info" title="Por que multi-stage">
+O SDK do .NET (necessário para compilar) é grande. Ao separar a compilação da execução, a imagem final não carrega o SDK — só o runtime e os arquivos publicados. O resultado é uma imagem menor, mais rápida de distribuir e com menor superfície de ataque.
+</Callout>
+
+## Antes de começar
+
+O servidor onde a ferramenta vai rodar precisa ter os pré-requisitos abaixo.
+
+<DocTable
+  headers={['Pré-requisito', 'Observação']}
+  rows={[
+    ['Docker Engine', 'Versão 24 ou superior (necessário para o "docker compose" v2).'],
+    ['Docker Compose v2', 'Já vem embutido no Docker moderno (comando "docker compose", sem hífen).'],
+    ['Acesso ao Docker', 'O usuário precisa poder executar comandos "docker" (no Linux, pertencer ao grupo "docker").'],
+    ['Porta 5058 livre', 'É a porta em que a interface é publicada no host.'],
+    ['Acesso à internet', 'Para baixar as imagens base e clonar os repositórios de teste.'],
+  ]}
+/>
+
+Para conferir se está tudo instalado:
+
+```bash
+docker --version
+docker compose version
+```
+
+## Passo a passo do processo
+
+### 1. Abrir o terminal na pasta do projeto
+
+Navegue até a pasta onde está o `docker-compose.yml`:
+
+```bash
+cd caminho/para/QaDockerManager
+```
+
+### 2. Subir a aplicação
+
+Construa a imagem (se ainda não existir) e suba o container em segundo plano:
+
+```bash
+docker compose up -d --build
+```
+
+- A opção **"--build"** força a construção da imagem a partir do `Dockerfile`.
+- A opção **"-d"** sobe em segundo plano, liberando o terminal.
+- Na **primeira execução**, o Docker baixa as imagens base (SDK do .NET, runtime e cliente Docker); pode levar alguns minutos. Nas próximas vezes é quase instantâneo por causa do cache.
+
+### 3. Verificar se subiu
+
+```bash
+docker compose ps
+```
+
+O serviço **"qa-docker-manager"** deve aparecer como **"running"** e, após alguns segundos, **"healthy"**.
+
+<Callout type="dica" title="Se não subir">
+Consulte os registros da aplicação para entender o motivo:
+
+```bash
+docker compose logs -f qa-docker-manager
+```
+</Callout>
+
+### 4. Acessar a interface
+
+Abra o navegador em **`http://localhost:5058`**. Para acessar de outra máquina, troque `localhost` pelo **IP ou nome do servidor**: `http://SEU-SERVIDOR:5058`.
+
+Pronto — a ferramenta está no ar e o QA já pode cadastrar repositórios e subir ambientes pela tela.
+
+## Comandos do dia a dia
+
+<DocTable
+  headers={['Ação', 'Comando']}
+  rows={[
+    ['Subir / reconstruir', 'docker compose up -d --build'],
+    ['Ver status', 'docker compose ps'],
+    ['Ver registros em tempo real', 'docker compose logs -f qa-docker-manager'],
+    ['Parar (mantém os dados)', 'docker compose stop'],
+    ['Parar e remover o container', 'docker compose down'],
+    ['Reiniciar', 'docker compose restart'],
+    ['Atualizar após mudança no código', 'docker compose up -d --build'],
+  ]}
+/>
+
+## Regras e cuidados
+
+- A ferramenta comanda o **Docker do host** pelo socket `/var/run/docker.sock` (padrão "Docker fora do Docker"). Sem esse mapeamento no `docker-compose.yml`, ela sobe mas **não consegue** criar ambientes.
+- As pastas **"temp"** (repositórios clonados) e **"data"** (registro de ambientes) são persistidas por volume; não devem ser apagadas com a ferramenta em uso.
+- O `.dockerignore` é obrigatório: sem ele, o build envia `bin/`, `obj/`, `temp/` e `data/` para dentro da imagem, deixando o build lento e a imagem contaminada com dados de execução.
+- O comando **"docker compose down"** remove apenas o container da ferramenta; os ambientes de teste que ela criou continuam existindo no Docker do host.
+- Para mudar a porta de acesso, altere só o lado esquerdo do mapeamento no `docker-compose.yml` (ex.: **"8090:8080"** para acessar em `http://localhost:8090`).
+
+## Responsabilidades
+
+<DocTable
+  headers={['Papel', 'Responsabilidade']}
+  rows={[
+    ['QA / DevOps', 'Executar o build e a subida da ferramenta; manter a porta e os volumes configurados.'],
+    ['Infraestrutura', 'Garantir Docker Engine e Compose no servidor, além do acesso ao socket do Docker.'],
+    ['Qualidade e processos', 'Revisar periodicamente este fluxo, garantindo aderência à ferramenta.'],
+  ]}
+/>
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A interface não abre em localhost:5058', 'Container não subiu ou porta ocupada', 'Rode "docker compose ps" e "docker compose logs"; troque a porta no compose se estiver em uso.'],
+    ['A ferramenta sobe, mas dá erro ao criar ambientes', 'Socket do Docker não montado ou sem permissão', 'Confirme o volume do "docker.sock" no compose; no Linux, verifique se o usuário está no grupo "docker".'],
+    ['Erro ao clonar repositório privado', 'Falta de credencial de acesso', 'O repositório precisa ser acessível; a autenticação por token ainda não está configurada.'],
+    ['Build muito lento ou imagem muito grande', 'Build enviando arquivos indevidos', 'Garanta que o ".dockerignore" existe e ignora "bin", "obj", "temp" e "data".'],
+    ['Ambiente com pasta local não sobe corretamente', 'Caminho da pasta é resolvido no host, não no container', 'Monte a pasta "temp" no mesmo caminho no host e no container (ver observação no Dockerfile).'],
+  ]}
+/>
+
+## Fluxograma — build e execução
+
+O diagrama abaixo mostra o caminho do comando único (**"docker compose up -d --build"**) até o ambiente no ar, passando pelo build multi-stage.
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 820 880" width="820" role="img" aria-label="Fluxograma de build e execução do QA Docker Manager" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwd" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwd)">
+    <path d="M410,74 L410,100" />
+    <path d="M410,198 L410,224" />
+    <path d="M410,274 L410,300" />
+    <path d="M410,398 L410,424" />
+    <path d="M410,476 L410,500" />
+    <path d="M410,552 L410,576" />
+    <path d="M410,632 L410,658" />
+    <path d="M410,756 L410,782" />
+    <path d="M565,150 L598,150" />
+    <path d="M565,348 L598,348" />
+    <path d="M255,708 L222,708" />
+  </g>
+  <g font-size="12.5" fill="#5c6b7a">
+    <text x="422" y="216" text-anchor="start">Sim</text>
+    <text x="582" y="142" text-anchor="middle">Não</text>
+    <text x="582" y="340" text-anchor="middle">Sim</text>
+    <text x="422" y="774" text-anchor="start">Sim</text>
+    <text x="248" y="700" text-anchor="middle">Não</text>
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="220" y="26" width="380" height="48" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="410" y="55" text-anchor="middle" font-weight="600">1 &#183; Terminal na pasta do QA Docker Manager</text>
+    <rect x="220" y="224" width="380" height="50" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="410" y="254" text-anchor="middle">2 &#183; docker compose up -d --build</text>
+    <rect x="220" y="424" width="380" height="52" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="410" y="447" text-anchor="middle">3 &#183; Build multi-stage</text>
+    <text x="410" y="466" text-anchor="middle" fill="#5c6b7a" font-size="12">restore &#8594; build &#8594; publish</text>
+    <rect x="220" y="500" width="380" height="52" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="410" y="523" text-anchor="middle">4 &#183; Imagem final (enxuta)</text>
+    <text x="410" y="542" text-anchor="middle" fill="#5c6b7a" font-size="12">runtime + git + docker CLI + compose</text>
+    <rect x="220" y="576" width="380" height="56" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="410" y="599" text-anchor="middle">5 &#183; Container sobe (Kestrel :8080 &#8594; host :5058)</text>
+    <text x="410" y="618" text-anchor="middle" fill="#5c6b7a" font-size="12">volumes: docker.sock, temp, data</text>
+  </g>
+  <polygon points="410,100 565,150 410,198 255,150" fill="#fef3e2" stroke="#f18800" stroke-width="1.6"/>
+  <text x="410" y="146" text-anchor="middle" font-size="12.5" fill="#1a1417">Docker + Compose</text>
+  <text x="410" y="162" text-anchor="middle" font-size="12.5" fill="#1a1417">instalados?</text>
+  <rect x="600" y="126" width="200" height="48" rx="10" fill="#fbeaea" stroke="#cc093b" stroke-width="1.5"/>
+  <text x="700" y="147" text-anchor="middle" font-size="12" fill="#1a1417">Instalar Docker Engine</text>
+  <text x="700" y="163" text-anchor="middle" font-size="12" fill="#1a1417">+ Compose v2</text>
+  <polygon points="410,300 565,348 410,398 255,348" fill="#fef3e2" stroke="#f18800" stroke-width="1.6"/>
+  <text x="410" y="344" text-anchor="middle" font-size="12.5" fill="#1a1417">Primeira</text>
+  <text x="410" y="360" text-anchor="middle" font-size="12.5" fill="#1a1417">execução?</text>
+  <rect x="600" y="324" width="200" height="48" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+  <text x="700" y="345" text-anchor="middle" font-size="12" fill="#1a1417">Baixa imagens base</text>
+  <text x="700" y="361" text-anchor="middle" font-size="12" fill="#5c6b7a">.NET SDK / runtime / CLI</text>
+  <polygon points="410,658 565,708 410,758 255,708" fill="#fef3e2" stroke="#f18800" stroke-width="1.6"/>
+  <text x="410" y="704" text-anchor="middle" font-size="12.5" fill="#1a1417">running /</text>
+  <text x="410" y="720" text-anchor="middle" font-size="12.5" fill="#1a1417">healthy?</text>
+  <rect x="20" y="684" width="202" height="48" rx="10" fill="#fbeaea" stroke="#cc093b" stroke-width="1.5"/>
+  <text x="121" y="705" text-anchor="middle" font-size="12" fill="#1a1417">docker compose logs -f</text>
+  <text x="121" y="721" text-anchor="middle" font-size="12" fill="#5c6b7a">investigar o erro</text>
+  <rect x="220" y="782" width="380" height="54" rx="10" fill="#e6f4ec" stroke="#1f9d63" stroke-width="1.8"/>
+  <text x="410" y="806" text-anchor="middle" font-size="14" font-weight="700" fill="#1f7a4d">Ambiente no ar</text>
+  <text x="410" y="825" text-anchor="middle" font-size="12" fill="#1f7a4d">http://localhost:5058</text>
+</svg>
+</div>
+
+<Callout type="dica" title="Como ler o fluxograma">
+Um único comando (<strong>docker compose up -d --build</strong>) dispara o build <strong>multi-stage</strong> e sobe o container. Na primeira vez, o Docker baixa as imagens base; nas próximas, aproveita o cache. Quando o status fica <strong>healthy</strong>, a interface está pronta em <strong>http://localhost:5058</strong>.
+</Callout>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'O que é build multi-stage?', answer: 'É dividir o Dockerfile em estágios: um para compilar (com o SDK) e outro para executar (só com o runtime). A imagem final leva apenas o necessário para rodar, ficando menor e mais segura.' },
+    { question: 'Por que a ferramenta precisa do socket do Docker?', answer: 'Porque ela não roda um Docker próprio: ela comanda o Docker do servidor (host) para criar e gerenciar os containers de teste. Esse acesso vem do mapeamento do docker.sock no compose.' },
+    { question: 'A primeira execução é sempre demorada?', answer: 'A primeira sim, porque o Docker baixa as imagens base e compila o projeto. As execuções seguintes reaproveitam o cache e são bem mais rápidas.' },
+    { question: 'Como mudo a porta de acesso?', answer: 'No docker-compose.yml, altere o lado esquerdo do mapeamento de portas. Por exemplo, "8090:8080" passa a publicar a interface em http://localhost:8090.' },
+    { question: 'O "docker compose down" apaga os ambientes de teste?', answer: 'Não. Ele remove apenas o container da ferramenta. Os ambientes criados por ela continuam no Docker do host, e as pastas temp e data são preservadas.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial do fluxo de build e execução do QA Docker Manager via Docker (multi-stage + compose).' },
+  ]}
+/>

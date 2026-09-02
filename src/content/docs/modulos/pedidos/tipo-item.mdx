@@ -1,0 +1,144 @@
+---
+section: modulos
+routeSlug: pedidos/tipo-item
+pageType: routine
+module: pedidos
+moduleLabel: Pedidos
+title: Tipo Item
+description: Cadastro dos tipos de item do pedido, com o tipo do item e o código do tipo de item.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Tipos de item usados na classificação dos itens do pedido
+keywords: [tipo item, tipo do item, código, item, pedido, pedidos]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Tipo Item** cadastra os tipos usados para classificar os itens do pedido. Cada registro reúne o **Tipo do Item** e o **Codigo do Tipo Item**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Tipos de item', text: 'Classifica os itens do pedido por tipo.' },
+    { label: 'Uso', title: 'Classificação', text: 'Os tipos ficam disponíveis para os itens do pedido.' },
+    { label: 'Cuidado', title: 'Código', text: 'O código identifica o tipo de item.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar um novo tipo de item.
+- Consultar ou localizar um tipo pelo código.
+- Editar ou excluir um tipo.
+
+## Como acessar
+
+Pedidos → Tipo Item
+
+## Antes de começar
+
+- Tenha o **Tipo do Item** e o **Codigo do Tipo Item**.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Codigo do Tipo Item", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com as colunas "Tipo do Item" e "Codigo do Tipo Item", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela com os campos do tipo de item.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Tipo do Item', 'Tipo que classifica o item.'],
+    ['Codigo do Tipo Item', 'Código que identifica o tipo de item.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe o **"Codigo do Tipo Item"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, informe o **Tipo do Item** e o **Codigo do Tipo Item** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os tipos conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar um novo tipo.', '—'],
+    ['Salvar e Continuar', 'Para salvar e seguir cadastrando.', '—'],
+    ['Detalhes', 'Para consultar um tipo sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um tipo existente.', '—'],
+    ['Excluir', 'Para remover um tipo.', 'Ação sem retorno; evite excluir tipos em uso.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Tipo Item', 'Acesso à tela', 'Permite abrir e utilizar a tela de Tipo Item.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Itens do pedido', 'O tipo classifica os itens do pedido.', 'Use o tipo correto.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cria itens de pedido — apenas cadastra os tipos usados por eles.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro um tipo', 'Filtro por código incorreto', 'Ajuste o "Codigo do Tipo Item".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os tipos usados para classificar os itens do pedido.' },
+    { question: 'O que é o "Codigo do Tipo Item"?', answer: 'É o código que identifica o tipo de item.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Tipo Item.' },
+  ]}
+/>

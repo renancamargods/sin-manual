@@ -1,0 +1,149 @@
+---
+section: modulos
+routeSlug: pedidos/nota-fiscal
+pageType: routine
+module: pedidos
+moduleLabel: Pedidos
+title: Nota Fiscal
+description: Consulta das notas fiscais emitidas, por número, série, pedido, cliente, Lounge e período de emissão.
+routineType: Consulta
+permission: Sim
+impact: Consulta das notas fiscais emitidas
+keywords: [nota fiscal, nf, série, pedido, cliente, lounge, emissão, pedidos]
+tags: [modulo-pedidos, consulta]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Nota Fiscal** permite consultar as notas fiscais emitidas. É possível filtrar por **Número Nota Fiscal**, **Série**, **Número do Pedido**, **Cliente**, **Lounge** e **período de emissão**, e visualizar dados como código ERP, condição de pagamento, fatura, moeda e valor.
+
+<Callout type="info" title="Tela de consulta">
+Esta é uma tela de consulta. A emissão das notas ocorre em outros processos; aqui você localiza e visualiza as notas emitidas.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Consultar notas', text: 'Localiza as notas fiscais emitidas.' },
+    { label: 'Uso', title: 'Filtros', text: 'Busque por número, série, pedido, cliente, Lounge e período.' },
+    { label: 'Cuidado', title: 'Somente leitura', text: 'A tela consulta as notas; não as emite.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Localizar uma nota fiscal por número, série, pedido ou cliente.
+- Consultar as notas emitidas em um período por Lounge.
+
+## Como acessar
+
+Pedidos → Nota Fiscal
+
+## Antes de começar
+
+- Tenha, se necessário, o **número/série da nota**, o **pedido**, o **cliente**, o **Lounge** ou o **período de emissão** para filtrar.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Número Nota Fiscal, Série, Número do Pedido, Cliente, Lounge, Data de Emissão - Início e Data de Emissão - Término, com os botões "Pesquisar" e "Limpar Filtros".', 'Combine os filtros para restringir os resultados.'],
+    ['Resultados', 'Lista com diversas colunas da nota fiscal.', 'Somente leitura.'],
+  ]}
+/>
+
+## Campos principais
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Código ERP', 'Código da nota no ERP.'],
+    ['Lounge', 'Lounge emissor da nota.'],
+    ['Código do Cliente / Nome', 'Cliente da nota.'],
+    ['Condição de Pagamento', 'Condição de pagamento da nota.'],
+    ['Número Nota Fiscal / Série', 'Número e série da nota fiscal.'],
+    ['Data de Emissão', 'Data em que a nota foi emitida.'],
+    ['Fatura', 'Fatura relacionada.'],
+    ['Moeda da Fatura / Valor na Moeda', 'Moeda e valor da fatura.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe os filtros (número, série, pedido, cliente, Lounge, período) e clique em **"Pesquisar"**.
+2. **Analisar** — verifique os dados das notas listadas.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as notas conforme os filtros.', '—'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Nota Fiscal', 'Acesso à tela', 'Permite abrir e consultar as notas fiscais.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Pedidos e Faturamento', 'As notas são emitidas a partir dos pedidos/faturamento.', 'A emissão ocorre em outros processos.'],
+    ['Notas Fiscais - XML', 'Os XMLs das notas podem ser baixados na tela própria.', 'Use "Notas Fiscais - XML" para os arquivos.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não emite nem cancela notas — apenas consulta as emitidas.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro uma nota', 'Filtros muito restritos', 'Ajuste os filtros (número, série, período).'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para consultar as notas fiscais emitidas.' },
+    { question: 'É possível emitir a nota por aqui?', answer: 'Não; a emissão ocorre em outros processos. Esta tela é de consulta.' },
+    { question: 'Onde baixo o XML da nota?', answer: 'Na tela "Notas Fiscais - XML".' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Nota Fiscal.' },
+  ]}
+/>

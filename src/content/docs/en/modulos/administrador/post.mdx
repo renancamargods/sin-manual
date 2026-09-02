@@ -1,0 +1,167 @@
+---
+section: modulos
+routeSlug: administrador/post
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Post
+description: Register the publications and notices shown in the system (notifications or polls), with display period, disclosure form and visual editor.
+routineType: Registration and lookup
+permission: Yes
+impact: Publications and notices shown to system users
+keywords: [post, publication, notice, notification, poll, disclosure, visual editor]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Post** screen registers the publications and notices shown in the system. Each post has a **Title**, a display period (**Availability Date** and **Show Until**), a **Type** (Notification or Poll) and a **Disclosure Form** (General, Profile, Company or Mixed). The content is built in a **Visual Editor** (or via the "Code" tab).
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Notices and polls', text: 'Publishes notifications and polls to system users.' },
+    { label: 'Use', title: 'Targeting and period', text: 'Defines the audience (disclosure form) and the display period.' },
+    { label: 'Caution', title: 'Dates', text: 'The publication only appears within the availability period.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new publication (notification or poll).
+- Define the audience and the display period.
+- Build the content in the visual editor.
+- Look up, edit or delete publications.
+
+## How to access
+
+Administrator → Post
+
+## Before you start
+
+- Have the publication's **title** and **content**.
+- Define the **type** (Notification or Poll), the **disclosure form** and the **period**.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Title, Type (Notification/Poll) and Profile, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List with the "Title", "Availability Date" and "Show Until" columns, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing (tabs)', 'Window with the "Post" and "Code" tabs, and the "Continue to the Visual Editor" button.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+### "Post" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Title', 'Title of the publication.'],
+    ['Availability Date', 'Date the publication starts being shown.'],
+    ['Show Until', 'Date the publication stops being shown.'],
+    ['Type', 'Notification or Poll.'],
+    ['Disclosure Form', 'General, Profile, Company or Mixed — defines the audience.'],
+    ['System Status', 'Publication status (Active/Inactive).'],
+  ]}
+/>
+
+### "Code" tab and Visual Editor
+
+<DocTable
+  headers={['Resource', 'What it does']}
+  rows={[
+    ['Continue to the Visual Editor', 'Opens the visual editor to build the publication content.'],
+    ['"Code" tab', 'Lets you work the content in code format.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter **Title**, **Type** or **Profile** and click **"Search"**.
+2. **Register** — click **"+ New"**, fill in the data (title, dates, type, disclosure form), click **"Continue to the Visual Editor"** to build the content and save.
+3. **Edit** — click the **Edit** icon on the row, adjust the data/content and save.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list publications according to the filters.', '—'],
+    ['+ New', 'To register a new publication.', '—'],
+    ['Continue to the Visual Editor', 'To build the publication content.', '—'],
+    ['Details', 'To view a publication without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing publication.', 'Check the display dates.'],
+    ['Delete', 'To remove a publication.', 'Irreversible action.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Post', 'Access to the screen', 'Allows opening and using the Post screen.'],
+  ]}
+/>
+
+## Important behaviors
+
+<DocTable
+  headers={['Behavior', 'Effect', 'Guidance']}
+  rows={[
+    ['Display period', 'The publication only appears between the Availability Date and Show Until.', 'Check the dates before publishing.'],
+    ['Disclosure form', 'Defines who sees the publication (General, Profile, Company or Mixed).', 'Choose the correct audience.'],
+    ['Poll type', 'Poll publications collect answers from users.', 'Use it when you want to collect feedback.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not send external emails — the publication is shown inside the system according to the disclosure form.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The publication does not appear', 'Outside the period or wrong audience', 'Check the dates and the Disclosure Form.'],
+    ['I cannot find a publication', 'Filters too restrictive', 'Adjust the filters (Title, Type, Profile).'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register publications and notices shown in the system (notifications or polls).' },
+    { question: 'What is the difference between Notification and Poll?', answer: 'The Notification only informs; the Poll collects answers from users.' },
+    { question: 'What defines who sees the publication?', answer: 'The Disclosure Form (General, Profile, Company or Mixed).' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Post screen documentation.' },
+  ]}
+/>

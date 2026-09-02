@@ -1,0 +1,150 @@
+---
+section: modulos
+routeSlug: pedidos/taxa-de-moeda
+pageType: routine
+module: pedidos
+moduleLabel: Orders
+lang: en
+title: Currency Rate
+description: Register the rates used to convert between currencies, by reference date, with two conversion rates and the currency.
+routineType: Registration and lookup
+permission: Yes
+impact: Rates used to convert values between currencies
+keywords: [currency rate, exchange, conversion, currency, reference date]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Currency Rate** screen registers the rates used to convert between currencies. Each record has a **Reference Date**, two **Conversion Rates** (Conversion Rate 1 and Conversion Rate 2) and the corresponding **Currency**.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Exchange rates', text: 'Holds the conversion rates between currencies by date.' },
+    { label: 'Use', title: 'Value conversion', text: 'The rates support conversion in orders and quotes.' },
+    { label: 'Caution', title: 'Reference date', text: 'The rate applies to the entered reference date.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new rate for a currency on a date.
+- Look up the rates by reference date.
+- Edit or delete a rate.
+
+## How to access
+
+Orders → Currency Rate
+
+## Before you start
+
+- Have the **Reference Date**, the **conversion rates** and the **currency**.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'The "Reference Date" field, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List in the "Reference Date" column, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing', 'Window with the rate fields.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Reference Date', 'Date the rate is valid for.'],
+    ['Conversion Rate 1', 'First conversion rate.'],
+    ['Conversion Rate 2', 'Second conversion rate.'],
+    ['Currency', 'Currency the rate applies to (with the "+" button to register).'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the **"Reference Date"** and click **"Search"**.
+2. **Register** — click **"+ New"**, enter the **Reference Date**, the **rates** and the **Currency** and click **"Save"**.
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list rates according to the filter.', '—'],
+    ['+ New', 'To register a new rate.', '—'],
+    ['+ (next to currency)', 'To register a new currency.', 'Use when the currency does not yet exist.'],
+    ['Details', 'To view a rate without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing rate.', '—'],
+    ['Delete', 'To remove a rate.', 'Irreversible action.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Currency Rate', 'Access to the screen', 'Allows opening and using the Currency Rate screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Currency', 'The rate is linked to a currency.', 'Register the currency before the rate.'],
+    ['Orders and Quotes', 'The rates support value conversion.', 'Keep the rates up to date.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not define the currency — only the rates; the currency is in Currency.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The conversion uses an outdated rate', 'Old rate', 'Register the rate for the correct date.'],
+    ['I cannot find a rate', 'Wrong reference date', 'Adjust the "Reference Date".'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the rates used to convert between currencies, by reference date.' },
+    { question: 'Why are there two conversion rates?', answer: 'The screen supports two rates (Conversion Rate 1 and 2) for the exchange rate.' },
+    { question: 'How do I register the currency?', answer: 'Select it in the Currency field or register a new one using the "+" next to it.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Currency Rate screen documentation.' },
+  ]}
+/>

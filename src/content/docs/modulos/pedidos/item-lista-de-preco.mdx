@@ -1,0 +1,151 @@
+---
+section: modulos
+routeSlug: pedidos/item-lista-de-preco
+pageType: routine
+module: pedidos
+moduleLabel: Pedidos
+title: Item Lista de Preço
+description: Cadastro dos itens de uma lista de preço, relacionando produto, preço e validade.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Preços de produtos dentro das listas de preço
+keywords: [item lista de preço, preço, produto, lista de preço, validade, pedidos]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Item Lista de Preço** cadastra os itens que compõem uma lista de preço, relacionando um **Produto** a um **Preço** e a uma **validade**. É por meio destes itens que a lista define quanto custa cada produto.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Preço por produto', text: 'Define o preço de cada produto dentro da lista.' },
+    { label: 'Uso', title: 'Itens da lista', text: 'Os itens compõem a lista de preço.' },
+    { label: 'Cuidado', title: 'Validade', text: 'O preço vale dentro da validade informada.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar o preço de um produto em uma lista.
+- Consultar os itens por produto, lista ou visibilidade.
+- Editar ou excluir um item de preço.
+
+## Como acessar
+
+Pedidos → Item Lista de Preço
+
+## Antes de começar
+
+- Tenha o **Produto**, o **Preço** e a **validade**.
+- Cadastre a **lista de preço** antes, se necessário.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Produto, Lista, Produto Visível (Sim/Não) e Status Sistema (Ativo/Inativo), com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com colunas como "Produto Visível" e "Validade - Início", com as ações por linha.', 'Cada linha tem Histórico, Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela com os campos do item de preço.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Produto', 'Produto ao qual o preço se aplica (com o botão "+" para cadastrar).'],
+    ['Preço', 'Preço do produto na lista.'],
+    ['Validade - Início', 'Data em que o preço passa a valer.'],
+    ['Validade Término', 'Data em que o preço deixa de valer.'],
+    ['Status Sistema', 'Situação do item (Ativo/Inativo).'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe **Produto**, **Lista** ou os demais filtros e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, selecione o **Produto**, informe o **Preço** e a **validade** e clique em **"Salvar"**.
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os itens conforme os filtros.', '—'],
+    ['+ Novo', 'Para cadastrar um novo item de preço.', '—'],
+    ['Detalhes', 'Para consultar um item sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um item existente.', 'Confira a validade e o preço.'],
+    ['Excluir', 'Para remover um item.', 'Ação sem retorno.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Item Lista de Preço', 'Acesso à tela', 'Permite abrir e utilizar a tela de Item Lista de Preço.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Lista de Preço', 'Os itens compõem a lista de preço.', 'Cadastre a lista antes dos itens.'],
+    ['Produto', 'Cada item aponta para um produto.', 'Cadastre o produto antes.'],
+    ['Orçamento e Pedido', 'O preço do item é aplicado nas operações.', 'Mantenha os preços e a validade atualizados.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cria a lista — apenas os itens (produto e preço) dentro dela.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O preço não é aplicado', 'Fora da validade ou item inativo', 'Verifique a validade e o Status Sistema.'],
+    ['Não encontro um item', 'Filtros muito restritos', 'Ajuste os filtros (Produto, Lista).'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar os itens de preço (produto e preço) dentro de uma lista de preço.' },
+    { question: 'O que é "Produto Visível"?', answer: 'Indica se o produto do item aparece (Sim/Não), usado também como filtro.' },
+    { question: 'Como defino a vigência do preço?', answer: 'Pelos campos Validade - Início e Validade Término.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Item Lista de Preço.' },
+  ]}
+/>

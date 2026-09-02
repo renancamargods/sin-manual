@@ -1,0 +1,153 @@
+---
+section: modulos
+routeSlug: pedidos/notas-fiscais-xml
+pageType: routine
+module: pedidos
+moduleLabel: Pedidos
+title: Notas Fiscais - XML
+description: Consulta e download dos arquivos XML das notas fiscais, com filtros por cliente, período, CFOP, natureza de operação, transportadora e valor.
+routineType: Consulta
+permission: Sim
+impact: Download dos XMLs das notas fiscais emitidas
+keywords: [notas fiscais xml, xml, nota fiscal, download, cfop, natureza de operação, transportadora, pedidos]
+tags: [modulo-pedidos, consulta]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Notas Fiscais - XML** permite consultar e **baixar os arquivos XML** das notas fiscais. Você filtra por diversos critérios (cliente, período, CFOP, natureza de operação, transportadora, valor) e usa a ação **"Gerar arquivo zip e fazer download"** para baixar os XMLs selecionados.
+
+<Callout type="info" title="Tela de consulta e download">
+Esta tela é usada para localizar notas e baixar seus XMLs em um arquivo zip. Não emite nem altera notas.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Baixar XMLs', text: 'Consulta e baixa os arquivos XML das notas fiscais.' },
+    { label: 'Uso', title: 'Filtros e seleção', text: 'Filtre, selecione as notas e gere o arquivo zip.' },
+    { label: 'Cuidado', title: 'Somente leitura', text: 'A tela consulta e baixa; não emite notas.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Baixar os XMLs de notas fiscais de um período ou cliente.
+- Filtrar notas por CFOP, natureza de operação, transportadora ou valor.
+
+## Como acessar
+
+Pedidos → Notas Fiscais - XML
+
+## Antes de começar
+
+- Defina os filtros (cliente, período, CFOP, natureza de operação, transportadora, valor).
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Nome Cliente, Período de Emissão, Período de Aprovação, Número-Série, Código Sap Cliente, Documento Cliente, CFOP, Natureza de Operação, Estado, Cidade, Valor da Nota (Maior/Menor/Igual), CNPJ Transportadora e Nome Transportadora.', 'Combine os filtros para restringir os resultados.'],
+    ['Resultados', 'Lista com "Número-Série", "Data de Emissão", "Data de Aprovação", "Nome Cliente", "Nome Transportadora" e "Cidade/Estado", com "Selecionar todos".', 'Selecione as notas antes de gerar o zip.'],
+    ['Ações', 'Botões "Pesquisar", "Gerar arquivo zip e fazer download" e "Limpar Filtros".', 'O download reúne os XMLs em um arquivo zip.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome Cliente', 'Filtra pelo cliente.'],
+    ['Período de Emissão / Período de Aprovação', 'Faixas de datas de emissão e de aprovação.'],
+    ['Número-Série', 'Número e série da nota.'],
+    ['Código Sap Cliente / Documento Cliente', 'Identificadores do cliente.'],
+    ['CFOP / Natureza de Operação', 'Filtros fiscais da nota.'],
+    ['Estado / Cidade', 'Localidade do cliente.'],
+    ['Valor da Nota', 'Filtra por valor (Maior, Menor ou Igual).'],
+    ['CNPJ Transportadora / Nome Transportadora', 'Filtra pela transportadora.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe os filtros e clique em **"Pesquisar"**.
+2. **Selecionar** — marque as notas desejadas (ou use **"Selecionar todos"**).
+3. **Baixar** — clique em **"Gerar arquivo zip e fazer download"** para baixar os XMLs.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as notas conforme os filtros.', '—'],
+    ['Selecionar todos', 'Para marcar todas as notas listadas.', '—'],
+    ['Gerar arquivo zip e fazer download', 'Para baixar os XMLs das notas selecionadas.', 'Selecione as notas antes.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Notas Fiscais - XML', 'Acesso à tela', 'Permite abrir a tela e baixar os XMLs.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Nota Fiscal', 'Complementa a consulta de notas com o download dos XMLs.', 'Use "Nota Fiscal" para os dados; esta tela para os arquivos.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não emite nem altera notas — apenas consulta e baixa os XMLs.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O download não gera o zip', 'Nenhuma nota selecionada', 'Selecione as notas (ou "Selecionar todos") antes de gerar.'],
+    ['Não encontro notas', 'Filtros muito restritos', 'Ajuste os filtros (período, cliente, transportadora).'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para consultar e baixar os arquivos XML das notas fiscais.' },
+    { question: 'Como baixo os XMLs?', answer: 'Filtre, selecione as notas e clique em "Gerar arquivo zip e fazer download".' },
+    { question: 'Posso filtrar por transportadora?', answer: 'Sim, pelo CNPJ ou Nome da Transportadora.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Notas Fiscais - XML.' },
+  ]}
+/>

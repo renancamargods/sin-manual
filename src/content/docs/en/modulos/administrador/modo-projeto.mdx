@@ -1,0 +1,154 @@
+---
+section: modulos
+routeSlug: administrador/modo-projeto
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: Project Mode
+description: Configures special operation modes for a period (such as Fair Mode), with dates, parameters, users and enablement.
+routineType: Registration and lookup
+permission: Yes
+impact: Special system operation modes for a period
+keywords: [project mode, fair mode, event, period, parameter]
+tags: [modulo-administrador, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Project Mode** screen configures special system operation modes during a **period** — for example, the **Fair Mode** used at events (such as CIOSP). Each mode has a **Description**, **Start Date** and **End Date**, **Parameter**, **Observation**, the **Users** it applies to and the **Enable Fair Mode** option.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Operation by period', text: 'Activates special modes (such as Fair Mode) on defined dates.' },
+    { label: 'Use', title: 'Events', text: 'Used at fairs and events with temporary rules.' },
+    { label: 'Caution', title: 'Validity', text: 'Confirm the start and end dates so the mode applies in the right period.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new operation mode for a period.
+- Enable Fair Mode at an event.
+- Look up, edit or delete configured modes.
+
+## How to access
+
+Administrator → Project Mode
+
+## Before you start
+
+- Have the **description** and the **start and end dates**.
+- Know the applicable **users** and **parameter**.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'The "Description" field, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List in the "Description" column, with per-row actions.', 'Each row has History, Details, Edit and Delete.'],
+    ['Registration / editing', 'Window with the mode fields.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Description', 'Description of the mode (e.g., "Fair Mode - CIOSP").'],
+    ['Start Date', 'Date the mode starts applying.'],
+    ['End Date', 'Date the mode stops applying.'],
+    ['Parameter', 'Mode parameters.'],
+    ['Observation', 'Additional notes.'],
+    ['Users', 'Users the mode applies to (with the "+" button to register).'],
+    ['System Status', 'Record status (Active/Inactive).'],
+    ['Enable Fair Mode', 'Activates Fair Mode (Yes/No).'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the **"Description"** and click **"Search"**.
+2. **Register** — click **"+ New"**, enter **Description**, **dates**, **Parameter**, **Users** and set **Enable Fair Mode** and the **Status** and click **"Save"**.
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list modes according to the filter.', '—'],
+    ['+ New', 'To register a new mode.', '—'],
+    ['Details', 'To view a mode without changing it.', 'Read only.'],
+    ['History', 'To see the change history.', '—'],
+    ['Edit', 'To change an existing mode.', 'Check the validity dates.'],
+    ['Delete', 'To remove a mode.', 'Irreversible action.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Project Mode', 'Access to the screen', 'Allows opening and using the Project Mode screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Operation at events', 'Fair Mode adjusts the operation during the event.', 'Confirm the dates and the users.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not change permanent records — it only defines the special operation mode for the period.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['Fair Mode is not applying', 'Outside the period or "Enable Fair Mode" = No', 'Check the dates and the enablement option.'],
+    ['I cannot find a mode', 'Wrong description filter', 'Adjust the "Description".'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To configure special operation modes for a period, such as the Fair Mode used at events.' },
+    { question: 'What is "Enable Fair Mode"?', answer: 'It is the option that activates Fair Mode for the configured period.' },
+    { question: 'Are the dates mandatory?', answer: 'The start and end dates define the mode validity; confirm them when registering.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Project Mode screen documentation.' },
+  ]}
+/>

@@ -1,0 +1,127 @@
+---
+section: modulos
+routeSlug: administrador/atualizador-de-arquivos-json
+pageType: routine
+module: administrador
+moduleLabel: Administrator
+lang: en
+title: JSON File Updater
+description: Editor of the JSON configuration files (AppSettings) of the system services, selected by service group.
+routineType: Technical configuration
+permission: Yes
+impact: Editing of the services' configuration files (AppSettings)
+keywords: [json file updater, json editor, appsettings, configuration, services]
+tags: [modulo-administrador, tecnico]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **JSON File Updater** screen is a **JSON Editor** for the configuration files (**AppSettings**) of the system services. You select the desired file by service group and edit its JSON content.
+
+<Callout type="cuidado" title="Technical screen">
+This is a technical screen. Incorrectly editing the configuration files can affect how the system services work. Only make changes when you know the content and, preferably, with support from the technical team.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Edit AppSettings', text: 'Edits the JSON configuration files of the services.' },
+    { label: 'Use', title: 'By service group', text: 'Select the desired service file to edit.' },
+    { label: 'Caution', title: 'Technical impact', text: 'Changes affect the behavior of the services.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Look up the content of a JSON configuration file.
+- Adjust a service's configuration parameters.
+
+## How to access
+
+Administrator → JSON File Updater
+
+## Before you start
+
+- Know **which file** (service group) you need to edit.
+- Know the **content** and the effect of the change.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['File selection', 'The "Select the json file to edit" field with the available service groups.', 'Choose the correct file.'],
+    ['Editor', 'Editing area for the JSON content of the selected file.', 'Keep the JSON valid.'],
+  ]}
+/>
+
+## Available files
+
+<DocTable
+  headers={['File (service group)', 'What it configures']}
+  rows={[
+    ['AppSettings - REST Services', 'Configuration of the REST services.'],
+    ['AppSettings - Integration Services', 'Configuration of the integration services.'],
+    ['AppSettings - Exe&Prompt Services', 'Configuration of the execution services (Exe/Prompt).'],
+    ['AppSettings - Web Client Services - Blazor', 'Configuration of the web client (Blazor).'],
+  ]}
+/>
+
+## Main flows
+
+1. **Select** — in the "Select the json file to edit" field, choose the desired service group.
+2. **Look up / edit** — the file content is loaded in the editor for lookup or editing.
+3. **Save** — save the changes (confirm that the JSON is valid).
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['JSON File Updater', 'Access to the screen', 'Allows opening and using the JSON configuration editor.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not restart services — it only edits the configuration files.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The file does not load', 'File not selected', 'Select the service group in the corresponding field.'],
+    ['The change caused an error', 'Invalid JSON', 'Review the JSON syntax before saving.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To edit the JSON configuration files (AppSettings) of the system services.' },
+    { question: 'Which files can I edit?', answer: 'The AppSettings of the REST, Integration, Exe&Prompt and Web Client - Blazor services.' },
+    { question: 'Do I need to be careful when editing?', answer: 'Yes; it is a technical screen and the JSON must remain valid, as it affects the services.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the JSON File Updater screen documentation.' },
+  ]}
+/>

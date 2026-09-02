@@ -1,0 +1,168 @@
+---
+section: modulos
+routeSlug: pedidos/transportadora
+pageType: routine
+module: pedidos
+moduleLabel: Pedidos
+title: Transportadora
+description: Cadastro das transportadoras usadas na entrega, com contato, CNPJ, código SAP, disponibilidade em pedido/romaneio e endereço.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Transportadoras usadas na entrega de pedidos e no romaneio
+keywords: [transportadora, entrega, cnpj, sap, romaneio, frete, pedidos]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Transportadora** cadastra as transportadoras usadas na entrega dos pedidos. Cada transportadora reúne dados de contato (Nome, CNPJ, DDD, Telefone/Celular, E-Mail, Nome do Contato), o **Código SAP**, a indicação **Nacional ou Internacional?** e as opções de disponibilidade (**Disponível no Pedido?**, **Disponível no Romaneio?**), além do **Endereço** (aba própria).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Transportadoras', text: 'Cadastra as transportadoras usadas na entrega.' },
+    { label: 'Uso', title: 'Pedido e romaneio', text: 'A transportadora fica disponível conforme as opções marcadas.' },
+    { label: 'Cuidado', title: 'Disponibilidade', text: 'As opções de disponível em pedido/romaneio controlam onde ela aparece.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova transportadora.
+- Definir a disponibilidade da transportadora em pedidos e no romaneio.
+- Consultar, editar ou excluir transportadoras.
+
+## Como acessar
+
+Pedidos → Transportadora
+
+## Antes de começar
+
+- Tenha os dados de **contato** e o **CNPJ**.
+- Saiba o **Código SAP** e se é **Nacional/Internacional**.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Nome e Ativo, com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista pela coluna "Nome", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição (abas)', 'Janela com as abas "Transportadora" e "Endereço".', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Transportadora"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nome', 'Nome da transportadora.'],
+    ['CNPJ', 'CNPJ da transportadora.'],
+    ['DDD / Telefone/Celular', 'Contato telefônico.'],
+    ['E-Mail', 'E-mail de contato.'],
+    ['Nome do Contato', 'Pessoa de contato na transportadora.'],
+    ['Ativo', 'Situação da transportadora (Sim/Não).'],
+    ['Disponível no Pedido?', 'Se aparece para seleção nos pedidos (Sim/Não).'],
+    ['Disponível no Romaneio?', 'Se participa do fluxo de romaneio (Sim/Não).'],
+    ['Código SAP', 'Código correspondente no SAP.'],
+    ['Nacional ou Internacional?', 'Abrangência: Nacional, Internacional ou Ambos.'],
+  ]}
+/>
+
+### Aba "Endereço"
+
+<DocTable
+  headers={['Aba', 'O que mostra']}
+  rows={[
+    ['Endereço', 'Endereço da transportadora.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe o **"Nome"** e/ou o filtro **Ativo** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, preencha os dados de contato, defina **Código SAP**, **Nacional/Internacional** e as opções de disponibilidade, informe o **Endereço** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as transportadoras conforme os filtros.', '—'],
+    ['+ Novo', 'Para cadastrar uma nova transportadora.', '—'],
+    ['Salvar e Continuar', 'Para salvar e continuar no endereço.', '—'],
+    ['Detalhes', 'Para consultar uma transportadora sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar uma transportadora existente.', '—'],
+    ['Excluir', 'Para remover uma transportadora.', 'Ação sem retorno; prefira inativar em vez de excluir.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Transportadora', 'Acesso à tela', 'Permite abrir e utilizar a tela de Transportadora.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Pedidos', 'A transportadora é usada na entrega dos pedidos.', 'Marque "Disponível no Pedido?" para ela aparecer.'],
+    ['Romaneio', 'A transportadora participa do fluxo de romaneio.', 'Marque "Disponível no Romaneio?" quando aplicável.'],
+    ['Regra de Frete', 'As regras de frete podem indicar a transportadora.', 'Confira o vínculo nas regras.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não calcula o frete — apenas cadastra a transportadora (o cálculo fica em Regra de Frete).
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A transportadora não aparece no pedido', '"Disponível no Pedido?" = Não ou inativa', 'Verifique as opções de disponibilidade e o Ativo.'],
+    ['Não encontro uma transportadora', 'Filtro incorreto', 'Ajuste o "Nome" e o filtro Ativo.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as transportadoras usadas na entrega dos pedidos e no romaneio.' },
+    { question: 'Como faço a transportadora aparecer no pedido?', answer: 'Marque "Disponível no Pedido?" como Sim.' },
+    { question: 'Onde informo o endereço?', answer: 'Na aba "Endereço" dentro do cadastro da transportadora.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Transportadora.' },
+  ]}
+/>

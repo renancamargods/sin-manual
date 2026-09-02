@@ -1,0 +1,164 @@
+---
+section: modulos
+routeSlug: administrador/conciliadora-pix
+pageType: routine
+module: administrador
+moduleLabel: Administrador
+title: Conciliadora Pix
+description: Consulta e execução da conciliação de pagamentos via PIX, relacionando o código do PIX ao pedido e o retorno da atualização no SAP.
+routineType: Consulta e ação
+permission: Sim
+impact: Conciliação de pagamentos PIX com pedidos e SAP
+keywords: [conciliadora pix, pix, conciliação, pagamento, pedido, sap, administrador]
+tags: [modulo-administrador, consulta]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Conciliadora Pix** permite **consultar** e **executar** a conciliação dos pagamentos feitos via PIX. Ela relaciona o **Código do Pix** ao **Pedido** e ao **Cliente**, e mostra o resultado da atualização do documento no **SAP** (mensagem e tipo).
+
+<Callout type="info" title="Tela de consulta e ação">
+Esta é uma tela de consulta e execução: além de listar as conciliações, ela permite acionar a conciliação (Executar Conciliação). Não é um cadastro comum.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Conciliar PIX', text: 'Relaciona pagamentos PIX aos pedidos e atualiza o SAP.' },
+    { label: 'Uso', title: 'Consulta e execução', text: 'Consulte o status ou execute a conciliação por período/pedido.' },
+    { label: 'Cuidado', title: 'Retorno do SAP', text: 'A coluna de mensagem indica o resultado da atualização no SAP.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar as conciliações de PIX por código, cliente, pedido ou data.
+- Verificar o retorno da atualização no SAP de cada pagamento.
+- Executar a conciliação de PIX.
+
+## Como acessar
+
+Administrador → Conciliadora Pix
+
+## Antes de começar
+
+- Tenha, se necessário, o **Código do Pix**, o **Pedido**, o **Cliente** ou a **Data** para filtrar.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Código do Pix, Cliente, Pedido, Data e a opção "Executar Conciliação", com os botões "Pesquisar", "Novo" e "Limpar Filtros".', 'Use os filtros para restringir os resultados.'],
+    ['Resultados', 'Lista com as colunas "Pedido", "Cliente", "Código do Pix", "Data", "Mensagem SAP" e "Tipo Mensagem".', 'A mensagem indica o resultado da atualização no SAP.'],
+  ]}
+/>
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código do Pix', 'Busca pelo código do pagamento PIX.'],
+    ['Cliente', 'Filtra pelo cliente.'],
+    ['Pedido', 'Filtra pelo pedido.'],
+    ['Data', 'Filtra pela data.'],
+    ['Executar Conciliação', 'Aciona a conciliação dos pagamentos PIX.'],
+  ]}
+/>
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Pedido', 'Pedido relacionado ao pagamento.'],
+    ['Cliente', 'Cliente relacionado ao pagamento.'],
+    ['Código do Pix', 'Código do pagamento PIX.'],
+    ['Data', 'Data do pagamento/conciliação.'],
+    ['Mensagem SAP', 'Retorno da atualização do documento no SAP.'],
+    ['Tipo Mensagem', 'Tipo do retorno (ex.: Sucesso).'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe os filtros (Código do Pix, Cliente, Pedido, Data) e clique em **"Pesquisar"**.
+2. **Executar conciliação** — utilize a opção **"Executar Conciliação"** e clique em **"Pesquisar"** para acionar o processo.
+3. **Verificar o retorno** — analise as colunas "Mensagem SAP" e "Tipo Mensagem" para conferir o resultado.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as conciliações conforme os filtros.', '—'],
+    ['Executar Conciliação', 'Para acionar a conciliação dos pagamentos PIX.', 'Confira o retorno do SAP após a execução.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Conciliadora Pix', 'Acesso à tela', 'Permite abrir e utilizar a tela de Conciliadora Pix.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Pedidos', 'A conciliação relaciona o PIX ao pedido.', 'Confira o pedido correspondente.'],
+    ['Integração SAP', 'A conciliação atualiza o documento no SAP.', 'Acompanhe o retorno na "Mensagem SAP".'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não gera o pagamento PIX — apenas concilia os pagamentos existentes com os pedidos e o SAP.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A conciliação retornou erro', 'Falha na atualização do SAP', 'Verifique a "Mensagem SAP" e o "Tipo Mensagem".'],
+    ['Não encontro um pagamento', 'Filtros muito restritos', 'Ajuste os filtros (Código do Pix, Pedido, Data).'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para consultar e executar a conciliação de pagamentos via PIX, relacionando-os aos pedidos e ao SAP.' },
+    { question: 'O que mostra a "Mensagem SAP"?', answer: 'O retorno da atualização do documento no SAP para aquele pagamento.' },
+    { question: 'É um cadastro?', answer: 'Não; é uma tela de consulta e execução da conciliação.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Conciliadora Pix.' },
+  ]}
+/>

@@ -1,0 +1,171 @@
+---
+section: modulos
+routeSlug: pedidos/regra-de-frete
+pageType: routine
+module: pedidos
+moduleLabel: Pedidos
+title: Regra de Frete
+description: Cadastro das regras de cálculo de frete aplicadas ao pedido, por prioridade, faixa de valor, região (CEP/estado/cidade/Lounge) e transportadora.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Regras que definem o valor de frete aplicado aos pedidos
+keywords: [regra de frete, frete, cep, prioridade, transportadora, lounge, valor de frete, pedidos]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Regra de Frete** define as regras que determinam o **Valor de Frete** aplicado ao pedido. Cada regra combina critérios como **Prioridade**, **faixa de valor** (Valor de / Valor até), **região** (faixa de CEP, Estado, Cidade, Lounge), **Cliente**, **Transportadora** e a abrangência **Nacional ou Internacional**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cálculo de frete', text: 'Define o valor de frete conforme critérios do pedido.' },
+    { label: 'Uso', title: 'Segmentação', text: 'Combina prioridade, valor, região e transportadora.' },
+    { label: 'Cuidado', title: 'Cobertura', text: 'Regras conflitantes ou faltantes afetam o frete calculado.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar uma nova regra de frete.
+- Definir o valor de frete por prioridade, faixa de valor e região.
+- Consultar, editar ou excluir regras.
+
+## Como acessar
+
+Pedidos → Regra de Frete
+
+## Antes de começar
+
+- Defina os critérios: **prioridade**, **faixa de valor**, **região** (CEP/estado/cidade/Lounge) e **transportadora**.
+- Tenha o **Valor de Frete** a aplicar.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Descrição", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista pela coluna "Descrição", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela (aba "Regra de Frete") com os critérios da regra.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Regra de Frete"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Nacional ou Internacional?', 'Abrangência da regra.'],
+    ['Ativo', 'Situação da regra (Sim/Não).'],
+    ['Descrição', 'Descrição da regra (ex.: "Pedidos Normais acima de 500").'],
+    ['Prioridade', 'Prioridade do pedido: Normal, Cliente no Lounge, Urgente ou Retirar no Lounge.'],
+    ['Valor de / Valor até', 'Faixa de valor do pedido em que a regra se aplica.'],
+    ['Cliente', 'Cliente específico ao qual a regra se aplica (com o botão "+" para cadastrar).'],
+    ['Range Inicial (CEP) / Range Final (CEP)', 'Faixa de CEP atendida pela regra.'],
+    ['Estado', 'Estado atendido (com o botão "+" para cadastrar).'],
+    ['Cidade', 'Cidade atendida (com o botão "+" para cadastrar).'],
+    ['Lounge', 'Lounge atendido (com o botão "+" para cadastrar).'],
+    ['Transportadora', 'Transportadora aplicada (com o botão "+" para cadastrar).'],
+    ['Valor de Frete', 'Valor de frete aplicado quando a regra é atendida.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe a **"Descrição"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, defina os critérios (prioridade, faixa de valor, região, cliente, transportadora), informe o **Valor de Frete** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as regras conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar uma nova regra.', '—'],
+    ['+ (ao lado dos campos)', 'Para cadastrar cliente, estado, cidade, Lounge ou transportadora.', 'Use quando o registro ainda não existir.'],
+    ['Detalhes', 'Para consultar uma regra sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar uma regra existente.', 'Reveja os critérios para evitar conflitos.'],
+    ['Excluir', 'Para remover uma regra.', 'Ação sem retorno; pode afetar o cálculo do frete.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Regra de Frete', 'Acesso à tela', 'Permite abrir e utilizar a tela de Regra de Frete.'],
+  ]}
+/>
+
+## Comportamentos importantes
+
+<DocTable
+  headers={['Comportamento', 'Efeito', 'Orientação']}
+  rows={[
+    ['Segmentação por critérios', 'A regra aplicada depende de prioridade, valor, região e transportadora.', 'Defina os critérios de forma coerente para evitar conflitos.'],
+    ['Faixa de valor e de CEP', 'A regra vale dentro das faixas de valor e de CEP informadas.', 'Confira os limites das faixas.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Pedidos', 'O valor de frete é aplicado ao pedido.', 'Garanta a cobertura das regiões e faixas.'],
+    ['Transportadora', 'A regra pode indicar a transportadora.', 'Cadastre a transportadora antes.'],
+    ['Estado, Cidade e Lounge', 'A região é composta por esses cadastros.', 'Mantenha os cadastros atualizados.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não emite o pedido — apenas define o valor de frete aplicado a ele.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O frete veio diferente do esperado', 'Outra regra com prioridade/faixa atendida', 'Reveja as regras que se aplicam ao pedido.'],
+    ['Nenhum frete foi aplicado', 'Falta de regra para a região/faixa', 'Cadastre a regra correspondente.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar as regras que determinam o valor de frete aplicado aos pedidos.' },
+    { question: 'Quais critérios a regra usa?', answer: 'Prioridade, faixa de valor, região (CEP/estado/cidade/Lounge), cliente e transportadora.' },
+    { question: 'O que é a "Prioridade"?', answer: 'Classifica o pedido (Normal, Cliente no Lounge, Urgente ou Retirar no Lounge) para a aplicação da regra.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Regra de Frete.' },
+  ]}
+/>

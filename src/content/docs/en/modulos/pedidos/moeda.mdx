@@ -1,0 +1,166 @@
+---
+section: modulos
+routeSlug: pedidos/moeda
+pageType: routine
+module: pedidos
+moduleLabel: Orders
+lang: en
+title: Currency
+description: Register the currencies used in orders and quotes, with symbol, type, person type and company, plus price lists, rates and customers.
+routineType: Registration and lookup
+permission: Yes
+impact: Currencies used in orders, quotes and price lists
+keywords: [currency, symbol, real, dollar, euro, rate, price list]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Currency** screen registers the currencies used in orders, quotes and price lists (for example, BRL, USD, EUR). Each currency holds **Name**, **Symbol**, **Currency Type**, **Person Type** and **Company**, and gathers, on tabs, the related price lists, rates and customers.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'System currencies', text: 'Centralizes the currencies used in orders and quotes.' },
+    { label: 'Use', title: 'Prices and rates', text: 'Currencies support price lists and conversion rates.' },
+    { label: 'Caution', title: 'Company and type', text: 'Associate the currency with the correct company and type.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Register a new currency.
+- Look up or find a currency by name.
+- Review a currency's price lists, rates and customers.
+
+## How to access
+
+Orders → Currency
+
+## Before you start
+
+- Have the currency's **name** and **symbol**.
+- Know the **currency type**, the **person type** and the **company**.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'The "Name" field, with the "Search", "+ New" and "Clear Filters" buttons.', '—'],
+    ['Results', 'List with the "Name", "Symbol" and "Company Name" columns, with per-row actions.', 'Each row has Details, Edit and Delete.'],
+    ['Registration / editing (tabs)', 'Window with the "Currency", "Price Lists", "Rates" and "Customers" tabs.', 'Opened by "+ New" (create) or Edit (change).'],
+  ]}
+/>
+
+## Main fields
+
+### "Currency" tab
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Name', 'Name/code of the currency (e.g., BRL, USD, EUR).'],
+    ['Symbol', 'Currency symbol (e.g., R$, $, €).'],
+    ['Currency Type', 'Type of the currency.'],
+    ['Person Type', 'Associated person type.'],
+    ['Company', 'Company the currency is associated with.'],
+  ]}
+/>
+
+### Additional tabs
+
+<DocTable
+  headers={['Tab', 'What it shows']}
+  rows={[
+    ['Price Lists', 'Price lists that use the currency.'],
+    ['Rates', 'Conversion rates related to the currency.'],
+    ['Customers', 'Customers related to the currency.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the **"Name"** and click **"Search"**.
+2. **Register** — click **"+ New"**, enter **Name**, **Symbol**, **Currency Type**, **Person Type** and **Company** and click **"Save"** (or **"Save and Continue"**).
+3. **Edit** — click the **Edit** icon on the row, change it and click **"Save"**.
+4. **Delete** — click the **Delete** icon on the row.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list currencies according to the filter.', '—'],
+    ['+ New', 'To register a new currency.', '—'],
+    ['Save and Continue', 'To save and continue on the other tabs.', '—'],
+    ['Details', 'To view a currency without changing it.', 'Read only.'],
+    ['Edit', 'To change an existing currency.', '—'],
+    ['Delete', 'To remove a currency.', 'Irreversible action; avoid deleting currencies in use.'],
+    ['Clear Filters', 'To reset the filter and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Currency', 'Access to the screen', 'Allows opening and using the Currency screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Currency Rate', 'Conversion rates are linked to the currency.', 'Keep the rates up to date.'],
+    ['Price List', 'Price lists use the currency.', 'Check the list currency.'],
+    ['Orders and Quotes', 'The currency is used when composing values.', 'Use the correct currency in the operation.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not convert values — it only registers the currency; the rates are in Currency Rate.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find a currency', 'Wrong name filter', 'Adjust the "Name".'],
+    ['The currency has no rate', 'Rate not registered', 'Register the rate in Currency Rate.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To register the currencies used in orders, quotes and price lists.' },
+    { question: 'Where are the conversion rates?', answer: 'On the Currency Rate screen (also accessible from the "Rates" tab).' },
+    { question: 'Can I delete a currency?', answer: 'Yes, but avoid removing currencies already used in prices or orders.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Currency screen documentation.' },
+  ]}
+/>

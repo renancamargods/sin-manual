@@ -1,0 +1,155 @@
+---
+section: modulos
+routeSlug: pedidos/item-orcamento
+pageType: routine
+module: pedidos
+moduleLabel: Pedidos
+title: Item Orçamento
+description: Cadastro dos itens que compõem um orçamento, com produto, quantidade, preços e desconto.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Itens que compõem os orçamentos
+keywords: [item orçamento, orçamento, item, produto, quantidade, preço, desconto, pedidos]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Item Orçamento** cadastra os itens que compõem um orçamento, com o **Tipo do Item**, a **Quantidade Solicitada**, o **Preço de Tabela**, o **Preço Unitário** e o **% Desconto**. Normalmente esses itens são adicionados de dentro do próprio **Orçamento**, na aba de itens.
+
+<Callout type="info" title="Item do orçamento">
+Os itens do orçamento costumam ser gerenciados dentro da tela Orçamento (aba "Itens do Orçamento"). Esta tela concentra o cadastro/consulta dos itens de orçamento.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Itens do orçamento', text: 'Compõe o orçamento com produtos, quantidades e preços.' },
+    { label: 'Uso', title: 'Composição de valores', text: 'Cada item soma ao total do orçamento.' },
+    { label: 'Cuidado', title: 'Preço e desconto', text: 'Confira o preço unitário e o desconto aplicado.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar os itens de orçamento.
+- Ajustar quantidade, preço ou desconto de um item.
+
+## Como acessar
+
+Pedidos → Item Orçamento
+
+## Antes de começar
+
+- Tenha o **produto/tipo do item**, a **quantidade** e os **preços**.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros do item de orçamento, com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista dos itens de orçamento, com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela (aba "Item Orçamento") com os campos do item.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+### Aba "Item Orçamento"
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Sequencial', 'Ordem do item no orçamento.'],
+    ['Tipo do Item', 'Tipo do item do orçamento.'],
+    ['Qtde. Solicitada', 'Quantidade solicitada do item.'],
+    ['Preço de Tabela', 'Preço de tabela do item.'],
+    ['Preço Unitário', 'Preço unitário aplicado.'],
+    ['% Desconto', 'Percentual de desconto aplicado ao item.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe os filtros e clique em **"Pesquisar"**.
+2. **Cadastrar/editar** — pela tela Orçamento (aba "Itens do Orçamento") ou por esta tela, informe **Tipo do Item**, **Quantidade**, **preços** e **desconto** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os itens conforme os filtros.', '—'],
+    ['+ Novo', 'Para cadastrar um novo item de orçamento.', 'Normalmente feito pela tela Orçamento.'],
+    ['Salvar e Continuar', 'Para salvar e seguir cadastrando.', '—'],
+    ['Detalhes', 'Para consultar um item sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um item existente.', 'Confira preço e desconto.'],
+    ['Excluir', 'Para remover um item.', 'Ação sem retorno.'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Item Orçamento', 'Acesso à tela', 'Permite abrir e utilizar a tela de Item Orçamento.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Orçamento', 'Os itens compõem o orçamento.', 'Gerencie os itens preferencialmente pela tela Orçamento.'],
+    ['Lista de Preço', 'O preço de tabela vem da lista de preço.', 'Confira a lista usada no orçamento.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cria o orçamento — apenas os itens que o compõem.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O total do orçamento está incorreto', 'Preço ou desconto do item errado', 'Verifique o Preço Unitário e o % Desconto.'],
+    ['Não encontro um item', 'Filtros muito restritos', 'Ajuste os filtros.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para cadastrar/consultar os itens que compõem um orçamento.' },
+    { question: 'Onde adiciono itens ao orçamento?', answer: 'Normalmente pela tela Orçamento, na aba "Itens do Orçamento".' },
+    { question: 'Como aplico desconto?', answer: 'Pelo campo "% Desconto" do item.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Item Orçamento.' },
+  ]}
+/>

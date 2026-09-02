@@ -1,0 +1,154 @@
+---
+section: modulos
+routeSlug: pedidos/notas-fiscais-xml
+pageType: routine
+module: pedidos
+moduleLabel: Orders
+lang: en
+title: Invoice XML
+description: Look up and download the invoice XML files, with filters by customer, period, CFOP, operation nature, carrier and value.
+routineType: Lookup
+permission: Yes
+impact: Download of the issued invoice XMLs
+keywords: [invoice xml, xml, invoice, download, cfop, operation nature, carrier]
+tags: [modulo-pedidos, consulta]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Invoice XML** screen lets you look up and **download the XML files** of the invoices. You filter by several criteria (customer, period, CFOP, operation nature, carrier, value) and use the **"Generate zip file and download"** action to download the selected XMLs.
+
+<Callout type="info" title="Lookup and download screen">
+This screen is used to find invoices and download their XMLs in a zip file. It does not issue or change invoices.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Download XMLs', text: 'Looks up and downloads the invoice XML files.' },
+    { label: 'Use', title: 'Filters and selection', text: 'Filter, select the invoices and generate the zip file.' },
+    { label: 'Caution', title: 'Read only', text: 'The screen looks up and downloads; it does not issue invoices.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Download the XMLs of invoices from a period or customer.
+- Filter invoices by CFOP, operation nature, carrier or value.
+
+## How to access
+
+Orders → Invoice XML
+
+## Before you start
+
+- Define the filters (customer, period, CFOP, operation nature, carrier, value).
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Customer Name, Issue Period, Approval Period, Number-Series, Customer SAP Code, Customer Document, CFOP, Operation Nature, State, City, Invoice Value (Greater/Lower/Equal), Carrier Tax ID and Carrier Name.', 'Combine the filters to narrow the results.'],
+    ['Results', 'List with "Number-Series", "Issue Date", "Approval Date", "Customer Name", "Carrier Name" and "City/State", with "Select all".', 'Select the invoices before generating the zip.'],
+    ['Actions', 'The "Search", "Generate zip file and download" and "Clear Filters" buttons.', 'The download gathers the XMLs in a zip file.'],
+  ]}
+/>
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Customer Name', 'Filters by customer.'],
+    ['Issue Period / Approval Period', 'Issue and approval date ranges.'],
+    ['Number-Series', 'Invoice number and series.'],
+    ['Customer SAP Code / Customer Document', 'Customer identifiers.'],
+    ['CFOP / Operation Nature', 'Tax filters of the invoice.'],
+    ['State / City', 'Customer location.'],
+    ['Invoice Value', 'Filters by value (Greater, Lower or Equal).'],
+    ['Carrier Tax ID / Carrier Name', 'Filters by carrier.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the filters and click **"Search"**.
+2. **Select** — check the desired invoices (or use **"Select all"**).
+3. **Download** — click **"Generate zip file and download"** to download the XMLs.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list invoices according to the filters.', '—'],
+    ['Select all', 'To check all listed invoices.', '—'],
+    ['Generate zip file and download', 'To download the XMLs of the selected invoices.', 'Select the invoices first.'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Invoice XML', 'Access to the screen', 'Allows opening the screen and downloading the XMLs.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Invoice', 'Complements the invoice lookup with the XML download.', 'Use "Invoice" for the data; this screen for the files.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not issue or change invoices — it only looks up and downloads the XMLs.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The download does not generate the zip', 'No invoice selected', 'Select the invoices (or "Select all") before generating.'],
+    ['I cannot find invoices', 'Filters too restrictive', 'Adjust the filters (period, customer, carrier).'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To look up and download the invoice XML files.' },
+    { question: 'How do I download the XMLs?', answer: 'Filter, select the invoices and click "Generate zip file and download".' },
+    { question: 'Can I filter by carrier?', answer: 'Yes, by the carrier Tax ID or Name.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Invoice XML screen documentation.' },
+  ]}
+/>

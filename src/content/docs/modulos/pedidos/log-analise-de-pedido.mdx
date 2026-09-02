@@ -1,0 +1,147 @@
+---
+section: modulos
+routeSlug: pedidos/log-analise-de-pedido
+pageType: routine
+module: pedidos
+moduleLabel: Pedidos
+title: Log Análise de Pedido
+description: Consulta do histórico das análises automáticas dos pedidos, com a regra aplicada, o motivo e o resultado por data de execução.
+routineType: Consulta
+permission: Sim
+impact: Rastreabilidade das análises automáticas dos pedidos
+keywords: [log análise de pedido, análise, regra aplicada, motivo, resultado, pedido, pedidos]
+tags: [modulo-pedidos, consulta]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Log Análise de Pedido** permite consultar o histórico das análises automáticas aplicadas aos pedidos. Para cada execução, o log mostra o **Número do Pedido**, o **Código do Cliente**, a **Regra Aplicada**, o **Motivo** e o **Resultado**, com a **Data de Execução**.
+
+<Callout type="info" title="Tela de consulta">
+Esta é uma tela de consulta (log). Ela registra o que o sistema fez na análise dos pedidos, servindo para rastreabilidade.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Rastreabilidade', text: 'Mostra as regras aplicadas e o resultado das análises de pedido.' },
+    { label: 'Uso', title: 'Consulta', text: 'Filtre por pedido, cliente ou regra aplicada.' },
+    { label: 'Cuidado', title: 'Somente leitura', text: 'A tela apenas consulta o histórico; não altera pedidos.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Consultar quais regras foram aplicadas na análise de um pedido.
+- Verificar o motivo e o resultado de uma análise.
+
+## Como acessar
+
+Pedidos → Log Análise de Pedido
+
+## Antes de começar
+
+- Tenha, se necessário, o **Número do Pedido**, o **Código do Cliente** ou a **Regra Aplicada** para filtrar.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Número do Pedido, Código do Cliente e Regra Aplicada, com os botões "Pesquisar" e "Limpar Filtros".', 'Combine os filtros para restringir os resultados.'],
+    ['Resultados', 'Lista com as colunas "Data de Execução", "Número do Pedido", "Código do Cliente", "Regra Aplicada", "Motivo" e "Resultado".', 'Somente leitura.'],
+  ]}
+/>
+
+## Campos principais
+
+### Colunas dos resultados
+
+<DocTable
+  headers={['Coluna', 'O que mostra']}
+  rows={[
+    ['Data de Execução', 'Data e hora em que a análise foi executada.'],
+    ['Número do Pedido', 'Pedido analisado.'],
+    ['Código do Cliente', 'Cliente do pedido.'],
+    ['Regra Aplicada', 'Regra de análise aplicada.'],
+    ['Motivo', 'Motivo associado ao resultado.'],
+    ['Resultado', 'Resultado da análise.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe os filtros (Número do Pedido, Código do Cliente, Regra Aplicada) e clique em **"Pesquisar"**.
+2. **Analisar** — verifique a regra aplicada, o motivo e o resultado de cada execução.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os registros conforme os filtros.', '—'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Log Análise de Pedido', 'Acesso à tela', 'Permite abrir e consultar o log de análise de pedido.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Pedidos', 'O log registra as análises aplicadas aos pedidos.', 'Use para auditar o comportamento das regras.'],
+    ['Regras de análise', 'Mostra qual regra foi aplicada.', 'Confronte com as regras cadastradas.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não altera o pedido nem reexecuta a análise — apenas consulta o histórico.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não encontro um registro', 'Filtros muito restritos', 'Ajuste os filtros (pedido, cliente, regra).'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para consultar o histórico das análises automáticas aplicadas aos pedidos.' },
+    { question: 'É possível alterar algo por aqui?', answer: 'Não; é uma tela de consulta (log).' },
+    { question: 'Como filtro por um pedido?', answer: 'Informe o Número do Pedido e clique em Pesquisar.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Log Análise de Pedido.' },
+  ]}
+/>

@@ -1,0 +1,150 @@
+---
+section: modulos
+routeSlug: pedidos/nota-fiscal
+pageType: routine
+module: pedidos
+moduleLabel: Orders
+lang: en
+title: Invoice
+description: Look up the issued invoices, by number, series, order, customer, Lounge and issue period.
+routineType: Lookup
+permission: Yes
+impact: Lookup of the issued invoices
+keywords: [invoice, series, order, customer, lounge, issue]
+tags: [modulo-pedidos, consulta]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Invoice** screen lets you look up the issued invoices. You can filter by **Invoice Number**, **Series**, **Order Number**, **Customer**, **Lounge** and **issue period**, and view data such as ERP code, payment term, invoice, currency and value.
+
+<Callout type="info" title="Lookup screen">
+This is a lookup screen. Invoice issuing happens in other processes; here you find and view the issued invoices.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Look up invoices', text: 'Finds the issued invoices.' },
+    { label: 'Use', title: 'Filters', text: 'Search by number, series, order, customer, Lounge and period.' },
+    { label: 'Caution', title: 'Read only', text: 'The screen looks up invoices; it does not issue them.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Find an invoice by number, series, order or customer.
+- Look up the invoices issued in a period by Lounge.
+
+## How to access
+
+Orders → Invoice
+
+## Before you start
+
+- Have, if needed, the **invoice number/series**, the **order**, the **customer**, the **Lounge** or the **issue period** to filter.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Invoice Number, Series, Order Number, Customer, Lounge, Issue Date - Start and Issue Date - End, with the "Search" and "Clear Filters" buttons.', 'Combine the filters to narrow the results.'],
+    ['Results', 'List with several invoice columns.', 'Read only.'],
+  ]}
+/>
+
+## Main fields
+
+### Result columns
+
+<DocTable
+  headers={['Column', 'What it shows']}
+  rows={[
+    ['ERP Code', 'Invoice code in the ERP.'],
+    ['Lounge', 'Lounge that issued the invoice.'],
+    ['Customer Code / Name', 'Invoice customer.'],
+    ['Payment Term', 'Invoice payment term.'],
+    ['Invoice Number / Series', 'Invoice number and series.'],
+    ['Issue Date', 'Date the invoice was issued.'],
+    ['Invoice (billing)', 'Related billing invoice.'],
+    ['Invoice Currency / Value in Currency', 'Currency and value of the billing invoice.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Search** — enter the filters (number, series, order, customer, Lounge, period) and click **"Search"**.
+2. **Analyze** — check the data of the listed invoices.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list invoices according to the filters.', '—'],
+    ['Clear Filters', 'To reset the filters and search again.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Invoice', 'Access to the screen', 'Allows opening and viewing the invoices.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Orders and Invoicing', 'Invoices are issued from orders/invoicing.', 'Issuing happens in other processes.'],
+    ['Invoice XML', 'The invoice XMLs can be downloaded on their own screen.', 'Use "Invoice XML" for the files.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not issue or cancel invoices — it only looks up the issued ones.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot find an invoice', 'Filters too restrictive', 'Adjust the filters (number, series, period).'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To look up the issued invoices.' },
+    { question: 'Can I issue the invoice here?', answer: 'No; issuing happens in other processes. This screen is for lookup.' },
+    { question: 'Where do I download the invoice XML?', answer: 'On the "Invoice XML" screen.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Invoice screen documentation.' },
+  ]}
+/>

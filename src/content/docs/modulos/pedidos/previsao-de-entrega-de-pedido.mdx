@@ -1,0 +1,150 @@
+---
+section: modulos
+routeSlug: pedidos/previsao-de-entrega-de-pedido
+pageType: routine
+module: pedidos
+moduleLabel: Pedidos
+title: Previsão de Entrega de Pedido
+description: Define os prazos de faturamento e de entrega por Lounge e abrangência (logradouro, cidade, estado ou cliente).
+routineType: Cadastro e consulta
+permission: Sim
+impact: Prazos de faturamento e entrega usados na previsão do pedido
+keywords: [previsão de entrega, prazo, dias para faturamento, dias para entrega, lounge, pedidos]
+tags: [modulo-pedidos, cadastro]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Previsão de Entrega de Pedido** define os prazos usados para estimar a entrega do pedido: os **Dias Para Faturamento** e os **Dias Para Entrega**, por **Lounge** e por **Tipo** de abrangência (Logradouro, Cidade, Estado ou Cliente).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Prazos de entrega', text: 'Define os dias para faturamento e entrega por Lounge.' },
+    { label: 'Uso', title: 'Estimativa do pedido', text: 'Os prazos apoiam a previsão de entrega do pedido.' },
+    { label: 'Cuidado', title: 'Abrangência (Tipo)', text: 'O prazo pode variar por logradouro, cidade, estado ou cliente.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Cadastrar os prazos de faturamento e entrega de um Lounge.
+- Definir prazos diferentes por abrangência (logradouro, cidade, estado ou cliente).
+- Consultar, editar ou excluir prazos.
+
+## Como acessar
+
+Pedidos → Previsão de Entrega de Pedido
+
+## Antes de começar
+
+- Saiba o **Lounge** e o **Tipo** de abrangência.
+- Tenha os **Dias Para Faturamento** e os **Dias Para Entrega**.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Campo "Lounge", com os botões "Pesquisar", "+ Novo" e "Limpar Filtros".', '—'],
+    ['Resultados', 'Lista com as colunas "Lounge", "Tipo", "Dias Para Faturamento" e "Dias Para Entrega", com as ações por linha.', 'Cada linha tem Detalhes, Editar e Excluir.'],
+    ['Cadastro / edição', 'Janela com os campos do prazo.', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Lounge', 'Lounge ao qual o prazo se aplica (com o botão "+" para cadastrar).'],
+    ['Dias Para Faturamento', 'Quantidade de dias prevista para o faturamento.'],
+    ['Dias Para Entrega', 'Quantidade de dias prevista para a entrega.'],
+    ['Tipo', 'Abrangência do prazo: Logradouro, Cidade, Estado ou Cliente.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe o **"Lounge"** e clique em **"Pesquisar"**.
+2. **Cadastrar** — clique em **"+ Novo"**, selecione o **Lounge**, informe os **Dias Para Faturamento** e os **Dias Para Entrega**, escolha o **Tipo** e clique em **"Salvar"** (ou **"Salvar e Continuar"**).
+3. **Editar** — clique no ícone de **Editar** da linha, altere e clique em **"Salvar"**.
+4. **Excluir** — clique no ícone de **Excluir** da linha.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar os prazos conforme o filtro.', '—'],
+    ['+ Novo', 'Para cadastrar um novo prazo.', '—'],
+    ['Salvar e Continuar', 'Para salvar e seguir cadastrando.', '—'],
+    ['Detalhes', 'Para consultar um prazo sem alterar.', 'Somente leitura.'],
+    ['Editar', 'Para alterar um prazo existente.', '—'],
+    ['Excluir', 'Para remover um prazo.', 'Ação sem retorno; pode afetar a previsão de entrega.'],
+    ['Limpar Filtros', 'Para zerar o filtro e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Previsão de Entrega de Pedido', 'Acesso à tela', 'Permite abrir e utilizar a tela de Previsão de Entrega de Pedido.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Pedidos', 'Os prazos apoiam a previsão de entrega do pedido.', 'Confira o Lounge e a abrangência.'],
+    ['Lounge', 'Os prazos são definidos por Lounge.', 'Cadastre o Lounge antes.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não realiza a entrega — apenas define os prazos usados na previsão.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A previsão veio diferente do esperado', 'Prazo cadastrado com abrangência incorreta', 'Verifique o Tipo e os dias cadastrados.'],
+    ['Não encontro um prazo', 'Filtro por Lounge incorreto', 'Ajuste o filtro "Lounge".'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para definir os prazos de faturamento e entrega por Lounge e abrangência.' },
+    { question: 'O que é o "Tipo"?', answer: 'A abrangência do prazo: Logradouro, Cidade, Estado ou Cliente.' },
+    { question: 'Posso ter prazos diferentes por cidade?', answer: 'Sim; use o Tipo "Cidade" para prazos por cidade.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '02/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Previsão de Entrega de Pedido.' },
+  ]}
+/>
