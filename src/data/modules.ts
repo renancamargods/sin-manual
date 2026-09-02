@@ -53,6 +53,7 @@ export const tecnicoPages: TecnicoGroup[] = [
       { title: 'Configuração de Produtos no Lounge', slug: 'configuracao-de-produtos-no-lounge', description: 'Parametrização de produtos por localidade e roteamento dos itens para o Lounge/Centro correto.' },
       { title: 'Cadastro de Clientes x Aprovações - Sem Ignition', slug: 'cadastro-clientes-sem-ignition', description: 'Cadastro e aprovação de clientes (PF, PJ e estrangeiro) pela fila SEM Ignition, com regra e etapas de aprovação.' },
       { title: 'Aprovação de Pedidos - Sem Ignition', slug: 'aprovacao-de-pedidos-sem-ignition', description: 'Criação e aprovação de pedidos pela fila SEM Ignition (ADM, Crédito e Cobrança Nacional), com fluxograma da rota de aprovação.' },
+      { title: 'Execução do QA Docker Manager (Docker)', slug: 'execucao-qa-docker-manager', description: 'Build multi-stage e execução do QA Docker Manager via docker compose, do terminal ao ambiente no ar.' },
     ],
   },
   { title: 'APIs', slug: 'apis', description: 'Integrações disponíveis para troca de informações com outros sistemas.', pages: [] },
@@ -630,6 +631,7 @@ export const tecnicoSubEn: Record<string, string> = {
   'fluxos/configuracao-de-produtos-no-lounge': 'Product Configuration in the Lounge',
   'fluxos/cadastro-clientes-sem-ignition': 'Customer Registration x Approvals - Without Ignition',
   'fluxos/aprovacao-de-pedidos-sem-ignition': 'Order Approval - Without Ignition',
+  'fluxos/execucao-qa-docker-manager': 'Running the QA Docker Manager (Docker)',
 };
 
 // --- Ordenação alfabética (locale-aware) da navegação ---
