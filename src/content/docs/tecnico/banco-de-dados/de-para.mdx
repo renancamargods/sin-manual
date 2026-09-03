@@ -1,0 +1,274 @@
+---
+section: tecnico
+routeSlug: banco-de-dados/de-para
+pageType: tecnico
+title: De Para
+description: Tabelas e mapeamentos De/Para entre o CrmSin e o SAP S/4HANA (e o integrador legado RFC/BAPI).
+moduleLabel: Banco de Dados / DBA
+routineType: Referência técnica
+impact: Integração com o SAP
+keywords: [de para, de/para, mapeamento, customizing, sap, s4hana, hana, business partner, sales order, integração, dba, banco de dados]
+tags: [tecnico, de-para, sap]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+Um **De/Para** é uma tabela de tradução: para cada valor usado no CrmSin, indica o valor equivalente esperado por outro sistema. No S.I.N Implant System, os De/Para servem principalmente à **integração com o SAP S/4HANA** — eles convertem cadastros do CRM (cliente, pedido, centro, condição de pagamento) nos códigos de *customizing* que o SAP da SIN realmente usa.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Traduzir códigos', text: 'Converte valores do CrmSin nos códigos que o SAP e o integrador legado esperam.' },
+    { label: 'Uso', title: 'DBA e integração', text: 'Consultado pelos times de banco de dados, suporte e integração ao investigar divergências.' },
+    { label: 'Cuidado', title: 'Configuração do cliente', text: 'São valores internos da SIN; alterar sem alinhar com o time SAP quebra a integração.' },
+  ]}
+/>
+
+<Callout type="atencao" title="Não é uma tela do sistema">
+Não existe uma tela "De/Para" no CrmSin. Estes mapeamentos vivem em parte no **código** da integração (classe `MontadorDadosClienteSap` e regras de `PedidoCapa`) e em parte em **cadastros/tabelas do banco** (por exemplo `Pedidos_OperacaoInteligente` e `Administrador_Centro`). Os valores abaixo foram extraídos do integrador legado RFC/BAPI e **confirmados por consulta ao banco de homologação**.
+</Callout>
+
+## Onde os De/Para ficam
+
+<DocTable
+  headers={['Origem', 'O que guarda', 'Tipo']}
+  rows={[
+    ['Tabela Pedidos_OperacaoInteligente', 'Tipo de ordem do SAP (OrdemErp) por operação inteligente', 'Cadastro no banco'],
+    ['Tabela Administrador_Centro', 'Organização de vendas, canal e depósito por centro/Lounge', 'Cadastro no banco'],
+    ['Classe MontadorDadosClienteSap', 'De/Para campo a campo do cliente (legado RFC/BAPI → OData)', 'Regra em código'],
+    ['Regra PedidoCapa', 'Organização de vendas, canal e empresa do pedido', 'Regra em código'],
+  ]}
+  caption="Onde ficam armazenados os mapeamentos De/Para"
+/>
+
+## Pedido — organização de vendas e canal
+
+Derivados na montagem da capa do pedido, nesta ordem de precedência:
+
+<DocTable
+  headers={['Situação', 'Organização de vendas', 'Canal de distribuição']}
+  rows={[
+    ['Pedido Comex nacionalizado', '10', '40'],
+    ['Cliente com Tipo de Pessoa = Estrangeiro', '40', '50'],
+    ['Demais casos', 'do centro', 'do centro'],
+  ]}
+/>
+
+<Callout type="info" title="Caso geral">
+Todos os centros ativos no banco de homologação têm organização "10" e canal "10". Na prática, o caso geral é sempre 10/10.
+</Callout>
+
+## Pedido — tipo e motivo da ordem
+
+O **tipo de ordem** (SalesOrderType) vem da Operação Inteligente do item (campo "OrdemErp"), com dois ajustes: centro diferente de "1000" com ordem "ZKBB" vira "KBB"; e itens "YDOA" forçam a capa para "YDOA".
+
+Valores de OrdemErp cadastrados: `CONSCONSIG`, `DEVCONSIG`, `DEVOLUCAO`, `ENCVD`, `KBB`, `KEB`, `OPL1`, `OPL3`, `ORB`, `REMCONSIG`, `YBEX`, `YBON`, `YDBE`, `YDEX`, `YDOA`, `YEBN`, `YEXB`, `YEXN`, `YEXP`, `YOPL`, `YRDB`, `YROB`, `YTRO`, `ZCLI`, `ZDIS`, `ZDO1`, `ZKBB`, `ZKEB`, `ZOR1`.
+
+<DocTable
+  headers={['OrdemErp', 'Motivo da ordem (OrdReason)']}
+  rows={[
+    ['OPL3', 'YO1'],
+    ['YDOA ou YBPF', 'YC2'],
+    ['Demais', 'vazio'],
+  ]}
+/>
+
+## Pedido — funções de parceiro
+
+<DocTable
+  headers={['Função', 'Papel']}
+  rows={[
+    ['AG', 'Emissor da ordem (sold-to)'],
+    ['TL', 'Consultor de vendas (sales employee)'],
+    ['EE', 'Recebedor da mercadoria com endereço avulso (ship-to)'],
+  ]}
+/>
+
+<Callout type="cuidado" title="EE, não WE">
+O legado usa o código "EE" (não "WE") para o recebedor da mercadoria. "EE" é o código customizado desta instalação da SIN.
+</Callout>
+
+## Pedido — depósito por centro
+
+<DocTable
+  headers={['Centro', 'Depósito (StorageLocation)']}
+  rows={[
+    ['1000', 'MX01'],
+    ['3000 a 3012', 'EX03'],
+    ['Ordem ZEXP', 'IN01'],
+    ['Demais', 'EX02'],
+  ]}
+  caption="Depósito por centro conforme o integrador legado"
+/>
+
+## Pedido — condições de preço e empresa
+
+<DocTable
+  headers={['Condição', 'Significado']}
+  rows={[
+    ['PR00', 'Preço líquido unitário'],
+    ['KF00', 'Frete'],
+    ['KF01', 'Seguro'],
+  ]}
+/>
+
+O preço enviado na condição "PR00" já vai **líquido** (com o desconto de capa aplicado). As categorias "YDOA" (bonificação) e "YEXB" (bonificação de exportação) mantêm o preço cheio.
+
+<DocTable
+  headers={['Situação', 'Empresa do pedido']}
+  rows={[
+    ['Empresa SIN + pedido internacional', 'SIN-IB'],
+    ['Empresa SIN + pedido nacional', 'SIN'],
+    ['Empresa Singular', 'SINGULAR'],
+  ]}
+/>
+
+## Cliente — De/Para de campos (legado → SAP OData)
+
+Mapeamento campo a campo entre a estrutura do integrador legado e o payload OData do **Business Partner** do SAP, implementado na classe `MontadorDadosClienteSap`.
+
+### Cabeçalho (A_BusinessPartner)
+
+<DocTable
+  headers={['Campo (legado)', 'Campo (SAP OData)', 'Origem do valor']}
+  rows={[
+    ['NomeCliente', 'OrganizationBPName1 + Name2, ou FirstName/LastName', 'Nome do cliente, dividido conforme a categoria'],
+    ['NomeFantasia', 'SearchTerm1', 'Nome fantasia do cliente'],
+    ['Titulo', 'FormOfAddress', '0003 para estrangeiro; omitido nos demais'],
+    ['PessoaFisica', 'BusinessPartnerCategory (1 ou 2)', 'Tipo de pessoa do cliente'],
+    ['CnpjCpf', 'to_BusinessPartnerTax → BR1 (CNPJ)', 'Documento fiscal'],
+    ['InscricaoEstadual', 'to_BusinessPartnerTax → BR3', 'ISENTO quando não há inscrição'],
+  ]}
+  caption="De/Para do cabeçalho do cliente"
+/>
+
+### Endereço (to_BusinessPartnerAddress)
+
+<DocTable
+  headers={['Campo (legado)', 'Campo (SAP OData)']}
+  rows={[
+    ['Endereco', 'StreetName'],
+    ['Numero', 'HouseNumber'],
+    ['Complemento', 'StreetPrefixName (Street 2)'],
+    ['Bairro', 'District'],
+    ['Cep', 'PostalCode'],
+    ['Cidade', 'CityName'],
+    ['Estado', 'Region'],
+    ['Pais', 'Country'],
+    ['EmailCliente', 'to_EmailAddress → EmailAddress'],
+    ['TelefoneCliente', 'to_PhoneNumber → PhoneNumber'],
+    ['CelularCliente', 'to_MobilePhoneNumber → PhoneNumber'],
+  ]}
+/>
+
+### Empresa contábil (to_CustomerCompany)
+
+<DocTable
+  headers={['Campo (legado)', 'Campo (SAP OData)', 'Valor']}
+  rows={[
+    ['Empresa', 'CompanyCode', '1000'],
+    ['ReconciliacaoContabilidadeGeral', 'ReconciliationAccount', '112000 nacional / 112010 estrangeiro'],
+    ['ChaveCondicaoAtribuicao', 'LayoutSortingRule', '000'],
+    ['CodigoCalculoDeJuros', 'InterestCalculationCode', 'B1'],
+    ['RegistrarHistoricoPagamento', 'RecordPaymentHistoryIndicator', 'true'],
+    ['ProcedimentoAdvertencia', 'to_CustomerDunning → DunningProcedure', 'Z000'],
+  ]}
+  caption="De/Para da empresa contábil do cliente"
+/>
+
+### Área de vendas (to_CustomerSalesArea)
+
+<DocTable
+  headers={['Campo (legado)', 'Campo (SAP OData)', 'Valor']}
+  rows={[
+    ['OrganizacaoDeVendas', 'SalesOrganization', '1000 (o pedido usa 10)'],
+    ['CanalDeDistribuicao', 'DistributionChannel', '10 nacional / 40 estrangeiro'],
+    ['SetorDeAtividade', 'Division', '10 nacional / 50 estrangeiro'],
+    ['RegiaoDeVendas', 'SalesDistrict', 'derivado da UF'],
+    ['EscritorioDeVendas', 'SalesOffice', '0029 nacional / 0039 estrangeiro'],
+    ['EquipeDeVendas', 'SalesGroup', '136 nacional / 390 estrangeiro'],
+    ['GrupoDeClientes', 'CustomerGroup', '02 nacional / 01 estrangeiro'],
+    ['Moeda', 'Currency', 'moeda do país, reserva BRL'],
+    ['EsquemaDeterminacaoCalculo', 'CustomerPricingProcedure', '1'],
+    ['GrupoEstatistico', 'CustomerStatisticsGroup', '1'],
+    ['CondicaoExpedicao', 'ShippingCondition', '01'],
+    ['NumeroMaximoFornecimentosParciais', 'MaxNmbrOfPartialDelivery', '9'],
+    ['Incoterms', 'IncotermsClassification', 'do cliente, reserva CIF'],
+    ['Incoterms2', 'IncotermsLocation1', 'do cliente, reserva CIF PAGO'],
+    ['CondicaoDePagamentoComex', 'CustomerPaymentTerms', 'do termo de pagamento Comex'],
+  ]}
+  caption="De/Para da área de vendas do cliente"
+/>
+
+### Classificação (to_Customer)
+
+<DocTable
+  headers={['Campo (legado)', 'Campo (SAP OData)', 'Valor']}
+  rows={[
+    ['ClassificacaoDeCliente', 'CustomerClassification', '01'],
+    ['CodigoSetorIndustrial', 'IndustryCode1', '0001 nacional / 0003 estrangeiro'],
+    ['CodigoSetorIndustrial2', 'IndustryCode2', 'ZPJ estrangeiro; omitido nos demais'],
+  ]}
+/>
+
+### Região de vendas por UF
+
+<DocTable
+  headers={['Região', 'Código', 'UFs']}
+  rows={[
+    ['Norte', '000001', 'AC, AM, AP, PA, RO, RR, TO'],
+    ['Sul', '000002', 'PR, RS, SC'],
+    ['Sudeste', '000003', 'DF, ES, MG, RJ, SP, EX'],
+    ['Nordeste', '000004', 'AL, BA, CE, MA, PB, PE, PI, RN, SE'],
+    ['Centro-Oeste', '000005', 'GO, MS, MT'],
+  ]}
+  caption="Região de vendas do SAP por UF do cliente"
+/>
+
+## Campos do legado ainda sem equivalente
+
+<DocTable
+  headers={['Campo (legado)', 'Situação']}
+  rows={[
+    ['CroCliente', 'Sem campo padrão no OData; exigiria campo de extensão'],
+    ['Xicms', 'Contribuinte de ICMS; depende de decisão do time fiscal'],
+    ['ClassificacaoFiscalCliente', 'Depende de definição fiscal (país de saída e categoria de imposto)'],
+    ['CodigoCliente / CodigoClienteComex', 'No OData o número do parceiro é gerado pelo SAP; não se envia'],
+  ]}
+/>
+
+## O que esta página não faz
+
+- Não é uma tela do sistema e não permite editar mapeamentos.
+- Não substitui a documentação de integração do SAP mantida pelo time técnico.
+- Não cobre mapeamentos de outras integrações fora do SAP.
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'O que é um De/Para?', answer: 'É uma tabela de tradução: para cada valor usado no CrmSin, indica o valor equivalente que outro sistema (como o SAP) espera receber.' },
+    { question: 'Existe uma tela de De/Para no sistema?', answer: 'Não. Os mapeamentos ficam em parte no código da integração e em parte em cadastros do banco, como Operação Inteligente e Centro. Esta página é uma referência técnica desses valores.' },
+    { question: 'De onde vêm esses valores?', answer: 'Do integrador legado RFC/BAPI da SIN, confirmados por consulta ao banco de homologação. São configuração interna do SAP da SIN e não constam na documentação pública da SAP.' },
+    { question: 'Por que a organização de vendas do cliente é 1000 e a do pedido é 10?', answer: 'São contextos diferentes do legado: o cadastro do cliente usa 1000 e a montagem da capa do pedido usa 10. Ambos estão mapeados assim de propósito.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '03/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da referência de De/Para (mapeamentos CrmSin ↔ SAP S/4HANA), levantada a partir do código e da documentação de integração do SIN-Sales.' },
+  ]}
+/>

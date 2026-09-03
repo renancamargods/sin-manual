@@ -1,0 +1,275 @@
+---
+section: tecnico
+routeSlug: banco-de-dados/de-para
+pageType: tecnico
+lang: en
+title: Value Mapping (De/Para)
+description: De/Para tables and mappings between CrmSin and SAP S/4HANA (and the legacy RFC/BAPI integrator).
+moduleLabel: Database / DBA
+routineType: Technical reference
+impact: SAP integration
+keywords: [de para, value mapping, customizing, sap, s4hana, hana, business partner, sales order, integration, dba, database]
+tags: [tecnico, de-para, sap]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+A **De/Para** is a translation table: for each value used in CrmSin, it states the equivalent value expected by another system. In the S.I.N Implant System, De/Para tables serve mainly the **SAP S/4HANA integration** — they convert CRM records (customer, order, plant, payment terms) into the *customizing* codes that SIN's SAP actually uses.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Translate codes', text: 'Converts CrmSin values into the codes SAP and the legacy integrator expect.' },
+    { label: 'Usage', title: 'DBA and integration', text: 'Used by the database, support and integration teams when investigating mismatches.' },
+    { label: 'Caution', title: 'Customer customizing', text: 'These are SIN-internal values; changing them without the SAP team breaks the integration.' },
+  ]}
+/>
+
+<Callout type="atencao" title="Not a system screen">
+There is no "De/Para" screen in CrmSin. These mappings live partly in the integration **code** (class `MontadorDadosClienteSap` and `PedidoCapa` rules) and partly in **database records/tables** (for example `Pedidos_OperacaoInteligente` and `Administrador_Centro`). The values below were extracted from the legacy RFC/BAPI integrator and **confirmed against the homologation database**.
+</Callout>
+
+## Where the De/Para live
+
+<DocTable
+  headers={['Source', 'What it holds', 'Type']}
+  rows={[
+    ['Table Pedidos_OperacaoInteligente', 'SAP order type (OrdemErp) per smart operation', 'Database record'],
+    ['Table Administrador_Centro', 'Sales organization, channel and storage location per plant/Lounge', 'Database record'],
+    ['Class MontadorDadosClienteSap', 'Field-by-field customer De/Para (legacy RFC/BAPI → OData)', 'Rule in code'],
+    ['Rule PedidoCapa', 'Sales organization, channel and order company', 'Rule in code'],
+  ]}
+  caption="Where the De/Para mappings are stored"
+/>
+
+## Order — sales organization and channel
+
+Derived while building the order header, in this order of precedence:
+
+<DocTable
+  headers={['Situation', 'Sales organization', 'Distribution channel']}
+  rows={[
+    ['Nationalized Comex order', '10', '40'],
+    ['Customer with Person Type = Foreign', '40', '50'],
+    ['All other cases', 'from the plant', 'from the plant'],
+  ]}
+/>
+
+<Callout type="info" title="General case">
+All active plants in the homologation database have organization "10" and channel "10". In practice, the general case is always 10/10.
+</Callout>
+
+## Order — order type and reason
+
+The **order type** (SalesOrderType) comes from the item's Smart Operation (field "OrdemErp"), with two adjustments: a plant other than "1000" with order "ZKBB" becomes "KBB"; and "YDOA" items force the header to "YDOA".
+
+Registered OrdemErp values: `CONSCONSIG`, `DEVCONSIG`, `DEVOLUCAO`, `ENCVD`, `KBB`, `KEB`, `OPL1`, `OPL3`, `ORB`, `REMCONSIG`, `YBEX`, `YBON`, `YDBE`, `YDEX`, `YDOA`, `YEBN`, `YEXB`, `YEXN`, `YEXP`, `YOPL`, `YRDB`, `YROB`, `YTRO`, `ZCLI`, `ZDIS`, `ZDO1`, `ZKBB`, `ZKEB`, `ZOR1`.
+
+<DocTable
+  headers={['OrdemErp', 'Order reason (OrdReason)']}
+  rows={[
+    ['OPL3', 'YO1'],
+    ['YDOA or YBPF', 'YC2'],
+    ['All others', 'empty'],
+  ]}
+/>
+
+## Order — partner functions
+
+<DocTable
+  headers={['Function', 'Role']}
+  rows={[
+    ['AG', 'Sold-to party'],
+    ['TL', 'Sales employee'],
+    ['EE', 'Ship-to party with one-time address'],
+  ]}
+/>
+
+<Callout type="cuidado" title="EE, not WE">
+The legacy uses code "EE" (not "WE") for the goods recipient. "EE" is the customized code of this SIN installation.
+</Callout>
+
+## Order — storage location per plant
+
+<DocTable
+  headers={['Plant', 'Storage location']}
+  rows={[
+    ['1000', 'MX01'],
+    ['3000 to 3012', 'EX03'],
+    ['Order ZEXP', 'IN01'],
+    ['All others', 'EX02'],
+  ]}
+  caption="Storage location per plant per the legacy integrator"
+/>
+
+## Order — pricing conditions and company
+
+<DocTable
+  headers={['Condition', 'Meaning']}
+  rows={[
+    ['PR00', 'Net unit price'],
+    ['KF00', 'Freight'],
+    ['KF01', 'Insurance'],
+  ]}
+/>
+
+The price sent in condition "PR00" is already **net** (with the header discount applied). Categories "YDOA" (bonus) and "YEXB" (export bonus) keep the full price.
+
+<DocTable
+  headers={['Situation', 'Order company']}
+  rows={[
+    ['SIN company + international order', 'SIN-IB'],
+    ['SIN company + national order', 'SIN'],
+    ['Singular company', 'SINGULAR'],
+  ]}
+/>
+
+## Customer — field De/Para (legacy → SAP OData)
+
+Field-by-field mapping between the legacy integrator structure and the SAP **Business Partner** OData payload, implemented in the class `MontadorDadosClienteSap`.
+
+### Header (A_BusinessPartner)
+
+<DocTable
+  headers={['Field (legacy)', 'Field (SAP OData)', 'Value source']}
+  rows={[
+    ['NomeCliente', 'OrganizationBPName1 + Name2, or FirstName/LastName', 'Customer name, split by category'],
+    ['NomeFantasia', 'SearchTerm1', 'Customer trade name'],
+    ['Titulo', 'FormOfAddress', '0003 for foreign; omitted otherwise'],
+    ['PessoaFisica', 'BusinessPartnerCategory (1 or 2)', 'Customer person type'],
+    ['CnpjCpf', 'to_BusinessPartnerTax → BR1 (CNPJ)', 'Tax document'],
+    ['InscricaoEstadual', 'to_BusinessPartnerTax → BR3', 'ISENTO when there is no registration'],
+  ]}
+  caption="Customer header De/Para"
+/>
+
+### Address (to_BusinessPartnerAddress)
+
+<DocTable
+  headers={['Field (legacy)', 'Field (SAP OData)']}
+  rows={[
+    ['Endereco', 'StreetName'],
+    ['Numero', 'HouseNumber'],
+    ['Complemento', 'StreetPrefixName (Street 2)'],
+    ['Bairro', 'District'],
+    ['Cep', 'PostalCode'],
+    ['Cidade', 'CityName'],
+    ['Estado', 'Region'],
+    ['Pais', 'Country'],
+    ['EmailCliente', 'to_EmailAddress → EmailAddress'],
+    ['TelefoneCliente', 'to_PhoneNumber → PhoneNumber'],
+    ['CelularCliente', 'to_MobilePhoneNumber → PhoneNumber'],
+  ]}
+/>
+
+### Accounting company (to_CustomerCompany)
+
+<DocTable
+  headers={['Field (legacy)', 'Field (SAP OData)', 'Value']}
+  rows={[
+    ['Empresa', 'CompanyCode', '1000'],
+    ['ReconciliacaoContabilidadeGeral', 'ReconciliationAccount', '112000 national / 112010 foreign'],
+    ['ChaveCondicaoAtribuicao', 'LayoutSortingRule', '000'],
+    ['CodigoCalculoDeJuros', 'InterestCalculationCode', 'B1'],
+    ['RegistrarHistoricoPagamento', 'RecordPaymentHistoryIndicator', 'true'],
+    ['ProcedimentoAdvertencia', 'to_CustomerDunning → DunningProcedure', 'Z000'],
+  ]}
+  caption="Customer accounting-company De/Para"
+/>
+
+### Sales area (to_CustomerSalesArea)
+
+<DocTable
+  headers={['Field (legacy)', 'Field (SAP OData)', 'Value']}
+  rows={[
+    ['OrganizacaoDeVendas', 'SalesOrganization', '1000 (the order uses 10)'],
+    ['CanalDeDistribuicao', 'DistributionChannel', '10 national / 40 foreign'],
+    ['SetorDeAtividade', 'Division', '10 national / 50 foreign'],
+    ['RegiaoDeVendas', 'SalesDistrict', 'derived from the state (UF)'],
+    ['EscritorioDeVendas', 'SalesOffice', '0029 national / 0039 foreign'],
+    ['EquipeDeVendas', 'SalesGroup', '136 national / 390 foreign'],
+    ['GrupoDeClientes', 'CustomerGroup', '02 national / 01 foreign'],
+    ['Moeda', 'Currency', "country currency, fallback BRL"],
+    ['EsquemaDeterminacaoCalculo', 'CustomerPricingProcedure', '1'],
+    ['GrupoEstatistico', 'CustomerStatisticsGroup', '1'],
+    ['CondicaoExpedicao', 'ShippingCondition', '01'],
+    ['NumeroMaximoFornecimentosParciais', 'MaxNmbrOfPartialDelivery', '9'],
+    ['Incoterms', 'IncotermsClassification', 'from the customer, fallback CIF'],
+    ['Incoterms2', 'IncotermsLocation1', 'from the customer, fallback CIF PAGO'],
+    ['CondicaoDePagamentoComex', 'CustomerPaymentTerms', 'from the Comex payment terms'],
+  ]}
+  caption="Customer sales-area De/Para"
+/>
+
+### Classification (to_Customer)
+
+<DocTable
+  headers={['Field (legacy)', 'Field (SAP OData)', 'Value']}
+  rows={[
+    ['ClassificacaoDeCliente', 'CustomerClassification', '01'],
+    ['CodigoSetorIndustrial', 'IndustryCode1', '0001 national / 0003 foreign'],
+    ['CodigoSetorIndustrial2', 'IndustryCode2', 'ZPJ foreign; omitted otherwise'],
+  ]}
+/>
+
+### Sales district per state (UF)
+
+<DocTable
+  headers={['District', 'Code', 'States (UF)']}
+  rows={[
+    ['North', '000001', 'AC, AM, AP, PA, RO, RR, TO'],
+    ['South', '000002', 'PR, RS, SC'],
+    ['Southeast', '000003', 'DF, ES, MG, RJ, SP, EX'],
+    ['Northeast', '000004', 'AL, BA, CE, MA, PB, PE, PI, RN, SE'],
+    ['Midwest', '000005', 'GO, MS, MT'],
+  ]}
+  caption="SAP sales district per customer state"
+/>
+
+## Legacy fields with no mapping yet
+
+<DocTable
+  headers={['Field (legacy)', 'Status']}
+  rows={[
+    ['CroCliente', 'No standard OData field; would require an extension field'],
+    ['Xicms', 'ICMS taxpayer flag; depends on the tax team decision'],
+    ['ClassificacaoFiscalCliente', 'Depends on a tax definition (departure country and tax category)'],
+    ['CodigoCliente / CodigoClienteComex', 'In OData the partner number is generated by SAP; not sent'],
+  ]}
+/>
+
+## What this page does not do
+
+- It is not a system screen and does not allow editing mappings.
+- It does not replace the SAP integration documentation maintained by the technical team.
+- It does not cover mappings of integrations other than SAP.
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is a De/Para?', answer: 'It is a translation table: for each value used in CrmSin, it states the equivalent value another system (such as SAP) expects to receive.' },
+    { question: 'Is there a De/Para screen in the system?', answer: 'No. The mappings live partly in the integration code and partly in database records, such as Smart Operation and Plant. This page is a technical reference of those values.' },
+    { question: 'Where do these values come from?', answer: "From SIN's legacy RFC/BAPI integrator, confirmed against the homologation database. They are SIN-internal SAP customizing and are not in SAP's public documentation." },
+    { question: 'Why is the customer sales organization 1000 while the order uses 10?', answer: 'They are different legacy contexts: the customer record uses 1000 and the order header build uses 10. Both are mapped this way on purpose.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '09/03/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '09/03/2026', author: 'Renan Camargo', description: 'Initial release of the De/Para reference (CrmSin ↔ SAP S/4HANA mappings), compiled from the SIN-Sales code and integration documentation.' },
+  ]}
+/>

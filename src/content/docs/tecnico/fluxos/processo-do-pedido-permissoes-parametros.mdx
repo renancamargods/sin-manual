@@ -1,0 +1,189 @@
+---
+section: tecnico
+routeSlug: fluxos/processo-do-pedido-permissoes-parametros
+pageType: tecnico
+title: Processo do Pedido - Permissões e Parâmetros
+description: Parte 6 do processo do pedido — as permissões que controlam a tela e as ações, e os parâmetros do sistema (país, valores/prazos, pagamento, bonificação, crédito, grupos de e-mail e Ignition) que ajustam o fluxo.
+moduleLabel: Módulo Pedidos
+routineType: Fluxo de processo
+impact: Permissões e parâmetros que controlam o fluxo do pedido
+keywords: [pedido, permissões, parâmetros, appsettings, chave e valor, controle de funcionalidade, id pais brasil, operações inteligentes, bonificação, perfil de crédito, grupos de email, ignition]
+tags: [tecnico, fluxo, pedido]
+order: 5
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+Esta é a **Parte 6** (final) do [Processo do Pedido](/tecnico/fluxos/processo-do-pedido). Aqui reunimos o "por trás" do fluxo: as **permissões** que controlam quem acessa a tela e executa cada ação, e os **parâmetros** do sistema que ajustam o comportamento do pedido (nacional/internacional, bonificação, formas de pagamento, prazos, crédito, grupos de e-mail, Ignition).
+
+É a página de referência do **suporte** e da **configuração** — a maior parte deste conteúdo é técnica.
+
+<Callout type="cuidado" title="Conteúdo técnico">
+Alterar permissões ou parâmetros muda o comportamento do sistema para todos. Faça mudanças apenas com conhecimento do efeito e, de preferência, com apoio da equipe técnica.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'O que controla o fluxo', text: 'As permissões (quem faz) e os parâmetros (como o sistema se comporta).' },
+    { label: 'Uso', title: 'Suporte e configuração', text: 'Referência para diagnosticar acessos e comportamentos do pedido.' },
+    { label: 'Cuidado', title: 'Efeito global', text: 'Mudanças aqui afetam todos os pedidos e usuários.' },
+  ]}
+/>
+
+## Permissões
+
+O acesso à tela de **Pedido** e a cada ação (criar, enviar, aprovar) é controlado por **permissões**. No S.I.N, as permissões são organizadas por **URL/tela**, atribuídas a **Perfis** e **Grupos** de usuário (módulo **Autenticador**).
+
+<DocTable
+  headers={['O que controla', 'Como funciona', 'Onde configurar']}
+  rows={[
+    ['Acesso à tela de Pedido', 'A tela exige a permissão correspondente; sem ela, o usuário não abre.', 'Autenticador → Perfil / Grupo / URL.'],
+    ['Ações no pedido (criar, enviar, etc.)', 'Cada ação pode exigir permissão específica.', 'Autenticador → Perfil.'],
+    ['Quem aprova cada etapa', 'Não é uma permissão fixa: o aprovador vem da Regra de Aprovação.', 'Aprovações → Regra de Aprovação (ver fluxo de Aprovação de Pedidos).'],
+    ['Perfis de crédito', 'Perfis usados na análise de crédito (nacional e comex).', 'Parâmetro: PerfilCredito / PerfilCreditoComex.'],
+    ['Perfil Ignition', 'Perfil usado pela fila Ignition.', 'Parâmetro: IdPerfilIgnition.'],
+  ]}
+/>
+
+<Callout type="info" title="Permissão x Aprovação">
+Uma coisa é **poder abrir/usar** a tela (permissão do Autenticador); outra é **quem aprova** o pedido — isso é definido na **Regra de Aprovação**, não numa permissão fixa. Ver o fluxo <em>Aprovação de Pedidos - Sem Ignition</em>.
+</Callout>
+
+## Parâmetros do sistema
+
+Vários comportamentos do pedido são controlados por **parâmetros**. Eles ficam principalmente nos arquivos de configuração (**AppSettings**), além das telas **Chave e Valor** e **Controle de Funcionalidade** (feature flags). Abaixo, os principais parâmetros ligados ao pedido.
+
+### Localização (nacional / internacional)
+
+<DocTable
+  headers={['Parâmetro', 'O que controla']}
+  rows={[
+    ['IdPaisBrasil', 'Indica qual país é o Brasil. É o que define se o pedido é Nacional (país do endereço = Brasil) ou Internacional (ver Parte 2).'],
+    ['IdPaisPortugal', 'Indica o país Portugal, usado em operações específicas.'],
+  ]}
+/>
+
+### Valores e prazos
+
+<DocTable
+  headers={['Parâmetro', 'O que controla']}
+  rows={[
+    ['ValorMinimoPedido', 'Valor mínimo do pedido.'],
+    ['DiasFaturamentoPedidoPadrao / DiasEntregaPedidoPadrao', 'Prazos padrão de faturamento e entrega (nacional).'],
+    ['DiasFaturamentoPedidoPadraoComex / DiasEntregaPedidoPadraoComex', 'Prazos padrão de faturamento e entrega (comex/internacional).'],
+  ]}
+/>
+
+### Pagamento
+
+<DocTable
+  headers={['Parâmetro', 'O que controla']}
+  rows={[
+    ['IdFormaPagBoleto', 'Qual forma de pagamento corresponde ao boleto.'],
+    ['IdFormaPagPIX', 'Quais formas correspondem ao PIX.'],
+    ['IdFormaPagCartao', 'Quais formas correspondem ao cartão.'],
+    ['IdsFormasDePagamentoParceladas', 'Quais formas são parceladas.'],
+    ['IdsFormaDePagamentoMesaDeCredito', 'Formas que passam pela mesa de crédito.'],
+    ['DiasConsultarPagamentoPix', 'Por quantos dias o sistema consulta o pagamento PIX.'],
+    ['DescricaoPagamentoPIX / DescricaoPagamentoCartao', 'Rótulos de PIX e Cartão ("PIX" e "Cartão").'],
+  ]}
+/>
+
+### Bonificação e operações inteligentes
+
+<DocTable
+  headers={['Parâmetro', 'O que controla']}
+  rows={[
+    ['IdsOperacoesInteligentesDeBonificacao', 'Quais Operações Inteligentes aceitam itens bonificados (regra da Parte 3).'],
+    ['IdOperacaoInteligente', 'Operação Inteligente padrão.'],
+    ['IdOperacaoInteligenteVendaLounge / VendaStandard', 'Operações de venda (Lounge e padrão).'],
+    ['IdOperacaoInteligenteTrocaYTRO / YBON / YDOA', 'Operações de troca (fluxos TDC).'],
+  ]}
+/>
+
+### Crédito, análise e grupos de e-mail
+
+<DocTable
+  headers={['Parâmetro', 'O que controla']}
+  rows={[
+    ['PerfilCredito / PerfilCreditoComex', 'Perfis usados na análise de crédito (nacional e comex).'],
+    ['ConfiguracoesDeGruposDeEmailAprovacoes', 'Grupos de e-mail que recebem a análise (Administrativo e Crédito, Nacional e Internacional — ver Parte 2).'],
+    ['ConfiguracoesAnalisePedido / TratamentoDeAprovacao / ConfiguracoesPedidosEmFila', 'Configurações da análise e do tratamento das aprovações e filas.'],
+    ['ConfiguracoesApiSerasa / ConfiguracoesApiSerasaPFPJ', 'Integração com o Serasa (consulta de crédito).'],
+  ]}
+/>
+
+### Ignition
+
+<DocTable
+  headers={['Parâmetro', 'O que controla']}
+  rows={[
+    ['IdPerfilIgnition', 'Perfil usado pela fila Ignition.'],
+    ['UrlIgnition / ConfiguracaoIgnition', 'URL e configuração da integração Ignition.'],
+  ]}
+/>
+
+<Callout type="dica" title="Ligar/desligar comportamentos por flag">
+Além dos parâmetros acima, a tela **Controle de Funcionalidade** (feature flags) liga/desliga comportamentos — por exemplo, o caminho **sem Ignition** para as filas. Ver a tela Controle de Funcionalidade (Administrador).
+</Callout>
+
+## Onde alterar
+
+<DocTable
+  headers={['O que alterar', 'Onde', 'Cuidado']}
+  rows={[
+    ['Permissões (perfis, grupos, telas)', 'Módulo Autenticador (Perfil, Grupo, URL).', 'Alinhe com as áreas antes de mudar acessos.'],
+    ['Parâmetros de configuração (AppSettings)', 'Administrador → Atualizador de Arquivos Json.', 'Mantenha o JSON válido; afeta os serviços.'],
+    ['Pares de configuração agrupados', 'Administrador → Chave e Valor (agrupados por Parâmetro).', 'Altere só com conhecimento do efeito.'],
+    ['Ligar/desligar funcionalidades', 'Administrador → Controle de Funcionalidade (feature flags).', 'Mudança afeta o comportamento global.'],
+    ['Regra de aprovação (quem aprova)', 'Aprovações → Regra de Aprovação.', 'Ver fluxo de Aprovação de Pedidos.'],
+  ]}
+/>
+
+## O que este trecho não faz
+
+- Não substitui a documentação de cada tela de configuração — é o mapa de quais permissões/parâmetros tocam o pedido.
+- Não expõe valores/segredos de produção — os valores atuais ficam no ambiente.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Usuário não abre a tela de Pedido', 'Falta de permissão', 'Verifique o Perfil/Grupo no Autenticador.'],
+    ['Item bonificado não passa', 'Operação não está em IdsOperacoesInteligentesDeBonificacao', 'Confira o parâmetro das operações de bonificação.'],
+    ['Pedido classificado errado (nacional/internacional)', 'IdPaisBrasil ou endereço incorreto', 'Confira o parâmetro IdPaisBrasil e o endereço do cliente.'],
+    ['Análise foi para o grupo errado', 'Configuração de grupos de e-mail', 'Verifique ConfiguracoesDeGruposDeEmailAprovacoes (nacional/internacional).'],
+    ['Comportamento inesperado após mudança', 'Feature flag ou parâmetro alterado', 'Reveja Controle de Funcionalidade e o AppSettings.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Onde controlo quem acessa a tela de Pedido?', answer: 'Nas permissões do módulo Autenticador (Perfil, Grupo, URL).' },
+    { question: 'Quem define quem aprova o pedido?', answer: 'A Regra de Aprovação (não uma permissão fixa). Ver o fluxo de Aprovação de Pedidos.' },
+    { question: 'Onde ficam os parâmetros do pedido?', answer: 'Principalmente no AppSettings (Administrador → Atualizador de Arquivos Json), além de Chave e Valor e Controle de Funcionalidade.' },
+    { question: 'Como faço um tipo de operação aceitar bonificação?', answer: 'Incluindo a Operação Inteligente no parâmetro IdsOperacoesInteligentesDeBonificacao.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '03/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Emissão inicial — Parte 6 (permissões e parâmetros) do processo do pedido. Fecha a série.' },
+  ]}
+/>

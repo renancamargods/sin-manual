@@ -1,0 +1,190 @@
+---
+section: tecnico
+routeSlug: fluxos/processo-do-pedido-permissoes-parametros
+pageType: tecnico
+lang: en
+title: Order Process - Permissions and Parameters
+description: Part 6 of the order process — the permissions that control the screen and actions, and the system parameters (country, values/deadlines, payment, bonus, credit, email groups and Ignition) that adjust the flow.
+moduleLabel: Orders Module
+routineType: Process flow
+impact: Permissions and parameters that control the order flow
+keywords: [order, permissions, parameters, appsettings, key and value, feature control, brazil country id, smart operations, bonus, credit profile, email groups, ignition]
+tags: [tecnico, fluxo, pedido]
+order: 5
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+This is **Part 6** (final) of the [Order Process](/en/tecnico/fluxos/processo-do-pedido). Here we gather the "behind the scenes" of the flow: the **permissions** that control who accesses the screen and performs each action, and the system **parameters** that adjust the order behavior (domestic/international, bonus, payment methods, deadlines, credit, email groups, Ignition).
+
+It is the reference page for **support** and **configuration** — most of this content is technical.
+
+<Callout type="cuidado" title="Technical content">
+Changing permissions or parameters changes the system behavior for everyone. Only make changes when you know the effect and, preferably, with support from the technical team.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'What controls the flow', text: 'Permissions (who does) and parameters (how the system behaves).' },
+    { label: 'Use', title: 'Support and configuration', text: 'Reference to diagnose access and order behaviors.' },
+    { label: 'Caution', title: 'Global effect', text: 'Changes here affect all orders and users.' },
+  ]}
+/>
+
+## Permissions
+
+Access to the **Order** screen and to each action (create, submit, approve) is controlled by **permissions**. In S.I.N, permissions are organized by **URL/screen**, assigned to user **Profiles** and **Groups** (the **Authenticator** module).
+
+<DocTable
+  headers={['What it controls', 'How it works', 'Where to configure']}
+  rows={[
+    ['Access to the Order screen', 'The screen requires the corresponding permission; without it, the user cannot open it.', 'Authenticator → Profile / Group / URL.'],
+    ['Actions on the order (create, submit, etc.)', 'Each action may require a specific permission.', 'Authenticator → Profile.'],
+    ['Who approves each step', 'Not a fixed permission: the approver comes from the Approval Rule.', 'Approvals → Approval Rule (see the Order Approval flow).'],
+    ['Credit profiles', 'Profiles used in the credit review (domestic and foreign trade).', 'Parameter: PerfilCredito / PerfilCreditoComex.'],
+    ['Ignition profile', 'Profile used by the Ignition queue.', 'Parameter: IdPerfilIgnition.'],
+  ]}
+/>
+
+<Callout type="info" title="Permission x Approval">
+One thing is **being able to open/use** the screen (Authenticator permission); another is **who approves** the order — that is defined in the **Approval Rule**, not a fixed permission. See the <em>Order Approval - Without Ignition</em> flow.
+</Callout>
+
+## System parameters
+
+Several order behaviors are controlled by **parameters**. They live mainly in the configuration files (**AppSettings**), plus the **Key and Value** and **Feature Control** (feature flags) screens. Below are the main parameters tied to the order.
+
+### Location (domestic / international)
+
+<DocTable
+  headers={['Parameter', 'What it controls']}
+  rows={[
+    ['IdPaisBrasil', 'Indicates which country is Brazil. It is what defines whether the order is Domestic (address country = Brazil) or International (see Part 2).'],
+    ['IdPaisPortugal', 'Indicates the country Portugal, used in specific operations.'],
+  ]}
+/>
+
+### Values and deadlines
+
+<DocTable
+  headers={['Parameter', 'What it controls']}
+  rows={[
+    ['ValorMinimoPedido', 'Minimum order value.'],
+    ['DiasFaturamentoPedidoPadrao / DiasEntregaPedidoPadrao', 'Default invoicing and delivery deadlines (domestic).'],
+    ['DiasFaturamentoPedidoPadraoComex / DiasEntregaPedidoPadraoComex', 'Default invoicing and delivery deadlines (foreign trade/international).'],
+  ]}
+/>
+
+### Payment
+
+<DocTable
+  headers={['Parameter', 'What it controls']}
+  rows={[
+    ['IdFormaPagBoleto', 'Which payment method corresponds to boleto.'],
+    ['IdFormaPagPIX', 'Which methods correspond to PIX.'],
+    ['IdFormaPagCartao', 'Which methods correspond to card.'],
+    ['IdsFormasDePagamentoParceladas', 'Which methods are installment-based.'],
+    ['IdsFormaDePagamentoMesaDeCredito', 'Methods that go through the credit desk.'],
+    ['DiasConsultarPagamentoPix', 'For how many days the system checks the PIX payment.'],
+    ['DescricaoPagamentoPIX / DescricaoPagamentoCartao', 'PIX and Card labels ("PIX" and "Cartão").'],
+  ]}
+/>
+
+### Bonus and smart operations
+
+<DocTable
+  headers={['Parameter', 'What it controls']}
+  rows={[
+    ['IdsOperacoesInteligentesDeBonificacao', 'Which Smart Operations accept bonus items (Part 3 rule).'],
+    ['IdOperacaoInteligente', 'Default Smart Operation.'],
+    ['IdOperacaoInteligenteVendaLounge / VendaStandard', 'Sale operations (Lounge and standard).'],
+    ['IdOperacaoInteligenteTrocaYTRO / YBON / YDOA', 'Exchange operations (TDC flows).'],
+  ]}
+/>
+
+### Credit, review and email groups
+
+<DocTable
+  headers={['Parameter', 'What it controls']}
+  rows={[
+    ['PerfilCredito / PerfilCreditoComex', 'Profiles used in the credit review (domestic and foreign trade).'],
+    ['ConfiguracoesDeGruposDeEmailAprovacoes', 'Email groups that receive the review (Administrative and Credit, Domestic and International — see Part 2).'],
+    ['ConfiguracoesAnalisePedido / TratamentoDeAprovacao / ConfiguracoesPedidosEmFila', 'Settings of the review and the handling of approvals and queues.'],
+    ['ConfiguracoesApiSerasa / ConfiguracoesApiSerasaPFPJ', 'Integration with Serasa (credit check).'],
+  ]}
+/>
+
+### Ignition
+
+<DocTable
+  headers={['Parameter', 'What it controls']}
+  rows={[
+    ['IdPerfilIgnition', 'Profile used by the Ignition queue.'],
+    ['UrlIgnition / ConfiguracaoIgnition', 'URL and configuration of the Ignition integration.'],
+  ]}
+/>
+
+<Callout type="dica" title="Turn behaviors on/off with a flag">
+Beyond the parameters above, the **Feature Control** (feature flags) screen turns behaviors on/off — for example, the **without-Ignition** path for the queues. See the Feature Control screen (Administrator).
+</Callout>
+
+## Where to change
+
+<DocTable
+  headers={['What to change', 'Where', 'Caution']}
+  rows={[
+    ['Permissions (profiles, groups, screens)', 'Authenticator module (Profile, Group, URL).', 'Align with the areas before changing access.'],
+    ['Configuration parameters (AppSettings)', 'Administrator → JSON File Updater.', 'Keep the JSON valid; it affects the services.'],
+    ['Grouped configuration pairs', 'Administrator → Key and Value (grouped by Parameter).', 'Change only when you know the effect.'],
+    ['Turn features on/off', 'Administrator → Feature Control (feature flags).', 'A change affects the global behavior.'],
+    ['Approval rule (who approves)', 'Approvals → Approval Rule.', 'See the Order Approval flow.'],
+  ]}
+/>
+
+## What this stretch does not do
+
+- It does not replace the documentation of each configuration screen — it is the map of which permissions/parameters touch the order.
+- It does not expose production values/secrets — the current values live in the environment.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['User cannot open the Order screen', 'Missing permission', 'Check the Profile/Group in the Authenticator.'],
+    ['Bonus item does not pass', 'Operation not in IdsOperacoesInteligentesDeBonificacao', 'Check the bonus operations parameter.'],
+    ['Order classified wrong (domestic/international)', 'IdPaisBrasil or address incorrect', 'Check the IdPaisBrasil parameter and the customer address.'],
+    ['Review went to the wrong group', 'Email groups configuration', 'Check ConfiguracoesDeGruposDeEmailAprovacoes (domestic/international).'],
+    ['Unexpected behavior after a change', 'Feature flag or parameter changed', 'Review Feature Control and the AppSettings.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Where do I control who accesses the Order screen?', answer: 'In the Authenticator module permissions (Profile, Group, URL).' },
+    { question: 'Who defines who approves the order?', answer: 'The Approval Rule (not a fixed permission). See the Order Approval flow.' },
+    { question: 'Where are the order parameters?', answer: 'Mainly in the AppSettings (Administrator → JSON File Updater), plus Key and Value and Feature Control.' },
+    { question: 'How do I make an operation type accept bonus?', answer: 'By including the Smart Operation in the IdsOperacoesInteligentesDeBonificacao parameter.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '03/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Initial release — Part 6 (permissions and parameters) of the order process. Closes the series.' },
+  ]}
+/>

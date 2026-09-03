@@ -1,0 +1,155 @@
+---
+section: tecnico
+routeSlug: fluxos/processo-do-pedido-politicas
+pageType: tecnico
+lang: en
+title: Order Process - Purchase Policies
+description: Part 5 of the order process — how the Commercial Policy, Campaigns and Sales Restriction affect prices, discounts and what can be sold, with the per-item validation rules.
+moduleLabel: Orders Module
+routineType: Process flow
+impact: Policies, campaigns, discounts and restrictions applied to the order
+keywords: [order, purchase policies, commercial policy, campaign, discount, sales restriction, value per item, validity, segmentation]
+tags: [tecnico, fluxo, pedido]
+order: 5
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+This is **Part 5** of the [Order Process](/en/tecnico/fluxos/processo-do-pedido). The **purchase policies** are the commercial rules that act on the order: the **Commercial Policy** and the **Campaigns** define prices, discounts and values required per item; the **Sales Restriction** limits **what can be sold** to each segment.
+
+These rules come in both during **building** (item price/discount) and during the order **review** (the commercial area checks for restriction/exception).
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Commercial rules in the order', text: 'Commercial Policy and Campaign adjust price/discount; Sales Restriction limits what is sold.' },
+    { label: 'Use', title: 'Price, discount and limit', text: 'They segment by line of business, channel, network, country, customer, product and Lounge.' },
+    { label: 'Caution', title: 'Per-item value is validated', text: 'Policy/campaign items have the value checked against the policy (value × quantity).' },
+  ]}
+/>
+
+## When to use
+
+- Understand why an item came with a certain price/discount.
+- Know why a sale was limited by restriction.
+- Diagnose why submission blocked due to a campaign value divergence.
+
+## Commercial Policy
+
+The **Commercial Policy** is a commercial rule with validity and segmentation. It can adjust the price/discount and requires values per item.
+
+<DocTable
+  headers={['Policy field', 'What it defines']}
+  rows={[
+    ['Type', 'The type of the commercial policy.'],
+    ['Validity (Start / End)', 'Period in which the policy applies.'],
+    ['Value to Consider', 'Which order value the policy considers.'],
+    ['% Header Discount', 'Percentage discount applied to the header.'],
+    ['Value Range (Start / End)', 'Order value range in which the policy applies.'],
+    ['Segmentation: Line of Business, Channel, Customer Network, Country', 'Who the policy applies to (segments the audience).'],
+    ['Policy items (required value)', 'Expected value per item, used in the submission validation.'],
+    ['Status', 'Whether the policy is active.'],
+  ]}
+/>
+
+<Callout type="atencao" title="Per-item value validation">
+Items linked to a **campaign/policy** have the value checked on submission: the system compares the **item(s) value × quantity** with the value specified in the policy and **blocks** submission if the submitted value is **greater or lower** than required. See Part 3 - Items.
+</Callout>
+
+## Campaigns
+
+The **Campaigns** (registered in Campaign Parameter, in the Policies module) define campaign items applied to the order. An item of type **Campaign** carries the link with the campaign/policy and is checked by the same value rule above.
+
+## Discounts
+
+There are discounts at different levels, each with its own rule:
+
+<DocTable
+  headers={['Discount', 'Where it applies', 'Rule']}
+  rows={[
+    ['% Total Discount (of the order)', 'Order header', 'Between 0% and 100%.'],
+    ['% Discount (of the item)', 'Order item', 'Between 0% and 100%.'],
+    ['% Header Discount (of the policy)', 'Commercial Policy', 'Defined in the policy.'],
+    ['% and Policy Discount Value (on the item)', 'Order item', 'Greater than or equal to zero.'],
+  ]}
+/>
+
+## Sales Restriction
+
+The **Sales Restriction** limits which products can be sold to certain segments. It is segmented by several criteria:
+
+<DocTable
+  headers={['Restriction segmentation', 'What it limits']}
+  rows={[
+    ['Customer', 'Restricts for specific customers.'],
+    ['Channel', 'Restricts by sales channel.'],
+    ['State', 'Restricts by state.'],
+    ['Center / Lounge', 'Restricts by unit (Lounge).'],
+    ['Product Family', 'Restricts by product family.'],
+    ['Product Group', 'Restricts by product group.'],
+    ['User Group', 'Restricts by user group.'],
+  ]}
+/>
+
+<Callout type="info" title="The restriction comes in at review">
+The Sales Restriction is checked in the order **review**: the **Sales Administrative** area verifies whether the order contains an **exception product** (restricted) for that segment. See the <em>Order Approval - Without Ignition</em> flow.
+</Callout>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Commercial Policy (Policies)', 'Defines prices/discounts and values required per item.', 'Check validity and segmentation.'],
+    ['Campaign Parameter (Policies)', 'Defines the campaigns applied to the order.', 'Campaign items validate value × quantity.'],
+    ['Sales Restriction (Policies)', 'Limits what can be sold per segment.', 'Comes in at the Sales Administrative review.'],
+    ['Order items', 'The policies adjust the item price/discount.', 'See Part 3 - Items.'],
+    ['Order Approval', 'Restriction/exception is checked in the review.', 'See the Order Approval flow.'],
+  ]}
+/>
+
+## What this stretch does not do
+
+- It does not register the policies, campaigns or restrictions — that is done in the Policies module.
+- It does not define who approves — the restriction/exception is checked in the review (Order Approval).
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['Submission blocks due to campaign value', 'Item value different from the one required by the policy', 'Adjust the value according to the policy (value × quantity).'],
+    ['The policy did not apply price/discount', 'Outside validity, value range or segment', 'Check validity, value range and segmentation (line of business/channel/network/country).'],
+    ['The sale was blocked/held', 'Product under Sales Restriction for that segment', 'Check the Sales Restriction and the Sales Administrative review.'],
+    ['Discount rejected', 'Percentage outside 0 to 100', 'The order and item discount must be between 0% and 100%.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What are the purchase policies?', answer: 'They are the commercial rules that act on the order: Commercial Policy and Campaign (price/discount/value per item) and Sales Restriction (what can be sold).' },
+    { question: 'Why did the campaign item block submission?', answer: 'Because the submitted value was greater or lower than the one required by the policy (value × quantity).' },
+    { question: 'How does the policy know who it applies to?', answer: 'By segmentation: line of business, channel, customer network and country, plus validity and value range.' },
+    { question: 'Where is the Sales Restriction checked?', answer: 'In the order review (Sales Administrative), which verifies whether there is an exception product for the segment.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '03/09/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Initial release — Part 5 (purchase policies) of the order process.' },
+  ]}
+/>

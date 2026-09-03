@@ -59,6 +59,8 @@ export const tecnicoPages: TecnicoGroup[] = [
       { title: 'Processo do Pedido - Por Tipo de Pessoa', slug: 'processo-do-pedido-tipo-de-pessoa', subgroup: 'Pedido', order: 2, description: 'Parte 2: como o tipo de pessoa (Física, Jurídica ou Estrangeiro) do cliente define moeda, caminho nacional/internacional e grupos de análise.' },
       { title: 'Processo do Pedido - Itens e Tipos de Item', slug: 'processo-do-pedido-itens', subgroup: 'Pedido', order: 3, description: 'Parte 3: os itens do pedido, os tipos de item (Venda, Bonificação, Campanha e outros), de onde vem o preço, os campos e as regras de validação no envio.' },
       { title: 'Processo do Pedido - Pagamento', slug: 'processo-do-pedido-pagamento', subgroup: 'Pedido', order: 4, description: 'Parte 4: formas de pagamento (boleto, PIX, cartão e pagamento misto), regras e campos, status de pagamento e ligação com a etapa de cobrança na aprovação.' },
+      { title: 'Processo do Pedido - Políticas de Compra', slug: 'processo-do-pedido-politicas', subgroup: 'Pedido', order: 5, description: 'Parte 5: Política Comercial, Campanhas e Restrição de Venda — preços, descontos, valores exigidos por item e o que pode ser vendido.' },
+      { title: 'Processo do Pedido - Permissões e Parâmetros', slug: 'processo-do-pedido-permissoes-parametros', subgroup: 'Pedido', order: 6, description: 'Parte 6 (final): permissões que controlam a tela/ações e parâmetros do sistema (país, valores/prazos, pagamento, bonificação, crédito, grupos de e-mail e Ignition) que ajustam o fluxo.' },
       { title: 'Aprovação de Pedidos - Sem Ignition', slug: 'aprovacao-de-pedidos-sem-ignition', subgroup: 'Pedido', order: 20, description: 'Criação e aprovação de pedidos pela fila SEM Ignition (ADM, Crédito e Cobrança Nacional), com fluxograma da rota de aprovação.' },
       { title: 'Configuração de Produtos no Lounge', slug: 'configuracao-de-produtos-no-lounge', subgroup: 'Produtos', order: 1, description: 'Parametrização de produtos por localidade e roteamento dos itens para o Lounge/Centro correto.' },
       { title: 'Romaneio', slug: 'romaneio', subgroup: 'Romaneio', order: 1, description: 'Fluxo de separação, etiquetagem, romaneio e coleta de remessas.' },
@@ -68,8 +70,15 @@ export const tecnicoPages: TecnicoGroup[] = [
   { title: 'APIs', slug: 'apis', description: 'Integrações disponíveis para troca de informações com outros sistemas.', pages: [] },
   { title: 'Migrations', slug: 'migrations', description: 'Controle de versões de estrutura de dados do sistema.', pages: [] },
   { title: 'Parâmetros', slug: 'parametros', description: 'Parâmetros gerais de configuração do sistema.', pages: [] },
-  { title: 'Flags', slug: 'flags', description: 'Chaves de habilitação de funcionalidades por ambiente ou empresa.', pages: [] },
   { title: 'Permissões', slug: 'permissoes', description: 'Como as permissões controlam o acesso a telas e ações.', pages: [] },
+  {
+    title: 'Banco de Dados / DBA',
+    slug: 'banco-de-dados',
+    description: 'Assuntos de banco de dados e DBA: estrutura de dados e as tabelas de De/Para usadas nas integrações.',
+    pages: [
+      { title: 'De Para', slug: 'de-para', description: 'Tabelas e mapeamentos De/Para entre o CrmSin e o SAP S/4HANA (e o integrador legado RFC/BAPI).' },
+    ],
+  },
   { title: 'Templates', slug: 'templates', description: 'Modelos reutilizados em documentos, mensagens e etiquetas.', pages: [] },
 ];
 
@@ -447,8 +456,8 @@ export const tecnicoGroupEn: Record<string, { title: string; description: string
   apis: { title: 'APIs', description: 'Integrations available to exchange information with other systems.' },
   migrations: { title: 'Migrations', description: 'Version control of the system data structure.' },
   parametros: { title: 'Parameters', description: 'General system configuration parameters.' },
-  flags: { title: 'Flags', description: 'Feature toggles by environment or company.' },
   permissoes: { title: 'Permissions', description: 'How permissions control access to screens and actions.' },
+  'banco-de-dados': { title: 'Database / DBA', description: 'Database and DBA topics: data structure and the value-mapping (De/Para) tables used in integrations.' },
   templates: { title: 'Templates', description: 'Reusable models for documents, messages and labels.' },
 };
 
@@ -645,6 +654,9 @@ export const tecnicoSubEn: Record<string, string> = {
   'fluxos/processo-do-pedido-tipo-de-pessoa': 'Order Process - By Person Type',
   'fluxos/processo-do-pedido-itens': 'Order Process - Items and Item Types',
   'fluxos/processo-do-pedido-pagamento': 'Order Process - Payment',
+  'fluxos/processo-do-pedido-politicas': 'Order Process - Purchase Policies',
+  'fluxos/processo-do-pedido-permissoes-parametros': 'Order Process - Permissions and Parameters',
+  'banco-de-dados/de-para': 'Value Mapping (De/Para)',
 };
 
 // --- Ordenação alfabética (locale-aware) da navegação ---

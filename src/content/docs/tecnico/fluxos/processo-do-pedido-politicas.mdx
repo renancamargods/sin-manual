@@ -1,0 +1,154 @@
+---
+section: tecnico
+routeSlug: fluxos/processo-do-pedido-politicas
+pageType: tecnico
+title: Processo do Pedido - Políticas de Compra
+description: Parte 5 do processo do pedido — como a Política Comercial, as Campanhas e a Restrição de Venda afetam preços, descontos e o que pode ser vendido, com as regras de validação por item.
+moduleLabel: Módulo Pedidos
+routineType: Fluxo de processo
+impact: Políticas, campanhas, descontos e restrições aplicados ao pedido
+keywords: [pedido, políticas de compra, política comercial, campanha, desconto, restrição de venda, valor por item, vigência, segmentação]
+tags: [tecnico, fluxo, pedido]
+order: 5
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+Esta é a **Parte 5** do [Processo do Pedido](/tecnico/fluxos/processo-do-pedido). As **políticas de compra** são as regras comerciais que atuam sobre o pedido: a **Política Comercial** e as **Campanhas** definem preços, descontos e valores exigidos por item; a **Restrição de Venda** limita **o que pode ser vendido** para cada segmento.
+
+Essas regras entram tanto na **montagem** (preço/desconto dos itens) quanto na **análise** do pedido (a área comercial verifica se há restrição/exceção).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Regras comerciais no pedido', text: 'Política Comercial e Campanha ajustam preço/desconto; Restrição de Venda limita o que se vende.' },
+    { label: 'Uso', title: 'Preço, desconto e limite', text: 'Segmentam por ramo, canal, rede, país, cliente, produto e Lounge.' },
+    { label: 'Cuidado', title: 'Valor por item é validado', text: 'Itens de política/campanha têm o valor conferido contra a política (valor × quantidade).' },
+  ]}
+/>
+
+## Quando usar
+
+- Entender por que um item veio com determinado preço/desconto.
+- Saber por que uma venda foi limitada por restrição.
+- Diagnosticar por que o envio barrou por divergência de valor de campanha.
+
+## Política Comercial
+
+A **Política Comercial** é uma regra comercial com vigência e segmentação. Ela pode ajustar o preço/desconto e exige valores por item.
+
+<DocTable
+  headers={['Campo da política', 'O que define']}
+  rows={[
+    ['Tipo', 'O tipo da política comercial.'],
+    ['Vigência (Início / Término)', 'Período em que a política vale.'],
+    ['Valor a Considerar', 'Qual valor do pedido a política considera.'],
+    ['% Desconto de Cabeçalho', 'Desconto percentual aplicado no cabeçalho.'],
+    ['Faixa de Valor (Início / Término)', 'Faixa de valor do pedido em que a política se aplica.'],
+    ['Segmentação: Ramo de Atividade, Canal, Rede de Cliente, País', 'Para quem a política vale (segmenta o público).'],
+    ['Itens da política (valor exigido)', 'Valor esperado por item, usado na validação do envio.'],
+    ['Status', 'Se a política está ativa.'],
+  ]}
+/>
+
+<Callout type="atencao" title="Validação de valor por item">
+Itens vinculados a uma **campanha/política** têm o valor conferido no envio: o sistema compara o **valor do(s) item(ns) × quantidade** com o valor especificado na política e **barra** o envio se o valor enviado for **maior ou menor** do que o exigido. Ver a Parte 3 - Itens.
+</Callout>
+
+## Campanhas
+
+As **Campanhas** (cadastradas em Parâmetro de Campanha, no módulo Políticas) definem itens de campanha aplicados ao pedido. Um item do tipo **Campanha** carrega o vínculo com a campanha/política e é conferido pela mesma regra de valor acima.
+
+## Descontos
+
+Há descontos em diferentes níveis, cada um com sua regra:
+
+<DocTable
+  headers={['Desconto', 'Onde atua', 'Regra']}
+  rows={[
+    ['% Desconto Total (do pedido)', 'Cabeçalho do pedido', 'Entre 0% e 100%.'],
+    ['% Desconto (do item)', 'Item do pedido', 'Entre 0% e 100%.'],
+    ['% Desconto de Cabeçalho (da política)', 'Política Comercial', 'Definido na política.'],
+    ['% e Valor de Desconto da Política (no item)', 'Item do pedido', 'Maior ou igual a zero.'],
+  ]}
+/>
+
+## Restrição de Venda
+
+A **Restrição de Venda** limita quais produtos podem ser vendidos para determinados segmentos. Ela é segmentada por vários critérios:
+
+<DocTable
+  headers={['Segmentação da restrição', 'O que limita']}
+  rows={[
+    ['Cliente', 'Restringe para clientes específicos.'],
+    ['Canal', 'Restringe por canal de venda.'],
+    ['Estado', 'Restringe por estado (UF).'],
+    ['Centro / Lounge', 'Restringe por unidade (Lounge).'],
+    ['Família de Produto', 'Restringe por família de produto.'],
+    ['Grupo de Produto', 'Restringe por grupo de produto.'],
+    ['Grupo de Usuário', 'Restringe por grupo de usuários.'],
+  ]}
+/>
+
+<Callout type="info" title="A restrição entra na análise">
+A Restrição de Venda é verificada na **análise** do pedido: a área **Administrativa de Vendas** confere se o pedido contém **produto de exceção** (restrito) para aquele segmento. Ver o fluxo <em>Aprovação de Pedidos - Sem Ignition</em>.
+</Callout>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Política Comercial (Políticas)', 'Define preços/descontos e valores exigidos por item.', 'Confira vigência e segmentação.'],
+    ['Parâmetro de Campanha (Políticas)', 'Define as campanhas aplicadas ao pedido.', 'Itens de campanha validam valor × quantidade.'],
+    ['Restrição de Venda (Políticas)', 'Limita o que pode ser vendido por segmento.', 'Entra na análise ADM Vendas.'],
+    ['Itens do pedido', 'As políticas ajustam preço/desconto dos itens.', 'Ver Parte 3 - Itens.'],
+    ['Aprovação de Pedidos', 'Restrição/exceção é verificada na análise.', 'Ver o fluxo de Aprovação de Pedidos.'],
+  ]}
+/>
+
+## O que este trecho não faz
+
+- Não cadastra as políticas, campanhas ou restrições — isso é feito no módulo Políticas.
+- Não define quem aprova — a restrição/exceção é verificada na análise (Aprovação de Pedidos).
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O envio barra por valor de campanha', 'Valor do item diferente do exigido pela política', 'Ajuste o valor conforme a política (valor × quantidade).'],
+    ['A política não aplicou preço/desconto', 'Fora da vigência, faixa de valor ou segmento', 'Verifique vigência, faixa de valor e a segmentação (ramo/canal/rede/país).'],
+    ['A venda foi bloqueada/retida', 'Produto sob Restrição de Venda para aquele segmento', 'Verifique a Restrição de Venda e a análise ADM Vendas.'],
+    ['Desconto recusado', 'Percentual fora de 0 a 100', 'O desconto do pedido e do item precisa ficar entre 0% e 100%.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'O que são as políticas de compra?', answer: 'São as regras comerciais que atuam no pedido: Política Comercial e Campanha (preço/desconto/valor por item) e Restrição de Venda (o que pode ser vendido).' },
+    { question: 'Por que o item de campanha barrou o envio?', answer: 'Porque o valor enviado ficou maior ou menor do que o exigido pela política (valor × quantidade).' },
+    { question: 'Como a política sabe a quem se aplica?', answer: 'Pela segmentação: ramo de atividade, canal, rede de cliente e país, além da vigência e da faixa de valor.' },
+    { question: 'Onde a Restrição de Venda é conferida?', answer: 'Na análise do pedido (Administrativo de Vendas), que verifica se há produto de exceção para o segmento.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '03/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Emissão inicial — Parte 5 (políticas de compra) do processo do pedido.' },
+  ]}
+/>
