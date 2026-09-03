@@ -51,11 +51,1482 @@ Não existe uma tela "De/Para" no CrmSin. Estes mapeamentos vivem em parte no **
 Há dois tipos nesta página: **(1) Enums** — o número gravado na coluna do banco e o que ele significa; e **(2) Integração SAP** — a tradução dos códigos do CrmSin para os códigos que o SAP espera.
 </Callout>
 
-## Enums de Pedido (código no banco → significado)
+## Enums do sistema (código no banco → significado)
 
-Estes enums são gravados no banco como **número inteiro**. A tabela abaixo é o De/Para entre o valor armazenado, o nome técnico do enum e o significado exibido ao usuário. Fonte: `CrmSin.Domain.Entities/Pedidos/Models/Enums`.
+Todos os enums do sistema são gravados no banco como **número inteiro**. As tabelas abaixo, organizadas por módulo, são o De/Para entre o valor armazenado, o nome técnico do enum e o significado exibido ao usuário (quando há rótulo cadastrado). Fonte: `CrmSin.Domain.Entities/<Módulo>/Models/Enums`; os significados vêm dos recursos `SharedResource.pt-BR`.
 
-### Status do Pedido (`StatusDePedido`)
+<Callout type="cuidado" title="Antes de interpretar um número">
+O mesmo número significa coisas diferentes em enums diferentes — sempre confirme **qual enum** a coluna usa. Um caso clássico: `TipoPedidoComex` é invertido em relação a `LocalidadeDePedido` (0 = Internacional / 1 = Nacional). Alguns enums (como `Chaves`) guardam **valores de configuração** e não uma sequência 0,1,2. Valores 900+ em alguns status são apenas auxiliares visuais de tela, nunca gravados no banco.
+</Callout>
+
+### Administrador
+
+**`Chaves`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['90', 'DiasValidadeSenha', 'Dias de validade da senha (valor de configuração)'],
+    ['6', 'MininimoCaracteresSenha', 'Mínimo de caracteres da senha'],
+    ['3', 'UltimasSenhas', 'Quantidade de senhas anteriores bloqueadas para reuso'],
+    ['1', 'RequerMinuscula', 'Exige letra minúscula (1 = sim)'],
+    ['1', 'RequerMaiuscula', 'Exige letra maiúscula (1 = sim)'],
+    ['1', 'RequerNumero', 'Exige número (1 = sim)'],
+    ['1', 'RequerCaracterEspecial', 'Exige caractere especial (1 = sim)'],
+    ['60', 'MinutosDeBloqueioUsuario', 'Minutos de bloqueio do usuário após exceder tentativas'],
+    ['5', 'MaximoTentativasBloqueioUsuario', 'Máximo de tentativas de login antes de bloquear'],
+  ]}
+/>
+
+**`CompartilhamentoEnquete`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Administradores', 'Administradores'],
+    ['1', 'Todos', 'Todos'],
+  ]}
+/>
+
+**`DestinatarioEndereco`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Cliente', 'Cliente'],
+    ['1', 'Transportadora', 'Transportadora'],
+    ['2', 'Centro', 'Lounge'],
+  ]}
+/>
+
+**`DivulgacaoPost`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Geral', 'Geral'],
+    ['1', 'Perfil', 'Perfil'],
+    ['2', 'Empresa', 'Empresa'],
+    ['3', 'Combinacao', 'Misto'],
+  ]}
+/>
+
+**`EntidadeDoAtributo`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Cliente', 'Cliente'],
+    ['1', 'Pedido', 'Pedido'],
+    ['2', 'Produto', 'Produto'],
+  ]}
+/>
+
+**`LocalidadeDeDadoBancario`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Nacional', 'Nacional'],
+    ['1', 'Internacional', 'Internacional'],
+  ]}
+/>
+
+**`TipoAnaliseCampoValidacao`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'EmAnaliseCredito', 'Em Análise Crédito'],
+    ['1', 'EmAnaliseFiscal', 'Em Análise Fiscal'],
+    ['2', 'Ambos', 'Ambos'],
+  ]}
+/>
+
+**`TipoConexao`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Rede', 'Rede'],
+    ['1', 'Compartilhada', 'Compartilhada'],
+  ]}
+/>
+
+**`TipoDeAtributo`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Texto', 'Texto'],
+    ['1', 'Numerico', 'Numérico'],
+    ['2', 'Data', 'Data'],
+    ['3', 'SimNao', 'Sim/Não'],
+    ['4', 'Lista', 'Lista'],
+  ]}
+/>
+
+**`TipoDeChavePix`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Cpf', 'CPF'],
+    ['1', 'Cnpj', 'CNPJ'],
+    ['2', 'EMail', 'E-Mail'],
+    ['3', 'Celular', 'Celular'],
+    ['4', 'Aleatoria', 'Aleatória'],
+  ]}
+/>
+
+**`TipoDeEndereco`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Entrega', 'Entrega'],
+    ['1', 'Cobranca', 'Cobrança'],
+    ['2', 'Correspondencia', 'Correspondência'],
+    ['3', 'Residencial', ''],
+    ['4', 'Temporario', ''],
+  ]}
+/>
+
+**`TipoDeExecucaoDeServico`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Sap', 'SAP'],
+    ['1', 'PortalKA', 'Portal KA'],
+    ['2', 'DataFrete', 'DataFrete'],
+    ['3', 'Crivo', 'Crivo'],
+    ['4', 'Freshdesk', 'Freshdesk'],
+    ['5', 'Freshsales', 'Freshsales'],
+    ['6', 'Portatou', 'Portatou'],
+    ['7', 'Paygo', 'Paygo'],
+    ['8', 'MaquinaDeCartaoDeCredito', 'Máquina de Cartão de Crédito'],
+    ['9', 'EfiGerenciaNet', 'Efí Gerencianet'],
+    ['10', 'PagarMe', 'Pagar Me'],
+    ['11', 'ServicoCrm', 'Serviço CRM'],
+    ['12', 'PedidoCancelado', 'Cancelado CRM'],
+    ['13', 'Vcom', 'Vcom'],
+    ['14', 'Phc', 'Phc'],
+    ['15', 'Serasa', 'Serasa'],
+    ['16', 'GoonCadastroClientes', ''],
+    ['17', 'GoonCadastroOrdemServico', ''],
+    ['18', 'GoonBuscaOrdemServico', ''],
+    ['19', 'GoonRoteirizarOrdemServico', ''],
+    ['20', 'GoonAtualizarConsultor', ''],
+    ['21', 'GoonBuscarInformacoesFormulario', ''],
+    ['22', 'Fiscal', ''],
+  ]}
+/>
+
+**`TipoDeQuestao`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'OpcaoUnica', 'Escolha única'],
+    ['1', 'MultiplasOpcoes', 'Múltiplas escolhas'],
+  ]}
+/>
+
+**`TipoImagemPais`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'MapaPng', 'Mapa plano 2D - Tipo PNG'],
+  ]}
+/>
+
+**`TipoMidia`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Imagem', 'Imagem'],
+    ['1', 'Video', 'Vídeo'],
+    ['2', 'Arquivo', 'Arquivo'],
+  ]}
+/>
+
+**`TipoPost`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Notificacao', 'Notificação'],
+    ['1', 'Enquete', 'Enquete'],
+  ]}
+/>
+
+**`TipoValor`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Boolean', 'Booleano'],
+    ['1', 'String', 'Texto'],
+    ['2', 'Number', 'Número'],
+    ['3', 'Json', 'Json'],
+  ]}
+/>
+
+
+### Aprovacoes
+
+**`AplicacaoDoSubStatusCicloAprovacao`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'AoAprovar', 'Ao Aprovar'],
+    ['1', 'AoReprovar', 'Ao Reprovar'],
+    ['2', 'AoEnviarParaAvaliacao', 'Ao Enviar para Avaliação'],
+  ]}
+/>
+
+**`ModoExecucaoCicloAprovacao`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Paralelo', 'Etapas do ciclo executadas em paralelo'],
+    ['1', 'Sequencial', 'Etapas executadas em sequência'],
+  ]}
+/>
+
+
+### Autenticador
+
+**`FormaDeAutenticacao`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Aplicacao', 'Aplicação (CRM)'],
+    ['1', 'ActiveDirectory', 'Active Directory (Windows)'],
+    ['2', 'Ambos', 'Ambos'],
+  ]}
+/>
+
+**`ModuloPesquisaPersonalizada`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Pedidos', 'Módulo alvo da pesquisa personalizada: Pedidos'],
+  ]}
+/>
+
+**`RequisicaoAutenticacao`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Server', 'Requisição de autenticação originada no servidor'],
+    ['1', 'Middleware', 'Requisição originada no middleware'],
+  ]}
+/>
+
+**`StatusAutenticacao`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'UsuarioSenhaIncorretos', 'Usuário\Senha incorretos'],
+    ['1', 'Autenticado', 'Usuário Autenticado'],
+    ['2', 'PendenteValidacaoEmail', 'Validação de email pendente'],
+    ['3', 'TwoFactor', 'Dois Fatores'],
+    ['4', 'TicketExpirado', 'Ticket Expirado'],
+    ['5', 'TicketNaoEncontrado', 'Ticket não encontrado'],
+    ['6', 'CodigoTwoFactorInvalido', 'Código 2 fatores inválido'],
+    ['7', 'PendenteTrocaSenha', 'Pendente troca de senha'],
+    ['8', 'PendenteAprovacao', 'Pendente de aprovação'],
+    ['9', 'BloqueioTemporario', 'Bloqueio temporário'],
+    ['10', 'Inativado', 'Usuário inativado'],
+    ['11', 'CertificadoInvalido', 'Certificado inválido'],
+    ['12', 'SenhaExpirada', 'Senha expirada'],
+    ['13', 'LoginNaoHabilitadoWindows', ''],
+    ['14', 'LoginNaoHabilitadoAplicacao', ''],
+    ['15', 'BloqueadoAD', ''],
+  ]}
+/>
+
+**`StatusCertificado`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Validado', 'Certificado validado'],
+    ['1', 'CertificadoInvalido', 'Certificado inválido'],
+    ['2', 'CertificadoExpirado', 'Certificado expirado'],
+    ['3', 'CertificadoInexistente', 'Certificado inexistente'],
+    ['4', 'NaoValidado', 'Ainda não validado'],
+  ]}
+/>
+
+**`TipoDeAcesso`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'NaoDefinido', 'Nâo Definido'],
+    ['1', 'Permitir', 'Permitir'],
+    ['2', 'Negar', 'Negar'],
+  ]}
+/>
+
+**`TipoToken`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'ConfirmarEmail', 'Token de confirmação de e-mail'],
+    ['1', 'TwoFactor', 'Token de autenticação em dois fatores'],
+    ['2', 'EsqueceuSenha', 'Token de recuperação de senha'],
+    ['3', 'LoginExternoMiddleware', 'Token de login externo via middleware'],
+    ['4', 'Generico', 'Token genérico'],
+    ['5', 'Personalizado', 'Token personalizado'],
+  ]}
+/>
+
+**`TipoTwoFactor`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Email', 'Segundo fator por e-mail'],
+    ['1', 'SMS', 'Segundo fator por SMS'],
+    ['2', 'CertificadoDigital', 'Segundo fator por certificado digital'],
+  ]}
+/>
+
+
+### Clientes
+
+**`AgrupamentoEtapaDeAprovacaoCliente`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'AguardandoLiberacao', 'Cliente aguardando liberação'],
+    ['1', 'EmAvaliacao', 'Cliente em avaliação'],
+  ]}
+/>
+
+**`ClassificacaoDeCreditoDoCliente`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'A', 'A'],
+    ['1', 'B', 'B'],
+    ['2', 'C', 'C'],
+    ['3', 'D', 'D'],
+    ['4', 'E', 'E'],
+  ]}
+/>
+
+**`ClassificacaoEmbaixador`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Fellow', 'Nível Fellow do programa de embaixadores'],
+    ['1', 'Silver', 'Nível Silver'],
+    ['2', 'SilverSolutions', 'Nível Silver Solutions'],
+    ['3', 'Gold', 'Nível Gold'],
+    ['4', 'GoldSolutions', 'Nível Gold Solutions'],
+    ['5', 'GoldPlus', 'Nível Gold Plus'],
+    ['6', 'Diamond', 'Nível Diamond'],
+    ['7', 'Master', 'Nível Master'],
+  ]}
+/>
+
+**`FinalidadeGrupoEconomico`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['1', 'Credito', 'Credito'],
+  ]}
+/>
+
+**`FluxoPosAprovacaoDeCliente`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'IntegrarSAP', 'Após aprovar, integrar o cliente ao SAP'],
+    ['1', 'IntegrarPHC', 'Após aprovar, integrar ao PHC'],
+  ]}
+/>
+
+**`GrupoResponsavelAprovacaoCliente`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'CreditoNacional', 'Aprovação por Crédito (nacional)'],
+    ['1', 'CreditoInternacional', 'Crédito (internacional / Comex)'],
+    ['2', 'FiscalNacional', 'Fiscal (nacional)'],
+    ['3', 'FiscalInternacional', 'Fiscal (internacional / Comex)'],
+  ]}
+/>
+
+**`ModeloOperacao`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Compra', 'Compra'],
+    ['1', 'Consignado', 'Consignado'],
+    ['2', 'ConsignadoECompra', 'Consignado e Compra'],
+  ]}
+/>
+
+**`OrigemDeCliente`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'InclusaoManual', 'Inclusão manual'],
+    ['1', 'CargaPlanilha', 'Carga planilha'],
+    ['2', 'Integracao', 'Integração'],
+    ['3', 'Lead', 'Lead'],
+    ['4', 'AplicativoExterno', 'Aplicativo Externo'],
+  ]}
+/>
+
+**`PerfilEmbaixador`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Academico', 'Embaixador com perfil acadêmico'],
+    ['1', 'Criador', 'Embaixador com perfil criador de conteúdo'],
+    ['2', 'AcademicoECriador', 'Perfil acadêmico e criador'],
+  ]}
+/>
+
+**`StatusBiometricoClearSale`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'SENT', 'Enviado'],
+    ['1', 'COMPLETED', 'Completo'],
+    ['2', 'EXPIRED', 'Expirado'],
+  ]}
+/>
+
+**`StatusDoCliente`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Novo', 'Novo'],
+    ['1', 'Liberado', 'Liberado'],
+    ['2', 'Reprovado', 'Reprovado'],
+    ['3', 'Prospect', 'Prospect'],
+    ['4', 'ErroAoIntegrarCliente', 'Erro ao Integrar o Cliente'],
+    ['5', 'Ativo', 'Ativo'],
+    ['6', 'AnaliseCadastroCredito', 'Em Análise pela Área de Cadastro/Crédito'],
+    ['7', 'AnaliseCadastroAdministrativo', 'Análise Cadastro Administrativo'],
+    ['8', 'AnaliseCadastroFiscal', 'Análise Cadastro Fiscal'],
+    ['9', 'NegadoAnaliseCredito', 'Negado Análise Crédito'],
+    ['10', 'NegadoAnaliseAdministrativo', 'Negado Análise Administrativa'],
+    ['11', 'NegadoAnaliseFiscal', 'Negado Análise Fiscal'],
+    ['12', 'ReanaliseCredito', 'Reanálise Crédito'],
+    ['13', 'ReanaliseAdministrativo', 'Reanálise Administrativo'],
+    ['14', 'ReanaliseFiscal', 'Reanálise Fiscal'],
+    ['15', 'Cancelado', 'Cancelado'],
+    ['16', 'Bloqueado', 'Bloqueado'],
+    ['17', 'Desativado', 'Desativado'],
+    ['18', 'EnviadoIntegracaoPHC', 'Enviado para Integração PHC'],
+    ['19', 'ClienteEmAvaliacaoFiscal', 'Cliente em Avaliação do Fiscal'],
+    ['20', 'ClienteEmAvaliacaoCredito', 'Cliente em Avaliação do Crédito'],
+    ['21', 'AguardandoEnvioParaFilasDeAprovacao', 'Aguardando Envio para Filas de Aprovação'],
+    ['22', 'EnviadoIgnition', 'Processando aprovação'],
+    ['23', 'AguardandoAprovacoes', 'Aguardando Aprovações'],
+    ['24', 'CicloDeAprovacaoCancelado', 'Ciclo de Aprovação Cancelado'],
+    ['25', 'LiberadoNovaFilaAprovacao', 'Liberado na nova Fila de Aprovação'],
+  ]}
+/>
+
+**`TipoDeContato`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Principal', 'Principal'],
+    ['1', 'Nfe', 'Nfe'],
+    ['2', 'Financeiro', 'Financeiro'],
+  ]}
+/>
+
+**`TipoDeContribuinteIcms`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Contribuinte', 'Contribuinte'],
+    ['1', 'NaoContribuinte', 'Não Contribuinte'],
+    ['2', 'ConsumidorFinal', 'Consumidor Final'],
+  ]}
+/>
+
+**`TipoDeCro`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'CroEstrangeiro', 'CRO Estrangeiro'],
+    ['1', 'CroNacional', 'CRO Nacional'],
+    ['2', 'CroResponsavelClinica', 'CRO Responsável Clínica'],
+    ['3', 'TpdNacional', 'TPD Nacional'],
+    ['4', 'AlunoDeGraduacao', 'Aluno de Graduação'],
+    ['5', 'CroDentistaResponsavelReceita', 'Cro do Dentista Responsavel pela Receita'],
+  ]}
+/>
+
+**`TipoDeEnvioBiometriaFacialClearSale`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Email', 'Envio do link de biometria por e-mail'],
+    ['1', 'Whatsapp', 'Envio por WhatsApp'],
+    ['2', 'Sms', 'Envio por SMS'],
+  ]}
+/>
+
+**`TipoDeParametroEntidadeEspecial`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'StatusDoCadastro', 'Status do Cadastro'],
+    ['1', 'StatusDoPedido', 'Status do Pedido'],
+    ['2', 'InformacoesFinanceiras', 'Informações Financeiras'],
+    ['3', 'Boletos', 'Boletos'],
+    ['4', 'InformacoesDeLogistica', 'Informações de Logística'],
+  ]}
+/>
+
+**`TipoDePessoa`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Fisica', 'Física'],
+    ['1', 'Juridica', 'Jurídica'],
+    ['2', 'Estrangeiro', 'Estrangeiro'],
+  ]}
+/>
+
+**`TipoDePessoaSocio`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Fisica', 'Física'],
+    ['1', 'Juridica', 'Jurídica'],
+  ]}
+/>
+
+**`TipoDeSetorIndustrial`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'ZPF', 'ZPF'],
+    ['1', 'ZPJ', 'ZPJ'],
+    ['2', 'ZPI', 'ZPI'],
+  ]}
+/>
+
+**`TipoDeTelefone`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Fixo', 'Fixo'],
+    ['1', 'Celular', 'Celular'],
+  ]}
+/>
+
+**`TipoEventoGrupoEconomico`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['1', 'Criacao', 'Criação do grupo econômico'],
+    ['2', 'Alteracao', 'Alteração do grupo'],
+    ['3', 'Inativacao', 'Inativação do grupo'],
+    ['4', 'Ativacao', 'Ativação do grupo'],
+    ['5', 'Inclusao', 'Inclusão de cliente no grupo'],
+    ['6', 'Remocao', 'Remoção de cliente do grupo'],
+    ['7', 'AlteracaoDeFinalidade', 'Alteração da finalidade do grupo'],
+    ['8', 'InclusaoDeLimite', 'Inclusão de limite de crédito'],
+    ['9', 'InclusaoViaPlanilha', 'Inclusão em massa via planilha'],
+  ]}
+/>
+
+**`TipoIncotermCliente`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Cif', 'CIF - Custo, Seguro e Frete'],
+    ['1', 'Exw', 'EXW - Na Origem'],
+    ['2', 'Fas', 'FAS - Livre ao Lado do Navio'],
+    ['3', 'Fca', 'FCA - Livre no Transportador'],
+    ['4', 'Fob', 'FOB - Livre a Bordo'],
+    ['5', 'Cfr', 'CFR - Custo e Frete'],
+    ['6', 'Cpt', 'CPT - Transporte Pago até'],
+    ['7', 'Cip', 'CIP - Transporte e Seguro Pagos até'],
+    ['8', 'Dap', 'DAP - Entregue no Local'],
+    ['9', 'Dpu', 'DPU - Entregue no Local Descarregado'],
+    ['10', 'Ddp', 'DDP - Entregue com Direitos Pagos'],
+  ]}
+/>
+
+**`TipoSolicitacaoBiometricaClearSale`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Link', 'Solicitação de biometria via link'],
+  ]}
+/>
+
+**`TipoSolicitacaoClearSale`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'EMISSAO', 'Emissão'],
+    ['1', 'EDICAO', 'Edição'],
+    ['2', 'CONSULTA', ''],
+    ['3', 'NOTIFICACAO', ''],
+    ['4', 'RECEBIMENTO', ''],
+    ['5', 'COPIAR', ''],
+  ]}
+/>
+
+
+### Contratos
+
+**`AplicacaoMetaConsumo`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'TipoDeProduto', 'Tipo de Produto'],
+    ['1', 'FamiliaDeProduto', 'Família de Produto'],
+    ['2', 'GrupoDeProduto', 'Grupo de Produto'],
+    ['3', 'Produto', 'Produto'],
+  ]}
+/>
+
+**`ClassificacaoDoContrato`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'ComContrapartida', 'Com Contrapartida'],
+    ['1', 'SemContrapartida', 'Sem Contrapartida'],
+  ]}
+/>
+
+**`DiaDaSemana`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Domingo', 'Domingo'],
+    ['1', 'Segunda', 'Segunda'],
+    ['2', 'Terca', 'Terça'],
+    ['3', 'Quarta', 'Quarta'],
+    ['4', 'Quinta', 'Quinta'],
+    ['5', 'Sexta', 'Sexta'],
+    ['6', 'Sabado', 'Sábado'],
+  ]}
+/>
+
+**`GrupoResponsavelAprovacaoContrato`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'ADM', 'Aprovação pelo Administrativo'],
+    ['1', 'FPeA', 'Aprovação por FP&A (planejamento financeiro)'],
+    ['2', 'Credito', 'Aprovação por Crédito'],
+    ['3', 'OperacoesSac', 'Aprovação por Operações / SAC'],
+  ]}
+/>
+
+**`RelacaoComOCurso`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Aluno', 'Aluno'],
+    ['1', 'Coordenador', 'Coordenador'],
+    ['2', 'Paciente', 'Paciente'],
+    ['3', 'Professor', 'Professor'],
+  ]}
+/>
+
+**`SituacaoContrato`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Novo', 'Novo'],
+    ['1', 'Renovacao', 'Renovação'],
+    ['2', 'Aditivo', 'Aditivo'],
+  ]}
+/>
+
+**`StatusDeCurso`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Vigente', 'Vigente'],
+    ['1', 'Vencido', 'Vencido'],
+  ]}
+/>
+
+**`StatusDoContrato`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Rascunho', 'Rascunho'],
+    ['1', 'AguardandoAprovacoes', 'Cancelado'],
+    ['2', 'CicloDeAprovacaoCancelado', 'Ciclo de Aprovação Cancelado'],
+    ['3', 'IntegradoZapSign', 'Integrado ZapSign'],
+    ['4', 'AguardandoConclusaoAssinaturas', 'Aguardando Conclusão das Assinaturas'],
+    ['5', 'AssinaturasConcluidas', 'Assinaturas Concluídas'],
+    ['6', 'AguardandoGeracaoPedidosDeComodato', 'Aguardando Geração de Pedidos de Comodato'],
+    ['7', 'PedidoDeComodatoGerado', 'Pedido de Comodato Gerado'],
+    ['97', 'InativadoPorGeracaoDeRenovacao', 'Inativado por Geração de Renovação'],
+    ['98', 'InativadoPorGeracaoDeAditivo', 'Inativado por Geração de Aditivo'],
+    ['99', 'Cancelado', 'Cancelado'],
+  ]}
+/>
+
+**`TipoDeCurso`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Especializacao', 'Especialização'],
+    ['1', 'Atualizacao', 'Atualização'],
+    ['2', 'Doutorado', 'Doutorado'],
+    ['3', 'Mestrado', 'Mestrado'],
+    ['4', 'Imersao', 'Imersão'],
+  ]}
+/>
+
+**`TipoDeParceiro`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Varejo', 'Varejo'],
+    ['1', 'Curso', 'Curso'],
+    ['2', 'KeyAccount', 'Key Account'],
+  ]}
+/>
+
+**`TipoDoContrato`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Descontos', 'Descontos'],
+    ['1', 'Parceira', 'Parceria'],
+    ['2', 'Dental', 'Dental'],
+    ['3', 'Comodato', 'Comodato'],
+  ]}
+/>
+
+**`TipoOperacaoComodato`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Comodato', ''],
+    ['1', 'Bonificacao', 'Bonificação'],
+    ['2', 'Consignado', ''],
+  ]}
+/>
+
+
+### Faturamentos
+
+**`StatusDaRemessa`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Iniciado', 'Remessa iniciada'],
+    ['1', 'Concluido', 'Remessa concluída'],
+    ['2', 'Cancelado', 'Remessa cancelada'],
+    ['3', 'Excluido', 'Remessa excluída'],
+  ]}
+/>
+
+**`StatusDePedidoSeparacao`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'BipagemIniciada', 'Bipagem Iniciada'],
+    ['2', 'EnviadoParcialmenteParaFaturamento', 'Enviado Parcialmente para Faturamento'],
+    ['3', 'EnviadoParaFaturamentoCompleto', 'Enviado para Faturamento Completo'],
+  ]}
+/>
+
+**`StatusDePedidoTDC`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'TriagemIniciada', 'Triagem Iniciada'],
+    ['1', 'PedidoDevolucaoCriado', 'Pedido de Devolução Criado'],
+    ['2', 'PedidoTrocaCriado', 'Pedido de Troca Criado'],
+    ['3', 'PedidoTrocaAntecipadaCriado', 'Pedido de Troca Criado Antecipadamente'],
+    ['4', 'TriagemFinalizada', 'Triagem Finalizada'],
+    ['5', 'PedidoConsignadoCriado', 'Pedido de Consignado Criado'],
+    ['6', 'Cancelado', 'Protocolo Cancelado'],
+  ]}
+/>
+
+**`StatusRomaneio`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'EmConferencia', 'Em Conferência'],
+    ['1', 'Conferido', 'Conferido'],
+    ['2', 'Coletado', 'Coletado'],
+    ['3', 'Cancelado', 'Cancelado'],
+    ['4', 'Enviado', 'Enviado'],
+  ]}
+/>
+
+**`StatusTransferenciaReversa`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Iniciada', 'Reversa Iniciada'],
+    ['1', 'Concluida', 'Reversa Concluída'],
+  ]}
+/>
+
+**`TipoDaOperacaoReversa`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'TransferenciaReversa', 'Transferência Reversa'],
+  ]}
+/>
+
+**`TIpoDeItemPedidoTDC`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Venda', 'Venda'],
+    ['1', 'Bonificacao', 'Bonificação'],
+  ]}
+/>
+
+**`TipoFechamentoConsignado`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'PorCliente', 'Por Cliente'],
+    ['1', 'PorNotaFiscal', 'Por Nota Fiscal'],
+  ]}
+/>
+
+**`TipoOperacaoTDC`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Devolucao', 'Devolução'],
+    ['1', 'Troca', 'Troca'],
+    ['2', 'Consignado', 'Consignado'],
+  ]}
+/>
+
+
+### Fiscal
+
+**`ModalidadeDeCalculoImposto`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'PorDentro', 'Por Dentro'],
+    ['1', 'PorFora', 'Por Fora'],
+  ]}
+/>
+
+**`OperacaoLogAlteracao`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Inclusao', 'Registro de inclusão'],
+    ['1', 'Alteracao', 'Registro de alteração'],
+    ['2', 'Exclusao', 'Registro de exclusão'],
+  ]}
+/>
+
+**`StatusModuloFiscalFeatureFlag`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Desativado', 'Desativado'],
+    ['1', 'Shadow', 'Shadow'],
+    ['2', 'Ativo', 'Ativo'],
+  ]}
+/>
+
+**`TipoDeOperacaoFiscal`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Normal', 'Normal'],
+    ['1', 'Consignado', 'Consignado'],
+    ['2', 'Troca', 'Troca'],
+    ['3', 'Devolucao', 'Devolução'],
+    ['4', 'DevolucaoSimbolica', 'Devolução Simbólica'],
+    ['5', 'FaturamentoAutomatico', 'Faturamento Automático'],
+  ]}
+/>
+
+
+### Integrador
+
+**`NivelLog`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Info', 'Info'],
+    ['1', 'Aviso', 'Aviso'],
+    ['2', 'Erro', 'Erro'],
+  ]}
+/>
+
+**`RetornoLotePorCentro`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Sucesso', 'Consulta de lotes por centro bem-sucedida'],
+    ['1', 'Erro', 'Erro na consulta de lotes'],
+  ]}
+/>
+
+**`RetornoPedidoCancelado`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Sucesso', 'Pedido cancelado com sucesso'],
+  ]}
+/>
+
+**`StatusEtapa`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['1', 'Pendente', 'Pendente'],
+    ['2', 'EmAndamento', 'Em Andamento'],
+    ['3', 'Concluida', 'Concluída'],
+    ['4', 'ComErro', 'Com Erro'],
+    ['5', 'Ignorada', 'Ignorada'],
+    ['6', 'Cancelada', 'Cancelada'],
+    ['7', 'AguardandoEtapaAnterior', ''],
+  ]}
+/>
+
+**`StatusIntegracao`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['1', 'Pendente', 'Pendente'],
+    ['2', 'EmAndamento', 'Em Andamento'],
+    ['3', 'Concluida', 'Concluída'],
+    ['4', 'ComErro', 'Com Erro'],
+    ['5', 'AguardandoAcaoManual', 'Aguardando Ação Manual'],
+    ['6', 'Cancelada', 'Cancelada'],
+  ]}
+/>
+
+**`StatusRetorno`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Sucesso', 'Retorno de sucesso (maquininha)'],
+    ['1', 'Erro', 'Retorno de erro'],
+  ]}
+/>
+
+**`StatusRetornoCancelamentoPagarMe`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Sucesso', 'Cancelamento na Pagar.me com sucesso'],
+    ['1', 'Erro', 'Erro no cancelamento'],
+    ['2', 'Ignorado', 'Cancelamento ignorado'],
+  ]}
+/>
+
+**`TipoExecutorEtapa`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['1', 'Create', 'Criação'],
+    ['2', 'Read', 'Leitura'],
+    ['3', 'Update', 'Atualização'],
+    ['4', 'Polling', 'Polling'],
+    ['5', 'FunctionImport', 'Function Import'],
+  ]}
+/>
+
+**`TipoFaturamentoParaMovimentoSerial`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'FaturamentoPorRemessa', 'Movimento de serial por faturamento de remessa'],
+    ['1', 'FaturamentoDevolucoes', 'Faturamento de devoluções'],
+    ['2', 'FaturamentoConsignadoPortalKA', 'Faturamento de consignado via Portal KA'],
+    ['3', 'FaturamentoConsignadoCRM', 'Faturamento de consignado pelo CRM'],
+  ]}
+/>
+
+**`TipoIntegracao`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Sap', 'Integração com o SAP'],
+    ['1', 'Phc', 'Integração com o PHC'],
+  ]}
+/>
+
+**`TipoRetorno`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'PedidoIgnorado', 'Pedido ignorado'],
+    ['1', 'PedidoIntegrado', 'Pedido integrado'],
+    ['2', 'PedidoErro', 'Pedido com erro'],
+    ['3', 'PedidoNovoLink', 'Gerado novo link para o pedido'],
+  ]}
+/>
+
+**`TipoServicoGoon`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['1', 'Coleta', 'Coleta'],
+  ]}
+/>
+
+
+### Inventarios
+
+**`StatusInventario`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Criado', 'Inventário Criado'],
+    ['1', 'ContagemEmAndamento', 'Primeira Contagem'],
+    ['2', 'AguardandoSegundaContagem', 'Segunda Contagem'],
+    ['3', 'AguardandoTerceiraContagem', 'Terceira Contagem'],
+    ['4                  // Contagens completas', 'Finalizado', 'Contagem Finalizada'],
+  ]}
+/>
+
+**`TipoInventario`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Geral', 'Geral'],
+    ['1', 'Ciclico', 'Cíclico'],
+  ]}
+/>
+
+
+### Leads
+
+**`FaseStatusLead`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Negociacao', 'Negociação'],
+    ['1', 'Fechamento', 'Fechamento'],
+  ]}
+/>
+
+**`NivelInteresseLead`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'ApenasPesquisando', 'Apenas Pesquisando'],
+    ['1', 'Interessado', 'Interessado'],
+    ['2', 'MuitoInteressado', 'Muito Interessado'],
+  ]}
+/>
+
+**`OrigemLead`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0 //', 'Interna', 'Interna'],
+  ]}
+/>
+
+**`TipoDeIntervaloSLA`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Minutos', 'Minutos'],
+    ['1', 'Horas', 'Horas'],
+    ['2', 'Dias', 'Dias'],
+    ['3', 'Meses', 'Meses'],
+  ]}
+/>
+
+**`TipoLead`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'SemCadastro', 'Sem Cadastro'],
+    ['1 //', 'BaseSIN', 'Base SIN'],
+  ]}
+/>
+
+
+### Ocorrencias
+
+**`CampoOcorrencia`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Nenhum', 'Nenhum'],
+    ['1', 'CpfCnpjCliente', 'CPF/CNPJ do Cliente'],
+    ['2', 'CodigoProduto', 'Código do Produto'],
+    ['3', 'LoteProduto', 'Lote do Produto'],
+    ['4', 'UdiProduto', 'UDI do Produto'],
+    ['5', 'AnexoProduto', 'Anexo do Produto'],
+    ['6', 'NomePaciente', 'Nome do Paciente'],
+    ['7', 'IdadePaciente', 'Idade do Paciente'],
+    ['8', 'GeneroPaciente', 'Gênero do Paciente'],
+    ['9', 'HistoricoClinicoPaciente', 'Histórico Clínico do Paciente'],
+    ['10', 'DataImplantacaoPaciente', 'Data de Implantação'],
+    ['11', 'DataRemocaoPaciente', 'Data de Remoção'],
+    ['12', 'TipoOssoPaciente', 'Tipo de Osso'],
+    ['13', 'CargaImediataPaciente', 'Carga Imediata'],
+    ['14', 'UtilizacaoInstrumentosSinPaciente', 'Utilização de Instrumentos SIN'],
+    ['15', 'UtilizacaoInxertoOsseoPaciente', 'Utilização de Enxerto Ósseo'],
+    ['16', 'RegiaoIntraoralPaciente', 'Região Intraoral'],
+    ['17', 'QuantidadeItemPaciente', 'Quantidade de Item'],
+    ['18', 'EmbasamentoNaoProcedenciaAnalise', 'Embasamento da Não Procedência'],
+    ['19', 'OutrasInformacoesAnalise', 'Outras Informações da Análise'],
+    ['20', 'NumeroNotificacaoFDAAnalise', 'Número de Notificação FDA'],
+    ['21', 'NumeroNotificacaoAnvisaAnalise', 'Número de Notificação Anvisa'],
+    ['22', 'TipoProcedenciaAnalise', 'Tipo de Procedência'],
+    ['23', 'TipoIncidenciaAnalise', 'Tipo de Incidência'],
+  ]}
+/>
+
+**`MotivoOcorrenciaHandsOn`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'CursosSolicitacaoHandsOnProfessor', 'Cursos - Solicitação de Hands On com Professor'],
+    ['1', 'CursosSolicitacaoMaterialHandsOn', 'Cursos - Solicitação de material de Hands On'],
+    ['2', 'CursosSolicitacaoVisitaFabrica', 'Cursos - Solicitação de visita à fabrica'],
+  ]}
+/>
+
+**`SituacaoOcorrenciaHandsOn`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Abertura', 'Abertura'],
+  ]}
+/>
+
+**`StatusOcorrencia`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['1', 'Recebimento', 'Recebimento'],
+    ['2', 'VerificarInformacoes', 'Verificar Informações'],
+    ['3', 'AnaliseTecnica', 'Análise Técnica'],
+    ['4', 'Encerrado', 'Encerrado'],
+    ['5', 'Faturamento', 'Faturamento'],
+    ['6', 'Reanalise', 'Reanálise'],
+    ['7', 'Cancelado', 'Cancelado'],
+  ]}
+/>
+
+**`TipoAtividade`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['1', 'AguardandoDocumentacao', 'Aguardando Documentação'],
+    ['2', 'AguardandoInformacoes', 'Aguardando Informações'],
+    ['3', 'AguardandoDocumentacaoEInformacoes', 'Aguardando Documentação e Informações'],
+    ['4', 'Aprovacao', 'Aprovação'],
+    ['5', 'Encerramento', 'Encerramento'],
+    ['6', 'Cancelamento', 'Cancelamento'],
+    ['7', 'Reanalise', 'Reanálise'],
+  ]}
+/>
+
+**`TipoCursoHandsOn`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Especializacao', 'Especialização'],
+    ['1', 'Atualizacao', ''],
+    ['2', 'Imersao', 'Imersão'],
+    ['3', 'Doutorado', 'Doutorado'],
+    ['4', 'Mestrado', 'Mestrado'],
+  ]}
+/>
+
+**`TipoOcorrencia`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['1', 'PFCQ', 'PFCQ'],
+    ['2', 'Lead', 'Lead'],
+    ['3', 'Atendimento', 'Atendimento'],
+  ]}
+/>
+
+**`TipoOcorrenciaHandsOn`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'SolicitacoesHandsOnProfessor', 'Ocorrência Professor'],
+  ]}
+/>
+
+**`TipoOssoEnum`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['1', 'I', 'Osso tipo I'],
+    ['2', 'II', 'Osso tipo II'],
+    ['3', 'III', 'Osso tipo III'],
+    ['4', 'IV', 'Osso tipo IV'],
+  ]}
+/>
+
+**`TipoPergunta`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'SimENao', 'Sim ou Não'],
+    ['1', 'CampoAberto', 'Campo aberto'],
+    ['2', 'MultiplaEscolha', 'Multipla Escolha'],
+    ['3', 'MultiplaSelecao', 'Multipla Seleção'],
+    ['4', 'Numero', 'Número'],
+    ['5', 'Data', 'Data'],
+    ['6', 'Email', 'E-mail'],
+    ['7', 'Telefone', 'Telefone'],
+    ['8', 'CpfOuCnpj', 'CPF/CNPJ'],
+    ['9', 'Anexo', 'CPF/CNPJ'],
+  ]}
+/>
+
+**`TipoProcedencia`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Procedente', 'Procedente'],
+    ['1', 'NaoProcedente', 'Não Procedente'],
+  ]}
+/>
+
+
+### Pedidos
+
+**`AgrupamentoEtapaDeAprovacao`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'AguardandoLiberacao', 'Aguardando Liberação'],
+    ['1', 'EmAvaliacao', 'Em Avaliação'],
+    ['2', 'Recusado', 'Recusado'],
+    ['3', 'RepasseCredito', 'Repasse de Crédito'],
+  ]}
+/>
+
+**`BloqueioDeAprovacao`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'DiasDaPrimeiraParcela', 'Dias da Primeira Parcela'],
+    ['1', 'PoliticaComercialDescontoDeItem', 'Política Comercial (Desconto de Item)'],
+    ['2', 'PoliticaComercialDescontoTotal', 'Política Comercial (Desconto Total)'],
+    ['3', 'Bonificacao', 'Bonificação'],
+    ['4', 'Consignacao', 'Consignação'],
+    ['5', 'ValorMinimoPedido', 'Valor Mínimo do Pedido'],
+    ['6', 'Credito', 'Crédito'],
+    ['7', 'RecusaAnaliseCredito', 'Recusa Análise Crédito'],
+    ['8', 'RecusaAnaliseAdministrativo', 'Recusa Análise Administrativa'],
+    ['9', 'PedidoSemPoliticaComDesconto', 'Pedido não se enquadra em nenhuma política, mas possui desconto'],
+    ['10', 'PedidoComProdutoExcecao', 'Pedido possui algum produto com Exceção de venda, e por isso deve parar para análise do Administrativo'],
+    ['11', 'PedidoInternacional', 'Pedido Internacional'],
+    ['12', 'ItemDeContratoComDescontoMaiorQuePermitido', 'Desconto maior que o permitido pelo Contrato'],
+    ['13', 'ItemDeContratoEBonificadoNoMesmoPedido', 'Pedido com Item de Contrato e Bonificado no mesmo Pedido'],
+    ['14', 'ValorDeFreteMenorQueOEstipuladoPelaSin', 'Valor de Frete menor que o estipulado pela política de frete.'],
+    ['15', 'PoliticaComercialNaoEncontrada', 'Política Comercial de Cabeçalho não encontrada'],
+    ['16', 'CondicaoDePagamentoForaDaPolitica', 'Condição de Pagamento Fora da Política'],
+    ['17', 'OrigemKA', 'Origem Key Accounts'],
+    ['18', 'ValorDoPedidoAlterado', 'Valor do pedido alterado'],
+  ]}
+/>
+
+**`FluxoPosAprovacaoDePedido`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'EnviarDiretoAoSAP', 'Após aprovar, enviar direto ao SAP'],
+    ['1', 'GerarLinkDePagamentoPIX', 'Gerar link de pagamento PIX'],
+    ['2', 'GerarLinkDeCartao', 'Gerar link de pagamento por cartão'],
+    ['3', 'GerarLinkMaquininha', 'Gerar cobrança na maquininha'],
+    ['4', 'TratarPagamentosMistos', 'Tratar pagamentos mistos'],
+    ['5', 'IntegrarPHC', 'Integrar ao PHC'],
+  ]}
+/>
+
+**`FreteNacionalInternacional`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Nacional', 'Nacional'],
+    ['1', 'Internacional', 'Internacional'],
+  ]}
+/>
+
+**`GrupoResponsavelAprovacaoPedido`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'CreditoNacional', 'Crédito'],
+    ['1', 'CreditoInternacional', 'Crédito'],
+    ['2', 'AdmVendasNacional', 'ADM Vendas'],
+    ['3', 'AdmVendasInternacional', 'ADM Vendas'],
+    ['4', 'CobrancaNacional', 'Cobrança'],
+    ['5', 'CobrancaInternacional', 'Cobrança'],
+  ]}
+/>
+
+**`LocalidadeDePedido`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Nacional', 'Nacional'],
+    ['1', 'Internacional', 'Internacional'],
+  ]}
+/>
+
+**`PrioridadePedido`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Normal', 'Normal'],
+    ['1', 'ClienteNaFilial', 'Cliente no Lounge'],
+    ['2', 'Urgente', 'Urgente'],
+    ['3', 'RetirarNaFilial', 'Retirar no Lounge'],
+  ]}
+/>
+
+**`SituacaoDoPainelDaHome`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Emitidos', 'Painel da home: pedidos emitidos'],
+    ['1', 'Aguardando', 'Painel da home: aguardando'],
+    ['2', 'ComErro', 'Painel da home: com erro'],
+    ['3', 'Faturados', 'Painel da home: faturados'],
+  ]}
+/>
+
+**`StatusCicloDeAprovacao`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'EmProgresso', 'Em Progresso'],
+    ['1', 'Concluido', 'Concluído'],
+    ['2', 'Cancelado', 'Cancelado'],
+  ]}
+/>
+
+**`StatusDePedido`**
 
 <DocTable
   headers={['Valor', 'Nome técnico', 'Significado']}
@@ -91,7 +1562,7 @@ Estes enums são gravados no banco como **número inteiro**. A tabela abaixo é 
     ['28', 'EmProcessamento', 'Em Processamento'],
     ['29', 'CanceladoFinanceiro', 'Cancelado Crédito'],
     ['30', 'CanceladoAdministrativo', 'Cancelado Adm de Vendas'],
-    ['31', 'PedidoExcluidoNoSAP', 'Pedido Excluído no SAP'],
+    ['31', 'PedidoExcluidoNoSAP', 'Pedido Exluído no SAP'],
     ['32', 'AguardandoSeparacaoDoPedido', 'Aguardando Separação do Pedido'],
     ['33', 'EmSeparacao', 'Em Separação'],
     ['34', 'SeparadoParcialmente', 'Separado Parcialmente'],
@@ -102,8 +1573,8 @@ Estes enums são gravados no banco como **número inteiro**. A tabela abaixo é 
     ['39', 'LinkPixGerado', 'Link do Pix Gerado'],
     ['40', 'ErroIntegracaoSap', 'Erro Integração SAP'],
     ['41', 'FolhaDePickingGerada', 'Folha de Picking gerada'],
-    ['42', 'PedidoAprovadoAutomaticamente', 'Pedido aprovado automaticamente na análise de crédito'],
-    ['43', 'PedidoTDCLiberadoAutomaticamente', 'Pedido de operação TDC liberado automaticamente'],
+    ['42', 'PedidoAprovadoAutomaticamente', 'Pedido aprovado automaticamente na analise de crédito'],
+    ['43', 'PedidoTDCLiberadoAutomaticamente', 'Pedido de operação TDC Liberado automaticamente'],
     ['44', 'PedidoRepasseCredito', 'Pedido Repasse Crédito'],
     ['45', 'AguardandoGerarPagamentosMistos', 'Aguardando Geração de Pagamentos Mistos'],
     ['46', 'PagamentosMistosGerados', 'Pagamentos Mistos Gerados'],
@@ -123,51 +1594,572 @@ Estes enums são gravados no banco como **número inteiro**. A tabela abaixo é 
     ['60', 'LiberadoEmNovaFilaDeAprovacao', 'Liberado em Nova Fila de Aprovação'],
     ['800', 'EnviadoIntegracaoPHC', 'Enviado para Integração PHC'],
   ]}
-  caption="De/Para do status do pedido (valor no banco → significado)"
 />
 
-<Callout type="info" title="Valores 900 a 903">
-Os valores 900–903 (`EnviadoParaAnaliseAdministrativo`, `EmAnaliseAdministrativo`, `EnviadoParaAnaliseCredito`, `EmAnaliseCredito`) são **auxiliares visuais** — usados só na tela, nunca gravados no banco.
-</Callout>
-
-### Outros enums de Pedido
+**`StatusEtapaDeAprovacao`**
 
 <DocTable
-  headers={['Enum', 'Valor', 'Nome técnico']}
+  headers={['Valor', 'Nome técnico', 'Significado']}
   rows={[
-    ['Status do Orçamento (StatusOrcamento)', '0 / 1 / 2', 'EmNegociacao / PedidoGerado / Cancelado'],
-    ['Tipo de Item (TipoDeItemPedido)', '0 a 6', 'Venda / Bonificacao / Campanha / Consignado / Troca / RemessaArmazenagemOPL / Devolucao'],
-    ['Tipo de Frete (TipoDeFrete)', '0 / 1', 'Cif / Fob'],
-    ['Prioridade (PrioridadePedido)', '0 a 3', 'Normal / ClienteNaFilial / Urgente / RetirarNaFilial'],
-    ['Localidade (LocalidadeDePedido)', '0 / 1', 'Nacional / Internacional'],
-    ['Tipo de Pedido Comex (TipoPedidoComex)', '0 / 1', 'Internacional / Nacional'],
+    ['0', 'AguardandoConclusaoEtapaAnterior', 'Aguardando Conclusão da Etapa Anterior'],
+    ['1', 'Pendente', 'Pendente'],
+    ['2', 'Aprovado', 'Aprovado'],
+    ['3', 'Recusado', 'Recusado'],
+    ['4', 'Cancelado', 'Cancelado'],
   ]}
-  caption="Principais enums de Pedido gravados como número no banco"
 />
+
+**`StatusIntegracaoNotaFiscal`**
 
 <DocTable
-  headers={['Valor', 'Nome técnico (StatusPagamentoMisto)']}
+  headers={['Valor', 'Nome técnico', 'Significado']}
   rows={[
-    ['1', 'AguardandoToken'],
-    ['2', 'TokenExpirado'],
-    ['3', 'FalhaNoPagamento'],
-    ['4', 'PagamentoNegado'],
-    ['5', 'TokenCancelado'],
-    ['6', 'PagoComSucesso'],
-    ['7', 'PagamentoCancelado'],
-    ['8', 'AguardandoIntegracaoSAP'],
-    ['9', 'AguardandoPagamentoCartao'],
-    ['10', 'ErroGerarLinkCartao'],
-    ['11', 'AguardandoGerarPix'],
-    ['12', 'ErroGerarPix'],
-    ['13', 'AguardandoPagamentoPIX'],
+    ['0', 'Iniciado', ''],
+    ['1', 'Aprovado', ''],
+    ['2', 'Concluido', ''],
+    ['3', 'Estornado', ''],
+    ['4', 'NotaFiscalEstornadaJaAtualizada', 'Nota Fiscal Atualizada'],
   ]}
-  caption="De/Para do status de pagamento misto"
 />
 
-<Callout type="cuidado" title="Atenção ao TipoPedidoComex">
-O enum `TipoPedidoComex` é invertido em relação ao `LocalidadeDePedido`: aqui **0 = Internacional** e **1 = Nacional**. Confira sempre qual enum a coluna usa antes de interpretar o número.
-</Callout>
+**`StatusOrcamento`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'EmNegociacao', 'Em Negociação'],
+    ['1', 'PedidoGerado', 'Pedido Gerado'],
+    ['2', 'Cancelado', 'Cancelado'],
+  ]}
+/>
+
+**`StatusPagamentoMisto`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['1', 'AguardandoToken', 'Aguadando Token'],
+    ['2', 'TokenExpirado', 'Token Expirado'],
+    ['3', 'FalhaNoPagamento', 'Falha no Pagamento'],
+    ['4', 'PagamentoNegado', 'Pagamento Negado'],
+    ['5', 'TokenCancelado', 'Token Cancelado'],
+    ['6', 'PagoComSucesso', 'Pago com Sucesso'],
+    ['7', 'PagamentoCancelado', 'Pagamento Cancelado'],
+    ['8', 'AguardandoIntegracaoSAP', 'Aguardando Integração SAP'],
+    ['9', 'AguardandoPagamentoCartao', 'Aguardando Pagamento Cartão'],
+    ['10', 'ErroGerarLinkCartao', 'Erro ao Gerar Pagamento de Cartão'],
+    ['11', 'AguardandoGerarPix', 'Aguardando Gerar PIX'],
+    ['12', 'ErroGerarPix', 'Erro ao Gerar PIX'],
+    ['13', 'AguardandoPagamentoPIX', 'Aguardando Pagamento PIX'],
+  ]}
+/>
+
+**`SubStatusAnaliseDeCredito`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['11', 'AnaliseExterna', '1/2 Análise Externa'],
+    ['12', 'Documentacao', '2/2 Documentação'],
+    ['13', 'Biometria', '2/2 Biometria'],
+    ['21', 'AnaliseInterna', '1/3 Análise Interna'],
+    ['22', 'PagamentoDeEntrada', '2/3 Pagamento de Entrada'],
+    ['23', 'AssinaturaDoTermo', '3/3 Assinatura do termo'],
+    ['24', 'EmAvalicaoDeCredito', ''],
+    ['211', 'AnaliseExternaAprovado', 'Aprovado'],
+    ['212', 'AnaliseExternaRecusado', 'Recusado'],
+    ['221', 'AnaliseInternaAprovado', 'Aprovado'],
+    ['222', 'AnaliseInternaCondicionado', 'Condicionado'],
+    ['231', 'RepassePagamentoEntrada', 'Pagamento de Entrada'],
+    ['232', 'RepasseAssinaturaDoTermo', 'Assinatura do Termo'],
+    ['233', 'RepasseCadastroBiometria', 'Cadastro de Biometria'],
+    ['234', 'RepasseEnvioDocumento', 'Envio de Documento'],
+    ['235', 'RepasseNegociacao', 'Negociação'],
+    ['236', 'AnaliseExternaCredito', 'Em Análise Externa'],
+    ['237', 'AnaliseInternaCredito', 'Em Análise Interna'],
+    ['238', 'AnaliseInternaNegociacao', 'Negociação de pagamento'],
+    ['239', 'RepasseCreditoAprovado', 'Crédito Aprovado'],
+    ['240', 'RepassePendentePagamentoEntrada', 'Pendente Pagamento Entrada'],
+    ['241', 'RepasseTermoEmissao', 'Termo em emissão'],
+    ['242', 'RepasseTermoEnviado', 'Termo enviado - pendente assinatura'],
+    ['243', 'RepassePendenciaJuridica', 'Envio de Documento'],
+  ]}
+/>
+
+**`SubStatusCicloDeAprovacaoEnum`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'AprovadoADM', 'Aprovado ADM'],
+    ['1', 'RecusadoADM', 'Recusado ADM'],
+    ['2', 'AprovadoCredito', 'Aprovado Crédito'],
+    ['3', 'RecusadoCredito', 'Recusado Crédito'],
+  ]}
+/>
+
+**`TipoDeDesconto`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'ValorUnitario', 'Informar Valor Unitário'],
+    ['1', 'Porcentagem', 'Informar % Desconto'],
+  ]}
+/>
+
+**`TipoDeEnderecoDeEntrega`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Principal', 'Principal'],
+    ['1', 'Alternativo', 'Alternativo'],
+    ['2', 'Digitado', 'Digitado'],
+  ]}
+/>
+
+**`TipoDeFrete`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Cif', 'CIF'],
+    ['1', 'Fob', 'FOB'],
+  ]}
+/>
+
+**`TipoDeInformacaoDePedido`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['1', 'AlteracaoDeValor', 'Alteração de Valor'],
+  ]}
+/>
+
+**`TIpoDeItemOrcamento`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Venda', 'Ven'],
+    ['1', 'Bonificacao', 'Bon'],
+  ]}
+/>
+
+**`TIpoDeItemPedido`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Venda', 'Venda'],
+    ['1', 'Bonificacao', 'Bonificação'],
+    ['2', 'Campanha', 'Campanha'],
+    ['3', 'Consignado', 'Consignado'],
+    ['4', 'Troca', 'Troca'],
+    ['5', 'RemessaArmazenagemOPL', 'Remessa Armazenagem OPL'],
+    ['6', 'Devolucao', 'Devolução'],
+  ]}
+/>
+
+**`TipoDePrevisaoDeEntrega`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Logradouro', 'Logradouro'],
+    ['1', 'Cidade', 'Cidade'],
+    ['2', 'Estado', 'Estado'],
+    ['3', 'Cliente', 'Cliente'],
+  ]}
+/>
+
+**`TipoIncotermPedido`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Cif', 'CIF - Custo, Seguro e Frete'],
+    ['1', 'Exw', 'EXW - Na Origem'],
+    ['2', 'Fas', 'FAS - Livre ao Lado do Navio'],
+    ['3', 'Fca', 'FCA - Livre no Transportador'],
+    ['4', 'Fob', 'FOB - Livre a Bordo'],
+    ['5', 'Cfr', 'CFR - Custo e Frete'],
+    ['6', 'Cpt', 'CPT - Transporte Pago até'],
+    ['7', 'Cip', 'CIP - Transporte e Seguro Pagos até'],
+    ['8', 'Dap', 'DAP - Entregue no Local'],
+    ['9', 'Dpu', 'DPU - Entregue no Local Descarregado'],
+    ['10', 'Ddp', 'DDP - Entregue com Direitos Pagos'],
+  ]}
+/>
+
+**`TipoItemNotaFiscal`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Venda', 'Venda'],
+    ['1', 'Bonificacao', 'Bonificação'],
+  ]}
+/>
+
+**`TipoPedidoComex`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Internacional', 'Exportação'],
+    ['1', 'Nacional', 'Nacionalizado'],
+  ]}
+/>
+
+**`TransportadoraNacionalInternacional`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Nacional', 'Nacional'],
+    ['1', 'Internacional', 'Internacional'],
+    ['2', 'Ambos', 'Ambos'],
+  ]}
+/>
+
+
+### Politicas
+
+**`AplicacaoPolitica`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'TipoDeProduto', 'Tipo de Produto'],
+    ['1', 'FamiliaDeProduto', 'Família de Produto'],
+    ['2', 'GrupoDeProduto', 'Grupo de Produto'],
+    ['3', 'Produto', 'Produto'],
+  ]}
+/>
+
+**`FormaAplicacaoPremiacaoCondicionada`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'AoEnviar', 'Ao Enviar'],
+    ['1', 'AoDigitar', 'Ao Digitar'],
+  ]}
+/>
+
+**`FormaDeAplicacaoDoPedido`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'NaoAplica', 'Não aplica'],
+    ['1', 'AplicaEAceitaAlterar', 'Aplica e aceita alterar'],
+    ['2', 'AplicaENaoAceitaAlterar', 'Aplica e não aceita alterar'],
+  ]}
+/>
+
+**`FormaDeAtuacaoDaPolitica`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Porcentagem', 'Porcentagem'],
+    ['1', 'Valor', 'Valor'],
+  ]}
+/>
+
+**`FormaDeContabilizacaoDaPolitica`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Quantidade', 'Quantidade'],
+    ['1', 'Valor', 'Valor'],
+  ]}
+/>
+
+**`HierarquiaDeEstruturaComercial`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Sin', 'SIN'],
+    ['1', 'Diretoria', 'Diretoria'],
+    ['2', 'GnvFVE', 'GNV (FVE)'],
+    ['3', 'GnvFVI', 'GNV (FVI)'],
+    ['4', 'GR', 'GR'],
+    ['5', 'GD', 'GD'],
+    ['6', 'Coordenador', ''],
+    ['7', 'Supervisor', 'Supervisor'],
+    ['8', 'ConsultorFvi', 'Consultor FVI'],
+    ['9', 'ConsultorFve', 'Consultor FVE'],
+    ['10', 'Representante', 'Representante'],
+    ['11', 'Assessor', 'Assessor'],
+    ['12', 'Administrativo', 'Administrativo'],
+    ['13', 'ExecutivoVarejo', 'Executivo Varejo'],
+    ['14', 'ExecutivoKA', 'Executivo KA'],
+    ['15', 'ExecutivoSinSolution', 'Executivo SIN Solution'],
+    ['16', 'ExecutivoSinSolutionInterno', 'FVI SIN Solution'],
+  ]}
+/>
+
+**`PedidoOrcamento`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Pedido', 'Pedido'],
+    ['1', 'Orcamento', 'Orçamento'],
+    ['2', 'Ambos', 'Ambos'],
+  ]}
+/>
+
+**`PoliticaNacionalInternacional`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Nacional', 'Nacional'],
+    ['1', 'Internacional', 'Internacional'],
+    ['2', 'Ambos', 'Nacional ou Internacional'],
+  ]}
+/>
+
+**`RegraPolitica`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Cabecalho', 'Cabeçalho'],
+    ['1', 'Item', 'Item'],
+  ]}
+/>
+
+**`TipoDeBonificacaoDeCampanha`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Quantidade', 'Quantidade'],
+    ['1', 'Valor', 'Valor'],
+  ]}
+/>
+
+**`TipoDePoliticaComercial`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Politica', 'Política'],
+    ['1', 'Campanha', 'Campanha'],
+  ]}
+/>
+
+**`TipoDeRestricaoDeVenda`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Restricao', 'Regra que restringe (bloqueia) a venda'],
+    ['1', 'Excecao', 'Exceção que libera a venda'],
+  ]}
+/>
+
+**`ValidacaoDeDataDoPedido`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Emissao', 'Emissão'],
+    ['1', 'Liberacao', 'Liberação'],
+  ]}
+/>
+
+**`ValorAConsiderarDoPedido`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Liquido', 'Líquido'],
+    ['1', 'Bruto', 'Bruto'],
+  ]}
+/>
+
+
+### Produtos
+
+**`TipoDeHierarquiaDeProduto`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'AplicativoDeCatalogos', 'Aplicativo de Catálogos'],
+  ]}
+/>
+
+**`TipoDeImagem`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Produto', 'Produto'],
+    ['1', 'Embalagem', 'Embalagem'],
+    ['2', 'Produto3D', 'Produto 3D'],
+    ['3', 'Embalagem3D', 'Embalagem 3D'],
+    ['4', 'Thumbnail', 'Thumbnail'],
+  ]}
+/>
+
+
+### Qualidade
+
+**`MotivoNaoPodeTransferir`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Nenhum', 'Nenhum'],
+    ['1', 'ExisteEmProcessamento', 'Existe transferência em processamento'],
+    ['2', 'TodosJaTransferidos', 'Todos os produtos já foram transferidos'],
+    ['3', 'NenhumProdutoPendente', 'Nenhum produto pendente de transferência'],
+    ['4', 'AnaliseNaoEncontrada', 'Análise não encontrada'],
+  ]}
+/>
+
+**`StatusAnaliseDeQualidade`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Vendavel', 'Vendável'],
+    ['1', 'Sucata', 'Sucata'],
+  ]}
+/>
+
+**`StatusProcessamentoLog`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Enviado', 'Enviado'],
+    ['1', 'Sucesso', 'Sucesso'],
+    ['2', 'Falha', 'Falha'],
+    ['3', 'ErroException', 'Erro de Exceção'],
+    ['4', 'ConfirmadoManualmente', 'Confirmado Manualmente'],
+    ['5', 'RollbackExecutado', 'Rollback Executado'],
+  ]}
+/>
+
+**`StatusRefugo`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Descontinuado', 'Descontinuado'],
+    ['1', 'AtencaoProduto', 'Atenção Produto'],
+    ['3', 'RegraProdutoXLote', 'Regra Produto X Lote'],
+    ['4', 'Sucata', 'Sucata'],
+  ]}
+/>
+
+**`StatusTransferenciaDelage`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'NaoAplicavel', 'Não Aplicável'],
+    ['1', 'Pendente', 'Pendente'],
+    ['2', 'EmProcessamento', 'Em Processamento'],
+    ['3', 'Sucesso', 'Sucesso'],
+    ['4', 'Falha', 'Falha'],
+    ['5', 'ErroException', 'Erro de Exceção'],
+  ]}
+/>
+
+**`StatusTransferenciaSap`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Pendente', 'Pendente'],
+    ['1', 'EmProcessamento', 'Em Processamento'],
+    ['2', 'Sucesso', 'Sucesso'],
+    ['3', 'Falha', 'Falha'],
+    ['4', 'ErroException', 'Erro de Exceção'],
+    ['5', 'ConfirmadoManualmente', 'Confirmado Manualmente'],
+    ['6', 'RollbackExecutado', 'Rollback Executado'],
+  ]}
+/>
+
+**`TipoDestinoTransferencia`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Sap', 'SAP'],
+    ['1', 'Delage', 'Delage WMSrx'],
+  ]}
+/>
+
+
+### Regulatorios
+
+**`Acessorio`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Nao', 'Sim'],
+    ['1', 'Sim', 'Não'],
+  ]}
+/>
+
+**`StatusAnvisa`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Ativo', 'Ativo'],
+    ['1', 'Inativo', 'Inativo'],
+  ]}
+/>
+
+**`TipoDoProduto`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Esteril', 'Produto Estéril?'],
+    ['1', 'NaoEsteril', 'Não Estéril'],
+  ]}
+/>
+
+
+### Roteirizador
+
+**`TipoAusencia`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Intervalo', 'Intervalo'],
+    ['1', 'Periodo', 'Período'],
+    ['2', 'DiaTodo', 'Dia Todo'],
+  ]}
+/>
+
+**`TipoCampo`**
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Texto', 'Texto'],
+    ['1', 'Imagem', 'Imagem'],
+  ]}
+/>
 
 ## Pedido — organização de vendas e canal
 

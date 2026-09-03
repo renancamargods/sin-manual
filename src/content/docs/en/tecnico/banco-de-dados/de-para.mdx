@@ -52,11 +52,1482 @@ There is no "De/Para" screen in CrmSin. These mappings live partly in the integr
 This page has two kinds: **(1) Enums** — the number stored in the database column and what it means; and **(2) SAP integration** — the translation of CrmSin codes into the codes SAP expects.
 </Callout>
 
-## Order enums (database code → meaning)
+## System enums (database code → meaning)
 
-These enums are stored in the database as an **integer**. The table below is the De/Para between the stored value, the technical enum name and the meaning shown to the user. Source: `CrmSin.Domain.Entities/Pedidos/Models/Enums`.
+Every enum in the system is stored in the database as an **integer**. The tables below, organized by module, are the De/Para between the stored value, the technical enum name and the meaning shown to the user (when a label exists). Source: `CrmSin.Domain.Entities/<Module>/Models/Enums`; meanings come from the `SharedResource.en-US` resources.
 
-### Order status (`StatusDePedido`)
+<Callout type="cuidado" title="Before reading a number">
+The same number means different things in different enums — always confirm **which enum** the column uses. A classic case: `TipoPedidoComex` is inverted relative to `LocalidadeDePedido` (0 = International / 1 = National). Some enums (such as `Chaves`) hold **configuration values**, not a 0,1,2 sequence. Values 900+ in some status enums are visual-only helpers, never stored in the database.
+</Callout>
+
+### Administrador
+
+**`Chaves`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['90', 'DiasValidadeSenha', 'Password validity in days (configuration value)'],
+    ['6', 'MininimoCaracteresSenha', 'Minimum password length'],
+    ['3', 'UltimasSenhas', 'Number of previous passwords blocked from reuse'],
+    ['1', 'RequerMinuscula', 'Requires a lowercase letter (1 = yes)'],
+    ['1', 'RequerMaiuscula', 'Requires an uppercase letter (1 = yes)'],
+    ['1', 'RequerNumero', 'Requires a digit (1 = yes)'],
+    ['1', 'RequerCaracterEspecial', 'Requires a special character (1 = yes)'],
+    ['60', 'MinutosDeBloqueioUsuario', 'User lockout duration in minutes after exceeding attempts'],
+    ['5', 'MaximoTentativasBloqueioUsuario', 'Max login attempts before lockout'],
+  ]}
+/>
+
+**`CompartilhamentoEnquete`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Administradores', 'Administrators'],
+    ['1', 'Todos', 'All'],
+  ]}
+/>
+
+**`DestinatarioEndereco`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Cliente', 'Customer'],
+    ['1', 'Transportadora', 'Shipping company'],
+    ['2', 'Centro', 'Lounge'],
+  ]}
+/>
+
+**`DivulgacaoPost`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Geral', 'General'],
+    ['1', 'Perfil', 'Profile'],
+    ['2', 'Empresa', 'Company'],
+    ['3', 'Combinacao', 'Mixed'],
+  ]}
+/>
+
+**`EntidadeDoAtributo`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Cliente', 'Customer'],
+    ['1', 'Pedido', 'Request'],
+    ['2', 'Produto', 'Product'],
+  ]}
+/>
+
+**`LocalidadeDeDadoBancario`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Nacional', 'National'],
+    ['1', 'Internacional', 'International'],
+  ]}
+/>
+
+**`TipoAnaliseCampoValidacao`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'EmAnaliseCredito', 'In Credit Analysis'],
+    ['1', 'EmAnaliseFiscal', 'In Tax Analysis'],
+    ['2', 'Ambos', 'Both'],
+  ]}
+/>
+
+**`TipoConexao`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Rede', 'Network'],
+    ['1', 'Compartilhada', 'Shared'],
+  ]}
+/>
+
+**`TipoDeAtributo`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Texto', 'Text'],
+    ['1', 'Numerico', 'Numeric'],
+    ['2', 'Data', 'Date'],
+    ['3', 'SimNao', 'Yes No'],
+    ['4', 'Lista', 'List'],
+  ]}
+/>
+
+**`TipoDeChavePix`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Cpf', 'Cpf'],
+    ['1', 'Cnpj', 'ID'],
+    ['2', 'EMail', 'E-Mail'],
+    ['3', 'Celular', 'Cell'],
+    ['4', 'Aleatoria', 'Random'],
+  ]}
+/>
+
+**`TipoDeEndereco`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Entrega', 'Delivery'],
+    ['1', 'Cobranca', 'Charge'],
+    ['2', 'Correspondencia', 'Correspondence'],
+    ['3', 'Residencial', ''],
+    ['4', 'Temporario', ''],
+  ]}
+/>
+
+**`TipoDeExecucaoDeServico`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Sap', 'SAP'],
+    ['1', 'PortalKA', 'KA portal'],
+    ['2', 'DataFrete', 'Shipping Date'],
+    ['3', 'Crivo', 'sieve'],
+    ['4', 'Freshdesk', 'freshdesk'],
+    ['5', 'Freshsales', 'freshsales'],
+    ['6', 'Portatou', 'portatou'],
+    ['7', 'Paygo', 'paygo'],
+    ['8', 'MaquinaDeCartaoDeCredito', 'Credit card machine'],
+    ['9', 'EfiGerenciaNet', 'Efí Gerencianet'],
+    ['10', 'PagarMe', 'Pay Me'],
+    ['11', 'ServicoCrm', 'CRM Service'],
+    ['12', 'PedidoCancelado', 'CRM Canceled'],
+    ['13', 'Vcom', 'Vcom'],
+    ['14', 'Phc', 'Phc'],
+    ['15', 'Serasa', 'Serasa'],
+    ['16', 'GoonCadastroClientes', ''],
+    ['17', 'GoonCadastroOrdemServico', ''],
+    ['18', 'GoonBuscaOrdemServico', ''],
+    ['19', 'GoonRoteirizarOrdemServico', ''],
+    ['20', 'GoonAtualizarConsultor', ''],
+    ['21', 'GoonBuscarInformacoesFormulario', ''],
+    ['22', 'Fiscal', ''],
+  ]}
+/>
+
+**`TipoDeQuestao`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'OpcaoUnica', 'Escolha única'],
+    ['1', 'MultiplasOpcoes', 'Múltiplas escolhas'],
+  ]}
+/>
+
+**`TipoImagemPais`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'MapaPng', '2D flat map - PNG type'],
+  ]}
+/>
+
+**`TipoMidia`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Imagem', 'Image'],
+    ['1', 'Video', 'Video'],
+    ['2', 'Arquivo', 'File'],
+  ]}
+/>
+
+**`TipoPost`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Notificacao', 'Notification'],
+    ['1', 'Enquete', 'Survey'],
+  ]}
+/>
+
+**`TipoValor`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Boolean', 'Boolean'],
+    ['1', 'String', 'Text'],
+    ['2', 'Number', 'Number'],
+    ['3', 'Json', 'Json'],
+  ]}
+/>
+
+
+### Aprovacoes
+
+**`AplicacaoDoSubStatusCicloAprovacao`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'AoAprovar', 'On Approve'],
+    ['1', 'AoReprovar', 'On Reject'],
+    ['2', 'AoEnviarParaAvaliacao', 'On Send for Evaluation'],
+  ]}
+/>
+
+**`ModoExecucaoCicloAprovacao`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Paralelo', 'Cycle steps run in parallel'],
+    ['1', 'Sequencial', 'Steps run sequentially'],
+  ]}
+/>
+
+
+### Autenticador
+
+**`FormaDeAutenticacao`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Aplicacao', 'Application (CRM)'],
+    ['1', 'ActiveDirectory', 'Active Directory (Windows)'],
+    ['2', 'Ambos', 'Both'],
+  ]}
+/>
+
+**`ModuloPesquisaPersonalizada`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Pedidos', 'Custom search target module: Orders'],
+  ]}
+/>
+
+**`RequisicaoAutenticacao`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Server', 'Authentication request originated on the server'],
+    ['1', 'Middleware', 'Request originated in the middleware'],
+  ]}
+/>
+
+**`StatusAutenticacao`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'UsuarioSenhaIncorretos', 'Invalid User\Password'],
+    ['1', 'Autenticado', 'Authenticated User'],
+    ['2', 'PendenteValidacaoEmail', 'Pending e-mail validation'],
+    ['3', 'TwoFactor', 'Two factor error'],
+    ['4', 'TicketExpirado', 'Expired Ticket'],
+    ['5', 'TicketNaoEncontrado', 'Ticket not found'],
+    ['6', 'CodigoTwoFactorInvalido', 'Invalid Two factor code'],
+    ['7', 'PendenteTrocaSenha', 'Pending password change'],
+    ['8', 'PendenteAprovacao', 'Pending approval'],
+    ['9', 'BloqueioTemporario', 'Temporary blocked'],
+    ['10', 'Inativado', 'User inative'],
+    ['11', 'CertificadoInvalido', 'Invalid certificate'],
+    ['12', 'SenhaExpirada', 'Password expired'],
+    ['13', 'LoginNaoHabilitadoWindows', ''],
+    ['14', 'LoginNaoHabilitadoAplicacao', ''],
+    ['15', 'BloqueadoAD', ''],
+  ]}
+/>
+
+**`StatusCertificado`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Validado', 'Certificate validated'],
+    ['1', 'CertificadoInvalido', 'Invalid certificate'],
+    ['2', 'CertificadoExpirado', 'Expired certificate'],
+    ['3', 'CertificadoInexistente', 'Certificate not found'],
+    ['4', 'NaoValidado', 'Not yet validated'],
+  ]}
+/>
+
+**`TipoDeAcesso`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'NaoDefinido', 'Not Set'],
+    ['1', 'Permitir', 'Allow'],
+    ['2', 'Negar', 'Deny'],
+  ]}
+/>
+
+**`TipoToken`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'ConfirmarEmail', 'Email confirmation token'],
+    ['1', 'TwoFactor', 'Two-factor authentication token'],
+    ['2', 'EsqueceuSenha', 'Password recovery token'],
+    ['3', 'LoginExternoMiddleware', 'External login token via middleware'],
+    ['4', 'Generico', 'Generic token'],
+    ['5', 'Personalizado', 'Custom token'],
+  ]}
+/>
+
+**`TipoTwoFactor`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Email', 'Second factor by email'],
+    ['1', 'SMS', 'Second factor by SMS'],
+    ['2', 'CertificadoDigital', 'Second factor by digital certificate'],
+  ]}
+/>
+
+
+### Clientes
+
+**`AgrupamentoEtapaDeAprovacaoCliente`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'AguardandoLiberacao', 'Customer awaiting release'],
+    ['1', 'EmAvaliacao', 'Customer under evaluation'],
+  ]}
+/>
+
+**`ClassificacaoDeCreditoDoCliente`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'A', 'A'],
+    ['1', 'B', 'B'],
+    ['2', 'C', 'C'],
+    ['3', 'D', 'D'],
+    ['4', 'E', 'E'],
+  ]}
+/>
+
+**`ClassificacaoEmbaixador`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Fellow', 'Fellow tier of the ambassador program'],
+    ['1', 'Silver', 'Silver tier'],
+    ['2', 'SilverSolutions', 'Silver Solutions tier'],
+    ['3', 'Gold', 'Gold tier'],
+    ['4', 'GoldSolutions', 'Gold Solutions tier'],
+    ['5', 'GoldPlus', 'Gold Plus tier'],
+    ['6', 'Diamond', 'Diamond tier'],
+    ['7', 'Master', 'Master tier'],
+  ]}
+/>
+
+**`FinalidadeGrupoEconomico`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['1', 'Credito', 'Credit'],
+  ]}
+/>
+
+**`FluxoPosAprovacaoDeCliente`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'IntegrarSAP', 'After approval, integrate the customer to SAP'],
+    ['1', 'IntegrarPHC', 'After approval, integrate to PHC'],
+  ]}
+/>
+
+**`GrupoResponsavelAprovacaoCliente`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'CreditoNacional', 'Credit approval (national)'],
+    ['1', 'CreditoInternacional', 'Credit (international / Comex)'],
+    ['2', 'FiscalNacional', 'Tax (national)'],
+    ['3', 'FiscalInternacional', 'Tax (international / Comex)'],
+  ]}
+/>
+
+**`ModeloOperacao`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Compra', 'Compra'],
+    ['1', 'Consignado', 'Consignado'],
+    ['2', 'ConsignadoECompra', 'Consignado e Compra'],
+  ]}
+/>
+
+**`OrigemDeCliente`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'InclusaoManual', 'manual inclusion'],
+    ['1', 'CargaPlanilha', 'worksheet load'],
+    ['2', 'Integracao', 'Integration'],
+    ['3', 'Lead', 'lead'],
+    ['4', 'AplicativoExterno', 'External Application'],
+  ]}
+/>
+
+**`PerfilEmbaixador`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Academico', 'Ambassador with academic profile'],
+    ['1', 'Criador', 'Ambassador with content-creator profile'],
+    ['2', 'AcademicoECriador', 'Academic and creator profile'],
+  ]}
+/>
+
+**`StatusBiometricoClearSale`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'SENT', 'Sent'],
+    ['1', 'COMPLETED', 'Completed'],
+    ['2', 'EXPIRED', 'Expired'],
+  ]}
+/>
+
+**`StatusDoCliente`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Novo', 'New'],
+    ['1', 'Liberado', 'Released'],
+    ['2', 'Reprovado', 'Disapproved'],
+    ['3', 'Prospect', 'prospect'],
+    ['4', 'ErroAoIntegrarCliente', 'Error when Onboarding the Customer'],
+    ['5', 'Ativo', 'Active'],
+    ['6', 'AnaliseCadastroCredito', 'Under Analysis by the Registration/Credit Area'],
+    ['7', 'AnaliseCadastroAdministrativo', 'Administrative Registration Analysis'],
+    ['8', 'AnaliseCadastroFiscal', 'Tax Registration Analysis'],
+    ['9', 'NegadoAnaliseCredito', 'Denied Credit Analysis'],
+    ['10', 'NegadoAnaliseAdministrativo', 'Denied Administrative Review'],
+    ['11', 'NegadoAnaliseFiscal', 'Denied Tax Analysis'],
+    ['12', 'ReanaliseCredito', 'Credit Reanalysis'],
+    ['13', 'ReanaliseAdministrativo', 'Administrative Reanalysis'],
+    ['14', 'ReanaliseFiscal', 'Tax Reanalysis'],
+    ['15', 'Cancelado', 'Canceled'],
+    ['16', 'Bloqueado', 'Blocked'],
+    ['17', 'Desativado', 'Disabled'],
+    ['18', 'EnviadoIntegracaoPHC', 'Submitted for PHC Integration'],
+    ['19', 'ClienteEmAvaliacaoFiscal', 'Customer Under Tax Review'],
+    ['20', 'ClienteEmAvaliacaoCredito', 'Customer Under Credit Review'],
+    ['21', 'AguardandoEnvioParaFilasDeAprovacao', 'Awaiting Submission to Approval Queues'],
+    ['22', 'EnviadoIgnition', 'Processing approval'],
+    ['23', 'AguardandoAprovacoes', 'Waiting for Approvals'],
+    ['24', 'CicloDeAprovacaoCancelado', 'Approval Cycle Canceled'],
+    ['25', 'LiberadoNovaFilaAprovacao', 'Released in the new Approval Queue'],
+  ]}
+/>
+
+**`TipoDeContato`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Principal', 'Main'],
+    ['1', 'Nfe', 'Nfe'],
+    ['2', 'Financeiro', 'Financial'],
+  ]}
+/>
+
+**`TipoDeContribuinteIcms`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Contribuinte', 'Contributor'],
+    ['1', 'NaoContribuinte', 'Non-Contributor'],
+    ['2', 'ConsumidorFinal', 'Final costumer'],
+  ]}
+/>
+
+**`TipoDeCro`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'CroEstrangeiro', 'Foreign CRO'],
+    ['1', 'CroNacional', 'National CRO'],
+    ['2', 'CroResponsavelClinica', 'Clinical Responsible Credential'],
+    ['3', 'TpdNacional', 'National TPD'],
+    ['4', 'AlunoDeGraduacao', 'Undergraduate Student'],
+    ['5', 'CroDentistaResponsavelReceita', 'Cro of The Dentist Responsible For The Revenue'],
+  ]}
+/>
+
+**`TipoDeEnvioBiometriaFacialClearSale`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Email', 'Biometrics link sent by email'],
+    ['1', 'Whatsapp', 'Sent by WhatsApp'],
+    ['2', 'Sms', 'Sent by SMS'],
+  ]}
+/>
+
+**`TipoDeParametroEntidadeEspecial`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'StatusDoCadastro', 'Registration Status'],
+    ['1', 'StatusDoPedido', 'Order status'],
+    ['2', 'InformacoesFinanceiras', 'Financial Information'],
+    ['3', 'Boletos', 'tickets'],
+    ['4', 'InformacoesDeLogistica', 'Logistics Information'],
+  ]}
+/>
+
+**`TipoDePessoa`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Fisica', 'Physical'],
+    ['1', 'Juridica', 'Legal'],
+    ['2', 'Estrangeiro', 'Abroad'],
+  ]}
+/>
+
+**`TipoDePessoaSocio`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Fisica', 'Physical'],
+    ['1', 'Juridica', 'Legal'],
+  ]}
+/>
+
+**`TipoDeSetorIndustrial`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'ZPF', 'ZPF'],
+    ['1', 'ZPJ', 'ZPJ'],
+    ['2', 'ZPI', 'ZPI'],
+  ]}
+/>
+
+**`TipoDeTelefone`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Fixo', 'Fixed'],
+    ['1', 'Celular', 'Cell'],
+  ]}
+/>
+
+**`TipoEventoGrupoEconomico`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['1', 'Criacao', 'Economic group created'],
+    ['2', 'Alteracao', 'Group changed'],
+    ['3', 'Inativacao', 'Group deactivated'],
+    ['4', 'Ativacao', 'Group activated'],
+    ['5', 'Inclusao', 'Customer added to the group'],
+    ['6', 'Remocao', 'Customer removed from the group'],
+    ['7', 'AlteracaoDeFinalidade', 'Group purpose changed'],
+    ['8', 'InclusaoDeLimite', 'Credit limit added'],
+    ['9', 'InclusaoViaPlanilha', 'Bulk inclusion via spreadsheet'],
+  ]}
+/>
+
+**`TipoIncotermCliente`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Cif', 'CIF - Cost, Insurance and Freigth'],
+    ['1', 'Exw', 'EXW - Ex Works'],
+    ['2', 'Fas', 'FAS - Free Alongside'],
+    ['3', 'Fca', 'FCA - Free Carrier'],
+    ['4', 'Fob', 'FOB - Free on Board'],
+    ['5', 'Cfr', 'CFR - Cost and Freigth'],
+    ['6', 'Cpt', 'CPT - Carriage Paid To'],
+    ['7', 'Cip', 'CIP - Carriage and Insurance Paid To'],
+    ['8', 'Dap', 'DAP - Delivered at Place'],
+    ['9', 'Dpu', 'DPU - Delivered at Place Unloaded'],
+    ['10', 'Ddp', 'DDP - Delivered Duty Paid'],
+  ]}
+/>
+
+**`TipoSolicitacaoBiometricaClearSale`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Link', 'Biometrics request via link'],
+  ]}
+/>
+
+**`TipoSolicitacaoClearSale`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'EMISSAO', 'Issuance'],
+    ['1', 'EDICAO', 'Edition'],
+    ['2', 'CONSULTA', ''],
+    ['3', 'NOTIFICACAO', ''],
+    ['4', 'RECEBIMENTO', ''],
+    ['5', 'COPIAR', ''],
+  ]}
+/>
+
+
+### Contratos
+
+**`AplicacaoMetaConsumo`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'TipoDeProduto', 'Product type'],
+    ['1', 'FamiliaDeProduto', 'Product family'],
+    ['2', 'GrupoDeProduto', 'Product Group'],
+    ['3', 'Produto', 'Product'],
+  ]}
+/>
+
+**`ClassificacaoDoContrato`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'ComContrapartida', 'With Counterpart'],
+    ['1', 'SemContrapartida', 'No Counterpart'],
+  ]}
+/>
+
+**`DiaDaSemana`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Domingo', 'Sunday'],
+    ['1', 'Segunda', 'Second'],
+    ['2', 'Terca', 'Tuesday'],
+    ['3', 'Quarta', 'Fourth'],
+    ['4', 'Quinta', 'Fifth'],
+    ['5', 'Sexta', 'Friday'],
+    ['6', 'Sabado', 'Saturday'],
+  ]}
+/>
+
+**`GrupoResponsavelAprovacaoContrato`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'ADM', 'Administrative approval'],
+    ['1', 'FPeA', 'FP&A approval (financial planning & analysis)'],
+    ['2', 'Credito', 'Credit approval'],
+    ['3', 'OperacoesSac', 'Operations / customer service approval'],
+  ]}
+/>
+
+**`RelacaoComOCurso`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Aluno', 'Student'],
+    ['1', 'Coordenador', 'Coordinator'],
+    ['2', 'Paciente', 'Patient'],
+    ['3', 'Professor', 'Teacher'],
+  ]}
+/>
+
+**`SituacaoContrato`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Novo', 'New'],
+    ['1', 'Renovacao', 'Renewal'],
+    ['2', 'Aditivo', 'Addendum'],
+  ]}
+/>
+
+**`StatusDeCurso`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Vigente', 'in force'],
+    ['1', 'Vencido', 'overdue'],
+  ]}
+/>
+
+**`StatusDoContrato`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Rascunho', 'Rascunho'],
+    ['1', 'AguardandoAprovacoes', 'Cancelled'],
+    ['2', 'CicloDeAprovacaoCancelado', 'Approval Cycle Canceled'],
+    ['3', 'IntegradoZapSign', 'ZapSign Integrated'],
+    ['4', 'AguardandoConclusaoAssinaturas', 'Awaiting Signature Completion'],
+    ['5', 'AssinaturasConcluidas', 'Signatures Completed'],
+    ['6', 'AguardandoGeracaoPedidosDeComodato', 'Awaiting Lending Order Generation'],
+    ['7', 'PedidoDeComodatoGerado', 'Lending Order Generated'],
+    ['97', 'InativadoPorGeracaoDeRenovacao', 'Deactivated by Renewal Generation'],
+    ['98', 'InativadoPorGeracaoDeAditivo', 'Deactivated by Amendment Generation'],
+    ['99', 'Cancelado', 'Cancelled'],
+  ]}
+/>
+
+**`TipoDeCurso`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Especializacao', 'Specialization'],
+    ['1', 'Atualizacao', 'Update'],
+    ['2', 'Doutorado', 'Doctorate degree'],
+    ['3', 'Mestrado', 'Master\'s degree'],
+    ['4', 'Imersao', 'Immersion'],
+  ]}
+/>
+
+**`TipoDeParceiro`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Varejo', 'Retail'],
+    ['1', 'Curso', 'Course'],
+    ['2', 'KeyAccount', 'Key Account'],
+  ]}
+/>
+
+**`TipoDoContrato`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Descontos', 'discounts'],
+    ['1', 'Parceira', 'Partnership'],
+    ['2', 'Dental', 'Dental'],
+    ['3', 'Comodato', 'Lending'],
+  ]}
+/>
+
+**`TipoOperacaoComodato`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Comodato', ''],
+    ['1', 'Bonificacao', 'Bonus'],
+    ['2', 'Consignado', ''],
+  ]}
+/>
+
+
+### Faturamentos
+
+**`StatusDaRemessa`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Iniciado', 'Shipment started'],
+    ['1', 'Concluido', 'Shipment completed'],
+    ['2', 'Cancelado', 'Shipment canceled'],
+    ['3', 'Excluido', 'Shipment deleted'],
+  ]}
+/>
+
+**`StatusDePedidoSeparacao`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'BipagemIniciada', 'Beeping Started'],
+    ['2', 'EnviadoParcialmenteParaFaturamento', 'Partially Sent for Billing'],
+    ['3', 'EnviadoParaFaturamentoCompleto', 'Fully Sent for Billing'],
+  ]}
+/>
+
+**`StatusDePedidoTDC`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'TriagemIniciada', 'Screening Started'],
+    ['1', 'PedidoDevolucaoCriado', 'Pedido de Devolução Criado'],
+    ['2', 'PedidoTrocaCriado', 'Pedido de Troca Criado'],
+    ['3', 'PedidoTrocaAntecipadaCriado', 'Pedido de Troca Criado Antecipadamente'],
+    ['4', 'TriagemFinalizada', 'Triagem Finalizada'],
+    ['5', 'PedidoConsignadoCriado', 'Pedido de Consignado Criado'],
+    ['6', 'Cancelado', 'Protocolo Cancelado'],
+  ]}
+/>
+
+**`StatusRomaneio`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'EmConferencia', 'Em Conferência'],
+    ['1', 'Conferido', 'Conferido'],
+    ['2', 'Coletado', 'Coletado'],
+    ['3', 'Cancelado', 'Cancelado'],
+    ['4', 'Enviado', 'Enviado'],
+  ]}
+/>
+
+**`StatusTransferenciaReversa`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Iniciada', 'Reversa Iniciada'],
+    ['1', 'Concluida', 'Reversa Concluída'],
+  ]}
+/>
+
+**`TipoDaOperacaoReversa`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'TransferenciaReversa', 'Transferência Reversa'],
+  ]}
+/>
+
+**`TIpoDeItemPedidoTDC`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Venda', 'Venda'],
+    ['1', 'Bonificacao', 'Bonificação'],
+  ]}
+/>
+
+**`TipoFechamentoConsignado`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'PorCliente', 'Por Cliente'],
+    ['1', 'PorNotaFiscal', 'By Invoice'],
+  ]}
+/>
+
+**`TipoOperacaoTDC`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Devolucao', 'Devolução'],
+    ['1', 'Troca', 'Troca'],
+    ['2', 'Consignado', 'Consignado'],
+  ]}
+/>
+
+
+### Fiscal
+
+**`ModalidadeDeCalculoImposto`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'PorDentro', 'Tax-Inclusive'],
+    ['1', 'PorFora', 'Tax-Exclusive'],
+  ]}
+/>
+
+**`OperacaoLogAlteracao`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Inclusao', 'Insert record'],
+    ['1', 'Alteracao', 'Update record'],
+    ['2', 'Exclusao', 'Delete record'],
+  ]}
+/>
+
+**`StatusModuloFiscalFeatureFlag`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Desativado', 'Disabled'],
+    ['1', 'Shadow', 'Shadow'],
+    ['2', 'Ativo', 'Active'],
+  ]}
+/>
+
+**`TipoDeOperacaoFiscal`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Normal', 'Normal'],
+    ['1', 'Consignado', 'Consignment'],
+    ['2', 'Troca', 'Exchange'],
+    ['3', 'Devolucao', 'Return'],
+    ['4', 'DevolucaoSimbolica', 'Symbolic Return'],
+    ['5', 'FaturamentoAutomatico', 'Automatic Billing'],
+  ]}
+/>
+
+
+### Integrador
+
+**`NivelLog`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Info', 'Info'],
+    ['1', 'Aviso', 'Warning'],
+    ['2', 'Erro', 'Error'],
+  ]}
+/>
+
+**`RetornoLotePorCentro`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Sucesso', 'Batch-by-plant query succeeded'],
+    ['1', 'Erro', 'Batch query error'],
+  ]}
+/>
+
+**`RetornoPedidoCancelado`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Sucesso', 'Order canceled successfully'],
+  ]}
+/>
+
+**`StatusEtapa`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['1', 'Pendente', 'Pending'],
+    ['2', 'EmAndamento', 'In Progress'],
+    ['3', 'Concluida', 'Completed'],
+    ['4', 'ComErro', 'With Error'],
+    ['5', 'Ignorada', 'Skipped'],
+    ['6', 'Cancelada', 'Cancelled'],
+    ['7', 'AguardandoEtapaAnterior', ''],
+  ]}
+/>
+
+**`StatusIntegracao`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['1', 'Pendente', 'Pending'],
+    ['2', 'EmAndamento', 'In Progress'],
+    ['3', 'Concluida', 'Completed'],
+    ['4', 'ComErro', 'With Error'],
+    ['5', 'AguardandoAcaoManual', 'Awaiting Manual Action'],
+    ['6', 'Cancelada', 'Cancelled'],
+  ]}
+/>
+
+**`StatusRetorno`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Sucesso', 'Success return (card terminal)'],
+    ['1', 'Erro', 'Error return'],
+  ]}
+/>
+
+**`StatusRetornoCancelamentoPagarMe`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Sucesso', 'Pagar.me cancellation succeeded'],
+    ['1', 'Erro', 'Cancellation error'],
+    ['2', 'Ignorado', 'Cancellation ignored'],
+  ]}
+/>
+
+**`TipoExecutorEtapa`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['1', 'Create', 'Create'],
+    ['2', 'Read', 'Read'],
+    ['3', 'Update', 'Update'],
+    ['4', 'Polling', 'Polling'],
+    ['5', 'FunctionImport', 'Function Import'],
+  ]}
+/>
+
+**`TipoFaturamentoParaMovimentoSerial`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'FaturamentoPorRemessa', 'Serial movement from shipment invoicing'],
+    ['1', 'FaturamentoDevolucoes', 'Returns invoicing'],
+    ['2', 'FaturamentoConsignadoPortalKA', 'Consignment invoicing via KA Portal'],
+    ['3', 'FaturamentoConsignadoCRM', 'Consignment invoicing from the CRM'],
+  ]}
+/>
+
+**`TipoIntegracao`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Sap', 'SAP integration'],
+    ['1', 'Phc', 'PHC integration'],
+  ]}
+/>
+
+**`TipoRetorno`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'PedidoIgnorado', 'Order ignored'],
+    ['1', 'PedidoIntegrado', 'Order integrated'],
+    ['2', 'PedidoErro', 'Order in error'],
+    ['3', 'PedidoNovoLink', 'New link generated for the order'],
+  ]}
+/>
+
+**`TipoServicoGoon`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['1', 'Coleta', 'Pickup'],
+  ]}
+/>
+
+
+### Inventarios
+
+**`StatusInventario`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Criado', 'Inventory Created'],
+    ['1', 'ContagemEmAndamento', 'First Count'],
+    ['2', 'AguardandoSegundaContagem', 'Second Count'],
+    ['3', 'AguardandoTerceiraContagem', 'Third Count'],
+    ['4                  // Contagens completas', 'Finalizado', 'Count Finalized'],
+  ]}
+/>
+
+**`TipoInventario`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Geral', 'General'],
+    ['1', 'Ciclico', 'Cyclical'],
+  ]}
+/>
+
+
+### Leads
+
+**`FaseStatusLead`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Negociacao', 'Negociação'],
+    ['1', 'Fechamento', 'Fechamento'],
+  ]}
+/>
+
+**`NivelInteresseLead`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'ApenasPesquisando', 'Apenas Pesquisando'],
+    ['1', 'Interessado', 'Interessado'],
+    ['2', 'MuitoInteressado', 'Muito Interessado'],
+  ]}
+/>
+
+**`OrigemLead`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0 //', 'Interna', 'Interna'],
+  ]}
+/>
+
+**`TipoDeIntervaloSLA`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Minutos', 'Minutos'],
+    ['1', 'Horas', 'Horas'],
+    ['2', 'Dias', 'Dias'],
+    ['3', 'Meses', 'Meses'],
+  ]}
+/>
+
+**`TipoLead`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'SemCadastro', 'Sem Cadastro'],
+    ['1 //', 'BaseSIN', 'Base SIN'],
+  ]}
+/>
+
+
+### Ocorrencias
+
+**`CampoOcorrencia`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Nenhum', 'Nenhum'],
+    ['1', 'CpfCnpjCliente', 'CPF/CNPJ do Cliente'],
+    ['2', 'CodigoProduto', 'Código do Produto'],
+    ['3', 'LoteProduto', 'Lote do Produto'],
+    ['4', 'UdiProduto', 'UDI do Produto'],
+    ['5', 'AnexoProduto', 'Anexo do Produto'],
+    ['6', 'NomePaciente', 'Nome do Paciente'],
+    ['7', 'IdadePaciente', 'Idade do Paciente'],
+    ['8', 'GeneroPaciente', 'Gênero do Paciente'],
+    ['9', 'HistoricoClinicoPaciente', 'Histórico Clínico do Paciente'],
+    ['10', 'DataImplantacaoPaciente', 'Data de Implantação'],
+    ['11', 'DataRemocaoPaciente', 'Data de Remoção'],
+    ['12', 'TipoOssoPaciente', 'Tipo de Osso'],
+    ['13', 'CargaImediataPaciente', 'Carga Imediata'],
+    ['14', 'UtilizacaoInstrumentosSinPaciente', 'Utilização de Instrumentos SIN'],
+    ['15', 'UtilizacaoInxertoOsseoPaciente', 'Utilização de Enxerto Ósseo'],
+    ['16', 'RegiaoIntraoralPaciente', 'Região Intraoral'],
+    ['17', 'QuantidadeItemPaciente', 'Quantidade de Item'],
+    ['18', 'EmbasamentoNaoProcedenciaAnalise', 'Embasamento da Não Procedência'],
+    ['19', 'OutrasInformacoesAnalise', 'Outras Informações da Análise'],
+    ['20', 'NumeroNotificacaoFDAAnalise', 'Número de Notificação FDA'],
+    ['21', 'NumeroNotificacaoAnvisaAnalise', 'Número de Notificação Anvisa'],
+    ['22', 'TipoProcedenciaAnalise', 'Tipo de Procedência'],
+    ['23', 'TipoIncidenciaAnalise', 'Tipo de Incidência'],
+  ]}
+/>
+
+**`MotivoOcorrenciaHandsOn`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'CursosSolicitacaoHandsOnProfessor', 'Courses - Hands-On Request with Instructor'],
+    ['1', 'CursosSolicitacaoMaterialHandsOn', 'Courses - Request for Hands-On Materials'],
+    ['2', 'CursosSolicitacaoVisitaFabrica', 'Courses - Factory Visit Request'],
+  ]}
+/>
+
+**`SituacaoOcorrenciaHandsOn`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Abertura', 'Opening'],
+  ]}
+/>
+
+**`StatusOcorrencia`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['1', 'Recebimento', 'Receipt'],
+    ['2', 'VerificarInformacoes', 'Verify Information'],
+    ['3', 'AnaliseTecnica', 'Technical Analysis'],
+    ['4', 'Encerrado', 'Closed'],
+    ['5', 'Faturamento', 'Billing'],
+    ['6', 'Reanalise', 'Reanalysis'],
+    ['7', 'Cancelado', 'Cancelled'],
+  ]}
+/>
+
+**`TipoAtividade`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['1', 'AguardandoDocumentacao', 'Awaiting Documentation'],
+    ['2', 'AguardandoInformacoes', 'Awaiting Information'],
+    ['3', 'AguardandoDocumentacaoEInformacoes', 'Awaiting Documentation and Information'],
+    ['4', 'Aprovacao', 'Approval'],
+    ['5', 'Encerramento', 'Closure'],
+    ['6', 'Cancelamento', 'Cancellation'],
+    ['7', 'Reanalise', 'Reanalysis'],
+  ]}
+/>
+
+**`TipoCursoHandsOn`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Especializacao', 'Specialization'],
+    ['1', 'Atualizacao', ''],
+    ['2', 'Imersao', 'Immersion'],
+    ['3', 'Doutorado', 'Doctorate'],
+    ['4', 'Mestrado', 'Master\'s'],
+  ]}
+/>
+
+**`TipoOcorrencia`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['1', 'PFCQ', 'PFCQ'],
+    ['2', 'Lead', 'Lead'],
+    ['3', 'Atendimento', 'Service'],
+  ]}
+/>
+
+**`TipoOcorrenciaHandsOn`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'SolicitacoesHandsOnProfessor', 'Teacher Occurrence'],
+  ]}
+/>
+
+**`TipoOssoEnum`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['1', 'I', 'Bone type I'],
+    ['2', 'II', 'Bone type II'],
+    ['3', 'III', 'Bone type III'],
+    ['4', 'IV', 'Bone type IV'],
+  ]}
+/>
+
+**`TipoPergunta`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'SimENao', 'Sim ou Não'],
+    ['1', 'CampoAberto', 'Campo aberto'],
+    ['2', 'MultiplaEscolha', 'Multipla Escolha'],
+    ['3', 'MultiplaSelecao', 'Multipla Seleção'],
+    ['4', 'Numero', 'Número'],
+    ['5', 'Data', 'Data'],
+    ['6', 'Email', 'E-mail'],
+    ['7', 'Telefone', 'Telefone'],
+    ['8', 'CpfOuCnpj', 'CPF/CNPJ'],
+    ['9', 'Anexo', 'CPF/CNPJ'],
+  ]}
+/>
+
+**`TipoProcedencia`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Procedente', 'Type of Validity'],
+    ['1', 'NaoProcedente', 'Not Valid'],
+  ]}
+/>
+
+
+### Pedidos
+
+**`AgrupamentoEtapaDeAprovacao`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'AguardandoLiberacao', 'Awaiting Release'],
+    ['1', 'EmAvaliacao', 'Under Review'],
+    ['2', 'Recusado', 'Rejected'],
+    ['3', 'RepasseCredito', 'Credit Transfer'],
+  ]}
+/>
+
+**`BloqueioDeAprovacao`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'DiasDaPrimeiraParcela', 'Days of the First Installment'],
+    ['1', 'PoliticaComercialDescontoDeItem', 'Commercial Policy (Item Discount)'],
+    ['2', 'PoliticaComercialDescontoTotal', 'Commercial Policy (Total Discount)'],
+    ['3', 'Bonificacao', 'Bonus'],
+    ['4', 'Consignacao', 'Consignment'],
+    ['5', 'ValorMinimoPedido', 'Minimum Order Value'],
+    ['6', 'Credito', 'Credit'],
+    ['7', 'RecusaAnaliseCredito', 'Refusal of Credit Analysis'],
+    ['8', 'RecusaAnaliseAdministrativo', 'Refusal of Administrative Analysis'],
+    ['9', 'PedidoSemPoliticaComDesconto', 'Order does not match any policy, but has a discount'],
+    ['10', 'PedidoComProdutoExcecao', 'Order has a product with a sales Exception and therefore must be held for review by the Administration'],
+    ['11', 'PedidoInternacional', 'International Order'],
+    ['12', 'ItemDeContratoComDescontoMaiorQuePermitido', 'Discount greater than allowed by the Contract'],
+    ['13', 'ItemDeContratoEBonificadoNoMesmoPedido', 'Order with Contract Item and Bonus Item in the same Order'],
+    ['14', 'ValorDeFreteMenorQueOEstipuladoPelaSin', 'Freight value lower than the one set by the freight policy.'],
+    ['15', 'PoliticaComercialNaoEncontrada', 'Header Commercial Policy not found'],
+    ['16', 'CondicaoDePagamentoForaDaPolitica', 'Payment Condition Out of Policy'],
+    ['17', 'OrigemKA', 'Source Key Accounts'],
+    ['18', 'ValorDoPedidoAlterado', 'Order value changed'],
+  ]}
+/>
+
+**`FluxoPosAprovacaoDePedido`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'EnviarDiretoAoSAP', 'After approval, send straight to SAP'],
+    ['1', 'GerarLinkDePagamentoPIX', 'Generate PIX payment link'],
+    ['2', 'GerarLinkDeCartao', 'Generate card payment link'],
+    ['3', 'GerarLinkMaquininha', 'Generate charge on the card terminal'],
+    ['4', 'TratarPagamentosMistos', 'Handle mixed payments'],
+    ['5', 'IntegrarPHC', 'Integrate to PHC'],
+  ]}
+/>
+
+**`FreteNacionalInternacional`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Nacional', 'National'],
+    ['1', 'Internacional', 'International'],
+  ]}
+/>
+
+**`GrupoResponsavelAprovacaoPedido`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'CreditoNacional', 'Credit'],
+    ['1', 'CreditoInternacional', 'Credit'],
+    ['2', 'AdmVendasNacional', 'Sales ADM'],
+    ['3', 'AdmVendasInternacional', 'Sales ADM'],
+    ['4', 'CobrancaNacional', 'Collections'],
+    ['5', 'CobrancaInternacional', 'Collections'],
+  ]}
+/>
+
+**`LocalidadeDePedido`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Nacional', 'National'],
+    ['1', 'Internacional', 'International'],
+  ]}
+/>
+
+**`PrioridadePedido`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Normal', 'Normal'],
+    ['1', 'ClienteNaFilial', 'Client in the Lounge'],
+    ['2', 'Urgente', 'Urgent'],
+    ['3', 'RetirarNaFilial', 'Take at the Lounge'],
+  ]}
+/>
+
+**`SituacaoDoPainelDaHome`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Emitidos', 'Home panel: issued orders'],
+    ['1', 'Aguardando', 'Home panel: awaiting'],
+    ['2', 'ComErro', 'Home panel: with error'],
+    ['3', 'Faturados', 'Home panel: invoiced'],
+  ]}
+/>
+
+**`StatusCicloDeAprovacao`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'EmProgresso', 'In Progress'],
+    ['1', 'Concluido', 'Completed'],
+    ['2', 'Cancelado', 'Canceled'],
+  ]}
+/>
+
+**`StatusDePedido`**
 
 <DocTable
   headers={['Value', 'Technical name', 'Meaning']}
@@ -95,16 +1566,16 @@ These enums are stored in the database as an **integer**. The table below is the
     ['31', 'PedidoExcluidoNoSAP', 'Order Deleted in SAP'],
     ['32', 'AguardandoSeparacaoDoPedido', 'Awaiting Order Picking'],
     ['33', 'EmSeparacao', 'Picking in Progress'],
-    ['34', 'SeparadoParcialmente', 'Partially Picked'],
-    ['35', 'SeparadoCompletamente', 'Fully Picked'],
+    ['34', 'SeparadoParcialmente', 'Separado Parcialmente'],
+    ['35', 'SeparadoCompletamente', 'Separado Completamente'],
     ['36', 'EnviadoParaFaturamento', 'Sent for Billing'],
-    ['37', 'AguardandoFaturamento', 'Awaiting Billing'],
+    ['37', 'AguardandoFaturamento', 'Aguardando Faturamento'],
     ['38', 'ErroNoFaturamento', 'Billing Error'],
     ['39', 'LinkPixGerado', 'PIX Link Generated'],
     ['40', 'ErroIntegracaoSap', 'SAP Integration Error'],
     ['41', 'FolhaDePickingGerada', 'Picking Sheet generated'],
-    ['42', 'PedidoAprovadoAutomaticamente', 'Order automatically approved in credit analysis'],
-    ['43', 'PedidoTDCLiberadoAutomaticamente', 'TDC order released automatically'],
+    ['42', 'PedidoAprovadoAutomaticamente', 'Order automatically approved in credit analysis.'],
+    ['43', 'PedidoTDCLiberadoAutomaticamente', 'Pedido de operação TDC Liberado automaticamente'],
     ['44', 'PedidoRepasseCredito', 'Credit Transfer Request'],
     ['45', 'AguardandoGerarPagamentosMistos', 'Awaiting Mixed Payments Generation'],
     ['46', 'PagamentosMistosGerados', 'Mixed Payments Generated'],
@@ -119,56 +1590,577 @@ These enums are stored in the database as an **integer**. The table below is the
     ['55', 'AguardandoIntegracaoPedidoConsumo', 'Awaiting Consumption Request Integration'],
     ['56', 'ErroAoIntegrarPedidoDeConsumo', 'Error Integrating Consumption Request'],
     ['57', 'ProcessarDevolucaoSimbolica', 'Sent for Symbolic Return Processing'],
-    ['58', 'IntegradoParcial', 'Partial Integrated'],
-    ['59', 'CicloDeAprovacaoRecusado', 'Refused'],
+    ['58', 'IntegradoParcial', 'Partially Integrated'],
+    ['59', 'CicloDeAprovacaoRecusado', 'Recusado'],
     ['60', 'LiberadoEmNovaFilaDeAprovacao', 'Released in New Approval Queue'],
     ['800', 'EnviadoIntegracaoPHC', 'Submitted for PHC Integration'],
   ]}
-  caption="Order status De/Para (database value → meaning)"
 />
 
-<Callout type="info" title="Values 900 to 903">
-Values 900–903 (`EnviadoParaAnaliseAdministrativo`, `EmAnaliseAdministrativo`, `EnviadoParaAnaliseCredito`, `EmAnaliseCredito`) are **visual helpers** — used only on the screen, never stored in the database.
-</Callout>
-
-### Other order enums
+**`StatusEtapaDeAprovacao`**
 
 <DocTable
-  headers={['Enum', 'Value', 'Technical name']}
+  headers={['Value', 'Technical name', 'Meaning']}
   rows={[
-    ['Quote status (StatusOrcamento)', '0 / 1 / 2', 'EmNegociacao / PedidoGerado / Cancelado'],
-    ['Item type (TipoDeItemPedido)', '0 to 6', 'Venda / Bonificacao / Campanha / Consignado / Troca / RemessaArmazenagemOPL / Devolucao'],
-    ['Freight type (TipoDeFrete)', '0 / 1', 'Cif / Fob'],
-    ['Priority (PrioridadePedido)', '0 to 3', 'Normal / ClienteNaFilial / Urgente / RetirarNaFilial'],
-    ['Locality (LocalidadeDePedido)', '0 / 1', 'Nacional / Internacional'],
-    ['Comex order type (TipoPedidoComex)', '0 / 1', 'Internacional / Nacional'],
+    ['0', 'AguardandoConclusaoEtapaAnterior', 'Awaiting Previous Step Completion'],
+    ['1', 'Pendente', 'Pending'],
+    ['2', 'Aprovado', 'Approved'],
+    ['3', 'Recusado', 'Rejected'],
+    ['4', 'Cancelado', 'Canceled'],
   ]}
-  caption="Main order enums stored as a number in the database"
 />
+
+**`StatusIntegracaoNotaFiscal`**
 
 <DocTable
-  headers={['Value', 'Technical name (StatusPagamentoMisto)']}
+  headers={['Value', 'Technical name', 'Meaning']}
   rows={[
-    ['1', 'AguardandoToken'],
-    ['2', 'TokenExpirado'],
-    ['3', 'FalhaNoPagamento'],
-    ['4', 'PagamentoNegado'],
-    ['5', 'TokenCancelado'],
-    ['6', 'PagoComSucesso'],
-    ['7', 'PagamentoCancelado'],
-    ['8', 'AguardandoIntegracaoSAP'],
-    ['9', 'AguardandoPagamentoCartao'],
-    ['10', 'ErroGerarLinkCartao'],
-    ['11', 'AguardandoGerarPix'],
-    ['12', 'ErroGerarPix'],
-    ['13', 'AguardandoPagamentoPIX'],
+    ['0', 'Iniciado', ''],
+    ['1', 'Aprovado', ''],
+    ['2', 'Concluido', ''],
+    ['3', 'Estornado', ''],
+    ['4', 'NotaFiscalEstornadaJaAtualizada', 'Updated Invoice'],
   ]}
-  caption="Mixed payment status De/Para"
 />
 
-<Callout type="cuidado" title="Watch out for TipoPedidoComex">
-The `TipoPedidoComex` enum is inverted relative to `LocalidadeDePedido`: here **0 = International** and **1 = National**. Always check which enum the column uses before reading the number.
-</Callout>
+**`StatusOrcamento`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'EmNegociacao', 'In Negotiation'],
+    ['1', 'PedidoGerado', 'Order Generated'],
+    ['2', 'Cancelado', 'Canceled'],
+  ]}
+/>
+
+**`StatusPagamentoMisto`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['1', 'AguardandoToken', 'Aguadando Token'],
+    ['2', 'TokenExpirado', 'Token Expirado'],
+    ['3', 'FalhaNoPagamento', 'Payment Failure'],
+    ['4', 'PagamentoNegado', 'Pagamento Negado'],
+    ['5', 'TokenCancelado', 'Token Cancelado'],
+    ['6', 'PagoComSucesso', 'Successfully Paid'],
+    ['7', 'PagamentoCancelado', 'Pagamento Cancelado'],
+    ['8', 'AguardandoIntegracaoSAP', 'Awaiting SAP Integration'],
+    ['9', 'AguardandoPagamentoCartao', 'Awaiting Card Payment'],
+    ['10', 'ErroGerarLinkCartao', 'Error Generating Card Payment'],
+    ['11', 'AguardandoGerarPix', 'Awaiting PIX Generation'],
+    ['12', 'ErroGerarPix', 'Error Generating PIX'],
+    ['13', 'AguardandoPagamentoPIX', 'Awaiting PIX Payment'],
+  ]}
+/>
+
+**`SubStatusAnaliseDeCredito`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['11', 'AnaliseExterna', '1.1 External Analysis'],
+    ['12', 'Documentacao', '1.2 Documentation'],
+    ['13', 'Biometria', '1.3 Biometrics'],
+    ['21', 'AnaliseInterna', '2.1 Internal Analysis'],
+    ['22', 'PagamentoDeEntrada', '2.2 Entry Payment'],
+    ['23', 'AssinaturaDoTermo', '2.3 Signing the agreement'],
+    ['24', 'EmAvalicaoDeCredito', ''],
+    ['211', 'AnaliseExternaAprovado', 'Approved'],
+    ['212', 'AnaliseExternaRecusado', 'Rejected'],
+    ['221', 'AnaliseInternaAprovado', 'Approved'],
+    ['222', 'AnaliseInternaCondicionado', 'Conditional'],
+    ['231', 'RepassePagamentoEntrada', 'Down Payment'],
+    ['232', 'RepasseAssinaturaDoTermo', 'Signing of Term'],
+    ['233', 'RepasseCadastroBiometria', 'Biometric Registration'],
+    ['234', 'RepasseEnvioDocumento', 'Document Submission'],
+    ['235', 'RepasseNegociacao', 'Negotiation'],
+    ['236', 'AnaliseExternaCredito', 'External Analysis'],
+    ['237', 'AnaliseInternaCredito', 'Internal Analysis'],
+    ['238', 'AnaliseInternaNegociacao', 'Payment Negotiation'],
+    ['239', 'RepasseCreditoAprovado', 'Credit Approved'],
+    ['240', 'RepassePendentePagamentoEntrada', 'Pending Entry Payment'],
+    ['241', 'RepasseTermoEmissao', 'Agreement in Issuance'],
+    ['242', 'RepasseTermoEnviado', 'Agreement Sent - Pending Signature'],
+    ['243', 'RepassePendenciaJuridica', 'Document Submission'],
+  ]}
+/>
+
+**`SubStatusCicloDeAprovacaoEnum`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'AprovadoADM', 'Admin Approved'],
+    ['1', 'RecusadoADM', 'Admin Rejected'],
+    ['2', 'AprovadoCredito', 'Credit Approved'],
+    ['3', 'RecusadoCredito', 'Credit Rejected'],
+  ]}
+/>
+
+**`TipoDeDesconto`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'ValorUnitario', 'Inform Unit Value'],
+    ['1', 'Porcentagem', 'Inform % Discount'],
+  ]}
+/>
+
+**`TipoDeEnderecoDeEntrega`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Principal', 'Main'],
+    ['1', 'Alternativo', 'Alternative'],
+    ['2', 'Digitado', 'typed'],
+  ]}
+/>
+
+**`TipoDeFrete`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Cif', 'CIF'],
+    ['1', 'Fob', 'FOB'],
+  ]}
+/>
+
+**`TipoDeInformacaoDePedido`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['1', 'AlteracaoDeValor', 'Value Changed'],
+  ]}
+/>
+
+**`TIpoDeItemOrcamento`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Venda', 'Sale'],
+    ['1', 'Bonificacao', 'Bonus'],
+  ]}
+/>
+
+**`TIpoDeItemPedido`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Venda', 'For sale'],
+    ['1', 'Bonificacao', 'bonus'],
+    ['2', 'Campanha', 'Campaign'],
+    ['3', 'Consignado', 'Consigned'],
+    ['4', 'Troca', 'Replacement'],
+    ['5', 'RemessaArmazenagemOPL', 'OPL Storage Shipment'],
+    ['6', 'Devolucao', 'Return'],
+  ]}
+/>
+
+**`TipoDePrevisaoDeEntrega`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Logradouro', 'Public place'],
+    ['1', 'Cidade', 'City'],
+    ['2', 'Estado', 'state'],
+    ['3', 'Cliente', 'Client'],
+  ]}
+/>
+
+**`TipoIncotermPedido`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Cif', 'CIF - Cost, Insurance and Freigth'],
+    ['1', 'Exw', 'EXW - Ex Works'],
+    ['2', 'Fas', 'FAS - Free Alongside'],
+    ['3', 'Fca', 'FCA - Free Carrier'],
+    ['4', 'Fob', 'FOB - Free on Board'],
+    ['5', 'Cfr', 'CFR - Cost and Freigth'],
+    ['6', 'Cpt', 'CPT - Carriage Paid To'],
+    ['7', 'Cip', 'CIP - Carriage and Insurance Paid To'],
+    ['8', 'Dap', 'DAP - Delivered at Place'],
+    ['9', 'Dpu', 'DPU - Delivered at Place Unloaded'],
+    ['10', 'Ddp', 'DDP - Delivered Duty Paid'],
+  ]}
+/>
+
+**`TipoItemNotaFiscal`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Venda', 'For sale'],
+    ['1', 'Bonificacao', 'bonus'],
+  ]}
+/>
+
+**`TipoPedidoComex`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Internacional', 'Export'],
+    ['1', 'Nacional', 'Nationalized'],
+  ]}
+/>
+
+**`TransportadoraNacionalInternacional`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Nacional', 'National'],
+    ['1', 'Internacional', 'International'],
+    ['2', 'Ambos', 'Both'],
+  ]}
+/>
+
+
+### Politicas
+
+**`AplicacaoPolitica`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'TipoDeProduto', 'Product type'],
+    ['1', 'FamiliaDeProduto', 'Product family'],
+    ['2', 'GrupoDeProduto', 'Product Group'],
+    ['3', 'Produto', 'Product'],
+  ]}
+/>
+
+**`FormaAplicacaoPremiacaoCondicionada`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'AoEnviar', 'On Submit'],
+    ['1', 'AoDigitar', 'On Type'],
+  ]}
+/>
+
+**`FormaDeAplicacaoDoPedido`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'NaoAplica', 'Does not apply'],
+    ['1', 'AplicaEAceitaAlterar', 'Apply and agree to change'],
+    ['2', 'AplicaENaoAceitaAlterar', 'Applies and does not accept to change'],
+  ]}
+/>
+
+**`FormaDeAtuacaoDaPolitica`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Porcentagem', 'percentage'],
+    ['1', 'Valor', 'Value'],
+  ]}
+/>
+
+**`FormaDeContabilizacaoDaPolitica`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Quantidade', 'Amount'],
+    ['1', 'Valor', 'Value'],
+  ]}
+/>
+
+**`HierarquiaDeEstruturaComercial`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Sin', 'SIN'],
+    ['1', 'Diretoria', 'Board of Directors'],
+    ['2', 'GnvFVE', 'GNV (FVE)'],
+    ['3', 'GnvFVI', 'GNV (FVI)'],
+    ['4', 'GR', 'GR'],
+    ['5', 'GD', 'GD'],
+    ['6', 'Coordenador', ''],
+    ['7', 'Supervisor', 'Supervisor'],
+    ['8', 'ConsultorFvi', 'FVI consultant'],
+    ['9', 'ConsultorFve', 'FVE consultant'],
+    ['10', 'Representante', 'Representative'],
+    ['11', 'Assessor', 'Advisor'],
+    ['12', 'Administrativo', 'Administrative'],
+    ['13', 'ExecutivoVarejo', 'Executivo Varejo'],
+    ['14', 'ExecutivoKA', 'Executivo KA'],
+    ['15', 'ExecutivoSinSolution', 'SIN Solution Executive'],
+    ['16', 'ExecutivoSinSolutionInterno', 'FVI SIN Solution'],
+  ]}
+/>
+
+**`PedidoOrcamento`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Pedido', 'Order'],
+    ['1', 'Orcamento', 'Quote'],
+    ['2', 'Ambos', 'Both'],
+  ]}
+/>
+
+**`PoliticaNacionalInternacional`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Nacional', 'National'],
+    ['1', 'Internacional', 'International'],
+    ['2', 'Ambos', 'National or International'],
+  ]}
+/>
+
+**`RegraPolitica`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Cabecalho', 'Header'],
+    ['1', 'Item', 'Item'],
+  ]}
+/>
+
+**`TipoDeBonificacaoDeCampanha`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Quantidade', 'Amount'],
+    ['1', 'Valor', 'Value'],
+  ]}
+/>
+
+**`TipoDePoliticaComercial`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Politica', 'Policy'],
+    ['1', 'Campanha', 'Campaign'],
+  ]}
+/>
+
+**`TipoDeRestricaoDeVenda`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Restricao', 'Rule that restricts (blocks) the sale'],
+    ['1', 'Excecao', 'Exception that allows the sale'],
+  ]}
+/>
+
+**`ValidacaoDeDataDoPedido`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Emissao', 'Issue'],
+    ['1', 'Liberacao', 'Release'],
+  ]}
+/>
+
+**`ValorAConsiderarDoPedido`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Liquido', 'Liquid'],
+    ['1', 'Bruto', 'gross'],
+  ]}
+/>
+
+
+### Produtos
+
+**`TipoDeHierarquiaDeProduto`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'AplicativoDeCatalogos', 'Catalog Application'],
+  ]}
+/>
+
+**`TipoDeImagem`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Produto', 'Product'],
+    ['1', 'Embalagem', 'Packing'],
+    ['2', 'Produto3D', '3D product'],
+    ['3', 'Embalagem3D', '3D packaging'],
+    ['4', 'Thumbnail', 'Thumbnail'],
+  ]}
+/>
+
+
+### Qualidade
+
+**`MotivoNaoPodeTransferir`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Nenhum', 'None'],
+    ['1', 'ExisteEmProcessamento', 'Transfer in progress'],
+    ['2', 'TodosJaTransferidos', 'All products already transferred'],
+    ['3', 'NenhumProdutoPendente', 'No product pending transfer'],
+    ['4', 'AnaliseNaoEncontrada', 'Analysis not found'],
+  ]}
+/>
+
+**`StatusAnaliseDeQualidade`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Vendavel', 'Vendável'],
+    ['1', 'Sucata', 'Sucata'],
+  ]}
+/>
+
+**`StatusProcessamentoLog`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Enviado', 'Sent'],
+    ['1', 'Sucesso', 'Success'],
+    ['2', 'Falha', 'Failure'],
+    ['3', 'ErroException', 'Exception Error'],
+    ['4', 'ConfirmadoManualmente', 'Manually Confirmed'],
+    ['5', 'RollbackExecutado', 'Rollback Executed'],
+  ]}
+/>
+
+**`StatusRefugo`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Descontinuado', 'Descontinuado'],
+    ['1', 'AtencaoProduto', 'Atenção Produto'],
+    ['3', 'RegraProdutoXLote', 'Regra Produto X Lote'],
+    ['4', 'Sucata', 'Sucata'],
+  ]}
+/>
+
+**`StatusTransferenciaDelage`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'NaoAplicavel', 'Not Applicable'],
+    ['1', 'Pendente', 'Pending'],
+    ['2', 'EmProcessamento', 'In Processing'],
+    ['3', 'Sucesso', 'Success'],
+    ['4', 'Falha', 'Failure'],
+    ['5', 'ErroException', 'Exception Error'],
+  ]}
+/>
+
+**`StatusTransferenciaSap`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Pendente', 'Pending'],
+    ['1', 'EmProcessamento', 'In Processing'],
+    ['2', 'Sucesso', 'Success'],
+    ['3', 'Falha', 'Failure'],
+    ['4', 'ErroException', 'Exception Error'],
+    ['5', 'ConfirmadoManualmente', 'Manually Confirmed'],
+    ['6', 'RollbackExecutado', 'Rollback Executed'],
+  ]}
+/>
+
+**`TipoDestinoTransferencia`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Sap', 'SAP'],
+    ['1', 'Delage', 'Delage WMSrx'],
+  ]}
+/>
+
+
+### Regulatorios
+
+**`Acessorio`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Nao', 'Yes'],
+    ['1', 'Sim', 'No'],
+  ]}
+/>
+
+**`StatusAnvisa`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Ativo', 'Active'],
+    ['1', 'Inativo', 'Inactive'],
+  ]}
+/>
+
+**`TipoDoProduto`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Esteril', 'Sterile Product?'],
+    ['1', 'NaoEsteril', 'Non-Sterile'],
+  ]}
+/>
+
+
+### Roteirizador
+
+**`TipoAusencia`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Intervalo', 'Interval'],
+    ['1', 'Periodo', 'Period'],
+    ['2', 'DiaTodo', 'All Day'],
+  ]}
+/>
+
+**`TipoCampo`**
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Texto', 'Text'],
+    ['1', 'Imagem', 'Image'],
+  ]}
+/>
 
 ## Order — sales organization and channel
 
