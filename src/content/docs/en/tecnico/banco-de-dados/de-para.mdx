@@ -48,6 +48,128 @@ There is no "De/Para" screen in CrmSin. These mappings live partly in the integr
   caption="Where the De/Para mappings are stored"
 />
 
+<Callout type="info" title="Two kinds of De/Para">
+This page has two kinds: **(1) Enums** — the number stored in the database column and what it means; and **(2) SAP integration** — the translation of CrmSin codes into the codes SAP expects.
+</Callout>
+
+## Order enums (database code → meaning)
+
+These enums are stored in the database as an **integer**. The table below is the De/Para between the stored value, the technical enum name and the meaning shown to the user. Source: `CrmSin.Domain.Entities/Pedidos/Models/Enums`.
+
+### Order status (`StatusDePedido`)
+
+<DocTable
+  headers={['Value', 'Technical name', 'Meaning']}
+  rows={[
+    ['0', 'Rascunho', 'Draft'],
+    ['1', 'Liberado', 'Released'],
+    ['2', 'Cancelado', 'Canceled CRM'],
+    ['3', 'AnaliseCredito', 'Credit Analysis'],
+    ['4', 'AnaliseAdministrativo', 'Administrative Analysis'],
+    ['5', 'Integrado', 'Integrated'],
+    ['6', 'ErroIntegracao', 'Integration Error'],
+    ['7', 'Faturado', 'Invoiced'],
+    ['8', 'FaturadoParcial', 'Partial Invoiced'],
+    ['9', 'FaturadoECancelado', 'Billed and Canceled'],
+    ['10', 'RecusaAnaliseCredito', 'Refusal of Credit Analysis'],
+    ['11', 'RecusaAnaliseAdministrativo', 'Refusal of Administrative Analysis'],
+    ['12', 'AguardandoToken', 'Awaiting Token'],
+    ['13', 'AguardandoPagamentoCartao', 'Awaiting Card Payment'],
+    ['14', 'AguardandoPagamentoPIX', 'Awaiting Payment PIX'],
+    ['15', 'FalhaNoPagamento', 'Payment Failure'],
+    ['16', 'TokenExpirado', 'Expired Token'],
+    ['17', 'PagamentoNegado', 'Payment Denied'],
+    ['18', 'PagamentoCancelado', 'Payment Canceled'],
+    ['19', 'FalhaDeComunicacaoComFornecedor', 'Communication Failure With the Supplier'],
+    ['20', 'TokenCancelado', 'Canceled Token'],
+    ['21', 'AguardandoGerarPix', 'Waiting to Generate the Pix'],
+    ['22', 'ErroGerarPix', 'Error Generating Pix'],
+    ['23', 'ErroGerarLinkCartao', 'Error Generating Card Payment Link'],
+    ['24', 'CanceladoSap', 'Canceled SAP'],
+    ['25', 'PedidoEmAvaliacaoCredito', 'Order Under Credit Review'],
+    ['26', 'PedidoParcialmenteCanceladoNoSAP', 'Partially Canceled in SAP'],
+    ['27', 'PedidoEmAvaliacaoAdministrativo', 'Order Under Administrative Review'],
+    ['28', 'EmProcessamento', 'Processing'],
+    ['29', 'CanceladoFinanceiro', 'Credit Canceled'],
+    ['30', 'CanceladoAdministrativo', 'Sales Administration Canceled'],
+    ['31', 'PedidoExcluidoNoSAP', 'Order Deleted in SAP'],
+    ['32', 'AguardandoSeparacaoDoPedido', 'Awaiting Order Picking'],
+    ['33', 'EmSeparacao', 'Picking in Progress'],
+    ['34', 'SeparadoParcialmente', 'Partially Picked'],
+    ['35', 'SeparadoCompletamente', 'Fully Picked'],
+    ['36', 'EnviadoParaFaturamento', 'Sent for Billing'],
+    ['37', 'AguardandoFaturamento', 'Awaiting Billing'],
+    ['38', 'ErroNoFaturamento', 'Billing Error'],
+    ['39', 'LinkPixGerado', 'PIX Link Generated'],
+    ['40', 'ErroIntegracaoSap', 'SAP Integration Error'],
+    ['41', 'FolhaDePickingGerada', 'Picking Sheet generated'],
+    ['42', 'PedidoAprovadoAutomaticamente', 'Order automatically approved in credit analysis'],
+    ['43', 'PedidoTDCLiberadoAutomaticamente', 'TDC order released automatically'],
+    ['44', 'PedidoRepasseCredito', 'Credit Transfer Request'],
+    ['45', 'AguardandoGerarPagamentosMistos', 'Awaiting Mixed Payments Generation'],
+    ['46', 'PagamentosMistosGerados', 'Mixed Payments Generated'],
+    ['47', 'AguardandoPagamentosMistos', 'Awaiting Mixed Payments'],
+    ['48', 'ErroAoProcessarPagamentoMisto', 'Error Processing Mixed Payment'],
+    ['49', 'PagamentoMistoParcialmentePagoComSucesso', 'Mixed Payment Partially Paid'],
+    ['50', 'MudancaDeLoungeDoPedido', 'Change in Order Lounge'],
+    ['51', 'CicloDeAprovacaoCancelado', 'Approval Cycle Canceled'],
+    ['52', 'AguardandoAprovacoes', 'Waiting for Approvals'],
+    ['53', 'CicloDeAprovacaoConcluido', 'Approval Cycle Completed'],
+    ['54', 'ErroAoTratarPedidoTotalmenteAprovado', 'Error Processing Request After Approvals'],
+    ['55', 'AguardandoIntegracaoPedidoConsumo', 'Awaiting Consumption Request Integration'],
+    ['56', 'ErroAoIntegrarPedidoDeConsumo', 'Error Integrating Consumption Request'],
+    ['57', 'ProcessarDevolucaoSimbolica', 'Sent for Symbolic Return Processing'],
+    ['58', 'IntegradoParcial', 'Partial Integrated'],
+    ['59', 'CicloDeAprovacaoRecusado', 'Refused'],
+    ['60', 'LiberadoEmNovaFilaDeAprovacao', 'Released in New Approval Queue'],
+    ['800', 'EnviadoIntegracaoPHC', 'Submitted for PHC Integration'],
+  ]}
+  caption="Order status De/Para (database value → meaning)"
+/>
+
+<Callout type="info" title="Values 900 to 903">
+Values 900–903 (`EnviadoParaAnaliseAdministrativo`, `EmAnaliseAdministrativo`, `EnviadoParaAnaliseCredito`, `EmAnaliseCredito`) are **visual helpers** — used only on the screen, never stored in the database.
+</Callout>
+
+### Other order enums
+
+<DocTable
+  headers={['Enum', 'Value', 'Technical name']}
+  rows={[
+    ['Quote status (StatusOrcamento)', '0 / 1 / 2', 'EmNegociacao / PedidoGerado / Cancelado'],
+    ['Item type (TipoDeItemPedido)', '0 to 6', 'Venda / Bonificacao / Campanha / Consignado / Troca / RemessaArmazenagemOPL / Devolucao'],
+    ['Freight type (TipoDeFrete)', '0 / 1', 'Cif / Fob'],
+    ['Priority (PrioridadePedido)', '0 to 3', 'Normal / ClienteNaFilial / Urgente / RetirarNaFilial'],
+    ['Locality (LocalidadeDePedido)', '0 / 1', 'Nacional / Internacional'],
+    ['Comex order type (TipoPedidoComex)', '0 / 1', 'Internacional / Nacional'],
+  ]}
+  caption="Main order enums stored as a number in the database"
+/>
+
+<DocTable
+  headers={['Value', 'Technical name (StatusPagamentoMisto)']}
+  rows={[
+    ['1', 'AguardandoToken'],
+    ['2', 'TokenExpirado'],
+    ['3', 'FalhaNoPagamento'],
+    ['4', 'PagamentoNegado'],
+    ['5', 'TokenCancelado'],
+    ['6', 'PagoComSucesso'],
+    ['7', 'PagamentoCancelado'],
+    ['8', 'AguardandoIntegracaoSAP'],
+    ['9', 'AguardandoPagamentoCartao'],
+    ['10', 'ErroGerarLinkCartao'],
+    ['11', 'AguardandoGerarPix'],
+    ['12', 'ErroGerarPix'],
+    ['13', 'AguardandoPagamentoPIX'],
+  ]}
+  caption="Mixed payment status De/Para"
+/>
+
+<Callout type="cuidado" title="Watch out for TipoPedidoComex">
+The `TipoPedidoComex` enum is inverted relative to `LocalidadeDePedido`: here **0 = International** and **1 = National**. Always check which enum the column uses before reading the number.
+</Callout>
+
 ## Order — sales organization and channel
 
 Derived while building the order header, in this order of precedence:

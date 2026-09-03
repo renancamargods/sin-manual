@@ -47,6 +47,128 @@ Não existe uma tela "De/Para" no CrmSin. Estes mapeamentos vivem em parte no **
   caption="Onde ficam armazenados os mapeamentos De/Para"
 />
 
+<Callout type="info" title="Dois tipos de De/Para">
+Há dois tipos nesta página: **(1) Enums** — o número gravado na coluna do banco e o que ele significa; e **(2) Integração SAP** — a tradução dos códigos do CrmSin para os códigos que o SAP espera.
+</Callout>
+
+## Enums de Pedido (código no banco → significado)
+
+Estes enums são gravados no banco como **número inteiro**. A tabela abaixo é o De/Para entre o valor armazenado, o nome técnico do enum e o significado exibido ao usuário. Fonte: `CrmSin.Domain.Entities/Pedidos/Models/Enums`.
+
+### Status do Pedido (`StatusDePedido`)
+
+<DocTable
+  headers={['Valor', 'Nome técnico', 'Significado']}
+  rows={[
+    ['0', 'Rascunho', 'Rascunho'],
+    ['1', 'Liberado', 'Liberado'],
+    ['2', 'Cancelado', 'Cancelado CRM'],
+    ['3', 'AnaliseCredito', 'Em Análise de Crédito'],
+    ['4', 'AnaliseAdministrativo', 'Em Análise Administrativo'],
+    ['5', 'Integrado', 'Integrado'],
+    ['6', 'ErroIntegracao', 'Erro Integração'],
+    ['7', 'Faturado', 'Faturado'],
+    ['8', 'FaturadoParcial', 'Faturado Parcial'],
+    ['9', 'FaturadoECancelado', 'Faturado + Cancelado'],
+    ['10', 'RecusaAnaliseCredito', 'Recusa Análise Crédito'],
+    ['11', 'RecusaAnaliseAdministrativo', 'Recusa Análise Administrativa'],
+    ['12', 'AguardandoToken', 'Aguardando Token'],
+    ['13', 'AguardandoPagamentoCartao', 'Aguardando Pagamento Cartão'],
+    ['14', 'AguardandoPagamentoPIX', 'Aguardando Pagamento Pix'],
+    ['15', 'FalhaNoPagamento', 'Falha no Pagamento'],
+    ['16', 'TokenExpirado', 'Token Expirado'],
+    ['17', 'PagamentoNegado', 'Pagamento Negado'],
+    ['18', 'PagamentoCancelado', 'Pagamento Cancelado'],
+    ['19', 'FalhaDeComunicacaoComFornecedor', 'Falha de Comunicação com o Fornecedor'],
+    ['20', 'TokenCancelado', 'Token Cancelado'],
+    ['21', 'AguardandoGerarPix', 'Aguardando Gerar Pix'],
+    ['22', 'ErroGerarPix', 'Erro Gerar Pix'],
+    ['23', 'ErroGerarLinkCartao', 'Erro ao Gerar o Link de Pagamento Cartão'],
+    ['24', 'CanceladoSap', 'Cancelado SAP'],
+    ['25', 'PedidoEmAvaliacaoCredito', 'Pedido em Avaliação do Crédito'],
+    ['26', 'PedidoParcialmenteCanceladoNoSAP', 'Parcialmente Cancelado no SAP'],
+    ['27', 'PedidoEmAvaliacaoAdministrativo', 'Pedido em Avaliação do Administrativo'],
+    ['28', 'EmProcessamento', 'Em Processamento'],
+    ['29', 'CanceladoFinanceiro', 'Cancelado Crédito'],
+    ['30', 'CanceladoAdministrativo', 'Cancelado Adm de Vendas'],
+    ['31', 'PedidoExcluidoNoSAP', 'Pedido Excluído no SAP'],
+    ['32', 'AguardandoSeparacaoDoPedido', 'Aguardando Separação do Pedido'],
+    ['33', 'EmSeparacao', 'Em Separação'],
+    ['34', 'SeparadoParcialmente', 'Separado Parcialmente'],
+    ['35', 'SeparadoCompletamente', 'Separado Completamente'],
+    ['36', 'EnviadoParaFaturamento', 'Enviado para Faturamento'],
+    ['37', 'AguardandoFaturamento', 'Aguardando Faturamento'],
+    ['38', 'ErroNoFaturamento', 'Erro no Faturamento'],
+    ['39', 'LinkPixGerado', 'Link do Pix Gerado'],
+    ['40', 'ErroIntegracaoSap', 'Erro Integração SAP'],
+    ['41', 'FolhaDePickingGerada', 'Folha de Picking gerada'],
+    ['42', 'PedidoAprovadoAutomaticamente', 'Pedido aprovado automaticamente na análise de crédito'],
+    ['43', 'PedidoTDCLiberadoAutomaticamente', 'Pedido de operação TDC liberado automaticamente'],
+    ['44', 'PedidoRepasseCredito', 'Pedido Repasse Crédito'],
+    ['45', 'AguardandoGerarPagamentosMistos', 'Aguardando Geração de Pagamentos Mistos'],
+    ['46', 'PagamentosMistosGerados', 'Pagamentos Mistos Gerados'],
+    ['47', 'AguardandoPagamentosMistos', 'Aguardando Pagamentos Mistos'],
+    ['48', 'ErroAoProcessarPagamentoMisto', 'Erro ao Processar Pagamento Misto'],
+    ['49', 'PagamentoMistoParcialmentePagoComSucesso', 'Pagamento Misto Parcialmente Pago'],
+    ['50', 'MudancaDeLoungeDoPedido', 'Mudança no Lounge do Pedido'],
+    ['51', 'CicloDeAprovacaoCancelado', 'Ciclo de Aprovação Cancelado'],
+    ['52', 'AguardandoAprovacoes', 'Aguardando Aprovações'],
+    ['53', 'CicloDeAprovacaoConcluido', 'Ciclo de Aprovação Concluído'],
+    ['54', 'ErroAoTratarPedidoTotalmenteAprovado', 'Erro ao Tratar Pedido após Aprovações'],
+    ['55', 'AguardandoIntegracaoPedidoConsumo', 'Aguardando Integração Pedido de Consumo'],
+    ['56', 'ErroAoIntegrarPedidoDeConsumo', 'Erro ao Integrar Pedido de Consumo'],
+    ['57', 'ProcessarDevolucaoSimbolica', 'Enviado para Processamento de Devolução Simbólica'],
+    ['58', 'IntegradoParcial', 'Integrado Parcial'],
+    ['59', 'CicloDeAprovacaoRecusado', 'Recusado'],
+    ['60', 'LiberadoEmNovaFilaDeAprovacao', 'Liberado em Nova Fila de Aprovação'],
+    ['800', 'EnviadoIntegracaoPHC', 'Enviado para Integração PHC'],
+  ]}
+  caption="De/Para do status do pedido (valor no banco → significado)"
+/>
+
+<Callout type="info" title="Valores 900 a 903">
+Os valores 900–903 (`EnviadoParaAnaliseAdministrativo`, `EmAnaliseAdministrativo`, `EnviadoParaAnaliseCredito`, `EmAnaliseCredito`) são **auxiliares visuais** — usados só na tela, nunca gravados no banco.
+</Callout>
+
+### Outros enums de Pedido
+
+<DocTable
+  headers={['Enum', 'Valor', 'Nome técnico']}
+  rows={[
+    ['Status do Orçamento (StatusOrcamento)', '0 / 1 / 2', 'EmNegociacao / PedidoGerado / Cancelado'],
+    ['Tipo de Item (TipoDeItemPedido)', '0 a 6', 'Venda / Bonificacao / Campanha / Consignado / Troca / RemessaArmazenagemOPL / Devolucao'],
+    ['Tipo de Frete (TipoDeFrete)', '0 / 1', 'Cif / Fob'],
+    ['Prioridade (PrioridadePedido)', '0 a 3', 'Normal / ClienteNaFilial / Urgente / RetirarNaFilial'],
+    ['Localidade (LocalidadeDePedido)', '0 / 1', 'Nacional / Internacional'],
+    ['Tipo de Pedido Comex (TipoPedidoComex)', '0 / 1', 'Internacional / Nacional'],
+  ]}
+  caption="Principais enums de Pedido gravados como número no banco"
+/>
+
+<DocTable
+  headers={['Valor', 'Nome técnico (StatusPagamentoMisto)']}
+  rows={[
+    ['1', 'AguardandoToken'],
+    ['2', 'TokenExpirado'],
+    ['3', 'FalhaNoPagamento'],
+    ['4', 'PagamentoNegado'],
+    ['5', 'TokenCancelado'],
+    ['6', 'PagoComSucesso'],
+    ['7', 'PagamentoCancelado'],
+    ['8', 'AguardandoIntegracaoSAP'],
+    ['9', 'AguardandoPagamentoCartao'],
+    ['10', 'ErroGerarLinkCartao'],
+    ['11', 'AguardandoGerarPix'],
+    ['12', 'ErroGerarPix'],
+    ['13', 'AguardandoPagamentoPIX'],
+  ]}
+  caption="De/Para do status de pagamento misto"
+/>
+
+<Callout type="cuidado" title="Atenção ao TipoPedidoComex">
+O enum `TipoPedidoComex` é invertido em relação ao `LocalidadeDePedido`: aqui **0 = Internacional** e **1 = Nacional**. Confira sempre qual enum a coluna usa antes de interpretar o número.
+</Callout>
+
 ## Pedido — organização de vendas e canal
 
 Derivados na montagem da capa do pedido, nesta ordem de precedência:
