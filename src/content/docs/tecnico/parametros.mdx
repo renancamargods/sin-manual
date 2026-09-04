@@ -59,3 +59,61 @@ Além da configuração geral, há parâmetros **específicos de produto por Lou
 <Callout type="info" title="Relação com Permissões e Flags">
 O que um usuário pode fazer é definido por [Permissões](/tecnico/permissoes) (perfis), enquanto **parâmetros** ajustam *como* o sistema se comporta. A antiga ideia de "Flags" foi incorporada aqui e em Controle de Funcionalidade.
 </Callout>
+
+## Os parâmetros cadastrados (do sistema)
+
+Hoje o sistema tem **6 grupos de parâmetro**, cada um com seus pares **Chave/Valor**. Abaixo, o que cada grupo faz e as chaves reais (valores conforme o ambiente de Homologação; alguns valores de integração foram omitidos por serem sensíveis).
+
+### Senha — política de senha
+
+<DocTable
+  headers={['Chave', 'Valor', 'O que controla']}
+  rows={[
+    ['DiasValidadeSenha', '180', 'De quantos em quantos dias a senha expira.'],
+    ['RequerMaiuscula', '1', 'Exige letra maiúscula (1 = sim).'],
+    ['RequerMinuscula', '1', 'Exige letra minúscula (1 = sim).'],
+    ['RequerNumero', '1', 'Exige número (1 = sim).'],
+    ['RequerCaracterEspecial', '1', 'Exige caractere especial (1 = sim).'],
+    ['UltimasSenhas', '3', 'Quantas senhas anteriores ficam bloqueadas para reuso.'],
+    ['(mínimo de caracteres)', '15', 'Tamanho mínimo da senha.'],
+  ]}
+/>
+
+### Usuario — bloqueio de acesso
+
+<DocTable
+  headers={['O que controla', 'Valor']}
+  rows={[
+    ['Máximo de tentativas de login antes de bloquear', '5'],
+    ['Minutos de bloqueio do usuário após exceder as tentativas', '60'],
+  ]}
+/>
+
+### Análise de Qualidade — pré-carga e simulador
+
+<DocTable
+  headers={['Chave', 'Valor', 'O que faz']}
+  rows={[
+    ['PrecargaGtinAnaliseQualidade.Ativo', 'true', 'Liga a pré-carga de GTIN na Análise de Qualidade.'],
+    ['PrecargaGtinAnaliseQualidade.Grupos', 'Administrador; Expedição; T.D.C', 'Quais grupos usam a pré-carga.'],
+    ['SimuladorLeituraAnaliseQualidade.Ativo', 'true', 'Liga o simulador de leitura (bipagem).'],
+    ['SimuladorLeituraAnaliseQualidade.Grupos', 'Administrador; Expedição; T.D.C', 'Quais grupos usam o simulador.'],
+    ['SimuladorLeituraAnaliseQualidade.IntervaloEmMilissegundos', '100', 'Intervalo entre leituras simuladas.'],
+  ]}
+/>
+
+### BlocosDaHome — painel da home por perfil
+
+Define, **por perfil**, qual bloco de pedidos aparece na home:
+
+- **HomePedidosEquipe** (pedidos da equipe) — para gestores: Diretoria, GNV, GR, GD, Coordenador, Supervisor, Administrador (e as variações Sin Solutions).
+- **HomePedidosMeus** (meus pedidos) — para quem vende direto: Consultor FVE, Consultor FVI e Executivos Sin Solutions.
+
+### IntegracaoSap e ModuloNegocio
+
+- **IntegracaoSap** — parâmetros da integração com o SAP (um identificador e um flag de ativação; valores omitidos por serem de integração).
+- **ModuloNegocio** — parâmetros do módulo de negócio.
+
+<Callout type="info" title="Os valores valem por empresa e podem mudar">
+Estes são os valores no ambiente de Homologação. Cada empresa tem os seus, e eles mudam pelas telas **Parâmetro** e **Chave e Valor** — sempre com registro em log. Os defaults de fábrica (no código) podem diferir (ex.: validade de senha 90 dias no código vs 180 aqui).
+</Callout>

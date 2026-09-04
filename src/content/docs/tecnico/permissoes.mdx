@@ -82,3 +82,393 @@ Ao combinar perfis e permissões, um **"Negar"** explícito tende a prevalecer s
 - **Autenticador:** telas Perfil, Grupo, Módulo, URL e Usuário gerenciam tudo isso.
 - **APIs:** as chamadas da [API](/tecnico/apis) também respeitam esse modelo de permissão.
 - Muitos fluxos citam **grupos responsáveis** por aprovação (ex.: ADM, Crédito, Fiscal) — esses grupos se apoiam nos perfis/permissões aqui descritos.
+
+
+## Os perfis cadastrados (quem faz)
+
+Hoje existem **56 perfis** no sistema. Cada usuário recebe um ou mais deles, e é o perfil que decide o que a pessoa vê e faz. Abaixo, os perfis agrupados por área (o "quem faz"):
+
+**Hierarquia comercial (gestão e vendas)** — acompanham e vendem conforme o nível na estrutura comercial:
+Diretoria · GNV · GNV Sin Solutions · GR · GR Sin Solutions · GD · GD Sin Solutions · Coordenador · Supervisor · Consultor FVE · Consultor FVE Sin Solutions · Consultor FVI · FVI Volantes · Representante Comercial · Assessores
+
+**Canais e segmentos de venda:**
+Executivo KA · Key Account · Executivo Varejo · Executivo Sin Solutions · Executivo Sin Solutions FVI · ADM de Vendas · Vendas Comex · ADM Portugal · Internacional Business Consulta
+
+**Crédito, cobrança e financeiro:**
+Credito · Credito Comex · Cobrança · Cobrança Nacional Internacional · Diretoria Credito Cobrança Comex · Tesouraria · Tesouraria - Extrair Excel
+
+**Fiscal, qualidade e regulatório:**
+Fiscal · Qualidade · Regulatórios · Regulatórios visualização · Engenharia de Projetos
+
+**Contratos e cursos:**
+ADM de Contratos · Cursos · Cursos (Ramo de Atividade)
+
+**Comex:** ADM de Comex
+
+**Logística e operações:**
+Expedição · Operações · T.D.C · Filiais · Filiais Lideres · Operação Emissao
+
+**Marketing e inteligência:**
+Marketing · MKT Emissão · Inteligência Comercial
+
+**TI, sistema e integrações:**
+Administrador · Infraestrutura · TI Governança · Integração Tifam · Mensageria · FreshService · Digitação CIOSP
+
+<Callout type="info" title="Como ligar perfil e tela">
+Cada um desses perfis tem, por tela, o seu **Permitir/Negar** em cada ação. Essa combinação (perfil × tela × ação) é editada na tela **Perfil** do Autenticador — é o que dá, na prática, o acesso de cada pessoa.
+</Callout>
+
+## Catálogo de telas (superfície de permissão)
+
+Cada tela abaixo é um ponto de permissão: para cada uma, um perfil define **Permitir/Negar** em cada ação (Visualizar, Incluir, Alterar, Excluir, Exportar, Especial…). São **177 telas** em 19 módulos.
+
+<Callout type="info" title="As permissões efetivas ficam no sistema">
+Esta lista é a **superfície** (todas as telas). Quem pode o quê em cada uma (por perfil) é **dado do banco**, gerido nas telas Perfil e URL do Autenticador — não é listado aqui.
+</Callout>
+
+### Administrador (35)
+
+<DocTable
+  headers={['Tela']}
+  rows={[
+    ['Amarração de Faturamento por Lounge'],
+    ['Anexos'],
+    ['Atributo'],
+    ['Atualizador de Arquivos Json'],
+    ['Campo Validação'],
+    ['Canal de Entrada'],
+    ['Chave e Valor'],
+    ['Cidade'],
+    ['Conciliadora Pix'],
+    ['Controle de Funcionalidade'],
+    ['Dado Bancário'],
+    ['Domínio de Anexo'],
+    ['Empresa'],
+    ['Endereço'],
+    ['Estado'],
+    ['Execução de Serviço Agendado (indisponível)'],
+    ['Gerenciador de Usuários Conectados'],
+    ['Impressora de Etiqueta'],
+    ['Incoterm'],
+    ['Log de Execução de Serviço'],
+    ['Lounge'],
+    ['Mensagem Personalizada'],
+    ['Modo Projeto'],
+    ['Módulo de Negócio'],
+    ['País'],
+    ['Parâmetro'],
+    ['Porto de Destino'],
+    ['Post'],
+    ['Questionários'],
+    ['Serviço Agendado (indisponível)'],
+    ['Terminal de Pagamento'],
+    ['Tipo de Logradouro'],
+    ['Tipo de Mensagem'],
+    ['Tipos de Anexo'],
+    ['Trabalho'],
+  ]}
+/>
+
+
+### Aprovações (7)
+
+<DocTable
+  headers={['Tela']}
+  rows={[
+    ['Acompanhamento Ciclos de Aprovação'],
+    ['Entidade de Aprovação'],
+    ['Fila de Aprovações - Clientes'],
+    ['Fila de Aprovações - Contratos (indisponível)'],
+    ['Fila de Aprovações - Pedidos'],
+    ['Regra de Aprovação'],
+    ['Sub-Status - Ciclo de Aprovação'],
+  ]}
+/>
+
+
+### Autenticador (7)
+
+<DocTable
+  headers={['Tela']}
+  rows={[
+    ['Departamento de Usuário'],
+    ['Grupo'],
+    ['Módulo'],
+    ['Perfil'],
+    ['Tentativa de Login'],
+    ['URL'],
+    ['Usuário'],
+  ]}
+/>
+
+
+### Clientes (15)
+
+<DocTable
+  headers={['Tela']}
+  rows={[
+    ['Agrupamento de Cliente'],
+    ['Anexo de Cliente'],
+    ['Atividade Econômica'],
+    ['Canal'],
+    ['Categoria CFOP'],
+    ['Classificação Comercial'],
+    ['Cliente'],
+    ['Fila de Aprovações de Cadastros'],
+    ['Grupo Econômico'],
+    ['Parâmetro de Entidade Especial'],
+    ['Perfil de Consumo'],
+    ['Ramo de Atividade'],
+    ['Rede de Cliente'],
+    ['Regime Especial'],
+    ['SIN Partner'],
+  ]}
+/>
+
+
+### Contratos (6)
+
+<DocTable
+  headers={['Tela']}
+  rows={[
+    ['Anexo de Contrato'],
+    ['Contrato'],
+    ['Meta de Consumo'],
+    ['Período de Curso'],
+    ['Política de Contrato'],
+    ['Turma de Curso'],
+  ]}
+/>
+
+
+### Faturamentos (11)
+
+<DocTable
+  headers={['Tela']}
+  rows={[
+    ['Análise DataMatrix'],
+    ['Buscar Remessa (indisponível)'],
+    ['Fechamento de Consignado'],
+    ['Fila de Geração de Etiquetas'],
+    ['Fila de Remessas Aguardando Separação'],
+    ['Fila do Romaneio'],
+    ['Relatório de Consignado'],
+    ['Relatório de Status do Serial'],
+    ['Relatório Operador Logístico'],
+    ['Transferência Reversa'],
+    ['Trocas/Devoluções'],
+  ]}
+/>
+
+
+### Fiscal (3)
+
+<DocTable
+  headers={['Tela']}
+  rows={[
+    ['Feature Flag do Módulo Fiscal'],
+    ['Sequência de Acesso'],
+    ['Tipo de Imposto'],
+  ]}
+/>
+
+
+### Ignition (1)
+
+<DocTable
+  headers={['Tela']}
+  rows={[
+    ['Dashboard'],
+  ]}
+/>
+
+
+### Integrador (4)
+
+<DocTable
+  headers={['Tela']}
+  rows={[
+    ['Configuração de Integração SAP'],
+    ['Fluxos de Integração'],
+    ['Monitoramento de Integrações SAP'],
+    ['Tipo de Etapa'],
+  ]}
+/>
+
+
+### Inventários (3)
+
+<DocTable
+  headers={['Tela']}
+  rows={[
+    ['Contagem Inventário'],
+    ['Inventário'],
+    ['Inventários Disponíveis (indisponível)'],
+  ]}
+/>
+
+
+### Leads (3)
+
+<DocTable
+  headers={['Tela']}
+  rows={[
+    ['Indicação de Lead'],
+    ['Pipeline de Venda'],
+    ['Quadro Kanban Leads'],
+  ]}
+/>
+
+
+### Ocorrências (4)
+
+<DocTable
+  headers={['Tela']}
+  rows={[
+    ['Ocorrências PFCQ'],
+    ['Pesquisas'],
+    ['Solicitações HandsOn'],
+    ['Tipo Incidência'],
+  ]}
+/>
+
+
+### Pedidos (24)
+
+<DocTable
+  headers={['Tela']}
+  rows={[
+    ['Anexo de Pedido'],
+    ['Caixas do Pedido (indisponível)'],
+    ['Categoria Item'],
+    ['Configuração de Produtos no Lounge'],
+    ['Item Lista de Preço'],
+    ['Item Orçamento'],
+    ['Lista de Preço'],
+    ['Log Análise de Pedido'],
+    ['Log de Faturamento SAP (indisponível)'],
+    ['Moeda'],
+    ['Motivo da Ordem'],
+    ['Nota Fiscal'],
+    ['Notas Fiscais - XML'],
+    ['Nova Fila de Aprovação - Pedidos (indisponível)'],
+    ['Operação Inteligente'],
+    ['Orçamento'],
+    ['Pedido'],
+    ['Pedido para Integração (indisponível)'],
+    ['Previsão de Entrega de Pedido'],
+    ['Regra de Frete'],
+    ['Taxa de Moeda'],
+    ['Tipo Item'],
+    ['Transportadora'],
+    ['Unidade Negócio'],
+  ]}
+/>
+
+
+### Planejamento de Vendas (1)
+
+<DocTable
+  headers={['Tela']}
+  rows={[
+    ['Planejamento de Vendas'],
+  ]}
+/>
+
+
+### Políticas (9)
+
+<DocTable
+  headers={['Tela']}
+  rows={[
+    ['Condição de Pagamento'],
+    ['Cota de Venda'],
+    ['Estrutura Comercial'],
+    ['Forma de Pagamento'],
+    ['Parâmetro de Campanha'],
+    ['Política Comercial'],
+    ['Premiação Condicionada'],
+    ['Restrição de Venda'],
+    ['Território'],
+  ]}
+/>
+
+
+### Produtos (13)
+
+<DocTable
+  headers={['Tela']}
+  rows={[
+    ['Caixa de Embalagem'],
+    ['Conjunto de Fresa'],
+    ['Família de Produto'],
+    ['Grupo de Produto'],
+    ['GTIN do Produto'],
+    ['Hierarquia de Produto'],
+    ['Imagem de Produto'],
+    ['Imposto Produto'],
+    ['Marca de Produto'],
+    ['Produto'],
+    ['Saldo de Estoque'],
+    ['Saldo de Estoque Agrupado'],
+    ['Tipo de Produto'],
+  ]}
+/>
+
+
+### Qualidade (2)
+
+<DocTable
+  headers={['Tela']}
+  rows={[
+    ['Análise de Qualidade'],
+    ['Refugo'],
+  ]}
+/>
+
+
+### Regulatórios (20)
+
+<DocTable
+  headers={['Tela']}
+  rows={[
+    ['Agência Reguladora'],
+    ['Cartucho'],
+    ['Conexão do Produto'],
+    ['Etiqueta de Rastreabilidade'],
+    ['Etiqueta Emblistadora'],
+    ['Etiqueta Encartuchadora'],
+    ['Etiqueta Retrabalho Arábia Saudita'],
+    ['Etiqueta Retrabalho Bulgária'],
+    ['Etiqueta Retrabalho Índia'],
+    ['Etiqueta Retrabalho Itália'],
+    ['Etiqueta Retrabalho Manual'],
+    ['Etiqueta Retrabalho México'],
+    ['Grupo do Produto'],
+    ['Line Arábia Saudita'],
+    ['Linha do Produto'],
+    ['Lista Geral de Produtos'],
+    ['Marcação CE'],
+    ['Registros'],
+    ['Status Regulatórios'],
+    ['Tipo do Material de Produção'],
+  ]}
+/>
+
+
+### Roteirizador (9)
+
+<DocTable
+  headers={['Tela']}
+  rows={[
+    ['Agenda (indisponível)'],
+    ['Ausência'],
+    ['Campo do Formulário'],
+    ['Formulário'],
+    ['Formulário Agenda (indisponível)'],
+    ['Jornada'],
+    ['Métricas'],
+    ['Tipo de Agenda'],
+    ['Tipo de Campo'],
+  ]}
+/>

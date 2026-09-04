@@ -91,3 +91,38 @@ Besides the HTML templates above (which live in the services' code), there are t
 <Callout type="cuidado" title="Adjust with the responsible area">
 Changing a template affects **all sends** that use it. Adjustments should be made together with the area responsible for communication/marketing and tested before publishing.
 </Callout>
+
+## Complete list (all templates)
+
+The **21 distinct templates**, with the subject/use and the variable fields each one fills (fields come as `{{KEY}}` or `[Field]` in the HTML):
+
+<DocTable
+  headers={['File', 'Subject / use', 'Variable fields']}
+  rows={[
+    ['TemplateLinkDePagamentoPix', 'Email with the PIX charge link/QR ("Hello [NomeCliente]…").', '[NomeCliente], link/QR'],
+    ['TemplateLinkPagamentoCartao', 'Email with the card payment link.', '[NomeCliente], link'],
+    ['TemplateOcorrenciaNova', 'Notice that an occurrence (PFCQ) was opened.', '—'],
+    ['TemplateOcorrenciaVerificarInformacoes', 'Notice requesting occurrence documentation/information.', '—'],
+    ['TemplateOcorrenciaReanalise', 'Notice of occurrence re-analysis.', '—'],
+    ['TemplateCartaDeRespostaOcorrencia', '"Material Analysis Result" letter to the customer.', '[NomeDoCliente]'],
+    ['TemplateNotificacaoAprovacaoPendente', 'Notice to the authorities that something awaits approval.', '—'],
+    ['TemplateNotificacaoDeLeadRecebido', 'Notice of a new lead received.', '—'],
+    ['TemplateNotificacaoDeEnvioDaBiometriaFacialClearSale', 'Email with the facial-biometrics link to the customer.', '—'],
+    ['TemplateNotificacaoDeBiometriaFacialClearSale', 'Notice about the biometrics result/progress.', '—'],
+    ['TemplateConfirmacaoPesquisa', 'Confirmation that a survey response was received.', '—'],
+    ['TemplateEnviarEmailDeErro', 'Standard error-notice email.', '—'],
+    ['TemplateImportacaoLimiteEmMassaSucesso', 'Bulk limit import completed successfully.', 'NOME_USUARIO, NOME_PLANILHA, DATA_PROCESSAMENTO, TOTAL_REGISTROS'],
+    ['TemplateImportacaoLimiteEmMassaErro', 'Bulk limit import completed with errors.', 'NOME_USUARIO, DATA_PROCESSAMENTO, TOTAL_REGISTROS, TOTAL_ERROS, TABELA_ERROS'],
+    ['TemplateImportacaoPlanilhaInteligenciaComercialSucesso', 'Commercial-intelligence spreadsheet import completed successfully.', 'NOME_USUARIO, DATA_PROCESSAMENTO, TOTAL_REGISTROS'],
+    ['TemplateImportacaoPlanilhaInteligenciaComercialErro', 'Commercial-intelligence spreadsheet import completed with errors.', 'NOME_USUARIO, DATA_PROCESSAMENTO, TOTAL_REGISTROS, TOTAL_ERROS, TABELA_ERROS'],
+    ['TemplateImportacaoPlanilhaListaGeralDeProdutosSucesso', 'General product list import completed successfully.', 'NOME_USUARIO, DATA_PROCESSAMENTO, TOTAL_REGISTROS'],
+    ['TemplateImportacaoPlanilhaListaGeralDeProdutosErro', 'General product list import completed with errors.', 'NOME_USUARIO, DATA_PROCESSAMENTO, TOTAL_REGISTROS, TOTAL_ERROS, TABELA_ERROS'],
+    ['TemplateRelatorioConsignadoConcluido', 'Notice that the consignment report was completed.', '—'],
+    ['TemplateRelatorioConsignadoErro', 'Notice of an error generating the consignment report.', '—'],
+    ['PedidoTermo', '"Purchase Term" order document (for printing).', 'ClienteNome, ClienteCodigo, ClienteDocumento, DataEmissao, Email'],
+  ]}
+/>
+
+<Callout type="info" title="Reuse across services">
+Some templates exist in more than one service (REST Services, Integrations, Worker, Prompt) — it is the **same template** replicated; when adjusting, check all copies.
+</Callout>

@@ -90,3 +90,38 @@ Além dos templates de HTML acima (que ficam no código dos serviços), há text
 <Callout type="cuidado" title="Ajuste com a área responsável">
 Alterar um template afeta **todos os envios** que o usam. Ajustes devem ser feitos junto da área responsável por comunicação/marketing e testados antes de publicar.
 </Callout>
+
+## Lista completa (todos os templates)
+
+Os **21 templates** distintos, com o assunto/uso e os campos variáveis que cada um preenche (os campos vêm como `{{CHAVE}}` ou `[Campo]` no HTML):
+
+<DocTable
+  headers={['Arquivo', 'Assunto / uso', 'Campos variáveis']}
+  rows={[
+    ['TemplateLinkDePagamentoPix', 'E-mail com o link/QR da cobrança PIX ("Olá [NomeCliente]…").', '[NomeCliente], link/QR'],
+    ['TemplateLinkPagamentoCartao', 'E-mail com o link de pagamento por cartão.', '[NomeCliente], link'],
+    ['TemplateOcorrenciaNova', 'Aviso de abertura de uma ocorrência (PFCQ).', '—'],
+    ['TemplateOcorrenciaVerificarInformacoes', 'Aviso solicitando documentação/informações da ocorrência.', '—'],
+    ['TemplateOcorrenciaReanalise', 'Aviso de reanálise da ocorrência.', '—'],
+    ['TemplateCartaDeRespostaOcorrencia', 'Carta "Resultado da Análise de Material" ao cliente.', '[NomeDoCliente]'],
+    ['TemplateNotificacaoAprovacaoPendente', 'Notificação às alçadas de que há algo aguardando aprovação.', '—'],
+    ['TemplateNotificacaoDeLeadRecebido', 'Notificação de um novo lead recebido.', '—'],
+    ['TemplateNotificacaoDeEnvioDaBiometriaFacialClearSale', 'E-mail com o link da biometria facial ao cliente.', '—'],
+    ['TemplateNotificacaoDeBiometriaFacialClearSale', 'Notificação sobre o resultado/andamento da biometria.', '—'],
+    ['TemplateConfirmacaoPesquisa', 'Confirmação de recebimento da resposta de uma pesquisa.', '—'],
+    ['TemplateEnviarEmailDeErro', 'E-mail padrão de aviso de erro.', '—'],
+    ['TemplateImportacaoLimiteEmMassaSucesso', 'Importação de limites em massa concluída com sucesso.', 'NOME_USUARIO, NOME_PLANILHA, DATA_PROCESSAMENTO, TOTAL_REGISTROS'],
+    ['TemplateImportacaoLimiteEmMassaErro', 'Importação de limites em massa concluída com erros.', 'NOME_USUARIO, DATA_PROCESSAMENTO, TOTAL_REGISTROS, TOTAL_ERROS, TABELA_ERROS'],
+    ['TemplateImportacaoPlanilhaInteligenciaComercialSucesso', 'Importação da planilha de inteligência comercial com sucesso.', 'NOME_USUARIO, DATA_PROCESSAMENTO, TOTAL_REGISTROS'],
+    ['TemplateImportacaoPlanilhaInteligenciaComercialErro', 'Importação da planilha de inteligência comercial com erros.', 'NOME_USUARIO, DATA_PROCESSAMENTO, TOTAL_REGISTROS, TOTAL_ERROS, TABELA_ERROS'],
+    ['TemplateImportacaoPlanilhaListaGeralDeProdutosSucesso', 'Importação da lista geral de produtos com sucesso.', 'NOME_USUARIO, DATA_PROCESSAMENTO, TOTAL_REGISTROS'],
+    ['TemplateImportacaoPlanilhaListaGeralDeProdutosErro', 'Importação da lista geral de produtos com erros.', 'NOME_USUARIO, DATA_PROCESSAMENTO, TOTAL_REGISTROS, TOTAL_ERROS, TABELA_ERROS'],
+    ['TemplateRelatorioConsignadoConcluido', 'Aviso de que o relatório de consignado foi concluído.', '—'],
+    ['TemplateRelatorioConsignadoErro', 'Aviso de erro ao gerar o relatório de consignado.', '—'],
+    ['PedidoTermo', 'Documento "Termo de Compra" do pedido (para impressão).', 'ClienteNome, ClienteCodigo, ClienteDocumento, DataEmissao, Email'],
+  ]}
+/>
+
+<Callout type="info" title="Reuso entre serviços">
+Alguns templates existem em mais de um serviço (Serviços REST, Integrações, Worker, Prompt) — é o **mesmo modelo** replicado; ao ajustar, verifique todas as cópias.
+</Callout>

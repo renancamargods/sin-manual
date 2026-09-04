@@ -60,3 +60,61 @@ Besides general configuration, there are **product-specific parameters per Loung
 <Callout type="info" title="Relationship with Permissions and Flags">
 What a user can do is defined by [Permissions](/en/tecnico/permissoes) (profiles), while **parameters** adjust *how* the system behaves. The former "Flags" idea was folded into this page and into Feature Control.
 </Callout>
+
+## The registered parameters (from the system)
+
+Today the system has **6 parameter groups**, each with its **Key/Value** pairs. Below is what each group does and the real keys (values as in the Homologation environment; some integration values were omitted as sensitive).
+
+### Senha — password policy
+
+<DocTable
+  headers={['Key', 'Value', 'What it controls']}
+  rows={[
+    ['DiasValidadeSenha', '180', 'How many days until the password expires.'],
+    ['RequerMaiuscula', '1', 'Requires an uppercase letter (1 = yes).'],
+    ['RequerMinuscula', '1', 'Requires a lowercase letter (1 = yes).'],
+    ['RequerNumero', '1', 'Requires a digit (1 = yes).'],
+    ['RequerCaracterEspecial', '1', 'Requires a special character (1 = yes).'],
+    ['UltimasSenhas', '3', 'How many previous passwords are blocked from reuse.'],
+    ['(minimum length)', '15', 'Minimum password length.'],
+  ]}
+/>
+
+### Usuario — access lockout
+
+<DocTable
+  headers={['What it controls', 'Value']}
+  rows={[
+    ['Max login attempts before lockout', '5'],
+    ['User lockout minutes after exceeding attempts', '60'],
+  ]}
+/>
+
+### Análise de Qualidade — pre-load and simulator
+
+<DocTable
+  headers={['Key', 'Value', 'What it does']}
+  rows={[
+    ['PrecargaGtinAnaliseQualidade.Ativo', 'true', 'Turns on the GTIN pre-load in Quality Analysis.'],
+    ['PrecargaGtinAnaliseQualidade.Grupos', 'Administrador; Expedição; T.D.C', 'Which groups use the pre-load.'],
+    ['SimuladorLeituraAnaliseQualidade.Ativo', 'true', 'Turns on the reading (scan) simulator.'],
+    ['SimuladorLeituraAnaliseQualidade.Grupos', 'Administrador; Expedição; T.D.C', 'Which groups use the simulator.'],
+    ['SimuladorLeituraAnaliseQualidade.IntervaloEmMilissegundos', '100', 'Interval between simulated reads.'],
+  ]}
+/>
+
+### BlocosDaHome — home panel per profile
+
+Defines, **per profile**, which order block appears on the home page:
+
+- **HomePedidosEquipe** (team orders) — for managers: Diretoria, GNV, GR, GD, Coordenador, Supervisor, Administrador (and the Sin Solutions variants).
+- **HomePedidosMeus** (my orders) — for those who sell directly: Consultor FVE, Consultor FVI and Sin Solutions Executives.
+
+### IntegracaoSap and ModuloNegocio
+
+- **IntegracaoSap** — SAP integration parameters (an identifier and an activation flag; values omitted as integration data).
+- **ModuloNegocio** — business-module parameters.
+
+<Callout type="info" title="Values are per company and may change">
+These are the values in the Homologation environment. Each company has its own, and they change through the **Parameter** and **Key and Value** screens — always with a log record. The factory defaults (in the code) may differ (e.g., password validity 90 days in the code vs 180 here).
+</Callout>

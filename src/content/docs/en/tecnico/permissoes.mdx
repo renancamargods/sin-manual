@@ -83,3 +83,392 @@ When combining profiles and permissions, an explicit **"Deny"** tends to prevail
 - **Authenticator:** the Profile, Group, Module, URL and User screens manage all of this.
 - **APIs:** [API](/en/tecnico/apis) calls also respect this permission model.
 - Many flows cite **responsible groups** for approval (e.g., ADM, Credit, Tax) — those groups rely on the profiles/permissions described here.
+
+
+## The registered profiles (who does it)
+
+Today there are **56 profiles** in the system. Each user gets one or more of them, and it is the profile that decides what the person sees and does. Below, the profiles grouped by area (the "who does it"); names are kept as in the system:
+
+**Commercial hierarchy (management and sales)** — track and sell according to their level in the commercial structure:
+Diretoria · GNV · GNV Sin Solutions · GR · GR Sin Solutions · GD · GD Sin Solutions · Coordenador · Supervisor · Consultor FVE · Consultor FVE Sin Solutions · Consultor FVI · FVI Volantes · Representante Comercial · Assessores
+
+**Sales channels and segments:**
+Executivo KA · Key Account · Executivo Varejo · Executivo Sin Solutions · Executivo Sin Solutions FVI · ADM de Vendas · Vendas Comex · ADM Portugal · Internacional Business Consulta
+
+**Credit, collections and finance:**
+Credito · Credito Comex · Cobrança · Cobrança Nacional Internacional · Diretoria Credito Cobrança Comex · Tesouraria · Tesouraria - Extrair Excel
+
+**Tax, quality and regulatory:**
+Fiscal · Qualidade · Regulatórios · Regulatórios visualização · Engenharia de Projetos
+
+**Contracts and courses:**
+ADM de Contratos · Cursos · Cursos (Ramo de Atividade)
+
+**Comex:** ADM de Comex
+
+**Logistics and operations:**
+Expedição · Operações · T.D.C · Filiais · Filiais Lideres · Operação Emissao
+
+**Marketing and intelligence:**
+Marketing · MKT Emissão · Inteligência Comercial
+
+**IT, system and integrations:**
+Administrador · Infraestrutura · TI Governança · Integração Tifam · Mensageria · FreshService · Digitação CIOSP
+
+<Callout type="info" title="How profile and screen connect">
+Each of these profiles has, per screen, its **Allow/Deny** for each action. That combination (profile × screen × action) is edited in the Authenticator's **Profile** screen — it is what actually grants each person's access.
+</Callout>
+
+## Screen catalog (permission surface)
+
+Each screen below is a permission point: for each one, a profile sets **Allow/Deny** per action (View, Add, Edit, Delete, Export, Special…). There are **177 screens** across 19 modules.
+
+<Callout type="info" title="The effective permissions live in the system">
+This list is the **surface** (all screens). Who can do what on each (per profile) is **database data**, managed in the Authenticator's Profile and URL screens — it is not listed here.
+</Callout>
+### Administrador (35)
+
+<DocTable
+  headers={['Screen']}
+  rows={[
+    ['Amarração de Faturamento por Lounge'],
+    ['Anexos'],
+    ['Atributo'],
+    ['Atualizador de Arquivos Json'],
+    ['Campo Validação'],
+    ['Canal de Entrada'],
+    ['Chave e Valor'],
+    ['Cidade'],
+    ['Conciliadora Pix'],
+    ['Controle de Funcionalidade'],
+    ['Dado Bancário'],
+    ['Domínio de Anexo'],
+    ['Empresa'],
+    ['Endereço'],
+    ['Estado'],
+    ['Execução de Serviço Agendado (unavailable)'],
+    ['Gerenciador de Usuários Conectados'],
+    ['Impressora de Etiqueta'],
+    ['Incoterm'],
+    ['Log de Execução de Serviço'],
+    ['Lounge'],
+    ['Mensagem Personalizada'],
+    ['Modo Projeto'],
+    ['Módulo de Negócio'],
+    ['País'],
+    ['Parâmetro'],
+    ['Porto de Destino'],
+    ['Post'],
+    ['Questionários'],
+    ['Serviço Agendado (unavailable)'],
+    ['Terminal de Pagamento'],
+    ['Tipo de Logradouro'],
+    ['Tipo de Mensagem'],
+    ['Tipos de Anexo'],
+    ['Trabalho'],
+  ]}
+/>
+
+
+### Aprovações (7)
+
+<DocTable
+  headers={['Screen']}
+  rows={[
+    ['Acompanhamento Ciclos de Aprovação'],
+    ['Entidade de Aprovação'],
+    ['Fila de Aprovações - Clientes'],
+    ['Fila de Aprovações - Contratos (unavailable)'],
+    ['Fila de Aprovações - Pedidos'],
+    ['Regra de Aprovação'],
+    ['Sub-Status - Ciclo de Aprovação'],
+  ]}
+/>
+
+
+### Autenticador (7)
+
+<DocTable
+  headers={['Screen']}
+  rows={[
+    ['Departamento de Usuário'],
+    ['Grupo'],
+    ['Módulo'],
+    ['Perfil'],
+    ['Tentativa de Login'],
+    ['URL'],
+    ['Usuário'],
+  ]}
+/>
+
+
+### Clientes (15)
+
+<DocTable
+  headers={['Screen']}
+  rows={[
+    ['Agrupamento de Cliente'],
+    ['Anexo de Cliente'],
+    ['Atividade Econômica'],
+    ['Canal'],
+    ['Categoria CFOP'],
+    ['Classificação Comercial'],
+    ['Cliente'],
+    ['Fila de Aprovações de Cadastros'],
+    ['Grupo Econômico'],
+    ['Parâmetro de Entidade Especial'],
+    ['Perfil de Consumo'],
+    ['Ramo de Atividade'],
+    ['Rede de Cliente'],
+    ['Regime Especial'],
+    ['SIN Partner'],
+  ]}
+/>
+
+
+### Contratos (6)
+
+<DocTable
+  headers={['Screen']}
+  rows={[
+    ['Anexo de Contrato'],
+    ['Contrato'],
+    ['Meta de Consumo'],
+    ['Período de Curso'],
+    ['Política de Contrato'],
+    ['Turma de Curso'],
+  ]}
+/>
+
+
+### Faturamentos (11)
+
+<DocTable
+  headers={['Screen']}
+  rows={[
+    ['Análise DataMatrix'],
+    ['Buscar Remessa (unavailable)'],
+    ['Fechamento de Consignado'],
+    ['Fila de Geração de Etiquetas'],
+    ['Fila de Remessas Aguardando Separação'],
+    ['Fila do Romaneio'],
+    ['Relatório de Consignado'],
+    ['Relatório de Status do Serial'],
+    ['Relatório Operador Logístico'],
+    ['Transferência Reversa'],
+    ['Trocas/Devoluções'],
+  ]}
+/>
+
+
+### Fiscal (3)
+
+<DocTable
+  headers={['Screen']}
+  rows={[
+    ['Feature Flag do Módulo Fiscal'],
+    ['Sequência de Acesso'],
+    ['Tipo de Imposto'],
+  ]}
+/>
+
+
+### Ignition (1)
+
+<DocTable
+  headers={['Screen']}
+  rows={[
+    ['Dashboard'],
+  ]}
+/>
+
+
+### Integrador (4)
+
+<DocTable
+  headers={['Screen']}
+  rows={[
+    ['Configuração de Integração SAP'],
+    ['Fluxos de Integração'],
+    ['Monitoramento de Integrações SAP'],
+    ['Tipo de Etapa'],
+  ]}
+/>
+
+
+### Inventários (3)
+
+<DocTable
+  headers={['Screen']}
+  rows={[
+    ['Contagem Inventário'],
+    ['Inventário'],
+    ['Inventários Disponíveis (unavailable)'],
+  ]}
+/>
+
+
+### Leads (3)
+
+<DocTable
+  headers={['Screen']}
+  rows={[
+    ['Indicação de Lead'],
+    ['Pipeline de Venda'],
+    ['Quadro Kanban Leads'],
+  ]}
+/>
+
+
+### Ocorrências (4)
+
+<DocTable
+  headers={['Screen']}
+  rows={[
+    ['Ocorrências PFCQ'],
+    ['Pesquisas'],
+    ['Solicitações HandsOn'],
+    ['Tipo Incidência'],
+  ]}
+/>
+
+
+### Pedidos (24)
+
+<DocTable
+  headers={['Screen']}
+  rows={[
+    ['Anexo de Pedido'],
+    ['Caixas do Pedido (unavailable)'],
+    ['Categoria Item'],
+    ['Configuração de Produtos no Lounge'],
+    ['Item Lista de Preço'],
+    ['Item Orçamento'],
+    ['Lista de Preço'],
+    ['Log Análise de Pedido'],
+    ['Log de Faturamento SAP (unavailable)'],
+    ['Moeda'],
+    ['Motivo da Ordem'],
+    ['Nota Fiscal'],
+    ['Notas Fiscais - XML'],
+    ['Nova Fila de Aprovação - Pedidos (unavailable)'],
+    ['Operação Inteligente'],
+    ['Orçamento'],
+    ['Pedido'],
+    ['Pedido para Integração (unavailable)'],
+    ['Previsão de Entrega de Pedido'],
+    ['Regra de Frete'],
+    ['Taxa de Moeda'],
+    ['Tipo Item'],
+    ['Transportadora'],
+    ['Unidade Negócio'],
+  ]}
+/>
+
+
+### Planejamento de Vendas (1)
+
+<DocTable
+  headers={['Screen']}
+  rows={[
+    ['Planejamento de Vendas'],
+  ]}
+/>
+
+
+### Políticas (9)
+
+<DocTable
+  headers={['Screen']}
+  rows={[
+    ['Condição de Pagamento'],
+    ['Cota de Venda'],
+    ['Estrutura Comercial'],
+    ['Forma de Pagamento'],
+    ['Parâmetro de Campanha'],
+    ['Política Comercial'],
+    ['Premiação Condicionada'],
+    ['Restrição de Venda'],
+    ['Território'],
+  ]}
+/>
+
+
+### Produtos (13)
+
+<DocTable
+  headers={['Screen']}
+  rows={[
+    ['Caixa de Embalagem'],
+    ['Conjunto de Fresa'],
+    ['Família de Produto'],
+    ['Grupo de Produto'],
+    ['GTIN do Produto'],
+    ['Hierarquia de Produto'],
+    ['Imagem de Produto'],
+    ['Imposto Produto'],
+    ['Marca de Produto'],
+    ['Produto'],
+    ['Saldo de Estoque'],
+    ['Saldo de Estoque Agrupado'],
+    ['Tipo de Produto'],
+  ]}
+/>
+
+
+### Qualidade (2)
+
+<DocTable
+  headers={['Screen']}
+  rows={[
+    ['Análise de Qualidade'],
+    ['Refugo'],
+  ]}
+/>
+
+
+### Regulatórios (20)
+
+<DocTable
+  headers={['Screen']}
+  rows={[
+    ['Agência Reguladora'],
+    ['Cartucho'],
+    ['Conexão do Produto'],
+    ['Etiqueta de Rastreabilidade'],
+    ['Etiqueta Emblistadora'],
+    ['Etiqueta Encartuchadora'],
+    ['Etiqueta Retrabalho Arábia Saudita'],
+    ['Etiqueta Retrabalho Bulgária'],
+    ['Etiqueta Retrabalho Índia'],
+    ['Etiqueta Retrabalho Itália'],
+    ['Etiqueta Retrabalho Manual'],
+    ['Etiqueta Retrabalho México'],
+    ['Grupo do Produto'],
+    ['Line Arábia Saudita'],
+    ['Linha do Produto'],
+    ['Lista Geral de Produtos'],
+    ['Marcação CE'],
+    ['Registros'],
+    ['Status Regulatórios'],
+    ['Tipo do Material de Produção'],
+  ]}
+/>
+
+
+### Roteirizador (9)
+
+<DocTable
+  headers={['Screen']}
+  rows={[
+    ['Agenda (unavailable)'],
+    ['Ausência'],
+    ['Campo do Formulário'],
+    ['Formulário'],
+    ['Formulário Agenda (unavailable)'],
+    ['Jornada'],
+    ['Métricas'],
+    ['Tipo de Agenda'],
+    ['Tipo de Campo'],
+  ]}
+/>
