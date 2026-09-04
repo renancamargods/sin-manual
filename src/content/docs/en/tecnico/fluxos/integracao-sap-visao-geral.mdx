@@ -1,0 +1,186 @@
+---
+section: tecnico
+routeSlug: fluxos/integracao-sap-visao-geral
+pageType: tecnico
+lang: en
+title: SAP (S/4HANA) Integration — Overview
+description: "How the SAP S/4HANA integration works: a configuration-driven step engine that chains the customer, order, delivery and invoice flows, with states and monitoring."
+moduleLabel: Integration / SAP
+routineType: Process flow
+impact: Integration of records and documents with SAP
+keywords: [SAP integration, S/4HANA, OData, integration flow, step, executor, monitoring, business partner, sales order, outbound delivery, billing document, integration status]
+tags: [tecnico, fluxo, integracao-sap-visao-geral]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **SAP S/4HANA** integration sends the records and documents created in the CRM to SAP — **customer**, **order**, **delivery** and **invoice**. It is a **configuration-driven step engine**: each document type has a **flow** with one or more ordered **steps**, and each step knows which operation to run against SAP. So adjusting the integration is, most of the time, **changing configuration** — not code.
+
+This page is the overview (the "how it works"). The step-by-step of each flow is in [SAP Integration — The four flows](/en/tecnico/fluxos/integracao-sap-os-quatro-fluxos).
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Mirror data into SAP', text: 'Send customer, order, delivery and invoice to SAP, chained and traceable.' },
+    { label: 'Use', title: 'Integration / IT', text: 'Configured and monitored by the Integration team; the configuration screens are in the Integrador module.' },
+    { label: 'Caution', title: 'Manual action', text: 'When a step cannot proceed on its own, the integration goes to "Awaiting manual action" and requires intervention.' },
+  ]}
+/>
+
+## The pieces of the integration
+
+- **Flow** — the process for a document type (e.g., Business Partner, Sales Order). Configured in **Integration Flows**.
+- **Step** — each ordered step within a flow. A flow can have one or several steps.
+- **Step type** — defines which **executor** the step uses and against which SAP service. Configured in **Step Type**.
+- **Connection** — the SAP environment address and credentials. Configured in **SAP Integration Configuration**.
+- **Monitoring** — tracks each integration and step (status, attempts, logs). The **SAP Integration Monitoring** screen.
+
+<Callout type="info" title="Where to configure">
+The screens are in the **Integrador** module: Integration Flows, Step Type, SAP Integration Configuration and SAP Integration Monitoring.
+</Callout>
+
+## The five executors (step types)
+
+Each step uses an **executor**, which is the operation done against SAP (`TipoExecutorEtapa`):
+
+<DocTable
+  headers={['Value', 'Executor', 'What it does']}
+  rows={[
+    ['1', 'Create', 'Creates a document in SAP and captures the generated number.'],
+    ['2', 'Read', 'Queries a document.'],
+    ['3', 'Update', 'Updates an existing document.'],
+    ['4', 'Polling', 'Queries repeatedly until the document appears (used for the invoice).'],
+    ['5', 'FunctionImport', 'Runs an SAP function, such as confirming separation or posting goods issue.'],
+  ]}
+/>
+
+## The four flows and the chain
+
+Four flows are configured, and they **chain** — the completion of one triggers the next:
+
+<DocTable
+  headers={['Flow', 'Document', 'Steps']}
+  rows={[
+    ['Business Partner', 'Customer', '1 step (verifies/creates/updates the partner).'],
+    ['Sales Order', 'Order', '1 step (creates the sales order).'],
+    ['Outbound Delivery', 'Delivery', '3 steps (create, confirm separation, post goods issue).'],
+    ['Billing Document', 'Invoice', '1 step (waits for the invoice by polling).'],
+  ]}
+/>
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 460 470" width="460" role="img" aria-label="Chain of SAP integration flows: customer, order, delivery and invoice" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwsge" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwsge)">
+    <path d="M230,72 L230,98" />
+    <path d="M230,156 L230,182" />
+    <path d="M230,266 L230,292" />
+    <path d="M230,340 L230,376" />
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="40" y="24" width="380" height="48" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="46" text-anchor="middle" font-weight="600">Business Partner &#183; Customer</text>
+    <text x="230" y="63" text-anchor="middle" fill="#5c6b7a" font-size="11">verifies / creates / updates the partner</text>
+    <rect x="40" y="98" width="380" height="48" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="120" text-anchor="middle" font-weight="600">Sales Order &#183; Order</text>
+    <text x="230" y="137" text-anchor="middle" fill="#5c6b7a" font-size="11">creates the sales order</text>
+    <rect x="40" y="182" width="380" height="84" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="203" text-anchor="middle" font-weight="600">Outbound Delivery &#183; Delivery</text>
+    <text x="230" y="222" text-anchor="middle" fill="#5c6b7a" font-size="11">1. Create delivery</text>
+    <text x="230" y="239" text-anchor="middle" fill="#5c6b7a" font-size="11">2. Confirm separation (PickAllItems)</text>
+    <text x="230" y="256" text-anchor="middle" fill="#5c6b7a" font-size="11">3. Post goods issue (PostGoodsIssue)</text>
+    <rect x="40" y="292" width="380" height="48" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="230" y="314" text-anchor="middle" font-weight="600">Billing Document &#183; Invoice</text>
+    <text x="230" y="331" text-anchor="middle" fill="#5c6b7a" font-size="11">waits for the invoice by polling</text>
+    <rect x="40" y="376" width="380" height="42" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="402" text-anchor="middle" font-weight="600">Documents mirrored in SAP</text>
+  </g>
+</svg>
+</div>
+
+## Integration and step states
+
+Each **integration** and each **step** has its own status cycle. The integration is only **completed** when no step remains pending.
+
+**Integration status (`StatusIntegracao`)**
+
+<DocTable
+  headers={['Value', 'Status', 'Meaning']}
+  rows={[
+    ['1', 'Pending', 'Created, not started yet.'],
+    ['2', 'In progress', 'Running the steps.'],
+    ['3', 'Completed', 'All steps finished successfully.'],
+    ['4', 'With error', 'A step failed.'],
+    ['5', 'Awaiting manual action', 'Needs human intervention to proceed.'],
+    ['6', 'Canceled', 'Integration canceled.'],
+  ]}
+/>
+
+**Step status (`StatusEtapa`)**
+
+<DocTable
+  headers={['Value', 'Status', 'Meaning']}
+  rows={[
+    ['1', 'Pending', 'Awaiting execution.'],
+    ['2', 'In progress', 'Running.'],
+    ['3', 'Completed', 'Step finished successfully.'],
+    ['4', 'With error', 'Step failed.'],
+    ['5', 'Skipped', 'Step not applicable, skipped.'],
+    ['6', 'Canceled', 'Step canceled.'],
+    ['7', 'Awaiting previous step', 'Waits for the previous step to complete before being released.'],
+  ]}
+/>
+
+<Callout type="cuidado" title="Awaiting manual action">
+An integration reaches **"Awaiting manual action"** in three ways: a **business precondition** not met (e.g., a required field missing in the CRM), the **retries exhausted**, or when a step's result **requires human checking** (e.g., the document was created in SAP but the CRM could not identify its number).
+</Callout>
+
+## How a step is executed (summary)
+
+1. The step enters **"In progress"**.
+2. **Idempotency:** if that step already created the document in SAP before, the engine **does not repeat** the call — it only re-records it in the CRM. This avoids a duplicate document on reprocessing.
+3. The **business rule** reads the CRM and assembles what will be sent.
+4. The **executor** performs the SAP operation and interprets the response.
+5. On a **temporary failure**, the engine **reschedules** with progressive backoff, up to a limit; definitive errors go straight to manual action.
+6. Each call becomes a **log** line (date, status, duration) for monitoring.
+
+## Relationship with other processes
+
+- **Invoicing and Serial Movement:** the SAP delivery and invoice chain follows [Order Invoicing and Serial Movement](/en/tecnico/fluxos/faturamento-e-movimento-serial).
+- **Value Mapping:** the codes for `StatusIntegracao`, `StatusEtapa`, `TipoExecutorEtapa`, `TipoIntegracao` and `NivelLog` are in [Database → Value Mapping](/en/tecnico/banco-de-dados/de-para).
+- **Step-by-step of the flows:** [SAP Integration — The four flows](/en/tecnico/fluxos/integracao-sap-os-quatro-fluxos).
+
+## Frequently asked questions
+
+<FaqAccordion
+  items={[
+    { question: 'What does "configuration-driven" mean?', answer: 'The flows, steps and connection live in configuration tables (editable through the Integrador screens). Adjusting the integration is usually a configuration change, without touching the code.' },
+    { question: 'Why does the invoice use "polling"?', answer: 'SAP generates the invoice asynchronously. Instead of creating the invoice, the step queries SAP repeatedly until it appears.' },
+    { question: 'What does a FunctionImport do?', answer: 'It runs a specific SAP function — for example, confirming separation (PickAllItems) or posting goods issue (PostGoodsIssue) on the delivery.' },
+    { question: 'Can the integration duplicate a document?', answer: 'It should not: the engine stores the document number as soon as SAP creates it and, on reprocessing, skips the call already made (idempotency).' },
+    { question: 'Where do I see what happened in an integration?', answer: 'On the SAP Integration Monitoring screen, which shows the integration and step status, plus the logs of each call.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '09/03/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '09/03/2026', author: 'Renan Camargo', description: 'Overview of the SAP S/4HANA integration (step engine, executors, the four flows, states and monitoring), at the manual altitude.' },
+  ]}
+/>

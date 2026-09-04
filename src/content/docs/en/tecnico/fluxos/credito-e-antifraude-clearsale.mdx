@@ -1,0 +1,178 @@
+---
+section: tecnico
+routeSlug: fluxos/credito-e-antifraude-clearsale
+pageType: tecnico
+lang: en
+title: Credit and Anti-fraud (ClearSale)
+description: "Credit and anti-fraud flow at customer registration with ClearSale: fraud score, insights, ratings, background, facial biometrics and credit classification."
+moduleLabel: Customers / Credit
+routineType: Process flow
+impact: Credit analysis and fraud prevention at customer registration
+keywords: [credit, anti-fraud, ClearSale, fraud score, insights, ratings, background, facial biometrics, credit classification, registration, customer]
+tags: [tecnico, fluxo, credito-e-antifraude-clearsale]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+During the **customer registration analysis**, the system queries **ClearSale** to support the credit decision and fraud prevention: **fraud score**, **insights**, **ratings**, **background** (individual/company) and, when applicable, **facial biometrics**. The result feeds the Credit area's analysis and the customer's **credit classification**.
+
+This flow complements [Customer Registration × Approvals](/en/tecnico/fluxos/criacao-de-cliente): the ClearSale query happens in the analysis step before the customer is released.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Support the credit decision', text: 'Query score, background and biometrics on ClearSale to ground the credit and anti-fraud analysis.' },
+    { label: 'Use', title: 'Credit / registration', text: 'Used in the customer registration analysis, by the Credit area.' },
+    { label: 'Caution', title: 'Sensitive data', text: 'Involves personal data and biometrics; the query is recorded in history and logs.' },
+  ]}
+/>
+
+## When to use this flow
+
+- **Analyze the credit** of a customer in registration/re-analysis.
+- **Prevent fraud** with ClearSale's score and background.
+- Request **facial biometrics** when identity validation is needed.
+
+## What is queried on ClearSale
+
+- **Fraud Score** — fraud risk score.
+- **Insights** and **Ratings** of the customer — analysis indicators.
+- **Background** (individual/company) — registration and restrictive information (e.g., Sintegra, Simples Nacional, CNAE, addresses, phones).
+- **Facial Biometrics** — identity validation by selfie (optional).
+
+## Request types
+
+Each interaction with ClearSale is of a type (`TipoSolicitacaoClearSale`):
+
+<DocTable
+  headers={['Value', 'Type', 'What it is']}
+  rows={[
+    ['0', 'Issuance', 'Creates/issues the request to ClearSale.'],
+    ['1', 'Editing', 'Edits a request.'],
+    ['2', 'Query', 'Queries the result of a service.'],
+    ['3', 'Notification', 'Notification related to the request.'],
+    ['4', 'Receipt', 'Receipt of the return.'],
+    ['5', 'Copy', 'Copies data from a request.'],
+  ]}
+/>
+
+## Facial biometrics
+
+When required, the **facial biometrics** is requested by **link** (`TipoSolicitacaoBiometricaClearSale` = Link), sent to the customer through a channel (`TipoDeEnvioBiometriaFacialClearSale`):
+
+<DocTable
+  headers={['Value', 'Sending channel']}
+  rows={[
+    ['0', 'Email'],
+    ['1', 'WhatsApp'],
+    ['2', 'SMS'],
+  ]}
+/>
+
+The biometrics status (`StatusBiometricoClearSale`) tracks the link:
+
+<DocTable
+  headers={['Status', 'Meaning']}
+  rows={[
+    ['SENT', 'Link sent, awaiting the customer.'],
+    ['COMPLETED', 'Biometrics completed.'],
+    ['EXPIRED', 'Link expired without completion.'],
+  ]}
+/>
+
+## Credit classification
+
+The analysis results in the customer's **credit classification** (`ClassificacaoDeCreditoDoCliente`), from **A** (best) to **E**:
+
+<DocTable
+  headers={['Value', 'Classification']}
+  rows={[
+    ['0', 'A'],
+    ['1', 'B'],
+    ['2', 'C'],
+    ['3', 'D'],
+    ['4', 'E'],
+  ]}
+/>
+
+## History and traceability
+
+Each query is recorded in the **ClearSale Transaction History** and in the **query / module request logs** — ensuring traceability of the analysis and of what was queried.
+
+## Flowchart — from query to classification
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 500 520" width="500" role="img" aria-label="Credit and anti-fraud analysis flow with ClearSale" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwcse" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwcse)">
+    <path d="M250,66 L250,92" />
+    <path d="M250,150 L250,176" />
+    <path d="M250,234 L250,300" />
+    <path d="M250,360 L250,386" />
+  </g>
+  <g font-size="12.5" fill="#5c6b7a">
+    <text x="262" y="290" text-anchor="start" font-size="11">if required</text>
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="60" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="250" y="41" text-anchor="middle" font-weight="600">1 &#183; Registration analysis</text>
+    <text x="250" y="58" text-anchor="middle" fill="#5c6b7a" font-size="11">Credit area</text>
+    <rect x="60" y="92" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="250" y="115" text-anchor="middle">2 &#183; Query ClearSale</text>
+    <text x="250" y="134" text-anchor="middle" fill="#5c6b7a" font-size="12">score &#183; insights &#183; ratings &#183; background</text>
+    <rect x="60" y="176" width="380" height="58" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="250" y="199" text-anchor="middle">3 &#183; Facial biometrics (optional)</text>
+    <text x="250" y="218" text-anchor="middle" fill="#5c6b7a" font-size="12">link email/WhatsApp/SMS &#183; SENT&#8594;COMPLETED</text>
+    <rect x="60" y="300" width="380" height="60" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="250" y="326" text-anchor="middle">4 &#183; Credit decision</text>
+    <text x="250" y="344" text-anchor="middle" fill="#5c6b7a" font-size="12">history and logs recorded</text>
+    <rect x="60" y="386" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="250" y="414" text-anchor="middle" font-weight="600">Credit classification (A to E)</text>
+  </g>
+</svg>
+</div>
+
+## Relationship with other processes
+
+- **Customer Registration × Approvals:** the ClearSale analysis happens within the credit step of the customer approval — see [With Ignition](/en/tecnico/fluxos/criacao-de-cliente) and [Without Ignition](/en/tecnico/fluxos/cadastro-clientes-sem-ignition).
+- **Value Mapping:** `StatusBiometricoClearSale`, `TipoSolicitacaoClearSale`, `TipoSolicitacaoBiometricaClearSale`, `TipoDeEnvioBiometriaFacialClearSale` and `ClassificacaoDeCreditoDoCliente` are in [Database → Value Mapping](/en/tecnico/banco-de-dados/de-para).
+
+## Common problems
+
+- **Biometrics "EXPIRED":** the link was not completed in time; resend a new link.
+- **Query with no return:** check the transaction history and the ClearSale query logs.
+- **Divergent classification:** the credit classification results from the analysis; review the queried services (score/background).
+
+## Frequently asked questions
+
+<FaqAccordion
+  items={[
+    { question: 'What does ClearSale bring to the analysis?', answer: 'Fraud score, insights, ratings and background (individual/company), plus facial biometrics when required, to ground the credit and anti-fraud decision.' },
+    { question: 'How does the customer do the facial biometrics?', answer: 'They receive a link by email, WhatsApp or SMS; the status tracks the link (SENT, COMPLETED or EXPIRED).' },
+    { question: 'What does the A to E classification mean?', answer: 'It is the customer\'s credit classification resulting from the analysis, from A (best) to E.' },
+    { question: 'Is the query recorded?', answer: 'Yes. Each query stays in the Transaction History and in the logs, ensuring traceability.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '09/03/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '09/03/2026', author: 'Renan Camargo', description: 'Credit and Anti-fraud flow with ClearSale documented from the real system rules (queried services, facial biometrics, request types and credit classification).' },
+  ]}
+/>

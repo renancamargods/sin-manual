@@ -1,0 +1,369 @@
+---
+section: tecnico
+routeSlug: fluxos/faturamento-e-movimento-serial
+pageType: tecnico
+title: Faturamento de Pedido e Movimento de Serial
+description: "Fluxo técnico de HML/QA: do pedido aprovado ao faturamento no SAP, à validação da nota fiscal e à inserção do movimento serial usado depois em devoluções e trocas."
+moduleLabel: Faturamento / QA
+routineType: Fluxo de processo
+impact: Faturamento e rastreabilidade por serial
+keywords: [faturamento, movimento serial, remessa, DataMatrix, nota fiscal, VA03, ZSD_SAIDA_FILIAIS, MMBE, Swagger, SQL, HML, devolução, troca, rastreabilidade, integração SAP]
+tags: [tecnico, fluxo, faturamento-e-movimento-serial]
+order: 7
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+Este fluxo descreve, em ordem, todas as etapas para **faturar um pedido** no ambiente de **Homologação (HML)** e gravar o **movimento de serial** correspondente — do pedido aprovado até a nota fiscal autorizada e a rastreabilidade por lote/serial. Ele continua o [Processo do Pedido](/tecnico/fluxos/processo-do-pedido) e o [Romaneio](/tecnico/fluxos/romaneio), fechando a cadeia até a validação fiscal e o uso do pedido em **devoluções e trocas**.
+
+O escopo cobre a integração **SIN Implante × SAP**: envio da remessa no SAP, separação com leitura de lote/serial (DataMatrix), faturamento, conferência da nota fiscal (VA03), validação via banco de dados e inserção do movimento serial.
+
+<Callout type="cuidado" title="Procedimento técnico de HML/QA — não é ação de usuário final">
+Este é um roteiro **interno de homologação e QA**. Ele acessa diretamente o **SAP**, a **API (Swagger)** e o **banco de dados de HML**, incluindo comandos SQL de exclusão. Execute **somente no ambiente de Homologação**, nunca em produção, e apenas se você faz parte do time responsável por essa validação. Cada bloco SQL destrutivo abaixo tem um aviso próprio.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Faturar e rastrear por serial', text: 'Levar um pedido aprovado até a nota fiscal autorizada e gravar o movimento serial que habilita devoluções e trocas.' },
+    { label: 'Uso', title: 'QA e integração', text: 'Usado pelo time de QA/integração para validar o faturamento SIN × SAP em Homologação.' },
+    { label: 'Cuidado', title: 'Só em HML', text: 'Envolve SQL de exclusão e atualização via API. Rode sempre em HML, com begin/commit, e confirme o pedido correto antes de executar.' },
+  ]}
+/>
+
+## Quando usar este fluxo
+
+- Validar de ponta a ponta o faturamento de um pedido em Homologação.
+- Preparar um pedido faturado para ser usado em testes de **devolução** e **troca**.
+- Conferir se o **movimento serial** foi gerado corretamente após o faturamento.
+
+## Antes de começar
+
+- Acesso ao **SAP** (transações `ZSD_SAIDA_FILIAIS`, `MMBE` e `VA03`).
+- Acesso ao **Swagger** da aplicação em HML e ao **banco de dados de HML**.
+- A planilha interna de geração de **DataMatrix**.
+- Um **pedido já criado e aprovado** (ou criar um como no Passo 1).
+
+## Resumo do fluxo
+
+Criar pedido → Aprovar → Enviar remessa no SAP → Bipar itens (DataMatrix) → Enviar para faturamento → Conferir NF na VA03 → Validar via SQL → Atualizar via Swagger → Conferir/inserir movimento serial → Usar em devolução/troca.
+
+## Etapa 1 — Criação e aprovação do pedido
+
+1. Crie o pedido no sistema.
+2. Envie o pedido para aprovação. Conforme o **tipo de pedido**, ele segue para alçadas diferentes:
+
+<DocTable
+  headers={['Tipo de pedido', 'Alçada responsável']}
+  rows={[
+    ['Nacional — fora da política', 'Alçada ADM + Alçada Crédito'],
+    ['Internacional — sem política', 'Alçada Comex + Alçada Crédito Comex'],
+    ['Nacional — Empresa 03 (Empresa Singular)', 'Alçada ADM + Alçada Crédito'],
+  ]}
+/>
+
+<Callout type="atencao" title="Confirme o tipo de pedido">
+Confirme sempre se o pedido é **nacional**, **internacional** ou **Empresa Singular (Empresa 03)** antes de direcionar a aprovação — cada categoria tem uma alçada específica de responsáveis.
+</Callout>
+
+## Etapa 2 — Envio da remessa no SAP (`ZSD_SAIDA_FILIAIS`)
+
+Depois de aprovado, é preciso enviar a remessa do SAP para o SINSALES pela tela `ZSD_SAIDA_FILIAIS` (Monitor de envio de remessa).
+
+1. Acesse a tela `ZSD_SAIDA_FILIAIS` no SAP.
+2. Selecione **depósito**, **centro**, **remessa** e **data de criação da remessa** do pedido e clique no ícone de relógio para consultar.
+3. Selecione a remessa desejada e clique em **"Enviar CRM"**.
+4. Após o envio, a remessa no SAP **fica verde**, confirmando o envio.
+
+## Etapa 3 — Separação, bipagem e geração do DataMatrix
+
+Após o envio, a remessa aparece na tela **Fila de Remessas Aguardando Separação**. É preciso **bipar os itens** e enviar a remessa para faturamento.
+
+### 3.1. Consulta do lote na `MMBE`
+
+Para bipar, busque o lote na transação `MMBE` do SAP para montar o DataMatrix: informe **material**, **centro** e **depósito**, **desmarque** a opção "Selec. junto estoques especiais" e clique no relógio verde. Observe a utilização livre e os lotes disponíveis.
+
+### 3.2. Geração do DataMatrix
+
+Com o lote em mãos, preencha a planilha de DataMatrix. Os campos obrigatórios (em amarelo na planilha):
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Material', 'Código do produto'],
+    ['Lote', 'Obtido na transação MMBE do SAP'],
+    ['Serial', '8 dígitos'],
+    ['Vencimento', 'Para testes, pode-se usar 31.12.2070'],
+  ]}
+/>
+
+Depois de gerar a string do DataMatrix, faça a **leitura (bipagem) por copiar e colar** e **salve a leitura** para poder enviar ao faturamento.
+
+## Etapa 4 — Envio para faturamento
+
+Com a leitura salva, clique em **"Enviar para faturamento"**.
+
+## Etapa 5 — Localização e conferência da nota fiscal (`VA03`)
+
+Após o envio para faturamento em HML, localize a nota fiscal gerada na transação `VA03` do SAP, buscando pelo número do pedido SAP (o campo de busca chama-se **"Ordem"** — digite e pressione ENTER).
+
+1. Clique no número do pedido e depois em **"Exibir fluxo do documento"**.
+2. Clique na nota fiscal (deve constar como **"Concluída"**) e depois em **"Exibir documento"**.
+3. Clique em **"Contabilidade"**.
+4. Dê um **duplo clique** na NF exibida para abrir a tela seguinte.
+5. Na aba **"DadosNF-e"**, confirme que o status está como **"1 – Autorizado"**.
+
+## Etapa 6 — Validação da nota fiscal via SQL
+
+Com a nota localizada e autorizada, valide as informações direto na base de **HML**, na ordem abaixo.
+
+<Callout type="cuidado" title="SQL destrutivo — apenas em HML">
+As consultas desta etapa incluem `DELETE`. Rode **exclusivamente na base de Homologação**, confira o pedido/nota antes de executar e **sempre** envolva a rotina completa em `begin transaction` … `commit`.
+</Callout>
+
+**6.1. Verificar se a nota existe na base de HML**
+
+```sql
+select * from Pedidos_NotaFiscal where NumeroNotaFiscal = '000031017'
+```
+
+**6.2. Verificar a ordem de venda correspondente**
+
+A ordem de venda em HML deve ser igual à do SAP e sempre tem **10 dígitos**. Identifique o `IdOrdemDeVendaSap` **mais antigo** (deve ser excluído), mantendo apenas o mais novo.
+
+```sql
+select * from Pedidos_OrdemDeVendaSap where OrdemDeVenda = '0002437968'
+
+-- mantenha o registro da data em uso e apague os antigos
+delete from Pedidos_OrdemDeVendaSap where IdOrdemDeVendaSap = '835242'
+```
+
+**6.3. Rotina completa de exclusão da nota fiscal**
+
+Execute a rotina completa abaixo. Nunca esqueça de iniciar com `begin transaction` e finalizar com `commit`.
+
+```sql
+begin transaction -- sempre fazer begin primeiro
+
+-- a nota vem como 000030929-33, mas use SEM o dígito: 000030929
+DECLARE @NotaFiscal BIGINT = 000031017
+
+-- captura TODOS os IDs da nota fiscal (pode haver mais de um)
+DECLARE @Ids TABLE (IdNotaFiscal BIGINT)
+INSERT INTO @Ids
+SELECT IdNotaFiscal FROM Pedidos_NotaFiscal WHERE NumeroNotaFiscal = @NotaFiscal
+
+-- captura todos os pedidos vinculados a essa nota
+DECLARE @Pedidos TABLE (IdPedido BIGINT)
+INSERT INTO @Pedidos
+SELECT IdPedido FROM Pedidos_NotaFiscal WHERE NumeroNotaFiscal = @NotaFiscal
+
+-- deleta os itens da nota
+DELETE FROM Pedidos_ItemNotaFiscal WHERE IdNota IN (SELECT IdNotaFiscal FROM @Ids)
+
+-- deleta as ordens de venda de todos os pedidos vinculados
+DELETE FROM Pedidos_OrdemDeVendaSap WHERE IdPedido IN (SELECT IdPedido FROM @Pedidos)
+
+-- deleta a nota fiscal
+DELETE FROM Pedidos_NotaFiscal WHERE NumeroNotaFiscal = @NotaFiscal
+
+commit -- sempre fechar o begin com o commit
+```
+
+## Etapa 7 — Atualização do pedido via Swagger
+
+Depois da rotina SQL, atualize o pedido pela API, no Swagger.
+
+1. Abra o endpoint correspondente no Swagger.
+2. Clique em **"Try it out"**, informe o número do pedido no corpo do JSON e clique em **"Execute"**.
+
+```json
+{
+  "numeroDoPedido": [
+    20260122409
+  ],
+  "diasParaAtualizar": 30,
+  "status": [
+    5
+  ]
+}
+```
+
+O retorno esperado é **código 200**, confirmando que o pedido foi validado e integrado. (O `status: 5` corresponde ao painel **Faturados** — ver [De Para → SituacaoDoPainelDaHome](/tecnico/banco-de-dados/de-para).)
+
+## Etapa 8 — Conferência e inserção do movimento serial
+
+Com o 200 confirmado, rode a consulta abaixo (trocando o número do pedido) para verificar se o movimento serial pode ser criado. O filtro `NOT EXISTS` evita duplicar um movimento já gravado.
+
+```sql
+SELECT
+  RIGHT(REPLICATE('0', 9) + CAST(n.NumeroNotaFiscal AS VARCHAR), 9)
+    + '-' + CAST(n.Serie AS VARCHAR) AS NotaFiscal
+  ,CAST(n.DataDeEmissao AS DATE) AS DataNotaFiscal
+  ,o.OrdemErp AS TipoOperacao
+  ,iNota.NumeroDaRemessa AS Remessa
+  ,n.Fatura
+  ,(iNota.Sequencial * 10) ItemFatura
+  ,prod.CodigoSku AS CodigoDoProduto
+  ,isp.Lote
+  ,isp.Serial
+  ,'2078-12-31' AS DataVencimentoLote
+  ,null AS NotaFiscalDeOrigem
+  ,centro.CodigoErp AS CentroDaNotaFiscal
+  ,i.PrecoUnitario AS ValorUnitario
+  ,'INTEGRACAO' AS NotaCriadaPor
+  ,p.PedidoSap
+  ,p.Sequencial AS NumeroDoPedido
+  ,ISNULL(i.PorcentagemDesconto, 0) PorcentagemDeDescontoDoPedido
+  ,p.ValorFrete / NULLIF(qtd.QuantidadeTotal, 0) AS ValorFrete
+  ,0 AS NotaEstornada
+  ,i.PrecoUnitario AS ValorUnitarioMoedaEstrangeira
+  ,'BRL' AS Moeda
+  ,cli.CodigoDoCliente
+FROM Pedidos_Pedido p WITH(NOLOCK)
+JOIN Pedidos_ItemPrePedido i WITH(NOLOCK) ON i.IdPedido = p.IdPedido
+JOIN (
+  SELECT IdPedido, SUM(QuantidadeAtendida) AS QuantidadeTotal
+  FROM Pedidos_ItemPrePedido WITH(NOLOCK)
+  GROUP BY IdPedido
+) qtd ON qtd.IdPedido = p.IdPedido
+JOIN Faturamentos_PedidoRemessaDeFaturamento pr WITH(NOLOCK) ON pr.IdPedido = p.IdPedido
+JOIN Faturamentos_PedidoSeparacao ps WITH(NOLOCK) ON ps.IdPedidoRemessaDeFaturamento = pr.IdPedidoRemessaDeFaturamento
+JOIN Faturamentos_ItemSeparacaoPedido isp WITH(NOLOCK) ON isp.IdPedidoSeparacao = ps.IdPedidoSeparacao AND isp.IdProduto = i.IdProduto
+JOIN Produtos_Produto prod WITH(NOLOCK) ON prod.IdProduto = i.IdProduto AND isp.IdProduto = prod.IdProduto
+JOIN Pedidos_OperacaoInteligente o WITH(NOLOCK) ON o.IdOperacaoInteligente = p.IdOperacaoInteligente
+JOIN Clientes_CLiente cli WITH(NOLOCK) ON cli.IdCliente = p.IdCliente
+INNER JOIN Pedidos_NotaFiscal n WITH(NOLOCK) ON n.IdPedido = p.IdPedido
+INNER JOIN Pedidos_ItemNotaFiscal iNota WITH(NOLOCK)
+  ON iNota.IdNota = n.IdNotaFiscal AND iNota.IdProduto = i.IdProduto
+  AND iNota.NumeroDaRemessa = pr.Remessa
+LEFT JOIN Administrador_Centro centro WITH(NOLOCK) ON centro.IdCentro = n.IdCentro
+WHERE p.Sequencial = 20260122452 -- <<< incluir o pedido aqui
+AND NOT EXISTS (
+  SELECT 1 FROM Faturamentos_MovimentoSerial ms
+  WHERE ms.NumeroDoPedido = p.Sequencial
+  AND ms.NotaFiscal = RIGHT(REPLICATE('0', 9) + CAST(n.NumeroNotaFiscal AS VARCHAR), 9)
+      + '-' + CAST(n.Serie AS VARCHAR)
+)
+```
+
+Se o resultado estiver correto, grave o movimento serial trocando `SELECT` por `INSERT INTO Faturamentos_MovimentoSerial` seguido do **mesmo** `SELECT` completo:
+
+```sql
+INSERT INTO Faturamentos_MovimentoSerial
+SELECT
+  -- ... exatamente as mesmas colunas, JOINs e WHERE do SELECT de conferência acima ...
+FROM Pedidos_Pedido p WITH(NOLOCK)
+  -- ...
+WHERE p.Sequencial = 20260122452 -- <<< incluir o pedido aqui
+AND NOT EXISTS ( /* mesmo filtro anti-duplicidade */ )
+```
+
+<Callout type="dica" title="O INSERT reaproveita o SELECT">
+O `INSERT` usa exatamente as **mesmas colunas, JOINs e filtro `WHERE`** do `SELECT` de conferência da etapa anterior — só troque `SELECT` por `INSERT INTO Faturamentos_MovimentoSerial` seguido do `SELECT` completo.
+</Callout>
+
+## Etapa 9 — Uso em devolução e troca
+
+Concluído todo o processo (criação, aprovação, remessa, faturamento, validação da NF e conferência do movimento serial), o pedido fica **apto a ser usado em devoluções e trocas**. O mesmo roteiro de conferência (localizar a NF, validar via SQL e verificar o movimento serial) deve ser observado sempre que uma devolução ou troca vinculada a um pedido já faturado for processada.
+
+## Tipos de faturamento que geram movimento serial
+
+O movimento serial é gerado a partir de diferentes origens de faturamento (enum `TipoFaturamentoParaMovimentoSerial` — ver [De Para](/tecnico/banco-de-dados/de-para)):
+
+<DocTable
+  headers={['Valor', 'Origem do faturamento']}
+  rows={[
+    ['0', 'Faturamento por remessa'],
+    ['1', 'Faturamento de devoluções'],
+    ['2', 'Faturamento de consignado via Portal KA'],
+    ['3', 'Faturamento de consignado pelo CRM'],
+  ]}
+/>
+
+## Fluxograma — do pedido aprovado ao movimento serial
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 460 900" width="460" role="img" aria-label="Fluxograma do faturamento de pedido e inserção do movimento serial" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwf" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwf)">
+    <path d="M230,66 L230,92" />
+    <path d="M230,150 L230,176" />
+    <path d="M230,234 L230,260" />
+    <path d="M230,318 L230,344" />
+    <path d="M230,402 L230,428" />
+    <path d="M230,486 L230,512" />
+    <path d="M230,570 L230,596" />
+    <path d="M230,654 L230,680" />
+    <path d="M230,738 L230,764" />
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="40" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="48" text-anchor="middle" font-weight="600">1 &#183; Criar e aprovar o pedido</text>
+    <rect x="40" y="92" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="115" text-anchor="middle">2 &#183; Enviar remessa no SAP</text>
+    <text x="230" y="134" text-anchor="middle" fill="#5c6b7a" font-size="12">ZSD_SAIDA_FILIAIS &#183; "Enviar CRM"</text>
+    <rect x="40" y="176" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="199" text-anchor="middle">3 &#183; Separar e bipar itens</text>
+    <text x="230" y="218" text-anchor="middle" fill="#5c6b7a" font-size="12">lote na MMBE &#183; gerar DataMatrix</text>
+    <rect x="40" y="260" width="380" height="46" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="288" text-anchor="middle">4 &#183; Enviar para faturamento</text>
+    <rect x="40" y="344" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="367" text-anchor="middle">5 &#183; Conferir a nota fiscal</text>
+    <text x="230" y="386" text-anchor="middle" fill="#5c6b7a" font-size="12">VA03 &#183; status "1 &#8211; Autorizado"</text>
+    <rect x="40" y="428" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="451" text-anchor="middle">6 &#183; Validar via SQL (HML)</text>
+    <text x="230" y="470" text-anchor="middle" fill="#5c6b7a" font-size="12">begin / delete / commit</text>
+    <rect x="40" y="512" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="535" text-anchor="middle">7 &#183; Atualizar via Swagger</text>
+    <text x="230" y="554" text-anchor="middle" fill="#5c6b7a" font-size="12">status 5 &#8594; retorno 200</text>
+    <rect x="40" y="596" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="619" text-anchor="middle">8 &#183; Conferir e inserir</text>
+    <text x="230" y="638" text-anchor="middle" fill="#5c6b7a" font-size="12">Faturamentos_MovimentoSerial</text>
+    <rect x="40" y="680" width="380" height="58" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="703" text-anchor="middle" font-weight="600">9 &#183; Pedido apto</text>
+    <text x="230" y="722" text-anchor="middle" fill="#5c6b7a" font-size="12">devolução e troca</text>
+  </g>
+</svg>
+</div>
+
+## Problemas comuns
+
+- **A remessa não aparece na fila de separação:** confirme se o passo do SAP (`ZSD_SAIDA_FILIAIS` → "Enviar CRM") deixou a remessa **verde**.
+- **NF não aparece na VA03:** confirme que buscou pelo campo **"Ordem"** com o número do pedido SAP e que o faturamento em HML foi concluído.
+- **Swagger não retorna 200:** revise a rotina SQL da Etapa 6 (ordem de venda antiga não removida costuma travar) e o corpo JSON (pedido e `status`).
+- **Movimento serial não grava:** o `NOT EXISTS` bloqueia duplicidade — se o movimento já existe para aquele pedido/nota, a consulta volta vazia (comportamento esperado).
+
+## Perguntas frequentes
+
+<FaqAccordion
+  items={[
+    { question: 'Posso rodar este fluxo em produção?', answer: 'Não. É um procedimento de Homologação/QA e envolve SQL de exclusão e atualização via API. Rode somente em HML.' },
+    { question: 'Por que manter só a ordem de venda mais nova?', answer: 'A base de HML pode acumular ordens de venda antigas do mesmo pedido. Mantém-se apenas o registro da data em uso e apagam-se os anteriores para a validação seguinte funcionar.' },
+    { question: 'O que o status 5 significa no Swagger?', answer: 'Corresponde ao painel "Faturados" (enum SituacaoDoPainelDaHome). Ele sinaliza que o pedido foi faturado e integrado.' },
+    { question: 'Preciso reescrever o INSERT do movimento serial?', answer: 'Não. O INSERT reaproveita exatamente as mesmas colunas, JOINs e filtro WHERE do SELECT de conferência — só troca SELECT por INSERT INTO Faturamentos_MovimentoSerial.' },
+    { question: 'Para que serve o movimento serial depois?', answer: 'Ele habilita o pedido faturado a ser usado em devoluções e trocas, mantendo a rastreabilidade por lote/serial.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '03/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Documento original (KCS) reestruturado em formato de fluxo técnico do manual, com alçadas generalizadas, avisos de HML/QA nos blocos SQL e fluxograma do processo.' },
+  ]}
+/>

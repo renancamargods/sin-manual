@@ -1,0 +1,181 @@
+---
+section: tecnico
+routeSlug: fluxos/fechamento-de-consignado
+pageType: tecnico
+title: Fechamento de Consignado
+description: "Fluxo do fechamento de consignado: selecionar os itens que ficaram em consignação no cliente, equalizar desconto e gerar o pedido de faturamento — por cliente ou por nota fiscal."
+moduleLabel: Faturamento
+routineType: Fluxo de processo
+impact: Faturamento de itens em consignação
+keywords: [fechamento de consignado, consignado, consignação, faturamento, protocolo, nota fiscal, lote, série, quantidade a faturar, desconto, avaria, relatório de consignado]
+tags: [tecnico, fluxo, fechamento-de-consignado]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+O **Fechamento de Consignado** é o processo que **fatura os itens que ficaram em consignação** no cliente. Em vez de faturar tudo na saída, os itens são enviados em consignação e, conforme o cliente **consome** (ou devolve), faz-se o fechamento: seleciona-se o que será faturado, aplica-se o desconto devido e **gera-se o pedido** correspondente.
+
+Ele complementa o [Faturamento de Pedido e Movimento de Serial](/tecnico/fluxos/faturamento-e-movimento-serial): o fechamento também produz um faturamento e o respectivo **movimento serial** (origem "consignado").
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Faturar o que foi consumido', text: 'Fechar a consignação: selecionar os itens consumidos pelo cliente e gerar o pedido de faturamento.' },
+    { label: 'Uso', title: 'Faturamento', text: 'Usado pela equipe de Faturamento para apurar e faturar itens em consignação, por cliente ou por nota fiscal.' },
+    { label: 'Cuidado', title: 'Quantidade disponível', text: 'A "Quantidade a Faturar" de cada item não pode passar da quantidade disponível para faturamento daquele lote/série.' },
+  ]}
+/>
+
+## Quando usar este fluxo
+
+- **Fechar** os itens que o cliente consumiu de uma consignação.
+- Faturar de forma consolidada **por cliente** ou específica **por nota fiscal**.
+- Registrar **avaria** e aplicar o **desconto de política** no fechamento.
+
+## Dois tipos de fechamento
+
+O fechamento pode ser montado de duas formas (`TipoFechamentoConsignado`):
+
+<DocTable
+  headers={['Valor', 'Tipo', 'Como monta os itens']}
+  rows={[
+    ['0', 'Por Cliente', 'Reúne os itens em consignação daquele cliente para fechar de uma vez.'],
+    ['1', 'Por Nota Fiscal', 'Parte de uma nota fiscal específica e fecha os itens dela.'],
+  ]}
+/>
+
+## Etapa 1 — Abrir o fechamento
+
+Ao criar um novo fechamento, registram-se no cabeçalho:
+
+- **Protocolo** — identificador do fechamento (gerado pelo sistema).
+- **Tipo de fechamento** — "Por Cliente" ou "Por Nota Fiscal".
+- **Cliente** e/ou **Nota Fiscal** de referência.
+- **Avaria** — marcação para itens avariados.
+- **Desconto da política** — desconto aplicável conforme a política do cliente.
+
+## Etapa 2 — Buscar e selecionar os itens
+
+Com o cabeçalho definido, busque os itens em consignação disponíveis e selecione o que será faturado (opção **"Selecionar Itens por Série"**). Cada item traz:
+
+<DocTable
+  headers={['Campo', 'O que é']}
+  rows={[
+    ['Número da Nota Fiscal / Data', 'Nota fiscal de origem da consignação e sua data.'],
+    ['Lote / Série', 'Rastreabilidade do item consignado.'],
+    ['Quantidade Disponível para Faturamento', 'Quanto ainda pode ser faturado daquele lote/série.'],
+    ['Quantidade a Faturar', 'Quanto será faturado agora (não pode passar da disponível).'],
+    ['Tipo da Ordem / Centro', 'Tipo da ordem (ERP) e Lounge/Centro da nota.'],
+    ['Valor Unitário / Desconto', 'Preço e desconto aplicado ao item.'],
+    ['Nº NF de Devolução Física / Qtd Devolvido', 'Quando há devolução física do item consignado.'],
+  ]}
+/>
+
+<Callout type="atencao" title="Fechamento parcial">
+Não é obrigatório faturar tudo de uma vez. A **"Quantidade a Faturar"** pode ser menor que a disponível — o restante segue em consignação para um fechamento futuro.
+</Callout>
+
+## Etapa 3 — Equalizar o desconto
+
+Antes de gerar o pedido, é possível **equalizar o desconto** dos itens selecionados (modal de desconto do fechamento). Isso aplica/ajusta o desconto de forma uniforme, respeitando o desconto da política.
+
+## Etapa 4 — Salvar e gerar o pedido
+
+1. **"Salvar"** o fechamento (o sistema confirma que o fechamento foi salvo).
+2. **"Gerar Pedido"** — envia o fechamento para faturamento (marca **"Enviado para faturamento"** com data) e gera o(s) pedido(s) de consignado vinculado(s).
+
+Os pedidos gerados ficam listados no fechamento (**"Nº Pedido(s)"** e **"Qtd Em Pedido"**). Se aquela nota já tiver gerado um pedido, o sistema avisa **"Já foi gerado um pedido para nota selecionada"**.
+
+## Etapa 5 — Acompanhamento
+
+- O histórico fica em **"Informações Detalhadas do Status"**.
+- O **Relatório de Consignado** (Resumido/Completo) acompanha os saldos e os tipos de nota da consignação.
+- O faturamento gerado alimenta o **movimento serial** (origem "consignado") — ver o fluxo de Faturamento.
+
+## Relação com outros processos
+
+- **Faturamento e Movimento de Serial:** o fechamento gera faturamento e movimento serial de origem consignado (`TipoFaturamentoParaMovimentoSerial` = "Consignado via Portal KA" ou "Consignado pelo CRM") — ver [Faturamento de Pedido e Movimento de Serial](/tecnico/fluxos/faturamento-e-movimento-serial).
+- **TDC:** a devolução de consignado também pode ser tratada no [fluxo de Troca, Devolução e Cancelamento](/tecnico/fluxos/troca-devolucao-cancelamento-tdc).
+- **De Para:** os códigos de `TipoFechamentoConsignado` estão em [Banco de Dados → De Para](/tecnico/banco-de-dados/de-para).
+
+## Fluxograma — do fechamento ao pedido faturado
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 460 720" width="460" role="img" aria-label="Fluxograma do fechamento de consignado" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwc" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwc)">
+    <path d="M230,66 L230,92" />
+    <path d="M230,150 L230,176" />
+    <path d="M230,234 L230,260" />
+    <path d="M230,318 L230,344" />
+    <path d="M230,402 L230,428" />
+    <path d="M230,486 L230,512" />
+    <path d="M230,570 L230,596" />
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="40" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="41" text-anchor="middle" font-weight="600">1 &#183; Abrir fechamento</text>
+    <text x="230" y="58" text-anchor="middle" fill="#5c6b7a" font-size="11">por Cliente ou por Nota Fiscal</text>
+    <rect x="40" y="92" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="115" text-anchor="middle">2 &#183; Selecionar itens</text>
+    <text x="230" y="134" text-anchor="middle" fill="#5c6b7a" font-size="12">por série/lote &#183; "Qtd a Faturar"</text>
+    <rect x="40" y="176" width="380" height="46" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="204" text-anchor="middle">3 &#183; Equalizar desconto</text>
+    <rect x="40" y="260" width="380" height="46" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="288" text-anchor="middle">4 &#183; "Salvar"</text>
+    <rect x="40" y="344" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="367" text-anchor="middle">5 &#183; "Gerar Pedido"</text>
+    <text x="230" y="386" text-anchor="middle" fill="#5c6b7a" font-size="12">enviado para faturamento</text>
+    <rect x="40" y="428" width="380" height="58" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="230" y="451" text-anchor="middle">6 &#183; Pedido de consignado faturado</text>
+    <text x="230" y="470" text-anchor="middle" fill="#5c6b7a" font-size="12">gera movimento serial (consignado)</text>
+    <rect x="40" y="512" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="535" text-anchor="middle">7 &#183; Acompanhar</text>
+    <text x="230" y="554" text-anchor="middle" fill="#5c6b7a" font-size="12">Relatório de Consignado &#183; saldos</text>
+    <rect x="40" y="596" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="624" text-anchor="middle" font-weight="600">Saldo restante segue em consignação</text>
+  </g>
+</svg>
+</div>
+
+## Problemas comuns
+
+- **"Já foi gerado um pedido para nota selecionada":** aquela nota fiscal de consignação já teve fechamento; consulte o pedido informado.
+- **"Quantidade a Faturar" recusada:** ela não pode passar da **Quantidade Disponível para Faturamento** do lote/série.
+- **Item não aparece para seleção:** confirme o tipo do fechamento (por cliente × por nota) e se ainda há saldo disponível naquele lote/série.
+- **Desconto não bate:** revise a equalização de desconto e o desconto da política do cliente.
+
+## Perguntas frequentes
+
+<FaqAccordion
+  items={[
+    { question: 'Qual a diferença entre fechar por cliente e por nota fiscal?', answer: 'Por cliente reúne todos os itens em consignação do cliente para fechar de uma vez; por nota fiscal parte de uma nota específica e fecha os itens dela.' },
+    { question: 'Posso faturar só uma parte da consignação?', answer: 'Sim. A "Quantidade a Faturar" pode ser menor que a disponível — o restante continua em consignação para um fechamento futuro.' },
+    { question: 'O que a marcação de avaria faz?', answer: 'Sinaliza itens avariados dentro do fechamento, para o tratamento adequado no faturamento.' },
+    { question: 'O fechamento gera movimento serial?', answer: 'Sim. Ao gerar o pedido e faturar, o sistema cria o movimento serial de origem consignado, mantendo a rastreabilidade por lote/série.' },
+    { question: 'Onde acompanho os saldos de consignação?', answer: 'No Relatório de Consignado (Resumido/Completo), que mostra os saldos e os tipos de nota da consignação.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '03/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Fluxo de Fechamento de Consignado documentado a partir da regra real do sistema (entidade, itens, tipos de fechamento e ações).' },
+  ]}
+/>

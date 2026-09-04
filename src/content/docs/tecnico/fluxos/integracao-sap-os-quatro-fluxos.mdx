@@ -1,0 +1,160 @@
+---
+section: tecnico
+routeSlug: fluxos/integracao-sap-os-quatro-fluxos
+pageType: tecnico
+title: Integração SAP — Os quatro fluxos
+description: "Passo a passo dos quatro fluxos de integração com o SAP: Business Partner (cliente), Sales Order (pedido), Outbound Delivery (remessa, três etapas) e Billing Document (fatura, por polling)."
+moduleLabel: Integração / SAP
+routineType: Fluxo de processo
+impact: Integração encadeada de cliente, pedido, remessa e fatura
+keywords: [integração SAP, business partner, sales order, outbound delivery, billing document, cliente, pedido, remessa, fatura, PickAllItems, PostGoodsIssue, polling, encadeamento]
+tags: [tecnico, fluxo, integracao-sap-os-quatro-fluxos]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+Esta página detalha, passo a passo, os **quatro fluxos** que a integração com o SAP encadeia: **Business Partner** (cliente), **Sales Order** (pedido), **Outbound Delivery** (remessa) e **Billing Document** (fatura). A conclusão de um fluxo dispara o próximo, formando a cadeia **cliente → pedido → remessa → fatura**.
+
+Para o funcionamento do motor, estados e monitoramento, veja a [Visão Geral da Integração SAP](/tecnico/fluxos/integracao-sap-visao-geral).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Espelhar a cadeia comercial', text: 'Levar cliente, pedido, remessa e fatura ao SAP, cada um disparando o próximo.' },
+    { label: 'Uso', title: 'Integração / TI', text: 'Acompanhado pelo time de Integração no Monitoramento de Integrações SAP.' },
+    { label: 'Cuidado', title: 'Encadeamento por callback', text: 'A remessa e a fatura são disparadas pela conclusão da etapa anterior, não manualmente.' },
+  ]}
+/>
+
+## 1. Business Partner — Cliente → SAP
+
+Leva o cliente para o SAP como **Business Partner** (parceiro de negócio).
+
+- **Início:** disparado para um cliente específico (por ação da integração de cliente).
+- **Validação de borda:** antes de qualquer envio, confere **nome**, **documento válido** e **ao menos um endereço**. CNPJ é validado por formato (aceita o CNPJ alfanumérico); CPF, por dígito verificador.
+- **Decisão (a regra escolhe o caminho):**
+
+<DocTable
+  headers={['Situação do cliente', 'O que a integração faz']}
+  rows={[
+    ['Já sincronizado (tem código SAP)', 'Atualiza o parceiro existente.'],
+    ['Não sincronizado, com documento', 'Procura o parceiro pelo documento; se achar, atualiza; se não, cria.'],
+    ['Não sincronizado, sem documento (internacional)', 'Cria o parceiro sem o documento fiscal.'],
+  ]}
+/>
+
+- **Ao concluir:** grava, no cliente do CRM, o **código do parceiro** retornado pelo SAP — é isso que o torna "sincronizado" para as próximas vezes.
+
+<Callout type="info" title="Idempotência do cliente">
+Se o cliente já tem código SAP, a integração preserva esse código em reprocessamentos — não cria um parceiro duplicado.
+</Callout>
+
+## 2. Sales Order — Pedido → SAP
+
+Cria a **ordem de venda** do pedido no SAP.
+
+- **Início:** a partir de um pedido aprovado.
+- **Execução:** cria a ordem de venda (Create) e captura o **número do pedido SAP**.
+- **Ao concluir:**
+  - grava o **número do pedido SAP** e a **ordem de venda** no CRM;
+  - **encadeia** o fluxo de **Outbound Delivery** (remessa).
+- **Se não conseguir identificar o número** do pedido criado, a integração vai para **ação manual** (o pedido existe no SAP, mas precisa de conciliação).
+
+## 3. Outbound Delivery — Remessa (3 etapas)
+
+Cria e processa a **remessa** referente à ordem de venda. As três etapas nascem juntas, mas só a primeira começa **pendente**; as seguintes ficam **"aguardando etapa anterior"** e são liberadas conforme cada uma conclui.
+
+<DocTable
+  headers={['Etapa', 'O que faz']}
+  rows={[
+    ['1. Criar remessa', 'Cria a remessa referenciando a ordem de venda.'],
+    ['2. Confirmar separação (PickAllItems)', 'Confirma a separação de todos os itens.'],
+    ['3. Registrar saída (PostGoodsIssue)', 'Registra a saída de mercadoria e encadeia a fatura.'],
+  ]}
+/>
+
+Ao registrar a saída (etapa 3), a integração **encadeia** o fluxo de **Billing Document** (fatura).
+
+## 4. Billing Document — Fatura (por polling)
+
+Obtém a **fatura**, que o SAP gera de forma **assíncrona**.
+
+- **Início:** disparado pela conclusão do "registrar saída" (PostGoodsIssue).
+- **Execução:** como não há criação, a etapa **consulta o SAP repetidamente** (polling) filtrando pelo documento de referência.
+- **Espera:** enquanto a fatura não aparece, a etapa reagenda periodicamente, por um tempo máximo; se estourar o limite, escala para **ação manual**.
+
+## A cadeia completa
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 480 430" width="480" role="img" aria-label="Cadeia completa: cliente, pedido, remessa (três etapas) e fatura" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwsf" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwsf)">
+    <path d="M240,60 L240,86" />
+    <path d="M240,144 L240,170" />
+    <path d="M240,262 L240,288" />
+    <path d="M240,346 L240,372" />
+  </g>
+  <g font-size="12.5" fill="#5c6b7a">
+    <text x="252" y="80" text-anchor="start" font-size="11">encadeia</text>
+    <text x="252" y="284" text-anchor="start" font-size="11">encadeia</text>
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="60" y="20" width="360" height="40" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="240" y="45" text-anchor="middle" font-weight="600">1 &#183; Business Partner (Cliente)</text>
+    <rect x="60" y="86" width="360" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="240" y="109" text-anchor="middle" font-weight="600">2 &#183; Sales Order (Pedido)</text>
+    <text x="240" y="128" text-anchor="middle" fill="#5c6b7a" font-size="11">cria a ordem de venda &#183; grava nº SAP</text>
+    <rect x="60" y="170" width="360" height="92" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="240" y="191" text-anchor="middle" font-weight="600">3 &#183; Outbound Delivery (Remessa)</text>
+    <text x="240" y="211" text-anchor="middle" fill="#5c6b7a" font-size="11">1. Criar remessa</text>
+    <text x="240" y="229" text-anchor="middle" fill="#5c6b7a" font-size="11">2. Confirmar separação</text>
+    <text x="240" y="247" text-anchor="middle" fill="#5c6b7a" font-size="11">3. Registrar saída de mercadoria</text>
+    <rect x="60" y="288" width="360" height="58" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="240" y="311" text-anchor="middle" font-weight="600">4 &#183; Billing Document (Fatura)</text>
+    <text x="240" y="330" text-anchor="middle" fill="#5c6b7a" font-size="11">aguarda a fatura por polling</text>
+    <rect x="60" y="372" width="360" height="40" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="240" y="397" text-anchor="middle" font-weight="600">Cliente, pedido, remessa e fatura no SAP</text>
+  </g>
+</svg>
+</div>
+
+## Problemas comuns
+
+- **Cadeia comercial não anda:** confirme que o fluxo do **pedido** foi disparado — remessa e fatura só existem encadeadas a partir dele.
+- **Integração em "Aguardando ação manual":** verifique, no monitoramento, se faltou dado obrigatório no CRM ou se o número do documento SAP não foi identificado.
+- **Fatura não chega:** o SAP gera a fatura de forma assíncrona; a etapa de fatura fica em polling até encontrá-la ou estourar o limite.
+- **Cliente não sincroniza:** confira nome, documento válido e ao menos um endereço — são exigidos antes de qualquer envio.
+
+## Perguntas frequentes
+
+<FaqAccordion
+  items={[
+    { question: 'Preciso disparar remessa e fatura manualmente?', answer: 'Não. Elas são encadeadas: a conclusão do pedido dispara a remessa, e o registro de saída da remessa dispara a fatura.' },
+    { question: 'O que acontece se o cliente já existir no SAP?', answer: 'A integração atualiza o parceiro existente e preserva o código SAP, em vez de criar um novo.' },
+    { question: 'Por que a remessa tem três etapas?', answer: 'Criar a remessa, confirmar a separação dos itens (PickAllItems) e registrar a saída de mercadoria (PostGoodsIssue) — só então a fatura é disparada.' },
+    { question: 'Cliente internacional (sem CNPJ/CPF) integra?', answer: 'Sim. Quando o cliente não tem documento fiscal, o parceiro é criado sem o documento.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '03/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Passo a passo dos quatro fluxos de integração SAP (Business Partner, Sales Order, Outbound Delivery e Billing Document) e o encadeamento entre eles, na altitude do manual.' },
+  ]}
+/>

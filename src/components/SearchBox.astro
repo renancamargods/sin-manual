@@ -50,12 +50,20 @@ const { size = 'md', placeholder = 'Buscar tela, módulo ou dúvida frequente...
   function loadIndex(): Promise<SearchItem[]> {
     if (index) return Promise.resolve(index);
     if (!loading) {
-      loading = fetch('/search-index.json')
-        .then((r) => r.json())
-        .then((data: SearchItem[]) => {
-          index = data;
-          return data;
-        });
+      // Índice público (sem a seção técnica) + índice técnico protegido por senha.
+      // O técnico fica em /tecnico/search-index.json: logado, o navegador manda a
+      // credencial e vem 200 (juntamos); sem login, vem 401 e é ignorado — sem
+      // popup, porque é um fetch de sub-recurso, não uma navegação.
+      const pub = fetch('/search-index.json')
+        .then((r) => (r.ok ? r.json() : []))
+        .catch(() => []);
+      const tec = fetch('/tecnico/search-index.json')
+        .then((r) => (r.ok ? r.json() : []))
+        .catch(() => []);
+      loading = Promise.all([pub, tec]).then(([p, t]: [SearchItem[], SearchItem[]]) => {
+        index = [...(Array.isArray(p) ? p : []), ...(Array.isArray(t) ? t : [])];
+        return index;
+      });
     }
     return loading;
   }

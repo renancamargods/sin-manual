@@ -1,0 +1,187 @@
+---
+section: tecnico
+routeSlug: fluxos/integracao-sap-visao-geral
+pageType: tecnico
+title: Integração com o SAP (S/4HANA) — Visão Geral
+description: "Como funciona a integração com o SAP S/4HANA: um motor de etapas dirigido por configuração que encadeia os fluxos de cliente, pedido, remessa e fatura, com estados e monitoramento."
+moduleLabel: Integração / SAP
+routineType: Fluxo de processo
+impact: Integração de cadastros e documentos com o SAP
+keywords: [integração SAP, S/4HANA, OData, fluxo de integração, etapa, executor, monitoramento, business partner, sales order, outbound delivery, billing document, status de integração]
+tags: [tecnico, fluxo, integracao-sap-visao-geral]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A integração com o **SAP S/4HANA** leva para o SAP os cadastros e documentos gerados no CRM — **cliente**, **pedido**, **remessa** e **fatura**. Ela é um **motor de etapas dirigido por configuração**: cada tipo de documento tem um **fluxo** com uma ou mais **etapas** ordenadas, e cada etapa sabe qual operação executar contra o SAP. Assim, ajustar a integração é, na maior parte das vezes, **mudar a configuração** — não o código.
+
+Esta página é a visão geral (o "como funciona"). O passo a passo de cada fluxo está em [Integração SAP — Os quatro fluxos](/tecnico/fluxos/integracao-sap-os-quatro-fluxos).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Espelhar dados no SAP', text: 'Enviar cliente, pedido, remessa e fatura para o SAP, de forma encadeada e rastreável.' },
+    { label: 'Uso', title: 'Integração / TI', text: 'Configurada e monitorada pelo time de Integração; as telas de configuração ficam no módulo Integrador.' },
+    { label: 'Cuidado', title: 'Ação manual', text: 'Quando uma etapa não pode seguir sozinha, a integração vai para "Aguardando ação manual" e exige intervenção.' },
+  ]}
+/>
+
+## As peças da integração
+
+- **Fluxo** — o processo de um tipo de documento (ex.: Business Partner, Sales Order). Configurado em **Fluxos de Integração**.
+- **Etapa** — cada passo ordenado dentro de um fluxo. Um fluxo pode ter uma ou várias etapas.
+- **Tipo de etapa** — define qual **executor** a etapa usa e contra qual serviço do SAP. Configurado em **Tipo de Etapa**.
+- **Conexão** — o endereço e as credenciais do ambiente SAP. Configurada em **Configuração de Integração SAP**.
+- **Monitoramento** — acompanha cada integração e etapa (status, tentativas, logs). Tela **Monitoramento de Integrações SAP**.
+
+<Callout type="info" title="Onde configurar">
+As telas ficam no módulo **Integrador**: Fluxos de Integração, Tipo de Etapa, Configuração de Integração SAP e Monitoramento de Integrações SAP.
+</Callout>
+
+## Os cinco executores (tipos de etapa)
+
+Cada etapa usa um **executor**, que é a operação feita contra o SAP (`TipoExecutorEtapa`):
+
+<DocTable
+  headers={['Valor', 'Executor', 'O que faz']}
+  rows={[
+    ['1', 'Create', 'Cria um documento no SAP e captura o número gerado.'],
+    ['2', 'Read', 'Consulta um documento.'],
+    ['3', 'Update', 'Atualiza um documento existente.'],
+    ['4', 'Polling', 'Consulta repetidamente até o documento aparecer (usado na fatura).'],
+    ['5', 'FunctionImport', 'Executa uma função do SAP, como confirmar separação ou registrar saída de mercadoria.'],
+  ]}
+/>
+
+## Os quatro fluxos e a cadeia
+
+Quatro fluxos estão configurados, e eles se **encadeiam** — a conclusão de um dispara o próximo:
+
+<DocTable
+  headers={['Fluxo', 'Documento', 'Etapas']}
+  rows={[
+    ['Business Partner', 'Cliente', '1 etapa (verifica/cria/atualiza o parceiro).'],
+    ['Sales Order', 'Pedido', '1 etapa (cria a ordem de venda).'],
+    ['Outbound Delivery', 'Remessa', '3 etapas (criar, confirmar separação, registrar saída).'],
+    ['Billing Document', 'Fatura', '1 etapa (aguarda a fatura por polling).'],
+  ]}
+/>
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 460 470" width="460" role="img" aria-label="Cadeia dos fluxos de integração SAP: cliente, pedido, remessa e fatura" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwsg" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwsg)">
+    <path d="M230,72 L230,98" />
+    <path d="M230,156 L230,182" />
+    <path d="M230,266 L230,292" />
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="40" y="24" width="380" height="48" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="46" text-anchor="middle" font-weight="600">Business Partner &#183; Cliente</text>
+    <text x="230" y="63" text-anchor="middle" fill="#5c6b7a" font-size="11">verifica / cria / atualiza o parceiro</text>
+    <rect x="40" y="98" width="380" height="48" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="120" text-anchor="middle" font-weight="600">Sales Order &#183; Pedido</text>
+    <text x="230" y="137" text-anchor="middle" fill="#5c6b7a" font-size="11">cria a ordem de venda</text>
+    <rect x="40" y="182" width="380" height="84" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="203" text-anchor="middle" font-weight="600">Outbound Delivery &#183; Remessa</text>
+    <text x="230" y="222" text-anchor="middle" fill="#5c6b7a" font-size="11">1. Criar remessa</text>
+    <text x="230" y="239" text-anchor="middle" fill="#5c6b7a" font-size="11">2. Confirmar separação (PickAllItems)</text>
+    <text x="230" y="256" text-anchor="middle" fill="#5c6b7a" font-size="11">3. Registrar saída (PostGoodsIssue)</text>
+    <rect x="40" y="292" width="380" height="48" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="230" y="314" text-anchor="middle" font-weight="600">Billing Document &#183; Fatura</text>
+    <text x="230" y="331" text-anchor="middle" fill="#5c6b7a" font-size="11">aguarda a fatura por polling</text>
+    <rect x="40" y="376" width="380" height="42" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="402" text-anchor="middle" font-weight="600">Documentos espelhados no SAP</text>
+  </g>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwsg)">
+    <path d="M230,340 L230,376" />
+  </g>
+</svg>
+</div>
+
+## Estados da integração e da etapa
+
+Cada **integração** e cada **etapa** têm seu próprio ciclo de status. A integração só é **concluída** quando não resta nenhuma etapa pendente.
+
+**Status da integração (`StatusIntegracao`)**
+
+<DocTable
+  headers={['Valor', 'Status', 'Significado']}
+  rows={[
+    ['1', 'Pendente', 'Criada, ainda não iniciou.'],
+    ['2', 'Em andamento', 'Executando as etapas.'],
+    ['3', 'Concluída', 'Todas as etapas terminaram com sucesso.'],
+    ['4', 'Com erro', 'Uma etapa falhou.'],
+    ['5', 'Aguardando ação manual', 'Precisa de intervenção humana para seguir.'],
+    ['6', 'Cancelada', 'Integração cancelada.'],
+  ]}
+/>
+
+**Status da etapa (`StatusEtapa`)**
+
+<DocTable
+  headers={['Valor', 'Status', 'Significado']}
+  rows={[
+    ['1', 'Pendente', 'Aguardando execução.'],
+    ['2', 'Em andamento', 'Executando.'],
+    ['3', 'Concluída', 'Etapa finalizada com sucesso.'],
+    ['4', 'Com erro', 'Etapa falhou.'],
+    ['5', 'Ignorada', 'Etapa não aplicável, pulada.'],
+    ['6', 'Cancelada', 'Etapa cancelada.'],
+    ['7', 'Aguardando etapa anterior', 'Espera a etapa anterior concluir para ser liberada.'],
+  ]}
+/>
+
+<Callout type="cuidado" title="Aguardando ação manual">
+Uma integração chega a **"Aguardando ação manual"** por três caminhos: uma **pré-condição de negócio** não atendida (ex.: dado obrigatório ausente no CRM), as **retentativas esgotadas**, ou quando o resultado de uma etapa **exige conferência humana** (ex.: o documento foi criado no SAP mas o CRM não conseguiu identificar o número).
+</Callout>
+
+## Como uma etapa é executada (resumo)
+
+1. A etapa entra em **"Em andamento"**.
+2. **Idempotência:** se aquela etapa já criou o documento no SAP antes, o motor **não repete** a chamada — só refaz o registro no CRM. Isso evita documento duplicado em reprocessamentos.
+3. A **regra de negócio** lê o CRM e monta o que será enviado.
+4. O **executor** faz a operação no SAP e interpreta a resposta.
+5. Em caso de **falha temporária**, o motor **reagenda** com espera progressiva, até um limite; erros definitivos vão direto para ação manual.
+6. Cada chamada vira uma linha de **log** (data, status, duração) para o monitoramento.
+
+## Relação com outros processos
+
+- **Faturamento e Movimento de Serial:** a cadeia de remessa e fatura no SAP acompanha o [Faturamento de Pedido e Movimento de Serial](/tecnico/fluxos/faturamento-e-movimento-serial).
+- **De Para:** os códigos de `StatusIntegracao`, `StatusEtapa`, `TipoExecutorEtapa`, `TipoIntegracao` e `NivelLog` estão em [Banco de Dados → De Para](/tecnico/banco-de-dados/de-para).
+- **Passo a passo dos fluxos:** [Integração SAP — Os quatro fluxos](/tecnico/fluxos/integracao-sap-os-quatro-fluxos).
+
+## Perguntas frequentes
+
+<FaqAccordion
+  items={[
+    { question: 'O que significa "dirigido por configuração"?', answer: 'Os fluxos, etapas e a conexão ficam em tabelas de configuração (editáveis pelas telas do Integrador). Ajustar a integração normalmente é mudar a configuração, sem alterar o código.' },
+    { question: 'Por que a fatura usa "polling"?', answer: 'O SAP gera a fatura de forma assíncrona. Em vez de criar a fatura, a etapa consulta o SAP repetidamente até ela aparecer.' },
+    { question: 'O que faz um FunctionImport?', answer: 'Executa uma função específica do SAP — por exemplo, confirmar a separação (PickAllItems) ou registrar a saída de mercadoria (PostGoodsIssue) na remessa.' },
+    { question: 'A integração pode duplicar um documento?', answer: 'Não deveria: o motor guarda o número do documento assim que o SAP o cria e, ao reprocessar, pula a chamada já feita (idempotência).' },
+    { question: 'Onde vejo o que aconteceu em uma integração?', answer: 'Na tela de Monitoramento de Integrações SAP, que mostra o status da integração e de cada etapa, além dos logs de cada chamada.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '03/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Visão geral da integração SAP S/4HANA (motor de etapas, executores, os quatro fluxos, estados e monitoramento), na altitude do manual.' },
+  ]}
+/>

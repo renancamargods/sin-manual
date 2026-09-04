@@ -1,0 +1,148 @@
+---
+section: tecnico
+routeSlug: fluxos/pagamento-misto
+pageType: tecnico
+lang: en
+title: Mixed Payment
+description: "Mixed payment flow: combine more than one payment form on the same order (boleto, PIX and card), with the token, charge and confirmation status cycle."
+moduleLabel: Orders / Payments
+routineType: Process flow
+impact: Combining payment forms on an order
+keywords: [mixed payment, payment forms, boleto, PIX, card, token, mixed payment status, amount to pay, payment terms, installment]
+tags: [tecnico, fluxo, pagamento-misto]
+order: 2
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+**Mixed Payment** lets you settle a single order with **more than one payment form** — for example, part in boleto, part in PIX and part in card. Each form becomes a **line** with its **"Amount to Pay"**, and each has its own **status cycle** (token, charge, confirmation), until the order total is paid and it proceeds to the SAP integration.
+
+It complements [Link Generation (PIX, Card and Card Terminal)](/en/tecnico/fluxos/pagamentos-geracao-de-link): the mixed payment reuses the same gateways, but coordinates **several charges** on the same order.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Split the payment', text: 'Settle an order by combining boleto, PIX and card, controlling each part separately.' },
+    { label: 'Use', title: 'Orders / finance', text: 'Used when the customer pays an order with more than one payment form.' },
+    { label: 'Caution', title: 'Sum of the parts', text: 'The sum of the form amounts cannot exceed the order\'s remaining value.' },
+  ]}
+/>
+
+## How to assemble
+
+In the order's **"Mixed Payment Information"**, use **"New Mixed Payment Form"** to add each form. Per line:
+
+- **Payment Form** and **Payment Terms**.
+- **Amount to Pay** — how much that form covers.
+- For fixed-date boleto, the **Installment Day (Fixed-Date Boleto)**.
+
+The **"Mixed Payment Options"** gather the available forms. A form can be removed (with the confirmation **"Confirm removing the Mixed Payment Form?"**).
+
+<Callout type="atencao" title="Remaining value">
+The sum of the mixed payment form amounts **cannot exceed** the order's remaining value. Each line covers a part, and the total must match the order value.
+</Callout>
+
+## Status cycle of each form
+
+Each mixed payment form goes through its cycle (`StatusPagamentoMisto`):
+
+<DocTable
+  headers={['Value', 'Status', 'Meaning']}
+  rows={[
+    ['1', 'Awaiting token', 'Awaiting the token that authorizes the charge.'],
+    ['2', 'Token expired', 'The payment token expired.'],
+    ['3', 'Payment failure', 'There was a failure processing the payment.'],
+    ['4', 'Payment denied', 'The charge was denied.'],
+    ['5', 'Token canceled', 'The token was canceled.'],
+    ['6', 'Paid successfully', 'The form was paid.'],
+    ['7', 'Payment canceled', 'The charge was canceled.'],
+    ['8', 'Awaiting SAP integration', 'Paid, waiting to proceed to SAP.'],
+    ['9', 'Awaiting card payment', 'Card link generated, awaiting payment.'],
+    ['10', 'Error generating card link', 'Failure generating the card link.'],
+    ['11', 'Awaiting PIX generation', 'Awaiting the PIX charge generation.'],
+    ['12', 'Error generating PIX', 'Failure generating the PIX charge.'],
+    ['13', 'Awaiting PIX payment', 'PIX charge generated, awaiting payment.'],
+  ]}
+/>
+
+## Summary flow of one form
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 500 520" width="500" role="img" aria-label="Status cycle of one mixed payment form" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwpme" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwpme)">
+    <path d="M250,66 L250,92" />
+    <path d="M250,150 L250,176" />
+    <path d="M180,234 L180,300" />
+    <path d="M320,234 L320,300" />
+    <path d="M250,336 L250,362" />
+    <path d="M250,420 L250,446" />
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="60" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="250" y="41" text-anchor="middle" font-weight="600">Add form (Amount to Pay)</text>
+    <text x="250" y="58" text-anchor="middle" fill="#5c6b7a" font-size="11">payment form + terms</text>
+    <rect x="60" y="92" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="250" y="115" text-anchor="middle">Awaiting token</text>
+    <text x="250" y="134" text-anchor="middle" fill="#5c6b7a" font-size="12">authorizes the charge</text>
+    <rect x="60" y="176" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="250" y="199" text-anchor="middle">Generate charge</text>
+    <text x="250" y="218" text-anchor="middle" fill="#5c6b7a" font-size="12">PIX or card link</text>
+    <rect x="90" y="300" width="180" height="36" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="180" y="322" text-anchor="middle" font-size="12">Awaiting payment</text>
+    <rect x="230" y="300" width="180" height="36" rx="10" fill="#f4f5f7" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="320" y="322" text-anchor="middle" font-size="12">Denied / canceled</text>
+    <rect x="60" y="362" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="250" y="385" text-anchor="middle">Paid successfully</text>
+    <text x="250" y="404" text-anchor="middle" fill="#5c6b7a" font-size="12">awaiting SAP integration</text>
+    <rect x="60" y="446" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="250" y="474" text-anchor="middle" font-weight="600">All forms paid &#183; order settled</text>
+  </g>
+</svg>
+</div>
+
+## Relationship with other processes
+
+- **Link generation:** the mixed payment uses the same gateways (PIX via EFI, card via Pagar.me) as [Link Generation](/en/tecnico/fluxos/pagamentos-geracao-de-link).
+- **Payment in the order:** form/terms rules in [Order Process — Payment](/en/tecnico/fluxos/processo-do-pedido-pagamento).
+- **Value Mapping:** `StatusPagamentoMisto` is in [Database → Value Mapping](/en/tecnico/banco-de-dados/de-para).
+
+## Common problems
+
+- **"Token expired":** generate the charge again — the token that authorizes the payment has a validity.
+- **Sum doesn't match:** the sum of the forms cannot exceed the remaining value; adjust the amounts.
+- **One form "Payment denied":** that part was refused; the others proceed, but the order only settles when all of them close.
+- **Stuck in "Awaiting PIX/card payment":** the charge was generated and awaits the customer's payment.
+
+## Frequently asked questions
+
+<FaqAccordion
+  items={[
+    { question: 'Can I mix boleto, PIX and card on the same order?', answer: 'Yes. Each form becomes a line with its amount, and each has its own status until it is paid.' },
+    { question: 'Can the sum of the forms exceed the order value?', answer: 'No. The sum of the amounts cannot exceed the order\'s remaining value.' },
+    { question: 'What is the "token"?', answer: 'It is the authorization that releases that form\'s charge; if it expires, the charge must be generated again.' },
+    { question: 'When is the order considered paid?', answer: 'When all mixed payment forms reach "Paid successfully" and the order proceeds to the SAP integration.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '09/03/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '09/03/2026', author: 'Renan Camargo', description: 'Mixed Payment flow documented from the real system rules (forms, amount to pay and the status cycle).' },
+  ]}
+/>

@@ -1,0 +1,106 @@
+---
+section: tecnico
+routeSlug: mapa-de-fluxos
+pageType: tecnico
+title: Mapa de Fluxos
+description: "Visão de conjunto dos fluxos do sistema e como eles se conectam — do lead ao faturamento e ao pós-venda — com links para cada fluxo."
+keywords: [mapa de fluxos, fluxos, processos, visão geral, integração, cadeia, jornada]
+tags: [tecnico]
+order: 3
+---
+
+import Callout from '../../../components/Callout.astro';
+
+## Visão geral
+
+Esta página é um **mapa** dos fluxos documentados em Doc. Técnicas → Fluxos: mostra **como os processos se conectam**, do primeiro contato com o cliente ao faturamento e ao pós-venda. Use-a para se localizar e pular direto para o fluxo que precisa.
+
+## A cadeia comercial, de ponta a ponta
+
+O caminho principal de uma venda percorre estes elos — cada um é um fluxo próprio:
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 920 200" width="920" role="img" aria-label="Cadeia comercial do lead ao pós-venda" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwm" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwm)">
+    <path d="M150,74 L172,74" />
+    <path d="M298,74 L320,74" />
+    <path d="M446,74 L468,74" />
+    <path d="M594,74 L616,74" />
+    <path d="M742,74 L764,74" />
+    <path d="M460,104 L460,150" />
+  </g>
+  <g font-size="13.5" fill="#1a1417" text-anchor="middle">
+    <rect x="8" y="50" width="142" height="48" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="79" y="79" font-weight="600">Lead</text>
+    <rect x="172" y="50" width="126" height="48" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="235" y="79">Cliente</text>
+    <rect x="320" y="50" width="126" height="48" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="383" y="79">Pedido</text>
+    <rect x="468" y="50" width="126" height="48" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="531" y="72">Pagamento</text>
+    <text x="531" y="88" font-size="11" fill="#5c6b7a">e integração SAP</text>
+    <rect x="616" y="50" width="126" height="48" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="679" y="72">Faturamento</text>
+    <text x="679" y="88" font-size="11" fill="#5c6b7a">+ movimento serial</text>
+    <rect x="764" y="50" width="148" height="48" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="838" y="79" font-weight="600">Pós-venda</text>
+    <rect x="360" y="150" width="200" height="42" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="460" y="176" font-size="12">Contrato / comodato alimenta o pedido</text>
+  </g>
+</svg>
+</div>
+
+- **Lead → Cliente:** o [lead](/tecnico/fluxos/leads-pipeline-e-conversao) ganho vira cliente, que passa pelo [cadastro e aprovação](/tecnico/fluxos/criacao-de-cliente) com [análise de crédito/antifraude](/tecnico/fluxos/credito-e-antifraude-clearsale).
+- **Cliente → Pedido:** o cliente liberado faz o [pedido](/tecnico/fluxos/processo-do-pedido), que é aprovado e roteado para [pagamento](/tecnico/fluxos/pagamentos-geracao-de-link).
+- **Pedido → SAP → Faturamento:** aprovado e pago, o pedido segue para a [integração SAP](/tecnico/fluxos/integracao-sap-visao-geral) e o [faturamento com movimento de serial](/tecnico/fluxos/faturamento-e-movimento-serial).
+- **Pós-venda:** o item faturado habilita [troca/devolução (TDC)](/tecnico/fluxos/troca-devolucao-cancelamento-tdc), [consignado](/tecnico/fluxos/fechamento-de-consignado) e [transferência reversa](/tecnico/fluxos/transferencia-reversa).
+
+## Fluxos por área
+
+### Comercial e cadastro
+- [Leads — do Lead à Pipeline (Kanban) e conversão](/tecnico/fluxos/leads-pipeline-e-conversao)
+- [Cadastro de Clientes × Aprovações — Com Ignition](/tecnico/fluxos/criacao-de-cliente)
+- [Cadastro de Clientes × Aprovações — Sem Ignition](/tecnico/fluxos/cadastro-clientes-sem-ignition)
+- [Crédito e Antifraude (ClearSale)](/tecnico/fluxos/credito-e-antifraude-clearsale)
+- [Planejamento de Vendas e Cotas](/tecnico/fluxos/planejamento-de-vendas-e-cotas)
+
+### Pedido e pagamento
+- [Processo do Pedido — Visão Geral](/tecnico/fluxos/processo-do-pedido) (e as partes por tipo de pessoa, itens, pagamento, políticas, permissões)
+- [Aprovação de Pedidos — Sem Ignition](/tecnico/fluxos/aprovacao-de-pedidos-sem-ignition)
+- [Pagamentos — Geração de Link (PIX, Cartão e Maquininha)](/tecnico/fluxos/pagamentos-geracao-de-link)
+- [Pagamento Misto](/tecnico/fluxos/pagamento-misto)
+
+### Integração SAP
+- [Integração com o SAP (S/4HANA) — Visão Geral](/tecnico/fluxos/integracao-sap-visao-geral)
+- [Integração SAP — Os quatro fluxos](/tecnico/fluxos/integracao-sap-os-quatro-fluxos)
+
+### Faturamento e pós-venda
+- [Faturamento de Pedido e Movimento de Serial](/tecnico/fluxos/faturamento-e-movimento-serial)
+- [Troca, Devolução e Cancelamento (TDC)](/tecnico/fluxos/troca-devolucao-cancelamento-tdc)
+- [Fechamento de Consignado](/tecnico/fluxos/fechamento-de-consignado)
+- [Transferência Reversa](/tecnico/fluxos/transferencia-reversa)
+- [Romaneio](/tecnico/fluxos/romaneio)
+
+### Qualidade e ocorrências
+- [Ocorrência PFCQ — do recebimento ao encerramento](/tecnico/fluxos/ocorrencia-pfcq)
+- [Análise de Qualidade e Refugo](/tecnico/fluxos/analise-de-qualidade-e-refugo)
+- [Solicitações HandsOn (Logística de Treinamento)](/tecnico/fluxos/solicitacoes-handson-treinamento)
+
+### Contratos
+- [Contrato — do rascunho às assinaturas e comodato](/tecnico/fluxos/contrato-cadastro-aprovacao-assinatura)
+
+### Campo e produtos
+- [GO.ON — Agenda e Roteirização de Campo](/tecnico/fluxos/goon-agenda-e-roteirizacao)
+- [Configuração de Produtos no Lounge](/tecnico/fluxos/configuracao-de-produtos-no-lounge)
+
+### QA e ambiente
+- [Ambiente de Testes por Branch via Docker (QA Docker Manager)](/tecnico/fluxos/execucao-qa-docker-manager)
+
+<Callout type="info" title="Como os fluxos se ligam aos códigos">
+Muitos fluxos citam os **enums** do sistema (status, tipos). O significado de cada código está em [Banco de Dados → De Para](/tecnico/banco-de-dados/de-para).
+</Callout>

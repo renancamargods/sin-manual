@@ -1,0 +1,156 @@
+---
+section: tecnico
+routeSlug: fluxos/pagamentos-geracao-de-link
+pageType: tecnico
+title: Pagamentos — Geração de Link (PIX, Cartão e Maquininha)
+description: "Como o pedido gera cobrança após a aprovação: roteamento pós-aprovação, link PIX (EFI/GerenciaNet), link de cartão e cobrança na maquininha (Pagar.me), chave PIX e notificações."
+moduleLabel: Pedidos / Pagamentos
+routineType: Fluxo de processo
+impact: Geração de cobrança e integração com gateways de pagamento
+keywords: [pagamento, link de pagamento, PIX, cartão, maquininha, Pagar.me, EFI, GerenciaNet, chave PIX, cobrança, gateway, pós-aprovação, notificação]
+tags: [tecnico, fluxo, pagamentos-geracao-de-link]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+Depois que um pedido é aprovado, o sistema decide **como cobrar**: enviar direto ao SAP (quando já está pago ou não há cobrança online), **gerar um link de pagamento** (PIX ou cartão), **enviar uma cobrança para a maquininha** ou **tratar um pagamento misto**. Esta página descreve a geração de cobrança e a integração com os **gateways**: **PIX** pela **EFI (GerenciaNet)** e **cartão/maquininha** pela **Pagar.me**.
+
+Para as regras de forma e condição de pagamento dentro do pedido, veja [Processo do Pedido — Pagamento](/tecnico/fluxos/processo-do-pedido-pagamento). Para combinar mais de uma forma, veja [Pagamento Misto](/tecnico/fluxos/pagamento-misto).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Cobrar o pedido aprovado', text: 'Gerar link PIX/cartão ou cobrança na maquininha e acompanhar o pagamento até a integração ao SAP.' },
+    { label: 'Uso', title: 'Pedidos / financeiro', text: 'Acionado após a aprovação do pedido, conforme a forma de pagamento escolhida.' },
+    { label: 'Cuidado', title: 'Chave PIX correta', text: 'O PIX depende da chave configurada; confira o tipo de chave antes de gerar a cobrança.' },
+  ]}
+/>
+
+## Roteamento pós-aprovação
+
+Ao aprovar, o pedido segue um dos caminhos (`FluxoPosAprovacaoDePedido`):
+
+<DocTable
+  headers={['Valor', 'Caminho', 'Quando']}
+  rows={[
+    ['0', 'Enviar direto ao SAP', 'Sem cobrança online a gerar (ex.: já pago, boleto, condição a prazo).'],
+    ['1', 'Gerar link de pagamento PIX', 'Cobrança PIX pela EFI (GerenciaNet).'],
+    ['2', 'Gerar link de cartão', 'Link de pagamento por cartão pela Pagar.me.'],
+    ['3', 'Gerar cobrança na maquininha', 'Cobrança enviada a uma maquininha (Terminal de Pagamento) pela Pagar.me.'],
+    ['4', 'Tratar pagamentos mistos', 'Mais de uma forma no mesmo pedido — ver Pagamento Misto.'],
+    ['5', 'Integrar ao PHC', 'Caminho de integração alternativo (PHC).'],
+  ]}
+/>
+
+## PIX — EFI (GerenciaNet)
+
+- O sistema **gera a cobrança PIX** na EFI e disponibiliza o **QR Code / código copia-e-cola**.
+- Acompanha o pagamento por **consulta** (e conciliação) — quando o PIX é pago, o pedido segue para a integração ao SAP.
+- A cobrança pode ser **cancelada** se não for paga.
+
+<Callout type="info" title="Chave PIX">
+A cobrança PIX usa a **chave** configurada. Os tipos possíveis (`TipoDeChavePix`) são: **CPF**, **CNPJ**, **e-mail**, **celular** e **aleatória**.
+</Callout>
+
+## Cartão e Maquininha — Pagar.me
+
+- **Link de cartão:** o sistema gera um **link de pagamento** na Pagar.me e o disponibiliza ao cliente.
+- **Maquininha:** o sistema **envia a cobrança** para uma maquininha cadastrada como **Terminal de Pagamento** (módulo Administrador).
+- **Retorno:** a Pagar.me confirma o pagamento por **webhook** (retorno automático); o sistema também consulta o status quando necessário.
+- **Notificações:** é possível **notificar o cliente** por e-mail e WhatsApp com o link/cobrança.
+- A cobrança pode ser **cancelada** na Pagar.me quando o pedido é cancelado.
+
+## Chave PIX — tipos
+
+<DocTable
+  headers={['Valor', 'Tipo de chave']}
+  rows={[
+    ['0', 'CPF'],
+    ['1', 'CNPJ'],
+    ['2', 'E-mail'],
+    ['3', 'Celular'],
+    ['4', 'Aleatória'],
+  ]}
+/>
+
+## Fluxograma — do pedido aprovado à cobrança
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 560 430" width="560" role="img" aria-label="Roteamento de cobrança após a aprovação do pedido" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwp" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwp)">
+    <path d="M280,66 L280,92" />
+    <path d="M150,150 L150,300" />
+    <path d="M280,150 L280,300" />
+    <path d="M410,150 L410,300" />
+    <path d="M280,336 L280,362" />
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="90" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="280" y="48" text-anchor="middle" font-weight="600">Pedido aprovado &#183; roteamento pós-aprovação</text>
+    <rect x="60" y="112" width="180" height="38" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="150" y="135" text-anchor="middle" font-size="12">PIX (EFI/GerenciaNet)</text>
+    <rect x="190" y="112" width="180" height="38" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="280" y="135" text-anchor="middle" font-size="12">Cartão (Pagar.me)</text>
+    <rect x="320" y="112" width="180" height="38" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="410" y="135" text-anchor="middle" font-size="12">Maquininha (Pagar.me)</text>
+    <rect x="60" y="300" width="180" height="36" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="150" y="322" text-anchor="middle" font-size="12">QR / copia-e-cola</text>
+    <rect x="190" y="300" width="180" height="36" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="280" y="322" text-anchor="middle" font-size="12">Link de pagamento</text>
+    <rect x="320" y="300" width="180" height="36" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="410" y="322" text-anchor="middle" font-size="12">Cobrança no terminal</text>
+    <rect x="90" y="362" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="280" y="384" text-anchor="middle" font-weight="600">Pagamento confirmado</text>
+    <text x="280" y="401" text-anchor="middle" fill="#5c6b7a" font-size="11">segue para integração ao SAP</text>
+  </g>
+</svg>
+</div>
+
+## Relação com outros processos
+
+- **Pagamento no pedido:** as regras de forma/condição estão em [Processo do Pedido — Pagamento](/tecnico/fluxos/processo-do-pedido-pagamento).
+- **Pagamento misto:** combinar formas num mesmo pedido — ver [Pagamento Misto](/tecnico/fluxos/pagamento-misto).
+- **Integração SAP:** confirmado o pagamento, o pedido segue para a [cadeia de integração ao SAP](/tecnico/fluxos/integracao-sap-os-quatro-fluxos).
+- **De Para:** `FluxoPosAprovacaoDePedido` e `TipoDeChavePix` estão em [Banco de Dados → De Para](/tecnico/banco-de-dados/de-para).
+
+## Problemas comuns
+
+- **Link não gera:** confira a forma de pagamento do pedido e a configuração do gateway (chave PIX / credenciais da Pagar.me).
+- **PIX não baixa:** o pagamento é confirmado por consulta/conciliação; se pago e não baixou, verifique a conciliação PIX.
+- **Maquininha não recebe a cobrança:** confirme o Terminal de Pagamento cadastrado no Administrador.
+- **Pagamento pago mas pedido não anda:** verifique o retorno (webhook) e o status até a integração ao SAP.
+
+## Perguntas frequentes
+
+<FaqAccordion
+  items={[
+    { question: 'Quem processa o PIX e quem processa o cartão?', answer: 'O PIX é processado pela EFI (GerenciaNet) e o cartão/maquininha pela Pagar.me.' },
+    { question: 'Como o cliente recebe o link?', answer: 'O sistema disponibiliza o link/QR e pode notificar o cliente por e-mail e WhatsApp.' },
+    { question: 'O que acontece quando o pagamento é confirmado?', answer: 'O pedido segue para a integração ao SAP (cadeia de pedido, remessa e fatura).' },
+    { question: 'Dá para cancelar uma cobrança?', answer: 'Sim. Tanto a cobrança PIX (EFI) quanto a da Pagar.me podem ser canceladas, por exemplo quando o pedido é cancelado.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '03/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Fluxo de geração de cobrança pós-aprovação (PIX via EFI, cartão e maquininha via Pagar.me) documentado a partir da regra real do sistema.' },
+  ]}
+/>

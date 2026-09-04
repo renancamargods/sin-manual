@@ -1,0 +1,195 @@
+---
+section: tecnico
+routeSlug: fluxos/contrato-cadastro-aprovacao-assinatura
+pageType: tecnico
+title: Contrato — do rascunho às assinaturas e comodato
+description: "Fluxo do contrato: do rascunho à aprovação pelos grupos responsáveis, à assinatura eletrônica (ZapSign) e à geração dos pedidos de comodato, com renovação, aditivo e cancelamento."
+moduleLabel: Contratos
+routineType: Fluxo de processo
+impact: Ciclo de vida do contrato, da criação às assinaturas e comodato
+keywords: [contrato, aprovação, assinatura, ZapSign, comodato, política de contrato, meta de consumo, renovação, aditivo, status do contrato, curso]
+tags: [tecnico, fluxo, contrato-cadastro-aprovacao-assinatura]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+O fluxo do **Contrato** conduz o documento do **rascunho** à **aprovação** pelos grupos responsáveis, à **assinatura eletrônica** (via **ZapSign**) e, quando é comodato, à **geração dos pedidos de comodato** — além de tratar **renovação**, **aditivo** e **cancelamento**. É o processo que formaliza as condições comerciais (descontos, parceria, dental ou comodato) acordadas com o cliente.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Formalizar o contrato', text: 'Levar o contrato do rascunho às assinaturas e, quando comodato, gerar os pedidos correspondentes.' },
+    { label: 'Uso', title: 'Comercial / contratos', text: 'Usado para criar, aprovar e assinar contratos e acompanhar seu ciclo de vida.' },
+    { label: 'Cuidado', title: 'Aprovação por grupos', text: 'O contrato passa pelos grupos responsáveis antes de seguir para assinatura.' },
+  ]}
+/>
+
+## Quando usar este fluxo
+
+- **Criar** um contrato (descontos, parceria, dental ou comodato).
+- **Aprovar** e **assinar** o contrato eletronicamente.
+- **Gerar** os pedidos de comodato e tratar **renovação/aditivo/cancelamento**.
+
+## Tipo, classificação e situação
+
+<DocTable
+  headers={['Campo', 'Valores']}
+  rows={[
+    ['Tipo do Contrato (TipoDoContrato)', 'Descontos · Parceira · Dental · Comodato.'],
+    ['Classificação (ClassificacaoDoContrato)', 'Com Contrapartida · Sem Contrapartida.'],
+    ['Situação (SituacaoContrato)', 'Novo (0) · Renovação (1) · Aditivo (2).'],
+  ]}
+/>
+
+## Etapa 1 — Montar o contrato (rascunho)
+
+O contrato nasce em **"Rascunho"**. Nele se definem as condições — conforme o tipo — como **política de contrato**, **volumes de consumo**, **descontos**, **metas de consumo** e **itens de comodato**. A **meta de consumo** pode ser aplicada por (`AplicacaoMetaConsumo`):
+
+<DocTable
+  headers={['Valor', 'Aplicação da meta']}
+  rows={[
+    ['0', 'Tipo de Produto'],
+    ['1', 'Família de Produto'],
+    ['2', 'Grupo de Produto'],
+    ['3', 'Produto'],
+  ]}
+/>
+
+## Etapa 2 — Enviar para aprovação
+
+Concluído o rascunho, o contrato vai para **"Aguardando aprovações"** e passa pelos **grupos responsáveis** (`GrupoResponsavelAprovacaoContrato`):
+
+<DocTable
+  headers={['Valor', 'Grupo responsável']}
+  rows={[
+    ['0', 'ADM'],
+    ['1', 'FP&A (planejamento financeiro)'],
+    ['2', 'Crédito'],
+    ['3', 'Operações / SAC'],
+  ]}
+/>
+
+Se o ciclo for interrompido, o contrato vai para **"Ciclo de aprovação cancelado"**.
+
+## Etapa 3 — Assinatura eletrônica (ZapSign)
+
+Aprovado, o contrato é **integrado ao ZapSign** para assinatura. O status acompanha:
+
+- **"Integrado ZapSign"** — enviado para assinatura.
+- **"Aguardando conclusão das assinaturas"** — assinaturas em andamento.
+- **"Assinaturas concluídas"** — todos assinaram.
+
+## Etapa 4 — Comodato (geração de pedidos)
+
+Para contratos de **comodato**, após as assinaturas o contrato vai para **"Aguardando geração de pedidos de comodato"** e depois **"Pedido de comodato gerado"**. Os itens de comodato podem ter a operação (`TipoOperacaoComodato`): **Comodato**, **Bonificação** ou **Consignado**.
+
+## Etapa 5 — Renovação, aditivo e cancelamento
+
+- **Renovação:** gera um novo contrato e inativa o anterior (**"Inativado por geração de renovação"**).
+- **Aditivo:** gera um aditivo e inativa o anterior (**"Inativado por geração de aditivo"**).
+- **Cancelamento:** encerra o contrato (**"Cancelado"**).
+
+## Status do contrato (ciclo completo)
+
+<DocTable
+  headers={['Valor', 'Status', 'Significado']}
+  rows={[
+    ['0', 'Rascunho', 'Em elaboração.'],
+    ['1', 'Aguardando aprovações', 'Em ciclo de aprovação pelos grupos.'],
+    ['2', 'Ciclo de aprovação cancelado', 'Aprovação interrompida.'],
+    ['3', 'Integrado ZapSign', 'Enviado para assinatura eletrônica.'],
+    ['4', 'Aguardando conclusão das assinaturas', 'Assinaturas em andamento.'],
+    ['5', 'Assinaturas concluídas', 'Todos assinaram.'],
+    ['6', 'Aguardando geração de pedidos de comodato', 'Comodato pronto para gerar pedidos.'],
+    ['7', 'Pedido de comodato gerado', 'Pedidos de comodato criados.'],
+    ['97', 'Inativado por geração de renovação', 'Substituído por uma renovação.'],
+    ['98', 'Inativado por geração de aditivo', 'Substituído por um aditivo.'],
+    ['99', 'Cancelado', 'Contrato cancelado.'],
+  ]}
+/>
+
+## Contrato de curso
+
+Contratos podem envolver **cursos** (turmas, participantes e períodos). O status do curso (`StatusDeCurso`) é **Vigente** ou **Vencido**.
+
+## Fluxograma — do rascunho ao comodato
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 460 640" width="460" role="img" aria-label="Fluxo do contrato do rascunho às assinaturas e comodato" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwct" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwct)">
+    <path d="M230,66 L230,92" />
+    <path d="M230,150 L230,176" />
+    <path d="M230,260 L230,286" />
+    <path d="M230,344 L230,370" />
+    <path d="M230,428 L230,454" />
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="40" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="41" text-anchor="middle" font-weight="600">1 &#183; Rascunho</text>
+    <text x="230" y="58" text-anchor="middle" fill="#5c6b7a" font-size="11">política, metas, descontos, comodato</text>
+    <rect x="40" y="92" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="115" text-anchor="middle">2 &#183; Aguardando aprovações</text>
+    <text x="230" y="134" text-anchor="middle" fill="#5c6b7a" font-size="12">ADM &#183; FP&#38;A &#183; Crédito &#183; Operações/SAC</text>
+    <rect x="40" y="176" width="380" height="84" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="230" y="202" text-anchor="middle" font-weight="600">3 &#183; Assinatura (ZapSign)</text>
+    <text x="230" y="221" text-anchor="middle" fill="#5c6b7a" font-size="11">integrado &#8594; aguardando conclusão</text>
+    <text x="230" y="239" text-anchor="middle" fill="#5c6b7a" font-size="11">&#8594; assinaturas concluídas</text>
+    <rect x="40" y="286" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="309" text-anchor="middle">4 &#183; Comodato (se aplicável)</text>
+    <text x="230" y="328" text-anchor="middle" fill="#5c6b7a" font-size="12">gerar pedidos de comodato</text>
+    <rect x="40" y="370" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="393" text-anchor="middle">5 &#183; Renovação / aditivo / cancelamento</text>
+    <text x="230" y="412" text-anchor="middle" fill="#5c6b7a" font-size="12">inativa o anterior quando gera novo</text>
+    <rect x="40" y="454" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="482" text-anchor="middle" font-weight="600">Contrato vigente</text>
+  </g>
+</svg>
+</div>
+
+## Relação com outros processos
+
+- **Aprovações:** o contrato usa a fila e as regras de [Aprovações](/modulos/aprovacoes) (grupos responsáveis).
+- **Pedidos de comodato:** contratos de comodato geram pedidos — ver [Processo do Pedido](/tecnico/fluxos/processo-do-pedido).
+- **De Para:** `StatusDoContrato`, `SituacaoContrato`, `TipoDoContrato`, `ClassificacaoDoContrato`, `GrupoResponsavelAprovacaoContrato`, `AplicacaoMetaConsumo`, `TipoOperacaoComodato` e `StatusDeCurso` estão em [Banco de Dados → De Para](/tecnico/banco-de-dados/de-para).
+
+## Problemas comuns
+
+- **Contrato preso em "Aguardando aprovações":** há grupo responsável pendente de aprovação.
+- **Assinatura não conclui:** acompanhe o status do ZapSign ("Aguardando conclusão das assinaturas").
+- **Comodato sem pedidos:** o contrato precisa estar com as **assinaturas concluídas** antes de gerar os pedidos de comodato.
+- **Renovação/aditivo não substitui:** ao gerar, o contrato anterior é inativado (status 97/98).
+
+## Perguntas frequentes
+
+<FaqAccordion
+  items={[
+    { question: 'Quais tipos de contrato existem?', answer: 'Descontos, Parceira, Dental e Comodato — cada um com suas condições comerciais.' },
+    { question: 'Quem aprova o contrato?', answer: 'Os grupos responsáveis: ADM, FP&A, Crédito e Operações/SAC.' },
+    { question: 'Como o contrato é assinado?', answer: 'Aprovado, é integrado ao ZapSign para assinatura eletrônica; o status acompanha até as assinaturas concluídas.' },
+    { question: 'Qual a diferença entre renovação e aditivo?', answer: 'Ambos geram um novo contrato e inativam o anterior; a renovação estende o contrato e o aditivo o complementa.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '03/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Fluxo do Contrato (rascunho, aprovação por grupos, assinatura ZapSign, comodato e renovação/aditivo) documentado a partir da regra real do sistema.' },
+  ]}
+/>

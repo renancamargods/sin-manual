@@ -1,0 +1,162 @@
+---
+section: tecnico
+routeSlug: fluxos/transferencia-reversa
+pageType: tecnico
+title: Transferência Reversa
+description: "Fluxo da transferência reversa: bipar os itens que voltam de um Lounge para outro (Centro origem → destino), registrar o retorno no SAP e finalizar a transferência."
+moduleLabel: Faturamento
+routineType: Fluxo de processo
+impact: Retorno de itens entre Lounges (Centro origem → destino)
+keywords: [transferência reversa, transferência, Lounge, centro, origem, destino, bipagem, DataMatrix, lote, serial, retorno SAP, finalizar transferência]
+tags: [tecnico, fluxo, transferencia-reversa]
+order: 4
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A **Transferência Reversa** movimenta itens **de volta** de um Lounge para outro — de um **Centro de origem** para um **Centro de destino**. Os itens que retornam são **bipados** (leitura do DataMatrix, com lote e serial), a transferência é salva e, após o **retorno do SAP**, é finalizada. É o passo que fecha a rastreabilidade quando um item precisa voltar ao estoque de outra unidade.
+
+Complementa os demais fluxos de Faturamento ([Movimento de Serial](/tecnico/fluxos/faturamento-e-movimento-serial), [TDC](/tecnico/fluxos/troca-devolucao-cancelamento-tdc) e [Fechamento de Consignado](/tecnico/fluxos/fechamento-de-consignado)), tratando especificamente a **movimentação física reversa** entre Lounges.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Retornar itens entre Lounges', text: 'Registrar o retorno de itens de um Centro de origem para um Centro de destino, com rastreabilidade por lote/serial.' },
+    { label: 'Uso', title: 'Faturamento / logística', text: 'Usado pela equipe de Faturamento/logística quando itens precisam voltar de um Lounge para outro.' },
+    { label: 'Cuidado', title: 'Retorno do SAP antes de finalizar', text: 'A transferência só é concluída após o retorno do SAP; até lá permanece "Iniciada".' },
+  ]}
+/>
+
+## Quando usar este fluxo
+
+- Devolver/retornar itens de um Lounge (Centro) para outro.
+- Registrar, com rastreabilidade, os itens que voltam ao estoque de destino.
+- Consolidar o retorno com a confirmação do **SAP**.
+
+## Etapa 1 — Abrir a transferência
+
+Em **"+ Novo"**, na aba **"Dados da Transferência"**, informe:
+
+- **Centro de origem** — o Lounge de onde os itens saem.
+- **Centro de destino** — o Lounge que recebe os itens de volta.
+
+O sistema gera o **número da transferência** (padrão `TR000001`) e a transferência nasce com status **"Iniciada"**.
+
+## Etapa 2 — Bipar os itens de transferência
+
+Ainda na aba "Dados da Transferência", faça a **bipagem** dos itens que estão voltando (leitura do DataMatrix). Cada item bipado entra na grade com:
+
+<DocTable
+  headers={['Campo', 'O que é']}
+  rows={[
+    ['Código', 'Código do produto bipado.'],
+    ['Descrição', 'Descrição do produto.'],
+    ['Lote', 'Lote lido do item.'],
+    ['Serial', 'Serial lido do item.'],
+    ['Data/Hora Bipagem', 'Quando o item foi bipado.'],
+    ['Usuário', 'Quem realizou a bipagem.'],
+  ]}
+/>
+
+<Callout type="info" title="Rastreabilidade por lote/serial">
+Cada item carrega o **DataMatrix bipado**, o **lote** e o **serial** — é isso que mantém a rastreabilidade do item ao voltar para o Centro de destino.
+</Callout>
+
+## Etapa 3 — Salvar
+
+Use **"Salvar"** para gravar a transferência com os itens bipados. Ela permanece **"Iniciada"** enquanto aguarda o retorno do SAP.
+
+## Etapa 4 — Retorno do SAP
+
+Na aba **"Retorno SAP"**, acompanhe o retorno da integração — a confirmação, no SAP, da movimentação reversa dos itens entre os Centros.
+
+## Etapa 5 — Finalizar a transferência
+
+Com o retorno do SAP confirmado, use **"Finalizar Transferência"**. A transferência passa para o status **"Concluída"** e os itens ficam registrados no estoque do Centro de destino.
+
+## Status e operação
+
+<DocTable
+  headers={['Enum', 'Valor', 'Significado']}
+  rows={[
+    ['StatusTransferenciaReversa', '0', 'Iniciada — transferência aberta, aguardando conclusão.'],
+    ['StatusTransferenciaReversa', '1', 'Concluída — transferência finalizada.'],
+    ['TipoDaOperacaoReversa', '0', 'Transferência Reversa (única operação reversa hoje).'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Movimento de Serial:** a transferência reversa preserva a rastreabilidade por lote/serial já usada no [Faturamento de Pedido e Movimento de Serial](/tecnico/fluxos/faturamento-e-movimento-serial).
+- **De Para:** os códigos de `StatusTransferenciaReversa` e `TipoDaOperacaoReversa` estão em [Banco de Dados → De Para](/tecnico/banco-de-dados/de-para).
+
+## Fluxograma — do Centro de origem ao destino
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 460 560" width="460" role="img" aria-label="Fluxograma da transferência reversa" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwr" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwr)">
+    <path d="M230,66 L230,92" />
+    <path d="M230,150 L230,176" />
+    <path d="M230,234 L230,260" />
+    <path d="M230,318 L230,344" />
+    <path d="M230,402 L230,428" />
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="40" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="41" text-anchor="middle" font-weight="600">1 &#183; Abrir transferência (TR000001)</text>
+    <text x="230" y="58" text-anchor="middle" fill="#5c6b7a" font-size="11">Centro origem &#8594; Centro destino</text>
+    <rect x="40" y="92" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="115" text-anchor="middle">2 &#183; Bipar os itens</text>
+    <text x="230" y="134" text-anchor="middle" fill="#5c6b7a" font-size="12">DataMatrix &#183; lote e serial</text>
+    <rect x="40" y="176" width="380" height="46" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="204" text-anchor="middle">3 &#183; "Salvar" (status "Iniciada")</text>
+    <rect x="40" y="260" width="380" height="58" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="230" y="283" text-anchor="middle">4 &#183; Retorno SAP</text>
+    <text x="230" y="302" text-anchor="middle" fill="#5c6b7a" font-size="12">confirmação da movimentação reversa</text>
+    <rect x="40" y="344" width="380" height="46" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="372" text-anchor="middle">5 &#183; "Finalizar Transferência"</text>
+    <rect x="40" y="428" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="456" text-anchor="middle" font-weight="600">Status "Concluída" &#183; itens no destino</text>
+  </g>
+</svg>
+</div>
+
+## Problemas comuns
+
+- **Transferência presa em "Iniciada":** confirme o **retorno do SAP** na aba correspondente antes de finalizar.
+- **Item não bipa:** verifique a leitura do DataMatrix (lote/serial) — só itens com leitura válida entram na grade.
+- **Centro de destino errado:** revise os Centros de origem e destino na aba "Dados da Transferência" antes de salvar.
+
+## Perguntas frequentes
+
+<FaqAccordion
+  items={[
+    { question: 'O que é uma transferência reversa?', answer: 'É o retorno de itens de um Lounge (Centro de origem) para outro (Centro de destino), com bipagem e rastreabilidade por lote/serial.' },
+    { question: 'Por que a transferência fica "Iniciada"?', answer: 'Ela aguarda o retorno do SAP. Só após a confirmação da movimentação no SAP é possível finalizar, passando para "Concluída".' },
+    { question: 'Preciso bipar cada item?', answer: 'Sim. A bipagem (DataMatrix) é o que registra lote, serial e produto de cada item que está voltando.' },
+    { question: 'Existe mais de um tipo de operação reversa?', answer: 'Hoje há apenas a Transferência Reversa (TipoDaOperacaoReversa = 0).' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '03/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Fluxo de Transferência Reversa documentado a partir da regra real do sistema (entidade, itens, status e retorno SAP).' },
+  ]}
+/>

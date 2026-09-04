@@ -1,0 +1,184 @@
+---
+section: tecnico
+routeSlug: fluxos/analise-de-qualidade-e-refugo
+pageType: tecnico
+lang: en
+title: Quality Analysis and Scrap
+description: "Quality analysis flow: triage and classify returning products (sellable or scrap), transfer to SAP/Delage and apply the scrap rules by product and batch."
+moduleLabel: Quality
+routineType: Process flow
+impact: Triage, classification and destination of returned products
+keywords: [quality analysis, scrap, quality, triage, sellable, scrap, transfer, SAP, Delage, rollback, product, batch, serial]
+tags: [tecnico, fluxo, analise-de-qualidade-e-refugo]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+**Quality Analysis** triages the products that **return** to stock, **classifies** each item as **sellable** or **scrap**, and **transfers** the result to the destination systems — **SAP** and/or **Delage** (logistics operator). **Scrap** holds the rules that flag a product/batch for attention or scrapping. Together, they ensure only fit items go back to stock and the rest is discarded with traceability.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Classify what returns', text: 'Analyze returned products, separate sellable from scrap and transfer the result to SAP/Delage.' },
+    { label: 'Use', title: 'Quality', text: 'Used by the Quality area in the triage and destination of returned products.' },
+    { label: 'Caution', title: 'Transfer with rollback', text: 'The SAP transfer can fail; there are manual-confirm, resend and rollback actions to handle each case.' },
+  ]}
+/>
+
+## When to use this flow
+
+- Triage and **classify** products that return to stock.
+- **Transfer** the items to SAP and/or Delage according to the destination.
+- Apply the **scrap rules** of a product/batch.
+
+## Step 1 — New triage and product entry
+
+In **"New Triage"**, do the **product entry** by scanning each item. Per item, it records **code**, **description**, **serial**, **batch**, **expiry date** and the **product address**. The system shows the number of **processed products** (items read).
+
+## Step 2 — Classify (Analysis)
+
+In **"Quality Analysis Data"**, each item is classified (`StatusAnaliseDeQualidade`):
+
+<DocTable
+  headers={['Value', 'Classification', 'Destination']}
+  rows={[
+    ['0', 'Sellable', 'Returns to stock for sale.'],
+    ['1', 'Scrap', 'Goes to discard/scrapping.'],
+  ]}
+/>
+
+## Step 3 — Transfer (SAP / Delage)
+
+Once analyzed, the items are **transferred** to the destination (`TipoDestinoTransferencia`): **SAP** (0) and/or **Delage** (1). Each destination has its own status.
+
+**SAP transfer (`StatusTransferenciaSap`)**
+
+<DocTable
+  headers={['Value', 'Status']}
+  rows={[
+    ['0', 'Pending'],
+    ['1', 'In processing'],
+    ['2', 'Success'],
+    ['3', 'Failure'],
+    ['4', 'Error (exception)'],
+    ['5', 'Confirmed manually'],
+    ['6', 'Rollback executed'],
+  ]}
+/>
+
+**Delage transfer (`StatusTransferenciaDelage`)**
+
+<DocTable
+  headers={['Value', 'Status']}
+  rows={[
+    ['0', 'Not applicable'],
+    ['1', 'Pending'],
+    ['2', 'In processing'],
+    ['3', 'Success'],
+    ['4', 'Failure'],
+    ['5', 'Error (exception)'],
+  ]}
+/>
+
+Actions available on failure or pending: **"Confirm SAP Manually"**, **"Resend Products"** (SAP) / **"Resend Products to Delage"**, **"Reset to Pending"** and **"SAP Rollback"** (with the confirmation **"Confirm the SAP Rollback?"**). The **"Transfer History"** and the **"Transfer Log"** record each attempt.
+
+<Callout type="atencao" title="When the transfer cannot happen">
+The system reports why it cannot transfer (`MotivoNaoPodeTransferir`): **a transfer is already in processing**, **all items were already transferred**, **no pending product**, or **analysis not found**.
+</Callout>
+
+## Scrap — rules by product and batch
+
+**Scrap** defines how a product/batch is handled for discard (`StatusRefugo`):
+
+<DocTable
+  headers={['Value', 'Status', 'Meaning']}
+  rows={[
+    ['0', 'Discontinued', 'Discontinued product.'],
+    ['1', 'Product attention', 'Product under attention.'],
+    ['3', 'Product × batch rule', 'Specific rule by product and batch.'],
+    ['4', 'Scrap', 'Flagged as scrap.'],
+  ]}
+/>
+
+## Flowchart — from triage to destination
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 500 560" width="500" role="img" aria-label="Flowchart of quality analysis and transfer" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwq2e" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwq2e)">
+    <path d="M250,66 L250,92" />
+    <path d="M250,150 L250,216" />
+    <path d="M180,252 L180,300" />
+    <path d="M320,252 L320,300" />
+    <path d="M180,336 L180,404" />
+    <path d="M250,440 L250,466" />
+  </g>
+  <g font-size="12.5" fill="#5c6b7a">
+    <text x="192" y="206" text-anchor="start" font-size="11">sellable</text>
+    <text x="330" y="206" text-anchor="start" font-size="11">scrap</text>
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="60" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="250" y="41" text-anchor="middle" font-weight="600">1 &#183; New triage</text>
+    <text x="250" y="58" text-anchor="middle" fill="#5c6b7a" font-size="11">product entry (scanning)</text>
+    <rect x="60" y="92" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="250" y="115" text-anchor="middle">2 &#183; Classify (Analysis)</text>
+    <text x="250" y="134" text-anchor="middle" fill="#5c6b7a" font-size="12">sellable or scrap</text>
+    <rect x="90" y="300" width="180" height="36" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="180" y="322" text-anchor="middle" font-size="12">Returns to stock</text>
+    <rect x="230" y="300" width="180" height="36" rx="10" fill="#f4f5f7" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="320" y="322" text-anchor="middle" font-size="12">Discard / scrap</text>
+    <rect x="90" y="404" width="180" height="36" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="180" y="426" text-anchor="middle" font-size="12">Transfer SAP / Delage</text>
+    <rect x="60" y="466" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="250" y="494" text-anchor="middle" font-weight="600">Destination confirmed &#183; history and log</text>
+  </g>
+</svg>
+</div>
+
+## Relationship with other processes
+
+- **PFCQ Occurrence:** quality analysis complements the handling of complaints/non-conformities — see [PFCQ Occurrence](/en/tecnico/fluxos/ocorrencia-pfcq).
+- **Reverse Transfer:** the return of items between Lounges is in [Reverse Transfer](/en/tecnico/fluxos/transferencia-reversa).
+- **Value Mapping:** `StatusAnaliseDeQualidade`, `StatusRefugo`, `TipoDestinoTransferencia`, `StatusTransferenciaSap`, `StatusTransferenciaDelage` and `MotivoNaoPodeTransferir` are in [Database → Value Mapping](/en/tecnico/banco-de-dados/de-para).
+
+## Common problems
+
+- **"There are products with SAP transfer failure":** use "Resend Products", "Confirm SAP Manually" or "SAP Rollback" as appropriate.
+- **"There are products with failure sending to Delage":** use "Resend Products to Delage".
+- **Cannot transfer:** check the reason (already in processing, all already transferred, none pending, or analysis not found).
+- **Transfer stuck "In processing":** follow the history/log; if needed, "Reset to Pending".
+
+## Frequently asked questions
+
+<FaqAccordion
+  items={[
+    { question: 'What does the quality analysis decide?', answer: 'It classifies each returning item as "Sellable" (back to stock) or "Scrap" (discard).' },
+    { question: 'Where are the items transferred to?', answer: 'To SAP and/or Delage (logistics operator), each destination with its own transfer status.' },
+    { question: 'What is the SAP rollback?', answer: 'It is the reversal of an SAP transfer; it asks for confirmation and is recorded in the history as "Rollback executed".' },
+    { question: 'What is the difference between quality analysis and scrap?', answer: 'The analysis classifies the returning items; scrap defines the handling/discard rules by product and batch.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '09/03/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '09/03/2026', author: 'Renan Camargo', description: 'Quality Analysis and Scrap flow documented from the real system rules (triage, classification, SAP/Delage transfer and scrap statuses).' },
+  ]}
+/>

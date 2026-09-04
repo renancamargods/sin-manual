@@ -1,0 +1,196 @@
+---
+section: tecnico
+routeSlug: fluxos/contrato-cadastro-aprovacao-assinatura
+pageType: tecnico
+lang: en
+title: Contract — from draft to signatures and lending
+description: "Contract flow: from draft to approval by the responsible groups, to electronic signature (ZapSign) and the generation of lending orders, with renewal, amendment and cancellation."
+moduleLabel: Contracts
+routineType: Process flow
+impact: Contract lifecycle, from creation to signatures and lending
+keywords: [contract, approval, signature, ZapSign, lending, comodato, contract policy, consumption target, renewal, amendment, contract status, course]
+tags: [tecnico, fluxo, contrato-cadastro-aprovacao-assinatura]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Contract** flow drives the document from **draft** to **approval** by the responsible groups, to **electronic signature** (via **ZapSign**) and, when it is lending (comodato), to the **generation of lending orders** — besides handling **renewal**, **amendment** and **cancellation**. It is the process that formalizes the commercial conditions (discounts, partnership, dental or lending) agreed with the customer.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Formalize the contract', text: 'Take the contract from draft to signatures and, when lending, generate the matching orders.' },
+    { label: 'Use', title: 'Commercial / contracts', text: 'Used to create, approve and sign contracts and track their lifecycle.' },
+    { label: 'Caution', title: 'Approval by groups', text: 'The contract goes through the responsible groups before proceeding to signature.' },
+  ]}
+/>
+
+## When to use this flow
+
+- **Create** a contract (discounts, partnership, dental or lending).
+- **Approve** and **sign** the contract electronically.
+- **Generate** the lending orders and handle **renewal/amendment/cancellation**.
+
+## Type, classification and situation
+
+<DocTable
+  headers={['Field', 'Values']}
+  rows={[
+    ['Contract Type (TipoDoContrato)', 'Discounts · Partnership · Dental · Lending.'],
+    ['Classification (ClassificacaoDoContrato)', 'With counterpart · Without counterpart.'],
+    ['Situation (SituacaoContrato)', 'New (0) · Renewal (1) · Amendment (2).'],
+  ]}
+/>
+
+## Step 1 — Build the contract (draft)
+
+The contract starts as **"Draft"**. In it the conditions are defined — depending on the type — such as **contract policy**, **consumption volumes**, **discounts**, **consumption targets** and **lending items**. The **consumption target** can be applied by (`AplicacaoMetaConsumo`):
+
+<DocTable
+  headers={['Value', 'Target application']}
+  rows={[
+    ['0', 'Product Type'],
+    ['1', 'Product Family'],
+    ['2', 'Product Group'],
+    ['3', 'Product'],
+  ]}
+/>
+
+## Step 2 — Send for approval
+
+Once the draft is done, the contract goes to **"Awaiting approvals"** and passes through the **responsible groups** (`GrupoResponsavelAprovacaoContrato`):
+
+<DocTable
+  headers={['Value', 'Responsible group']}
+  rows={[
+    ['0', 'ADM'],
+    ['1', 'FP&A (financial planning)'],
+    ['2', 'Credit'],
+    ['3', 'Operations / Customer Service'],
+  ]}
+/>
+
+If the cycle is interrupted, the contract goes to **"Approval cycle canceled"**.
+
+## Step 3 — Electronic signature (ZapSign)
+
+Once approved, the contract is **integrated to ZapSign** for signature. The status tracks:
+
+- **"ZapSign integrated"** — sent for signature.
+- **"Awaiting signature completion"** — signatures in progress.
+- **"Signatures completed"** — everyone signed.
+
+## Step 4 — Lending (order generation)
+
+For **lending** contracts, after the signatures the contract goes to **"Awaiting lending order generation"** and then **"Lending order generated"**. Lending items can have the operation (`TipoOperacaoComodato`): **Lending**, **Bonus** or **Consignment**.
+
+## Step 5 — Renewal, amendment and cancellation
+
+- **Renewal:** generates a new contract and deactivates the previous one (**"Deactivated by renewal generation"**).
+- **Amendment:** generates an amendment and deactivates the previous one (**"Deactivated by amendment generation"**).
+- **Cancellation:** closes the contract (**"Canceled"**).
+
+## Contract status (full cycle)
+
+<DocTable
+  headers={['Value', 'Status', 'Meaning']}
+  rows={[
+    ['0', 'Draft', 'Being drafted.'],
+    ['1', 'Awaiting approvals', 'In the approval cycle by the groups.'],
+    ['2', 'Approval cycle canceled', 'Approval interrupted.'],
+    ['3', 'ZapSign integrated', 'Sent for electronic signature.'],
+    ['4', 'Awaiting signature completion', 'Signatures in progress.'],
+    ['5', 'Signatures completed', 'Everyone signed.'],
+    ['6', 'Awaiting lending order generation', 'Lending ready to generate orders.'],
+    ['7', 'Lending order generated', 'Lending orders created.'],
+    ['97', 'Deactivated by renewal generation', 'Replaced by a renewal.'],
+    ['98', 'Deactivated by amendment generation', 'Replaced by an amendment.'],
+    ['99', 'Canceled', 'Contract canceled.'],
+  ]}
+/>
+
+## Course contract
+
+Contracts can involve **courses** (classes, participants and periods). The course status (`StatusDeCurso`) is **Current** or **Expired**.
+
+## Flowchart — from draft to lending
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 460 640" width="460" role="img" aria-label="Contract flow from draft to signatures and lending" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwcte" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwcte)">
+    <path d="M230,66 L230,92" />
+    <path d="M230,150 L230,176" />
+    <path d="M230,260 L230,286" />
+    <path d="M230,344 L230,370" />
+    <path d="M230,428 L230,454" />
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="40" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="41" text-anchor="middle" font-weight="600">1 &#183; Draft</text>
+    <text x="230" y="58" text-anchor="middle" fill="#5c6b7a" font-size="11">policy, targets, discounts, lending</text>
+    <rect x="40" y="92" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="115" text-anchor="middle">2 &#183; Awaiting approvals</text>
+    <text x="230" y="134" text-anchor="middle" fill="#5c6b7a" font-size="12">ADM &#183; FP&#38;A &#183; Credit &#183; Operations/CS</text>
+    <rect x="40" y="176" width="380" height="84" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="230" y="202" text-anchor="middle" font-weight="600">3 &#183; Signature (ZapSign)</text>
+    <text x="230" y="221" text-anchor="middle" fill="#5c6b7a" font-size="11">integrated &#8594; awaiting completion</text>
+    <text x="230" y="239" text-anchor="middle" fill="#5c6b7a" font-size="11">&#8594; signatures completed</text>
+    <rect x="40" y="286" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="309" text-anchor="middle">4 &#183; Lending (if applicable)</text>
+    <text x="230" y="328" text-anchor="middle" fill="#5c6b7a" font-size="12">generate lending orders</text>
+    <rect x="40" y="370" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="393" text-anchor="middle">5 &#183; Renewal / amendment / cancellation</text>
+    <text x="230" y="412" text-anchor="middle" fill="#5c6b7a" font-size="12">deactivates the previous when generating</text>
+    <rect x="40" y="454" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="482" text-anchor="middle" font-weight="600">Active contract</text>
+  </g>
+</svg>
+</div>
+
+## Relationship with other processes
+
+- **Approvals:** the contract uses the queue and rules of [Approvals](/en/modulos/aprovacoes) (responsible groups).
+- **Lending orders:** lending contracts generate orders — see [Order Process](/en/tecnico/fluxos/processo-do-pedido).
+- **Value Mapping:** `StatusDoContrato`, `SituacaoContrato`, `TipoDoContrato`, `ClassificacaoDoContrato`, `GrupoResponsavelAprovacaoContrato`, `AplicacaoMetaConsumo`, `TipoOperacaoComodato` and `StatusDeCurso` are in [Database → Value Mapping](/en/tecnico/banco-de-dados/de-para).
+
+## Common problems
+
+- **Contract stuck in "Awaiting approvals":** a responsible group is pending approval.
+- **Signature doesn't complete:** follow the ZapSign status ("Awaiting signature completion").
+- **Lending with no orders:** the contract must have **signatures completed** before generating the lending orders.
+- **Renewal/amendment doesn't replace:** when generated, the previous contract is deactivated (status 97/98).
+
+## Frequently asked questions
+
+<FaqAccordion
+  items={[
+    { question: 'What contract types exist?', answer: 'Discounts, Partnership, Dental and Lending — each with its commercial conditions.' },
+    { question: 'Who approves the contract?', answer: 'The responsible groups: ADM, FP&A, Credit and Operations/Customer Service.' },
+    { question: 'How is the contract signed?', answer: 'Once approved, it is integrated to ZapSign for electronic signature; the status follows up to signatures completed.' },
+    { question: 'What is the difference between renewal and amendment?', answer: 'Both generate a new contract and deactivate the previous one; renewal extends the contract and the amendment complements it.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '09/03/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '09/03/2026', author: 'Renan Camargo', description: 'Contract flow (draft, approval by groups, ZapSign signature, lending and renewal/amendment) documented from the real system rules.' },
+  ]}
+/>

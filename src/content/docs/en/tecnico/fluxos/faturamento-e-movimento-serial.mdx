@@ -1,0 +1,370 @@
+---
+section: tecnico
+routeSlug: fluxos/faturamento-e-movimento-serial
+pageType: tecnico
+lang: en
+title: Order Invoicing and Serial Movement
+description: "Technical HML/QA flow: from the approved order to SAP invoicing, invoice validation and the serial movement later used in returns and exchanges."
+moduleLabel: Invoicing / QA
+routineType: Process flow
+impact: Invoicing and serial traceability
+keywords: [invoicing, serial movement, shipment, DataMatrix, invoice, VA03, ZSD_SAIDA_FILIAIS, MMBE, Swagger, SQL, HML, return, exchange, traceability, SAP integration]
+tags: [tecnico, fluxo, faturamento-e-movimento-serial]
+order: 7
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+This flow describes, in order, every step to **invoice an order** in the **Homologation (HML)** environment and record the matching **serial movement** — from the approved order to the authorized invoice and lot/serial traceability. It continues the [Order Process](/en/tecnico/fluxos/processo-do-pedido) and the [Loading List](/en/tecnico/fluxos/romaneio), closing the chain up to tax validation and the use of the order in **returns and exchanges**.
+
+The scope covers the **SIN Implante × SAP** integration: sending the shipment in SAP, separation with lot/serial reading (DataMatrix), invoicing, invoice check (VA03), database validation and serial movement insertion.
+
+<Callout type="cuidado" title="Technical HML/QA procedure — not an end-user action">
+This is an **internal homologation and QA** runbook. It accesses **SAP**, the **API (Swagger)** and the **HML database** directly, including SQL delete commands. Run it **only in the Homologation environment**, never in production, and only if you belong to the team responsible for this validation. Each destructive SQL block below carries its own warning.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Invoice and trace by serial', text: 'Take an approved order to an authorized invoice and record the serial movement that enables returns and exchanges.' },
+    { label: 'Use', title: 'QA and integration', text: 'Used by the QA/integration team to validate SIN × SAP invoicing in Homologation.' },
+    { label: 'Caution', title: 'HML only', text: 'Involves delete SQL and API updates. Always run in HML, with begin/commit, and confirm the correct order before executing.' },
+  ]}
+/>
+
+## When to use this flow
+
+- Validate order invoicing end to end in Homologation.
+- Prepare an invoiced order to be used in **return** and **exchange** tests.
+- Check whether the **serial movement** was generated correctly after invoicing.
+
+## Before you start
+
+- Access to **SAP** (transactions `ZSD_SAIDA_FILIAIS`, `MMBE` and `VA03`).
+- Access to the application **Swagger** in HML and to the **HML database**.
+- The internal **DataMatrix** generation spreadsheet.
+- An order **already created and approved** (or create one as in Step 1).
+
+## Flow summary
+
+Create order → Approve → Send shipment in SAP → Scan items (DataMatrix) → Send to invoicing → Check the invoice in VA03 → Validate via SQL → Update via Swagger → Check/insert serial movement → Use in return/exchange.
+
+## Step 1 — Order creation and approval
+
+1. Create the order in the system.
+2. Send the order for approval. Depending on the **order type**, it goes to different approval authorities:
+
+<DocTable
+  headers={['Order type', 'Responsible authority']}
+  rows={[
+    ['National — outside the policy', 'ADM authority + Credit authority'],
+    ['International — no policy', 'Comex authority + Comex Credit authority'],
+    ['National — Company 03 (Single Company)', 'ADM authority + Credit authority'],
+  ]}
+/>
+
+<Callout type="atencao" title="Confirm the order type">
+Always confirm whether the order is **national**, **international** or **Single Company (Company 03)** before routing the approval — each category has a specific set of responsible authorities.
+</Callout>
+
+## Step 2 — Sending the shipment in SAP (`ZSD_SAIDA_FILIAIS`)
+
+Once approved, the SAP shipment must be sent to SINSALES through the `ZSD_SAIDA_FILIAIS` screen (shipment sending monitor).
+
+1. Open the `ZSD_SAIDA_FILIAIS` screen in SAP.
+2. Select **warehouse**, **plant**, **shipment** and the shipment **creation date** of the order and click the clock icon to query.
+3. Select the desired shipment and click **"Enviar CRM"** (Send to CRM).
+4. After sending, the shipment in SAP **turns green**, confirming the send.
+
+## Step 3 — Separation, scanning and DataMatrix generation
+
+After sending, the shipment appears on the **Shipment Queue Awaiting Separation** screen. You must **scan the items** and send the shipment to invoicing.
+
+### 3.1. Batch lookup in `MMBE`
+
+To scan, look up the batch in the SAP `MMBE` transaction to build the DataMatrix: enter **material**, **plant** and **warehouse**, **uncheck** the "Selec. junto estoques especiais" option and click the green clock. Note the unrestricted use and the available batches.
+
+### 3.2. DataMatrix generation
+
+With the batch in hand, fill in the DataMatrix spreadsheet. Required fields (highlighted yellow in the spreadsheet):
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Material', 'Product code'],
+    ['Batch', 'Obtained in the SAP MMBE transaction'],
+    ['Serial', '8 digits'],
+    ['Expiry', 'For testing, you can use 31.12.2070'],
+  ]}
+/>
+
+After generating the DataMatrix string, do the **reading (scan) by copy and paste** and **save the reading** so you can send it to invoicing.
+
+## Step 4 — Send to invoicing
+
+With the reading saved, click **"Enviar para faturamento"** (Send to invoicing).
+
+## Step 5 — Locating and checking the invoice (`VA03`)
+
+After sending to invoicing in HML, locate the generated invoice in the SAP `VA03` transaction, searching by the SAP order number (the search field is called **"Ordem"** — type it and press ENTER).
+
+1. Click the order number and then **"Exibir fluxo do documento"** (Display document flow).
+2. Click the invoice (it must show as **"Concluída"** / Completed) and then **"Exibir documento"** (Display document).
+3. Click **"Contabilidade"** (Accounting).
+4. **Double-click** the displayed invoice to open the next screen.
+5. On the **"DadosNF-e"** tab, confirm the status is **"1 – Autorizado"** (Authorized).
+
+## Step 6 — Invoice validation via SQL
+
+With the invoice located and authorized, validate the data directly in the **HML** database, in the order below.
+
+<Callout type="cuidado" title="Destructive SQL — HML only">
+The queries in this step include `DELETE`. Run them **exclusively on the Homologation database**, check the order/invoice before executing and **always** wrap the full routine in `begin transaction` … `commit`.
+</Callout>
+
+**6.1. Check whether the invoice exists in the HML database**
+
+```sql
+select * from Pedidos_NotaFiscal where NumeroNotaFiscal = '000031017'
+```
+
+**6.2. Check the corresponding sales order**
+
+The sales order in HML must equal the one in SAP and always has **10 digits**. Identify the **oldest** `IdOrdemDeVendaSap` (it must be deleted), keeping only the newest one.
+
+```sql
+select * from Pedidos_OrdemDeVendaSap where OrdemDeVenda = '0002437968'
+
+-- keep the record of the date in use and delete the old ones
+delete from Pedidos_OrdemDeVendaSap where IdOrdemDeVendaSap = '835242'
+```
+
+**6.3. Full invoice deletion routine**
+
+Run the full routine below. Never forget to start with `begin transaction` and finish with `commit`.
+
+```sql
+begin transaction -- always begin first
+
+-- the invoice comes as 000030929-33, but use it WITHOUT the digit: 000030929
+DECLARE @NotaFiscal BIGINT = 000031017
+
+-- capture ALL invoice IDs (there may be more than one)
+DECLARE @Ids TABLE (IdNotaFiscal BIGINT)
+INSERT INTO @Ids
+SELECT IdNotaFiscal FROM Pedidos_NotaFiscal WHERE NumeroNotaFiscal = @NotaFiscal
+
+-- capture all orders linked to this invoice
+DECLARE @Pedidos TABLE (IdPedido BIGINT)
+INSERT INTO @Pedidos
+SELECT IdPedido FROM Pedidos_NotaFiscal WHERE NumeroNotaFiscal = @NotaFiscal
+
+-- delete the invoice items
+DELETE FROM Pedidos_ItemNotaFiscal WHERE IdNota IN (SELECT IdNotaFiscal FROM @Ids)
+
+-- delete the sales orders of all linked orders
+DELETE FROM Pedidos_OrdemDeVendaSap WHERE IdPedido IN (SELECT IdPedido FROM @Pedidos)
+
+-- delete the invoice
+DELETE FROM Pedidos_NotaFiscal WHERE NumeroNotaFiscal = @NotaFiscal
+
+commit -- always close the begin with the commit
+```
+
+## Step 7 — Updating the order via Swagger
+
+After the SQL routine, update the order through the API, in Swagger.
+
+1. Open the corresponding endpoint in Swagger.
+2. Click **"Try it out"**, enter the order number in the JSON body and click **"Execute"**.
+
+```json
+{
+  "numeroDoPedido": [
+    20260122409
+  ],
+  "diasParaAtualizar": 30,
+  "status": [
+    5
+  ]
+}
+```
+
+The expected return is **code 200**, confirming the order was validated and integrated. (`status: 5` maps to the **Invoiced** panel — see [Value Mapping → SituacaoDoPainelDaHome](/en/tecnico/banco-de-dados/de-para).)
+
+## Step 8 — Checking and inserting the serial movement
+
+With the 200 confirmed, run the query below (changing the order number) to check whether the serial movement can be created. The `NOT EXISTS` filter prevents duplicating a movement already recorded.
+
+```sql
+SELECT
+  RIGHT(REPLICATE('0', 9) + CAST(n.NumeroNotaFiscal AS VARCHAR), 9)
+    + '-' + CAST(n.Serie AS VARCHAR) AS NotaFiscal
+  ,CAST(n.DataDeEmissao AS DATE) AS DataNotaFiscal
+  ,o.OrdemErp AS TipoOperacao
+  ,iNota.NumeroDaRemessa AS Remessa
+  ,n.Fatura
+  ,(iNota.Sequencial * 10) ItemFatura
+  ,prod.CodigoSku AS CodigoDoProduto
+  ,isp.Lote
+  ,isp.Serial
+  ,'2078-12-31' AS DataVencimentoLote
+  ,null AS NotaFiscalDeOrigem
+  ,centro.CodigoErp AS CentroDaNotaFiscal
+  ,i.PrecoUnitario AS ValorUnitario
+  ,'INTEGRACAO' AS NotaCriadaPor
+  ,p.PedidoSap
+  ,p.Sequencial AS NumeroDoPedido
+  ,ISNULL(i.PorcentagemDesconto, 0) PorcentagemDeDescontoDoPedido
+  ,p.ValorFrete / NULLIF(qtd.QuantidadeTotal, 0) AS ValorFrete
+  ,0 AS NotaEstornada
+  ,i.PrecoUnitario AS ValorUnitarioMoedaEstrangeira
+  ,'BRL' AS Moeda
+  ,cli.CodigoDoCliente
+FROM Pedidos_Pedido p WITH(NOLOCK)
+JOIN Pedidos_ItemPrePedido i WITH(NOLOCK) ON i.IdPedido = p.IdPedido
+JOIN (
+  SELECT IdPedido, SUM(QuantidadeAtendida) AS QuantidadeTotal
+  FROM Pedidos_ItemPrePedido WITH(NOLOCK)
+  GROUP BY IdPedido
+) qtd ON qtd.IdPedido = p.IdPedido
+JOIN Faturamentos_PedidoRemessaDeFaturamento pr WITH(NOLOCK) ON pr.IdPedido = p.IdPedido
+JOIN Faturamentos_PedidoSeparacao ps WITH(NOLOCK) ON ps.IdPedidoRemessaDeFaturamento = pr.IdPedidoRemessaDeFaturamento
+JOIN Faturamentos_ItemSeparacaoPedido isp WITH(NOLOCK) ON isp.IdPedidoSeparacao = ps.IdPedidoSeparacao AND isp.IdProduto = i.IdProduto
+JOIN Produtos_Produto prod WITH(NOLOCK) ON prod.IdProduto = i.IdProduto AND isp.IdProduto = prod.IdProduto
+JOIN Pedidos_OperacaoInteligente o WITH(NOLOCK) ON o.IdOperacaoInteligente = p.IdOperacaoInteligente
+JOIN Clientes_CLiente cli WITH(NOLOCK) ON cli.IdCliente = p.IdCliente
+INNER JOIN Pedidos_NotaFiscal n WITH(NOLOCK) ON n.IdPedido = p.IdPedido
+INNER JOIN Pedidos_ItemNotaFiscal iNota WITH(NOLOCK)
+  ON iNota.IdNota = n.IdNotaFiscal AND iNota.IdProduto = i.IdProduto
+  AND iNota.NumeroDaRemessa = pr.Remessa
+LEFT JOIN Administrador_Centro centro WITH(NOLOCK) ON centro.IdCentro = n.IdCentro
+WHERE p.Sequencial = 20260122452 -- <<< add the order here
+AND NOT EXISTS (
+  SELECT 1 FROM Faturamentos_MovimentoSerial ms
+  WHERE ms.NumeroDoPedido = p.Sequencial
+  AND ms.NotaFiscal = RIGHT(REPLICATE('0', 9) + CAST(n.NumeroNotaFiscal AS VARCHAR), 9)
+      + '-' + CAST(n.Serie AS VARCHAR)
+)
+```
+
+If the result is correct, record the serial movement by replacing `SELECT` with `INSERT INTO Faturamentos_MovimentoSerial` followed by the **same** full `SELECT`:
+
+```sql
+INSERT INTO Faturamentos_MovimentoSerial
+SELECT
+  -- ... exactly the same columns, JOINs and WHERE as the check SELECT above ...
+FROM Pedidos_Pedido p WITH(NOLOCK)
+  -- ...
+WHERE p.Sequencial = 20260122452 -- <<< add the order here
+AND NOT EXISTS ( /* same anti-duplication filter */ )
+```
+
+<Callout type="dica" title="The INSERT reuses the SELECT">
+The `INSERT` uses exactly the **same columns, JOINs and `WHERE` filter** as the check `SELECT` from the previous step — just replace `SELECT` with `INSERT INTO Faturamentos_MovimentoSerial` followed by the full `SELECT`.
+</Callout>
+
+## Step 9 — Use in return and exchange
+
+Once the whole process is done (creation, approval, shipment, invoicing, invoice validation and serial movement check), the order becomes **ready to be used in returns and exchanges**. The same check runbook (locate the invoice, validate via SQL and verify the serial movement) must be followed whenever a return or exchange linked to an already-invoiced order is processed.
+
+## Invoicing types that generate a serial movement
+
+The serial movement is generated from different invoicing sources (enum `TipoFaturamentoParaMovimentoSerial` — see [Value Mapping](/en/tecnico/banco-de-dados/de-para)):
+
+<DocTable
+  headers={['Value', 'Invoicing source']}
+  rows={[
+    ['0', 'Invoicing by shipment'],
+    ['1', 'Returns invoicing'],
+    ['2', 'Consignment invoicing via KA Portal'],
+    ['3', 'Consignment invoicing from the CRM'],
+  ]}
+/>
+
+## Flowchart — from approved order to serial movement
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 460 900" width="460" role="img" aria-label="Flowchart of order invoicing and serial movement insertion" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwfe" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwfe)">
+    <path d="M230,66 L230,92" />
+    <path d="M230,150 L230,176" />
+    <path d="M230,234 L230,260" />
+    <path d="M230,318 L230,344" />
+    <path d="M230,402 L230,428" />
+    <path d="M230,486 L230,512" />
+    <path d="M230,570 L230,596" />
+    <path d="M230,654 L230,680" />
+    <path d="M230,738 L230,764" />
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="40" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="48" text-anchor="middle" font-weight="600">1 &#183; Create and approve the order</text>
+    <rect x="40" y="92" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="115" text-anchor="middle">2 &#183; Send the shipment in SAP</text>
+    <text x="230" y="134" text-anchor="middle" fill="#5c6b7a" font-size="12">ZSD_SAIDA_FILIAIS &#183; "Enviar CRM"</text>
+    <rect x="40" y="176" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="199" text-anchor="middle">3 &#183; Separate and scan items</text>
+    <text x="230" y="218" text-anchor="middle" fill="#5c6b7a" font-size="12">batch in MMBE &#183; generate DataMatrix</text>
+    <rect x="40" y="260" width="380" height="46" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="288" text-anchor="middle">4 &#183; Send to invoicing</text>
+    <rect x="40" y="344" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="367" text-anchor="middle">5 &#183; Check the invoice</text>
+    <text x="230" y="386" text-anchor="middle" fill="#5c6b7a" font-size="12">VA03 &#183; status "1 &#8211; Authorized"</text>
+    <rect x="40" y="428" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="451" text-anchor="middle">6 &#183; Validate via SQL (HML)</text>
+    <text x="230" y="470" text-anchor="middle" fill="#5c6b7a" font-size="12">begin / delete / commit</text>
+    <rect x="40" y="512" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="535" text-anchor="middle">7 &#183; Update via Swagger</text>
+    <text x="230" y="554" text-anchor="middle" fill="#5c6b7a" font-size="12">status 5 &#8594; return 200</text>
+    <rect x="40" y="596" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="619" text-anchor="middle">8 &#183; Check and insert</text>
+    <text x="230" y="638" text-anchor="middle" fill="#5c6b7a" font-size="12">Faturamentos_MovimentoSerial</text>
+    <rect x="40" y="680" width="380" height="58" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="703" text-anchor="middle" font-weight="600">9 &#183; Order ready</text>
+    <text x="230" y="722" text-anchor="middle" fill="#5c6b7a" font-size="12">return and exchange</text>
+  </g>
+</svg>
+</div>
+
+## Common problems
+
+- **The shipment doesn't show in the separation queue:** confirm the SAP step (`ZSD_SAIDA_FILIAIS` → "Enviar CRM") turned the shipment **green**.
+- **Invoice not in VA03:** confirm you searched by the **"Ordem"** field with the SAP order number and that HML invoicing was completed.
+- **Swagger doesn't return 200:** review the Step 6 SQL routine (a leftover old sales order often blocks it) and the JSON body (order and `status`).
+- **Serial movement doesn't record:** the `NOT EXISTS` blocks duplicates — if the movement already exists for that order/invoice, the query returns empty (expected behavior).
+
+## Frequently asked questions
+
+<FaqAccordion
+  items={[
+    { question: 'Can I run this flow in production?', answer: 'No. It is a Homologation/QA procedure and involves delete SQL and API updates. Run it only in HML.' },
+    { question: 'Why keep only the newest sales order?', answer: 'The HML database may accumulate old sales orders for the same order. Keep only the record of the date in use and delete the previous ones so the next validation works.' },
+    { question: 'What does status 5 mean in Swagger?', answer: 'It maps to the "Invoiced" panel (SituacaoDoPainelDaHome enum). It signals the order was invoiced and integrated.' },
+    { question: 'Do I need to rewrite the serial movement INSERT?', answer: 'No. The INSERT reuses exactly the same columns, JOINs and WHERE filter as the check SELECT — just replace SELECT with INSERT INTO Faturamentos_MovimentoSerial.' },
+    { question: 'What is the serial movement for afterwards?', answer: 'It enables the invoiced order to be used in returns and exchanges, keeping lot/serial traceability.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '09/03/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '09/03/2026', author: 'Renan Camargo', description: 'Original document (KCS) restructured as a technical manual flow, with generalized authorities, HML/QA warnings on the SQL blocks and a process flowchart.' },
+  ]}
+/>

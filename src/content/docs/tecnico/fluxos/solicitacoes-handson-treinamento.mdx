@@ -1,0 +1,124 @@
+---
+section: tecnico
+routeSlug: fluxos/solicitacoes-handson-treinamento
+pageType: tecnico
+title: Solicitações HandsOn (Logística de Treinamento)
+description: "Fluxo das Solicitações HandsOn: abrir e conduzir pedidos de logística de treinamento — professor, material ou visita à fábrica — vinculados aos cursos."
+moduleLabel: Ocorrências / Treinamento
+routineType: Fluxo de processo
+impact: Logística de treinamentos e cursos (HandsOn)
+keywords: [HandsOn, hands on, treinamento, curso, professor, material, visita à fábrica, solicitação, logística, ocorrência]
+tags: [tecnico, fluxo, solicitacoes-handson-treinamento]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+As **Solicitações HandsOn** registram e conduzem os pedidos de **logística de treinamento** — a presença de um **professor**, o envio de **material** ou uma **visita à fábrica** — vinculados aos **cursos** oferecidos. É o processo que organiza o apoio necessário para que um treinamento aconteça.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Organizar o treinamento', text: 'Solicitar professor, material ou visita à fábrica para viabilizar um curso/treinamento.' },
+    { label: 'Uso', title: 'Treinamento / cursos', text: 'Usado pela área responsável por treinamentos para tratar as solicitações HandsOn.' },
+    { label: 'Cuidado', title: 'Vínculo com o curso', text: 'A solicitação está ligada ao curso e ao seu tipo; confirme o curso ao abrir.' },
+  ]}
+/>
+
+## Quando usar este fluxo
+
+- **Solicitar um professor** para um curso (HandsOn Professor).
+- **Solicitar material** para um treinamento.
+- **Solicitar uma visita à fábrica**.
+
+## Tipo e motivo da solicitação
+
+A solicitação é do tipo **"Solicitações HandsOn Professor"** (`TipoOcorrenciaHandsOn`) e nasce na situação **"Abertura"** (`SituacaoOcorrenciaHandsOn`). O **motivo** (`MotivoOcorrenciaHandsOn`) define o que se pede:
+
+<DocTable
+  headers={['Valor', 'Motivo']}
+  rows={[
+    ['0', 'Solicitação de HandsOn com professor'],
+    ['1', 'Solicitação de material'],
+    ['2', 'Solicitação de visita à fábrica'],
+  ]}
+/>
+
+## Tipos de curso
+
+A solicitação se liga a um curso, cujo tipo (`TipoCursoHandsOn`) pode ser:
+
+<DocTable
+  headers={['Valor', 'Tipo de curso']}
+  rows={[
+    ['0', 'Especialização'],
+    ['1', 'Atualização'],
+    ['2', 'Imersão'],
+    ['3', 'Doutorado'],
+    ['4', 'Mestrado'],
+  ]}
+/>
+
+## Estrutura da solicitação
+
+A tela reúne as **Solicitações** e os **Produtos** associados (material/kit do treinamento), permitindo acompanhar o que foi pedido para cada curso.
+
+## Fluxograma — da abertura ao atendimento
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 460 340" width="460" role="img" aria-label="Fluxo das solicitações HandsOn" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwh" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwh)">
+    <path d="M230,66 L230,92" />
+    <path d="M230,176 L230,202" />
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="40" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="41" text-anchor="middle" font-weight="600">1 &#183; Abrir solicitação (Abertura)</text>
+    <text x="230" y="58" text-anchor="middle" fill="#5c6b7a" font-size="11">vinculada ao curso</text>
+    <rect x="40" y="92" width="380" height="84" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="118" text-anchor="middle">2 &#183; Definir o motivo</text>
+    <text x="230" y="138" text-anchor="middle" fill="#5c6b7a" font-size="12">professor · material · visita à fábrica</text>
+    <text x="230" y="156" text-anchor="middle" fill="#5c6b7a" font-size="12">+ produtos/kit do treinamento</text>
+    <rect x="40" y="202" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="230" text-anchor="middle" font-weight="600">3 &#183; Atender a logística do treinamento</text>
+  </g>
+</svg>
+</div>
+
+## Relação com outros processos
+
+- **Ocorrências:** a Solicitação HandsOn é um tipo de ocorrência — ver [Ocorrência PFCQ](/tecnico/fluxos/ocorrencia-pfcq) para o tratamento geral de ocorrências.
+- **De Para:** `TipoOcorrenciaHandsOn`, `SituacaoOcorrenciaHandsOn`, `MotivoOcorrenciaHandsOn` e `TipoCursoHandsOn` estão em [Banco de Dados → De Para](/tecnico/banco-de-dados/de-para).
+
+## Perguntas frequentes
+
+<FaqAccordion
+  items={[
+    { question: 'O que é uma solicitação HandsOn?', answer: 'É um pedido de logística de treinamento — professor, material ou visita à fábrica — vinculado a um curso.' },
+    { question: 'Quais motivos posso registrar?', answer: 'Solicitação de professor (HandsOn), solicitação de material ou solicitação de visita à fábrica.' },
+    { question: 'A solicitação está ligada a quê?', answer: 'A um curso, cujo tipo pode ser Especialização, Atualização, Imersão, Doutorado ou Mestrado.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '03/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Fluxo das Solicitações HandsOn (logística de treinamento) documentado a partir da regra real do sistema (tipo, situação, motivos e tipos de curso).' },
+  ]}
+/>

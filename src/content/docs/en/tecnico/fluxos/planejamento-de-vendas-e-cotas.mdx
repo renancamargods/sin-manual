@@ -1,0 +1,160 @@
+---
+section: tecnico
+routeSlug: fluxos/planejamento-de-vendas-e-cotas
+pageType: tecnico
+lang: en
+title: Sales Planning and Quotas
+description: "Sales planning flow: distribute and adjust the sales targets/quotas across the commercial structure, from the top to the consultant, recording who changed what."
+moduleLabel: Sales Planning
+routineType: Process flow
+impact: Distribution and adjustment of sales targets and quotas
+keywords: [sales planning, sales quota, target, commercial structure, hierarchy, GNV, GR, GD, coordinator, consultant, retail, KA, implants]
+tags: [tecnico, fluxo, planejamento-de-vendas-e-cotas]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+**Sales Planning** distributes and adjusts the **sales targets/quotas** across the **commercial structure** — from the top (Board/GNV) to the **consultant** — by period (month/year). Each level adjusts its share and the system **records who changed** what, ensuring traceability of the planning.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Distribute the targets', text: 'Set and adjust the sales quotas by commercial-structure level and by period.' },
+    { label: 'Use', title: 'Commercial / management', text: 'Used by commercial management to plan targets and track the distribution.' },
+    { label: 'Caution', title: 'Each level adjusts its own', text: 'The change is made per level/profile and is recorded in a log (who, when).' },
+  ]}
+/>
+
+## When to use this flow
+
+- **Set** the sales quotas of a period (month/year).
+- **Distribute** the target across the commercial structure, level by level.
+- **Adjust** a level's quota and track the change history.
+
+## The commercial structure
+
+The distribution follows the commercial hierarchy (`HierarquiaDeEstruturaComercial`):
+
+<DocTable
+  headers={['Value', 'Level']}
+  rows={[
+    ['0', 'SIN'],
+    ['1', 'Board'],
+    ['2', 'GNV FVE'],
+    ['3', 'GNV FVI'],
+    ['4', 'GR'],
+    ['5', 'GD'],
+    ['6', 'Coordinator'],
+    ['7', 'Supervisor'],
+    ['8', 'Consultant FVI'],
+    ['9', 'Consultant FVE'],
+    ['10', 'Representative'],
+    ['11', 'Advisor'],
+    ['12', 'Administrative'],
+    ['13', 'Retail Executive'],
+    ['14', 'KA Executive'],
+    ['15', 'SIN Solution Executive'],
+    ['16', 'SIN Solution Internal Executive'],
+  ]}
+/>
+
+## Who adjusts the planning
+
+The adjustment is made according to the **changer context** (`ContextoAlteradorPlanejamentoVendas`):
+
+<DocTable
+  headers={['Value', 'Context']}
+  rows={[
+    ['0', 'FVE'],
+    ['1', 'FVI'],
+    ['2', 'KA Executive'],
+    ['3', 'SIN Solutions Executive'],
+  ]}
+/>
+
+## Sales quota
+
+The **Sales Quota** is defined by **commercial structure** and by **month/year**, with targets by segment (e.g., **Retail**, **KA** and **Implants**), in **value (R$)** and **percentage (%)**. Each level receives and distributes its quota to the levels below.
+
+<Callout type="info" title="Access flow">
+The planning flows down the hierarchy: upper levels (GNV) set and pass down, and the levels below (GR, GD, Coordinator, Consultant) receive and adjust their share.
+</Callout>
+
+## Change record
+
+Each change is recorded in a log (`TipoLogPlanejamentoDeVendas`): **changing user**, **change date**, **name** and **profile** of who changed — allowing the planning to be audited.
+
+## Flowchart — from top to consultant
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 460 440" width="460" role="img" aria-label="Target distribution across the commercial structure" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwpve" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwpve)">
+    <path d="M230,66 L230,92" />
+    <path d="M230,150 L230,176" />
+    <path d="M230,234 L230,260" />
+    <path d="M230,318 L230,344" />
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="40" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="41" text-anchor="middle" font-weight="600">Board / GNV</text>
+    <text x="230" y="58" text-anchor="middle" fill="#5c6b7a" font-size="11">sets the period target</text>
+    <rect x="40" y="92" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="115" text-anchor="middle">GR / GD</text>
+    <text x="230" y="134" text-anchor="middle" fill="#5c6b7a" font-size="12">receives and distributes the quota</text>
+    <rect x="40" y="176" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="199" text-anchor="middle">Coordinator / Supervisor</text>
+    <text x="230" y="218" text-anchor="middle" fill="#5c6b7a" font-size="12">adjusts per team</text>
+    <rect x="40" y="260" width="380" height="58" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="230" y="283" text-anchor="middle">Consultant (FVE/FVI)</text>
+    <text x="230" y="302" text-anchor="middle" fill="#5c6b7a" font-size="12">individual quota per period</text>
+    <rect x="40" y="344" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="372" text-anchor="middle" font-weight="600">Targets distributed &#183; changes logged</text>
+  </g>
+</svg>
+</div>
+
+## Relationship with other processes
+
+- **Commercial Structure and Sales Quota:** the [Commercial Structure](/en/modulos/politicas/estrutura-comercial) and [Sales Quota](/en/modulos/politicas/cota-de-venda) screens support this flow.
+- **Order:** the targets guide the commercial tracking of sales — see [Order Process](/en/tecnico/fluxos/processo-do-pedido).
+- **Value Mapping:** `HierarquiaDeEstruturaComercial`, `ContextoAlteradorPlanejamentoVendas` and `TipoLogPlanejamentoDeVendas` are in [Database → Value Mapping](/en/tecnico/banco-de-dados/de-para).
+
+## Common problems
+
+- **Quota doesn't match the sum:** the distribution per level must close with the target of the level above.
+- **Cannot adjust:** the adjustment depends on the level/profile (changer context).
+- **Who changed it?:** check the change log (user, date, name and profile).
+
+## Frequently asked questions
+
+<FaqAccordion
+  items={[
+    { question: 'How are the targets distributed?', answer: 'Across the commercial structure, from the top (Board/GNV) to the consultant, each level receiving and distributing its quota per period.' },
+    { question: 'What makes up a sales quota?', answer: 'Targets by commercial structure and period (month/year), by segment (e.g., Retail, KA and Implants), in value and percentage.' },
+    { question: 'Are the changes recorded?', answer: 'Yes. Each change stores the user, the date, the name and the profile of who changed it.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '09/03/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '09/03/2026', author: 'Renan Camargo', description: 'Sales Planning and Quotas flow documented from the real system rules (commercial structure, changer context, sales quota and change log).' },
+  ]}
+/>

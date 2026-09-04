@@ -1,0 +1,107 @@
+---
+section: tecnico
+routeSlug: mapa-de-fluxos
+pageType: tecnico
+lang: en
+title: Flow Map
+description: "A bird's-eye view of the system flows and how they connect — from lead to invoicing and after-sales — with links to each flow."
+keywords: [flow map, flows, processes, overview, integration, chain, journey]
+tags: [tecnico]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+
+## Overview
+
+This page is a **map** of the flows documented under Technical Docs → Flows: it shows **how the processes connect**, from the first contact with the customer to invoicing and after-sales. Use it to get your bearings and jump straight to the flow you need.
+
+## The sales chain, end to end
+
+The main path of a sale runs through these links — each one is its own flow:
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 920 200" width="920" role="img" aria-label="Sales chain from lead to after-sales" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwme" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwme)">
+    <path d="M150,74 L172,74" />
+    <path d="M298,74 L320,74" />
+    <path d="M446,74 L468,74" />
+    <path d="M594,74 L616,74" />
+    <path d="M742,74 L764,74" />
+    <path d="M460,104 L460,150" />
+  </g>
+  <g font-size="13.5" fill="#1a1417" text-anchor="middle">
+    <rect x="8" y="50" width="142" height="48" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="79" y="79" font-weight="600">Lead</text>
+    <rect x="172" y="50" width="126" height="48" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="235" y="79">Customer</text>
+    <rect x="320" y="50" width="126" height="48" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="383" y="79">Order</text>
+    <rect x="468" y="50" width="126" height="48" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="531" y="72">Payment</text>
+    <text x="531" y="88" font-size="11" fill="#5c6b7a">and SAP integration</text>
+    <rect x="616" y="50" width="126" height="48" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="679" y="72">Invoicing</text>
+    <text x="679" y="88" font-size="11" fill="#5c6b7a">+ serial movement</text>
+    <rect x="764" y="50" width="148" height="48" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="838" y="79" font-weight="600">After-sales</text>
+    <rect x="360" y="150" width="200" height="42" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="460" y="176" font-size="12">Contract / lending feeds the order</text>
+  </g>
+</svg>
+</div>
+
+- **Lead → Customer:** a won [lead](/en/tecnico/fluxos/leads-pipeline-e-conversao) becomes a customer, who goes through [registration and approval](/en/tecnico/fluxos/criacao-de-cliente) with [credit/anti-fraud analysis](/en/tecnico/fluxos/credito-e-antifraude-clearsale).
+- **Customer → Order:** the released customer places the [order](/en/tecnico/fluxos/processo-do-pedido), which is approved and routed to [payment](/en/tecnico/fluxos/pagamentos-geracao-de-link).
+- **Order → SAP → Invoicing:** once approved and paid, the order proceeds to the [SAP integration](/en/tecnico/fluxos/integracao-sap-visao-geral) and [invoicing with serial movement](/en/tecnico/fluxos/faturamento-e-movimento-serial).
+- **After-sales:** the invoiced item enables [exchange/return (TDC)](/en/tecnico/fluxos/troca-devolucao-cancelamento-tdc), [consignment](/en/tecnico/fluxos/fechamento-de-consignado) and [reverse transfer](/en/tecnico/fluxos/transferencia-reversa).
+
+## Flows by area
+
+### Commercial and registration
+- [Leads — from Lead to Pipeline (Kanban) and conversion](/en/tecnico/fluxos/leads-pipeline-e-conversao)
+- [Customer Registration × Approvals — With Ignition](/en/tecnico/fluxos/criacao-de-cliente)
+- [Customer Registration × Approvals — Without Ignition](/en/tecnico/fluxos/cadastro-clientes-sem-ignition)
+- [Credit and Anti-fraud (ClearSale)](/en/tecnico/fluxos/credito-e-antifraude-clearsale)
+- [Sales Planning and Quotas](/en/tecnico/fluxos/planejamento-de-vendas-e-cotas)
+
+### Order and payment
+- [Order Process — Overview](/en/tecnico/fluxos/processo-do-pedido) (and the parts by person type, items, payment, policies, permissions)
+- [Order Approval — Without Ignition](/en/tecnico/fluxos/aprovacao-de-pedidos-sem-ignition)
+- [Payments — Link Generation (PIX, Card and Card Terminal)](/en/tecnico/fluxos/pagamentos-geracao-de-link)
+- [Mixed Payment](/en/tecnico/fluxos/pagamento-misto)
+
+### SAP integration
+- [SAP (S/4HANA) Integration — Overview](/en/tecnico/fluxos/integracao-sap-visao-geral)
+- [SAP Integration — The four flows](/en/tecnico/fluxos/integracao-sap-os-quatro-fluxos)
+
+### Invoicing and after-sales
+- [Order Invoicing and Serial Movement](/en/tecnico/fluxos/faturamento-e-movimento-serial)
+- [Exchange, Return and Cancellation (TDC)](/en/tecnico/fluxos/troca-devolucao-cancelamento-tdc)
+- [Consignment Closing](/en/tecnico/fluxos/fechamento-de-consignado)
+- [Reverse Transfer](/en/tecnico/fluxos/transferencia-reversa)
+- [Loading List (Romaneio)](/en/tecnico/fluxos/romaneio)
+
+### Quality and occurrences
+- [PFCQ Occurrence — from receipt to closing](/en/tecnico/fluxos/ocorrencia-pfcq)
+- [Quality Analysis and Scrap](/en/tecnico/fluxos/analise-de-qualidade-e-refugo)
+- [HandsOn Requests (Training Logistics)](/en/tecnico/fluxos/solicitacoes-handson-treinamento)
+
+### Contracts
+- [Contract — from draft to signatures and lending](/en/tecnico/fluxos/contrato-cadastro-aprovacao-assinatura)
+
+### Field and products
+- [GO.ON — Field Scheduling and Routing](/en/tecnico/fluxos/goon-agenda-e-roteirizacao)
+- [Product Configuration in the Lounge](/en/tecnico/fluxos/configuracao-de-produtos-no-lounge)
+
+### QA and environment
+- [Test Environment per Branch via Docker (QA Docker Manager)](/en/tecnico/fluxos/execucao-qa-docker-manager)
+
+<Callout type="info" title="How flows tie to the codes">
+Many flows cite the system **enums** (statuses, types). The meaning of each code is in [Database → Value Mapping](/en/tecnico/banco-de-dados/de-para).
+</Callout>

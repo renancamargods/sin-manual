@@ -1,0 +1,157 @@
+---
+section: tecnico
+routeSlug: fluxos/pagamentos-geracao-de-link
+pageType: tecnico
+lang: en
+title: Payments — Link Generation (PIX, Card and Card Terminal)
+description: "How the order generates a charge after approval: post-approval routing, PIX link (EFI/GerenciaNet), card link and card-terminal charge (Pagar.me), PIX key and notifications."
+moduleLabel: Orders / Payments
+routineType: Process flow
+impact: Charge generation and payment-gateway integration
+keywords: [payment, payment link, PIX, card, card terminal, Pagar.me, EFI, GerenciaNet, PIX key, charge, gateway, post-approval, notification]
+tags: [tecnico, fluxo, pagamentos-geracao-de-link]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+After an order is approved, the system decides **how to charge**: send it straight to SAP (when it is already paid or there is no online charge), **generate a payment link** (PIX or card), **send a charge to the card terminal**, or **handle a mixed payment**. This page describes the charge generation and the **gateway** integration: **PIX** via **EFI (GerenciaNet)** and **card/card terminal** via **Pagar.me**.
+
+For the payment form and terms rules inside the order, see [Order Process — Payment](/en/tecnico/fluxos/processo-do-pedido-pagamento). To combine more than one form, see [Mixed Payment](/en/tecnico/fluxos/pagamento-misto).
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Charge the approved order', text: 'Generate a PIX/card link or a card-terminal charge and track the payment up to the SAP integration.' },
+    { label: 'Use', title: 'Orders / finance', text: 'Triggered after order approval, according to the chosen payment form.' },
+    { label: 'Caution', title: 'Correct PIX key', text: 'PIX depends on the configured key; check the key type before generating the charge.' },
+  ]}
+/>
+
+## Post-approval routing
+
+On approval, the order takes one of the paths (`FluxoPosAprovacaoDePedido`):
+
+<DocTable
+  headers={['Value', 'Path', 'When']}
+  rows={[
+    ['0', 'Send straight to SAP', 'No online charge to generate (e.g., already paid, boleto, term).'],
+    ['1', 'Generate PIX payment link', 'PIX charge via EFI (GerenciaNet).'],
+    ['2', 'Generate card link', 'Card payment link via Pagar.me.'],
+    ['3', 'Generate charge on the card terminal', 'Charge sent to a card terminal (Payment Terminal) via Pagar.me.'],
+    ['4', 'Handle mixed payments', 'More than one form on the same order — see Mixed Payment.'],
+    ['5', 'Integrate to PHC', 'Alternative integration path (PHC).'],
+  ]}
+/>
+
+## PIX — EFI (GerenciaNet)
+
+- The system **generates the PIX charge** in EFI and provides the **QR Code / copy-and-paste code**.
+- It tracks the payment by **query** (and reconciliation) — when the PIX is paid, the order proceeds to the SAP integration.
+- The charge can be **canceled** if not paid.
+
+<Callout type="info" title="PIX key">
+The PIX charge uses the configured **key**. The possible types (`TipoDeChavePix`) are: **CPF**, **CNPJ**, **email**, **mobile** and **random**.
+</Callout>
+
+## Card and Card Terminal — Pagar.me
+
+- **Card link:** the system generates a **payment link** in Pagar.me and provides it to the customer.
+- **Card terminal:** the system **sends the charge** to a terminal registered as a **Payment Terminal** (Administrador module).
+- **Return:** Pagar.me confirms the payment by **webhook** (automatic return); the system also queries the status when needed.
+- **Notifications:** the customer can be **notified** by email and WhatsApp with the link/charge.
+- The charge can be **canceled** in Pagar.me when the order is canceled.
+
+## PIX key — types
+
+<DocTable
+  headers={['Value', 'Key type']}
+  rows={[
+    ['0', 'CPF'],
+    ['1', 'CNPJ'],
+    ['2', 'Email'],
+    ['3', 'Mobile'],
+    ['4', 'Random'],
+  ]}
+/>
+
+## Flowchart — from approved order to charge
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 560 430" width="560" role="img" aria-label="Charge routing after order approval" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwpe" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwpe)">
+    <path d="M280,66 L280,92" />
+    <path d="M150,150 L150,300" />
+    <path d="M280,150 L280,300" />
+    <path d="M410,150 L410,300" />
+    <path d="M280,336 L280,362" />
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="90" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="280" y="48" text-anchor="middle" font-weight="600">Approved order &#183; post-approval routing</text>
+    <rect x="60" y="112" width="180" height="38" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="150" y="135" text-anchor="middle" font-size="12">PIX (EFI/GerenciaNet)</text>
+    <rect x="190" y="112" width="180" height="38" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="280" y="135" text-anchor="middle" font-size="12">Card (Pagar.me)</text>
+    <rect x="320" y="112" width="180" height="38" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="410" y="135" text-anchor="middle" font-size="12">Card terminal (Pagar.me)</text>
+    <rect x="60" y="300" width="180" height="36" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="150" y="322" text-anchor="middle" font-size="12">QR / copy-and-paste</text>
+    <rect x="190" y="300" width="180" height="36" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="280" y="322" text-anchor="middle" font-size="12">Payment link</text>
+    <rect x="320" y="300" width="180" height="36" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="410" y="322" text-anchor="middle" font-size="12">Charge on the terminal</text>
+    <rect x="90" y="362" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="280" y="384" text-anchor="middle" font-weight="600">Payment confirmed</text>
+    <text x="280" y="401" text-anchor="middle" fill="#5c6b7a" font-size="11">proceeds to SAP integration</text>
+  </g>
+</svg>
+</div>
+
+## Relationship with other processes
+
+- **Payment in the order:** the form/terms rules are in [Order Process — Payment](/en/tecnico/fluxos/processo-do-pedido-pagamento).
+- **Mixed payment:** combining forms on the same order — see [Mixed Payment](/en/tecnico/fluxos/pagamento-misto).
+- **SAP integration:** once the payment is confirmed, the order proceeds to the [SAP integration chain](/en/tecnico/fluxos/integracao-sap-os-quatro-fluxos).
+- **Value Mapping:** `FluxoPosAprovacaoDePedido` and `TipoDeChavePix` are in [Database → Value Mapping](/en/tecnico/banco-de-dados/de-para).
+
+## Common problems
+
+- **Link won't generate:** check the order's payment form and the gateway configuration (PIX key / Pagar.me credentials).
+- **PIX doesn't clear:** the payment is confirmed by query/reconciliation; if paid and not cleared, check the PIX reconciliation.
+- **Card terminal doesn't get the charge:** confirm the Payment Terminal registered in Administrador.
+- **Paid but the order doesn't move:** check the return (webhook) and the status up to the SAP integration.
+
+## Frequently asked questions
+
+<FaqAccordion
+  items={[
+    { question: 'Who processes PIX and who processes card?', answer: 'PIX is processed by EFI (GerenciaNet) and card/card terminal by Pagar.me.' },
+    { question: 'How does the customer receive the link?', answer: 'The system provides the link/QR and can notify the customer by email and WhatsApp.' },
+    { question: 'What happens when the payment is confirmed?', answer: 'The order proceeds to the SAP integration (order, delivery and invoice chain).' },
+    { question: 'Can a charge be canceled?', answer: 'Yes. Both the PIX charge (EFI) and the Pagar.me one can be canceled, for example when the order is canceled.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '09/03/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '09/03/2026', author: 'Renan Camargo', description: 'Post-approval charge generation flow (PIX via EFI, card and card terminal via Pagar.me) documented from the real system rules.' },
+  ]}
+/>

@@ -1,0 +1,177 @@
+---
+section: tecnico
+routeSlug: fluxos/credito-e-antifraude-clearsale
+pageType: tecnico
+title: Crédito e Antifraude (ClearSale)
+description: "Fluxo de análise de crédito e antifraude no cadastro do cliente com a ClearSale: score de fraude, insights, ratings, antecedentes, biometria facial e classificação de crédito."
+moduleLabel: Clientes / Crédito
+routineType: Fluxo de processo
+impact: Análise de crédito e prevenção à fraude no cadastro do cliente
+keywords: [crédito, antifraude, ClearSale, score de fraude, insights, ratings, antecedentes, biometria facial, classificação de crédito, cadastro, cliente]
+tags: [tecnico, fluxo, credito-e-antifraude-clearsale]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+Durante a **análise do cadastro do cliente**, o sistema consulta a **ClearSale** para apoiar a decisão de crédito e a prevenção à fraude: **score de fraude**, **insights**, **ratings**, **antecedentes** (PF/PJ) e, quando aplicável, **biometria facial**. O resultado alimenta a análise da área de Crédito e a **classificação de crédito** do cliente.
+
+Este fluxo complementa o [Cadastro de Clientes × Aprovações](/tecnico/fluxos/criacao-de-cliente): a consulta à ClearSale acontece na etapa de análise antes da liberação do cliente.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Apoiar a decisão de crédito', text: 'Consultar score, antecedentes e biometria na ClearSale para embasar a análise de crédito e antifraude.' },
+    { label: 'Uso', title: 'Crédito / cadastro', text: 'Usado na análise do cadastro do cliente, pela área de Crédito.' },
+    { label: 'Cuidado', title: 'Dados sensíveis', text: 'Envolve dados pessoais e biometria; a consulta é registrada em histórico e logs.' },
+  ]}
+/>
+
+## Quando usar este fluxo
+
+- **Analisar o crédito** de um cliente em cadastro/reanálise.
+- **Prevenir fraude** com o score e os antecedentes da ClearSale.
+- Solicitar **biometria facial** quando a validação de identidade for necessária.
+
+## O que é consultado na ClearSale
+
+- **Score de Fraude** — pontuação de risco de fraude.
+- **Insights** e **Ratings** do cliente — indicadores de análise.
+- **Antecedentes** PF/PJ — informações cadastrais e restritivas (ex.: Sintegra, Simples Nacional, CNAE, endereços, telefones).
+- **Biometria Facial** — validação de identidade por selfie (opcional).
+
+## Tipos de solicitação
+
+Cada interação com a ClearSale é de um tipo (`TipoSolicitacaoClearSale`):
+
+<DocTable
+  headers={['Valor', 'Tipo', 'O que é']}
+  rows={[
+    ['0', 'Emissão', 'Cria/emite a solicitação à ClearSale.'],
+    ['1', 'Edição', 'Edita uma solicitação.'],
+    ['2', 'Consulta', 'Consulta o resultado de um serviço.'],
+    ['3', 'Notificação', 'Notificação relacionada à solicitação.'],
+    ['4', 'Recebimento', 'Recebimento do retorno.'],
+    ['5', 'Copiar', 'Copia dados de uma solicitação.'],
+  ]}
+/>
+
+## Biometria facial
+
+Quando exigida, a **biometria facial** é solicitada por **link** (`TipoSolicitacaoBiometricaClearSale` = Link), enviado ao cliente por um canal (`TipoDeEnvioBiometriaFacialClearSale`):
+
+<DocTable
+  headers={['Valor', 'Canal de envio']}
+  rows={[
+    ['0', 'E-mail'],
+    ['1', 'WhatsApp'],
+    ['2', 'SMS'],
+  ]}
+/>
+
+O status da biometria (`StatusBiometricoClearSale`) acompanha o link:
+
+<DocTable
+  headers={['Status', 'Significado']}
+  rows={[
+    ['SENT', 'Link enviado, aguardando o cliente.'],
+    ['COMPLETED', 'Biometria concluída.'],
+    ['EXPIRED', 'Link expirado sem conclusão.'],
+  ]}
+/>
+
+## Classificação de crédito
+
+A análise resulta na **classificação de crédito do cliente** (`ClassificacaoDeCreditoDoCliente`), de **A** (melhor) a **E**:
+
+<DocTable
+  headers={['Valor', 'Classificação']}
+  rows={[
+    ['0', 'A'],
+    ['1', 'B'],
+    ['2', 'C'],
+    ['3', 'D'],
+    ['4', 'E'],
+  ]}
+/>
+
+## Histórico e rastreabilidade
+
+Cada consulta fica registrada no **Histórico das Transações ClearSale** e nos **logs de consulta / solicitação de módulos** — o que garante rastreabilidade da análise e do que foi consultado.
+
+## Fluxograma — da consulta à classificação
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 500 520" width="500" role="img" aria-label="Fluxo de análise de crédito e antifraude com a ClearSale" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwcs" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwcs)">
+    <path d="M250,66 L250,92" />
+    <path d="M250,150 L250,176" />
+    <path d="M250,234 L250,300" />
+    <path d="M250,360 L250,386" />
+  </g>
+  <g font-size="12.5" fill="#5c6b7a">
+    <text x="262" y="290" text-anchor="start" font-size="11">se exigida</text>
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="60" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="250" y="41" text-anchor="middle" font-weight="600">1 &#183; Análise do cadastro</text>
+    <text x="250" y="58" text-anchor="middle" fill="#5c6b7a" font-size="11">área de Crédito</text>
+    <rect x="60" y="92" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="250" y="115" text-anchor="middle">2 &#183; Consultar ClearSale</text>
+    <text x="250" y="134" text-anchor="middle" fill="#5c6b7a" font-size="12">score &#183; insights &#183; ratings &#183; antecedentes</text>
+    <rect x="60" y="176" width="380" height="58" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="250" y="199" text-anchor="middle">3 &#183; Biometria facial (opcional)</text>
+    <text x="250" y="218" text-anchor="middle" fill="#5c6b7a" font-size="12">link e-mail/WhatsApp/SMS &#183; SENT&#8594;COMPLETED</text>
+    <rect x="60" y="300" width="380" height="60" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="250" y="326" text-anchor="middle">4 &#183; Decisão de crédito</text>
+    <text x="250" y="344" text-anchor="middle" fill="#5c6b7a" font-size="12">histórico e logs registrados</text>
+    <rect x="60" y="386" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="250" y="414" text-anchor="middle" font-weight="600">Classificação de crédito (A a E)</text>
+  </g>
+</svg>
+</div>
+
+## Relação com outros processos
+
+- **Cadastro de Clientes × Aprovações:** a análise ClearSale ocorre dentro da etapa de crédito da aprovação do cliente — ver [Com Ignition](/tecnico/fluxos/criacao-de-cliente) e [Sem Ignition](/tecnico/fluxos/cadastro-clientes-sem-ignition).
+- **De Para:** `StatusBiometricoClearSale`, `TipoSolicitacaoClearSale`, `TipoSolicitacaoBiometricaClearSale`, `TipoDeEnvioBiometriaFacialClearSale` e `ClassificacaoDeCreditoDoCliente` estão em [Banco de Dados → De Para](/tecnico/banco-de-dados/de-para).
+
+## Problemas comuns
+
+- **Biometria "EXPIRED":** o link não foi concluído no prazo; reenvie um novo link.
+- **Consulta sem retorno:** verifique o histórico das transações e os logs de consulta da ClearSale.
+- **Classificação divergente:** a classificação de crédito é resultado da análise; revise os serviços consultados (score/antecedentes).
+
+## Perguntas frequentes
+
+<FaqAccordion
+  items={[
+    { question: 'O que a ClearSale traz para a análise?', answer: 'Score de fraude, insights, ratings e antecedentes (PF/PJ), além da biometria facial quando exigida, para embasar a decisão de crédito e antifraude.' },
+    { question: 'Como o cliente faz a biometria facial?', answer: 'Recebe um link por e-mail, WhatsApp ou SMS; o status acompanha o link (SENT, COMPLETED ou EXPIRED).' },
+    { question: 'O que significa a classificação de A a E?', answer: 'É a classificação de crédito do cliente resultante da análise, de A (melhor) a E.' },
+    { question: 'A consulta fica registrada?', answer: 'Sim. Cada consulta fica no Histórico das Transações e nos logs, garantindo rastreabilidade.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '03/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Fluxo de Crédito e Antifraude com a ClearSale documentado a partir da regra real do sistema (serviços consultados, biometria facial, tipos de solicitação e classificação de crédito).' },
+  ]}
+/>

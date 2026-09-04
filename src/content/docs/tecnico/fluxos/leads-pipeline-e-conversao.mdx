@@ -1,0 +1,163 @@
+---
+section: tecnico
+routeSlug: fluxos/leads-pipeline-e-conversao
+pageType: tecnico
+title: Leads — do Lead à Pipeline (Kanban) e conversão
+description: "Fluxo do lead: da entrada e qualificação à movimentação pela pipeline no Kanban, com histórico de interação e alertas de SLA, até o fechamento (ganho ou perda)."
+moduleLabel: Leads
+routineType: Fluxo de processo
+impact: Qualificação e conversão de leads pela pipeline de vendas
+keywords: [lead, pipeline, kanban, funil, negociação, fechamento, ganho, perda, nível de interesse, SLA, histórico de interação, conversão, probabilidade]
+tags: [tecnico, fluxo, leads-pipeline-e-conversao]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+O fluxo de **Leads** conduz uma oportunidade da **entrada** (indicação/qualificação) até o **fechamento**, movendo o lead pelas colunas da **pipeline** no **Quadro Kanban**. Cada coluna é um **status** da pipeline, agrupado em duas **fases** — **Negociação** e **Fechamento** — e o lead avança conforme as interações acontecem, com **histórico** e **alertas de SLA** para não deixar oportunidade parada.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Conduzir a oportunidade', text: 'Levar o lead da qualificação ao fechamento (ganho ou perda), com etapas visíveis no Kanban.' },
+    { label: 'Uso', title: 'Comercial / vendas', text: 'Usado pelo time comercial para acompanhar e mover os leads pela pipeline.' },
+    { label: 'Cuidado', title: 'SLA por status', text: 'Cada status pode ter um prazo (SLA); alertas sinalizam leads parados além do intervalo configurado.' },
+  ]}
+/>
+
+## Quando usar este fluxo
+
+- **Registrar e qualificar** um novo lead.
+- **Mover** o lead pela pipeline conforme a negociação evolui.
+- **Fechar** o lead como ganho (converte) ou perda.
+
+## Etapa 1 — Entrada e qualificação do lead
+
+Ao registrar o lead (ex.: **Indicação de Lead**), definem-se:
+
+- **Origem** do lead (`OrigemLead`) — hoje **Interna**.
+- **Tipo** do lead (`TipoLead`) — **sem cadastro** ou **base SIN** (já existente).
+- **Nível de interesse** (`NivelInteresseLead`) — apenas pesquisando, interessado ou muito interessado.
+- **Itens de potencial** — produtos/itens de interesse do lead.
+
+<DocTable
+  headers={['Campo', 'Valores']}
+  rows={[
+    ['Origem (OrigemLead)', 'Interna (0).'],
+    ['Tipo (TipoLead)', 'Sem cadastro (0) · Base SIN (1).'],
+    ['Nível de interesse (NivelInteresseLead)', 'Apenas pesquisando (0) · Interessado (1) · Muito interessado (2).'],
+  ]}
+/>
+
+## Etapa 2 — Pipeline e Kanban
+
+O lead entra na **pipeline de venda**. No **Quadro Kanban**, cada **coluna** é um **status** da pipeline selecionada, exibido na **ordem da pipeline** e agrupado por **fase** (`FaseStatusLead`):
+
+<DocTable
+  headers={['Valor', 'Fase', 'O que reúne']}
+  rows={[
+    ['0', 'Negociação', 'Os status do andamento da negociação (ex.: novo, apresentação, proposta, análise).'],
+    ['1', 'Fechamento', 'Os status de desfecho — ganho e perda.'],
+  ]}
+/>
+
+Cada status tem uma **% de probabilidade** e uma **ordem na pipeline**. O board **rola horizontalmente** pelas colunas.
+
+<Callout type="info" title="Colunas configuráveis">
+Os status (colunas) são definidos na **Pipeline de Venda**. Cada pipeline tem o seu conjunto de status; o Kanban exibe exatamente os status da pipeline selecionada.
+</Callout>
+
+## Etapa 3 — Mover pelo funil
+
+Conforme a negociação evolui, o lead é **movido** de coluna. Cada avanço/registro fica no **Histórico de Interação** do lead. Para evitar oportunidades paradas, há **Alertas de Status** com **SLA** — o prazo é medido por um intervalo (`TipoDeIntervaloSLA`):
+
+<DocTable
+  headers={['Valor', 'Intervalo do SLA']}
+  rows={[
+    ['0', 'Minutos'],
+    ['1', 'Horas'],
+    ['2', 'Dias'],
+    ['3', 'Meses'],
+  ]}
+/>
+
+## Etapa 4 — Fechamento (ganho ou perda)
+
+Na fase de **Fechamento**, o lead termina como:
+
+- **Ganho** — a oportunidade se converte (segue para cliente/pedido).
+- **Perda** — a oportunidade é encerrada sem conversão.
+
+## Fluxograma — do lead ao fechamento
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 560 420" width="560" role="img" aria-label="Fluxo do lead pela pipeline até o fechamento" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwl" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwl)">
+    <path d="M280,66 L280,92" />
+    <path d="M280,150 L280,176" />
+    <path d="M280,260 L200,300" />
+    <path d="M280,260 L360,300" />
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="90" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="280" y="41" text-anchor="middle" font-weight="600">1 &#183; Entrada e qualificação</text>
+    <text x="280" y="58" text-anchor="middle" fill="#5c6b7a" font-size="11">origem &#183; tipo &#183; nível de interesse</text>
+    <rect x="90" y="92" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="280" y="115" text-anchor="middle">2-3 &#183; Pipeline / Kanban (Negociação)</text>
+    <text x="280" y="134" text-anchor="middle" fill="#5c6b7a" font-size="12">mover pelas colunas &#183; histórico &#183; SLA</text>
+    <rect x="180" y="176" width="200" height="84" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="280" y="205" text-anchor="middle" font-weight="600">Fechamento</text>
+    <text x="280" y="226" text-anchor="middle" fill="#5c6b7a" font-size="11">desfecho da oportunidade</text>
+    <text x="280" y="244" text-anchor="middle" fill="#5c6b7a" font-size="11">% de probabilidade</text>
+    <rect x="110" y="300" width="180" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="200" y="328" text-anchor="middle" font-weight="600">Ganho &#183; converte</text>
+    <rect x="290" y="300" width="180" height="46" rx="10" fill="#f4f5f7" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="380" y="328" text-anchor="middle">Perda &#183; encerra</text>
+  </g>
+</svg>
+</div>
+
+## Relação com outros processos
+
+- **Cliente e Pedido:** um lead **ganho** segue para a criação/cadastro do cliente e do pedido — ver [Cadastro de Clientes](/tecnico/fluxos/criacao-de-cliente) e [Processo do Pedido](/tecnico/fluxos/processo-do-pedido).
+- **De Para:** `FaseStatusLead`, `NivelInteresseLead`, `TipoLead`, `OrigemLead` e `TipoDeIntervaloSLA` estão em [Banco de Dados → De Para](/tecnico/banco-de-dados/de-para).
+
+## Problemas comuns
+
+- **Colunas diferentes do esperado:** o Kanban exibe os status da **pipeline selecionada** — confira qual pipeline está ativa.
+- **Lead parado gerando alerta:** o SLA do status foi excedido; trate a oportunidade ou mova-a de coluna.
+- **Não consigo fechar:** confirme que o lead está na fase de **Fechamento** (ganho/perda).
+
+## Perguntas frequentes
+
+<FaqAccordion
+  items={[
+    { question: 'O que são as colunas do Kanban?', answer: 'São os status da pipeline selecionada, exibidos na ordem da pipeline e agrupados nas fases Negociação e Fechamento.' },
+    { question: 'Para que serve o nível de interesse?', answer: 'Qualifica o lead (apenas pesquisando, interessado ou muito interessado), ajudando a priorizar a negociação.' },
+    { question: 'Como funcionam os alertas de SLA?', answer: 'Cada status pode ter um prazo medido em minutos, horas, dias ou meses; ao exceder, um alerta sinaliza o lead parado.' },
+    { question: 'O que acontece quando o lead é ganho?', answer: 'A oportunidade se converte e segue para a criação do cliente e do pedido.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '03/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Fluxo de Leads (entrada, pipeline/Kanban, histórico, SLA e fechamento) documentado a partir da regra real do sistema.' },
+  ]}
+/>

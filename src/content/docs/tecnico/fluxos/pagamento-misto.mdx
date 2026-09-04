@@ -1,0 +1,147 @@
+---
+section: tecnico
+routeSlug: fluxos/pagamento-misto
+pageType: tecnico
+title: Pagamento Misto
+description: "Fluxo do pagamento misto: combinar mais de uma forma de pagamento no mesmo pedido (boleto, PIX e cartão), com o ciclo de status de token, cobrança e confirmação."
+moduleLabel: Pedidos / Pagamentos
+routineType: Fluxo de processo
+impact: Combinação de formas de pagamento em um pedido
+keywords: [pagamento misto, formas de pagamento, boleto, PIX, cartão, token, status do pagamento misto, valor a ser pago, condição de pagamento, parcela]
+tags: [tecnico, fluxo, pagamento-misto]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+O **Pagamento Misto** permite quitar um mesmo pedido com **mais de uma forma de pagamento** — por exemplo, parte em boleto, parte em PIX e parte em cartão. Cada forma vira uma **linha** com o seu **"Valor a ser Pago"**, e cada uma tem o seu próprio **ciclo de status** (token, cobrança, confirmação), até que o total do pedido esteja pago e ele siga para a integração ao SAP.
+
+Complementa a [Geração de Link (PIX, Cartão e Maquininha)](/tecnico/fluxos/pagamentos-geracao-de-link): o misto reutiliza os mesmos gateways, mas coordena **várias cobranças** no mesmo pedido.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Dividir o pagamento', text: 'Quitar um pedido combinando boleto, PIX e cartão, controlando cada parte separadamente.' },
+    { label: 'Uso', title: 'Pedidos / financeiro', text: 'Usado quando o cliente paga um pedido com mais de uma forma de pagamento.' },
+    { label: 'Cuidado', title: 'Soma das partes', text: 'A soma dos valores das formas não pode ultrapassar o valor remanescente do pedido.' },
+  ]}
+/>
+
+## Como montar
+
+Na **"Informação de Pagamento Misto"** do pedido, use **"Nova Forma de Pagamento Misto"** para adicionar cada forma. Por linha:
+
+- **Forma de Pagamento** e **Condição de Pagamento**.
+- **Valor a ser Pago** — quanto aquela forma cobre.
+- Para boleto de data fixa, o **Dia da Parcela (Boleto Data Fixa)**.
+
+As **"Opções de Pagamento Misto"** reúnem as formas disponíveis. Uma forma pode ser removida (com confirmação **"Confirma a remoção da Forma de Pagamento Misto?"**).
+
+<Callout type="atencao" title="Valor remanescente">
+A soma dos valores das formas de pagamento misto **não pode passar** do valor remanescente do pedido. Cada linha cobre uma parte, e o total precisa fechar com o valor do pedido.
+</Callout>
+
+## Ciclo de status de cada forma
+
+Cada forma de pagamento misto percorre o seu ciclo (`StatusPagamentoMisto`):
+
+<DocTable
+  headers={['Valor', 'Status', 'Significado']}
+  rows={[
+    ['1', 'Aguardando token', 'Aguardando o token que autoriza a cobrança.'],
+    ['2', 'Token expirado', 'O token de pagamento expirou.'],
+    ['3', 'Falha no pagamento', 'Houve falha ao processar o pagamento.'],
+    ['4', 'Pagamento negado', 'A cobrança foi negada.'],
+    ['5', 'Token cancelado', 'O token foi cancelado.'],
+    ['6', 'Pago com sucesso', 'A forma foi paga.'],
+    ['7', 'Pagamento cancelado', 'A cobrança foi cancelada.'],
+    ['8', 'Aguardando integração SAP', 'Pago, aguardando seguir para o SAP.'],
+    ['9', 'Aguardando pagamento cartão', 'Link de cartão gerado, aguardando o pagamento.'],
+    ['10', 'Erro ao gerar link de cartão', 'Falha ao gerar o link de cartão.'],
+    ['11', 'Aguardando gerar PIX', 'Aguardando a geração da cobrança PIX.'],
+    ['12', 'Erro ao gerar PIX', 'Falha ao gerar a cobrança PIX.'],
+    ['13', 'Aguardando pagamento PIX', 'Cobrança PIX gerada, aguardando o pagamento.'],
+  ]}
+/>
+
+## Fluxo resumido de uma forma
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 500 520" width="500" role="img" aria-label="Ciclo de status de uma forma de pagamento misto" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwpm" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwpm)">
+    <path d="M250,66 L250,92" />
+    <path d="M250,150 L250,176" />
+    <path d="M180,234 L180,300" />
+    <path d="M320,234 L320,300" />
+    <path d="M250,336 L250,362" />
+    <path d="M250,420 L250,446" />
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="60" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="250" y="41" text-anchor="middle" font-weight="600">Adicionar forma (Valor a ser Pago)</text>
+    <text x="250" y="58" text-anchor="middle" fill="#5c6b7a" font-size="11">forma + condição de pagamento</text>
+    <rect x="60" y="92" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="250" y="115" text-anchor="middle">Aguardando token</text>
+    <text x="250" y="134" text-anchor="middle" fill="#5c6b7a" font-size="12">autoriza a cobrança</text>
+    <rect x="60" y="176" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="250" y="199" text-anchor="middle">Gerar cobrança</text>
+    <text x="250" y="218" text-anchor="middle" fill="#5c6b7a" font-size="12">PIX ou link de cartão</text>
+    <rect x="90" y="300" width="180" height="36" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="180" y="322" text-anchor="middle" font-size="12">Aguardando pagamento</text>
+    <rect x="230" y="300" width="180" height="36" rx="10" fill="#f4f5f7" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="320" y="322" text-anchor="middle" font-size="12">Negado / cancelado</text>
+    <rect x="60" y="362" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="250" y="385" text-anchor="middle">Pago com sucesso</text>
+    <text x="250" y="404" text-anchor="middle" fill="#5c6b7a" font-size="12">aguardando integração SAP</text>
+    <rect x="60" y="446" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="250" y="474" text-anchor="middle" font-weight="600">Todas as formas pagas &#183; pedido quitado</text>
+  </g>
+</svg>
+</div>
+
+## Relação com outros processos
+
+- **Geração de link:** o misto usa os mesmos gateways (PIX pela EFI, cartão pela Pagar.me) da [Geração de Link](/tecnico/fluxos/pagamentos-geracao-de-link).
+- **Pagamento no pedido:** regras de forma/condição em [Processo do Pedido — Pagamento](/tecnico/fluxos/processo-do-pedido-pagamento).
+- **De Para:** `StatusPagamentoMisto` está em [Banco de Dados → De Para](/tecnico/banco-de-dados/de-para).
+
+## Problemas comuns
+
+- **"Token expirado":** gere a cobrança novamente — o token que autoriza o pagamento tem validade.
+- **Soma não fecha:** a soma das formas não pode passar do valor remanescente; ajuste os valores.
+- **Uma forma "Pagamento negado":** aquela parte foi recusada; as demais seguem, mas o pedido só quita quando todas fecham.
+- **Preso em "Aguardando pagamento PIX/cartão":** a cobrança foi gerada e aguarda o cliente pagar.
+
+## Perguntas frequentes
+
+<FaqAccordion
+  items={[
+    { question: 'Posso misturar boleto, PIX e cartão no mesmo pedido?', answer: 'Sim. Cada forma vira uma linha com o seu valor, e cada uma tem o seu próprio status até ser paga.' },
+    { question: 'A soma das formas pode passar do valor do pedido?', answer: 'Não. A soma dos valores não pode ultrapassar o valor remanescente do pedido.' },
+    { question: 'O que é o "token"?', answer: 'É a autorização que libera a cobrança daquela forma; se expira, é preciso gerar a cobrança novamente.' },
+    { question: 'Quando o pedido é considerado pago?', answer: 'Quando todas as formas de pagamento misto chegam a "Pago com sucesso" e o pedido segue para a integração ao SAP.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '03/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Fluxo de Pagamento Misto documentado a partir da regra real do sistema (formas, valor a ser pago e o ciclo de status).' },
+  ]}
+/>

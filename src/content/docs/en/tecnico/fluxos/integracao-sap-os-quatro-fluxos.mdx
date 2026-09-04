@@ -1,0 +1,161 @@
+---
+section: tecnico
+routeSlug: fluxos/integracao-sap-os-quatro-fluxos
+pageType: tecnico
+lang: en
+title: SAP Integration — The four flows
+description: "Step-by-step of the four SAP integration flows: Business Partner (customer), Sales Order (order), Outbound Delivery (delivery, three steps) and Billing Document (invoice, by polling)."
+moduleLabel: Integration / SAP
+routineType: Process flow
+impact: Chained integration of customer, order, delivery and invoice
+keywords: [SAP integration, business partner, sales order, outbound delivery, billing document, customer, order, delivery, invoice, PickAllItems, PostGoodsIssue, polling, chaining]
+tags: [tecnico, fluxo, integracao-sap-os-quatro-fluxos]
+order: 2
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+This page details, step by step, the **four flows** the SAP integration chains: **Business Partner** (customer), **Sales Order** (order), **Outbound Delivery** (delivery) and **Billing Document** (invoice). The completion of one flow triggers the next, forming the chain **customer → order → delivery → invoice**.
+
+For the engine mechanics, states and monitoring, see the [SAP Integration Overview](/en/tecnico/fluxos/integracao-sap-visao-geral).
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Mirror the sales chain', text: 'Send customer, order, delivery and invoice to SAP, each triggering the next.' },
+    { label: 'Use', title: 'Integration / IT', text: 'Tracked by the Integration team in SAP Integration Monitoring.' },
+    { label: 'Caution', title: 'Chaining by callback', text: 'The delivery and invoice are triggered by the completion of the previous step, not manually.' },
+  ]}
+/>
+
+## 1. Business Partner — Customer → SAP
+
+Sends the customer to SAP as a **Business Partner**.
+
+- **Start:** triggered for a specific customer (by the customer integration action).
+- **Edge validation:** before any send, it checks **name**, **valid document** and **at least one address**. CNPJ is validated by format (accepts the alphanumeric CNPJ); CPF, by check digit.
+- **Decision (the rule picks the path):**
+
+<DocTable
+  headers={['Customer situation', 'What the integration does']}
+  rows={[
+    ['Already synced (has SAP code)', 'Updates the existing partner.'],
+    ['Not synced, with document', 'Searches the partner by document; if found, updates; if not, creates.'],
+    ['Not synced, no document (international)', 'Creates the partner without the tax document.'],
+  ]}
+/>
+
+- **On completion:** it records, on the CRM customer, the **partner code** returned by SAP — that is what makes it "synced" for the next times.
+
+<Callout type="info" title="Customer idempotency">
+If the customer already has an SAP code, the integration preserves that code on reprocessing — it does not create a duplicate partner.
+</Callout>
+
+## 2. Sales Order — Order → SAP
+
+Creates the order's **sales order** in SAP.
+
+- **Start:** from an approved order.
+- **Execution:** creates the sales order (Create) and captures the **SAP order number**.
+- **On completion:**
+  - records the **SAP order number** and the **sales order** in the CRM;
+  - **chains** the **Outbound Delivery** (delivery) flow.
+- **If it cannot identify the number** of the created order, the integration goes to **manual action** (the order exists in SAP but needs reconciliation).
+
+## 3. Outbound Delivery — Delivery (3 steps)
+
+Creates and processes the **delivery** for the sales order. The three steps are created together, but only the first starts **pending**; the others stay **"awaiting previous step"** and are released as each one completes.
+
+<DocTable
+  headers={['Step', 'What it does']}
+  rows={[
+    ['1. Create delivery', 'Creates the delivery referencing the sales order.'],
+    ['2. Confirm separation (PickAllItems)', 'Confirms the separation of all items.'],
+    ['3. Post goods issue (PostGoodsIssue)', 'Posts the goods issue and chains the invoice.'],
+  ]}
+/>
+
+When posting the goods issue (step 3), the integration **chains** the **Billing Document** (invoice) flow.
+
+## 4. Billing Document — Invoice (by polling)
+
+Obtains the **invoice**, which SAP generates **asynchronously**.
+
+- **Start:** triggered by the completion of "post goods issue" (PostGoodsIssue).
+- **Execution:** since there is no creation, the step **queries SAP repeatedly** (polling) filtering by the reference document.
+- **Wait:** while the invoice does not appear, the step reschedules periodically, up to a maximum time; if it exceeds the limit, it escalates to **manual action**.
+
+## The complete chain
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 480 430" width="480" role="img" aria-label="Complete chain: customer, order, delivery (three steps) and invoice" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwsfe" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwsfe)">
+    <path d="M240,60 L240,86" />
+    <path d="M240,144 L240,170" />
+    <path d="M240,262 L240,288" />
+    <path d="M240,346 L240,372" />
+  </g>
+  <g font-size="12.5" fill="#5c6b7a">
+    <text x="252" y="80" text-anchor="start" font-size="11">chains</text>
+    <text x="252" y="284" text-anchor="start" font-size="11">chains</text>
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="60" y="20" width="360" height="40" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="240" y="45" text-anchor="middle" font-weight="600">1 &#183; Business Partner (Customer)</text>
+    <rect x="60" y="86" width="360" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="240" y="109" text-anchor="middle" font-weight="600">2 &#183; Sales Order (Order)</text>
+    <text x="240" y="128" text-anchor="middle" fill="#5c6b7a" font-size="11">creates the sales order &#183; records SAP no.</text>
+    <rect x="60" y="170" width="360" height="92" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="240" y="191" text-anchor="middle" font-weight="600">3 &#183; Outbound Delivery (Delivery)</text>
+    <text x="240" y="211" text-anchor="middle" fill="#5c6b7a" font-size="11">1. Create delivery</text>
+    <text x="240" y="229" text-anchor="middle" fill="#5c6b7a" font-size="11">2. Confirm separation</text>
+    <text x="240" y="247" text-anchor="middle" fill="#5c6b7a" font-size="11">3. Post goods issue</text>
+    <rect x="60" y="288" width="360" height="58" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="240" y="311" text-anchor="middle" font-weight="600">4 &#183; Billing Document (Invoice)</text>
+    <text x="240" y="330" text-anchor="middle" fill="#5c6b7a" font-size="11">waits for the invoice by polling</text>
+    <rect x="60" y="372" width="360" height="40" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="240" y="397" text-anchor="middle" font-weight="600">Customer, order, delivery and invoice in SAP</text>
+  </g>
+</svg>
+</div>
+
+## Common problems
+
+- **Sales chain doesn't move:** confirm that the **order** flow was triggered — delivery and invoice only exist chained from it.
+- **Integration in "Awaiting manual action":** check, in monitoring, whether a required CRM field was missing or the SAP document number was not identified.
+- **Invoice doesn't arrive:** SAP generates the invoice asynchronously; the invoice step stays in polling until it finds it or exceeds the limit.
+- **Customer won't sync:** check name, valid document and at least one address — required before any send.
+
+## Frequently asked questions
+
+<FaqAccordion
+  items={[
+    { question: 'Do I need to trigger delivery and invoice manually?', answer: 'No. They are chained: the order completion triggers the delivery, and the delivery goods issue triggers the invoice.' },
+    { question: 'What happens if the customer already exists in SAP?', answer: 'The integration updates the existing partner and preserves the SAP code, instead of creating a new one.' },
+    { question: 'Why does the delivery have three steps?', answer: 'Create the delivery, confirm the separation of items (PickAllItems) and post the goods issue (PostGoodsIssue) — only then is the invoice triggered.' },
+    { question: 'Does an international customer (no CNPJ/CPF) integrate?', answer: 'Yes. When the customer has no tax document, the partner is created without the document.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '09/03/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '09/03/2026', author: 'Renan Camargo', description: 'Step-by-step of the four SAP integration flows (Business Partner, Sales Order, Outbound Delivery and Billing Document) and their chaining, at the manual altitude.' },
+  ]}
+/>

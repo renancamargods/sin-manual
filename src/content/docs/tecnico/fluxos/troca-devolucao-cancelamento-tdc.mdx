@@ -1,0 +1,215 @@
+---
+section: tecnico
+routeSlug: fluxos/troca-devolucao-cancelamento-tdc
+pageType: tecnico
+title: Troca, Devolução e Cancelamento (TDC)
+description: "Fluxo do Pedido TDC: a triagem que recebe itens de volta, gera pedidos de devolução, troca ou consignado e apura crédito ou débito para o cliente."
+moduleLabel: Faturamento
+routineType: Fluxo de processo
+impact: Devolução, troca e cancelamento de itens faturados
+keywords: [TDC, troca, devolução, cancelamento, pedido TDC, triagem, protocolo, consignado, crédito, débito, nota fiscal, DataMatrix, FreshDesk, faturamento]
+tags: [tecnico, fluxo, troca-devolucao-cancelamento-tdc]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+O **TDC — Troca, Devolução e Cancelamento** é o processo que trata o retorno de itens já faturados. Ele começa por uma **triagem** (o **Pedido TDC**), na qual se registram os itens que o cliente devolve e/ou os itens que serão enviados em troca. A partir dessa triagem, o sistema **gera os pedidos** correspondentes — de **devolução**, **troca** ou **consignado** — e apura a **diferença** de valor (crédito ou débito) para o cliente.
+
+Este fluxo é a continuação natural do [Faturamento de Pedido e Movimento de Serial](/tecnico/fluxos/faturamento-e-movimento-serial): um pedido só pode entrar em devolução ou troca depois de faturado e com o movimento serial gravado.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Devolver, trocar ou cancelar', text: 'Receber itens faturados de volta e gerar os pedidos de devolução, troca ou consignado, com apuração de crédito/débito.' },
+    { label: 'Uso', title: 'Faturamento e pós-venda', text: 'Usado pela equipe de Faturamento/pós-venda para tratar retornos vinculados a uma nota fiscal.' },
+    { label: 'Cuidado', title: 'Item precisa estar faturado', text: 'A devolução parte de uma nota fiscal existente; o item precisa ter sido faturado e ter movimento serial para ser devolvido.' },
+  ]}
+/>
+
+## Quando usar este fluxo
+
+- Registrar a **devolução** de itens de uma nota fiscal já emitida.
+- Fazer a **troca** de itens (devolver uns e enviar outros no lugar).
+- Tratar **devolução de consignado**.
+- **Cancelar** uma triagem (protocolo) que não será concluída.
+
+## Os três tipos de operação
+
+A triagem se materializa em uma operação (`TipoOperacaoTDC`):
+
+<DocTable
+  headers={['Valor', 'Operação', 'O que faz']}
+  rows={[
+    ['0', 'Devolução', 'O cliente devolve itens de uma nota fiscal; gera crédito.'],
+    ['1', 'Troca', 'Devolve itens e recebe outros no lugar; apura a diferença (crédito ou débito).'],
+    ['2', 'Consignado', 'Trata o retorno/fechamento de itens em consignação.'],
+  ]}
+/>
+
+## Etapa 1 — Abrir a triagem (Pedido TDC)
+
+A triagem é o cabeçalho do processo. Ao abrir um novo **Pedido TDC**, registram-se:
+
+- **Protocolo** — identificador da triagem (gerado pelo sistema).
+- **Cliente(s)** vinculado(s) à operação.
+- **Lounge/Centro** e **Lista de Preço** de referência.
+- **Número do chamado (FreshDesk)** — vínculo com o atendimento que originou o retorno.
+- **Observação** e status inicial **"Triagem iniciada"**.
+
+<Callout type="info" title="Um protocolo pode ter mais de um cliente">
+A triagem suporta mais de um cliente na mesma operação. O sistema avisa quando há **"Mais de um Cliente presente na Devolução"** para que a apuração seja feita corretamente.
+</Callout>
+
+## Etapa 2 — Itens de Devolução
+
+Os itens que voltam são adicionados à triagem por dois caminhos:
+
+- **Por Nota Fiscal:** selecione a nota fiscal de origem e escolha, dentre os itens dela, os que serão devolvidos.
+- **Por bipagem (DataMatrix):** faça a leitura do **DataMatrix** de cada item. Se não for encontrado, o sistema informa **"DataMatrix não localizado"**.
+
+Cada item bipado pode ser removido com a confirmação **"Confirma a exclusão do item bipado para Devolução?"**. O sistema também faz **consulta de estoque em tempo real** e valida a **Autorização de Devolução**.
+
+## Etapa 3 — Itens de Troca
+
+Quando a operação é **troca**, além dos itens devolvidos, adicionam-se os **itens que serão enviados** — pela grade **"Item Troca"** ou pela **"Digitação Rápida Item Troca"**.
+
+Antes de adicionar um item de troca, o sistema exige (validação real):
+
+- **Cliente** vinculado ao item.
+- **Operação** (Operação Inteligente) selecionada para o item.
+- **Quantidade** preenchida e **maior ou igual a 1**.
+- **Produto** selecionado — necessário para carregar o **preço de tabela**.
+- **Tipo do item** (Venda ou Bonificação — `TIpoDeItemPedidoTDC`).
+
+Com os itens carregados, o sistema calcula o **preço unitário**, o **desconto sugerido dos itens de troca**, o **Crédito Disponível** do cliente e a **"Diferença Geral"** — o saldo de crédito ou débito da operação.
+
+## Etapa 4 — Gerar o pedido
+
+Com devolução e/ou troca montadas, use **"Gerar Pedido"**. Conforme o caso, a triagem gera:
+
+<DocTable
+  headers={['Valor', 'Status gerado', 'Significado']}
+  rows={[
+    ['1', 'Pedido de devolução criado', 'Gerou o pedido de devolução dos itens.'],
+    ['2', 'Pedido de troca criado', 'Gerou o pedido de troca (envio dos itens novos).'],
+    ['3', 'Pedido de troca antecipada criado', 'Gerou a troca antecipada (envio antes do retorno).'],
+    ['5', 'Pedido consignado criado', 'Gerou o pedido de consignado.'],
+  ]}
+/>
+
+Os pedidos gerados ficam vinculados à triagem (bloco **"pedidos gerados a partir dessa"** operação). Enquanto nada é gerado, o sistema mostra **"Nenhum pedido gerado ainda a partir dessa"** triagem.
+
+## Etapa 5 — Acompanhamento, finalização e cancelamento
+
+- Cada mudança fica registrada no histórico (**"Informações Detalhadas do Status"**) e nos **Logs** do Pedido TDC.
+- Concluída a operação, a triagem vai para **"Triagem finalizada"**.
+- Uma triagem que não será concluída pode ser **cancelada** (status **"Cancelado"**), com confirmação por protocolo.
+
+## Status do Pedido TDC
+
+O ciclo completo da triagem (`StatusDePedidoTDC`):
+
+<DocTable
+  headers={['Valor', 'Status', 'Significado']}
+  rows={[
+    ['0', 'Triagem iniciada', 'Triagem aberta, ainda montando itens.'],
+    ['1', 'Pedido de devolução criado', 'Devolução gerada.'],
+    ['2', 'Pedido de troca criado', 'Troca gerada.'],
+    ['3', 'Pedido de troca antecipada criado', 'Troca antecipada gerada.'],
+    ['4', 'Triagem finalizada', 'Operação concluída.'],
+    ['5', 'Pedido consignado criado', 'Consignado gerado.'],
+    ['6', 'Cancelado', 'Triagem cancelada.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Faturamento e Movimento de Serial:** a devolução parte de uma nota fiscal faturada; o item precisa ter **movimento serial** — ver [Faturamento de Pedido e Movimento de Serial](/tecnico/fluxos/faturamento-e-movimento-serial).
+- **Análise DataMatrix / Análise de Devolução:** apoia a conferência dos itens que voltam por leitura de DataMatrix.
+- **De Para:** os códigos de `TipoOperacaoTDC`, `StatusDePedidoTDC` e `TIpoDeItemPedidoTDC` estão em [Banco de Dados → De Para](/tecnico/banco-de-dados/de-para).
+
+## Fluxograma — da triagem aos pedidos gerados
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 500 620" width="500" role="img" aria-label="Fluxograma do processo de Troca, Devolução e Cancelamento (Pedido TDC)" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwt" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwt)">
+    <path d="M250,66 L250,92" />
+    <path d="M250,150 L250,176" />
+    <path d="M250,234 L250,260" />
+    <path d="M250,318 L250,352" />
+    <path d="M170,406 L170,440" />
+    <path d="M330,406 L330,440" />
+    <path d="M250,510 L250,536" />
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="60" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="250" y="48" text-anchor="middle" font-weight="600">1 &#183; Abrir triagem (Pedido TDC)</text>
+    <text x="250" y="63" text-anchor="middle" fill="#5c6b7a" font-size="11">protocolo &#183; cliente &#183; chamado FreshDesk</text>
+    <rect x="60" y="92" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="250" y="115" text-anchor="middle">2 &#183; Itens de Devolução</text>
+    <text x="250" y="134" text-anchor="middle" fill="#5c6b7a" font-size="12">por Nota Fiscal ou bipagem DataMatrix</text>
+    <rect x="60" y="176" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="250" y="199" text-anchor="middle">3 &#183; Itens de Troca (se houver)</text>
+    <text x="250" y="218" text-anchor="middle" fill="#5c6b7a" font-size="12">preço, desconto e "Diferença Geral"</text>
+    <rect x="60" y="260" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="250" y="283" text-anchor="middle">4 &#183; "Gerar Pedido"</text>
+    <text x="250" y="302" text-anchor="middle" fill="#5c6b7a" font-size="12">devolução / troca / consignado</text>
+    <rect x="70" y="352" width="200" height="54" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="170" y="375" text-anchor="middle" font-size="12">Pedido(s) gerado(s)</text>
+    <text x="170" y="393" text-anchor="middle" fill="#5c6b7a" font-size="11">crédito ou débito</text>
+    <rect x="230" y="352" width="200" height="54" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="330" y="375" text-anchor="middle" font-size="12">Cancelar triagem</text>
+    <text x="330" y="393" text-anchor="middle" fill="#5c6b7a" font-size="11">status "Cancelado"</text>
+    <rect x="70" y="440" width="200" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="170" y="468" text-anchor="middle" font-size="12" font-weight="600">Triagem finalizada</text>
+    <rect x="230" y="440" width="200" height="46" rx="10" fill="#f4f5f7" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="330" y="468" text-anchor="middle" font-size="12">Encerrada sem gerar</text>
+    <rect x="60" y="536" width="380" height="52" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="250" y="559" text-anchor="middle" font-size="12">Movimento serial atualizado &#183; crédito no cliente</text>
+    <text x="250" y="577" text-anchor="middle" fill="#5c6b7a" font-size="11">pedido apto ao pós-venda</text>
+  </g>
+</svg>
+</div>
+
+## Problemas comuns
+
+- **"DataMatrix não localizado" ao bipar a devolução:** confirme que o item foi faturado e tem movimento serial (ver o fluxo de Faturamento).
+- **"Já foi gerado um pedido para nota selecionada":** aquela nota fiscal já originou um pedido na triagem; consulte o pedido informado.
+- **Não consigo adicionar item de troca:** verifique cliente, operação, quantidade (≥ 1), produto (para carregar o preço de tabela) e tipo do item.
+- **"Mais de um Cliente presente na Devolução":** revise os clientes da triagem para que crédito/débito sejam apurados no cliente certo.
+
+## Perguntas frequentes
+
+<FaqAccordion
+  items={[
+    { question: 'Qual a diferença entre devolução e troca?', answer: 'Na devolução o cliente só devolve itens (gera crédito). Na troca ele devolve uns e recebe outros no lugar, e o sistema apura a diferença (crédito ou débito) na "Diferença Geral".' },
+    { question: 'O que é troca antecipada?', answer: 'É quando os itens novos são enviados antes do retorno dos itens devolvidos — a triagem registra o status "Pedido de troca antecipada criado".' },
+    { question: 'Preciso de uma nota fiscal para devolver?', answer: 'Sim. A devolução parte de uma nota fiscal existente; os itens são selecionados a partir dela ou bipados pelo DataMatrix, e precisam ter sido faturados.' },
+    { question: 'Para que serve o número do chamado (FreshDesk)?', answer: 'Vincula a triagem ao atendimento que originou o retorno, facilitando a rastreabilidade do pós-venda.' },
+    { question: 'Posso cancelar uma triagem já iniciada?', answer: 'Sim, enquanto não for finalizada. O cancelamento pede confirmação por protocolo e leva a triagem ao status "Cancelado".' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '03/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Fluxo de Troca, Devolução e Cancelamento (Pedido TDC) documentado a partir da regra real do sistema (entidade, status e validações).' },
+  ]}
+/>

@@ -1,0 +1,159 @@
+---
+section: tecnico
+routeSlug: fluxos/planejamento-de-vendas-e-cotas
+pageType: tecnico
+title: Planejamento de Vendas e Cotas
+description: "Fluxo do planejamento de vendas: distribuir e ajustar as metas/cotas de venda pela estrutura comercial, do topo ao consultor, com registro de quem alterou."
+moduleLabel: Planejamento de Vendas
+routineType: Fluxo de processo
+impact: Distribuição e ajuste de metas e cotas de venda
+keywords: [planejamento de vendas, cota de venda, meta, estrutura comercial, hierarquia, GNV, GR, GD, coordenador, consultor, varejo, KA, implantes]
+tags: [tecnico, fluxo, planejamento-de-vendas-e-cotas]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+O **Planejamento de Vendas** distribui e ajusta as **metas/cotas de venda** pela **estrutura comercial** — do topo (Diretoria/GNV) até o **consultor** — por período (mês/ano). Cada nível ajusta a sua fatia e o sistema **registra quem alterou** o quê, garantindo rastreabilidade do planejamento.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Distribuir as metas', text: 'Definir e ajustar as cotas de venda por nível da estrutura comercial e por período.' },
+    { label: 'Uso', title: 'Comercial / gestão', text: 'Usado pela gestão comercial para planejar metas e acompanhar a distribuição.' },
+    { label: 'Cuidado', title: 'Cada nível ajusta o seu', text: 'A alteração é feita por nível/perfil e fica registrada em log (quem, quando).' },
+  ]}
+/>
+
+## Quando usar este fluxo
+
+- **Definir** as cotas de venda de um período (mês/ano).
+- **Distribuir** a meta pela estrutura comercial, nível a nível.
+- **Ajustar** a cota de um nível e acompanhar o histórico de alterações.
+
+## A estrutura comercial
+
+A distribuição segue a hierarquia comercial (`HierarquiaDeEstruturaComercial`):
+
+<DocTable
+  headers={['Valor', 'Nível']}
+  rows={[
+    ['0', 'SIN'],
+    ['1', 'Diretoria'],
+    ['2', 'GNV FVE'],
+    ['3', 'GNV FVI'],
+    ['4', 'GR'],
+    ['5', 'GD'],
+    ['6', 'Coordenador'],
+    ['7', 'Supervisor'],
+    ['8', 'Consultor FVI'],
+    ['9', 'Consultor FVE'],
+    ['10', 'Representante'],
+    ['11', 'Assessor'],
+    ['12', 'Administrativo'],
+    ['13', 'Executivo Varejo'],
+    ['14', 'Executivo KA'],
+    ['15', 'Executivo SIN Solution'],
+    ['16', 'Executivo SIN Solution Interno'],
+  ]}
+/>
+
+## Quem ajusta o planejamento
+
+O ajuste é feito conforme o **contexto do alterador** (`ContextoAlteradorPlanejamentoVendas`):
+
+<DocTable
+  headers={['Valor', 'Contexto']}
+  rows={[
+    ['0', 'FVE'],
+    ['1', 'FVI'],
+    ['2', 'Executivo KA'],
+    ['3', 'Executivo SIN Solutions'],
+  ]}
+/>
+
+## Cota de venda
+
+A **Cota de Venda** é definida por **estrutura comercial** e por **mês/ano**, com metas por segmento (ex.: **Varejo**, **KA** e **Implantes**), em **valor (R$)** e **percentual (%)**. Cada nível recebe e distribui a sua cota para os níveis abaixo.
+
+<Callout type="info" title="Fluxo de acesso">
+O planejamento desce pela hierarquia: níveis superiores (GNV) definem e repassam, e os níveis abaixo (GR, GD, Coordenador, Consultor) recebem e ajustam a sua fatia.
+</Callout>
+
+## Registro de alterações
+
+Cada alteração fica registrada em log (`TipoLogPlanejamentoDeVendas`): **usuário alterador**, **data da alteração**, **nome** e **perfil** de quem alterou — permitindo auditar o planejamento.
+
+## Fluxograma — do topo ao consultor
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 460 440" width="460" role="img" aria-label="Distribuição das metas pela estrutura comercial" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwpv" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwpv)">
+    <path d="M230,66 L230,92" />
+    <path d="M230,150 L230,176" />
+    <path d="M230,234 L230,260" />
+    <path d="M230,318 L230,344" />
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="40" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="41" text-anchor="middle" font-weight="600">Diretoria / GNV</text>
+    <text x="230" y="58" text-anchor="middle" fill="#5c6b7a" font-size="11">define a meta do período</text>
+    <rect x="40" y="92" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="115" text-anchor="middle">GR / GD</text>
+    <text x="230" y="134" text-anchor="middle" fill="#5c6b7a" font-size="12">recebe e distribui a cota</text>
+    <rect x="40" y="176" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="199" text-anchor="middle">Coordenador / Supervisor</text>
+    <text x="230" y="218" text-anchor="middle" fill="#5c6b7a" font-size="12">ajusta por equipe</text>
+    <rect x="40" y="260" width="380" height="58" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="230" y="283" text-anchor="middle">Consultor (FVE/FVI)</text>
+    <text x="230" y="302" text-anchor="middle" fill="#5c6b7a" font-size="12">cota individual por período</text>
+    <rect x="40" y="344" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="372" text-anchor="middle" font-weight="600">Metas distribuídas &#183; alterações em log</text>
+  </g>
+</svg>
+</div>
+
+## Relação com outros processos
+
+- **Estrutura Comercial e Cota de Venda:** as telas de [Estrutura Comercial](/modulos/politicas/estrutura-comercial) e [Cota de Venda](/modulos/politicas/cota-de-venda) dão suporte a este fluxo.
+- **Pedido:** as metas orientam o acompanhamento comercial das vendas — ver [Processo do Pedido](/tecnico/fluxos/processo-do-pedido).
+- **De Para:** `HierarquiaDeEstruturaComercial`, `ContextoAlteradorPlanejamentoVendas` e `TipoLogPlanejamentoDeVendas` estão em [Banco de Dados → De Para](/tecnico/banco-de-dados/de-para).
+
+## Problemas comuns
+
+- **Cota não bate com a soma:** a distribuição por nível deve fechar com a meta do nível acima.
+- **Não consigo ajustar:** o ajuste depende do nível/perfil (contexto do alterador).
+- **Quem alterou?:** consulte o log de alterações (usuário, data, nome e perfil).
+
+## Perguntas frequentes
+
+<FaqAccordion
+  items={[
+    { question: 'Como as metas são distribuídas?', answer: 'Pela estrutura comercial, do topo (Diretoria/GNV) até o consultor, cada nível recebendo e distribuindo a sua cota por período.' },
+    { question: 'O que compõe uma cota de venda?', answer: 'Metas por estrutura comercial e período (mês/ano), por segmento (ex.: Varejo, KA e Implantes), em valor e percentual.' },
+    { question: 'As alterações ficam registradas?', answer: 'Sim. Cada alteração guarda o usuário, a data, o nome e o perfil de quem alterou.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '03/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Fluxo de Planejamento de Vendas e Cotas documentado a partir da regra real do sistema (estrutura comercial, contexto do alterador, cota de venda e log de alterações).' },
+  ]}
+/>

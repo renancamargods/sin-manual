@@ -1,0 +1,163 @@
+---
+section: tecnico
+routeSlug: fluxos/transferencia-reversa
+pageType: tecnico
+lang: en
+title: Reverse Transfer
+description: "Reverse transfer flow: scan the items coming back from one Lounge to another (source → destination Center), record the SAP return and finish the transfer."
+moduleLabel: Invoicing
+routineType: Process flow
+impact: Return of items between Lounges (source → destination Center)
+keywords: [reverse transfer, transfer, Lounge, center, source, destination, scanning, DataMatrix, batch, serial, SAP return, finish transfer]
+tags: [tecnico, fluxo, transferencia-reversa]
+order: 4
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+**Reverse Transfer** moves items **back** from one Lounge to another — from a **source Center** to a **destination Center**. The returning items are **scanned** (DataMatrix reading, with batch and serial), the transfer is saved and, after the **SAP return**, it is finished. It is the step that closes traceability when an item needs to go back to another unit's stock.
+
+It complements the other Invoicing flows ([Serial Movement](/en/tecnico/fluxos/faturamento-e-movimento-serial), [TDC](/en/tecnico/fluxos/troca-devolucao-cancelamento-tdc) and [Consignment Closing](/en/tecnico/fluxos/fechamento-de-consignado)), handling specifically the **physical reverse movement** between Lounges.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Return items between Lounges', text: 'Record the return of items from a source Center to a destination Center, with lot/serial traceability.' },
+    { label: 'Use', title: 'Invoicing / logistics', text: 'Used by the Invoicing/logistics team when items need to go back from one Lounge to another.' },
+    { label: 'Caution', title: 'SAP return before finishing', text: 'The transfer is only completed after the SAP return; until then it stays "Started".' },
+  ]}
+/>
+
+## When to use this flow
+
+- Return items from one Lounge (Center) to another.
+- Record, with traceability, the items going back to the destination stock.
+- Consolidate the return with the **SAP** confirmation.
+
+## Step 1 — Open the transfer
+
+In **"+ New"**, on the **"Transfer Data"** tab, enter:
+
+- **Source Center** — the Lounge the items leave from.
+- **Destination Center** — the Lounge that receives the items back.
+
+The system generates the **transfer number** (pattern `TR000001`) and the transfer starts with the status **"Started"**.
+
+## Step 2 — Scan the transfer items
+
+Still on the "Transfer Data" tab, **scan** the returning items (DataMatrix reading). Each scanned item enters the grid with:
+
+<DocTable
+  headers={['Field', 'What it is']}
+  rows={[
+    ['Code', 'Code of the scanned product.'],
+    ['Description', 'Product description.'],
+    ['Batch', 'Batch read from the item.'],
+    ['Serial', 'Serial read from the item.'],
+    ['Scan Date/Time', 'When the item was scanned.'],
+    ['User', 'Who performed the scan.'],
+  ]}
+/>
+
+<Callout type="info" title="Lot/serial traceability">
+Each item carries the **scanned DataMatrix**, the **batch** and the **serial** — that is what keeps the item's traceability when it returns to the destination Center.
+</Callout>
+
+## Step 3 — Save
+
+Use **"Save"** to record the transfer with the scanned items. It stays **"Started"** while awaiting the SAP return.
+
+## Step 4 — SAP return
+
+On the **"SAP Return"** tab, follow the integration return — the confirmation, in SAP, of the reverse movement of the items between the Centers.
+
+## Step 5 — Finish the transfer
+
+With the SAP return confirmed, use **"Finish Transfer"**. The transfer moves to the **"Completed"** status and the items are recorded in the destination Center's stock.
+
+## Status and operation
+
+<DocTable
+  headers={['Enum', 'Value', 'Meaning']}
+  rows={[
+    ['StatusTransferenciaReversa', '0', 'Started — transfer open, awaiting completion.'],
+    ['StatusTransferenciaReversa', '1', 'Completed — transfer finished.'],
+    ['TipoDaOperacaoReversa', '0', 'Reverse Transfer (the only reverse operation today).'],
+  ]}
+/>
+
+## Relationship with other processes
+
+- **Serial Movement:** the reverse transfer preserves the lot/serial traceability already used in [Order Invoicing and Serial Movement](/en/tecnico/fluxos/faturamento-e-movimento-serial).
+- **Value Mapping:** the codes for `StatusTransferenciaReversa` and `TipoDaOperacaoReversa` are in [Database → Value Mapping](/en/tecnico/banco-de-dados/de-para).
+
+## Flowchart — from source Center to destination
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 460 560" width="460" role="img" aria-label="Flowchart of the reverse transfer process" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwre" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwre)">
+    <path d="M230,66 L230,92" />
+    <path d="M230,150 L230,176" />
+    <path d="M230,234 L230,260" />
+    <path d="M230,318 L230,344" />
+    <path d="M230,402 L230,428" />
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="40" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="41" text-anchor="middle" font-weight="600">1 &#183; Open transfer (TR000001)</text>
+    <text x="230" y="58" text-anchor="middle" fill="#5c6b7a" font-size="11">source Center &#8594; destination Center</text>
+    <rect x="40" y="92" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="115" text-anchor="middle">2 &#183; Scan the items</text>
+    <text x="230" y="134" text-anchor="middle" fill="#5c6b7a" font-size="12">DataMatrix &#183; batch and serial</text>
+    <rect x="40" y="176" width="380" height="46" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="204" text-anchor="middle">3 &#183; "Save" (status "Started")</text>
+    <rect x="40" y="260" width="380" height="58" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="230" y="283" text-anchor="middle">4 &#183; SAP return</text>
+    <text x="230" y="302" text-anchor="middle" fill="#5c6b7a" font-size="12">confirmation of the reverse movement</text>
+    <rect x="40" y="344" width="380" height="46" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="372" text-anchor="middle">5 &#183; "Finish Transfer"</text>
+    <rect x="40" y="428" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="456" text-anchor="middle" font-weight="600">Status "Completed" &#183; items at destination</text>
+  </g>
+</svg>
+</div>
+
+## Common problems
+
+- **Transfer stuck in "Started":** confirm the **SAP return** on the matching tab before finishing.
+- **Item won't scan:** check the DataMatrix reading (batch/serial) — only items with a valid reading enter the grid.
+- **Wrong destination Center:** review the source and destination Centers on the "Transfer Data" tab before saving.
+
+## Frequently asked questions
+
+<FaqAccordion
+  items={[
+    { question: 'What is a reverse transfer?', answer: 'It is the return of items from one Lounge (source Center) to another (destination Center), with scanning and lot/serial traceability.' },
+    { question: 'Why does the transfer stay "Started"?', answer: 'It awaits the SAP return. Only after the movement is confirmed in SAP can you finish it, moving to "Completed".' },
+    { question: 'Do I need to scan each item?', answer: 'Yes. Scanning (DataMatrix) is what records the batch, serial and product of each returning item.' },
+    { question: 'Is there more than one reverse operation type?', answer: 'Today there is only the Reverse Transfer (TipoDaOperacaoReversa = 0).' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '09/03/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '09/03/2026', author: 'Renan Camargo', description: 'Reverse Transfer flow documented from the real system rules (entity, items, statuses and SAP return).' },
+  ]}
+/>

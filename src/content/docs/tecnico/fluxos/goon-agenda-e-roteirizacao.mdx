@@ -1,0 +1,173 @@
+---
+section: tecnico
+routeSlug: fluxos/goon-agenda-e-roteirizacao
+pageType: tecnico
+title: GO.ON — Agenda e Roteirização de Campo
+description: "Fluxo do atendimento de campo: montar a agenda, associar o formulário, definir disponibilidade (jornada/ausência) e integrar ao GO.ON, que gera a OS e executa no mobile."
+moduleLabel: Roteirizador / GO.ON
+routineType: Fluxo de processo
+impact: Agendamento e execução de atendimentos de campo via GO.ON
+keywords: [GO.ON, roteirizador, agenda, atendimento, ordem de serviço, OS, coleta, entrega, instalação, manutenção, visita, jornada, ausência, formulário, métricas]
+tags: [tecnico, fluxo, goon-agenda-e-roteirizacao]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+O fluxo do **Roteirizador** organiza os **atendimentos de campo** — coleta, entrega, instalação, manutenção, visita e outros — e os **integra ao GO.ON**, que gera a **Ordem de Serviço (OS)** e conduz a execução no **mobile**. A partir da **agenda** (cliente, endereço, data e tipo), o sistema controla a **disponibilidade** (jornada e ausências), aplica um **formulário** de atendimento e acompanha as **métricas**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Agendar e executar em campo', text: 'Montar o atendimento, integrar ao GO.ON (gera a OS) e conduzir a execução no mobile.' },
+    { label: 'Uso', title: 'Roteirização / campo', text: 'Usado para planejar e despachar atendimentos de campo (coleta, entrega, instalação, visita).' },
+    { label: 'Cuidado', title: 'Integrar antes de executar', text: 'A OS no GO.ON só existe depois que a agenda é integrada; até lá, é um agendamento no CRM.' },
+  ]}
+/>
+
+## Quando usar este fluxo
+
+- **Agendar** um atendimento de campo para um cliente.
+- **Integrar** o atendimento ao GO.ON e gerar a **OS**.
+- **Coletar** informações em campo por formulário e acompanhar **métricas**.
+
+## Etapa 1 — Montar a agenda de atendimento
+
+Na **Agenda**, registram-se os dados do atendimento:
+
+- **Cliente** e **endereço** (logradouro, número, cidade, estado, CEP, referência) e **contato** (telefone/e-mail).
+- **Datas** (início/fim da janela e data do atendimento) e se o horário é **flexível**.
+- **Tipo de Agenda** (com indicação se é **visita**) e **observações**.
+
+## Etapa 2 — Formulário do atendimento
+
+À agenda associa-se um **Formulário** (Formulário × Agenda), composto por **campos** cujo tipo (`TipoCampo`) pode ser:
+
+<DocTable
+  headers={['Valor', 'Tipo de campo']}
+  rows={[
+    ['0', 'Texto'],
+    ['1', 'Imagem'],
+  ]}
+/>
+
+## Etapa 3 — Disponibilidade: jornada e ausência
+
+- **Jornada:** define a disponibilidade por **dia da semana** com horário de **início** e **término**.
+- **Ausência:** bloqueia períodos de indisponibilidade (`TipoAusencia`):
+
+<DocTable
+  headers={['Valor', 'Tipo de ausência']}
+  rows={[
+    ['0', 'Intervalo'],
+    ['1', 'Período'],
+    ['2', 'Dia todo'],
+  ]}
+/>
+
+## Etapa 4 — Integrar ao GO.ON
+
+A ação **"Integrar Agenda"** envia o atendimento ao **GO.ON**, que gera a **OS** (o CRM guarda o **número da OS GO.ON** e marca a agenda como **integrada**). Cada atendimento corresponde a um **tipo de serviço** (`TipoServicoGoon`):
+
+<DocTable
+  headers={['Valor', 'Tipo de serviço']}
+  rows={[
+    ['1', 'Coleta'],
+    ['2', 'Entrega'],
+    ['3', 'Instalação'],
+    ['4', 'Instalação (secundário)'],
+    ['5', 'Manutenção'],
+    ['6', 'Manutenção (secundário)'],
+    ['7', 'Pedido'],
+    ['8', 'Prospecção'],
+    ['9', 'Prospecção (secundário)'],
+    ['10', 'Reembolso (criado apenas pelo Mobile)'],
+    ['11', 'Visita'],
+  ]}
+/>
+
+<Callout type="info" title="OS gerada pela GO.ON">
+A agenda também pode registrar que a **OS foi gerada pela própria GO.ON** — nesse caso o atendimento nasce lá e é refletido no CRM.
+</Callout>
+
+## Etapa 5 — Execução em campo e métricas
+
+Com a OS gerada, o atendimento é executado no **GO.ON Mobile**: o profissional preenche o **formulário** (respostas de texto/imagem) e a execução alimenta as **Métricas** (código, descrição, **peso** e se é **obrigatória**), usadas para avaliar o atendimento.
+
+## Fluxograma — da agenda à execução
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 460 640" width="460" role="img" aria-label="Fluxo do atendimento de campo pelo Roteirizador e GO.ON" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwg" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwg)">
+    <path d="M230,66 L230,92" />
+    <path d="M230,150 L230,176" />
+    <path d="M230,234 L230,260" />
+    <path d="M230,344 L230,370" />
+    <path d="M230,428 L230,454" />
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="40" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="41" text-anchor="middle" font-weight="600">1 &#183; Montar a agenda</text>
+    <text x="230" y="58" text-anchor="middle" fill="#5c6b7a" font-size="11">cliente &#183; endereço &#183; data &#183; tipo</text>
+    <rect x="40" y="92" width="380" height="46" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="120" text-anchor="middle">2 &#183; Formulário (texto / imagem)</text>
+    <rect x="40" y="176" width="380" height="46" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="204" text-anchor="middle">3 &#183; Disponibilidade (jornada / ausência)</text>
+    <rect x="40" y="260" width="380" height="84" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="230" y="286" text-anchor="middle" font-weight="600">4 &#183; "Integrar Agenda" &#8594; GO.ON</text>
+    <text x="230" y="306" text-anchor="middle" fill="#5c6b7a" font-size="11">gera a OS (nº OS GO.ON)</text>
+    <text x="230" y="324" text-anchor="middle" fill="#5c6b7a" font-size="11">tipo de serviço (coleta, entrega, ...)</text>
+    <rect x="40" y="370" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="230" y="393" text-anchor="middle">5 &#183; Execução no GO.ON Mobile</text>
+    <text x="230" y="412" text-anchor="middle" fill="#5c6b7a" font-size="12">formulário respondido &#183; métricas</text>
+    <rect x="40" y="454" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="230" y="482" text-anchor="middle" font-weight="600">Atendimento concluído</text>
+  </g>
+</svg>
+</div>
+
+## Relação com outros processos
+
+- **Telas do Roteirizador:** Agenda, Formulário, Campo do Formulário, Tipo de Campo, Jornada, Ausência, Métricas e Tipo de Agenda dão suporte a este fluxo.
+- **De Para:** `TipoServicoGoon`, `TipoAusencia` e `TipoCampo` estão em [Banco de Dados → De Para](/tecnico/banco-de-dados/de-para).
+
+## Problemas comuns
+
+- **Agenda não vira OS:** confirme a ação **"Integrar Agenda"** — sem integrar, é só um agendamento no CRM.
+- **Conflito de horário:** verifique a **jornada** e as **ausências** do profissional.
+- **Formulário sem campos:** associe um formulário com os campos (texto/imagem) antes do atendimento.
+- **Reembolso não aparece para criar:** o tipo "Reembolso" só pode ser criado pelo **Mobile**.
+
+## Perguntas frequentes
+
+<FaqAccordion
+  items={[
+    { question: 'O que a integração com o GO.ON faz?', answer: 'Envia o atendimento agendado ao GO.ON, que gera a Ordem de Serviço (OS) e conduz a execução no mobile; o CRM guarda o número da OS.' },
+    { question: 'Quais tipos de serviço existem?', answer: 'Coleta, Entrega, Instalação, Manutenção (e suas variantes secundárias), Pedido, Prospecção, Reembolso e Visita.' },
+    { question: 'Para que servem jornada e ausência?', answer: 'A jornada define a disponibilidade por dia/horário; a ausência bloqueia intervalos, períodos ou o dia todo.' },
+    { question: 'O que são as métricas?', answer: 'Indicadores (código, descrição, peso e obrigatoriedade) usados para avaliar o atendimento executado.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '03/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Fluxo de Agenda e Roteirização de campo com integração ao GO.ON documentado a partir da regra real do sistema (agenda, formulário, jornada/ausência, tipos de serviço e métricas).' },
+  ]}
+/>

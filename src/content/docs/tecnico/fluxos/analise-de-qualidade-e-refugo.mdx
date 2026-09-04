@@ -1,0 +1,183 @@
+---
+section: tecnico
+routeSlug: fluxos/analise-de-qualidade-e-refugo
+pageType: tecnico
+title: Análise de Qualidade e Refugo
+description: "Fluxo de análise de qualidade: triar e classificar os produtos que retornam (vendável ou sucata), transferir para o SAP/Delage e aplicar as regras de refugo por produto e lote."
+moduleLabel: Qualidade
+routineType: Fluxo de processo
+impact: Triagem, classificação e destino de produtos retornados
+keywords: [análise de qualidade, refugo, qualidade, triagem, vendável, sucata, transferência, SAP, Delage, rollback, produto, lote, serial]
+tags: [tecnico, fluxo, analise-de-qualidade-e-refugo]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A **Análise de Qualidade** tria os produtos que **retornam** ao estoque, **classifica** cada item como **vendável** ou **sucata** e **transfere** o resultado para os sistemas de destino — **SAP** e/ou **Delage** (operador logístico). O **Refugo** guarda as regras que marcam um produto/lote para atenção ou sucateamento. Juntos, garantem que só volte a estoque o que está apto e que o restante seja descartado com rastreabilidade.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Classificar o que retorna', text: 'Analisar produtos devolvidos, separar vendável de sucata e transferir o resultado ao SAP/Delage.' },
+    { label: 'Uso', title: 'Qualidade', text: 'Usado pela área de Qualidade na triagem e destinação dos produtos retornados.' },
+    { label: 'Cuidado', title: 'Transferência com rollback', text: 'A transferência ao SAP pode falhar; há ações de confirmação manual, reenvio e rollback para tratar cada caso.' },
+  ]}
+/>
+
+## Quando usar este fluxo
+
+- Triar e **classificar** produtos que retornam ao estoque.
+- **Transferir** os itens ao SAP e/ou Delage conforme o destino.
+- Aplicar as **regras de refugo** de um produto/lote.
+
+## Etapa 1 — Nova triagem e entrada de produtos
+
+Em **"Nova Triagem"**, faça a **entrada de produtos** bipando cada item. Por item, registram-se **código**, **descrição**, **serial**, **lote**, **data de validade** e o **endereço do produto**. O sistema mostra a quantidade de **produtos processados** (itens lidos).
+
+## Etapa 2 — Classificar (Análise)
+
+Em **"Dados da Análise de Qualidade"**, cada item é classificado (`StatusAnaliseDeQualidade`):
+
+<DocTable
+  headers={['Valor', 'Classificação', 'Destino']}
+  rows={[
+    ['0', 'Vendável', 'Retorna ao estoque para venda.'],
+    ['1', 'Sucata', 'Vai para descarte/sucateamento.'],
+  ]}
+/>
+
+## Etapa 3 — Transferir (SAP / Delage)
+
+Concluída a análise, os itens são **transferidos** ao destino (`TipoDestinoTransferencia`): **SAP** (0) e/ou **Delage** (1). Cada destino tem o seu próprio status.
+
+**Transferência SAP (`StatusTransferenciaSap`)**
+
+<DocTable
+  headers={['Valor', 'Status']}
+  rows={[
+    ['0', 'Pendente'],
+    ['1', 'Em processamento'],
+    ['2', 'Sucesso'],
+    ['3', 'Falha'],
+    ['4', 'Erro (exception)'],
+    ['5', 'Confirmado manualmente'],
+    ['6', 'Rollback executado'],
+  ]}
+/>
+
+**Transferência Delage (`StatusTransferenciaDelage`)**
+
+<DocTable
+  headers={['Valor', 'Status']}
+  rows={[
+    ['0', 'Não aplicável'],
+    ['1', 'Pendente'],
+    ['2', 'Em processamento'],
+    ['3', 'Sucesso'],
+    ['4', 'Falha'],
+    ['5', 'Erro (exception)'],
+  ]}
+/>
+
+Ações disponíveis quando há falha ou pendência: **"Confirmar SAP Manualmente"**, **"Reenviar Produtos"** (SAP) / **"Reenviar Produtos para o Delage"**, **"Resetar para Pendente"** e **"Rollback SAP"** (com a confirmação **"Confirma o Rollback SAP?"**). O **"Histórico de Transferências"** e o **"Log de Transferência"** registram cada tentativa.
+
+<Callout type="atencao" title="Quando a transferência não pode ocorrer">
+O sistema informa o motivo de não transferir (`MotivoNaoPodeTransferir`): **já existe uma transferência em processamento**, **todos os itens já foram transferidos**, **nenhum produto pendente** ou **análise não encontrada**.
+</Callout>
+
+## Refugo — regras por produto e lote
+
+O **Refugo** define como um produto/lote é tratado quanto ao descarte (`StatusRefugo`):
+
+<DocTable
+  headers={['Valor', 'Status', 'Significado']}
+  rows={[
+    ['0', 'Descontinuado', 'Produto descontinuado.'],
+    ['1', 'Atenção produto', 'Produto sob atenção.'],
+    ['3', 'Regra produto × lote', 'Regra específica por produto e lote.'],
+    ['4', 'Sucata', 'Marcado como sucata.'],
+  ]}
+/>
+
+## Fluxograma — da triagem ao destino
+
+<div style="overflow-x:auto; margin: 1.25rem 0;">
+<svg viewBox="0 0 500 560" width="500" role="img" aria-label="Fluxograma da análise de qualidade e transferência" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+  <defs>
+    <marker id="arwq2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
+    </marker>
+  </defs>
+  <g stroke="#6b7280" stroke-width="1.6" fill="none" marker-end="url(#arwq2)">
+    <path d="M250,66 L250,92" />
+    <path d="M250,150 L250,216" />
+    <path d="M180,252 L180,300" />
+    <path d="M320,252 L320,300" />
+    <path d="M180,336 L180,404" />
+    <path d="M250,440 L250,466" />
+  </g>
+  <g font-size="12.5" fill="#5c6b7a">
+    <text x="192" y="206" text-anchor="start" font-size="11">vendável</text>
+    <text x="330" y="206" text-anchor="start" font-size="11">sucata</text>
+  </g>
+  <g font-size="13" fill="#1a1417">
+    <rect x="60" y="20" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="250" y="41" text-anchor="middle" font-weight="600">1 &#183; Nova triagem</text>
+    <text x="250" y="58" text-anchor="middle" fill="#5c6b7a" font-size="11">entrada de produtos (bipagem)</text>
+    <rect x="60" y="92" width="380" height="58" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="250" y="115" text-anchor="middle">2 &#183; Classificar (Análise)</text>
+    <text x="250" y="134" text-anchor="middle" fill="#5c6b7a" font-size="12">vendável ou sucata</text>
+    <rect x="90" y="300" width="180" height="36" rx="10" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="180" y="322" text-anchor="middle" font-size="12">Retorna ao estoque</text>
+    <rect x="230" y="300" width="180" height="36" rx="10" fill="#f4f5f7" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="320" y="322" text-anchor="middle" font-size="12">Descarte / sucata</text>
+    <rect x="90" y="404" width="180" height="36" rx="10" fill="#fff8e6" stroke="#f18800" stroke-width="1.5"/>
+    <text x="180" y="426" text-anchor="middle" font-size="12">Transferir SAP / Delage</text>
+    <rect x="60" y="466" width="380" height="46" rx="10" fill="#fdecef" stroke="#cc093b" stroke-width="1.5"/>
+    <text x="250" y="494" text-anchor="middle" font-weight="600">Destino confirmado &#183; histórico e log</text>
+  </g>
+</svg>
+</div>
+
+## Relação com outros processos
+
+- **Ocorrência PFCQ:** a análise de qualidade complementa o tratamento de queixas/não conformidades — ver [Ocorrência PFCQ](/tecnico/fluxos/ocorrencia-pfcq).
+- **Transferência Reversa:** o retorno de itens entre Lounges está em [Transferência Reversa](/tecnico/fluxos/transferencia-reversa).
+- **De Para:** `StatusAnaliseDeQualidade`, `StatusRefugo`, `TipoDestinoTransferencia`, `StatusTransferenciaSap`, `StatusTransferenciaDelage` e `MotivoNaoPodeTransferir` estão em [Banco de Dados → De Para](/tecnico/banco-de-dados/de-para).
+
+## Problemas comuns
+
+- **"Existem produtos com falha na transferência SAP":** use "Reenviar Produtos", "Confirmar SAP Manualmente" ou "Rollback SAP" conforme o caso.
+- **"Existem produtos com falha no envio ao Delage":** use "Reenviar Produtos para o Delage".
+- **Não consigo transferir:** veja o motivo (já em processamento, todos já transferidos, nenhum pendente ou análise não encontrada).
+- **Transferência presa "Em processamento":** acompanhe o histórico/log; se necessário, "Resetar para Pendente".
+
+## Perguntas frequentes
+
+<FaqAccordion
+  items={[
+    { question: 'O que a análise de qualidade decide?', answer: 'Classifica cada item que retorna como "Vendável" (volta ao estoque) ou "Sucata" (descarte).' },
+    { question: 'Para onde os itens são transferidos?', answer: 'Para o SAP e/ou para o Delage (operador logístico), cada destino com o seu próprio status de transferência.' },
+    { question: 'O que é o rollback SAP?', answer: 'É a reversão de uma transferência ao SAP; pede confirmação e fica registrada no histórico como "Rollback executado".' },
+    { question: 'Qual a diferença entre análise de qualidade e refugo?', answer: 'A análise classifica os itens que retornam; o refugo define as regras de tratamento/descarte por produto e lote.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '03/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Fluxo de Análise de Qualidade e Refugo documentado a partir da regra real do sistema (triagem, classificação, transferência SAP/Delage e status de refugo).' },
+  ]}
+/>

@@ -1,11 +1,12 @@
 import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 
-// Transforma o corpo (Markdown/MDX) em texto pesquisável.
-// Importante: componentes como <FaqAccordion> e <DocTable> guardam o texto
-// (perguntas, respostas, células) dentro de props JSX. Só remover tags apagaria
-// esse conteúdo, então extraímos separadamente todo o texto entre aspas e o
-// juntamos com a prosa em Markdown.
+// Índice de busca da seção TÉCNICA (Doc. Técnicas e Configurações).
+// Fica em /tecnico/search-index.json → o Worker (Basic Auth) protege este
+// caminho, então só usuários autenticados conseguem baixá-lo. O SearchBox
+// tenta buscá-lo e, quando recebe 200 (logado), junta esses resultados aos
+// da busca pública. Público (401) simplesmente não enxerga.
+
 function toSearchText(body: string): string {
   const src = (body ?? '').replace(/^import .*$/gm, '');
 
@@ -24,14 +25,9 @@ function toSearchText(body: string): string {
 }
 
 export const GET: APIRoute = async () => {
-  // Índice cobre PT e EN. A busca filtra pelo idioma da página atual (campo lang).
-  // Índice PÚBLICO: NÃO inclui a seção técnica (Doc. Técnicas e Configurações),
-  // que é protegida por senha no Worker. O técnico tem o próprio índice em
-  // /tecnico/search-index.json, atrás do Basic Auth — assim nada sensível
-  // (De Para, SQL, integrações) vaza pelo JSON público da busca.
   const entries = await getCollection(
     'docs',
-    ({ data }) => !data.draft && data.section !== 'tecnico',
+    ({ data }) => !data.draft && data.section === 'tecnico',
   );
 
   const items = entries.map((entry) => {
