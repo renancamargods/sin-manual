@@ -4,28 +4,90 @@ routeSlug: templates
 pageType: tecnico
 lang: en
 title: Templates
-description: Reusable models for documents, messages and labels in the system.
-keywords: [templates, models, documents, messages, labels]
+description: "The email, notification and document templates used by the system, organized by purpose."
+keywords: [templates, models, email, notification, document, payment, occurrence, import, biometrics, lead, consignment]
 tags: [tecnico]
 order: 7
 ---
 
 import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
 
 ## Overview
 
-This page brings together information about the templates reused by the system — for example, in documents, messages and labels. Using templates helps keep a standard and reduce rework.
+The system uses **HTML templates** to standardize the **emails, notifications and documents** it sends — such as the payment link, the occurrence notices and the bulk-import returns. Keeping this in templates ensures a visual standard and reduces rework.
 
-## When to use this page
-
-- Look up which templates are available.
-- Understand where each template is used.
-- Support creating or adjusting a template together with the responsible area.
-
-<Callout type="info" title="Supporting content">
-This section is aimed at teams responsible for configuring and standardizing documents and messages.
+<Callout type="info" title="Where they live">
+The templates live in the system's services (REST Services, Integration Services, Worker and the Blazor app). Some templates are repeated across services — it is the **same template** used by different processes.
 </Callout>
 
-## Pending
+## Templates by purpose
 
-The detailed list of available templates will be added as it is documented.
+### Payment
+<DocTable
+  headers={['Template', 'What for']}
+  rows={[
+    ['PIX Payment Link', 'Email with the PIX charge link/QR.'],
+    ['Card Payment Link', 'Email with the card payment link.'],
+  ]}
+/>
+
+### Occurrences (PFCQ)
+<DocTable
+  headers={['Template', 'What for']}
+  rows={[
+    ['New Occurrence', 'Notice that an occurrence was opened.'],
+    ['Occurrence - Verify Information', 'Notice requesting documentation/information.'],
+    ['Occurrence - Re-analysis', 'Notice of occurrence re-analysis.'],
+    ['Occurrence Response Letter', 'Response/closing document to the customer.'],
+  ]}
+/>
+
+### Approval and Lead
+<DocTable
+  headers={['Template', 'What for']}
+  rows={[
+    ['Pending Approval Notification', 'Notice to the authorities that something awaits approval.'],
+    ['Lead Received Notification', 'Notice of a new lead received.'],
+  ]}
+/>
+
+### Facial biometrics (ClearSale)
+<DocTable
+  headers={['Template', 'What for']}
+  rows={[
+    ['Facial Biometrics Sending Notification', 'Email with the link for the customer to do the biometrics.'],
+    ['Facial Biometrics Notification', 'Notice related to the biometrics result/progress.'],
+  ]}
+/>
+
+### Bulk import (spreadsheets)
+<DocTable
+  headers={['Template', 'What for']}
+  rows={[
+    ['Bulk Limit Import (Success / Error)', 'Return of the bulk limit import by spreadsheet.'],
+    ['Commercial Intelligence Import (Success / Error)', 'Return of the commercial-intelligence spreadsheet import.'],
+    ['General Product List Import (Success / Error)', 'Return of the product spreadsheet import.'],
+  ]}
+/>
+
+### Consignment and others
+<DocTable
+  headers={['Template', 'What for']}
+  rows={[
+    ['Consignment Report (Completed / Error)', 'Return of the consignment report generation.'],
+    ['Survey Confirmation', 'Confirmation of a survey response.'],
+    ['Error Email', 'Standard error-notice template.'],
+    ['Order Term', 'Order term/printout document.'],
+  ]}
+/>
+
+## User-configurable messages
+
+Besides the HTML templates above (which live in the services' code), there are texts **configurable through the screens** of the Administrator module:
+
+- **Custom Message** — standardized texts by **Message Type**.
+
+<Callout type="cuidado" title="Adjust with the responsible area">
+Changing a template affects **all sends** that use it. Adjustments should be made together with the area responsible for communication/marketing and tested before publishing.
+</Callout>

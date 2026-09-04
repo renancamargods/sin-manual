@@ -4,28 +4,82 @@ routeSlug: permissoes
 pageType: tecnico
 lang: en
 title: Permissions
-description: How permissions control access to screens and actions in the system.
-keywords: [permissions, permission, access, profile, access control]
+description: "How access control works: screens (URL) × actions, the Allow/Deny value per action, profiles, groups and extra permissions."
+keywords: [permissions, permission, access, profile, group, URL, access control, authenticator, allow, deny]
 tags: [tecnico]
 order: 6
 ---
 
 import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
 
 ## Overview
 
-This page brings together information about how permissions control what each user can see and do in the S.I.N Implant System. Permissions are grouped into access profiles and assigned to users.
-
-## When to use this page
-
-- Understand how a permission grants access to a screen or action.
-- Support the definition of access profiles.
-- Look up the permissions related to each routine.
+The system's access control defines **what each user can see and do**. It combines **screens** (URLs), **actions** (view, add, edit…) and **profiles** that group these permissions and are assigned to users. Everything is managed in the **Authenticator** module.
 
 <Callout type="info" title="Where to configure">
-User profiles and permissions are managed in the Authenticator module, through the Profile and User screens.
+Profiles, groups, screens and permissions live in the **Authenticator** module (Profile, Group, Module, URL and User screens).
 </Callout>
 
-## Pending
+## The pieces
 
-The detailed list of permissions by screen will be added as it is documented with the responsible areas.
+<DocTable
+  headers={['Element', 'What it is']}
+  rows={[
+    ['Module', 'Groups the screens of a system area.'],
+    ['URL (screen)', 'A system screen (Name, Controller, whether it is Active and Visible), within a module.'],
+    ['Access Permission', 'For a screen (Area/Controller), what is allowed in each action.'],
+    ['Profile', 'A set of permissions (Title) assigned to users.'],
+    ['Group / Profiles × Groups', 'Group users and associate profiles with groups.'],
+    ['Extra Permission', 'A standalone permission (per method), outside the profile.'],
+  ]}
+/>
+
+## The actions of each screen
+
+For each screen, the **Access Permission** controls these actions:
+
+<DocTable
+  headers={['Action', 'Allows']}
+  rows={[
+    ['View', 'Open/consult the screen.'],
+    ['Add', 'Create a new record.'],
+    ['Edit', 'Change an existing record.'],
+    ['Delete', 'Remove a record.'],
+    ['Export PDF', 'Export as PDF.'],
+    ['Export Spreadsheet', 'Export as a spreadsheet.'],
+    ['Change Log', 'See the change history.'],
+    ['Special', 'Special screen actions (e.g., approve, release).'],
+    ['Show in Menu', 'Show (or not) the screen in the menu.'],
+  ]}
+/>
+
+## How each action is defined
+
+Each action receives a value (`TipoDeAcesso`):
+
+<DocTable
+  headers={['Value', 'Meaning']}
+  rows={[
+    ['0', 'Not defined — follows the default / not configured.'],
+    ['1', 'Allow — the action is granted.'],
+    ['2', 'Deny — the action is blocked.'],
+  ]}
+/>
+
+## How it fits together
+
+1. **Screens** (URL) are organized by **Module**.
+2. A **Profile** defines, per screen, what is **Allow/Deny** for each action.
+3. The **User** receives one or more **Profiles** (and can belong to **Groups**).
+4. An **Extra Permission** can grant a specific method outside the profile.
+
+<Callout type="cuidado" title="Deny takes precedence">
+When combining profiles and permissions, an explicit **"Deny"** tends to prevail over an "Allow". When building a profile, check the combined effect before granting access to sensitive screens.
+</Callout>
+
+## Relationship with other processes
+
+- **Authenticator:** the Profile, Group, Module, URL and User screens manage all of this.
+- **APIs:** [API](/en/tecnico/apis) calls also respect this permission model.
+- Many flows cite **responsible groups** for approval (e.g., ADM, Credit, Tax) — those groups rely on the profiles/permissions described here.

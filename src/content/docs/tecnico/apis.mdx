@@ -3,27 +3,102 @@ section: tecnico
 routeSlug: apis
 pageType: tecnico
 title: APIs
-description: Integrações disponíveis para troca de informações com outros sistemas.
-keywords: [apis, api, integrações, integração de sistemas]
+description: "Integrações do S.I.N Implant System com sistemas externos (ERP, pagamento, crédito, fiscal, logística, assinatura) e a API própria (GraphQL/REST)."
+keywords: [apis, api, integrações, integração, SAP, PHC, Pagar.me, EFI, PIX, ClearSale, Serasa, GO.ON, ZapSign, webhook, GraphQL, REST]
 tags: [tecnico]
 order: 2
 ---
 
 import Callout from '../../../components/Callout.astro';
+import DocTable from '../../../components/DocTable.astro';
 
 ## Visão geral
 
-Esta página reúne as integrações disponíveis para troca de informações entre o S.I.N Implant System e outras plataformas utilizadas pela empresa.
+O S.I.N Implant System conversa com **várias APIs externas** (ERP, meios de pagamento, crédito/antifraude, fiscal, logística e assinatura) e **expõe a sua própria API** (GraphQL e REST) para o front e para os integradores. Esta página cataloga essas integrações por finalidade.
 
-## Quando usar esta página
-
-- Consultar quais integrações estão disponíveis.
-- Entender, em linhas gerais, quais informações são trocadas com cada sistema integrado.
-
-<Callout type="info" title="Conteúdo de apoio">
-Esta seção é voltada para times responsáveis por configuração e integração de sistemas.
+<Callout type="cuidado" title="Conteúdo interno e protegido">
+Esta página faz parte da Doc. Técnicas (protegida por senha). **Credenciais, tokens e chaves não ficam aqui** — apenas o que cada integração faz. Segredos vivem em configuração segura do ambiente.
 </Callout>
 
-## Pendências
+## Integrações externas
 
-A relação detalhada de integrações disponíveis será adicionada conforme documentada.
+### ERP e cadastro
+<DocTable
+  headers={['Sistema', 'Para quê']}
+  rows={[
+    ['SAP S/4HANA (OData)', 'Espelha cliente, pedido, remessa e fatura no ERP — ver o fluxo de Integração SAP.'],
+    ['PHC / Primavera', 'ERP alternativo: buscar clientes/produtos, saldo de estoque, criar cliente/encomenda e consultar status de encomendas.'],
+  ]}
+/>
+
+### Pagamento
+<DocTable
+  headers={['Sistema', 'Para quê']}
+  rows={[
+    ['Pagar.me', 'Link de pagamento por cartão e cobrança na maquininha; retorno por webhook (status do pagamento).'],
+    ['PayGo', 'Adquirente/maquininha; webhook de status de pagamento por cartão.'],
+    ['EFI (GerenciaNet)', 'Cobrança e conciliação PIX — ver o fluxo de Pagamentos.'],
+  ]}
+/>
+
+### Crédito e antifraude
+<DocTable
+  headers={['Sistema', 'Para quê']}
+  rows={[
+    ['ClearSale', 'Score de fraude, insights, ratings, antecedentes e biometria facial na análise do cliente.'],
+    ['Serasa Experian', 'VerifyID (validação de identidade / antifraude) e Decision Analytics (proposta/decisão de crédito).'],
+  ]}
+/>
+
+### Fiscal
+<DocTable
+  headers={['Sistema', 'Para quê']}
+  rows={[
+    ['Receita Federal / SERPRO', 'Apuração de débitos CBS (Reforma Tributária): apuração, download e webhook de retorno.'],
+  ]}
+/>
+
+### Logística, campo e frete
+<DocTable
+  headers={['Sistema', 'Para quê']}
+  rows={[
+    ['GO.ON', 'Roteirização e ordens de serviço de campo (coleta, entrega, instalação, visita) — ver o fluxo do GO.ON.'],
+    ['Simule Frete', 'Cálculo/simulação de frete.'],
+    ['Portal KA', 'Consignado via Portal Key Account.'],
+  ]}
+/>
+
+### Assinatura, atendimento e fila
+<DocTable
+  headers={['Sistema', 'Para quê']}
+  rows={[
+    ['ZapSign', 'Assinatura eletrônica de contratos — ver o fluxo de Contrato.'],
+    ['Freshdesk / FreshChat', 'Atendimento e tickets (vinculados, por exemplo, às ocorrências e ao TDC).'],
+    ['Ignition', 'Fila/orquestração de aprovação (clientes e pedidos).'],
+  ]}
+/>
+
+### Utilitários
+<DocTable
+  headers={['Sistema', 'Para quê']}
+  rows={[
+    ['Consulta de CEP', 'Preenchimento automático de endereço a partir do CEP.'],
+  ]}
+/>
+
+## A API própria do sistema
+
+- **GraphQL** — a API principal usada pelo front (Blazor) e integradores (queries e mutations por módulo).
+- **REST** — serviços REST e endpoints de integração (`Serviços REST` e `Serviços de Integrações`), inclusive os **webhooks recebidos** (ex.: status de pagamento de cartão da Pagar.me/PayGo e retorno da apuração CBS).
+- **Autenticação/permissão** das chamadas segue o modelo de [Permissões](/tecnico/permissoes).
+
+## Relação com outros processos
+
+- **Integração SAP:** [Visão Geral](/tecnico/fluxos/integracao-sap-visao-geral) e [Os quatro fluxos](/tecnico/fluxos/integracao-sap-os-quatro-fluxos).
+- **Pagamentos:** [Geração de Link](/tecnico/fluxos/pagamentos-geracao-de-link) e [Pagamento Misto](/tecnico/fluxos/pagamento-misto).
+- **Crédito/Antifraude:** [ClearSale](/tecnico/fluxos/credito-e-antifraude-clearsale).
+- **Campo:** [GO.ON](/tecnico/fluxos/goon-agenda-e-roteirizacao). **Contratos:** [assinatura ZapSign](/tecnico/fluxos/contrato-cadastro-aprovacao-assinatura).
+
+<Callout type="info" title="Onde ficam os endereços e credenciais">
+Os endereços (URLs base) por ambiente e as credenciais de cada API são definidos na **configuração do ambiente** e nas telas do módulo **Integrador** (ex.: Configuração de Integração SAP). Não são editados por esta página.
+</Callout>

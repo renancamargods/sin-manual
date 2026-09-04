@@ -3,27 +3,51 @@ section: tecnico
 routeSlug: migrations
 pageType: tecnico
 title: Migrations
-description: Controle de versões de estrutura de dados do sistema.
-keywords: [migrations, versões, estrutura de dados]
+description: "Como o sistema versiona a estrutura do banco: os dois contextos (Administrador e Autenticador), a convenção de nomes das migrations e como são aplicadas."
+keywords: [migrations, migração, banco de dados, estrutura, versão, EF Core, entity framework]
 tags: [tecnico]
 order: 3
 ---
 
 import Callout from '../../../components/Callout.astro';
+import DocTable from '../../../components/DocTable.astro';
 
 ## Visão geral
 
-Esta página reúne informações sobre o controle de versões da estrutura de dados do sistema, usado para acompanhar mudanças aplicadas ao longo do tempo.
+O sistema versiona a **estrutura do banco de dados** com **migrations** do Entity Framework Core: cada mudança de estrutura (nova tabela, coluna, índice, remoção) é uma migration numerada, aplicada em ordem. Isso mantém o banco sincronizado com o código em todos os ambientes.
 
-## Quando usar esta página
+## Os dois contextos
 
-- Consultar o histórico de mudanças de estrutura de dados.
-- Apoiar a análise de impacto antes de uma atualização do sistema.
+As migrations ficam separadas em **dois contextos** (bancos/domínios):
 
-<Callout type="info" title="Conteúdo de apoio">
-Esta seção é voltada para times responsáveis por configuração e evolução do sistema.
+<DocTable
+  headers={['Contexto', 'O que versiona', 'Qtd. de migrations']}
+  rows={[
+    ['Administrador (SqlServer)', 'A maior parte do sistema (cadastros, pedidos, faturamento, integrações etc.).', '~900'],
+    ['Autenticador (SqlServer)', 'Usuários, perfis, grupos e permissões.', '~45'],
+  ]}
+/>
+
+São aproximadamente **945 migrations** no total (número cresce a cada mudança de estrutura).
+
+## Convenção de nome
+
+Cada migration segue o padrão:
+
+`&lt;timestamp&gt;_Migration_&lt;Autor&gt;_&lt;Descrição&gt;`
+
+- **timestamp** — data/hora de criação (ex.: `20260827140919`), que também define a **ordem** de aplicação.
+- **Autor** — quem criou (ex.: `LuanHora`, `LidiaBrito`, `WilliamPereira`).
+- **Descrição** — o que a migration faz (ex.: `Entidade_ControleFuncionalidades`, `Melhorias_LogsExecucaoServicos`).
+
+## Como são aplicadas
+
+As migrations são aplicadas pela ferramenta do EF Core / pelo processo de deploy (não são aplicadas automaticamente na subida da aplicação). O par de arquivos de cada migration (a migration em si + o `.Designer`) e o `ModelSnapshot` do contexto mantêm o estado atual do modelo.
+
+<Callout type="cuidado" title="Não editar migration já aplicada">
+Uma migration que já rodou em algum ambiente **não deve ser alterada** — o correto é **criar uma nova** migration para o ajuste. Alterar uma migration antiga quebra o histórico e a sincronização entre ambientes.
 </Callout>
 
-## Pendências
-
-O detalhamento das versões de estrutura de dados será adicionado conforme documentado.
+<Callout type="info" title="Onde ficam">
+No repositório do sistema: `CrmSin.Infra.Data.Administrador.SqlServer/Migrations` e `CrmSin.Infra.Data.Autenticador.SqlServer/Migrations`. A relação completa das ~945 migrations não é listada aqui — consulte o repositório para o histórico detalhado.
+</Callout>

@@ -3,28 +3,82 @@ section: tecnico
 routeSlug: permissoes
 pageType: tecnico
 title: Permissões
-description: Como as permissões controlam o acesso a telas e ações no sistema.
-keywords: [permissões, permissão, acesso, perfil, controle de acesso]
+description: "Como o controle de acesso funciona: telas (URL) × ações, o valor Permitir/Negar por ação, perfis, grupos e permissões extras."
+keywords: [permissões, permissão, acesso, perfil, grupo, URL, controle de acesso, autenticador, permitir, negar]
 tags: [tecnico]
 order: 6
 ---
 
 import Callout from '../../../components/Callout.astro';
+import DocTable from '../../../components/DocTable.astro';
 
 ## Visão geral
 
-Esta página reúne informações sobre como as permissões controlam o que cada usuário pode ver e fazer no S.I.N Implant System. As permissões são reunidas em perfis de acesso e atribuídas aos usuários.
-
-## Quando usar esta página
-
-- Entender como uma permissão libera o acesso a uma tela ou ação.
-- Apoiar a definição de perfis de acesso.
-- Consultar as permissões relacionadas a cada rotina.
+O controle de acesso do sistema define **o que cada usuário pode ver e fazer**. Ele combina **telas** (URLs), **ações** (visualizar, incluir, alterar…) e **perfis** que agrupam essas permissões e são atribuídos aos usuários. Tudo é gerido no módulo **Autenticador**.
 
 <Callout type="info" title="Onde configurar">
-Os perfis e as permissões dos usuários são gerenciados no módulo Autenticador, pelas telas de Perfil e Usuário.
+Perfis, grupos, telas e permissões ficam no módulo **Autenticador** (telas Perfil, Grupo, Módulo, URL e Usuário).
 </Callout>
 
-## Pendências
+## As peças
 
-A relação detalhada de permissões por tela será adicionada conforme documentada junto às áreas responsáveis.
+<DocTable
+  headers={['Elemento', 'O que é']}
+  rows={[
+    ['Módulo', 'Agrupa as telas de uma área do sistema.'],
+    ['URL (tela)', 'Uma tela do sistema (Nome, Controller, se está Ativa e Visível), dentro de um módulo.'],
+    ['Permissão de Acesso', 'Para uma tela (Área/Controller), o que é liberado em cada ação.'],
+    ['Perfil', 'Um conjunto de permissões (Título) atribuído a usuários.'],
+    ['Grupo / Perfis × Grupos', 'Agrupam usuários e associam perfis a grupos.'],
+    ['Permissão Extra', 'Uma permissão avulsa (por método), fora do perfil.'],
+  ]}
+/>
+
+## As ações de cada tela
+
+Para cada tela, a **Permissão de Acesso** controla estas ações:
+
+<DocTable
+  headers={['Ação', 'Libera']}
+  rows={[
+    ['Visualizar', 'Abrir/consultar a tela.'],
+    ['Incluir', 'Criar novo registro.'],
+    ['Alterar', 'Editar registro existente.'],
+    ['Excluir', 'Remover registro.'],
+    ['Exportar PDF', 'Exportar em PDF.'],
+    ['Exportar Planilha', 'Exportar em planilha.'],
+    ['Log de Alteração', 'Ver o histórico de alterações.'],
+    ['Especial', 'Ações especiais da tela (ex.: aprovar, liberar).'],
+    ['Visualizar no Menu', 'Exibir (ou não) a tela no menu.'],
+  ]}
+/>
+
+## Como cada ação é definida
+
+Cada ação recebe um valor (`TipoDeAcesso`):
+
+<DocTable
+  headers={['Valor', 'Significado']}
+  rows={[
+    ['0', 'Não definido — segue o padrão / não configurado.'],
+    ['1', 'Permitir — a ação é liberada.'],
+    ['2', 'Negar — a ação é bloqueada.'],
+  ]}
+/>
+
+## Como se encaixa
+
+1. As **telas** (URL) são organizadas por **Módulo**.
+2. Um **Perfil** define, por tela, o que é **Permitir/Negar** em cada ação.
+3. O **Usuário** recebe um ou mais **Perfis** (e pode pertencer a **Grupos**).
+4. Uma **Permissão Extra** pode liberar um método específico fora do perfil.
+
+<Callout type="cuidado" title="Negar tem prioridade">
+Ao combinar perfis e permissões, um **"Negar"** explícito tende a prevalecer sobre um "Permitir". Ao montar um perfil, confira o efeito combinado antes de liberar acesso a telas sensíveis.
+</Callout>
+
+## Relação com outros processos
+
+- **Autenticador:** telas Perfil, Grupo, Módulo, URL e Usuário gerenciam tudo isso.
+- **APIs:** as chamadas da [API](/tecnico/apis) também respeitam esse modelo de permissão.
+- Muitos fluxos citam **grupos responsáveis** por aprovação (ex.: ADM, Crédito, Fiscal) — esses grupos se apoiam nos perfis/permissões aqui descritos.

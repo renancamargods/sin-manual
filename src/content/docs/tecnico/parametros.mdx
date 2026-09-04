@@ -3,27 +3,59 @@ section: tecnico
 routeSlug: parametros
 pageType: tecnico
 title: Parâmetros
-description: Parâmetros gerais de configuração do sistema.
-keywords: [parâmetros, configurações gerais, parametrização]
+description: "Como o sistema guarda configurações: parâmetros por empresa em pares Chave/Valor, valores padrão de política de senha e parâmetros de produto por Lounge."
+keywords: [parâmetros, parametrização, chave e valor, configuração, empresa, política de senha, produtos no lounge, controle de funcionalidade]
 tags: [tecnico]
 order: 4
 ---
 
 import Callout from '../../../components/Callout.astro';
+import DocTable from '../../../components/DocTable.astro';
 
 ## Visão geral
 
-Esta página reúne os parâmetros gerais de configuração do sistema, usados para ajustar comportamentos que afetam diferentes módulos.
-
-## Quando usar esta página
-
-- Consultar parâmetros gerais disponíveis.
-- Entender o impacto de um parâmetro antes de alterá-lo.
+Boa parte do comportamento do sistema é ajustada por **configuração**, sem mexer no código. Essa configuração fica guardada como **parâmetros** — em geral **por empresa** — que os módulos leem para decidir regras e valores.
 
 <Callout type="cuidado" title="Impacto amplo">
-Alterações em parâmetros gerais podem afetar o comportamento de vários módulos ao mesmo tempo. Avalie o impacto antes de alterar.
+Alterações em parâmetros podem afetar **vários módulos ao mesmo tempo** e, muitas vezes, valem **por empresa**. Avalie o impacto antes de alterar.
 </Callout>
 
-## Pendências
+## Como os parâmetros são guardados
 
-A relação detalhada de parâmetros será adicionada conforme documentada.
+- **Parâmetro** — um agrupamento nomeado de configuração, vinculado a uma **empresa**. Cada parâmetro reúne um ou mais pares Chave/Valor.
+- **Chave e Valor** — os pares **`Chave` → `Valor`** dentro de um parâmetro (também por empresa). É onde ficam os ajustes efetivos (a tela "Chave e Valor" edita esses pares).
+- Toda alteração fica registrada em **log** do parâmetro.
+
+<DocTable
+  headers={['Elemento', 'O que é']}
+  rows={[
+    ['Parâmetro', 'Grupo de configuração nomeado, por empresa.'],
+    ['Chave', 'Nome do ajuste dentro do parâmetro.'],
+    ['Valor', 'O conteúdo configurado para aquela chave.'],
+    ['Empresa', 'A qual empresa aquele valor se aplica.'],
+  ]}
+/>
+
+## Valores padrão de política de senha
+
+Alguns parâmetros têm **valor padrão** definido no sistema (enum `Chaves`) — por exemplo, a **política de senha**: validade da senha, mínimo de caracteres, quantidade de senhas anteriores bloqueadas, exigência de maiúscula/minúscula/número/caractere especial, minutos de bloqueio e máximo de tentativas. Os valores estão em [Banco de Dados → De Para](/tecnico/banco-de-dados/de-para).
+
+## Parâmetros de produto por Lounge
+
+Além da configuração geral, há parâmetros **específicos de produto por Lounge/filial** (quais produtos ficam disponíveis e como são roteados). Isso é tratado no fluxo [Configuração de Produtos no Lounge](/tecnico/fluxos/configuracao-de-produtos-no-lounge).
+
+## Onde configurar
+
+<DocTable
+  headers={['Tela (módulo)', 'Para quê']}
+  rows={[
+    ['Parâmetro (Administrador)', 'Gerir os parâmetros por empresa.'],
+    ['Chave e Valor (Administrador)', 'Editar os pares Chave/Valor de configuração.'],
+    ['Controle de Funcionalidade (Administrador)', 'Ligar/desligar funcionalidades do sistema.'],
+    ['Configuração de Produtos no Lounge', 'Parâmetros de produto por Lounge/filial.'],
+  ]}
+/>
+
+<Callout type="info" title="Relação com Permissões e Flags">
+O que um usuário pode fazer é definido por [Permissões](/tecnico/permissoes) (perfis), enquanto **parâmetros** ajustam *como* o sistema se comporta. A antiga ideia de "Flags" foi incorporada aqui e em Controle de Funcionalidade.
+</Callout>

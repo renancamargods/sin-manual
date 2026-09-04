@@ -4,27 +4,59 @@ routeSlug: parametros
 pageType: tecnico
 lang: en
 title: Parameters
-description: General system configuration parameters.
-keywords: [parameters, general settings, parameterization]
+description: "How the system stores configuration: per-company parameters as Key/Value pairs, default password-policy values and per-Lounge product parameters."
+keywords: [parameters, parameterization, key and value, configuration, company, password policy, products in the lounge, feature control]
 tags: [tecnico]
 order: 4
 ---
 
 import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
 
 ## Overview
 
-This page brings together the general system configuration parameters, used to adjust behaviors that affect different modules.
-
-## When to use this page
-
-- Look up the available general parameters.
-- Understand the impact of a parameter before changing it.
+Much of the system's behavior is adjusted by **configuration**, without touching the code. That configuration is stored as **parameters** — usually **per company** — which the modules read to decide rules and values.
 
 <Callout type="cuidado" title="Broad impact">
-Changes to general parameters may affect the behavior of several modules at the same time. Assess the impact before changing.
+Changes to parameters may affect **several modules at once** and often apply **per company**. Assess the impact before changing.
 </Callout>
 
-## Pending
+## How parameters are stored
 
-The detailed list of parameters will be added as it is documented.
+- **Parameter** — a named configuration group, tied to a **company**. Each parameter holds one or more Key/Value pairs.
+- **Key and Value** — the **`Key` → `Value`** pairs inside a parameter (also per company). This is where the actual settings live (the "Key and Value" screen edits these pairs).
+- Every change is recorded in the parameter **log**.
+
+<DocTable
+  headers={['Element', 'What it is']}
+  rows={[
+    ['Parameter', 'Named configuration group, per company.'],
+    ['Key', 'Name of the setting inside the parameter.'],
+    ['Value', 'The content configured for that key.'],
+    ['Company', 'Which company that value applies to.'],
+  ]}
+/>
+
+## Default password-policy values
+
+Some parameters have a **default value** defined in the system (the `Chaves` enum) — for example, the **password policy**: password validity, minimum length, number of previous passwords blocked, uppercase/lowercase/digit/special-character requirement, lockout minutes and max attempts. The values are in [Database → Value Mapping](/en/tecnico/banco-de-dados/de-para).
+
+## Per-Lounge product parameters
+
+Besides general configuration, there are **product-specific parameters per Lounge/branch** (which products are available and how they are routed). This is covered in the [Product Configuration in the Lounge](/en/tecnico/fluxos/configuracao-de-produtos-no-lounge) flow.
+
+## Where to configure
+
+<DocTable
+  headers={['Screen (module)', 'What for']}
+  rows={[
+    ['Parameter (Administrator)', 'Manage the parameters per company.'],
+    ['Key and Value (Administrator)', 'Edit the configuration Key/Value pairs.'],
+    ['Feature Control (Administrator)', 'Turn system features on/off.'],
+    ['Product Configuration in the Lounge', 'Product parameters per Lounge/branch.'],
+  ]}
+/>
+
+<Callout type="info" title="Relationship with Permissions and Flags">
+What a user can do is defined by [Permissions](/en/tecnico/permissoes) (profiles), while **parameters** adjust *how* the system behaves. The former "Flags" idea was folded into this page and into Feature Control.
+</Callout>

@@ -4,27 +4,102 @@ routeSlug: apis
 pageType: tecnico
 lang: en
 title: APIs
-description: Integrations available to exchange information with other systems.
-keywords: [apis, api, integrations, system integration]
+description: "S.I.N Implant System integrations with external systems (ERP, payment, credit, tax, logistics, signature) and the system's own API (GraphQL/REST)."
+keywords: [apis, api, integrations, SAP, PHC, Pagar.me, EFI, PIX, ClearSale, Serasa, GO.ON, ZapSign, webhook, GraphQL, REST]
 tags: [tecnico]
 order: 2
 ---
 
 import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
 
 ## Overview
 
-This page brings together the integrations available to exchange information between the S.I.N Implant System and other platforms used by the company.
+The S.I.N Implant System talks to **several external APIs** (ERP, payment methods, credit/anti-fraud, tax, logistics and signature) and **exposes its own API** (GraphQL and REST) to the front end and to integrators. This page catalogs those integrations by purpose.
 
-## When to use this page
-
-- Look up which integrations are available.
-- Understand, in general terms, what information is exchanged with each integrated system.
-
-<Callout type="info" title="Supporting content">
-This section is aimed at teams responsible for system configuration and integration.
+<Callout type="cuidado" title="Internal, protected content">
+This page is part of the Technical Docs (password-protected). **Credentials, tokens and keys are not here** — only what each integration does. Secrets live in the environment's secure configuration.
 </Callout>
 
-## Pending
+## External integrations
 
-The detailed list of available integrations will be added as it is documented.
+### ERP and registration
+<DocTable
+  headers={['System', 'What for']}
+  rows={[
+    ['SAP S/4HANA (OData)', 'Mirrors customer, order, delivery and invoice in the ERP — see the SAP Integration flow.'],
+    ['PHC / Primavera', 'Alternative ERP: fetch customers/products, stock balance, create customer/order and check order status.'],
+  ]}
+/>
+
+### Payment
+<DocTable
+  headers={['System', 'What for']}
+  rows={[
+    ['Pagar.me', 'Card payment link and card-terminal charge; return via webhook (payment status).'],
+    ['PayGo', 'Acquirer/card terminal; card payment status webhook.'],
+    ['EFI (GerenciaNet)', 'PIX charge and reconciliation — see the Payments flow.'],
+  ]}
+/>
+
+### Credit and anti-fraud
+<DocTable
+  headers={['System', 'What for']}
+  rows={[
+    ['ClearSale', 'Fraud score, insights, ratings, background and facial biometrics in the customer analysis.'],
+    ['Serasa Experian', 'VerifyID (identity validation / anti-fraud) and Decision Analytics (credit proposal/decision).'],
+  ]}
+/>
+
+### Tax
+<DocTable
+  headers={['System', 'What for']}
+  rows={[
+    ['Receita Federal / SERPRO', 'CBS debt assessment (Brazilian Tax Reform): assessment, download and return webhook.'],
+  ]}
+/>
+
+### Logistics, field and freight
+<DocTable
+  headers={['System', 'What for']}
+  rows={[
+    ['GO.ON', 'Field routing and service orders (pickup, delivery, installation, visit) — see the GO.ON flow.'],
+    ['Simule Frete', 'Freight calculation/simulation.'],
+    ['Portal KA', 'Consignment via the Key Account Portal.'],
+  ]}
+/>
+
+### Signature, support and queue
+<DocTable
+  headers={['System', 'What for']}
+  rows={[
+    ['ZapSign', 'Electronic signature of contracts — see the Contract flow.'],
+    ['Freshdesk / FreshChat', 'Support and tickets (linked, for example, to occurrences and TDC).'],
+    ['Ignition', 'Approval queue/orchestration (customers and orders).'],
+  ]}
+/>
+
+### Utilities
+<DocTable
+  headers={['System', 'What for']}
+  rows={[
+    ['ZIP code lookup', 'Auto-fill address from the ZIP code (CEP).'],
+  ]}
+/>
+
+## The system's own API
+
+- **GraphQL** — the main API used by the front end (Blazor) and integrators (queries and mutations per module).
+- **REST** — REST services and integration endpoints (REST Services and Integration Services), including the **received webhooks** (e.g., card payment status from Pagar.me/PayGo and the CBS assessment return).
+- Call **authentication/permission** follows the [Permissions](/en/tecnico/permissoes) model.
+
+## Relationship with other processes
+
+- **SAP Integration:** [Overview](/en/tecnico/fluxos/integracao-sap-visao-geral) and [The four flows](/en/tecnico/fluxos/integracao-sap-os-quatro-fluxos).
+- **Payments:** [Link Generation](/en/tecnico/fluxos/pagamentos-geracao-de-link) and [Mixed Payment](/en/tecnico/fluxos/pagamento-misto).
+- **Credit/Anti-fraud:** [ClearSale](/en/tecnico/fluxos/credito-e-antifraude-clearsale).
+- **Field:** [GO.ON](/en/tecnico/fluxos/goon-agenda-e-roteirizacao). **Contracts:** [ZapSign signature](/en/tecnico/fluxos/contrato-cadastro-aprovacao-assinatura).
+
+<Callout type="info" title="Where addresses and credentials live">
+The base URLs per environment and the credentials of each API are set in the **environment configuration** and in the **Integrador** module screens (e.g., SAP Integration Configuration). They are not edited from this page.
+</Callout>

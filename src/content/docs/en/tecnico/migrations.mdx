@@ -4,27 +4,51 @@ routeSlug: migrations
 pageType: tecnico
 lang: en
 title: Migrations
-description: Version control of the system data structure.
-keywords: [migrations, versions, data structure]
+description: "How the system versions the database structure: the two contexts (Administrator and Authenticator), the migration naming convention and how they are applied."
+keywords: [migrations, migration, database, structure, version, EF Core, entity framework]
 tags: [tecnico]
 order: 3
 ---
 
 import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
 
 ## Overview
 
-This page brings together information about the version control of the system data structure, used to track changes applied over time.
+The system versions the **database structure** with Entity Framework Core **migrations**: each structural change (new table, column, index, removal) is a numbered migration, applied in order. This keeps the database in sync with the code across all environments.
 
-## When to use this page
+## The two contexts
 
-- Look up the change history of the data structure.
-- Support impact analysis before a system update.
+Migrations are split into **two contexts** (databases/domains):
 
-<Callout type="info" title="Supporting content">
-This section is aimed at teams responsible for system configuration and evolution.
+<DocTable
+  headers={['Context', 'What it versions', 'Migration count']}
+  rows={[
+    ['Administrator (SqlServer)', 'Most of the system (registrations, orders, invoicing, integrations, etc.).', '~900'],
+    ['Authenticator (SqlServer)', 'Users, profiles, groups and permissions.', '~45'],
+  ]}
+/>
+
+There are roughly **945 migrations** in total (the number grows with each structural change).
+
+## Naming convention
+
+Each migration follows the pattern:
+
+`&lt;timestamp&gt;_Migration_&lt;Author&gt;_&lt;Description&gt;`
+
+- **timestamp** — creation date/time (e.g., `20260827140919`), which also defines the **order** of application.
+- **Author** — who created it (e.g., `LuanHora`, `LidiaBrito`, `WilliamPereira`).
+- **Description** — what the migration does (e.g., `Entidade_ControleFuncionalidades`, `Melhorias_LogsExecucaoServicos`).
+
+## How they are applied
+
+Migrations are applied by the EF Core tooling / the deploy process (they are not applied automatically on application startup). Each migration's file pair (the migration itself + the `.Designer`) and the context's `ModelSnapshot` keep the current model state.
+
+<Callout type="cuidado" title="Do not edit an applied migration">
+A migration that already ran in some environment **must not be changed** — the correct approach is to **create a new** migration for the fix. Editing an old migration breaks the history and the sync across environments.
 </Callout>
 
-## Pending
-
-The detail of the data structure versions will be added as it is documented.
+<Callout type="info" title="Where they live">
+In the system repository: `CrmSin.Infra.Data.Administrador.SqlServer/Migrations` and `CrmSin.Infra.Data.Autenticador.SqlServer/Migrations`. The full list of the ~945 migrations is not shown here — check the repository for the detailed history.
+</Callout>

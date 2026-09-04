@@ -3,28 +3,90 @@ section: tecnico
 routeSlug: templates
 pageType: tecnico
 title: Templates
-description: Modelos reutilizados em documentos, mensagens e etiquetas do sistema.
-keywords: [templates, modelos, documentos, mensagens, etiquetas]
+description: "Os modelos (templates) de e-mail, notificação e documento usados pelo sistema, organizados por finalidade."
+keywords: [templates, modelos, e-mail, notificação, documento, pagamento, ocorrência, importação, biometria, lead, consignado]
 tags: [tecnico]
 order: 7
 ---
 
 import Callout from '../../../components/Callout.astro';
+import DocTable from '../../../components/DocTable.astro';
 
 ## Visão geral
 
-Esta página reúne informações sobre os modelos (templates) reutilizados pelo sistema — por exemplo, em documentos, mensagens e etiquetas. Usar modelos ajuda a manter um padrão e reduzir retrabalho.
+O sistema usa **modelos (templates) de HTML** para padronizar os **e-mails, notificações e documentos** que envia — como o link de pagamento, os avisos de ocorrência e os retornos de importação em massa. Manter isso em templates garante um padrão visual e reduz retrabalho.
 
-## Quando usar esta página
-
-- Consultar quais modelos estão disponíveis.
-- Entender onde cada modelo é utilizado.
-- Apoiar a criação ou o ajuste de um modelo em conjunto com a área responsável.
-
-<Callout type="info" title="Conteúdo de apoio">
-Esta seção é voltada para times responsáveis por configuração e padronização de documentos e mensagens.
+<Callout type="info" title="Onde ficam">
+Os templates ficam nos serviços do sistema (Serviços REST, Serviços de Integrações, Worker e o app Blazor). Alguns modelos se repetem entre serviços — é o **mesmo modelo** usado por processos diferentes.
 </Callout>
 
-## Pendências
+## Templates por finalidade
 
-A relação detalhada de modelos disponíveis será adicionada conforme documentada.
+### Pagamento
+<DocTable
+  headers={['Template', 'Para quê']}
+  rows={[
+    ['Link de Pagamento PIX', 'E-mail com o link/QR de cobrança PIX.'],
+    ['Link de Pagamento Cartão', 'E-mail com o link de pagamento por cartão.'],
+  ]}
+/>
+
+### Ocorrências (PFCQ)
+<DocTable
+  headers={['Template', 'Para quê']}
+  rows={[
+    ['Ocorrência Nova', 'Aviso de abertura de uma ocorrência.'],
+    ['Ocorrência - Verificar Informações', 'Aviso solicitando documentação/informações.'],
+    ['Ocorrência - Reanálise', 'Aviso de reanálise da ocorrência.'],
+    ['Carta de Resposta da Ocorrência', 'Documento de resposta/encerramento ao cliente.'],
+  ]}
+/>
+
+### Aprovação e Lead
+<DocTable
+  headers={['Template', 'Para quê']}
+  rows={[
+    ['Notificação de Aprovação Pendente', 'Aviso às alçadas de que há algo aguardando aprovação.'],
+    ['Notificação de Lead Recebido', 'Aviso de um novo lead recebido.'],
+  ]}
+/>
+
+### Biometria facial (ClearSale)
+<DocTable
+  headers={['Template', 'Para quê']}
+  rows={[
+    ['Notificação de Envio da Biometria Facial', 'E-mail com o link para o cliente fazer a biometria.'],
+    ['Notificação de Biometria Facial', 'Aviso relacionado ao resultado/andamento da biometria.'],
+  ]}
+/>
+
+### Importação em massa (planilhas)
+<DocTable
+  headers={['Template', 'Para quê']}
+  rows={[
+    ['Importação de Limite em Massa (Sucesso / Erro)', 'Retorno da importação de limites por planilha.'],
+    ['Importação Inteligência Comercial (Sucesso / Erro)', 'Retorno da importação da planilha de inteligência comercial.'],
+    ['Importação Lista Geral de Produtos (Sucesso / Erro)', 'Retorno da importação da planilha de produtos.'],
+  ]}
+/>
+
+### Consignado e outros
+<DocTable
+  headers={['Template', 'Para quê']}
+  rows={[
+    ['Relatório de Consignado (Concluído / Erro)', 'Retorno da geração do relatório de consignado.'],
+    ['Confirmação de Pesquisa', 'Confirmação de resposta a uma pesquisa.'],
+    ['Envio de E-mail de Erro', 'Modelo padrão de aviso de erro.'],
+    ['Termo do Pedido', 'Documento do termo/impressão do pedido.'],
+  ]}
+/>
+
+## Mensagens configuráveis pelo usuário
+
+Além dos templates de HTML acima (que ficam no código dos serviços), há textos **configuráveis pelas telas** do módulo Administrador:
+
+- **Mensagem Personalizada** — textos padronizados por **Tipo de Mensagem**.
+
+<Callout type="cuidado" title="Ajuste com a área responsável">
+Alterar um template afeta **todos os envios** que o usam. Ajustes devem ser feitos junto da área responsável por comunicação/marketing e testados antes de publicar.
+</Callout>
