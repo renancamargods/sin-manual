@@ -97,6 +97,15 @@ export const tecnicoPages: TecnicoGroup[] = [
     ],
   },
   { title: 'Templates', slug: 'templates', description: 'Modelos reutilizados em documentos, mensagens e etiquetas.', pages: [] },
+  {
+    title: 'AZURE',
+    slug: 'azure',
+    description: 'Padrões e modelos para abrir itens no Azure DevOps: reporte de bug e requisito de melhoria/desenvolvimento (PBI).',
+    pages: [
+      { title: 'Abertura de BUG', slug: 'abertura-de-bug', order: 1, description: 'Modelo de prompt para reporte de bug e passo a passo de abertura no Azure DevOps, com campos obrigatórios.' },
+      { title: 'Abertura de Melhoria / Desenvolvimento (PBI)', slug: 'abertura-de-melhoria-pbi', order: 2, description: 'Modelo de prompt para documentação de requisito (PBI) e passo a passo de abertura no Azure DevOps, com campos obrigatórios.' },
+    ],
+  },
 ];
 
 export const modules: ModuleDef[] = [
@@ -477,6 +486,7 @@ export const tecnicoGroupEn: Record<string, { title: string; description: string
   permissoes: { title: 'Permissions', description: 'How permissions control access to screens and actions.' },
   'banco-de-dados': { title: 'Database / DBA', description: 'Database and DBA topics: data structure and the value-mapping (De/Para) tables used in integrations.' },
   templates: { title: 'Templates', description: 'Reusable models for documents, messages and labels.' },
+  azure: { title: 'AZURE', description: 'Standards and templates to open items in Azure DevOps: bug reports and improvement/development requirements (PBI).' },
 };
 
 // Nomes das rotinas (submenu) em inglês, por "moduleId/slug". Fallback = título PT.
@@ -691,6 +701,8 @@ export const tecnicoSubEn: Record<string, string> = {
   'fluxos/processo-do-pedido-politicas': 'Order Process - Purchase Policies',
   'fluxos/processo-do-pedido-permissoes-parametros': 'Order Process - Permissions and Parameters',
   'banco-de-dados/de-para': 'Value Mapping (De/Para)',
+  'azure/abertura-de-bug': 'Opening a BUG',
+  'azure/abertura-de-melhoria-pbi': 'Opening an Improvement / Development (PBI)',
 };
 
 // --- Ordenação alfabética (locale-aware) da navegação ---

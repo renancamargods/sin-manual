@@ -1,0 +1,113 @@
+---
+section: tecnico
+routeSlug: azure/abertura-de-bug
+pageType: tecnico
+title: Abertura de BUG
+description: "Modelo de prompt para gerar um reporte de bug padronizado e passo a passo para abrir o Bug no Azure DevOps, com os campos obrigatórios."
+moduleLabel: Azure DevOps
+routineType: Modelo / Procedimento
+impact: Padroniza a abertura de bugs no Azure DevOps
+keywords: [azure, azure devops, bug, reporte de bug, repro steps, abrir bug, work item, campos obrigatórios, board]
+tags: [tecnico, azure, bug]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+Esta página traz um **modelo de prompt** para gerar um **reporte de bug** bem estruturado e o **passo a passo** para abrir o Bug no **Azure DevOps**, vinculado ao Pedido (Work Item pai) e com todos os **campos obrigatórios** preenchidos.
+
+A ideia é sempre a mesma: **preencha o prompt → gere o texto → cole o texto no campo "Repro Steps" do Bug → preencha os campos obrigatórios → salve.**
+
+## Como usar (passo a passo)
+
+1. Copie o modelo abaixo e **preencha o que está entre colchetes** com o seu problema.
+2. Gere o texto do reporte (com a IA/assistente).
+3. No Azure DevOps, a partir do **Pedido**, adicione um **Link filho (Child) do tipo Bug**.
+4. **Cole o texto gerado no campo "Repro Steps"** do Bug.
+5. Preencha os **campos obrigatórios** (seção abaixo) e **salve**.
+
+## Modelo do prompt
+
+```text
+Preciso que você crie um reporte de bug para o Azure DevOps referente ao seguinte problema: [descreva o problema].
+
+Estruture o reporte exatamente nas seções abaixo:
+
+1. Título — resumo curto e objetivo do erro (o quê + onde).
+2. Descrição do Erro — o que acontece de errado, em qual tela/módulo, desde quando e com que frequência (sempre / às vezes / em caso específico).
+3. Passo a Passo para Reprodução — sequência numerada exata para reproduzir, com dados de exemplo, perfil/usuário e ambiente (HML ou Produção).
+4. Comportamento Esperado — o que deveria acontecer se estivesse correto.
+5. Possível Ajuste (Sugestão Técnica) — hipótese da causa e sugestão de correção, se houver.
+6. Evidência — prints, mensagem de erro, logs, ID do pedido/registro, data e hora.
+
+Escreva de forma clara e objetiva, pronto para colar no Azure DevOps.
+```
+
+## Como abrir no Azure DevOps
+
+O Bug é criado **a partir do Pedido**, como um item **filho**:
+
+<DocTable
+  headers={['Campo do vínculo', 'Valor']}
+  rows={[
+    ['A partir de', 'O Pedido (ex.: "272 Pedido")'],
+    ['Link type', 'Child (filho)'],
+    ['Work Item Type', 'Bug'],
+    ['Title', 'Título do reporte (resumo do erro)'],
+  ]}
+/>
+
+## Campos obrigatórios do Bug
+
+Preencha **todos** os campos abaixo antes de salvar (o Azure bloqueia o salvamento se faltar algum — ex.: *"Field 'Requesting User' cannot be empty"*):
+
+<DocTable
+  headers={['Campo', 'O que preencher']}
+  rows={[
+    ['State', 'O estado do item — ver a tabela "Estados (State)" logo abaixo.'],
+    ['Area', 'Projetos Sin - Scrum.'],
+    ['Iteration', 'Projetos Sin - Scrum.'],
+    ['Repro Steps', 'O texto do reporte gerado pelo prompt (as 6 seções).'],
+    ['Demand', 'A demanda relacionada.'],
+    ['Request Date', 'A data da solicitação.'],
+    ['Requesting User', 'O usuário que está solicitando/reportando.'],
+    ['Ticket', 'Se houver ticket de suporte (Freshdesk/atendimento), o número do ticket; se não houver, o número da tarefa.'],
+    ['Department', 'O departamento responsável.'],
+    ['Board', 'O board/quadro de destino.'],
+    ['Priority / Severity', 'Prioridade e severidade do erro (ex.: 1 - Critical).'],
+  ]}
+/>
+
+## Estados (State)
+
+Use o **State** conforme o momento do item:
+
+<DocTable
+  headers={['State', 'Quando usar']}
+  rows={[
+    ['New', 'Item novo, apenas para deixar no backlog.'],
+    ['Approved', 'Item aprovado, que ainda vai ser direcionado ao backlog.'],
+    ['In Progress', 'Item em tratamento (sendo trabalhado).'],
+  ]}
+/>
+
+<Callout type="cuidado" title="O texto vai em Repro Steps">
+No Bug, o reporte gerado pelo prompt é colado no campo **"Repro Steps"** — é lá que ficam as 6 seções (título, descrição, passos, esperado, ajuste, evidência).
+</Callout>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '08/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/09/2026', author: 'Renan Camargo', description: 'Modelo de prompt para reporte de bug e passo a passo de abertura no Azure DevOps, com campos obrigatórios.' },
+  ]}
+/>
