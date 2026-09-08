@@ -5,7 +5,21 @@ import HeroVideo from '../../components/HeroVideo.astro';
 import SearchBox from '../../components/SearchBox.astro';
 import ModuleCard from '../../components/ModuleCard.astro';
 import Icon from '../../components/Icon.astro';
-import { manualPages, moduleEn, manualPageEn, tecnicoGroupEn, sortedModules, sortedTecnicoPages } from '../../data/modules';
+import { getCollection } from 'astro:content';
+import { manualPages, moduleEn, manualPageEn, tecnicoGroupEn, sortedModules, sortedTecnicoPages, sortedTecnicoSubPages } from '../../data/modules';
+import type { TecnicoGroup } from '../../data/modules';
+
+// Container groups (submodules only, e.g. AZURE) have no own index page — point
+// the card to the first available submodule so it never lands on a 404.
+const allDocs = await getCollection('docs');
+const tecnicoIndexSlugs = new Set(
+  allDocs.filter((d) => d.data.section === 'tecnico').map((d) => d.data.routeSlug),
+);
+const tecnicoGroupHref = (group: TecnicoGroup): string => {
+  if (tecnicoIndexSlugs.has(group.slug)) return `/en/tecnico/${group.slug}`;
+  const first = sortedTecnicoSubPages(group, true).find((p) => !p.unavailable);
+  return first ? `/en/tecnico/${group.slug}/${first.slug}` : `/en/tecnico/${group.slug}`;
+};
 
 const heroVideo = {
   provider: 'youtube' as const,
@@ -92,7 +106,7 @@ const shortcuts = [
           <ul class="space-y-2">
             {sortedTecnicoPages(true).map((p) => (
               <li>
-                <a href={`/en/tecnico/${p.slug}`} class="group flex items-center justify-between rounded-lg border border-gray-200 px-4 py-3 text-sm transition hover:border-brand-red/30 hover:shadow-card">
+                <a href={tecnicoGroupHref(p)} class="group flex items-center justify-between rounded-lg border border-gray-200 px-4 py-3 text-sm transition hover:border-brand-red/30 hover:shadow-card">
                   <span>
                     <span class="block font-medium text-gray-900 group-hover:text-brand-red">{tecnicoGroupEn[p.slug]?.title ?? p.title}</span>
                     <span class="block text-xs text-gray-500">{tecnicoGroupEn[p.slug]?.description ?? p.description}</span>

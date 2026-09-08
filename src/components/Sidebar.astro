@@ -125,13 +125,17 @@ const unavailableClasses = 'text-brand-red/70 cursor-not-allowed';
           <li>
             <details open={activeGroup || undefined} class="group">
               <summary class="flex cursor-pointer list-none items-center justify-between rounded-md px-2.5 py-1.5 text-sm font-medium text-gray-700 marker:content-none hover:bg-gray-100">
-                <a
-                  href={groupHref}
-                  class:list={['truncate', isActive(groupHref) ? 'text-brand-red font-semibold' : '']}
-                  onclick="event.stopPropagation()"
-                >
-                  {tecnicoLabel(group.slug, group.title)}
-                </a>
+                {availableTecnicoSlugs.includes(group.slug) ? (
+                  <a
+                    href={groupHref}
+                    class:list={['truncate', isActive(groupHref) ? 'text-brand-red font-semibold' : '']}
+                    onclick="event.stopPropagation()"
+                  >
+                    {tecnicoLabel(group.slug, group.title)}
+                  </a>
+                ) : (
+                  <span class="truncate">{tecnicoLabel(group.slug, group.title)}</span>
+                )}
                 <Icon name="chevron-right" class="h-3.5 w-3.5 flex-shrink-0 text-gray-400 transition-transform duration-150 group-open:rotate-90" />
               </summary>
               {hasPages && (
