@@ -25,6 +25,10 @@ The **Customer Creation and Approval** flow describes the complete process of re
 
 The flow happens in the **Customer Module**, mainly on the **Customer** and **Registration Approvals Queue** screens, and involves two types of user: the one who creates the customer (Master or Common) and the one who approves (Credit, Tax and International Credit levels).
 
+<Callout type="info" title="When this path (WITH Ignition) is used">
+This is the **WITH Ignition** path. It applies when, on the **[Feature Control](/en/modulos/administrador/controle-de-funcionalidade)** screen, the **`Fila.Clientes.SemIgnition`** key is **Disabled (Inactive)**. If it is **Enabled (Yes)**, registration follows the new queue — see [Customer Registration WITHOUT Ignition](/en/tecnico/fluxos/cadastro-clientes-sem-ignition). Today, in Homologation, the key is **enabled**, so the flow in use is the one WITHOUT Ignition.
+</Callout>
+
 <QuickCards
   cards={[
     { label: 'Purpose', title: 'Customer registration and approval', text: 'Standardizes the creation of individual, company and foreign customers and the routing to the approval levels.' },

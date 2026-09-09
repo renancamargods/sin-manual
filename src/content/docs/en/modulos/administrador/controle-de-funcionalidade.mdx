@@ -80,8 +80,27 @@ Administrator → Feature Control
   ]}
 />
 
-<Callout type="info" title="Feature examples">
-Registered features include: Gateway.Pagamento.PayGo, Fila.Pedidos.SemIgnition, Fila.Clientes.SemIgnition and Contratos.Vigencia.Bloqueio.Manual.
+### Registered features (real examples)
+
+The features currently registered and what each one does. What turns the behavior on/off is the **Enabled** column (Yes/No):
+
+<DocTable
+  headers={['Key', 'Name', 'Enabled (HML)', 'Effect']}
+  rows={[
+    ['Gateway.Pagamento.PayGo', 'Definir Gateway Padrão CC - PayGo', 'Yes (Active)', 'Sets PayGo as the default credit-card gateway.'],
+    ['Fila.Pedidos.SemIgnition', 'Nova Fila de Pedidos - Sem Ignition', 'Yes (Active)', 'Enabled: orders use the NEW approval queue, WITHOUT Ignition. Disabled: they go back to the queue WITH Ignition.'],
+    ['Fila.Clientes.SemIgnition', 'Nova Fila de Clientes - Sem Ignition', 'Yes (Active)', 'Enabled: customer registration uses the NEW approval queue, WITHOUT Ignition. Disabled: it goes back to the queue WITH Ignition.'],
+    ['Contratos.Vigencia.Bloqueio.Manual', 'Contratos > Bloquear preenchimento manual Vigências', 'No (Inactive)', 'Enabled: blocks manual entry of contract validity periods.'],
+  ]}
+/>
+
+<Callout type="info" title="How the key turns Ignition on/off">
+The **Fila.Clientes.SemIgnition** and **Fila.Pedidos.SemIgnition** keys decide which **approval queue** the system uses:
+
+- **Enabled = Yes (Active)** → uses the **new queue WITHOUT Ignition** (the faster path, described in [Customer Registration WITHOUT Ignition](/en/tecnico/fluxos/cadastro-clientes-sem-ignition) and [Order Approval WITHOUT Ignition](/en/tecnico/fluxos/aprovacao-de-pedidos-sem-ignition)).
+- **Enabled = No (Inactive)** → goes back to the **queue WITH Ignition** (the previous path, with Ignition — see [Customer Registration WITH Ignition](/en/tecnico/fluxos/criacao-de-cliente)).
+
+Today, in Homologation, both keys are **Enabled (Active)** — that is, customers and orders follow the queue **WITHOUT Ignition**.
 </Callout>
 
 ## Main flows

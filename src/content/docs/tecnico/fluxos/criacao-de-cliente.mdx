@@ -24,6 +24,10 @@ O fluxo de **Criação e Aprovação de Cliente** descreve o processo completo d
 
 O fluxo acontece no **Módulo Cliente**, principalmente nas telas **Cliente** e **Fila de Aprovações de Cadastro**, e envolve dois tipos de usuário: quem cria o cliente (Master ou Comum) e quem aprova (alçadas de Crédito, Fiscal e Crédito Internacional).
 
+<Callout type="info" title="Quando este caminho (COM Ignition) é usado">
+Este é o caminho **COM Ignition**. Ele vale quando, na tela **[Controle de Funcionalidade](/modulos/administrador/controle-de-funcionalidade)**, a chave **`Fila.Clientes.SemIgnition`** está **Desabilitada (Inativa)**. Se ela estiver **Habilitada (Sim)**, o cadastro segue pela nova fila — ver [Cadastro de Clientes SEM Ignition](/tecnico/fluxos/cadastro-clientes-sem-ignition). Hoje, em Homologação, a chave está **habilitada**, então o fluxo em uso é o SEM Ignition.
+</Callout>
+
 <QuickCards
   cards={[
     { label: 'Finalidade', title: 'Cadastro e aprovação de clientes', text: 'Padroniza a criação de clientes PF, PJ e estrangeiro e o encaminhamento para as alçadas de aprovação.' },

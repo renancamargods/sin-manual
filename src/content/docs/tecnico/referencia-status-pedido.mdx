@@ -1,0 +1,105 @@
+---
+section: tecnico
+routeSlug: referencia-status-pedido
+pageType: tecnico
+title: Referência - Status do Pedido
+description: Tabela de referência de todos os status do pedido (StatusDePedido) — o que cada status significa e a ação típica de suporte, do rascunho ao faturamento.
+keywords: [status do pedido, referência, rascunho, liberado, análise crédito, análise administrativo, integrado, erro integração, faturado, separação, pix, cartão, pagamento misto, ciclo de aprovação, sap, phc]
+tags: [tecnico, referencia, pedido]
+order: 7
+---
+
+import Callout from '../../../components/Callout.astro';
+import DocTable from '../../../components/DocTable.astro';
+import DocControl from '../../../components/DocControl.astro';
+
+## Visão geral
+
+Esta é uma página de **referência**: a lista completa dos status possíveis do pedido, com o significado e a ação típica de suporte. Para entender **por que** um pedido parou em análise, veja **[Motor de Crédito - Análise Automática do Pedido](/tecnico/fluxos/motor-de-credito-analise-automatica)** e **[Motivos de Bloqueio](/tecnico/referencia-motivos-de-bloqueio)**.
+
+<Callout type="dica" title="Status com 'Erro' pedem escalonamento">
+Status que começam com <strong>Erro</strong> (integração, PIX, cartão, faturamento, pagamento misto) normalmente indicam falha técnica — verifique os logs e escale para o time responsável.
+</Callout>
+
+## Tabela de status
+
+<DocTable
+  headers={['#', 'Status', 'Significado / ação de suporte']}
+  rows={[
+    ['0', 'Rascunho', 'Pré-pedido em edição.'],
+    ['1', 'Liberado', 'Aprovado, pronto para integrar.'],
+    ['2', 'Cancelado', 'Cancelado.'],
+    ['3', 'Análise Crédito', 'Na mesa de crédito — aguardar/consultar Crédito.'],
+    ['4', 'Análise Administrativo', 'Na alçada Adm — ver motivos de bloqueio.'],
+    ['5', 'Integrado', 'Integrado ao SAP.'],
+    ['6', 'Erro Integração', 'Escalar — falha de integração.'],
+    ['7', 'Faturado', 'Faturado (completo).'],
+    ['8', 'Faturado Parcial', 'Faturado em parte.'],
+    ['9', 'Faturado e Cancelado', 'Faturado e depois cancelado.'],
+    ['10', 'Recusa Análise Crédito', 'Crédito recusou.'],
+    ['11', 'Recusa Análise Administrativo', 'Adm recusou.'],
+    ['12', 'Aguardando Token', 'Aguardando token de pagamento.'],
+    ['13', 'Aguardando Pagamento Cartão', 'Aguardando pagamento no cartão.'],
+    ['14', 'Aguardando Pagamento PIX', 'Aguardando PIX.'],
+    ['15', 'Falha no Pagamento', 'Falha no pagamento.'],
+    ['16', 'Token Expirado', 'Token expirou — reemitir.'],
+    ['17', 'Pagamento Negado', 'Pagamento negado.'],
+    ['18', 'Pagamento Cancelado', 'Pagamento cancelado.'],
+    ['19', 'Falha de Comunicação com Fornecedor', 'Falha com gateway/fornecedor — escalar.'],
+    ['20', 'Token Cancelado', 'Token cancelado.'],
+    ['21', 'Aguardando Gerar PIX', 'Gerando PIX.'],
+    ['22', 'Erro Gerar PIX', 'Erro ao gerar PIX — escalar.'],
+    ['23', 'Erro Gerar Link Cartão', 'Erro ao gerar link de cartão — escalar.'],
+    ['24', 'Cancelado SAP', 'Cancelado no SAP.'],
+    ['25', 'Pedido em Avaliação Crédito', 'Em avaliação de crédito (transitório).'],
+    ['26', 'Parcialmente Cancelado no SAP', 'Parcialmente cancelado no SAP.'],
+    ['27', 'Pedido em Avaliação Administrativo', 'Em avaliação Adm (transitório).'],
+    ['28', 'Em Processamento', 'Processando.'],
+    ['29', 'Cancelado Financeiro', 'Cancelado pelo Financeiro.'],
+    ['30', 'Cancelado Administrativo', 'Cancelado pelo Adm.'],
+    ['31', 'Pedido Excluído no SAP', 'Excluído no SAP.'],
+    ['32', 'Aguardando Separação do Pedido', 'Aguardando separação.'],
+    ['33', 'Em Separação', 'Em separação.'],
+    ['34', 'Separado Parcialmente', 'Separado em parte.'],
+    ['35', 'Separado Completamente', 'Separação concluída.'],
+    ['36', 'Enviado para Faturamento', 'Enviado ao faturamento.'],
+    ['37', 'Aguardando Faturamento', 'Aguardando faturar.'],
+    ['38', 'Erro no Faturamento', 'Erro no faturamento — escalar.'],
+    ['39', 'Link PIX Gerado', 'Link PIX gerado.'],
+    ['40', 'Erro Integração SAP', 'Erro na integração SAP — escalar.'],
+    ['41', 'Folha de Picking Gerada', 'Folha de picking gerada.'],
+    ['42', 'Pedido Aprovado Automaticamente', 'Aprovado pelo motor (crédito).'],
+    ['43', 'Pedido TDC Liberado Automaticamente', 'TDC liberado automaticamente.'],
+    ['44', 'Pedido Repasse Crédito', 'Em repasse de crédito.'],
+    ['45', 'Aguardando Gerar Pagamentos Mistos', 'Gerando pagamentos mistos.'],
+    ['46', 'Pagamentos Mistos Gerados', 'Pagamentos mistos gerados.'],
+    ['47', 'Aguardando Pagamentos Mistos', 'Aguardando pagamentos mistos.'],
+    ['48', 'Erro ao Processar Pagamento Misto', 'Erro no pagamento misto — escalar.'],
+    ['49', 'Pagamento Misto Parcialmente Pago', 'Misto pago em parte.'],
+    ['50', 'Mudança de Lounge do Pedido', 'Mudança de lounge.'],
+    ['51', 'Ciclo de Aprovação Cancelado', 'Ciclo de aprovação cancelado.'],
+    ['52', 'Aguardando Aprovações', 'Ciclo de aprovação aberto.'],
+    ['53', 'Ciclo de Aprovação Concluído', 'Ciclo concluído.'],
+    ['54', 'Erro ao Tratar Pedido Totalmente Aprovado', 'Erro pós-aprovação total — escalar.'],
+    ['55', 'Aguardando Integração Pedido Consumo', 'Aguardando integração de consumo.'],
+    ['56', 'Erro ao Integrar Pedido de Consumo', 'Erro integração consumo — escalar.'],
+    ['57', 'Processar Devolução Simbólica', 'Devolução simbólica.'],
+    ['58', 'Integrado Parcial', 'Integrado em parte.'],
+    ['59', 'Ciclo de Aprovação Recusado', 'Ciclo recusado.'],
+    ['60', 'Liberado em Nova Fila de Aprovação', 'Liberado na fila nova.'],
+    ['800', 'Enviado Integração PHC', 'Enviado ao PHC.'],
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '08/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da referência de status do pedido.' },
+  ]}
+/>

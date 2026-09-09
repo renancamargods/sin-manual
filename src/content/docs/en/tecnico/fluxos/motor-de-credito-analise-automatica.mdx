@@ -1,0 +1,206 @@
+---
+section: tecnico
+routeSlug: fluxos/motor-de-credito-analise-automatica
+pageType: tecnico
+lang: en
+title: Credit Engine - Automatic Order Analysis
+description: How the system analyzes the order AUTOMATICALLY before the approval queues — the Credit Engine decision tree (Blacklist, Bank Deposit, Card/PIX, Bonus, OPL, Mixed Payment, Serasa, CAR and Value) and the Sales Admin validations that generate the blocking reasons.
+moduleLabel: Orders Module
+routineType: Process flow
+impact: Automatic decision to approve the order or send it to review
+keywords: [credit engine, automatic analysis, order, blacklist, bank deposit, card, pix, bonus, opl, mixed payment, serasa, car, accounts receivable, order value, sales admin, block, credit desk, automatic approval]
+tags: [tecnico, fluxo, pedido, credito]
+order: 2
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+When an order is submitted, **before** it enters the approval queues (Sales Admin, Credit, Collections), the system runs an **automatic analysis**. This analysis decides three things: whether the order can **integrate straight to SAP**, whether it must stop at some **approval area**, and **why**.
+
+The analysis has three tracks, run in sequence:
+
+1. **Sales Admin** — 12 commercial-policy validations that generate **blocking reasons**.
+2. **Credit Engine** — a **decision tree** that approves the order or routes it to the **Credit Desk** (manual review).
+3. **Collections** — checks whether the customer is **overdue / a debtor**.
+
+<Callout type="info" title="This page is the 'engine', not the queue">
+The **[Order Approval - Without Ignition](/en/tecnico/fluxos/aprovacao-de-pedidos-sem-ignition)** flow shows **the queues** (who approves and in what order). This page shows what the system decides **on its own, before the queues** — including when the order is released without anyone acting on it.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Decide automatically', text: 'Approve the order right away when it is within the rules, or route it to the right area with the reason recorded.' },
+    { label: 'Where to look', title: 'Analysis log and blocking reasons', text: 'Each decision is recorded in the order analysis log; blocks appear on the order as a Blocking Reason.' },
+    { label: 'Caution', title: 'Several points are configurable', text: 'Serasa, minimum value, value limit and enabled/disabled steps depend on system parameters (AppSettings).' },
+  ]}
+/>
+
+## When to use this flow
+
+- Understand **why** an order was approved automatically, stopped at Credit, or stopped at Sales Admin.
+- Explain to the user the **blocking reason** shown on the order.
+- Investigate an order that landed on the **Credit Desk** (manual review).
+
+## How to access
+
+- **Orders** module → **Order** → view the **Blocking Reasons** and the order **analysis log**.
+- The limit settings are in the **Administrator** module (Parameters / Feature Control).
+
+## Quick glossary
+
+<DocTable
+  headers={['Term', 'Meaning']}
+  rows={[
+    ['Credit Engine', 'Set of automatic rules that decides whether the order passes straight through or goes to manual review.'],
+    ['Credit Desk', 'Manual review by the Credit team when the engine cannot approve on its own.'],
+    ['Approval area', 'Area responsible for approving (Sales Admin, Credit, Collections).'],
+    ['CAR', 'Accounts Receivable. Used to measure customer delinquency.'],
+    ['Score / Rating', 'Customer credit indicators from the DW (Data Warehouse).'],
+    ['OPL', 'Logistics Operator / storage shipment — integrates automatically.'],
+    ['PFCQ / YBPF', 'Operation codes (bonus) that integrate automatically.'],
+    ['[Configurable]', 'Behavior that depends on a parameter / feature flag (AppSettings).'],
+  ]}
+/>
+
+## Track 1 — Sales Admin (12 validations)
+
+The system runs 12 validations **in order**. Each one that fails generates a **blocking reason** and the order stops at the **Sales Admin** area (status "Administrative Review"). Before it starts, the order's previous blocking reasons are **cleared** (the analysis restarts from scratch).
+
+<DocTable
+  headers={['Order', 'Validation', 'When it blocks', 'Blocking reason']}
+  rows={[
+    ['1', 'Order Minimum Value', 'Total value below the configured minimum.', 'ValorMinimoPedido'],
+    ['2', 'First Installment Days', 'First installment term outside the allowed range.', 'DiasDaPrimeiraParcela'],
+    ['3', 'Item Outside Policy', 'Item with a discount outside the commercial policy.', 'PoliticaComercialDescontoDeItem'],
+    ['4', 'Header Policy', 'Total discount or payment terms outside the header policy.', 'PoliticaComercialDescontoTotal / CondicaoDePagamentoForaDaPolitica'],
+    ['5', 'Bonus Items', 'Order has a bonus item.', 'Bonificacao'],
+    ['6', 'Consignment Order', 'Consignment-type operation.', 'Consignacao'],
+    ['7', 'Has Any Discount', 'Has a discount but does not fit any policy/contract.', 'PedidoSemPoliticaComDesconto'],
+    ['8', 'Exception Product', 'Order has a product with a sales exception.', 'PedidoComProdutoExcecao'],
+    ['9', 'International Customer', 'International customer — every order stops for approval.', 'PedidoInternacional'],
+    ['10', 'Contract Items', 'Contract item with discount above the allowed, or contract item + bonus in the same order.', 'ItemDeContratoComDescontoMaiorQuePermitido / ItemDeContratoEBonificadoNoMesmoPedido'],
+    ['11', 'Originated from Key Account', 'Order came from the Key Accounts Portal.', 'OrigemKA'],
+    ['12', 'Freight Values', 'Freight informed is lower than the policy value.', 'ValorDeFreteMenorQueOEstipuladoPelaSin'],
+  ]}
+/>
+
+<Callout type="dica" title="Key Account (KA) has an exception">
+If there is a Sales Admin block but the order is a **Key Account (KA)**, it does **not** stop at Sales Admin — it goes straight to Credit analysis. The full list of reasons is in **[Blocking Reasons](/en/tecnico/referencia-motivos-de-bloqueio)**.
+</Callout>
+
+## Track 2 — Credit Engine (decision tree)
+
+The Credit Engine is an **ordered tree**: the **first** condition met **interrupts** the analysis and sets the order's destination. The order is exactly this:
+
+<DocTable
+  headers={['#', 'Step', 'Condition', 'Result']}
+  rows={[
+    ['0', 'Foreign Customer', 'Customer is of type Foreign.', 'Skips credit analysis (no credit block).'],
+    ['0', 'Not in the DW', 'Customer not found in the DW base (Score/Rating).', 'Credit Desk (manual review).'],
+    ['0', 'No payment terms', 'Payment method/terms not identified.', 'Credit Desk.'],
+    ['1', 'Blacklist', 'Customer is on the blacklist.', 'Interrupts; follows the status suggested by the validation.'],
+    ['2', 'Bank Deposit', 'Payment method is bank deposit.', 'Interrupts; suggested status.'],
+    ['3', 'Card / PIX', 'Eligible card/PIX payment method.', 'Automatic approval by payment terms.'],
+    ['4', 'PFCQ Bonus', 'ERP order is a PFCQ bonus.', 'Interrupts; may be an OPL operation.'],
+    ['5', 'OPL Shipment', 'Operation is an OPL shipment.', 'Interrupts; OPL operation integrates automatically.'],
+    ['6', 'Mixed Payment', 'Order combines more than one payment method.', 'Interrupts; handles mixed payments.'],
+    ['7', 'Serasa [Configurable]', 'Serasa flow enabled AND order value above the Serasa value.', 'Queries Serasa; if refused, goes to Credit Desk.'],
+    ['8', 'CAR / Delinquency', 'CAR (accounts receivable) above tolerance.', 'Credit Desk ("CAR above limit").'],
+    ['9', 'Order Value', 'Value above the allowed limit.', 'Interrupts; suggested status.'],
+    ['✓', 'Approved', 'Passed all steps above.', 'Automatically approved by the engine, per current policy.'],
+  ]}
+/>
+
+<Callout type="info" title="Serasa — when it is queried">
+Serasa is **only** queried when the Serasa flow parameter is **on** and the **order value** is greater than the configured value. Below that value, it is not queried. If Serasa **refuses**, the order is routed to manual review (Credit Desk).
+</Callout>
+
+### Credit analysis sub-status
+
+When the order is on the Credit Desk, the team details the step with a **sub-status** (current version):
+
+<DocTable
+  headers={['Sub-status', 'Meaning']}
+  rows={[
+    ['External Credit Analysis', 'External analysis (bureau).'],
+    ['Internal Credit Analysis', 'Internal team analysis.'],
+    ['Internal Negotiation Analysis', 'Internal negotiation.'],
+    ['Credit Approved Handover', 'Credit approved, in handover.'],
+    ['Handover Pending Down Payment', 'Awaiting down payment.'],
+    ['Handover Term Issuance', 'Term being issued.'],
+    ['Handover Term Sent', 'Term sent to the customer.'],
+    ['Handover Legal Pending', 'Legal pending.'],
+  ]}
+/>
+
+## Track 3 — Collections
+
+The **Collections** area checks whether the customer is **overdue / a debtor** ("Delinquent Customer" rule). If so, the order requires Collections approval. In practice, the **Collections – National** step is the one that enters for **PIX or Card** payments and checks **overdue CAR** (see the queue approval flow).
+
+## What happens at the end of the analysis
+
+<DocTable
+  headers={['Situation', 'What the system does']}
+  rows={[
+    ['Sales Admin OK + Credit approved + Collections OK', 'Integrates the order automatically to SAP.'],
+    ['OPL or YBPF operation', 'Integrates automatically (status "Released"), ignoring blocks.'],
+    ['Sales Admin block (and not KA)', 'Status "Administrative Review".'],
+    ['Credit not approved / Desk', 'Status "Credit Review" and records the reason "Credit Analysis".'],
+    ['Credit Engine approved', 'Records "Order Automatically Approved".'],
+  ]}
+/>
+
+<Callout type="dica" title="How the order value is calculated">
+Value = (sum of **Sale + Campaign + Consignment** items + **Freight**) − (**total discount %** × sum of items). **Bonus** items are summed separately and do **not** enter the base value. This is the value used by the **Minimum Value**, **Serasa** and **Order Value** rules.
+</Callout>
+
+## Related pages
+
+- **[Order Approval - Without Ignition](/en/tecnico/fluxos/aprovacao-de-pedidos-sem-ignition)** — the approval queues (what comes after this analysis).
+- **[Blocking Reasons](/en/tecnico/referencia-motivos-de-bloqueio)** — the full list of blocks.
+- **[Reference - Order Status](/en/tecnico/referencia-status-pedido)** — what each status means.
+- **[Credit and Anti-fraud (ClearSale)](/en/tecnico/fluxos/credito-e-antifraude-clearsale)** — anti-fraud analysis in the customer registration.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Likely cause', 'What to check']}
+  rows={[
+    ['Order stopped at Sales Admin with no clear reason', 'One of the 12 validations failed', 'Open the order Blocking Reasons and compare with the Track 1 table.'],
+    ['Order landed on the Credit Desk', 'Customer not in the DW, high CAR, Serasa refused or value above limit', 'Check the analysis log; check the customer Score/Rating/CAR.'],
+    ['Bonus order integrated with no analysis', 'OPL/YBPF rule always integrates', 'Expected behavior.'],
+    ['International order always stops', 'PedidoInternacional block (every international order stops)', 'Expected behavior; wait for the area.'],
+    ['Serasa was not queried', 'Serasa flow off or value below the parameter', 'Check the Serasa flow parameter and the minimum query value.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is the difference between this analysis and the approval queues?', answer: 'This analysis is automatic and happens before the queues: it decides whether the order integrates straight through, or stops at some area and why. The queues are the next step, when there is manual approval.' },
+    { question: 'What is the Credit Desk?', answer: 'It is the manual review by the Credit team, triggered when the engine cannot approve on its own (e.g., customer not in the DW, high CAR, Serasa refused).' },
+    { question: 'Why was an order approved without anyone acting on it?', answer: 'Because it passed all Credit Engine steps with no block, or because it is an OPL/YBPF operation, which integrates automatically.' },
+    { question: 'When is Serasa queried?', answer: 'Only when the Serasa flow is on and the order value is greater than the configured value. If Serasa refuses, the order goes to the Credit Desk.' },
+    { question: 'Does a foreign customer go through the Credit Engine?', answer: 'No. For a foreign customer, the national credit analysis is skipped (no credit block).' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '09/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '09/08/2026', author: 'Renan Camargo', description: 'Initial release: automatic order analysis (Credit Engine and Sales Admin validations).' },
+  ]}
+/>

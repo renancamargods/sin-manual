@@ -24,6 +24,10 @@ O fluxo de **Aprovação de Pedidos SEM Ignition** descreve, passo a passo, como
 
 O caminho de aprovação segue exatamente a **Regra de Aprovação** configurada. Algumas etapas só entram conforme a característica do pedido — por exemplo, a etapa de **Cobrança – Nacional** só ocorre quando a forma de pagamento é **PIX ou Cartão**.
 
+<Callout type="info" title="Antes das filas: a análise automática">
+Antes de entrar nas filas, o sistema roda uma análise automática (Motor de Crédito + Adm. Vendas) que pode **liberar o pedido na hora** ou **pará-lo com um motivo de bloqueio**. Entenda o que acontece antes desta etapa em <a href="/tecnico/fluxos/motor-de-credito-analise-automatica">Motor de Crédito - Análise Automática do Pedido</a>.
+</Callout>
+
 <QuickCards
   cards={[
     { label: 'Finalidade', title: 'Aprovar pedidos sem Ignition', text: 'Padroniza a criação e a aprovação de pedidos pelo caminho mais simples (Ignition desativado).' },
@@ -86,7 +90,17 @@ Estes passos normalmente já estarão configurados. Eles só precisam ser feitos
 
 ### Passo 1 — Definir se a fila usa Ignition
 
-No módulo **Administrador**, tela **Controle de Funcionalidade**, é possível ativar ou inativar o uso da fila Ignition. Para este processo, a opção deve ficar **ATIVA para que a fila do Ignition NÃO seja usada** — o pedido segue pelo caminho mais simples.
+No módulo **Administrador**, tela **[Controle de Funcionalidade](/modulos/administrador/controle-de-funcionalidade)**, a chave **`Fila.Pedidos.SemIgnition`** ("Nova Fila de Pedidos - Sem Ignition") define qual fila os pedidos usam:
+
+<DocTable
+  headers={['Habilitada', 'O que acontece']}
+  rows={[
+    ['Sim (Ativo)', 'Os pedidos usam a NOVA fila SEM Ignition — o caminho descrito neste fluxo (mais rápido e direto).'],
+    ['Não (Inativo)', 'Os pedidos voltam a usar a fila COM Ignition (caminho anterior).'],
+  ]}
+/>
+
+Para este processo, a chave deve ficar **Habilitada (Sim)** — assim a fila do Ignition **não** é usada. Hoje, em Homologação, ela já está habilitada.
 
 ### Passo 2 — Configurar a Regra de Aprovação
 

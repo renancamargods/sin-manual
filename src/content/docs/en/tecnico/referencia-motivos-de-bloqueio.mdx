@@ -1,0 +1,63 @@
+---
+section: tecnico
+routeSlug: referencia-motivos-de-bloqueio
+pageType: tecnico
+lang: en
+title: Reference - Blocking Reasons
+description: Reference table of all order approval blocking reasons (BloqueioDeAprovacao) — which area handles each one and what it means.
+keywords: [blocking reason, approval block, reference, sales admin, credit, minimum value, commercial policy, discount, bonus, consignment, freight, payment terms, key account, international, contract]
+tags: [tecnico, referencia, pedido]
+order: 8
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Overview
+
+This is a **reference** page: all the blocking reasons that can appear on an order, with the responsible area and the meaning. To understand **when** each block is generated, see **[Credit Engine - Automatic Order Analysis](/en/tecnico/fluxos/motor-de-credito-analise-automatica)**.
+
+<Callout type="info" title="Who handles the block">
+Most blocks belong to the <strong>Sales Admin</strong> area (commercial policy). The <strong>Credit</strong> ones come from credit analysis / refusal. The analysis clears the previous blocks and rebuilds the list on each order submission.
+</Callout>
+
+## Reasons table
+
+<DocTable
+  headers={['Value', 'Reason', 'Area', 'What it means']}
+  rows={[
+    ['0', 'First Installment Days', 'Sales Admin', 'First installment term outside the allowed range.'],
+    ['1', 'Commercial Policy Item Discount', 'Sales Admin', 'Item with a discount outside the policy.'],
+    ['2', 'Commercial Policy Total Discount', 'Sales Admin', 'Total (header) discount outside the policy.'],
+    ['3', 'Bonus', 'Sales Admin', 'Order has a bonus item.'],
+    ['4', 'Consignment', 'Sales Admin', 'Order is consignment-type.'],
+    ['5', 'Order Minimum Value', 'Sales Admin', 'Total value below the minimum.'],
+    ['6', 'Credit', 'Credit', 'Credit analysis (default Credit Desk reason).'],
+    ['7', 'Credit Review Refusal', 'Credit', 'Credit refused the order.'],
+    ['8', 'Administrative Review Refusal', 'Sales Admin', 'Admin refused the order.'],
+    ['9', 'Order Without Policy With Discount', 'Sales Admin', 'Has a discount but does not fit any policy/contract.'],
+    ['10', 'Order With Exception Product', 'Sales Admin', 'Order has a product with a sales exception.'],
+    ['11', 'International Order', 'Sales Admin', 'International customer — every order stops for approval.'],
+    ['12', 'Contract Item With Discount Above Allowed', 'Sales Admin', 'Contract item with a discount above the allowed.'],
+    ['13', 'Contract Item and Bonus in the Same Order', 'Sales Admin', 'Contract item together with a bonus in the same order.'],
+    ['14', 'Freight Value Lower Than Sin Standard', 'Sales Admin', 'Freight informed lower than the policy value.'],
+    ['15', 'Commercial Policy Not Found', 'Sales Admin', 'No applicable commercial policy found.'],
+    ['16', 'Payment Terms Outside Policy', 'Sales Admin', 'Payment terms outside the header policy.'],
+    ['17', 'KA Origin', 'Sales Admin', 'Order originated from the Key Accounts Portal.'],
+    ['18', 'Order Value Changed', 'Sales Admin', 'The order value was changed after the calculation.'],
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '09/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '09/08/2026', author: 'Renan Camargo', description: 'Initial release of the blocking reasons reference.' },
+  ]}
+/>

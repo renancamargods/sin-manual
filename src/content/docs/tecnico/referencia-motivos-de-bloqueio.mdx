@@ -1,0 +1,62 @@
+---
+section: tecnico
+routeSlug: referencia-motivos-de-bloqueio
+pageType: tecnico
+title: Referência - Motivos de Bloqueio
+description: Tabela de referência de todos os motivos de bloqueio de aprovação de pedido (BloqueioDeAprovacao) — qual alçada trata cada um e o que significa.
+keywords: [motivo de bloqueio, bloqueio de aprovação, referência, adm vendas, crédito, valor mínimo, política comercial, desconto, bonificação, consignação, frete, condição de pagamento, key account, internacional, contrato]
+tags: [tecnico, referencia, pedido]
+order: 8
+---
+
+import Callout from '../../../components/Callout.astro';
+import DocTable from '../../../components/DocTable.astro';
+import DocControl from '../../../components/DocControl.astro';
+
+## Visão geral
+
+Esta é uma página de **referência**: todos os motivos de bloqueio que podem aparecer em um pedido, com a alçada responsável e o significado. Para entender **em que momento** cada bloqueio é gerado, veja **[Motor de Crédito - Análise Automática do Pedido](/tecnico/fluxos/motor-de-credito-analise-automatica)**.
+
+<Callout type="info" title="Quem trata o bloqueio">
+A maioria dos bloqueios é da alçada <strong>Adm. Vendas</strong> (política comercial). Os de <strong>Crédito</strong> vêm da análise de crédito / recusa. A análise limpa os bloqueios anteriores e recria a lista a cada envio do pedido.
+</Callout>
+
+## Tabela de motivos
+
+<DocTable
+  headers={['Valor', 'Motivo', 'Alçada', 'O que significa']}
+  rows={[
+    ['0', 'Dias da Primeira Parcela', 'Adm. Vendas', 'Prazo da 1ª parcela fora do permitido.'],
+    ['1', 'Política Comercial Desconto de Item', 'Adm. Vendas', 'Item com desconto fora da política.'],
+    ['2', 'Política Comercial Desconto Total', 'Adm. Vendas', 'Desconto total (capa) fora da política.'],
+    ['3', 'Bonificação', 'Adm. Vendas', 'Pedido possui item bonificado.'],
+    ['4', 'Consignação', 'Adm. Vendas', 'Pedido é do tipo consignado.'],
+    ['5', 'Valor Mínimo Pedido', 'Adm. Vendas', 'Valor total abaixo do valor mínimo.'],
+    ['6', 'Crédito', 'Crédito', 'Análise de crédito (motivo padrão da Mesa de Crédito).'],
+    ['7', 'Recusa Análise Crédito', 'Crédito', 'O Crédito recusou o pedido.'],
+    ['8', 'Recusa Análise Administrativo', 'Adm. Vendas', 'O Adm recusou o pedido.'],
+    ['9', 'Pedido Sem Política Com Desconto', 'Adm. Vendas', 'Tem desconto mas não se enquadra em nenhuma política/contrato.'],
+    ['10', 'Pedido Com Produto Exceção', 'Adm. Vendas', 'Pedido tem produto com exceção de venda.'],
+    ['11', 'Pedido Internacional', 'Adm. Vendas', 'Cliente internacional — todo pedido para em aprovação.'],
+    ['12', 'Item de Contrato Com Desconto Maior Que Permitido', 'Adm. Vendas', 'Item de contrato com desconto acima do permitido.'],
+    ['13', 'Item de Contrato e Bonificado no Mesmo Pedido', 'Adm. Vendas', 'Item de contrato junto com bonificação no mesmo pedido.'],
+    ['14', 'Valor de Frete Menor Que o Estipulado pela Sin', 'Adm. Vendas', 'Frete informado menor que o da política.'],
+    ['15', 'Política Comercial Não Encontrada', 'Adm. Vendas', 'Não foi encontrada política comercial aplicável.'],
+    ['16', 'Condição de Pagamento Fora da Política', 'Adm. Vendas', 'Condição de pagamento fora da política de capa.'],
+    ['17', 'Origem KA', 'Adm. Vendas', 'Pedido originado do Portal Key Accounts.'],
+    ['18', 'Valor do Pedido Alterado', 'Adm. Vendas', 'O valor do pedido foi alterado após o cálculo.'],
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '08/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da referência de motivos de bloqueio.' },
+  ]}
+/>

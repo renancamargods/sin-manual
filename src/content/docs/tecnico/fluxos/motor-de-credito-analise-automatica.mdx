@@ -1,0 +1,205 @@
+---
+section: tecnico
+routeSlug: fluxos/motor-de-credito-analise-automatica
+pageType: tecnico
+title: Motor de Crédito - Análise Automática do Pedido
+description: Como o sistema analisa o pedido AUTOMATICAMENTE antes das filas de aprovação — a árvore de decisão do Motor de Crédito (Blacklist, Depósito, Cartão/PIX, Bonificação, OPL, Pagamento Misto, Serasa, CAR e Valor) e as validações da alçada Adm. Vendas que geram os motivos de bloqueio.
+moduleLabel: Módulo Pedidos
+routineType: Fluxo de processo
+impact: Decisão automática de aprovar o pedido ou enviá-lo para análise
+keywords: [motor de crédito, análise automática, pedido, blacklist, depósito bancário, cartão, pix, bonificação, opl, pagamento misto, serasa, car, contas a receber, valor do pedido, adm vendas, bloqueio, mesa de crédito, aprovação automática]
+tags: [tecnico, fluxo, pedido, credito]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+Quando um pedido é enviado, **antes** de entrar nas filas de aprovação (ADM, Crédito, Cobrança), o sistema roda uma **análise automática**. Essa análise decide três coisas: se o pedido pode **integrar direto ao SAP**, se ele precisa parar em alguma **alçada** e **por qual motivo**.
+
+A análise tem três trilhas, executadas em sequência:
+
+1. **Adm. Vendas** — 12 validações de política comercial que geram **motivos de bloqueio**.
+2. **Motor de Crédito** — uma **árvore de decisão** que aprova o pedido ou o encaminha para a **Mesa de Crédito** (análise manual).
+3. **Cobrança** — verifica se o cliente é **inadimplente / devedor**.
+
+<Callout type="info" title="Esta página é o 'motor', não a fila">
+O fluxo **[Aprovação de Pedidos - Sem Ignition](/tecnico/fluxos/aprovacao-de-pedidos-sem-ignition)** mostra **as filas** (quem aprova e em que ordem). Esta página mostra o que o sistema decide **sozinho, antes das filas** — inclusive quando o pedido é liberado sem passar por ninguém.
+</Callout>
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Decidir automaticamente', text: 'Aprovar o pedido na hora quando ele está dentro das regras, ou encaminhá-lo para a alçada certa com o motivo registrado.' },
+    { label: 'Onde ver', title: 'Log de análise e motivos de bloqueio', text: 'Cada decisão fica registrada no log de análise do pedido; os bloqueios aparecem no pedido como Motivo de Bloqueio.' },
+    { label: 'Cuidado', title: 'Vários pontos são parametrizáveis', text: 'Serasa, valor mínimo, limite de valor e etapas ligadas/desligadas dependem de parâmetros do sistema (AppSettings).' },
+  ]}
+/>
+
+## Quando usar este fluxo
+
+- Entender **por que** um pedido foi aprovado automaticamente, parou no Crédito ou parou no Adm.
+- Explicar ao usuário o **motivo de bloqueio** que apareceu no pedido.
+- Investigar um pedido que caiu na **Mesa de Crédito** (análise manual).
+
+## Como acessar
+
+- Módulo **Pedidos** → **Pedido** → ver os **Motivos de Bloqueio** e o **log de análise** do pedido.
+- A configuração dos limites está no módulo **Administrador** (Parâmetros / Controle de Funcionalidade).
+
+## Glossário rápido
+
+<DocTable
+  headers={['Termo', 'O que significa']}
+  rows={[
+    ['Motor de Crédito', 'Conjunto de regras automáticas que decide se o pedido passa direto ou vai para análise manual.'],
+    ['Mesa de Crédito', 'Análise manual feita pelo time de Crédito quando o motor não consegue aprovar sozinho.'],
+    ['Alçada', 'Área responsável por aprovar (Adm. Vendas, Crédito, Cobrança).'],
+    ['CAR', 'Contas a Receber. Usado para medir inadimplência do cliente.'],
+    ['Score / Rating', 'Indicadores de crédito do cliente vindos do DW (Data Warehouse).'],
+    ['OPL', 'Operador Logístico / remessa de armazenagem — integra automaticamente.'],
+    ['PFCQ / YBPF', 'Códigos de operação (bonificação) que integram automaticamente.'],
+    ['[Parametrizável]', 'Comportamento que depende de parâmetro / feature flag (AppSettings).'],
+  ]}
+/>
+
+## Trilha 1 — Adm. Vendas (12 validações)
+
+O sistema executa 12 validações **em ordem**. Cada uma que falha gera um **motivo de bloqueio** e o pedido para na alçada **Adm. Vendas** (status "Análise Administrativo"). Antes de começar, os motivos de bloqueio anteriores do pedido são **limpos** (a análise recomeça do zero).
+
+<DocTable
+  headers={['Ordem', 'Validação', 'Quando bloqueia', 'Motivo de bloqueio']}
+  rows={[
+    ['1', 'Valor Mínimo do Pedido', 'Valor total abaixo do valor mínimo parametrizado.', 'ValorMinimoPedido'],
+    ['2', 'Dias da Primeira Parcela', 'Prazo da 1ª parcela fora do permitido.', 'DiasDaPrimeiraParcela'],
+    ['3', 'Item Fora da Política', 'Item com desconto fora da política comercial.', 'PoliticaComercialDescontoDeItem'],
+    ['4', 'Política de Capa', 'Desconto total ou condição de pagamento fora da política de capa.', 'PoliticaComercialDescontoTotal / CondicaoDePagamentoForaDaPolitica'],
+    ['5', 'Itens Bonificados', 'Pedido possui item bonificado.', 'Bonificacao'],
+    ['6', 'Pedido Consignado', 'Operação do tipo consignado.', 'Consignacao'],
+    ['7', 'Possui Algum Desconto', 'Tem desconto mas não se enquadra em nenhuma política/contrato.', 'PedidoSemPoliticaComDesconto'],
+    ['8', 'Produto de Exceção', 'Pedido tem produto com exceção de venda.', 'PedidoComProdutoExcecao'],
+    ['9', 'Cliente Internacional', 'Cliente internacional — todo pedido para em aprovação.', 'PedidoInternacional'],
+    ['10', 'Itens de Contrato', 'Item de contrato com desconto acima do permitido, ou item de contrato + bonificação no mesmo pedido.', 'ItemDeContratoComDescontoMaiorQuePermitido / ItemDeContratoEBonificadoNoMesmoPedido'],
+    ['11', 'Originado Key Account', 'Pedido veio do Portal Key Accounts.', 'OrigemKA'],
+    ['12', 'Valores de Frete', 'Frete informado menor que o estipulado pela política.', 'ValorDeFreteMenorQueOEstipuladoPelaSin'],
+  ]}
+/>
+
+<Callout type="dica" title="Key Account (KA) tem exceção">
+Se houver bloqueio de Adm. Vendas mas o pedido for **Key Account (KA)**, ele **não** para no Adm — segue direto para a análise de Crédito. A lista completa de motivos está em **[Motivos de Bloqueio](/tecnico/referencia-motivos-de-bloqueio)**.
+</Callout>
+
+## Trilha 2 — Motor de Crédito (árvore de decisão)
+
+O Motor de Crédito é uma **árvore ordenada**: a **primeira** condição satisfeita **interrompe** a análise e define o destino do pedido. A ordem é exatamente esta:
+
+<DocTable
+  headers={['#', 'Etapa', 'Condição', 'Resultado']}
+  rows={[
+    ['0', 'Cliente Estrangeiro', 'Cliente é do tipo Estrangeiro.', 'Pula a análise de crédito (sem bloqueio de crédito).'],
+    ['0', 'Sem dados no DW', 'Cliente não encontrado na base do DW (Score/Rating).', 'Mesa de Crédito (análise manual).'],
+    ['0', 'Sem condição de pagamento', 'Forma/condição de pagamento não identificada.', 'Mesa de Crédito.'],
+    ['1', 'Blacklist', 'Cliente está na blacklist.', 'Interrompe; segue o status sugerido pela validação.'],
+    ['2', 'Depósito Bancário', 'Forma de pagamento é depósito bancário.', 'Interrompe; status sugerido.'],
+    ['3', 'Cartão / PIX', 'Forma de pagamento cartão/PIX elegível.', 'Aprovação automática por condição de pagamento.'],
+    ['4', 'Bonificação PFCQ', 'Ordem ERP é bonificação PFCQ.', 'Interrompe; pode ser operação OPL.'],
+    ['5', 'Remessa OPL', 'Operação é remessa OPL.', 'Interrompe; operação OPL integra automaticamente.'],
+    ['6', 'Pagamento Misto', 'Pedido combina mais de uma forma de pagamento.', 'Interrompe; trata pagamentos mistos.'],
+    ['7', 'Serasa [Parametrizável]', 'Fluxo Serasa ligado E valor do pedido acima do valor Serasa.', 'Consulta o Serasa; se recusado, vai para Mesa de Crédito.'],
+    ['8', 'CAR / Inadimplência', 'CAR (contas a receber) acima da tolerância.', 'Mesa de Crédito ("CAR acima do limite").'],
+    ['9', 'Valor do Pedido', 'Valor acima do limite permitido.', 'Interrompe; status sugerido.'],
+    ['✓', 'Aprovado', 'Passou por todas as etapas acima.', 'Aprovado automaticamente pelo motor, conforme política vigente.'],
+  ]}
+/>
+
+<Callout type="info" title="Serasa — quando é consultado">
+O Serasa **só** é consultado quando o parâmetro do fluxo Serasa está **ligado** e o **valor do pedido** é maior que o valor parametrizado. Abaixo desse valor, não consulta. Se o Serasa **recusa**, o pedido é direcionado para análise manual (Mesa de Crédito).
+</Callout>
+
+### Sub-status da análise de crédito
+
+Quando o pedido está na Mesa de Crédito, o time detalha a etapa por um **sub-status** (versão atual):
+
+<DocTable
+  headers={['Sub-status', 'Significado']}
+  rows={[
+    ['Análise Externa Crédito', 'Análise externa (bureau).'],
+    ['Análise Interna Crédito', 'Análise interna do time.'],
+    ['Análise Interna Negociação', 'Em negociação interna.'],
+    ['Repasse Crédito Aprovado', 'Crédito aprovado, em repasse.'],
+    ['Repasse Pendente Pagamento Entrada', 'Aguardando pagamento de entrada.'],
+    ['Repasse Termo Emissão', 'Termo em emissão.'],
+    ['Repasse Termo Enviado', 'Termo enviado ao cliente.'],
+    ['Repasse Pendência Jurídica', 'Pendência jurídica.'],
+  ]}
+/>
+
+## Trilha 3 — Cobrança
+
+A alçada de **Cobrança** verifica se o cliente está **inadimplente / devedor** (regra "Cliente Inadimplente"). Se estiver, o pedido requer aprovação da Cobrança. Na prática, a etapa de **Cobrança – Nacional** é a que entra para pagamentos **PIX ou Cartão** e checa **CAR vencido** (ver o fluxo de aprovação das filas).
+
+## O que acontece no fim da análise
+
+<DocTable
+  headers={['Situação', 'O que o sistema faz']}
+  rows={[
+    ['Adm OK + Crédito aprovado + Cobrança OK', 'Integra o pedido automaticamente ao SAP.'],
+    ['Operação OPL ou YBPF', 'Integra automaticamente (status "Liberado"), ignorando bloqueios.'],
+    ['Bloqueio de Adm (e não é KA)', 'Status "Análise Administrativo".'],
+    ['Crédito não aprovado / Mesa', 'Status "Análise Crédito" e registra o motivo "Análise de Crédito".'],
+    ['Motor de Crédito aprovou', 'Registra "Pedido Aprovado Automaticamente".'],
+  ]}
+/>
+
+<Callout type="dica" title="Como o valor do pedido é calculado">
+Valor = (soma dos itens de **Venda + Campanha + Consignado** + **Frete**) − (**% desconto total** × soma dos itens). Os itens de **Bonificação** são somados à parte e **não** entram no valor base. É esse valor que as regras de **Valor Mínimo**, **Serasa** e **Valor do Pedido** usam.
+</Callout>
+
+## Relação com outras páginas
+
+- **[Aprovação de Pedidos - Sem Ignition](/tecnico/fluxos/aprovacao-de-pedidos-sem-ignition)** — as filas de aprovação (o que vem depois desta análise).
+- **[Motivos de Bloqueio](/tecnico/referencia-motivos-de-bloqueio)** — lista completa dos bloqueios.
+- **[Referência - Status do Pedido](/tecnico/referencia-status-pedido)** — o que cada status significa.
+- **[Crédito e Antifraude (ClearSale)](/tecnico/fluxos/credito-e-antifraude-clearsale)** — análise antifraude no cadastro do cliente.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Pedido parou no Adm sem motivo claro', 'Uma das 12 validações falhou', 'Abra os Motivos de Bloqueio do pedido e compare com a tabela da Trilha 1.'],
+    ['Pedido caiu na Mesa de Crédito', 'Cliente sem dados no DW, CAR alto, Serasa recusado ou valor acima do limite', 'Ver o log de análise; conferir Score/Rating/CAR do cliente.'],
+    ['Pedido de bonificação integrou sem análise', 'Regra OPL/YBPF integra sempre', 'Comportamento esperado.'],
+    ['Pedido internacional sempre para', 'Bloqueio PedidoInternacional (todo pedido internacional para)', 'Comportamento esperado; aguardar a alçada.'],
+    ['Serasa não foi consultado', 'Fluxo Serasa desligado ou valor abaixo do parâmetro', 'Conferir o parâmetro do fluxo Serasa e o valor mínimo de consulta.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Qual a diferença entre esta análise e as filas de aprovação?', answer: 'Esta análise é automática e acontece antes das filas: ela decide se o pedido integra direto, ou para em alguma alçada e por qual motivo. As filas são o passo seguinte, quando há aprovação manual.' },
+    { question: 'O que é a Mesa de Crédito?', answer: 'É a análise manual do time de Crédito, acionada quando o motor não consegue aprovar sozinho (ex.: cliente sem dados no DW, CAR alto, Serasa recusado).' },
+    { question: 'Por que um pedido foi aprovado sem passar por ninguém?', answer: 'Porque passou por todas as etapas do Motor de Crédito sem bloqueio, ou porque é uma operação OPL/YBPF, que integra automaticamente.' },
+    { question: 'Quando o Serasa é consultado?', answer: 'Somente quando o fluxo Serasa está ligado e o valor do pedido é maior que o valor parametrizado. Se o Serasa recusa, o pedido vai para a Mesa de Crédito.' },
+    { question: 'Cliente estrangeiro passa pelo Motor de Crédito?', answer: 'Não. Para cliente estrangeiro, a análise de crédito nacional é pulada (sem bloqueio de crédito).' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '08/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/09/2026', author: 'Renan Camargo', description: 'Emissão inicial: análise automática do pedido (Motor de Crédito e validações Adm. Vendas).' },
+  ]}
+/>

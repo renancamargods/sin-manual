@@ -1,0 +1,74 @@
+---
+section: tecnico
+routeSlug: referencia-status-cliente
+pageType: tecnico
+lang: en
+title: Reference - Customer Status
+description: Reference table of all customer registration statuses (StatusDoCliente) — what each status means and the typical support action.
+keywords: [customer status, reference, new, released, active, credit review, fiscal review, administrative review, denied, re-analysis, blocked, deactivated, awaiting approvals, sap code, ignition, phc]
+tags: [tecnico, referencia, cliente]
+order: 6
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Overview
+
+This is a **reference** page: the full list of possible customer registration statuses, with the meaning and the typical support action. Use it to quickly look up what a status means.
+
+<Callout type="info" title="Two approval flows coexist">
+The <strong>Review/Re-analysis/Denied</strong> statuses belong to the <strong>With Ignition</strong> flow (legacy). The <strong>Awaiting Approvals</strong>, <strong>Approval Cycle Cancelled</strong> and <strong>Released New Queue</strong> statuses belong to the <strong>new queue flow</strong>. Which one applies depends on the customer queue parameter. See the flows in <a href="/en/tecnico/fluxos/cadastro-clientes-sem-ignition">Customer Registration - Without Ignition</a> and <a href="/en/tecnico/fluxos/criacao-de-cliente">With Ignition</a>.
+</Callout>
+
+## Status table
+
+<DocTable
+  headers={['#', 'Status', 'Meaning', 'Support action']}
+  rows={[
+    ['0', 'New', 'Just created, not yet sent to the queues.', 'Wait for processing / check submission.'],
+    ['1', 'Released', 'Approved by the areas, ready to integrate.', 'Track SAP integration.'],
+    ['2', 'Rejected', 'Rejected (generic).', 'Check reason; fix registration and resubmit.'],
+    ['3', 'Prospect', 'Potential customer, not yet activated.', 'No action (commercial).'],
+    ['4', 'Error Integrating Customer', 'Failure integrating into the ERP.', 'Escalate integration; check integration log.'],
+    ['5', 'Active', 'Integrated into SAP and able to buy.', 'OK.'],
+    ['6', 'Credit Registration Review', 'In the Credit queue (legacy).', 'Wait for Credit; check pending items.'],
+    ['7', 'Administrative Registration Review', 'In the Sales Admin queue.', 'Wait for Admin.'],
+    ['8', 'Fiscal Registration Review', 'In the Fiscal queue.', 'Wait for Fiscal.'],
+    ['9', 'Denied Credit Review', 'Credit denied.', 'Fix/negotiate; resubmit (goes to Re-analysis).'],
+    ['10', 'Denied Administrative Review', 'Admin denied.', 'Fix and resubmit.'],
+    ['11', 'Denied Fiscal Review', 'Fiscal denied.', 'Fix fiscal data and resubmit.'],
+    ['12', 'Credit Re-analysis', 'Resubmitted to Credit after change.', 'Wait.'],
+    ['13', 'Administrative Re-analysis', 'Resubmitted to Admin.', 'Wait.'],
+    ['14', 'Fiscal Re-analysis', 'Resubmitted to Fiscal.', 'Wait.'],
+    ['15', 'Cancelled', 'Registration cancelled.', 'No action.'],
+    ['16', 'Blocked', 'Customer blocked for operation.', 'Check reason; unblock if applicable.'],
+    ['17', 'Deactivated', 'Deactivated.', 'Reactivate if needed.'],
+    ['18', 'Sent PHC Integration', 'Sent to PHC.', 'Track PHC integration.'],
+    ['19', 'Customer in Fiscal Evaluation', 'In fiscal evaluation (transient).', 'Wait.'],
+    ['20', 'Customer in Credit Evaluation', 'In credit evaluation (transient).', 'Wait.'],
+    ['21', 'Awaiting Submission to Approval Queues', 'Changed; will reopen approval.', 'Wait for automatic resubmission.'],
+    ['22', 'Sent Ignition', 'Sent to the Ignition orchestrator.', 'Track.'],
+    ['23', 'Awaiting Approvals', 'New flow: approval cycle open.', 'Track the cycle steps.'],
+    ['24', 'Approval Cycle Cancelled', 'Cycle (new flow) cancelled.', 'Check reason; reopen if needed.'],
+    ['25', 'Released New Approval Queue', 'Approved in the new queue flow.', 'Track integration.'],
+  ]}
+/>
+
+<Callout type="dica" title="Rule that reopens approval">
+Whenever fields that affect an area are changed, the customer <strong>goes back</strong> to awaiting that area's approval. This is defined by the <strong>Field Validation</strong> setup — detailed in the <a href="/en/tecnico/fluxos/cadastro-clientes-sem-ignition">Customer Registration - Without Ignition</a> flow.
+</Callout>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '09/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '09/08/2026', author: 'Renan Camargo', description: 'Initial release of the customer status reference.' },
+  ]}
+/>

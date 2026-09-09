@@ -25,6 +25,10 @@ The **Order Approval WITHOUT Ignition** flow describes, step by step, how an ord
 
 The approval path follows exactly the configured **Approval Rule**. Some steps only apply depending on the order characteristics — for example, the **Collections – National** step only happens when the payment method is **PIX or Card**.
 
+<Callout type="info" title="Before the queues: the automatic analysis">
+Before entering the queues, the system runs an automatic analysis (Credit Engine + Sales Admin) that may **release the order right away** or **stop it with a blocking reason**. Learn what happens before this step in <a href="/en/tecnico/fluxos/motor-de-credito-analise-automatica">Credit Engine - Automatic Order Analysis</a>.
+</Callout>
+
 <QuickCards
   cards={[
     { label: 'Purpose', title: 'Approve orders without Ignition', text: 'Standardizes the creation and approval of orders through the simplest path (Ignition disabled).' },
@@ -87,7 +91,17 @@ These steps are usually already configured. They only need to be done once.
 
 ### Step 1 — Set whether the queue uses Ignition
 
-In the **Administrator** module, **Feature Control** screen, you can enable or disable the use of the Ignition queue. For this process, the option must be **ACTIVE so that the Ignition queue is NOT used** — the order follows the simplest path.
+In the **Administrator** module, **[Feature Control](/en/modulos/administrador/controle-de-funcionalidade)** screen, the **`Fila.Pedidos.SemIgnition`** key ("Nova Fila de Pedidos - Sem Ignition") defines which queue orders use:
+
+<DocTable
+  headers={['Enabled', 'What happens']}
+  rows={[
+    ['Yes (Active)', 'Orders use the NEW queue WITHOUT Ignition — the path described in this flow (faster and more direct).'],
+    ['No (Inactive)', 'Orders go back to the queue WITH Ignition (the previous path).'],
+  ]}
+/>
+
+For this process, the key must be **Enabled (Yes)** — so the Ignition queue is **not** used. Today, in Homologation, it is already enabled.
 
 ### Step 2 — Configure the Approval Rule
 

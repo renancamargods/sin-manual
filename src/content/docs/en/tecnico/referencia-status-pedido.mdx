@@ -1,0 +1,106 @@
+---
+section: tecnico
+routeSlug: referencia-status-pedido
+pageType: tecnico
+lang: en
+title: Reference - Order Status
+description: Reference table of all order statuses (StatusDePedido) — what each status means and the typical support action, from draft to invoicing.
+keywords: [order status, reference, draft, released, credit review, administrative review, integrated, integration error, invoiced, separation, pix, card, mixed payment, approval cycle, sap, phc]
+tags: [tecnico, referencia, pedido]
+order: 7
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Overview
+
+This is a **reference** page: the full list of possible order statuses, with the meaning and the typical support action. To understand **why** an order stopped in review, see **[Credit Engine - Automatic Order Analysis](/en/tecnico/fluxos/motor-de-credito-analise-automatica)** and **[Blocking Reasons](/en/tecnico/referencia-motivos-de-bloqueio)**.
+
+<Callout type="dica" title="'Error' statuses need escalation">
+Statuses starting with <strong>Error</strong> (integration, PIX, card, invoicing, mixed payment) usually indicate a technical failure — check the logs and escalate to the responsible team.
+</Callout>
+
+## Status table
+
+<DocTable
+  headers={['#', 'Status', 'Meaning / support action']}
+  rows={[
+    ['0', 'Draft', 'Pre-order being edited.'],
+    ['1', 'Released', 'Approved, ready to integrate.'],
+    ['2', 'Cancelled', 'Cancelled.'],
+    ['3', 'Credit Review', 'On the credit desk — wait/consult Credit.'],
+    ['4', 'Administrative Review', 'In the Admin area — check blocking reasons.'],
+    ['5', 'Integrated', 'Integrated into SAP.'],
+    ['6', 'Integration Error', 'Escalate — integration failure.'],
+    ['7', 'Invoiced', 'Invoiced (complete).'],
+    ['8', 'Partially Invoiced', 'Partially invoiced.'],
+    ['9', 'Invoiced and Cancelled', 'Invoiced and then cancelled.'],
+    ['10', 'Credit Review Refusal', 'Credit refused.'],
+    ['11', 'Administrative Review Refusal', 'Admin refused.'],
+    ['12', 'Awaiting Token', 'Awaiting payment token.'],
+    ['13', 'Awaiting Card Payment', 'Awaiting card payment.'],
+    ['14', 'Awaiting PIX Payment', 'Awaiting PIX.'],
+    ['15', 'Payment Failure', 'Payment failure.'],
+    ['16', 'Token Expired', 'Token expired — reissue.'],
+    ['17', 'Payment Denied', 'Payment denied.'],
+    ['18', 'Payment Cancelled', 'Payment cancelled.'],
+    ['19', 'Provider Communication Failure', 'Gateway/provider failure — escalate.'],
+    ['20', 'Token Cancelled', 'Token cancelled.'],
+    ['21', 'Awaiting PIX Generation', 'Generating PIX.'],
+    ['22', 'Error Generating PIX', 'Error generating PIX — escalate.'],
+    ['23', 'Error Generating Card Link', 'Error generating card link — escalate.'],
+    ['24', 'Cancelled SAP', 'Cancelled in SAP.'],
+    ['25', 'Order in Credit Evaluation', 'In credit evaluation (transient).'],
+    ['26', 'Partially Cancelled in SAP', 'Partially cancelled in SAP.'],
+    ['27', 'Order in Administrative Evaluation', 'In Admin evaluation (transient).'],
+    ['28', 'Processing', 'Processing.'],
+    ['29', 'Cancelled by Finance', 'Cancelled by Finance.'],
+    ['30', 'Cancelled by Admin', 'Cancelled by Admin.'],
+    ['31', 'Order Deleted in SAP', 'Deleted in SAP.'],
+    ['32', 'Awaiting Order Separation', 'Awaiting separation.'],
+    ['33', 'In Separation', 'In separation.'],
+    ['34', 'Partially Separated', 'Partially separated.'],
+    ['35', 'Fully Separated', 'Separation complete.'],
+    ['36', 'Sent to Invoicing', 'Sent to invoicing.'],
+    ['37', 'Awaiting Invoicing', 'Awaiting invoicing.'],
+    ['38', 'Invoicing Error', 'Invoicing error — escalate.'],
+    ['39', 'PIX Link Generated', 'PIX link generated.'],
+    ['40', 'SAP Integration Error', 'SAP integration error — escalate.'],
+    ['41', 'Picking Sheet Generated', 'Picking sheet generated.'],
+    ['42', 'Order Automatically Approved', 'Approved by the engine (credit).'],
+    ['43', 'TDC Order Automatically Released', 'TDC automatically released.'],
+    ['44', 'Order Credit Handover', 'In credit handover.'],
+    ['45', 'Awaiting Mixed Payments Generation', 'Generating mixed payments.'],
+    ['46', 'Mixed Payments Generated', 'Mixed payments generated.'],
+    ['47', 'Awaiting Mixed Payments', 'Awaiting mixed payments.'],
+    ['48', 'Error Processing Mixed Payment', 'Mixed payment error — escalate.'],
+    ['49', 'Mixed Payment Partially Paid', 'Mixed partially paid.'],
+    ['50', 'Order Lounge Change', 'Lounge change.'],
+    ['51', 'Approval Cycle Cancelled', 'Approval cycle cancelled.'],
+    ['52', 'Awaiting Approvals', 'Approval cycle open.'],
+    ['53', 'Approval Cycle Completed', 'Cycle completed.'],
+    ['54', 'Error Handling Fully Approved Order', 'Post-approval error — escalate.'],
+    ['55', 'Awaiting Consumption Order Integration', 'Awaiting consumption integration.'],
+    ['56', 'Error Integrating Consumption Order', 'Consumption integration error — escalate.'],
+    ['57', 'Process Symbolic Return', 'Symbolic return.'],
+    ['58', 'Partially Integrated', 'Partially integrated.'],
+    ['59', 'Approval Cycle Refused', 'Cycle refused.'],
+    ['60', 'Released in New Approval Queue', 'Released in the new queue.'],
+    ['800', 'Sent PHC Integration', 'Sent to PHC.'],
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '09/08/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '09/08/2026', author: 'Renan Camargo', description: 'Initial release of the order status reference.' },
+  ]}
+/>

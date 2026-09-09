@@ -89,7 +89,17 @@ Estes passos normalmente já estarão configurados. Eles só precisam ser feitos
 
 ### Passo 1 — Definir se a fila usa Ignition
 
-No módulo **Administrador**, tela **Controle de Funcionalidade**, é possível ativar ou desativar o uso da fila Ignition. Para este processo, a opção deve ficar **ATIVA para que a fila do Ignition NÃO seja usada** — ou seja, o cadastro segue pelo caminho mais simples e rápido.
+No módulo **Administrador**, tela **[Controle de Funcionalidade](/modulos/administrador/controle-de-funcionalidade)**, a chave **`Fila.Clientes.SemIgnition`** ("Nova Fila de Clientes - Sem Ignition") define qual fila o cadastro de clientes usa:
+
+<DocTable
+  headers={['Habilitada', 'O que acontece']}
+  rows={[
+    ['Sim (Ativo)', 'O cadastro usa a NOVA fila SEM Ignition — o caminho descrito neste fluxo (mais rápido e direto).'],
+    ['Não (Inativo)', 'O cadastro volta a usar a fila COM Ignition (caminho anterior).'],
+  ]}
+/>
+
+Para este processo, a chave deve ficar **Habilitada (Sim)** — assim a fila do Ignition **não** é usada. Hoje, em Homologação, ela já está habilitada.
 
 ### Passo 2 — Configurar a Regra de Aprovação
 
@@ -224,6 +234,26 @@ O caminho depende do **tipo de pessoa**: <strong>Física</strong> passa por ADM 
 ## Ativação final do cadastro
 
 Depois de alguns segundos ou minutos, o sistema **ativa o cadastro automaticamente**, independentemente do tipo de cliente. Nesse momento é possível ver a **atualização mais recente** e o **Código SAP**, gerado pelo próprio sistema para identificar aquele cliente. A partir daí, o processo está concluído e o cliente já está pronto para uso.
+
+## O que reabre a aprovação ao editar um cliente
+
+Um cliente já ativo **volta** a aguardar aprovação quando um campo relevante é alterado. O que decide isso é a tela **[Campo Validação](/modulos/administrador/campo-validacao)**, que marca cada campo como pertencente à análise **Fiscal**, **Crédito** ou **Ambos**:
+
+<DocTable
+  headers={['Situação da alteração', 'O que acontece']}
+  rows={[
+    ['Campo marcado como "Ambos"', 'O cliente reabre em todas as alçadas aplicáveis (Fiscal e Crédito).'],
+    ['Campo só de Fiscal', 'Reabre apenas a alçada Fiscal (não vale para Pessoa Física, que não tem Fiscal).'],
+    ['Campo só de Crédito', 'Reabre apenas a alçada Crédito.'],
+    ['Campo fora do Campo Validação', 'O status é mantido; a alteração é apenas registrada (auditoria).'],
+    ['Cliente ainda não integrado ao SAP', 'Passa por Fiscal e Crédito por padrão (cadastro novo).'],
+    ['Cliente já integrado ao SAP', 'Reabre só a alçada cujos campos foram alterados; não reenvia para a alçada onde já está.'],
+  ]}
+/>
+
+<Callout type="dica" title="Regras fixas">
+Pessoa Física **nunca** passa pelo Fiscal. Cliente **Estrangeiro** (ou com endereço principal fora do Brasil) não passa pela etapa de Adm. Vendas. A lista de status resultantes está em <a href="/tecnico/referencia-status-cliente">Referência - Status do Cliente</a>.
+</Callout>
 
 ## Resumo rápido
 

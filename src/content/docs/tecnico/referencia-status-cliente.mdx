@@ -1,0 +1,73 @@
+---
+section: tecnico
+routeSlug: referencia-status-cliente
+pageType: tecnico
+title: Referência - Status do Cliente
+description: Tabela de referência de todos os status do cadastro de cliente (StatusDoCliente) — o que cada status significa e a ação típica de suporte.
+keywords: [status do cliente, referência, novo, liberado, ativo, análise crédito, análise fiscal, análise administrativo, negado, reanalise, bloqueado, desativado, aguardando aprovações, código sap, ignition, phc]
+tags: [tecnico, referencia, cliente]
+order: 6
+---
+
+import Callout from '../../../components/Callout.astro';
+import DocTable from '../../../components/DocTable.astro';
+import DocControl from '../../../components/DocControl.astro';
+
+## Visão geral
+
+Esta é uma página de **referência**: a lista completa dos status possíveis do cadastro de cliente, com o significado e a ação típica de suporte. Use-a para consultar rapidamente o que um status quer dizer.
+
+<Callout type="info" title="Dois fluxos de aprovação convivem">
+Os status de <strong>Análise/Reanálise/Negado</strong> pertencem ao fluxo <strong>Com Ignition</strong> (legado). Os status <strong>Aguardando Aprovações</strong>, <strong>Ciclo de Aprovação Cancelado</strong> e <strong>Liberado Nova Fila</strong> pertencem ao <strong>novo fluxo de filas</strong>. Qual fluxo vale depende do parâmetro da fila de clientes. Veja os fluxos em <a href="/tecnico/fluxos/cadastro-clientes-sem-ignition">Cadastro de Clientes - Sem Ignition</a> e <a href="/tecnico/fluxos/criacao-de-cliente">Com Ignition</a>.
+</Callout>
+
+## Tabela de status
+
+<DocTable
+  headers={['#', 'Status', 'Significado', 'Ação de suporte']}
+  rows={[
+    ['0', 'Novo', 'Recém-criado, ainda não enviado às filas.', 'Aguardar processamento / verificar envio.'],
+    ['1', 'Liberado', 'Aprovado nas alçadas, pronto para integrar.', 'Acompanhar integração ao SAP.'],
+    ['2', 'Reprovado', 'Reprovado (genérico).', 'Ver motivo; corrigir cadastro e reenviar.'],
+    ['3', 'Prospect', 'Cliente potencial, não efetivado.', 'Sem ação (comercial).'],
+    ['4', 'Erro ao Integrar Cliente', 'Falha ao integrar no ERP.', 'Escalar integração; ver log de integração.'],
+    ['5', 'Ativo', 'Integrado ao SAP e apto a comprar.', 'OK.'],
+    ['6', 'Análise Cadastro Crédito', 'Na fila do Crédito (legado).', 'Aguardar Crédito; verificar pendências.'],
+    ['7', 'Análise Cadastro Administrativo', 'Na fila do Adm. Vendas.', 'Aguardar Adm.'],
+    ['8', 'Análise Cadastro Fiscal', 'Na fila do Fiscal.', 'Aguardar Fiscal.'],
+    ['9', 'Negado Análise Crédito', 'Crédito negou.', 'Corrigir/negociar; reenviar (vai para Reanálise).'],
+    ['10', 'Negado Análise Administrativo', 'Adm negou.', 'Corrigir e reenviar.'],
+    ['11', 'Negado Análise Fiscal', 'Fiscal negou.', 'Corrigir dados fiscais e reenviar.'],
+    ['12', 'Reanálise Crédito', 'Reenviado ao Crédito após alteração.', 'Aguardar.'],
+    ['13', 'Reanálise Administrativo', 'Reenviado ao Adm.', 'Aguardar.'],
+    ['14', 'Reanálise Fiscal', 'Reenviado ao Fiscal.', 'Aguardar.'],
+    ['15', 'Cancelado', 'Cadastro cancelado.', 'Sem ação.'],
+    ['16', 'Bloqueado', 'Cliente bloqueado para operação.', 'Ver motivo; desbloquear se aplicável.'],
+    ['17', 'Desativado', 'Inativado.', 'Reativar se necessário.'],
+    ['18', 'Enviado Integração PHC', 'Enviado ao PHC.', 'Acompanhar integração PHC.'],
+    ['19', 'Cliente em Avaliação Fiscal', 'Em avaliação fiscal (transitório).', 'Aguardar.'],
+    ['20', 'Cliente em Avaliação Crédito', 'Em avaliação de crédito (transitório).', 'Aguardar.'],
+    ['21', 'Aguardando Envio para Filas de Aprovação', 'Alterado; vai reabrir aprovação.', 'Aguardar reenvio automático.'],
+    ['22', 'Enviado Ignition', 'Enviado ao orquestrador Ignition.', 'Acompanhar.'],
+    ['23', 'Aguardando Aprovações', 'Novo fluxo: ciclo de aprovação aberto.', 'Acompanhar etapas do ciclo.'],
+    ['24', 'Ciclo de Aprovação Cancelado', 'Ciclo (novo fluxo) cancelado.', 'Ver motivo; reabrir se preciso.'],
+    ['25', 'Liberado Nova Fila Aprovação', 'Aprovado no novo fluxo de filas.', 'Acompanhar integração.'],
+  ]}
+/>
+
+<Callout type="dica" title="Regra que reabre a aprovação">
+Sempre que campos que afetam uma alçada são alterados, o cliente <strong>volta</strong> a aguardar a aprovação daquela alçada. O que define isso é a configuração de <strong>Campo Validação</strong> — detalhada no fluxo <a href="/tecnico/fluxos/cadastro-clientes-sem-ignition">Cadastro de Clientes - Sem Ignition</a>.
+</Callout>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '08/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '08/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da referência de status do cliente.' },
+  ]}
+/>

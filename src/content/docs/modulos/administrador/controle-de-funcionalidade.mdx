@@ -79,8 +79,27 @@ Administrador → Controle de Funcionalidade
   ]}
 />
 
-<Callout type="info" title="Exemplos de funcionalidades">
-Entre as funcionalidades cadastradas estão: Gateway.Pagamento.PayGo, Fila.Pedidos.SemIgnition, Fila.Clientes.SemIgnition e Contratos.Vigencia.Bloqueio.Manual.
+### Funcionalidades cadastradas (exemplos reais)
+
+As funcionalidades hoje cadastradas e o que cada uma faz. O que liga/desliga o comportamento é a coluna **Habilitada** (Sim/Não):
+
+<DocTable
+  headers={['Chave', 'Nome', 'Habilitada (HML)', 'Efeito']}
+  rows={[
+    ['Gateway.Pagamento.PayGo', 'Definir Gateway Padrão CC - PayGo', 'Sim (Ativo)', 'Define o PayGo como gateway padrão de cartão de crédito.'],
+    ['Fila.Pedidos.SemIgnition', 'Nova Fila de Pedidos - Sem Ignition', 'Sim (Ativo)', 'Habilitada: os pedidos usam a NOVA fila de aprovação, SEM Ignition. Desabilitada: voltam a usar a fila COM Ignition.'],
+    ['Fila.Clientes.SemIgnition', 'Nova Fila de Clientes - Sem Ignition', 'Sim (Ativo)', 'Habilitada: o cadastro de clientes usa a NOVA fila de aprovação, SEM Ignition. Desabilitada: volta a usar a fila COM Ignition.'],
+    ['Contratos.Vigencia.Bloqueio.Manual', 'Contratos > Bloquear preenchimento manual Vigências', 'Não (Inativo)', 'Habilitada: bloqueia o preenchimento manual das vigências de contrato.'],
+  ]}
+/>
+
+<Callout type="info" title="Como a chave liga/desliga o Ignition">
+As chaves **Fila.Clientes.SemIgnition** e **Fila.Pedidos.SemIgnition** decidem qual **fila de aprovação** o sistema usa:
+
+- **Habilitada = Sim (Ativo)** → usa a **nova fila SEM Ignition** (caminho mais rápido, descrito em [Cadastro de Clientes SEM Ignition](/tecnico/fluxos/cadastro-clientes-sem-ignition) e [Aprovação de Pedidos SEM Ignition](/tecnico/fluxos/aprovacao-de-pedidos-sem-ignition)).
+- **Habilitada = Não (Inativo)** → volta a usar a **fila COM Ignition** (caminho anterior, com o Ignition — ver [Cadastro de Clientes COM Ignition](/tecnico/fluxos/criacao-de-cliente)).
+
+Hoje, em Homologação, as duas chaves estão **Habilitadas (Ativo)** — ou seja, clientes e pedidos seguem pela fila **SEM Ignition**.
 </Callout>
 
 ## Fluxos principais
