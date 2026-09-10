@@ -1,0 +1,196 @@
+---
+section: tecnico
+routeSlug: referencia-tipos-de-pedido
+pageType: tecnico
+lang: en
+title: Reference - Order Types (Smart Operations)
+description: What defines an order's type in S.I.N — the Smart Operation, which pairs the business category (Sale, Bonus, Campaign, Consignment, Exchange, Return) with the SAP order code (ORB, ZKBB, ZKEB, KEB...). Concept of each category, code convention and reference table.
+keywords: [order type, smart operation, erp order, sap, ORB, ZKBB, ZKEB, KEB, KBB, standard sale, bonus, campaign, consignment, consignment shipment, exchange, return, export, nationalized, OPL, lounge, plant 1000]
+tags: [tecnico, referencia, pedido]
+order: 8
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Overview
+
+This is a **reference** page: what defines an order's "type" in S.I.N and what each SAP order code means (**ORB**, **ZKBB**, **ZKEB**, **KEB**...). For the step-by-step of **how** an operator builds an order and picks its items, see the flow **[Order Process - Items and Item Types](/en/tecnico/fluxos/processo-do-pedido-itens)**.
+
+In S.I.N there is **no single "order type" field**. What classifies an order is the **Smart Operation** (`Pedidos_OperacaoInteligente`), which binds **two levels** of information:
+
+<DocTable
+  headers={['Level', 'Field', 'Purpose']}
+  rows={[
+    ['1. Business category', 'TipoOperacao', 'The nature of the operation: Sale, Bonus, Campaign, Consignment, Exchange, OPL Warehousing Shipment or Return. This is what the operator "sees" and what drives the pricing, payment and review rules.'],
+    ['2. ERP order code', 'OrdemErp', 'The matching order type in SAP (ORB, ZKBB, ZKEB, KEB...). This code decides how the order enters the ERP and is invoiced.'],
+  ]}
+/>
+
+In other words: **ORB, ZKBB, ZKEB and the like are SAP order codes** (the `OrdemErp` field), and each is tied to a business category. A single code can serve more than one category — for example, **`ORB`** is used for both **Sale** and **Campaign**.
+
+<Callout type="dica" title="How to read a code">
+The most common question ("what order is this ORB / ZKBB?") is answered by <strong>reading the table row</strong>: the code is the SAP order type; the <strong>category</strong> next to it is the business nature; the <strong>description</strong> (the <code>Observacao</code> field in the database) is the friendly name.
+</Callout>
+
+## Code convention
+
+The codes follow a pattern that helps memorize them:
+
+<DocTable
+  headers={['Pattern', 'Meaning', 'Examples']}
+  rows={[
+    ['Z prefix', 'SIN custom order (the "Z" is SAP\'s customization range).', 'ZKBB, ZKEB, ZOR1, ZR00'],
+    ['Y prefix', 'Export, bonus, exchange and return families.', 'YEXP, YEXB, YTRO, YROB'],
+    ['No Z (ORB, KBB, KEB)', 'Variation of the same operation used in plants other than 1000.', 'ORB, KBB, KEB'],
+    ['ORB', 'The "standard" sale — the ordinary sales order.', 'ORB'],
+  ]}
+/>
+
+<Callout type="cuidado" title="ZKBB ↔ KBB and ZKEB ↔ KEB are not different operations">
+They are the <strong>same operation</strong>, with the code swapped by <strong>plant</strong>. The system converts <code>ZKBB → KBB</code> (and <code>ZKEB → KEB</code>) automatically when the order's plant <strong>is not 1000</strong>. When you see "KBB" on an order, read it as "the ZKBB consignment shipment, just in another plant".
+</Callout>
+
+## The business categories
+
+### Sale
+The standard operation: the customer buys and the item is invoiced. It ranges from the ordinary sale (**`ORB`**) to special cases such as **export** (`YEXP`), **nationalized sale** (`YEXN`), **Lounge sale** (`ZOR1`) and **invoicing what was on consignment** (`ZKEB` / `KEB`).
+
+### Bonus
+Item sent to the customer **free of charge** (gift, donation, courtesy). It has its own review rules and limits. Includes the export (`YEXB`, `YBEX`) and nationalized (`YEBN`) variations.
+
+### Campaign
+Sale tied to a **campaign policy** (promotional price/condition). It reuses the sales codes (`ORB`, `ZOR1`), but the category changes because price and rules come from the campaign.
+
+### Consignment (shipment)
+Goods sent to the customer that **only become a sale once consumed**. It is the **shipment** that places the product at the customer (**`ZKBB`** / `KBB`). It does not invoice on its own — it is part of a cycle (see the callout below).
+
+### Exchange
+Replacement of an already-delivered item with another. It uses the **`Y`** family depending on what is being exchanged: sale (`YTRO`), bonus (`YBON` / `YDOA`) or OPL (`YOPL`). It is part of the **[Exchange, Return and Cancellation (TDC)](/en/tecnico/fluxos/troca-devolucao-cancelamento-tdc)** flow.
+
+### OPL Warehousing Shipment
+Shipment of material for **warehousing at a logistics operator** (`OPL1`) — not a sale to the end customer, but a movement to the logistics partner.
+
+### Return
+Return of goods to stock, generating **credit** or an adjustment. Each type of outbound has its mirrored return: sale return (`ZR00` / `DEVOLUCAO`), consignment return (`ZROB` / `YROB`), bonus return (`YRDB`), export return (`YDEX` / `YDBE`) and third-party return (`ZDIS`).
+
+<Callout type="info" title="The consignment cycle (why there are so many similar codes)">
+Consignment is a <strong>cycle</strong>, not a single order:
+<br/>1. <strong>Shipment</strong> (<code>ZKBB</code>/<code>KBB</code>) — sends the product to sit at the customer.
+<br/>2. <strong>Sale of what was consumed</strong> (<code>ZKEB</code>/<code>KEB</code>) — invoices what the customer used.
+<br/>3. <strong>Return</strong> (<code>ZROB</code>/<code>YROB</code>) — collects what was left over.
+<br/>That is why all three appear as distinct operations, each in its own category.
+</Callout>
+
+## Reference table
+
+Codes currently registered in `Pedidos_OperacaoInteligente`, grouped by business category.
+
+### Sale
+
+<DocTable
+  headers={['ERP code', 'Description', 'Note']}
+  rows={[
+    ['ORB', 'Standard Sale', 'The ordinary sales order.'],
+    ['ZOR1', 'Lounge Sale', 'Sale originated in the Lounge.'],
+    ['OPL3', 'OPL Sale', 'Sale via logistics operator.'],
+    ['ENCVD', 'Sale Order (Encomenda)', 'Made-to-order sale.'],
+    ['YEXP', 'Export', 'Sale abroad.'],
+    ['YEXN', 'Nationalized Sale', 'Sale of an imported, already nationalized product.'],
+    ['ZKEB', 'Consignment Sale', 'Invoices what was already consigned at the customer.'],
+    ['KEB', 'Consignment Sale KEB', 'Same consignment sale, in a plant ≠ 1000.'],
+    ['REMCONSIG', 'Consignment Shipment', 'Shipment for consignment (internal use).'],
+    ['CONSCONSIG', 'Consignment Consumption', 'Records the consumption of the consignment.'],
+  ]}
+/>
+
+### Bonus
+
+<DocTable
+  headers={['ERP code', 'Description', 'Note']}
+  rows={[
+    ['YDOA', 'Bonus', 'Standard bonus.'],
+    ['ZDO1', 'Bonus', 'Bonus variation.'],
+    ['YEBN', 'Nationalized Bonus', 'Bonus of a nationalized product.'],
+    ['YEXB', 'Export Bonus', 'Bonus abroad.'],
+    ['YBEX', 'Export Bonus w/o Movement', 'Export bonus with no stock movement.'],
+  ]}
+/>
+
+### Campaign
+
+<DocTable
+  headers={['ERP code', 'Description', 'Note']}
+  rows={[
+    ['ORB', 'Campaign', 'Sale under a campaign policy.'],
+    ['ZOR1', 'Lounge Campaign', 'Campaign originated in the Lounge.'],
+  ]}
+/>
+
+### Consignment (shipment)
+
+<DocTable
+  headers={['ERP code', 'Description', 'Note']}
+  rows={[
+    ['ZKBB', 'Consignment Shipment ZKBB', 'Sends the product to sit on consignment at the customer.'],
+    ['KBB', 'Consignment Shipment KBB', 'Same shipment, in a plant ≠ 1000.'],
+  ]}
+/>
+
+### Exchange
+
+<DocTable
+  headers={['ERP code', 'Description', 'Note']}
+  rows={[
+    ['YTRO', 'Sale Exchange YTRO', 'Exchange of a sale item.'],
+    ['YBON', 'Bonus Exchange YBON', 'Exchange of a bonus item.'],
+    ['YDOA', 'Bonus Exchange YDOA', 'Bonus exchange (variation).'],
+    ['YOPL', 'OPL Exchange', 'Exchange of an OPL item.'],
+    ['ENCVD', 'Exchange PT', 'Made-to-order exchange.'],
+  ]}
+/>
+
+### OPL Warehousing Shipment
+
+<DocTable
+  headers={['ERP code', 'Description', 'Note']}
+  rows={[
+    ['OPL1', 'OPL Warehousing Shipment', 'Shipment for warehousing at a logistics operator.'],
+  ]}
+/>
+
+### Return
+
+<DocTable
+  headers={['ERP code', 'Description', 'Note']}
+  rows={[
+    ['DEVOLUCAO', 'Return', 'Sale return.'],
+    ['ZR00', 'Sale Return', 'Sale return (SAP).'],
+    ['DEVCONSIG', 'Consignment Return', 'Collects unconsumed consignment.'],
+    ['YROB', 'KBB Return', 'Return of a KBB consignment shipment.'],
+    ['ZROB', 'ZKBB Return', 'Return of a ZKBB consignment shipment.'],
+    ['ZCLI', 'KBB/ZKBB Return ZPJ', 'Consignment return for a ZPJ customer.'],
+    ['ZDIS', 'Third-party Return', 'Third-party return.'],
+    ['YRDB', 'Bonus Return', 'Return of a bonus item.'],
+    ['YDEX', 'YEXN/YEXP Return', 'Return of export/nationalized.'],
+    ['YDBE', 'YEBN/YEXB Return', 'Return of export bonus.'],
+  ]}
+/>
+
+<Callout type="info" title="Where this data comes from">
+The source is the <code>Pedidos_OperacaoInteligente</code> table (the <code>OperacaoInteligente</code> entity): <code>OrdemErp</code> = SAP code, <code>TipoOperacao</code> = category, <code>Observacao</code> = friendly description. The <code>ZKBB → KBB</code> swap by plant is done when building the order header for the integrator (<code>PedidoCapa</code>). Since this is registered content, the list may change — in case of divergence, the database is the source of truth.
+</Callout>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '10/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '10/09/2026', author: 'Renan Camargo', description: 'Initial release of the order types / smart operations reference.' },
+  ]}
+/>

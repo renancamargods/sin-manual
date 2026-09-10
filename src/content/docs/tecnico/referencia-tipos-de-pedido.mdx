@@ -1,0 +1,195 @@
+---
+section: tecnico
+routeSlug: referencia-tipos-de-pedido
+pageType: tecnico
+title: Referência - Tipos de Pedido (Operações Inteligentes)
+description: O que define o tipo de um pedido no S.I.N — a Operação Inteligente, que junta a categoria de negócio (Venda, Bonificação, Campanha, Consignado, Troca, Devolução) ao código de ordem do SAP (ORB, ZKBB, ZKEB, KEB...). Conceito de cada categoria, convenção dos códigos e tabela de referência.
+keywords: [tipo de pedido, operação inteligente, ordem erp, sap, ORB, ZKBB, ZKEB, KEB, KBB, venda standard, bonificação, campanha, consignado, remessa de consignação, troca, devolução, exportação, nacionalizada, OPL, lounge, centro 1000]
+tags: [tecnico, referencia, pedido]
+order: 8
+---
+
+import Callout from '../../../components/Callout.astro';
+import DocTable from '../../../components/DocTable.astro';
+import DocControl from '../../../components/DocControl.astro';
+
+## Visão geral
+
+Esta é uma página de **referência**: o que define o "tipo" de um pedido no S.I.N e o que significa cada código de ordem do SAP (**ORB**, **ZKBB**, **ZKEB**, **KEB**...). Para o passo a passo de **como** o operador monta o pedido e escolhe os itens, veja o fluxo **[Processo do Pedido - Itens e Tipos de Item](/tecnico/fluxos/processo-do-pedido-itens)**.
+
+No S.I.N **não existe um único campo "tipo de pedido"**. O que classifica um pedido é a **Operação Inteligente** (`Pedidos_OperacaoInteligente`), que amarra **dois níveis** de informação:
+
+<DocTable
+  headers={['Nível', 'Campo', 'Para que serve']}
+  rows={[
+    ['1. Categoria de negócio', 'TipoOperacao', 'A natureza da operação: Venda, Bonificação, Campanha, Consignado, Troca, Remessa Armazenagem OPL ou Devolução. É o que o operador "enxerga" e o que dispara as regras de preço, pagamento e análise.'],
+    ['2. Código de ordem no ERP', 'OrdemErp', 'O tipo de ordem correspondente no SAP (ORB, ZKBB, ZKEB, KEB...). É esse código que decide como o pedido entra no ERP e é faturado.'],
+  ]}
+/>
+
+Ou seja: **ORB, ZKBB, ZKEB e afins são códigos de ordem do SAP** (o campo `OrdemErp`), e cada um está associado a uma categoria de negócio. Um mesmo código pode servir a mais de uma categoria — por exemplo, **`ORB`** é usado tanto em **Venda** quanto em **Campanha**.
+
+<Callout type="dica" title="Como ler um código">
+A dúvida mais comum ("que pedido é esse ORB / ZKBB?") se resolve olhando <strong>a linha da tabela</strong>: o código diz o tipo de ordem no SAP; a <strong>categoria</strong> ao lado diz a natureza do negócio; a <strong>descrição</strong> (campo <code>Observacao</code> no banco) é o nome amigável.
+</Callout>
+
+## Convenção dos códigos
+
+Os códigos seguem um padrão que ajuda a decorar:
+
+<DocTable
+  headers={['Padrão', 'Significado', 'Exemplos']}
+  rows={[
+    ['Prefixo Z', 'Ordem customizada da SIN (o "Z" é a faixa de customização do SAP).', 'ZKBB, ZKEB, ZOR1, ZR00'],
+    ['Prefixo Y', 'Famílias de exportação, bonificação, troca e devolução.', 'YEXP, YEXB, YTRO, YROB'],
+    ['Sem Z (ORB, KBB, KEB)', 'Variação da mesma operação usada em centros diferentes do 1000.', 'ORB, KBB, KEB'],
+    ['ORB', 'A venda "standard" — o pedido de venda comum.', 'ORB'],
+  ]}
+/>
+
+<Callout type="cuidado" title="ZKBB ↔ KBB e ZKEB ↔ KEB não são operações diferentes">
+São a <strong>mesma operação</strong>, com o código trocado conforme o <strong>centro</strong>. O sistema converte <code>ZKBB → KBB</code> (e <code>ZKEB → KEB</code>) automaticamente quando o centro do pedido <strong>não é o 1000</strong>. Ao ver "KBB" num pedido, entenda como "a remessa de consignado ZKBB, só que em outro centro".
+</Callout>
+
+## As categorias de negócio
+
+### Venda
+A operação padrão: o cliente compra e o item é faturado. Abrange desde a venda comum (**`ORB`**) até casos especiais como **exportação** (`YEXP`), **venda nacionalizada** (`YEXN`), **venda no Lounge** (`ZOR1`) e o **faturamento do que estava em consignação** (`ZKEB` / `KEB`).
+
+### Bonificação
+Item enviado ao cliente **sem cobrança** (brinde, doação, cortesia). Tem regra de análise e limites próprios. Inclui as variações de exportação (`YEXB`, `YBEX`) e nacionalizada (`YEBN`).
+
+### Campanha
+Venda amarrada a uma **política de campanha** (preço/condição promocional). Reaproveita os códigos de venda (`ORB`, `ZOR1`), mas a categoria muda porque o preço e as regras vêm da campanha.
+
+### Consignado (remessa)
+Envio de mercadoria ao cliente que **só vira venda quando é consumida**. É a **remessa** que coloca o produto no cliente (**`ZKBB`** / `KBB`). Ela não fatura sozinha — faz parte de um ciclo (veja o callout abaixo).
+
+### Troca
+Substituição de um item já entregue por outro. Usa a família **`Y`** conforme o que está sendo trocado: venda (`YTRO`), bonificação (`YBON` / `YDOA`) ou OPL (`YOPL`). Faz parte do fluxo **[Troca, Devolução e Cancelamento (TDC)](/tecnico/fluxos/troca-devolucao-cancelamento-tdc)**.
+
+### Remessa Armazenagem OPL
+Envio de material para **armazenagem em operador logístico** (`OPL1`) — não é venda ao cliente final, é movimentação para o parceiro logístico.
+
+### Devolução
+Retorno de mercadoria ao estoque, gerando **crédito** ou acerto. Cada tipo de saída tem sua devolução espelhada: devolução de venda (`ZR00` / `DEVOLUCAO`), de consignado (`ZROB` / `YROB`), de bonificação (`YRDB`), de exportação (`YDEX` / `YDBE`) e de terceiro (`ZDIS`).
+
+<Callout type="info" title="O ciclo do consignado (por que há tantos códigos parecidos)">
+Consignação é um <strong>ciclo</strong>, não um pedido único:
+<br/>1. <strong>Remessa</strong> (<code>ZKBB</code>/<code>KBB</code>) — envia o produto para ficar no cliente.
+<br/>2. <strong>Venda do consumido</strong> (<code>ZKEB</code>/<code>KEB</code>) — fatura o que o cliente usou.
+<br/>3. <strong>Devolução</strong> (<code>ZROB</code>/<code>YROB</code>) — recolhe o que sobrou.
+<br/>Por isso os três aparecem como operações distintas, cada um em sua categoria.
+</Callout>
+
+## Tabela de referência
+
+Códigos atuais cadastrados em `Pedidos_OperacaoInteligente`, agrupados por categoria de negócio.
+
+### Venda
+
+<DocTable
+  headers={['Código ERP', 'Descrição', 'Observação']}
+  rows={[
+    ['ORB', 'Venda Standard', 'O pedido de venda comum.'],
+    ['ZOR1', 'Venda Lounge', 'Venda originada no Lounge.'],
+    ['OPL3', 'Venda OPL', 'Venda via operador logístico.'],
+    ['ENCVD', 'Encomenda de Venda', 'Venda por encomenda.'],
+    ['YEXP', 'Exportação', 'Venda para o exterior.'],
+    ['YEXN', 'Venda Nacionalizada', 'Venda de produto importado já nacionalizado.'],
+    ['ZKEB', 'Venda de Consignado', 'Fatura o que já estava consignado no cliente.'],
+    ['KEB', 'Venda Consignado KEB', 'Mesma venda de consignado, em centro ≠ 1000.'],
+    ['REMCONSIG', 'Envio em consignação', 'Remessa para consignação (uso interno).'],
+    ['CONSCONSIG', 'Consumo de Consignação', 'Registro do consumo da consignação.'],
+  ]}
+/>
+
+### Bonificação
+
+<DocTable
+  headers={['Código ERP', 'Descrição', 'Observação']}
+  rows={[
+    ['YDOA', 'Bonificação', 'Bonificação padrão.'],
+    ['ZDO1', 'Bonificação', 'Variação de bonificação.'],
+    ['YEBN', 'Bonificação Nacionalizada', 'Bonificação de produto nacionalizado.'],
+    ['YEXB', 'Exportação Bonificação', 'Bonificação para o exterior.'],
+    ['YBEX', 'Exportação Bonificação s/ Movimentação', 'Bonificação de exportação sem movimentação de estoque.'],
+  ]}
+/>
+
+### Campanha
+
+<DocTable
+  headers={['Código ERP', 'Descrição', 'Observação']}
+  rows={[
+    ['ORB', 'Campanha', 'Venda sob política de campanha.'],
+    ['ZOR1', 'Campanha Lounge', 'Campanha originada no Lounge.'],
+  ]}
+/>
+
+### Consignado (remessa)
+
+<DocTable
+  headers={['Código ERP', 'Descrição', 'Observação']}
+  rows={[
+    ['ZKBB', 'Remessa de Consignado ZKBB', 'Envia o produto para ficar em consignação no cliente.'],
+    ['KBB', 'Remessa de Consignado KBB', 'Mesma remessa, em centro ≠ 1000.'],
+  ]}
+/>
+
+### Troca
+
+<DocTable
+  headers={['Código ERP', 'Descrição', 'Observação']}
+  rows={[
+    ['YTRO', 'Troca de Venda YTRO', 'Troca de item de venda.'],
+    ['YBON', 'Troca de Bonificação YBON', 'Troca de item bonificado.'],
+    ['YDOA', 'Troca Bonificação YDOA', 'Troca de bonificação (variação).'],
+    ['YOPL', 'Troca OPL', 'Troca de item OPL.'],
+    ['ENCVD', 'Troca PT', 'Troca por encomenda.'],
+  ]}
+/>
+
+### Remessa Armazenagem OPL
+
+<DocTable
+  headers={['Código ERP', 'Descrição', 'Observação']}
+  rows={[
+    ['OPL1', 'Remessa Armazenagem OPL', 'Envio para armazenagem em operador logístico.'],
+  ]}
+/>
+
+### Devolução
+
+<DocTable
+  headers={['Código ERP', 'Descrição', 'Observação']}
+  rows={[
+    ['DEVOLUCAO', 'Devolução', 'Devolução de venda.'],
+    ['ZR00', 'Devolução Venda', 'Devolução de venda (SAP).'],
+    ['DEVCONSIG', 'Devolução de Consignação', 'Recolhe consignação não consumida.'],
+    ['YROB', 'Devolução KBB', 'Devolução de remessa de consignado KBB.'],
+    ['ZROB', 'Devolução ZKBB', 'Devolução de remessa de consignado ZKBB.'],
+    ['ZCLI', 'Devolução KBB/ZKBB ZPJ', 'Devolução de consignado para cliente ZPJ.'],
+    ['ZDIS', 'Devolução Terceiro', 'Devolução de terceiro.'],
+    ['YRDB', 'Devolução Bonificação', 'Devolução de item bonificado.'],
+    ['YDEX', 'Devolução YEXN/YEXP', 'Devolução de exportação/nacionalizada.'],
+    ['YDBE', 'Devolução YEBN/YEXB', 'Devolução de bonificação de exportação.'],
+  ]}
+/>
+
+<Callout type="info" title="De onde vêm esses dados">
+A fonte é a tabela <code>Pedidos_OperacaoInteligente</code> (entidade <code>OperacaoInteligente</code>): <code>OrdemErp</code> = código SAP, <code>TipoOperacao</code> = categoria, <code>Observacao</code> = descrição amigável. A troca <code>ZKBB → KBB</code> por centro é feita na montagem da capa do pedido para o integrador (<code>PedidoCapa</code>). Como é conteúdo cadastrado, a lista pode mudar — em caso de divergência, o banco é a fonte da verdade.
+</Callout>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '10/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '10/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da referência de tipos de pedido / operações inteligentes.' },
+  ]}
+/>

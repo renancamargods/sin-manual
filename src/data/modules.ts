@@ -92,6 +92,7 @@ export const tecnicoPages: TecnicoGroup[] = [
   { title: 'Referência - Status do Cliente', slug: 'referencia-status-cliente', description: 'Tabela de referência de todos os status do cadastro de cliente e a ação de suporte de cada um.', pages: [] },
   { title: 'Referência - Status do Pedido', slug: 'referencia-status-pedido', description: 'Tabela de referência de todos os status do pedido, do rascunho ao faturamento, e a ação de suporte de cada um.', pages: [] },
   { title: 'Referência - Motivos de Bloqueio', slug: 'referencia-motivos-de-bloqueio', description: 'Tabela de referência dos motivos de bloqueio de aprovação de pedido e a alçada que trata cada um.', pages: [] },
+  { title: 'Referência - Tipos de Pedido (Operações Inteligentes)', slug: 'referencia-tipos-de-pedido', description: 'O que define o tipo de um pedido: a Operação Inteligente (categoria de negócio + código de ordem do SAP como ORB, ZKBB, ZKEB) e a tabela de referência de todos os códigos.', pages: [] },
   {
     title: 'Banco de Dados / DBA',
     slug: 'banco-de-dados',
@@ -491,6 +492,7 @@ export const tecnicoGroupEn: Record<string, { title: string; description: string
   'referencia-status-cliente': { title: 'Reference - Customer Status', description: 'Reference table of all customer registration statuses and the support action for each.' },
   'referencia-status-pedido': { title: 'Reference - Order Status', description: 'Reference table of all order statuses, from draft to invoicing, and the support action for each.' },
   'referencia-motivos-de-bloqueio': { title: 'Reference - Blocking Reasons', description: 'Reference table of order approval blocking reasons and the area that handles each one.' },
+  'referencia-tipos-de-pedido': { title: 'Reference - Order Types (Smart Operations)', description: 'What defines an order\'s type: the Smart Operation (business category + SAP order code such as ORB, ZKBB, ZKEB) and the reference table of every code.' },
   'banco-de-dados': { title: 'Database / DBA', description: 'Database and DBA topics: data structure and the value-mapping (De/Para) tables used in integrations.' },
   templates: { title: 'Templates', description: 'Reusable models for documents, messages and labels.' },
   azure: { title: 'AZURE', description: 'Standards and templates to open items in Azure DevOps: bug reports and improvement/development requirements (PBI).' },
