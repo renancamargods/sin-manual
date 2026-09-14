@@ -34,15 +34,15 @@ const naTitle = isEn
 const isActive = (href: string) => currentPath === href || currentPath === `${href}/`;
 const linkBase =
   'block rounded-md px-2.5 py-1.5 text-sm leading-snug transition';
-const activeClasses = 'bg-brand-red/10 text-brand-red font-semibold';
-const inactiveClasses = 'text-gray-600 hover:bg-gray-100 hover:text-gray-900';
-const mutedClasses = 'text-gray-500 cursor-default';
-const unavailableClasses = 'text-brand-red/70 cursor-not-allowed';
+const activeClasses = 'bg-brand-red-on-dark/10 text-brand-red-on-dark font-semibold';
+const inactiveClasses = 'text-brand-fg-2 hover:bg-white/5 hover:text-brand-fg';
+const mutedClasses = 'text-brand-muted cursor-default';
+const unavailableClasses = 'text-brand-red-on-dark/70 cursor-not-allowed';
 ---
 
 <nav class="text-sm" aria-label="Navegação do manual">
   <div class="mb-6">
-    <p class="mb-2 px-2.5 text-xs font-semibold uppercase tracking-wider text-gray-400">{headManual}</p>
+    <p class="mb-2 px-2.5 text-xs font-semibold uppercase tracking-wider text-brand-muted">{headManual}</p>
     <ul class="space-y-0.5">
       {manualPages.map((p) => {
         const href = L(`/manual/${p.slug}`);
@@ -61,7 +61,7 @@ const unavailableClasses = 'text-brand-red/70 cursor-not-allowed';
   </div>
 
   <div class="mb-6">
-    <p class="mb-2 px-2.5 text-xs font-semibold uppercase tracking-wider text-gray-400">{headModules}</p>
+    <p class="mb-2 px-2.5 text-xs font-semibold uppercase tracking-wider text-brand-muted">{headModules}</p>
     <ul class="space-y-0.5">
       {sortedModules(isEn).map((mod) => {
         const moduleHref = L(`/modulos/${mod.id}`);
@@ -70,18 +70,18 @@ const unavailableClasses = 'text-brand-red/70 cursor-not-allowed';
         return (
           <li>
             <details open={activeModule || undefined} class="group">
-              <summary class="flex cursor-pointer list-none items-center justify-between rounded-md px-2.5 py-1.5 text-sm font-medium text-gray-700 marker:content-none hover:bg-gray-100">
+              <summary class="flex cursor-pointer list-none items-center justify-between rounded-md px-2.5 py-1.5 text-sm font-medium text-brand-fg-2 marker:content-none hover:bg-white/5">
                 <a
                   href={moduleHref}
-                  class:list={['truncate', isActive(moduleHref) ? 'text-brand-red font-semibold' : '']}
+                  class:list={['truncate', isActive(moduleHref) ? 'text-brand-red-on-dark font-semibold' : '']}
                   onclick="event.stopPropagation()"
                 >
                   {moduleLabel(mod.id, mod.label)}
                 </a>
-                <Icon name="chevron-right" class="h-3.5 w-3.5 flex-shrink-0 text-gray-400 transition-transform duration-150 group-open:rotate-90" />
+                <Icon name="chevron-right" class="h-3.5 w-3.5 flex-shrink-0 text-brand-muted transition-transform duration-150 group-open:rotate-90" />
               </summary>
               {mod.routines.length > 0 && (
-                <ul class="mt-0.5 space-y-0.5 border-l border-gray-200 pl-3">
+                <ul class="mt-0.5 space-y-0.5 border-l border-brand-line pl-3">
                   {sortedRoutines(mod, isEn).map((r) => {
                     const href = `${moduleHref}/${r.slug}`;
                     const isAvailable = available.includes(r.slug);
@@ -91,14 +91,14 @@ const unavailableClasses = 'text-brand-red/70 cursor-not-allowed';
                         {r.unavailable ? (
                           <span class:list={[linkBase, unavailableClasses, 'flex items-center justify-between gap-2']} title={naTitle}>
                             {label}
-                            <span class="text-[10px] uppercase tracking-wide text-brand-red/80">{naLabel}</span>
+                            <span class="text-[10px] uppercase tracking-wide text-brand-red-on-dark/80">{naLabel}</span>
                           </span>
                         ) : isAvailable ? (
                           <a href={href} class:list={[linkBase, isActive(href) ? activeClasses : inactiveClasses]}>{label}</a>
                         ) : (
                           <span class:list={[linkBase, mutedClasses, 'flex items-center justify-between']}>
                             {label}
-                            <span class="text-[10px] uppercase tracking-wide text-gray-500">{soonLabel}</span>
+                            <span class="text-[10px] uppercase tracking-wide text-brand-muted">{soonLabel}</span>
                           </span>
                         )}
                       </li>
@@ -114,7 +114,7 @@ const unavailableClasses = 'text-brand-red/70 cursor-not-allowed';
   </div>
 
   <div>
-    <p class="mb-2 px-2.5 text-xs font-semibold uppercase tracking-wider text-gray-400">{headTecnico}</p>
+    <p class="mb-2 px-2.5 text-xs font-semibold uppercase tracking-wider text-brand-muted">{headTecnico}</p>
     <ul class="space-y-0.5">
       {sortedTecnicoPages(isEn).map((group) => {
         const groupHref = L(`/tecnico/${group.slug}`);
@@ -124,11 +124,11 @@ const unavailableClasses = 'text-brand-red/70 cursor-not-allowed';
         return (
           <li>
             <details open={activeGroup || undefined} class="group">
-              <summary class="flex cursor-pointer list-none items-center justify-between rounded-md px-2.5 py-1.5 text-sm font-medium text-gray-700 marker:content-none hover:bg-gray-100">
+              <summary class="flex cursor-pointer list-none items-center justify-between rounded-md px-2.5 py-1.5 text-sm font-medium text-brand-fg-2 marker:content-none hover:bg-white/5">
                 {availableTecnicoSlugs.includes(group.slug) ? (
                   <a
                     href={groupHref}
-                    class:list={['truncate', isActive(groupHref) ? 'text-brand-red font-semibold' : '']}
+                    class:list={['truncate', isActive(groupHref) ? 'text-brand-red-on-dark font-semibold' : '']}
                     onclick="event.stopPropagation()"
                   >
                     {tecnicoLabel(group.slug, group.title)}
@@ -136,14 +136,14 @@ const unavailableClasses = 'text-brand-red/70 cursor-not-allowed';
                 ) : (
                   <span class="truncate">{tecnicoLabel(group.slug, group.title)}</span>
                 )}
-                <Icon name="chevron-right" class="h-3.5 w-3.5 flex-shrink-0 text-gray-400 transition-transform duration-150 group-open:rotate-90" />
+                <Icon name="chevron-right" class="h-3.5 w-3.5 flex-shrink-0 text-brand-muted transition-transform duration-150 group-open:rotate-90" />
               </summary>
               {hasPages && (
-                <div class="mt-0.5 space-y-1.5 border-l border-gray-200 pl-3">
+                <div class="mt-0.5 space-y-1.5 border-l border-brand-line pl-3">
                   {subgroups.map((sg) => (
                     <div>
                       {sg.label && (
-                        <p class="px-2.5 pb-0.5 pt-1 text-[10px] font-semibold uppercase tracking-wider text-gray-400">{sg.label}</p>
+                        <p class="px-2.5 pb-0.5 pt-1 text-[10px] font-semibold uppercase tracking-wider text-brand-muted">{sg.label}</p>
                       )}
                       <ul class="space-y-0.5">
                         {sg.pages.map((sub) => {
@@ -155,14 +155,14 @@ const unavailableClasses = 'text-brand-red/70 cursor-not-allowed';
                               {sub.unavailable ? (
                                 <span class:list={[linkBase, unavailableClasses, 'flex items-center justify-between gap-2']} title={naTitle}>
                                   {label}
-                                  <span class="text-[10px] uppercase tracking-wide text-brand-red/80">{naLabel}</span>
+                                  <span class="text-[10px] uppercase tracking-wide text-brand-red-on-dark/80">{naLabel}</span>
                                 </span>
                               ) : isAvailable ? (
                                 <a href={href} class:list={[linkBase, isActive(href) ? activeClasses : inactiveClasses]}>{label}</a>
                               ) : (
                                 <span class:list={[linkBase, mutedClasses, 'flex items-center justify-between']}>
                                   {label}
-                                  <span class="text-[10px] uppercase tracking-wide text-gray-500">{soonLabel}</span>
+                                  <span class="text-[10px] uppercase tracking-wide text-brand-muted">{soonLabel}</span>
                                 </span>
                               )}
                             </li>

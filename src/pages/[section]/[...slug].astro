@@ -143,7 +143,7 @@ const backToModule =
 
   {backToModule && (
     <p class="not-prose mt-10">
-      <a href={backToModule.href} class="text-sm font-medium text-brand-red hover:underline">
+      <a href={backToModule.href} class="text-sm font-medium text-brand-red-on-dark hover:underline">
         ← Voltar para {backToModule.label}
       </a>
     </p>
@@ -152,14 +152,14 @@ const backToModule =
   <AskOrTicket />
 
   {(prevPage || nextPage) && (
-    <nav class="not-prose mt-8 grid gap-3 border-t border-gray-200 pt-6 sm:grid-cols-2" aria-label="Navegação entre páginas">
+    <nav class="not-prose mt-8 grid gap-3 border-t border-brand-line pt-6 sm:grid-cols-2" aria-label="Navegação entre páginas">
       {prevPage ? (
         <a
           href={prevPage.href}
-          class="group flex flex-col rounded-xl2 border border-gray-200 bg-white px-4 py-3 shadow-card transition hover:border-brand-red/30 hover:shadow-card-hover"
+          class="group flex flex-col rounded-xl2 border border-brand-line bg-brand-surface px-4 py-3 shadow-card transition hover:border-brand-red/30 hover:shadow-card-hover"
         >
-          <span class="text-xs text-gray-500">← Anterior</span>
-          <span class="mt-0.5 text-sm font-semibold text-gray-900 group-hover:text-brand-red">{prevPage.title}</span>
+          <span class="text-xs text-brand-muted">← Anterior</span>
+          <span class="mt-0.5 text-sm font-semibold text-brand-fg group-hover:text-brand-red-on-dark">{prevPage.title}</span>
         </a>
       ) : (
         <span class="hidden sm:block"></span>
@@ -167,10 +167,10 @@ const backToModule =
       {nextPage && (
         <a
           href={nextPage.href}
-          class="group flex flex-col rounded-xl2 border border-gray-200 bg-white px-4 py-3 text-right shadow-card transition hover:border-brand-red/30 hover:shadow-card-hover sm:col-start-2"
+          class="group flex flex-col rounded-xl2 border border-brand-line bg-brand-surface px-4 py-3 text-right shadow-card transition hover:border-brand-red/30 hover:shadow-card-hover sm:col-start-2"
         >
-          <span class="text-xs text-gray-500">Próximo →</span>
-          <span class="mt-0.5 text-sm font-semibold text-gray-900 group-hover:text-brand-red">{nextPage.title}</span>
+          <span class="text-xs text-brand-muted">Próximo →</span>
+          <span class="mt-0.5 text-sm font-semibold text-brand-fg group-hover:text-brand-red-on-dark">{nextPage.title}</span>
         </a>
       )}
     </nav>

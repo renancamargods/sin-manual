@@ -27,10 +27,10 @@ const iconFor: Record<string, 'book' | 'shield' | 'alert-triangle'> = {
         <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-gradient text-white">
           <Icon name={iconFor[card.label.toUpperCase()] ?? 'info'} class="h-4 w-4" />
         </span>
-        <span class="text-xs font-semibold uppercase tracking-wider text-gray-400">{card.label}</span>
+        <span class="text-xs font-semibold uppercase tracking-wider text-brand-muted">{card.label}</span>
       </div>
-      <p class="mb-1 text-sm font-semibold text-gray-900">{card.title}</p>
-      <p class="text-sm leading-6 text-gray-600">{card.text}</p>
+      <p class="mb-1 text-sm font-semibold text-brand-fg">{card.title}</p>
+      <p class="text-sm leading-6 text-brand-fg-2">{card.text}</p>
     </div>
   ))}
 </div>

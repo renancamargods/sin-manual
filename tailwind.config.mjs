@@ -8,11 +8,20 @@ export default {
         brand: {
           red: '#CC093B',
           'red-dark': '#9C0730',
+          'red-on-dark': '#FF5C86', // vermelho legível sobre fundo escuro (texto/ícones)
           orange: '#F18800',
           'orange-dark': '#C46E00',
           ink: '#1A1417',
           'hero-from': '#1D0A10',
           'hero-to': '#3A0A16',
+          // Neutros do tema escuro (referência: novo layout do CRM). Tune aqui.
+          bg: '#0D1117', // fundo da página
+          surface: '#161B22', // cards / caixas
+          'surface-2': '#1C232E', // hover / linha alternada
+          line: '#2A313C', // bordas
+          fg: '#E6EDF3', // texto principal
+          'fg-2': '#AEB6C2', // texto secundário
+          muted: '#7D8590', // texto apagado
         },
       },
       fontFamily: {

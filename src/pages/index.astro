@@ -69,8 +69,8 @@ const shortcuts = [
   <section id="modulos" class="w-full px-4 py-14 sm:px-6 lg:px-8 xl:px-10 scroll-mt-20">
     <div class="mb-8 flex items-end justify-between gap-4">
       <div>
-        <h2 class="text-lg font-bold text-gray-900 sm:text-xl">Módulos do sistema</h2>
-        <p class="mt-1 text-sm text-gray-500">Escolha um módulo para ver suas telas e rotinas.</p>
+        <h2 class="text-lg font-bold text-brand-fg sm:text-xl">Módulos do sistema</h2>
+        <p class="mt-1 text-sm text-brand-muted">Escolha um módulo para ver suas telas e rotinas.</p>
       </div>
     </div>
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -80,20 +80,20 @@ const shortcuts = [
     </div>
   </section>
 
-  <section class="border-t border-gray-200 bg-white">
+  <section class="border-t border-brand-line bg-brand-surface">
     <div class="w-full px-4 py-14 sm:px-6 lg:px-8 xl:px-10">
       <div class="grid gap-10 md:grid-cols-2">
         <div>
-          <h2 class="mb-4 text-lg font-bold text-gray-900">Manual do Sistema SIN</h2>
+          <h2 class="mb-4 text-lg font-bold text-brand-fg">Manual do Sistema SIN</h2>
           <ul class="space-y-2">
             {manualPages.map((p) => (
               <li>
-                <a href={`/manual/${p.slug}`} class="group flex items-center justify-between rounded-lg border border-gray-200 px-4 py-3 text-sm transition hover:border-brand-red/30 hover:shadow-card">
+                <a href={`/manual/${p.slug}`} class="group flex items-center justify-between rounded-lg border border-brand-line px-4 py-3 text-sm transition hover:border-brand-red/30 hover:shadow-card">
                   <span>
-                    <span class="block font-medium text-gray-900 group-hover:text-brand-red">{p.title}</span>
-                    <span class="block text-xs text-gray-500">{p.description}</span>
+                    <span class="block font-medium text-brand-fg group-hover:text-brand-red-on-dark">{p.title}</span>
+                    <span class="block text-xs text-brand-muted">{p.description}</span>
                   </span>
-                  <Icon name="arrow-right" class="h-4 w-4 flex-shrink-0 text-gray-300 group-hover:text-brand-red" />
+                  <Icon name="arrow-right" class="h-4 w-4 flex-shrink-0 text-brand-muted group-hover:text-brand-red-on-dark" />
                 </a>
               </li>
             ))}
@@ -101,16 +101,16 @@ const shortcuts = [
         </div>
 
         <div>
-          <h2 class="mb-4 text-lg font-bold text-gray-900">Doc. Técnicas e Configurações</h2>
+          <h2 class="mb-4 text-lg font-bold text-brand-fg">Doc. Técnicas e Configurações</h2>
           <ul class="space-y-2">
             {sortedTecnicoPages(false).map((p) => (
               <li>
-                <a href={tecnicoGroupHref(p)} class="group flex items-center justify-between rounded-lg border border-gray-200 px-4 py-3 text-sm transition hover:border-brand-red/30 hover:shadow-card">
+                <a href={tecnicoGroupHref(p)} class="group flex items-center justify-between rounded-lg border border-brand-line px-4 py-3 text-sm transition hover:border-brand-red/30 hover:shadow-card">
                   <span>
-                    <span class="block font-medium text-gray-900 group-hover:text-brand-red">{p.title}</span>
-                    <span class="block text-xs text-gray-500">{p.description}</span>
+                    <span class="block font-medium text-brand-fg group-hover:text-brand-red-on-dark">{p.title}</span>
+                    <span class="block text-xs text-brand-muted">{p.description}</span>
                   </span>
-                  <Icon name="arrow-right" class="h-4 w-4 flex-shrink-0 text-gray-300 group-hover:text-brand-red" />
+                  <Icon name="arrow-right" class="h-4 w-4 flex-shrink-0 text-brand-muted group-hover:text-brand-red-on-dark" />
                 </a>
               </li>
             ))}

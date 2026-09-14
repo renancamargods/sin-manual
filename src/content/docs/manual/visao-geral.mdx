@@ -27,12 +27,12 @@ Nem todos os usuários enxergam todos os módulos. O que aparece disponível dep
 
 <div class="not-prose my-6 grid gap-3 sm:grid-cols-2">
   {modules.map((mod) => (
-    <a href={`/modulos/${mod.id}`} class="group flex items-start justify-between gap-3 rounded-xl2 border border-gray-200 bg-white px-4 py-3.5 shadow-card transition hover:border-brand-red/30 hover:shadow-card-hover">
+    <a href={`/modulos/${mod.id}`} class="group flex items-start justify-between gap-3 rounded-xl2 border border-brand-line bg-brand-surface px-4 py-3.5 shadow-card transition hover:border-brand-red/30 hover:shadow-card-hover">
       <div>
-        <p class="text-sm font-semibold text-gray-900 group-hover:text-brand-red">{mod.label}</p>
-        <p class="mt-1 text-xs leading-5 text-gray-500">{mod.description}</p>
+        <p class="text-sm font-semibold text-brand-fg group-hover:text-brand-red-on-dark">{mod.label}</p>
+        <p class="mt-1 text-xs leading-5 text-brand-muted">{mod.description}</p>
       </div>
-      <Icon name="arrow-right" class="mt-1 h-4 w-4 flex-shrink-0 text-gray-300 group-hover:text-brand-red" />
+      <Icon name="arrow-right" class="mt-1 h-4 w-4 flex-shrink-0 text-brand-muted group-hover:text-brand-red-on-dark" />
     </a>
   ))}
 </div>

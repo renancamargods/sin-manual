@@ -27,24 +27,24 @@ const t = isEn
 ---
 
 <aside
-  class="not-prose mt-12 rounded-xl2 border border-gray-200 bg-gray-50 p-5 sm:flex sm:items-center sm:justify-between sm:gap-6"
+  class="not-prose mt-12 rounded-xl2 border border-brand-line bg-white/5 p-5 sm:flex sm:items-center sm:justify-between sm:gap-6"
   data-ask-target={SUPPORT_TARGET}
   data-ask-lang={isEn ? 'en' : 'pt'}
 >
   <div class="sm:max-w-xl">
-    <p class="flex items-center gap-2 text-sm font-semibold text-gray-900">
-      <Icon name="info" class="h-4 w-4 text-brand-red" />
+    <p class="flex items-center gap-2 text-sm font-semibold text-brand-fg">
+      <Icon name="info" class="h-4 w-4 text-brand-red-on-dark" />
       {t.title}
     </p>
-    <p class="mt-1 text-sm text-gray-600">{t.text}</p>
+    <p class="mt-1 text-sm text-brand-fg-2">{t.text}</p>
   </div>
   <a
     id="ask-ticket-link"
     href={SUPPORT_TARGET}
-    class="mt-4 inline-flex w-fit shrink-0 items-center gap-2 rounded-lg border border-gray-200 bg-white px-4 py-2.5 text-sm font-semibold text-gray-900 shadow-card transition hover:border-brand-red/40 hover:text-brand-red sm:mt-0"
+    class="mt-4 inline-flex w-fit shrink-0 items-center gap-2 rounded-lg border border-brand-line bg-brand-surface px-4 py-2.5 text-sm font-semibold text-brand-fg shadow-card transition hover:border-brand-red/40 hover:text-brand-red-on-dark sm:mt-0"
   >
     {t.button}
-    <Icon name="arrow-right" class="h-4 w-4 text-brand-red" />
+    <Icon name="arrow-right" class="h-4 w-4 text-brand-red-on-dark" />
   </a>
 </aside>
 

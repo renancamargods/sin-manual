@@ -11,13 +11,13 @@ const copyright = isEn
 const feedbackLabel = isEn ? 'Suggest improvement' : 'Sugerir melhoria';
 ---
 
-<footer class="border-t border-gray-200 bg-white">
-  <div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-8 text-xs text-gray-400 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+<footer class="border-t border-brand-line bg-brand-surface">
+  <div class="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-8 text-xs text-brand-muted sm:flex-row sm:items-center sm:justify-between sm:px-6">
     <p>{copyright}</p>
     <a
       id="feedback-link"
       href="mailto:manual.sinsales@gmail.com"
-      class="inline-flex w-fit items-center gap-1.5 rounded-md border border-gray-200 px-3 py-1.5 font-medium text-gray-600 transition hover:border-brand-red/30 hover:text-brand-red"
+      class="inline-flex w-fit items-center gap-1.5 rounded-md border border-brand-line px-3 py-1.5 font-medium text-brand-fg-2 transition hover:border-brand-red/30 hover:text-brand-red-on-dark"
     >
       <Icon name="info" class="h-3.5 w-3.5" />
       {feedbackLabel}

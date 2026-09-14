@@ -23,30 +23,30 @@ const hereLabel = isEn ? 'You are here' : 'Você está aqui';
 const soonLabel = isEn ? 'Soon' : 'Em breve';
 ---
 
-<div class="not-prose my-5 overflow-hidden rounded-xl2 border border-gray-200 shadow-card">
-  <div class="divide-y divide-gray-100">
+<div class="not-prose my-5 overflow-hidden rounded-xl2 border border-brand-line shadow-card">
+  <div class="divide-y divide-brand-line">
     {items.map((it) =>
       it.href ? (
         <a href={it.href} class="group flex items-start gap-3 px-4 py-3.5 transition hover:bg-brand-orange/5">
           <div class="min-w-0 flex-1">
-            <p class="text-sm font-semibold text-gray-900 group-hover:text-brand-red">{it.part}</p>
-            <p class="mt-1 text-sm text-gray-600">{it.content}</p>
+            <p class="text-sm font-semibold text-brand-fg group-hover:text-brand-red-on-dark">{it.part}</p>
+            <p class="mt-1 text-sm text-brand-fg-2">{it.content}</p>
           </div>
-          <Icon name="arrow-right" class="mt-0.5 h-4 w-4 flex-shrink-0 text-gray-300 transition group-hover:translate-x-0.5 group-hover:text-brand-red" />
+          <Icon name="arrow-right" class="mt-0.5 h-4 w-4 flex-shrink-0 text-brand-muted transition group-hover:translate-x-0.5 group-hover:text-brand-red-on-dark" />
         </a>
       ) : (
-        <div class:list={['flex items-start gap-3 px-4 py-3.5', it.current && 'bg-gray-50/60']}>
+        <div class:list={['flex items-start gap-3 px-4 py-3.5', it.current && 'bg-brand-surface/[0.04]']}>
           <div class="min-w-0 flex-1">
-            <p class="flex flex-wrap items-center gap-2 text-sm font-semibold text-gray-900">
+            <p class="flex flex-wrap items-center gap-2 text-sm font-semibold text-brand-fg">
               {it.part}
               {it.current && (
-                <span class="rounded-full bg-brand-red/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-brand-red">{hereLabel}</span>
+                <span class="rounded-full bg-brand-red/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-brand-red-on-dark">{hereLabel}</span>
               )}
               {it.soon && (
-                <span class="rounded-full bg-gray-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-gray-500">{soonLabel}</span>
+                <span class="rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-brand-muted">{soonLabel}</span>
               )}
             </p>
-            <p class="mt-1 text-sm text-gray-600">{it.content}</p>
+            <p class="mt-1 text-sm text-brand-fg-2">{it.content}</p>
           </div>
         </div>
       ),

@@ -9,21 +9,21 @@ interface Props {
 const { headers, rows, caption } = Astro.props;
 ---
 
-<div class="not-prose my-5 overflow-x-auto rounded-xl2 border border-gray-200 shadow-card">
+<div class="not-prose my-5 overflow-x-auto rounded-xl2 border border-brand-line shadow-card">
   <table class="w-full min-w-[480px] border-collapse text-left text-sm">
     {caption && <caption class="sr-only">{caption}</caption>}
     <thead>
-      <tr class="bg-gray-50">
+      <tr class="bg-white/5">
         {headers.map((h) => (
-          <th class="border-b border-gray-200 px-4 py-3 font-semibold text-gray-700">{h}</th>
+          <th class="border-b border-brand-line px-4 py-3 font-semibold text-brand-fg-2">{h}</th>
         ))}
       </tr>
     </thead>
     <tbody>
       {rows.map((row) => (
-        <tr class="border-b border-gray-100 last:border-0 even:bg-gray-50/40 hover:bg-brand-orange/5">
+        <tr class="border-b border-brand-line last:border-0 even:bg-brand-surface/[0.03] hover:bg-brand-orange/5">
           {row.map((cell, i) => (
-            <td class:list={['px-4 py-3 align-top text-gray-700', i === 0 && 'font-medium text-gray-900 whitespace-nowrap']}>{cell}</td>
+            <td class:list={['px-4 py-3 align-top text-brand-fg-2', i === 0 && 'font-medium text-brand-fg whitespace-nowrap']}>{cell}</td>
           ))}
         </tr>
       ))}
