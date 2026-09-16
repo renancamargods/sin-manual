@@ -1,0 +1,134 @@
+---
+section: tecnico
+routeSlug: fluxos/simular-pagamentos-homologacao
+pageType: tecnico
+title: Simular Pagamentos em Homologação (QA)
+description: "Procedimento de QA para validar pagamentos de cartão em Homologação (sem captura real): confirmar cobranças PagarMe (webhook charge.paid), PayGo (gerador de cartão VISA) e Pagamento Misto (mutation GraphQL)."
+moduleLabel: Pedidos / Pagamentos
+routineType: Procedimento de QA
+impact: Confirmação manual de pagamentos de cartão em Homologação
+keywords: [homologação, qa, pagamento, cartão, pagarme, paygo, pagamento misto, webhook, charge.paid, acquirer_auth_code, graphql, gerador de cartão, visa]
+tags: [tecnico, fluxo, pagamento, qa]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+Em **Homologação**, os pagamentos de cartão **não passam por captura real** na adquirente. Para o pedido avançar (ficar **"pago"**), é preciso **simular a confirmação manualmente**. O caminho muda conforme o gateway/forma de pagamento: **PagarMe**, **PayGo** ou **Pagamento Misto**.
+
+<Callout type="cuidado" title="Só em Homologação">
+Este procedimento é exclusivo de **HML/QA**. Nunca aplique em Produção — em Produção a confirmação vem da adquirente real.
+</Callout>
+
+## Antes de começar
+
+- Acesso de **consulta ao banco** (para o SELECT que traz os dados do pagamento).
+- O **pedido** já criado, com a cobrança/link gerado.
+
+## Passo comum — pegar os dados no banco
+
+Rode o **SELECT** abaixo para localizar os pagamentos do pedido (pelo **Sequencial**):
+
+```sql
+-- pagamento cartao misto
+SELECT PagamentoMisto.DadosDoCartao, Pedido.Sequencial
+FROM Pedidos_PedidoInformacaoDePagamentoMisto Pagamentomisto WITH (NOLOCK)
+JOIN Pedidos_Pedido Pedido WITH (NOLOCK)
+    ON Pedido.IdPedido = Pagamentomisto.IdPedido
+WHERE Pedido.Sequencial IN ('2026XXXXXXX');
+```
+
+Campos que ele traz:
+
+<DocTable
+  headers={['Campo', 'O que é']}
+  rows={[
+    ['Sequencial', 'Número sequencial do pedido (filtro do WHERE).'],
+    ['DadosDoCartao', 'JSON com os dados de cada pagamento do pedido.'],
+    ['DadosDoCartao → IdTransacao', 'Id da transação — usado como code no webhook do PagarMe.'],
+    ['DadosDoCartao → Url', 'Link (https) da cobrança — é a URL que se abre no caso PayGo.'],
+  ]}
+/>
+
+No pagamento misto o SELECT retorna **uma linha por pagamento**. A URL indica o gateway: `...pagar.me/...` é **PagarMe**; `...gate2all.com.br/...` é **PayGo**.
+
+## Caso 1 — PagarMe (simular o webhook `charge.paid`)
+
+Ajuste o retorno do webhook trocando os campos:
+
+<DocTable
+  headers={['Campo', 'Trocar por']}
+  rows={[
+    ['amount', 'O valor do pagamento.'],
+    ['code', 'O id da transaction gerado.'],
+    ['acquirer_auth_code', 'Um número aleatório de 6 dígitos.'],
+  ]}
+/>
+
+Exemplo de payload:
+
+```json
+{
+  "id": "hook_TESTE_CONSIGNADO_592803",
+  "type": "charge.paid",
+  "account": { "id": "acc_XXXXXXXX", "name": "S.I.N. IMPLANT SYSTEM LTDA" },
+  "data": {
+    "id": "ch_TESTE_CONSIGNADO_592803",
+    "amount": 5670,
+    "paid_amount": 5670,
+    "status": "paid",
+    "order": { "id": "or_TESTE_CONSIGNADO_592803", "status": "paid", "code": "pl_XXXXXXXX" },
+    "last_transaction": { "acquirer_auth_code": "159753", "status": "captured", "device_serial_number": null },
+    "charges": [
+      { "last_transaction": { "acquirer_auth_code": "159753", "status": "captured", "device_serial_number": null } }
+    ]
+  }
+}
+```
+
+## Caso 2 — PayGo (gerador de cartão)
+
+1. Pegue o **link** e abra a **URL (https)** que aparece nos dados do cartão no SELECT.
+2. Abra um **gerador de cartão de crédito** e use **SEMPRE VISA**.
+
+## Caso 3 — Pagamento Misto (validação via GraphQL)
+
+A confirmação é feita pela **mutation**:
+
+```graphql
+mutation {
+  pedidoInformacaoDePagamentoMisto {
+    integrarPagamentosMistos {
+      idPedido
+    }
+  }
+}
+```
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Por que preciso simular o pagamento?', answer: 'Em Homologação não há captura real na adquirente; a confirmação precisa ser gerada manualmente para o pedido ficar "pago".' },
+    { question: 'No PayGo, qual bandeira usar?', answer: 'Sempre VISA, gerada no gerador de cartão de crédito.' },
+    { question: 'Como confirmo um Pagamento Misto?', answer: 'Pela mutation GraphQL pedidoInformacaoDePagamentoMisto → integrarPagamentosMistos.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '16/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '16/09/2026', author: 'Renan Camargo', description: 'Procedimento de QA para simular/validar pagamentos de cartão em Homologação (PagarMe, PayGo e Pagamento Misto).' },
+  ]}
+/>
