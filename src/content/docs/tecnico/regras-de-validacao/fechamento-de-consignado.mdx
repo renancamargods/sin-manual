@@ -1,0 +1,53 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/fechamento-de-consignado
+pageType: tecnico
+title: Regras de Validação - Fechamento de Consignado
+description: "As regras de validação do Fechamento de Consignado: obrigatórios da solicitação (gerar o pedido de fechamento) e as regras de desconto (0 a 100, no máximo 2 casas decimais)."
+moduleLabel: Faturamentos
+routineType: Referência de validação
+keywords: [fechamento de consignado, validação, campos obrigatórios, desconto geral, equalizar desconto, cliente, centro, condição de pagamento, casas decimais]
+tags: [tecnico, regras-de-validacao]
+order: 5
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+
+## Visão geral
+
+Regras que o **Fechamento de Consignado** exige, derivadas dos validadores do sistema. Cobrem a **solicitação** (gerar o pedido de fechamento) e o **desconto** (no item, na equalização e na política).
+
+<Callout type="info" title="Antes de gerar">
+O botão **"Pesquisar"** (que carrega os itens de consignado) só habilita com **Cliente** e **Número da NF** preenchidos.
+</Callout>
+
+## Obrigatórios da solicitação
+
+Para gerar o pedido de fechamento:
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Cliente', 'Obrigatório.'],
+    ['Centro', 'Obrigatório.'],
+    ['Tipo de Pedido (Operação Inteligente)', 'Obrigatório.'],
+    ['Lista de Preço', 'Obrigatória.'],
+    ['Forma de Pagamento', 'Obrigatória.'],
+    ['Condição de Pagamento', 'Obrigatória.'],
+    ['Tipo da Operação', 'Obrigatório.'],
+  ]}
+/>
+
+## Desconto
+
+A mesma regra vale para o **Desconto Geral** da solicitação, o **desconto por item**, o **"Equalizar Desconto"** e o **desconto da política** (em um fechamento já existente):
+
+<DocTable
+  headers={['Regra', 'Detalhe']}
+  rows={[
+    ['Mínimo', 'Maior ou igual a 0.'],
+    ['Máximo', 'Menor ou igual a 100.'],
+    ['Casas decimais', 'No máximo 2 casas decimais.'],
+  ]}
+/>

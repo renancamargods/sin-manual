@@ -1,0 +1,78 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/contrato
+pageType: tecnico
+lang: en
+title: Validation Rules - Contract
+description: "The Contract validation rules: required fields, commercial structure, validity and rebate, and the Course and ZapSign integration conditionals."
+moduleLabel: Contracts
+routineType: Validation reference
+keywords: [contract, validation, required fields, rebate, validity, months of validity, partner type, course, zapsign, signature]
+tags: [tecnico, regras-de-validacao]
+order: 4
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+
+## Overview
+
+Rules the **Contract** requires to save, derived from the system validator. Some apply only to a **Course contract** or when the **ZapSign integration** is enabled.
+
+## Required
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Title', 'Required; up to 150 characters.'],
+    ['Signed', 'Required (Yes/No).'],
+    ['Partner Type', 'Required.'],
+    ['Contract Type', 'Required.'],
+    ['Classification', 'Required.'],
+    ['Has Partners', 'Required.'],
+    ['Bonus Burs (Fresas Bonificadas)', 'Required.'],
+    ['Status', 'Required.'],
+    ['Customer', 'Required.'],
+    ['Months of Validity', 'Required and greater than 0.'],
+  ]}
+/>
+
+## Commercial Structure (required)
+
+The whole structure is required: **Director**, **GNV**, **GR**, **GD** and **Consultant**.
+
+## Validity, rebate and note
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Validity End', 'Must be later than the Validity Start.'],
+    ['% Rebate', 'Between 0 and 100.'],
+    ['Note', 'Up to 4000 characters.'],
+  ]}
+/>
+
+## Conditional — Course
+
+When the **Partner Type** is **Course**:
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Number of Speakers', 'Required and greater than 0 when "Has Speaker".'],
+    ['Number of Welcome Kits', 'Required and greater than 0 when "Has Welcome Kit".'],
+  ]}
+/>
+
+## Conditional — Signature (ZapSign)
+
+When the **ZapSign integration** is enabled, the signature responsible is required:
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Contract signature CPF', 'Required and a valid CPF.'],
+    ['Signature responsible name', 'Required.'],
+    ['Signature responsible e-mail', 'Required, valid format and up to 150 characters.'],
+  ]}
+/>

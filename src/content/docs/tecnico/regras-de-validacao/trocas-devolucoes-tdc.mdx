@@ -1,0 +1,43 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/trocas-devolucoes-tdc
+pageType: tecnico
+title: Regras de Validação - Trocas/Devoluções (TDC)
+description: "As regras de validação do Pedido TDC (Trocas/Devoluções): obrigatórios da triagem (cliente da devolução, centro) e do item de troca (cliente, operação, quantidade, preços, tipo)."
+moduleLabel: Faturamentos
+routineType: Referência de validação
+keywords: [tdc, trocas, devoluções, pedido tdc, triagem, item de troca, centro de devolução, quantidade, preço unitário, tipo do item]
+tags: [tecnico, regras-de-validacao]
+order: 8
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+
+## Visão geral
+
+Regras que o **Pedido TDC** (Trocas/Devoluções) exige, derivadas dos validadores do sistema. Cobrem a **triagem** (nova devolução) e o **item de troca**.
+
+## Triagem (nova devolução)
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Cliente responsável pelos itens devolvidos', 'Obrigatório.'],
+    ['Centro de Devolução', 'Obrigatório.'],
+  ]}
+/>
+
+## Item de troca
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Cliente', 'Obrigatório (vinculado ao item de troca).'],
+    ['Operação', 'Obrigatória (vinculada ao item de troca).'],
+    ['Quantidade', 'Obrigatória e maior ou igual a 1.'],
+    ['Preço de Tabela do Produto', 'Obrigatório — é carregado ao selecionar o produto.'],
+    ['Preço Unitário', 'Obrigatório — é calculado ao preencher a quantidade.'],
+    ['Tipo do Item', 'Obrigatório.'],
+  ]}
+/>

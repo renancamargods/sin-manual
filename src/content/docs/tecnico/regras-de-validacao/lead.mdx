@@ -1,0 +1,47 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/lead
+pageType: tecnico
+title: Regras de Validação - Lead
+description: "As regras de validação do cadastro de Lead: obrigatórios, documento e e-mail (quando informados), cliente da Base SIN e valor potencial."
+moduleLabel: Leads
+routineType: Referência de validação
+keywords: [lead, validação, campos obrigatórios, pipeline de venda, valor potencial, base sin, estrutura comercial, cpf, cnpj]
+tags: [tecnico, regras-de-validacao]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+
+## Visão geral
+
+Regras que o cadastro de **Lead** exige para salvar, derivadas do validador do sistema.
+
+## Obrigatórios
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Nome', 'Obrigatório.'],
+    ['Telefone / Celular', 'Obrigatório.'],
+    ['Pipeline de Venda', 'Obrigatório.'],
+    ['Tipo do Lead', 'Obrigatório.'],
+    ['Origem do Lead (Canal de Entrada)', 'Obrigatória.'],
+    ['Estrutura Comercial do Solicitante', 'Obrigatória.'],
+    ['Estrutura Comercial do Executivo responsável', 'Obrigatória.'],
+    ['Valor Potencial do Lead', 'Obrigatório e maior ou igual a 0.'],
+    ['De acordo com a política de Indicação de Leads', 'É necessário aceitar (marcar "Sim").'],
+  ]}
+/>
+
+## Condicionais e formatos
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Cliente', 'Obrigatório quando o Tipo do Lead é "Base SIN" (selecionar o cliente pré-existente).'],
+    ['Documento (CPF/CNPJ)', 'Opcional; quando informado, CPF válido (PF) ou CNPJ válido (PJ).'],
+    ['E-mail', 'Opcional; quando informado, deve estar em formato válido.'],
+  ]}
+/>

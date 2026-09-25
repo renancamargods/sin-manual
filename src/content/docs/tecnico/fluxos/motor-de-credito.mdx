@@ -1,0 +1,110 @@
+---
+section: tecnico
+routeSlug: fluxos/motor-de-credito
+pageType: tecnico
+title: Motor de Crédito (Análise Automática do Pedido)
+description: "Como o Motor de Crédito (regras R006) analisa o pedido no envio: sequência de regras que decide entre aprovar automaticamente ou mandar para a Mesa de Crédito, e onde a decisão aparece."
+moduleLabel: Pedidos / Crédito
+routineType: Fluxo de processo
+impact: Decisão automática de crédito do pedido (aprovar x Mesa de Crédito)
+keywords: [motor de crédito, análise de crédito, r006, mesa de crédito, blacklist, cartão, pix, pagamento misto, car vencido, limite de crédito, log análise de pedido, substatus de análise de crédito]
+tags: [tecnico, fluxo, credito]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+O **Motor de Crédito** é a **análise automática de crédito do pedido**. Quando o pedido é **enviado para aprovação**, o motor aplica uma **sequência de regras** e decide, sem intervenção manual, se o pedido pode **seguir aprovado** ou se precisa ir para a **Mesa de Crédito** (análise humana).
+
+Ele é diferente da [análise de crédito e antifraude (ClearSale)](/tecnico/fluxos/credito-e-antifraude-clearsale), que acontece no **cadastro do cliente**. Aqui a análise é **por pedido**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Decidir o crédito do pedido', text: 'Aprovar automaticamente ou encaminhar o pedido para a Mesa de Crédito.' },
+    { label: 'Uso', title: 'No envio do pedido', text: 'Roda automaticamente quando o pedido é enviado para aprovação.' },
+    { label: 'Cuidado', title: 'Para na 1ª regra', text: 'As regras são avaliadas em ordem e a primeira que decide encerra a análise.' },
+  ]}
+/>
+
+## Antes do motor rodar: cliente apto
+
+O motor só roda para pedidos que conseguem ser **enviados**. O envio exige que o **cliente esteja Ativo (apto)**. Se o cadastro estiver, por exemplo, em **"Negado Análise Crédito"**, o envio é **bloqueado** com aviso e o motor **não chega a rodar** — o cliente precisa estar no status **"Ativo"** primeiro.
+
+## Como o motor decide
+
+A análise é **sequencial** e **para na primeira regra que decide**. Se nenhuma regra decidir, o pedido é **Aprovado**.
+
+Antes das regras, há duas checagens de entrada: se o **cliente não existe na base de análise** ou se a **condição de pagamento está vazia**, o pedido vai direto para a **Mesa de Crédito**.
+
+<DocTable
+  headers={['Ordem', 'Regra', 'O que verifica', 'Resultado quando dispara']}
+  rows={[
+    ['1', 'Blacklist', 'Cliente marcado como Blacklist.', 'Mesa de Crédito.'],
+    ['2', 'Depósito Bancário', 'Forma de pagamento é depósito bancário.', 'Mesa de Crédito.'],
+    ['3', 'Cartão de Crédito ou PIX', 'Forma de pagamento é cartão ou PIX (aprovação automática).', 'Aprovado (aguardando pagamento).'],
+    ['4', 'Bonificação PFCQ', 'Pedido de bonificação gerado pela Ocorrência PFCQ (operação YBPF).', 'Aprovado (faturamento).'],
+    ['5', 'Remessa OPL', 'Operação do tipo Remessa OPL.', 'Aprovado (faturamento).'],
+    ['6', 'Pagamento Misto', 'Misto sem boleto x misto com boleto.', 'Sem boleto: Aprovado. Com boleto: Mesa de Crédito.'],
+    ['7', 'Serasa', 'Consulta Serasa.', 'Desabilitado atualmente (não decide).'],
+    ['8', 'Limite de Crédito', 'Limite de crédito disponível e a validade do limite do cliente.', 'Sem limite disponível ou limite vencido: Mesa de Crédito.'],
+    ['9', 'CAR Vencido', 'Contas a Receber (CAR) vencidas acima da tolerância.', 'Acima da tolerância: Mesa de Crédito. Dentro da tolerância: segue.'],
+    ['10', 'Grupo Econômico', 'Análise considerando o grupo econômico do cliente.', 'Conforme a regra do grupo.'],
+    ['—', 'Nenhuma regra decidiu', '—', 'Aprovado.'],
+  ]}
+/>
+
+<Callout type="info" title="Tolerância do CAR vencido">
+No **CAR Vencido**, o pedido fica **dentro da tolerância** quando o atraso é pequeno, o valor vencido é baixo ou o perfil do cliente é favorável — todos **critérios configuráveis**. Fora desses critérios, o pedido vai para a **Mesa de Crédito**.
+</Callout>
+
+## Resultados possíveis
+
+<DocTable
+  headers={['Resultado', 'O que significa']}
+  rows={[
+    ['Aprovado', 'O pedido segue automaticamente (para pagamento ou faturamento, conforme a regra que aprovou).'],
+    ['Mesa de Crédito', 'O pedido é encaminhado para análise manual na fila da Mesa de Crédito.'],
+    ['Tolerado (CAR)', 'O CAR vencido ficou dentro dos critérios de tolerância e o pedido segue.'],
+  ]}
+/>
+
+## Onde a decisão aparece
+
+<DocTable
+  headers={['Onde', 'O que mostra']}
+  rows={[
+    ['"Log Análise de Pedido"', 'Cada regra avaliada registra a regra aplicada, o resultado e o motivo.'],
+    ['Coluna "SubStatus de Análise de Crédito" (listagem de Pedidos)', 'O resultado do crédito no pedido, junto com o Status do Pedido.'],
+    ['"Fila de Aprovações - Pedidos" (Mesa de Crédito)', 'Os pedidos que caíram na Mesa de Crédito aguardando análise manual.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Quando o Motor de Crédito roda?', answer: 'Automaticamente, quando o pedido é enviado para aprovação.' },
+    { question: 'Por que meu pedido foi para a Mesa de Crédito?', answer: 'Alguma regra o encaminhou (ex.: Blacklist, depósito bancário, limite indisponível/vencido, CAR vencido fora da tolerância, ou pagamento misto com boleto). Veja o motivo no "Log Análise de Pedido".' },
+    { question: 'Cartão e PIX são aprovados na hora?', answer: 'Sim, o motor aprova automaticamente e o pedido segue aguardando o pagamento.' },
+    { question: 'Qual a diferença para a análise da ClearSale?', answer: 'A ClearSale analisa o cadastro do cliente (antifraude). O Motor de Crédito analisa o pedido no envio.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '25/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/09/2026', author: 'Renan Camargo', description: 'Emissão inicial do fluxo do Motor de Crédito (regras R006): sequência de regras, resultados e pontos de verificação.' },
+  ]}
+/>

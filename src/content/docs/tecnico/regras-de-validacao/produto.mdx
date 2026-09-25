@@ -1,0 +1,63 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/produto
+pageType: tecnico
+title: Regras de Validação - Produto
+description: "As regras de validação do cadastro de Produto: obrigatórios, dimensões e pesos (numéricos) e os limites de tamanho dos códigos e unidades."
+moduleLabel: Produtos
+routineType: Referência de validação
+keywords: [produto, validação, campos obrigatórios, sku, descrição, grupo, largura, altura, peso, cubagem, ncm, ean]
+tags: [tecnico, regras-de-validacao]
+order: 6
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+
+## Visão geral
+
+Regras que o cadastro de **Produto** exige para salvar, derivadas do validador do sistema.
+
+## Obrigatórios
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Código SKU', 'Obrigatório; até 25 caracteres.'],
+    ['Descrição', 'Obrigatória; até 150 caracteres.'],
+    ['Grupo', 'Obrigatório.'],
+    ['Status', 'Obrigatório.'],
+  ]}
+/>
+
+## Dimensões, pesos e IPI
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Largura', 'Maior que 0.'],
+    ['Altura', 'Maior que 0.'],
+    ['Peso Bruto (kg)', 'Maior que 0.'],
+    ['Peso Líquido (kg)', 'Maior que 0.'],
+    ['Cubagem', 'Maior ou igual a 0.'],
+    ['Alíquota de IPI (%)', 'Maior ou igual a 0.'],
+  ]}
+/>
+
+## Limites de tamanho
+
+<DocTable
+  headers={['Campo', 'Máximo']}
+  rows={[
+    ['Código EAN Nacional', '18 caracteres.'],
+    ['Código EAN Internacional', '18 caracteres.'],
+    ['Código de Barras', '18 caracteres.'],
+    ['NCM', '16 caracteres.'],
+    ['Complemento', '150 caracteres.'],
+    ['Unidade de Medida', '5 caracteres.'],
+    ['Unidade Padrão', '3 caracteres.'],
+    ['Unidade de Medida Básica', '10 caracteres.'],
+    ['Unidade de Peso', '3 caracteres.'],
+    ['Unidade de Cubagem', '3 caracteres.'],
+  ]}
+/>

@@ -1,0 +1,54 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao
+pageType: tecnico
+title: Regras de Validação
+description: "As regras de validação de campo das telas (o que trava o Salvar/Enviar): onde os erros aparecem, quando disparam e o catálogo por tela (Cliente, Pedido)."
+keywords: [validação, regras de validação, campos obrigatórios, fluentvalidation, invalid-feedback, salvar, enviar, cliente, pedido]
+tags: [tecnico]
+order: 9
+---
+
+import Callout from '../../../components/Callout.astro';
+import DocTable from '../../../components/DocTable.astro';
+
+## Visão geral
+
+Cada tela do sistema tem **regras de validação** que decidem se um cadastro pode ser **salvo/enviado**. Elas vêm do código (FluentValidation, na camada de domínio), então **refletem o comportamento real** — é o mesmo motor que trava o botão. Esta seção documenta essas regras **por tela**, para suporte e QA saberem *por que* um envio não passou.
+
+## Onde os erros aparecem
+
+<DocTable
+  headers={['Onde', 'O que é']}
+  rows={[
+    ['Mensagem em vermelho abaixo do campo', 'A validação de campo (o campo fica destacado e a mensagem aparece logo abaixo).'],
+    ['Aviso no canto (toast)', 'Alguns erros sobem como um aviso rápido, em vez de ficar embaixo do campo.'],
+    ['Campos obrigatórios destacados', 'Campos exigidos ficam marcados quando você tenta salvar sem preenchê-los.'],
+  ]}
+/>
+
+## Quando as regras disparam
+
+- Ao **"Salvar" / "Salvar e Continuar"** e ao **"Enviar"** — a validação roda no momento de gravar/enviar.
+- Algumas regras só valem em **certos contextos** (ex.: ao **adicionar um item**, ou apenas no **envio para as filas**).
+- Muitas regras são **condicionais** — dependem de:
+
+<DocTable
+  headers={['Depende de', 'Exemplo']}
+  rows={[
+    ['Tipo de pessoa', 'Física, Jurídica ou Estrangeiro mudam quais campos são obrigatórios.'],
+    ['País / empresa', 'Clientes de Portugal seguem um conjunto diferente de regras.'],
+    ['Cliente internacional', 'Exige dados que o nacional não pede (ex.: Dados Bancários no pedido).'],
+    ['Forma / condição de pagamento', 'Boleto Data Fixa exige o dia; formas parceladas exigem dias da 1ª parcela.'],
+    ['Parâmetros do sistema', 'Configurações podem tornar um campo obrigatório (ex.: "Possui Pacote").'],
+  ]}
+/>
+
+<Callout type="info" title="Fonte das regras">
+As regras aqui documentadas vêm dos **validators** do sistema (FluentValidation). Regras marcadas como comentadas/desativadas no código **não** entram aqui.
+</Callout>
+
+## Telas documentadas
+
+- **[Cliente](/tecnico/regras-de-validacao/cliente)** — regras do cadastro de cliente (obrigatórios por tipo de pessoa, documento, fiscais, CRO, contatos).
+- **[Pedido](/tecnico/regras-de-validacao/pedido)** — regras do pedido (obrigatórios, estrutura comercial, itens, pagamento, limites).

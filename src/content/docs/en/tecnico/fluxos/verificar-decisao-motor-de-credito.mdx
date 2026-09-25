@@ -1,0 +1,84 @@
+---
+section: tecnico
+routeSlug: fluxos/verificar-decisao-motor-de-credito
+pageType: tecnico
+lang: en
+title: Verifying the Credit Engine Decision (QA)
+description: "QA/support procedure to check what the Credit Engine decided for an order: the verification points (Order Review Log, SubStatus, Credit Desk queue) and how to read the log per rule."
+moduleLabel: Orders / Credit
+routineType: QA procedure
+impact: Checking the credit decision of an order
+keywords: [qa, credit engine, order review log, credit analysis substatus, credit desk, applied rule, result, reason, verify decision]
+tags: [tecnico, fluxo, credito, qa]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+After an order is submitted, the [Credit Engine](/en/tecnico/fluxos/motor-de-credito) decides between **approving** it or sending it to the **Credit Desk**. This page shows **how to check that decision** — useful in QA and support when you need to understand *why* an order did (or did not) go to the Desk.
+
+## The three verification points
+
+<DocTable
+  headers={['Where to look', 'What it shows']}
+  rows={[
+    ['"Order Review Log"', 'The detail: each evaluated rule records "Applied Rule", "Result" and "Reason". It is the deterministic source of the decision.'],
+    ['"Credit Analysis SubStatus" column (Orders list)', 'The credit result on the order itself, along with the Order Status — a quick view without opening the log.'],
+    ['"Approval Queue - Orders" (Credit Desk)', 'If the order went to the Desk, it shows up in this queue awaiting manual review.'],
+  ]}
+/>
+
+<Callout type="dica" title="Start with the Log">
+To know the **exact rule** that decided, use the **"Order Review Log"** filtered by the order. The analysis stops at the first rule that decides, so that rule's line is the one that matters.
+</Callout>
+
+## How to read the log per rule
+
+Each rule writes a text in the **Reason**. The snippet tells whether the rule **fired** (decided there) or **passed** (moved to the next):
+
+<DocTable
+  headers={['Applied Rule', 'When it fires (Reason snippet)', 'When it passes (Reason snippet)']}
+  rows={[
+    ['Blacklist Validation', '"está na blacklist" (→ Credit Desk)', '"não identificado em lista restritiva"'],
+    ['Bank deposit', '"depósito bancário" (→ Credit Desk)', '"depósito bancário não"'],
+    ['Credit Card or PIX', '"cartão de crédito ou pix" (→ Approved)', '"cartão de crédito ou pix não identificada"'],
+    ['PFCQ Bonus', '"bonificação pfcq realizada" (→ Approved)', '—'],
+    ['OPL Shipment', '"remessa opl realizada" (→ Approved)', '—'],
+    ['Mixed Payment', '"pagamento misto com boleto" (→ Desk)', '"pagamento misto sem boleto" (→ Approved)'],
+    ['Credit Limit Check', '"limite de crédito vencido" / "valor do pedido superior ao limite disponível" (→ Desk)', '—'],
+    ['Overdue receivables (CAR)', '"acima dos limites de tolerância" (→ Desk)', '"dentro dos critérios de tolerância" (→ continues/tolerated)'],
+    ['Analysis completed | Order Approved', 'no rule rejected (→ Approved)', '—'],
+  ]}
+/>
+
+## How to interpret the final decision
+
+<DocTable
+  headers={['Decision', 'How to identify it']}
+  rows={[
+    ['Credit Desk', 'A rule routed to the Desk (snippet above) and the order shows in the "Approval Queue - Orders".'],
+    ['Approved', 'A rule approved the order (Card/PIX, PFCQ Bonus, OPL, Mixed without boleto) or no rule rejected it.'],
+    ['Tolerated (CAR)', 'The overdue receivables stayed "dentro dos critérios de tolerância" and the order continued.'],
+  ]}
+/>
+
+<Callout type="info" title="Credit analysis only">
+These texts are the Credit Engine's. An order may also go through **approval-level review** (out of policy) — that is a separate step, in the same queue. See [Order Approval - Without Ignition](/en/tecnico/fluxos/aprovacao-de-pedidos-sem-ignition).
+</Callout>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '09/25/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '09/25/2026', author: 'Renan Camargo', description: 'QA procedure to verify the Credit Engine decision (verification points and reading the log per rule).' },
+  ]}
+/>

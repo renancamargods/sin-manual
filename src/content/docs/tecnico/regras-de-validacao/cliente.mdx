@@ -1,0 +1,113 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/cliente
+pageType: tecnico
+title: Regras de Validação - Cliente
+description: "As regras de validação do cadastro de Cliente: obrigatórios gerais, o que muda por tipo de pessoa (PF, PJ, Estrangeiro), documento, fiscais, CRO, contatos e limites de tamanho."
+moduleLabel: Clientes
+routineType: Referência de validação
+keywords: [cliente, validação, campos obrigatórios, cpf, cnpj, inscrição estadual, cro, moeda, lista de preço, endereço principal, telefone principal, tipo de pessoa]
+tags: [tecnico, regras-de-validacao]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+
+## Visão geral
+
+Regras que o cadastro de **Cliente** exige para salvar/enviar, derivadas do validador do sistema. Muitas dependem do **tipo de pessoa** (Física, Jurídica ou Estrangeiro) e do **país** (clientes de Portugal seguem regras próprias).
+
+<Callout type="info" title="Como ler">
+"Sempre" = vale para todos. "PF/PJ nacional" = Física e Jurídica no Brasil. "Só PJ", "Só Estrangeiro" e "Portugal" valem apenas nesses casos.
+</Callout>
+
+## Obrigatórios — sempre
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Tipo de Pessoa', 'Obrigatório.'],
+    ['Nome', 'Obrigatório; até 150 caracteres; sem caracteres especiais (aceita letras, números, acentos, "-", "&", ".", "/").'],
+    ['Origem', 'Obrigatória.'],
+    ['Ramo de Atividade', 'Obrigatório.'],
+    ['Cliente Especial', 'Obrigatório (Sim/Não).'],
+    ['Embaixador', 'Obrigatório (Sim/Não).'],
+    ['Consultor', 'Ao menos um consultor (Consultor FVE ou lista de consultores).'],
+    ['Empresa', 'Ao menos uma empresa vinculada.'],
+    ['Endereço principal', 'Exatamente um endereço marcado como principal (nem zero, nem mais de um).'],
+    ['Telefone principal', 'Ao menos um telefone e exatamente um marcado como principal.'],
+  ]}
+/>
+
+## Documento (CPF/CNPJ)
+
+<DocTable
+  headers={['Situação', 'Regra']}
+  rows={[
+    ['PF e PJ', 'Documento obrigatório.'],
+    ['Estrangeiro', 'Documento dispensado.'],
+    ['PF', 'CPF válido e na máscara 999.999.999-99.'],
+    ['PJ', 'CNPJ válido e na máscara XX.XXX.XXX/XXXX-99 (alfanumérico).'],
+  ]}
+/>
+
+## PF/PJ nacional
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Código do Cliente', 'Obrigatório (dispensado só para Estrangeiro); sem caracteres especiais.'],
+    ['Nome Fantasia', 'Obrigatório (exceto Portugal); até 150 caracteres; sem caracteres especiais.'],
+    ['Moeda', 'Uma moeda obrigatória (Estrangeiro usa múltiplas moedas — ver abaixo).'],
+    ['E-mail', 'Ao menos um e-mail e em formato válido.'],
+    ['CRO', 'Obrigatório; até 20 caracteres.'],
+    ['UF do CRO', 'Obrigatória.'],
+    ['Tipo do CRO (Observação CRO)', 'Obrigatório.'],
+    ['Responsável CRO', 'Obrigatório; até 150 caracteres.'],
+    ['Data de Nascimento / Abertura', 'Obrigatória e não pode ser uma data futura.'],
+  ]}
+/>
+
+## Só PJ (nacional)
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Inscrição Estadual', 'Obrigatória; numérica ou "ISENTO"; até 14 caracteres.'],
+  ]}
+/>
+
+<Callout type="info" title="Perfil fiscal restrito">
+Quando o cliente tem **restrição de propriedades fiscais**, tornam-se obrigatórios: **Inscrição Estadual**, **Tipo de Setor Industrial**, **Categoria do CFOP**, **Contribuinte de ICMS** e **Emissão de Nota Fiscal obrigatória**.
+</Callout>
+
+## Só Estrangeiro
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Documento (CPF/CNPJ)', 'Dispensado.'],
+    ['Moedas', 'Múltiplas moedas obrigatórias (ao menos uma).'],
+    ['Lista de Preço', 'Obrigatória.'],
+  ]}
+/>
+
+## Portugal
+
+Para clientes da empresa **Portugal**, várias regras nacionais (Nome Fantasia, CRO, Inscrição Estadual, Data de Nascimento etc.) **não se aplicam**, e passam a ser obrigatórios: **Exibir IVA**, **Cliente Hub Portugal** e **um endereço Portugal principal**.
+
+## Limites de tamanho e outros
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Observação', 'Até 4000 caracteres.'],
+    ['Suframa', 'Até 12 caracteres.'],
+    ['Inscrição Estadual', 'Até 14 caracteres.'],
+    ['Status Ignition / Ticket Ignition', 'Até 50 caracteres cada.'],
+    ['Aceita Contato de Marketing', 'Obrigatório (exceto Portugal).'],
+    ['Atividade Econômica principal', 'Obrigatória quando o cliente tem atividades econômicas cadastradas.'],
+    ['Anexos', 'Anexos marcados como obrigatórios (por tipo de pessoa) são exigidos ao enviar para aprovação.'],
+  ]}
+/>

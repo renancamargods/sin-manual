@@ -1,0 +1,32 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/empresa
+pageType: tecnico
+lang: en
+title: Validation Rules - Company
+description: "The Company registration validation rules: required fields and length limits (code, name, trade name)."
+moduleLabel: Administrator
+routineType: Validation reference
+keywords: [company, validation, required fields, company code, name, trade name, status]
+tags: [tecnico, regras-de-validacao]
+order: 12
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+
+## Overview
+
+Rules the **Company** registration requires to save, derived from the system validator.
+
+## Required and limits
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Company Code', 'Required; up to 4 characters.'],
+    ['Name', 'Required; up to 150 characters.'],
+    ['Trade Name', 'Required; up to 150 characters.'],
+    ['Status', 'Required.'],
+  ]}
+/>

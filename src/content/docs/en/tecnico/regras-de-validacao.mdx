@@ -1,0 +1,55 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao
+pageType: tecnico
+lang: en
+title: Validation Rules
+description: "The field validation rules of the screens (what blocks Save/Submit): where errors appear, when they fire, and the catalog per screen (Customer, Order)."
+keywords: [validation, validation rules, required fields, fluentvalidation, invalid-feedback, save, submit, customer, order]
+tags: [tecnico]
+order: 9
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+
+## Overview
+
+Each screen has **validation rules** that decide whether a record can be **saved/submitted**. They come from the code (FluentValidation, in the domain layer), so they **reflect the real behavior** — it is the same engine that blocks the button. This section documents those rules **per screen**, so support and QA know *why* a submission did not go through.
+
+## Where the errors appear
+
+<DocTable
+  headers={['Where', 'What it is']}
+  rows={[
+    ['Red message below the field', 'The field validation (the field is highlighted and the message appears right below it).'],
+    ['Corner notice (toast)', 'Some errors show up as a quick notice instead of below the field.'],
+    ['Highlighted required fields', 'Required fields are flagged when you try to save without filling them.'],
+  ]}
+/>
+
+## When the rules fire
+
+- On **"Save" / "Save and Continue"** and on **"Submit"** — validation runs at save/submit time.
+- Some rules only apply in **certain contexts** (e.g., when **adding an item**, or only on **submission to the queues**).
+- Many rules are **conditional** — they depend on:
+
+<DocTable
+  headers={['Depends on', 'Example']}
+  rows={[
+    ['Person type', 'Individual, Company or Foreign change which fields are required.'],
+    ['Country / company', 'Customers from Portugal follow a different set of rules.'],
+    ['International customer', 'Requires data the domestic one does not (e.g., Bank Details on the order).'],
+    ['Payment method / term', 'Fixed-Date boleto requires the day; installment methods require the first-installment days.'],
+    ['System parameters', 'Settings can make a field required (e.g., "Has Package").'],
+  ]}
+/>
+
+<Callout type="info" title="Source of the rules">
+The rules documented here come from the system **validators** (FluentValidation). Rules that are commented out/disabled in the code are **not** included.
+</Callout>
+
+## Documented screens
+
+- **[Customer](/en/tecnico/regras-de-validacao/cliente)** — customer registration rules (required by person type, document, tax, CRO, contacts).
+- **[Order](/en/tecnico/regras-de-validacao/pedido)** — order rules (required fields, commercial structure, items, payment, limits).

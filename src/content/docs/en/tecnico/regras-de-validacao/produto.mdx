@@ -1,0 +1,64 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/produto
+pageType: tecnico
+lang: en
+title: Validation Rules - Product
+description: "The Product registration validation rules: required fields, dimensions and weights (numeric) and the length limits of codes and units."
+moduleLabel: Products
+routineType: Validation reference
+keywords: [product, validation, required fields, sku, description, group, width, height, weight, cubage, ncm, ean]
+tags: [tecnico, regras-de-validacao]
+order: 6
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+
+## Overview
+
+Rules the **Product** registration requires to save, derived from the system validator.
+
+## Required
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['SKU Code', 'Required; up to 25 characters.'],
+    ['Description', 'Required; up to 150 characters.'],
+    ['Group', 'Required.'],
+    ['Status', 'Required.'],
+  ]}
+/>
+
+## Dimensions, weights and IPI
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Width', 'Greater than 0.'],
+    ['Height', 'Greater than 0.'],
+    ['Gross Weight (kg)', 'Greater than 0.'],
+    ['Net Weight (kg)', 'Greater than 0.'],
+    ['Cubage', 'Greater than or equal to 0.'],
+    ['IPI Rate (%)', 'Greater than or equal to 0.'],
+  ]}
+/>
+
+## Length limits
+
+<DocTable
+  headers={['Field', 'Maximum']}
+  rows={[
+    ['National EAN Code', '18 characters.'],
+    ['International EAN Code', '18 characters.'],
+    ['Barcode', '18 characters.'],
+    ['NCM', '16 characters.'],
+    ['Complement', '150 characters.'],
+    ['Unit of Measure', '5 characters.'],
+    ['Standard Unit', '3 characters.'],
+    ['Basic Unit of Measure', '10 characters.'],
+    ['Weight Unit', '3 characters.'],
+    ['Cubage Unit', '3 characters.'],
+  ]}
+/>

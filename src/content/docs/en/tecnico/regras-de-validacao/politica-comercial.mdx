@@ -1,0 +1,61 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/politica-comercial
+pageType: tecnico
+lang: en
+title: Validation Rules - Commercial Policy
+description: "The Commercial Policy validation rules: required fields, validity, header discount and value range, and the conditionals by Type and by Policy Rule."
+moduleLabel: Policies
+routineType: Validation reference
+keywords: [commercial policy, validation, required fields, validity, header discount, value range, type, policy rule, fair mode]
+tags: [tecnico, regras-de-validacao]
+order: 9
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+
+## Overview
+
+Rules the **Commercial Policy** requires to save, derived from the system validator. Some depend on the **Type** and on the **Policy Rule**.
+
+## Required
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Description', 'Required; up to 150 characters.'],
+    ['Type', 'Required.'],
+    ['Validity Start', 'Required.'],
+    ['Validity End', 'Required and later than the Validity Start.'],
+    ['New Customers Only', 'Required.'],
+    ['Value to Consider', 'Required.'],
+    ['Domestic/International Policy', 'Required.'],
+    ['Policy Scope', 'Required.'],
+    ['Accounting Method', 'Required.'],
+    ['Fair Mode', 'Required.'],
+    ['Ignore Accounting of Grouped Items', 'Required.'],
+    ['Status', 'Required.'],
+  ]}
+/>
+
+## Discount, range and comments
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['% Header Discount', 'Between 0 and 100.'],
+    ['Value Range (Start/End)', 'If one is filled in, the other becomes required; the End must be greater than the Start.'],
+    ['Comments', 'Up to 4000 characters.'],
+  ]}
+/>
+
+## Conditionals
+
+<DocTable
+  headers={['When', 'Also requires']}
+  rows={[
+    ['Type = "Policy"', 'Policy Rule, Date Validation and Application Method.'],
+    ['Policy Rule = "Header"', '% Header Discount.'],
+  ]}
+/>

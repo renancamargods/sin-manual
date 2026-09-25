@@ -1,0 +1,33 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/condicao-de-pagamento
+pageType: tecnico
+title: Regras de Validação - Condição de Pagamento
+description: "As regras de validação da Condição de Pagamento: obrigatórios e faixas (prazo médio, número de parcelas, código ERP)."
+moduleLabel: Políticas
+routineType: Referência de validação
+keywords: [condição de pagamento, validação, campos obrigatórios, prazo médio, número de parcelas, código erp, forma de pagamento]
+tags: [tecnico, regras-de-validacao]
+order: 10
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+
+## Visão geral
+
+Regras que a **Condição de Pagamento** exige para salvar, derivadas do validador do sistema.
+
+## Obrigatórios e faixas
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Descrição', 'Obrigatória; até 150 caracteres.'],
+    ['Forma de Pagamento', 'Obrigatória.'],
+    ['Prazo Médio', 'Obrigatório; entre 0 e 999.'],
+    ['Número de Parcelas', 'Obrigatório; entre 0 e 99.'],
+    ['Código da Condição ERP', 'Obrigatório; até 4 caracteres.'],
+    ['Status', 'Obrigatório.'],
+  ]}
+/>

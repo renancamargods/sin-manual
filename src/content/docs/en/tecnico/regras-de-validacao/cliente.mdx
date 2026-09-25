@@ -1,0 +1,114 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/cliente
+pageType: tecnico
+lang: en
+title: Validation Rules - Customer
+description: "The Customer registration validation rules: general required fields, what changes per person type (Individual, Company, Foreign), document, tax, CRO, contacts and length limits."
+moduleLabel: Customers
+routineType: Validation reference
+keywords: [customer, validation, required fields, cpf, cnpj, state registration, cro, currency, price list, primary address, primary phone, person type]
+tags: [tecnico, regras-de-validacao]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+
+## Overview
+
+Rules the **Customer** registration requires to save/submit, derived from the system validator. Many depend on the **person type** (Individual, Company or Foreign) and on the **country** (Portugal customers follow their own rules).
+
+<Callout type="info" title="How to read">
+"Always" = applies to all. "Individual/Company (domestic)" = Individual and Company in Brazil. "Company only", "Foreign only" and "Portugal" apply only in those cases.
+</Callout>
+
+## Required — always
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Person Type', 'Required.'],
+    ['Name', 'Required; up to 150 characters; no special characters (allows letters, numbers, accents, "-", "&", ".", "/").'],
+    ['Origin', 'Required.'],
+    ['Line of Business', 'Required.'],
+    ['Special Customer', 'Required (Yes/No).'],
+    ['Ambassador', 'Required (Yes/No).'],
+    ['Consultant', 'At least one consultant (FVE Consultant or the consultant list).'],
+    ['Company', 'At least one linked company.'],
+    ['Primary address', 'Exactly one address flagged as primary (not zero, not more than one).'],
+    ['Primary phone', 'At least one phone and exactly one flagged as primary.'],
+  ]}
+/>
+
+## Document (CPF/CNPJ)
+
+<DocTable
+  headers={['Case', 'Rule']}
+  rows={[
+    ['Individual and Company', 'Document required.'],
+    ['Foreign', 'Document waived.'],
+    ['Individual', 'Valid CPF in the mask 999.999.999-99.'],
+    ['Company', 'Valid CNPJ in the mask XX.XXX.XXX/XXXX-99 (alphanumeric).'],
+  ]}
+/>
+
+## Individual/Company (domestic)
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Customer Code', 'Required (waived only for Foreign); no special characters.'],
+    ['Trade Name', 'Required (except Portugal); up to 150 characters; no special characters.'],
+    ['Currency', 'One currency required (Foreign uses multiple currencies — see below).'],
+    ['E-mail', 'At least one e-mail, in a valid format.'],
+    ['CRO', 'Required; up to 20 characters.'],
+    ['CRO State (UF)', 'Required.'],
+    ['CRO Type (CRO Note)', 'Required.'],
+    ['CRO Responsible', 'Required; up to 150 characters.'],
+    ['Birth / Incorporation Date', 'Required and cannot be a future date.'],
+  ]}
+/>
+
+## Company only (domestic)
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['State Registration', 'Required; numeric or "ISENTO"; up to 14 characters.'],
+  ]}
+/>
+
+<Callout type="info" title="Restricted tax profile">
+When the customer has **restricted tax properties**, the following become required: **State Registration**, **Industrial Sector Type**, **CFOP Category**, **ICMS Taxpayer** and **Mandatory Invoice Issuance**.
+</Callout>
+
+## Foreign only
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Document (CPF/CNPJ)', 'Waived.'],
+    ['Currencies', 'Multiple currencies required (at least one).'],
+    ['Price List', 'Required.'],
+  ]}
+/>
+
+## Portugal
+
+For customers of the **Portugal** company, several domestic rules (Trade Name, CRO, State Registration, Birth Date, etc.) **do not apply**, and these become required: **Show VAT**, **Portugal Hub Customer** and **a primary Portugal address**.
+
+## Length limits and others
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Note', 'Up to 4000 characters.'],
+    ['Suframa', 'Up to 12 characters.'],
+    ['State Registration', 'Up to 14 characters.'],
+    ['Ignition Status / Ignition Ticket', 'Up to 50 characters each.'],
+    ['Accepts Marketing Contact', 'Required (except Portugal).'],
+    ['Primary Economic Activity', 'Required when the customer has registered economic activities.'],
+    ['Attachments', 'Attachments flagged as required (by person type) are enforced on submission for approval.'],
+  ]}
+/>

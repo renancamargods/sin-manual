@@ -1,0 +1,83 @@
+---
+section: tecnico
+routeSlug: fluxos/verificar-decisao-motor-de-credito
+pageType: tecnico
+title: Verificar a Decisão do Motor de Crédito (QA)
+description: "Procedimento de QA/suporte para conferir o que o Motor de Crédito decidiu em um pedido: os pontos de verificação (Log Análise de Pedido, SubStatus, Fila da Mesa) e como ler o log por regra."
+moduleLabel: Pedidos / Crédito
+routineType: Procedimento de QA
+impact: Conferência da decisão de crédito de um pedido
+keywords: [qa, motor de crédito, log análise de pedido, substatus de análise de crédito, mesa de crédito, regra aplicada, resultado, motivo, verificar decisão]
+tags: [tecnico, fluxo, credito, qa]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+Depois que um pedido é enviado, o [Motor de Crédito](/tecnico/fluxos/motor-de-credito) decide entre **aprovar** ou mandar para a **Mesa de Crédito**. Esta página mostra **como conferir essa decisão** — útil em QA e no suporte quando é preciso entender *por que* um pedido foi (ou não) para a Mesa.
+
+## Os três pontos de verificação
+
+<DocTable
+  headers={['Onde olhar', 'O que mostra']}
+  rows={[
+    ['"Log Análise de Pedido"', 'O detalhe: cada regra avaliada grava "Regra Aplicada", "Resultado" e "Motivo". É a fonte determinística da decisão.'],
+    ['Coluna "SubStatus de Análise de Crédito" (listagem de Pedidos)', 'O resultado do crédito no próprio pedido, junto com o Status do Pedido — visão rápida sem abrir o log.'],
+    ['"Fila de Aprovações - Pedidos" (Mesa de Crédito)', 'Se o pedido caiu na Mesa, ele aparece nessa fila aguardando análise manual.'],
+  ]}
+/>
+
+<Callout type="dica" title="Comece pelo Log">
+Para saber a **regra exata** que decidiu, use o **"Log Análise de Pedido"** filtrando pelo pedido. A análise para na primeira regra que decide, então a linha dessa regra é a que importa.
+</Callout>
+
+## Como ler o log por regra
+
+Cada regra grava um texto no **Motivo**. O trecho indica se a regra **disparou** (decidiu ali) ou **passou** (seguiu para a próxima):
+
+<DocTable
+  headers={['Regra Aplicada', 'Quando dispara (trecho no Motivo)', 'Quando passa (trecho no Motivo)']}
+  rows={[
+    ['Validação de Blacklist', '"está na blacklist" (→ Mesa de Crédito)', '"não identificado em lista restritiva"'],
+    ['Depósito bancário', '"depósito bancário" (→ Mesa de Crédito)', '"depósito bancário não"'],
+    ['Cartão de Crédito ou PIX', '"cartão de crédito ou pix" (→ Aprovado)', '"cartão de crédito ou pix não identificada"'],
+    ['Bonificação PFCQ', '"bonificação pfcq realizada" (→ Aprovado)', '—'],
+    ['Remessa OPL', '"remessa opl realizada" (→ Aprovado)', '—'],
+    ['Pagamento Misto', '"pagamento misto com boleto" (→ Mesa)', '"pagamento misto sem boleto" (→ Aprovado)'],
+    ['Verificação de Limite de Crédito', '"limite de crédito vencido" / "valor do pedido superior ao limite disponível" (→ Mesa)', '—'],
+    ['CAR vencido', '"acima dos limites de tolerância" (→ Mesa)', '"dentro dos critérios de tolerância" (→ segue/tolerado)'],
+    ['Análise concluída | Pedido Aprovado', 'nenhuma regra reprovou (→ Aprovado)', '—'],
+  ]}
+/>
+
+## Como interpretar a decisão final
+
+<DocTable
+  headers={['Decisão', 'Como identificar']}
+  rows={[
+    ['Mesa de Crédito', 'A regra derivou para a Mesa (trecho acima) e o pedido aparece na "Fila de Aprovações - Pedidos".'],
+    ['Aprovado', 'A regra aprovou o pedido (Cartão/PIX, Bonificação PFCQ, OPL, Misto sem boleto) ou nenhuma regra reprovou.'],
+    ['Tolerado (CAR)', 'O CAR vencido ficou "dentro dos critérios de tolerância" e o pedido seguiu.'],
+  ]}
+/>
+
+<Callout type="info" title="Só em análise de crédito">
+Estes textos são os do Motor de Crédito. Um pedido também pode passar por **aprovação por alçada** (fora da política) — isso é outra etapa, na mesma fila. Veja [Aprovação de Pedidos - Sem Ignition](/tecnico/fluxos/aprovacao-de-pedidos-sem-ignition).
+</Callout>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '25/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/09/2026', author: 'Renan Camargo', description: 'Procedimento de QA para verificar a decisão do Motor de Crédito (pontos de verificação e leitura do log por regra).' },
+  ]}
+/>

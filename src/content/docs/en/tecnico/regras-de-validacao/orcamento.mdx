@@ -1,0 +1,43 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/orcamento
+pageType: tecnico
+lang: en
+title: Validation Rules - Quote
+description: "The Quote validation rules: required fields, limits (note, total discount) and the item rules (at least one, no duplicates)."
+moduleLabel: Orders
+routineType: Validation reference
+keywords: [quote, validation, required fields, items, total discount, duplicate item, center, bonus]
+tags: [tecnico, regras-de-validacao]
+order: 7
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+
+## Overview
+
+Rules the **Quote** requires to save, derived from the system validator.
+
+## Required and limits
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Status', 'Required.'],
+    ['Quote Items', 'At least one item (not removed).'],
+    ['Note', 'Up to 4000 characters.'],
+    ['% Total Discount', 'Between 0 and 100.'],
+  ]}
+/>
+
+## Item rules
+
+<DocTable
+  headers={['Rule', 'Detail']}
+  rows={[
+    ['No duplicates', 'There cannot be two items with the same product and the same item type.'],
+    ['Existing product', 'Each item product must exist.'],
+    ['Center x Bonus', 'An incompatible center cannot be used when the quote has only Bonus-type items.'],
+  ]}
+/>

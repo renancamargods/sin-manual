@@ -1,0 +1,30 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/mensagem-personalizada
+pageType: tecnico
+lang: en
+title: Validation Rules - Custom Message
+description: "The Custom Message validation rules: the required fields (Message and Message Type)."
+moduleLabel: Administrator
+routineType: Validation reference
+keywords: [custom message, validation, required fields, message, message type]
+tags: [tecnico, regras-de-validacao]
+order: 14
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+
+## Overview
+
+Rules the **Custom Message** requires to save, derived from the system validator.
+
+## Required
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Message', 'Required.'],
+    ['Message Type', 'Required.'],
+  ]}
+/>

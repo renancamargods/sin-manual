@@ -1,0 +1,60 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/politica-comercial
+pageType: tecnico
+title: Regras de Validação - Política Comercial
+description: "As regras de validação da Política Comercial: obrigatórios, vigência, desconto de cabeçalho e range de valor, e as condicionais por Tipo e por Regra da Política."
+moduleLabel: Políticas
+routineType: Referência de validação
+keywords: [política comercial, validação, campos obrigatórios, vigência, desconto cabeçalho, range de valor, tipo, regra da política, modo feira]
+tags: [tecnico, regras-de-validacao]
+order: 9
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+
+## Visão geral
+
+Regras que a **Política Comercial** exige para salvar, derivadas do validador do sistema. Algumas dependem do **Tipo** e da **Regra da Política**.
+
+## Obrigatórios
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Descrição', 'Obrigatória; até 150 caracteres.'],
+    ['Tipo', 'Obrigatório.'],
+    ['Vigência Início', 'Obrigatória.'],
+    ['Vigência Término', 'Obrigatória e maior que a Vigência Início.'],
+    ['Só para Cliente Novo', 'Obrigatório.'],
+    ['Valor a Considerar', 'Obrigatório.'],
+    ['Política Nacional/Internacional', 'Obrigatória.'],
+    ['Atuação da Política', 'Obrigatória.'],
+    ['Forma de Contabilização', 'Obrigatória.'],
+    ['Modo Feira', 'Obrigatório.'],
+    ['Ignorar Contabilização de Itens Agrupados', 'Obrigatório.'],
+    ['Status', 'Obrigatório.'],
+  ]}
+/>
+
+## Desconto, range e comentários
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['% Desconto de Cabeçalho', 'Entre 0 e 100.'],
+    ['Range de Valor (Início/Término)', 'Se um for preenchido, o outro passa a ser obrigatório; o Término deve ser maior que o Início.'],
+    ['Comentários', 'Até 4000 caracteres.'],
+  ]}
+/>
+
+## Condicionais
+
+<DocTable
+  headers={['Quando', 'Passa a exigir']}
+  rows={[
+    ['Tipo = "Política"', 'Regra da Política, Validação de Data e Forma de Aplicação.'],
+    ['Regra da Política = "Cabeçalho"', '% Desconto de Cabeçalho.'],
+  ]}
+/>

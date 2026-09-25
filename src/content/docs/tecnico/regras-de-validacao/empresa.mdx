@@ -1,0 +1,31 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/empresa
+pageType: tecnico
+title: Regras de Validação - Empresa
+description: "As regras de validação do cadastro de Empresa: campos obrigatórios e limites de tamanho (código, nome, nome fantasia)."
+moduleLabel: Administrador
+routineType: Referência de validação
+keywords: [empresa, validação, campos obrigatórios, código da empresa, nome, nome fantasia, status]
+tags: [tecnico, regras-de-validacao]
+order: 12
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+
+## Visão geral
+
+Regras que o cadastro de **Empresa** exige para salvar, derivadas do validador do sistema.
+
+## Obrigatórios e limites
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Código da Empresa', 'Obrigatório; até 4 caracteres.'],
+    ['Nome', 'Obrigatório; até 150 caracteres.'],
+    ['Nome Fantasia', 'Obrigatório; até 150 caracteres.'],
+    ['Status', 'Obrigatório.'],
+  ]}
+/>

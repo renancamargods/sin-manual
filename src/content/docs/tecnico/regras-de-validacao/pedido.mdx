@@ -1,0 +1,77 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/pedido
+pageType: tecnico
+title: Regras de Validação - Pedido
+description: "As regras de validação do Pedido: obrigatórios, estrutura comercial, itens, pagamento (boleto data fixa, parcelas, misto), dados do cliente internacional e limites."
+moduleLabel: Pedidos
+routineType: Referência de validação
+keywords: [pedido, validação, campos obrigatórios, estrutura comercial, transportadora, condição de pagamento, boleto data fixa, pagamento misto, previsão de entrega, dados bancários, desconto total]
+tags: [tecnico, regras-de-validacao]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+
+## Visão geral
+
+Regras que o **Pedido** exige para salvar/enviar, derivadas do validador do sistema. Algumas dependem da **forma/condição de pagamento**, do **cliente internacional** e de **parâmetros** do sistema.
+
+## Obrigatórios — sempre
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Cliente', 'Obrigatório.'],
+    ['Operação Inteligente', 'Obrigatória.'],
+    ['Lista de Preço', 'Obrigatória.'],
+    ['Centro', 'Obrigatório.'],
+    ['Condição de Pagamento', 'Obrigatória.'],
+    ['Transportadora', 'Obrigatória.'],
+    ['Tipo de Frete', 'Obrigatório.'],
+    ['Prioridade', 'Obrigatória.'],
+    ['Previsão de Entrega', 'Obrigatória; em pedido novo não pode ser uma data passada (≥ hoje).'],
+    ['Previsão de Faturamento', 'Obrigatória.'],
+    ['Pedido Especial', 'Obrigatório (Sim/Não).'],
+    ['Itens', 'Ao menos um item (não removido) no pedido.'],
+  ]}
+/>
+
+## Estrutura Comercial (obrigatória)
+
+Toda a estrutura comercial é exigida — **FVE**: Diretoria, GNV, GR, GD e Consultor; **FVI**: Diretoria, GNV, Coordenador, Supervisor e Consultor.
+
+## Pagamento
+
+<DocTable
+  headers={['Situação', 'Regra']}
+  rows={[
+    ['Boleto Data Fixa', 'O "Dia de Pagamento do Boleto" é obrigatório e deve estar entre 1 e 31.'],
+    ['Forma de pagamento parcelada', 'O "Dias para a 1ª Parcela" é obrigatório.'],
+    ['Dias para a 1ª Parcela', 'Quando informado, deve ser maior que 0 e menor que 100.'],
+    ['Pagamento Misto', 'O valor remanescente de atribuição precisa ficar em 0 — o total do pedido deve ser todo distribuído entre as formas.'],
+    ['Cliente internacional', 'Os "Dados Bancários" do pedido são obrigatórios.'],
+  ]}
+/>
+
+## Limites e outros
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['% Desconto Total', 'Entre 0 e 100.'],
+    ['Outros Valores Acessórios (R$)', 'Maior ou igual a 0.'],
+    ['Observação', 'Até 4000 caracteres.'],
+    ['Observação da Nota Fiscal', 'Até 4000 caracteres.'],
+    ['Ordem de Compra', 'Até 50 caracteres.'],
+    ['Pedido SAP', 'Até 10 caracteres.'],
+    ['Status Ignition / Ticket Ignition', 'Até 50 caracteres cada.'],
+    ['E-mail de notificação em caso de falta', 'Formato válido quando a unificação de boletos em caso de falta está ligada.'],
+    ['Possui Pacote', 'Obrigatório quando o parâmetro do sistema exige.'],
+  ]}
+/>
+
+<Callout type="info" title="Fora da política = aprovação, não erro">
+Um pedido válido ainda pode **não** ser aprovado direto: aplicar **desconto manual** em item sem política/contrato joga o pedido para **fora da política**, que exige aprovação. Isso é fluxo de aprovação, não erro de validação — ver [Aprovação de Pedidos - Sem Ignition](/tecnico/fluxos/aprovacao-de-pedidos-sem-ignition) e o [Motor de Crédito](/tecnico/fluxos/motor-de-credito).
+</Callout>

@@ -1,0 +1,42 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/orcamento
+pageType: tecnico
+title: Regras de Validação - Orçamento
+description: "As regras de validação do Orçamento: obrigatórios, limites (observação, desconto total) e as regras dos itens (ao menos um, sem duplicidade)."
+moduleLabel: Pedidos
+routineType: Referência de validação
+keywords: [orçamento, validação, campos obrigatórios, itens, desconto total, item duplicado, centro, bonificação]
+tags: [tecnico, regras-de-validacao]
+order: 7
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+
+## Visão geral
+
+Regras que o **Orçamento** exige para salvar, derivadas do validador do sistema.
+
+## Obrigatórios e limites
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Status', 'Obrigatório.'],
+    ['Itens do Orçamento', 'Ao menos um item (não removido).'],
+    ['Observação', 'Até 4000 caracteres.'],
+    ['% Desconto Total', 'Entre 0 e 100.'],
+  ]}
+/>
+
+## Regras dos itens
+
+<DocTable
+  headers={['Regra', 'Detalhe']}
+  rows={[
+    ['Sem duplicidade', 'Não pode haver dois itens com o mesmo produto e o mesmo tipo de item.'],
+    ['Produto existente', 'O produto de cada item precisa existir.'],
+    ['Centro x Bonificação', 'Um centro incompatível não pode ser usado quando o orçamento tem apenas itens do tipo Bonificação.'],
+  ]}
+/>

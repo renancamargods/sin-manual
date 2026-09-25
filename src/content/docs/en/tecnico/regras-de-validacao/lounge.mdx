@@ -1,0 +1,44 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/lounge
+pageType: tecnico
+lang: en
+title: Validation Rules - Lounge (Center)
+description: "The Lounge (Center) registration validation rules: required fields, CNPJ (mask and validity) and length limits."
+moduleLabel: Administrator
+routineType: Validation reference
+keywords: [lounge, center, validation, required fields, cnpj, corporate name, erp code, state registration]
+tags: [tecnico, regras-de-validacao]
+order: 13
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+
+## Overview
+
+Rules the **Lounge** (Center) registration requires to save, derived from the system validator.
+
+## Required
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Code', 'Required.'],
+    ['Name', 'Required; up to 150 characters.'],
+    ['Corporate Name', 'Required; up to 150 characters.'],
+    ['CNPJ', 'Required; valid CNPJ, in the mask 99.999.999/9999-99.'],
+    ['ERP Code', 'Required; up to 6 characters.'],
+    ['Company', 'Required.'],
+  ]}
+/>
+
+## Length limits
+
+<DocTable
+  headers={['Field', 'Maximum']}
+  rows={[
+    ['State Registration', '14 characters.'],
+    ['Phone', '11 characters.'],
+  ]}
+/>

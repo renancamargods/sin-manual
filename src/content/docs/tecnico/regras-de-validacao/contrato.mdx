@@ -1,0 +1,77 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/contrato
+pageType: tecnico
+title: Regras de Validação - Contrato
+description: "As regras de validação do Contrato: obrigatórios, estrutura comercial, vigência e rebate, e as condicionais de Curso e de integração ZapSign."
+moduleLabel: Contratos
+routineType: Referência de validação
+keywords: [contrato, validação, campos obrigatórios, rebate, vigência, meses de vigência, tipo do parceiro, curso, zapsign, assinatura]
+tags: [tecnico, regras-de-validacao]
+order: 4
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+
+## Visão geral
+
+Regras que o **Contrato** exige para salvar, derivadas do validador do sistema. Algumas só valem para **Contrato de Curso** ou quando a **integração ZapSign** está habilitada.
+
+## Obrigatórios
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Título', 'Obrigatório; até 150 caracteres.'],
+    ['Assinado', 'Obrigatório (Sim/Não).'],
+    ['Tipo do Parceiro', 'Obrigatório.'],
+    ['Tipo do Contrato', 'Obrigatório.'],
+    ['Classificação', 'Obrigatória.'],
+    ['Possui Parceiros', 'Obrigatório.'],
+    ['Fresas Bonificadas', 'Obrigatório.'],
+    ['Status', 'Obrigatório.'],
+    ['Cliente', 'Obrigatório.'],
+    ['Quantidade de Meses de Vigência', 'Obrigatória e maior que 0.'],
+  ]}
+/>
+
+## Estrutura Comercial (obrigatória)
+
+Toda a estrutura é exigida: **Diretor**, **GNV**, **GR**, **GD** e **Consultor**.
+
+## Vigência, rebate e observação
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Vigência Término', 'Deve ser maior que a Vigência Início.'],
+    ['% Rebate', 'Entre 0 e 100.'],
+    ['Observação', 'Até 4000 caracteres.'],
+  ]}
+/>
+
+## Condicionais — Curso
+
+Quando o **Tipo do Parceiro** é **Curso**:
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Quantidade de Palestrantes', 'Obrigatória e maior que 0 quando "Possui Palestrante".'],
+    ['Quantidade de Kits de Boas-Vindas', 'Obrigatória e maior que 0 quando "Possui Kit de Boas-Vindas".'],
+  ]}
+/>
+
+## Condicionais — Assinatura (ZapSign)
+
+Quando a **integração ZapSign** está habilitada, o responsável pela assinatura é exigido:
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['CPF de assinatura do contrato', 'Obrigatório e CPF válido.'],
+    ['Nome do responsável pela assinatura', 'Obrigatório.'],
+    ['E-mail do responsável pela assinatura', 'Obrigatório, formato válido e até 150 caracteres.'],
+  ]}
+/>

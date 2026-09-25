@@ -1,0 +1,32 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/ocorrencia
+pageType: tecnico
+lang: en
+title: Validation Rules - Occurrence
+description: "The Occurrence validation rules: the required fields (Notes, Customer, Center and FVE Consultant)."
+moduleLabel: Occurrences
+routineType: Validation reference
+keywords: [occurrence, validation, required fields, notes, customer, center, fve consultant]
+tags: [tecnico, regras-de-validacao]
+order: 11
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+
+## Overview
+
+Rules the **Occurrence** requires to save, derived from the system validator.
+
+## Required
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Notes', 'Required.'],
+    ['Customer', 'Required.'],
+    ['Center', 'Required.'],
+    ['FVE Consultant', 'Required.'],
+  ]}
+/>

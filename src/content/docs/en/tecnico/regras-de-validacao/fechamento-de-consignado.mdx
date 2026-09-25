@@ -1,0 +1,54 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/fechamento-de-consignado
+pageType: tecnico
+lang: en
+title: Validation Rules - Consignment Closing
+description: "The Consignment Closing validation rules: required fields of the request (generate the closing order) and the discount rules (0 to 100, at most 2 decimal places)."
+moduleLabel: Invoicing
+routineType: Validation reference
+keywords: [consignment closing, validation, required fields, general discount, equalize discount, customer, center, payment term, decimal places]
+tags: [tecnico, regras-de-validacao]
+order: 5
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+
+## Overview
+
+Rules the **Consignment Closing** requires, derived from the system validators. They cover the **request** (generate the closing order) and the **discount** (on the item, on the equalization and on the policy).
+
+<Callout type="info" title="Before generating">
+The **"Search"** button (which loads the consignment items) only enables with **Customer** and **Invoice Number** filled in.
+</Callout>
+
+## Required for the request
+
+To generate the closing order:
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Customer', 'Required.'],
+    ['Center', 'Required.'],
+    ['Order Type (Smart Operation)', 'Required.'],
+    ['Price List', 'Required.'],
+    ['Payment Method', 'Required.'],
+    ['Payment Term', 'Required.'],
+    ['Operation Type', 'Required.'],
+  ]}
+/>
+
+## Discount
+
+The same rule applies to the request's **General Discount**, the **per-item discount**, the **"Equalize Discount"** and the **policy discount** (on an existing closing):
+
+<DocTable
+  headers={['Rule', 'Detail']}
+  rows={[
+    ['Minimum', 'Greater than or equal to 0.'],
+    ['Maximum', 'Less than or equal to 100.'],
+    ['Decimal places', 'At most 2 decimal places.'],
+  ]}
+/>

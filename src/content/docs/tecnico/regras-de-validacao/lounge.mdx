@@ -1,0 +1,43 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/lounge
+pageType: tecnico
+title: Regras de Validação - Lounge (Centro)
+description: "As regras de validação do cadastro de Lounge (Centro): obrigatórios, CNPJ (máscara e validade) e limites de tamanho."
+moduleLabel: Administrador
+routineType: Referência de validação
+keywords: [lounge, centro, validação, campos obrigatórios, cnpj, razão social, código erp, inscrição estadual]
+tags: [tecnico, regras-de-validacao]
+order: 13
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+
+## Visão geral
+
+Regras que o cadastro de **Lounge** (Centro) exige para salvar, derivadas do validador do sistema.
+
+## Obrigatórios
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Código', 'Obrigatório.'],
+    ['Nome', 'Obrigatório; até 150 caracteres.'],
+    ['Razão Social', 'Obrigatória; até 150 caracteres.'],
+    ['CNPJ', 'Obrigatório; CNPJ válido, na máscara 99.999.999/9999-99.'],
+    ['Código ERP', 'Obrigatório; até 6 caracteres.'],
+    ['Empresa', 'Obrigatória.'],
+  ]}
+/>
+
+## Limites de tamanho
+
+<DocTable
+  headers={['Campo', 'Máximo']}
+  rows={[
+    ['Inscrição Estadual', '14 caracteres.'],
+    ['Telefone', '11 caracteres.'],
+  ]}
+/>

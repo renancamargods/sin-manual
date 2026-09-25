@@ -1,0 +1,48 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/lead
+pageType: tecnico
+lang: en
+title: Validation Rules - Lead
+description: "The Lead registration validation rules: required fields, document and e-mail (when provided), SIN Base customer and potential value."
+moduleLabel: Leads
+routineType: Validation reference
+keywords: [lead, validation, required fields, sales pipeline, potential value, sin base, commercial structure, cpf, cnpj]
+tags: [tecnico, regras-de-validacao]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+
+## Overview
+
+Rules the **Lead** registration requires to save, derived from the system validator.
+
+## Required
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Name', 'Required.'],
+    ['Phone / Mobile', 'Required.'],
+    ['Sales Pipeline', 'Required.'],
+    ['Lead Type', 'Required.'],
+    ['Lead Origin (Entry Channel)', 'Required.'],
+    ['Requester Commercial Structure', 'Required.'],
+    ['Responsible Executive Commercial Structure', 'Required.'],
+    ['Lead Potential Value', 'Required and greater than or equal to 0.'],
+    ['Agreement with the Lead Referral policy', 'Must be accepted (checked "Yes").'],
+  ]}
+/>
+
+## Conditional and formats
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Customer', 'Required when the Lead Type is "Base SIN" (select the pre-existing customer).'],
+    ['Document (CPF/CNPJ)', 'Optional; when provided, valid CPF (Individual) or valid CNPJ (Company).'],
+    ['E-mail', 'Optional; when provided, must be in a valid format.'],
+  ]}
+/>

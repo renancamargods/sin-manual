@@ -1,0 +1,78 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/pedido
+pageType: tecnico
+lang: en
+title: Validation Rules - Order
+description: "The Order validation rules: required fields, commercial structure, items, payment (fixed-date boleto, installments, mixed), international customer data and limits."
+moduleLabel: Orders
+routineType: Validation reference
+keywords: [order, validation, required fields, commercial structure, carrier, payment term, fixed-date boleto, mixed payment, delivery forecast, bank details, total discount]
+tags: [tecnico, regras-de-validacao]
+order: 2
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+
+## Overview
+
+Rules the **Order** requires to save/submit, derived from the system validator. Some depend on the **payment method/term**, on the **international customer** and on system **parameters**.
+
+## Required — always
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Customer', 'Required.'],
+    ['Smart Operation', 'Required.'],
+    ['Price List', 'Required.'],
+    ['Center', 'Required.'],
+    ['Payment Term', 'Required.'],
+    ['Carrier', 'Required.'],
+    ['Freight Type', 'Required.'],
+    ['Priority', 'Required.'],
+    ['Delivery Forecast', 'Required; on a new order it cannot be a past date (≥ today).'],
+    ['Invoicing Forecast', 'Required.'],
+    ['Special Order', 'Required (Yes/No).'],
+    ['Items', 'At least one item (not removed) on the order.'],
+  ]}
+/>
+
+## Commercial Structure (required)
+
+The whole commercial structure is required — **FVE**: Directorate, GNV, GR, GD and Consultant; **FVI**: Directorate, GNV, Coordinator, Supervisor and Consultant.
+
+## Payment
+
+<DocTable
+  headers={['Case', 'Rule']}
+  rows={[
+    ['Fixed-Date Boleto', 'The "Boleto Payment Day" is required and must be between 1 and 31.'],
+    ['Installment payment method', 'The "Days to 1st Installment" is required.'],
+    ['Days to 1st Installment', 'When provided, must be greater than 0 and less than 100.'],
+    ['Mixed Payment', 'The remaining allocation amount must reach 0 — the whole order total must be distributed across the methods.'],
+    ['International customer', 'The order "Bank Details" are required.'],
+  ]}
+/>
+
+## Limits and others
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['% Total Discount', 'Between 0 and 100.'],
+    ['Other Accessory Amounts (R$)', 'Greater than or equal to 0.'],
+    ['Note', 'Up to 4000 characters.'],
+    ['Invoice Note', 'Up to 4000 characters.'],
+    ['Purchase Order', 'Up to 50 characters.'],
+    ['SAP Order', 'Up to 10 characters.'],
+    ['Ignition Status / Ignition Ticket', 'Up to 50 characters each.'],
+    ['Shortage notification e-mail', 'Valid format when boleto unification on shortage is enabled.'],
+    ['Has Package', 'Required when the system parameter enforces it.'],
+  ]}
+/>
+
+<Callout type="info" title="Out of policy = approval, not an error">
+A valid order may still **not** be auto-approved: applying a **manual discount** on an item without policy/contract pushes the order **out of policy**, which requires approval. That is an approval flow, not a validation error — see [Order Approval - Without Ignition](/en/tecnico/fluxos/aprovacao-de-pedidos-sem-ignition) and the [Credit Engine](/en/tecnico/fluxos/motor-de-credito).
+</Callout>

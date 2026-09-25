@@ -1,0 +1,31 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/ocorrencia
+pageType: tecnico
+title: Regras de Validação - Ocorrência
+description: "As regras de validação da Ocorrência: os campos obrigatórios (Observações, Cliente, Centro e Consultor FVE)."
+moduleLabel: Ocorrências
+routineType: Referência de validação
+keywords: [ocorrência, validação, campos obrigatórios, observações, cliente, centro, consultor fve]
+tags: [tecnico, regras-de-validacao]
+order: 11
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+
+## Visão geral
+
+Regras que a **Ocorrência** exige para salvar, derivadas do validador do sistema.
+
+## Obrigatórios
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Observações', 'Obrigatórias.'],
+    ['Cliente', 'Obrigatório.'],
+    ['Centro', 'Obrigatório.'],
+    ['Consultor FVE', 'Obrigatório.'],
+  ]}
+/>

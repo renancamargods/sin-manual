@@ -1,0 +1,34 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/condicao-de-pagamento
+pageType: tecnico
+lang: en
+title: Validation Rules - Payment Term
+description: "The Payment Term validation rules: required fields and ranges (average term, number of installments, ERP code)."
+moduleLabel: Policies
+routineType: Validation reference
+keywords: [payment term, validation, required fields, average term, number of installments, erp code, payment method]
+tags: [tecnico, regras-de-validacao]
+order: 10
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+
+## Overview
+
+Rules the **Payment Term** requires to save, derived from the system validator.
+
+## Required and ranges
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Description', 'Required; up to 150 characters.'],
+    ['Payment Method', 'Required.'],
+    ['Average Term', 'Required; between 0 and 999.'],
+    ['Number of Installments', 'Required; between 0 and 99.'],
+    ['ERP Condition Code', 'Required; up to 4 characters.'],
+    ['Status', 'Required.'],
+  ]}
+/>

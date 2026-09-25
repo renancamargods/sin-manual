@@ -1,0 +1,44 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/trocas-devolucoes-tdc
+pageType: tecnico
+lang: en
+title: Validation Rules - Exchanges/Returns (TDC)
+description: "The TDC Order (Exchanges/Returns) validation rules: triage required fields (return customer, center) and exchange item (customer, operation, quantity, prices, type)."
+moduleLabel: Invoicing
+routineType: Validation reference
+keywords: [tdc, exchanges, returns, tdc order, triage, exchange item, return center, quantity, unit price, item type]
+tags: [tecnico, regras-de-validacao]
+order: 8
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+
+## Overview
+
+Rules the **TDC Order** (Exchanges/Returns) requires, derived from the system validators. They cover the **triage** (new return) and the **exchange item**.
+
+## Triage (new return)
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Customer responsible for the returned items', 'Required.'],
+    ['Return Center', 'Required.'],
+  ]}
+/>
+
+## Exchange item
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Customer', 'Required (linked to the exchange item).'],
+    ['Operation', 'Required (linked to the exchange item).'],
+    ['Quantity', 'Required and greater than or equal to 1.'],
+    ['Product Table Price', 'Required — it is loaded when the product is selected.'],
+    ['Unit Price', 'Required — it is calculated when the quantity is filled in.'],
+    ['Item Type', 'Required.'],
+  ]}
+/>
