@@ -1,0 +1,47 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/regra-de-aprovacao
+pageType: tecnico
+lang: en
+title: Validation Rules - Approval Rule
+description: "The Approval Rule and its Steps validation rules: required fields (name, entity, execution mode, responsible group, order)."
+moduleLabel: Approvals
+routineType: Validation reference
+keywords: [approval rule, approval step, validation, required fields, entity, execution mode, responsible group, order]
+tags: [tecnico, regras-de-validacao]
+order: 16
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+
+## Overview
+
+Rules the **Approval Rule** and its **Steps** require to save, derived from the system validators. These settings define the approval paths used in the customer and order flows.
+
+## Approval Rule
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Rule Name', 'Required.'],
+    ['Approval Entity', 'Required.'],
+    ['Execution Mode', 'Required (Parallel or Sequential).'],
+    ['Status', 'Required.'],
+  ]}
+/>
+
+## Approval Step
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Step Name', 'Required.'],
+    ['Order', 'Required (e.g., 0, 1, 2…).'],
+    ['Approval Responsible Group', 'Required.'],
+  ]}
+/>
+
+<Callout type="info" title="Where this is used">
+The rule and steps configured here define the approval path in flows such as [Customer Registration - Without Ignition](/en/tecnico/fluxos/cadastro-clientes-sem-ignition) and [Order Approval - Without Ignition](/en/tecnico/fluxos/aprovacao-de-pedidos-sem-ignition).
+</Callout>

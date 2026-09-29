@@ -1,0 +1,31 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/refugo
+pageType: tecnico
+lang: en
+title: Validation Rules - Scrap
+description: "The Scrap validation rules: the required fields (Product, Batch and Status)."
+moduleLabel: Quality
+routineType: Validation reference
+keywords: [scrap, validation, required fields, product, batch, status]
+tags: [tecnico, regras-de-validacao]
+order: 18
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+
+## Overview
+
+Rules the **Scrap** requires to save, derived from the system validator.
+
+## Required
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Product', 'Required.'],
+    ['Batch', 'Required.'],
+    ['Status', 'Required.'],
+  ]}
+/>

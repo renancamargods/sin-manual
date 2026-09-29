@@ -1,0 +1,117 @@
+---
+section: modulos
+routeSlug: roteirizador/agenda
+pageType: routine
+module: roteirizador
+moduleLabel: Field Routing
+lang: en
+title: Schedule
+description: The Field Routing Appointments Schedule — a calendar showing field appointments by day, week or month, with period navigation.
+routineType: Query / Schedule
+permission: Yes
+impact: View of the scheduled field appointments
+keywords: [schedule, appointments schedule, calendar, field routing, appointment, field, day, week, month]
+tags: [modulo-roteirizador, consulta]
+order: 1
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Schedule** (Appointments Schedule) screen is a **calendar** that shows the scheduled **field appointments**. Appointments appear in their time slots and the view can be by **Day**, **Week** or **Month**, with backward/forward navigation and a **Today** shortcut.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'See the appointments', text: 'Shows the scheduled field appointments in a calendar.' },
+    { label: 'Use', title: 'Tracking', text: 'Used to follow the appointments schedule by day, week or month.' },
+    { label: 'Caution', title: 'Displayed period', text: 'Check the period (Day/Week/Month) and the date before concluding there are no appointments.' },
+  ]}
+/>
+
+## When to use this screen
+
+- See the scheduled field appointments.
+- Navigate the schedule by day, week or month.
+- Quickly locate the appointments of a period.
+
+## How to access
+
+Field Routing → Schedule
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Navigation bar', 'A "Today" button with arrows to the previous and next period, and the displayed period (e.g., the week range).', 'Navigation changes the period shown on the calendar.'],
+    ['View selector', '"Day", "Week" and "Month" buttons.', 'Defines how the calendar is displayed.'],
+    ['Calendar', 'A grid with the days and time bands; appointments appear in their time slots.', 'A period with no appointments shows an empty grid.'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Today', 'To quickly return to the current period.', '—'],
+    ['Previous / Next (arrows)', 'To navigate between periods.', 'Changes the displayed period.'],
+    ['Day / Week / Month', 'To switch the view.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Schedule', 'Screen access', 'Allows opening the Appointments Schedule and viewing the appointments.'],
+  ]}
+/>
+
+## Relation to other processes
+
+- **Field Routing (GO.ON)** — the appointments schedule is part of the field service flow. See the [GO.ON - Field Scheduling and Routing](/en/tecnico/fluxos/goon-agenda-e-roteirizacao) flow.
+- **Form** and **Journey** — appointments use the forms and journey configured in Field Routing.
+
+## What the screen does not do
+
+- It does not perform the field service itself — that is done in the Field Routing app/execution.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I do not see appointments', 'Period with no appointments or a different view', 'Check the date and switch between Day/Week/Month.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To view the scheduled field appointments in a calendar.' },
+    { question: 'How do I change the view?', answer: 'Use the "Day", "Week" and "Month" buttons at the corner of the calendar.' },
+    { question: 'How do I return to today?', answer: 'Click "Today" on the navigation bar.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '09/25/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '09/25/2026', author: 'Renan Camargo', description: 'Initial release of the Schedule (Appointments Schedule) screen documentation.' },
+  ]}
+/>

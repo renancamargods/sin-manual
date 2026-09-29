@@ -1,0 +1,46 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/regra-de-aprovacao
+pageType: tecnico
+title: Regras de Validação - Regra de Aprovação
+description: "As regras de validação da Regra de Aprovação e das suas Etapas: campos obrigatórios (nome, entidade, modo de execução, grupo responsável, ordem)."
+moduleLabel: Aprovações
+routineType: Referência de validação
+keywords: [regra de aprovação, etapa de aprovação, validação, campos obrigatórios, entidade, modo de execução, grupo responsável, ordem]
+tags: [tecnico, regras-de-validacao]
+order: 16
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+
+## Visão geral
+
+Regras que a **Regra de Aprovação** e as suas **Etapas** exigem para salvar, derivadas dos validadores do sistema. Estas configurações definem os caminhos de aprovação usados nos fluxos de cliente e pedido.
+
+## Regra de Aprovação
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Nome da Regra', 'Obrigatório.'],
+    ['Entidade de Aprovação', 'Obrigatória.'],
+    ['Modo de Execução', 'Obrigatório (Paralelo ou Sequencial).'],
+    ['Status', 'Obrigatório.'],
+  ]}
+/>
+
+## Etapa de Aprovação
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Nome da Etapa', 'Obrigatório.'],
+    ['Ordem', 'Obrigatória (ex.: 0, 1, 2…).'],
+    ['Grupo Responsável pela Aprovação', 'Obrigatório.'],
+  ]}
+/>
+
+<Callout type="info" title="Onde isso é usado">
+A regra e as etapas montadas aqui definem o caminho de aprovação em fluxos como [Cadastro de Clientes - Sem Ignition](/tecnico/fluxos/cadastro-clientes-sem-ignition) e [Aprovação de Pedidos - Sem Ignition](/tecnico/fluxos/aprovacao-de-pedidos-sem-ignition).
+</Callout>

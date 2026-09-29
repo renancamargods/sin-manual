@@ -1,0 +1,30 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/refugo
+pageType: tecnico
+title: Regras de Validação - Refugo
+description: "As regras de validação do Refugo: os campos obrigatórios (Produto, Lote e Status)."
+moduleLabel: Qualidade
+routineType: Referência de validação
+keywords: [refugo, validação, campos obrigatórios, produto, lote, status]
+tags: [tecnico, regras-de-validacao]
+order: 18
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+
+## Visão geral
+
+Regras que o **Refugo** exige para salvar, derivadas do validador do sistema.
+
+## Obrigatórios
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Produto', 'Obrigatório.'],
+    ['Lote', 'Obrigatório.'],
+    ['Status', 'Obrigatório.'],
+  ]}
+/>

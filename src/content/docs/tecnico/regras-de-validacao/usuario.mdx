@@ -1,0 +1,62 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/usuario
+pageType: tecnico
+title: Regras de Validação - Usuário
+description: "As regras de validação do cadastro de Usuário: obrigatórios, senha inicial, condicionais por forma de autenticação (Active Directory) e usuário genérico, e limites."
+moduleLabel: Autenticador
+routineType: Referência de validação
+keywords: [usuário, validação, campos obrigatórios, e-mail, senha inicial, forma de autenticação, active directory, login windows, usuário genérico]
+tags: [tecnico, regras-de-validacao]
+order: 15
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+
+## Visão geral
+
+Regras que o cadastro de **Usuário** exige para salvar, derivadas do validador do sistema. Algumas dependem da **forma de autenticação** e de o usuário ser **genérico**.
+
+## Obrigatórios
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Nome', 'Obrigatório; até 150 caracteres.'],
+    ['E-mail (login)', 'Obrigatório; até 150 caracteres.'],
+    ['Ativo', 'Obrigatório.'],
+    ['Forma de Autenticação', 'Obrigatória.'],
+    ['Usuário do Sistema', 'Obrigatório.'],
+  ]}
+/>
+
+## Senha inicial
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Senha Inicial', 'Obrigatória para usuário novo com autenticação por senha (não se aplica a Active Directory nem na edição).'],
+    ['Repetir Senha', 'Deve ser igual à Senha Inicial.'],
+  ]}
+/>
+
+## Condicionais
+
+<DocTable
+  headers={['Situação', 'Regra']}
+  rows={[
+    ['Active Directory (ou Ambos)', 'O "Login Windows" passa a ser obrigatório; a senha inicial é dispensada.'],
+    ['Usuário genérico', 'Dispensa E-mail, Forma de Autenticação, Usuário do Sistema e senha.'],
+  ]}
+/>
+
+## Limites de tamanho
+
+<DocTable
+  headers={['Campo', 'Máximo']}
+  rows={[
+    ['Telefone', '15 caracteres.'],
+    ['Matrícula', '100 caracteres.'],
+  ]}
+/>

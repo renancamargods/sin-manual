@@ -1,0 +1,29 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/entidade-de-aprovacao
+pageType: tecnico
+title: Regras de Validação - Entidade de Aprovação
+description: "As regras de validação da Entidade de Aprovação: os campos obrigatórios (Nome e Status)."
+moduleLabel: Aprovações
+routineType: Referência de validação
+keywords: [entidade de aprovação, validação, campos obrigatórios, nome, status]
+tags: [tecnico, regras-de-validacao]
+order: 17
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+
+## Visão geral
+
+Regras que a **Entidade de Aprovação** exige para salvar, derivadas do validador do sistema. A entidade define **o que** pode ser submetido a aprovação (base para as Regras de Aprovação).
+
+## Obrigatórios
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Nome', 'Obrigatório.'],
+    ['Status', 'Obrigatório.'],
+  ]}
+/>

@@ -1,0 +1,132 @@
+---
+section: modulos
+routeSlug: inventarios/inventarios-disponiveis
+pageType: routine
+module: inventarios
+moduleLabel: Inventários
+title: Inventários Disponíveis
+description: Lista os inventários disponíveis para contagem, por Lounge e data, com as ações de iniciar a contagem, editar, ver detalhes e emitir relatório.
+routineType: Consulta e execução
+permission: Sim
+impact: Ponto de entrada para iniciar a contagem de um inventário
+keywords: [inventários disponíveis, contagem, iniciar contagem, lounge, inventário, estoque, relatório]
+tags: [modulo-inventarios, consulta]
+order: 3
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Inventários Disponíveis** mostra os inventários que estão **disponíveis para contagem**, em formato de cartões. Cada cartão traz o **nome do inventário**, o **Lounge**, a **Data de Inventário**, o **Tipo de Inventário** e o **Status Sistema**, com as ações para **iniciar a contagem** ou consultar o inventário. É o ponto de entrada do dia a dia para quem vai contar.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Iniciar a contagem', text: 'Reúne os inventários disponíveis e permite iniciar a contagem de cada um.' },
+    { label: 'Uso', title: 'Rotina de contagem', text: 'Usada pela equipe do Lounge para começar a contagem de um inventário criado.' },
+    { label: 'Cuidado', title: 'Confira o inventário', text: 'Confira o Lounge e a data antes de iniciar a contagem do inventário correto.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Ver os inventários disponíveis para contagem.
+- Iniciar a contagem de um inventário.
+- Consultar os detalhes ou emitir o relatório de um inventário.
+
+## Como acessar
+
+Inventários → Inventários Disponíveis
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Lista de cartões', 'Um cartão por inventário disponível, com nome, Lounge, Data de Inventário, Tipo de Inventário e Status Sistema.', 'Cada cartão tem as próprias ações.'],
+    ['Ações do cartão', 'Iniciar Contagem, Editar, Detalhes e Relatório.', 'A contagem começa por "Iniciar Contagem".'],
+  ]}
+/>
+
+## Informações do cartão
+
+<DocTable
+  headers={['Campo', 'O que mostra']}
+  rows={[
+    ['Nome', 'Nome/descrição do inventário.'],
+    ['Lounge', 'Lounge que será inventariado.'],
+    ['Data de Inventário', 'Data do inventário.'],
+    ['Tipo de Inventário', 'Tipo do inventário (ex.: "Geral").'],
+    ['Status Sistema', 'Indica se o registro está "Ativo".'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Iniciar Contagem', 'Para começar a contagem do inventário.', 'Abre o fluxo de contagem (bipagem por leitor).'],
+    ['Editar', 'Para alterar os dados do inventário.', 'Clique em "Salvar" para confirmar.'],
+    ['Detalhes', 'Para consultar as informações do inventário.', 'É somente leitura.'],
+    ['Relatório', 'Para emitir o relatório do inventário.', 'É uma consulta; não altera o registro.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Inventários Disponíveis', 'Acesso à tela', 'Permite abrir a tela e ver os inventários disponíveis.'],
+    ['Execução de contagem', 'Iniciar Contagem', 'Permite iniciar a contagem de um inventário.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Inventário** — os inventários criados na tela [Inventário](/modulos/inventarios/inventario) são os que aparecem aqui como disponíveis.
+- **Contagem Inventário** — a contagem iniciada aqui é registrada e acompanhada no processo de contagem.
+
+## O que a tela não faz
+
+- Não cria o inventário — o cadastro é feito na tela **Inventário**.
+- Não realiza a contagem em si — a contagem acontece após "Iniciar Contagem", pela bipagem.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['O inventário não aparece na lista', 'Ainda não criado ou não disponível', 'Confira se o inventário foi criado na tela "Inventário".'],
+    ['Não consigo iniciar a contagem', 'Permissão ou status do inventário', 'Verifique a permissão com o administrador e o status do inventário.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para ver os inventários disponíveis e iniciar a contagem de cada um.' },
+    { question: 'Como inicio uma contagem?', answer: 'Use a ação "Iniciar Contagem" no cartão do inventário desejado.' },
+    { question: 'De onde vêm os inventários listados?', answer: 'Dos inventários criados na tela "Inventário" (módulo Inventários).' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '25/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Inventários Disponíveis.' },
+  ]}
+/>

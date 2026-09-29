@@ -1,0 +1,116 @@
+---
+section: modulos
+routeSlug: roteirizador/agenda
+pageType: routine
+module: roteirizador
+moduleLabel: Roteirizador
+title: Agenda
+description: Agenda de Atendimentos do Roteirizador — calendário que mostra os atendimentos de campo por dia, semana ou mês, com navegação por período.
+routineType: Consulta / Agenda
+permission: Sim
+impact: Visualização dos atendimentos de campo agendados
+keywords: [agenda, agenda de atendimentos, calendário, roteirizador, atendimento, campo, dia, semana, mês]
+tags: [modulo-roteirizador, consulta]
+order: 1
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Agenda** (Agenda de Atendimentos) é um **calendário** que mostra os **atendimentos de campo** agendados. Os atendimentos aparecem nos horários correspondentes e a visualização pode ser por **Dia**, **Semana** ou **Mês**, com navegação para frente e para trás e um atalho para **Hoje**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Ver os atendimentos', text: 'Mostra os atendimentos de campo agendados em um calendário.' },
+    { label: 'Uso', title: 'Acompanhamento', text: 'Usada para acompanhar a agenda de atendimentos por dia, semana ou mês.' },
+    { label: 'Cuidado', title: 'Período exibido', text: 'Confira o período (Dia/Semana/Mês) e a data antes de concluir que não há atendimentos.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Ver os atendimentos de campo agendados.
+- Navegar pela agenda por dia, semana ou mês.
+- Localizar rapidamente os atendimentos de um período.
+
+## Como acessar
+
+Roteirizador → Agenda
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Barra de navegação', 'Botão "Hoje" com as setas para o período anterior e o próximo, e o período exibido (ex.: intervalo da semana).', 'A navegação muda o período mostrado no calendário.'],
+    ['Seletor de visualização', 'Botões "Dia", "Semana" e "Mês".', 'Define como o calendário é exibido.'],
+    ['Calendário', 'Grade com os dias e as faixas de horário; os atendimentos aparecem nos horários correspondentes.', 'Um período sem atendimentos aparece com a grade vazia.'],
+  ]}
+/>
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Hoje', 'Para voltar rapidamente ao período atual.', '—'],
+    ['Anterior / Próximo (setas)', 'Para navegar entre os períodos.', 'Muda o período exibido.'],
+    ['Dia / Semana / Mês', 'Para alternar a forma de visualização.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Agenda', 'Acesso à tela', 'Permite abrir a Agenda de Atendimentos e visualizar os atendimentos.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+- **Roteirizador (GO.ON)** — a agenda de atendimentos faz parte do fluxo de atendimento de campo. Veja o fluxo [GO.ON - Agenda e Roteirização de Campo](/tecnico/fluxos/goon-agenda-e-roteirizacao).
+- **Formulário** e **Jornada** — os atendimentos usam os formulários e a jornada configurados no Roteirizador.
+
+## O que a tela não faz
+
+- Não executa o atendimento em campo — isso é feito no aplicativo/execução do Roteirizador.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não vejo atendimentos', 'Período sem agendamentos ou visualização diferente', 'Confira a data e alterne entre Dia/Semana/Mês.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para visualizar, em um calendário, os atendimentos de campo agendados.' },
+    { question: 'Como mudo a visualização?', answer: 'Use os botões "Dia", "Semana" e "Mês" no canto do calendário.' },
+    { question: 'Como volto para hoje?', answer: 'Clique em "Hoje" na barra de navegação.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '25/09/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '25/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Agenda (Agenda de Atendimentos).' },
+  ]}
+/>

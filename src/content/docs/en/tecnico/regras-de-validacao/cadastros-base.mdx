@@ -1,0 +1,59 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/cadastros-base
+pageType: tecnico
+lang: en
+title: Validation Rules - Base Records
+description: "The validation rules of the Administrator base records (Country, State, City and Incoterm), gathered in one page."
+moduleLabel: Administrator
+routineType: Validation reference
+keywords: [base records, validation, country, state, city, incoterm, required fields]
+tags: [tecnico, regras-de-validacao]
+order: 20
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+
+## Overview
+
+Rules of the Administrator **base records** (support tables), derived from the system validators. These are simple records, gathered here for reference.
+
+## Country
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Name', 'Required; up to 150 characters.'],
+  ]}
+/>
+
+## State
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Abbreviation', 'Required.'],
+    ['Country', 'Required.'],
+  ]}
+/>
+
+## City
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Name', 'Required; up to 150 characters.'],
+    ['Municipality Code', 'Greater than 0.'],
+    ['State', 'Required.'],
+  ]}
+/>
+
+## Incoterm
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Code', 'Required; up to 50 characters.'],
+  ]}
+/>

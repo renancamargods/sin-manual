@@ -1,0 +1,63 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/usuario
+pageType: tecnico
+lang: en
+title: Validation Rules - User
+description: "The User registration validation rules: required fields, initial password, conditionals by authentication method (Active Directory) and generic user, and limits."
+moduleLabel: Authenticator
+routineType: Validation reference
+keywords: [user, validation, required fields, e-mail, initial password, authentication method, active directory, windows login, generic user]
+tags: [tecnico, regras-de-validacao]
+order: 15
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+
+## Overview
+
+Rules the **User** registration requires to save, derived from the system validator. Some depend on the **authentication method** and on whether the user is **generic**.
+
+## Required
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Name', 'Required; up to 150 characters.'],
+    ['E-mail (login)', 'Required; up to 150 characters.'],
+    ['Active', 'Required.'],
+    ['Authentication Method', 'Required.'],
+    ['System User', 'Required.'],
+  ]}
+/>
+
+## Initial password
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Initial Password', 'Required for a new user with password authentication (does not apply to Active Directory or on edit).'],
+    ['Repeat Password', 'Must match the Initial Password.'],
+  ]}
+/>
+
+## Conditionals
+
+<DocTable
+  headers={['Case', 'Rule']}
+  rows={[
+    ['Active Directory (or Both)', 'The "Windows Login" becomes required; the initial password is waived.'],
+    ['Generic user', 'Waives E-mail, Authentication Method, System User and password.'],
+  ]}
+/>
+
+## Length limits
+
+<DocTable
+  headers={['Field', 'Maximum']}
+  rows={[
+    ['Phone', '15 characters.'],
+    ['Registration Number', '100 characters.'],
+  ]}
+/>

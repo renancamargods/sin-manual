@@ -1,0 +1,30 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/entidade-de-aprovacao
+pageType: tecnico
+lang: en
+title: Validation Rules - Approval Entity
+description: "The Approval Entity validation rules: the required fields (Name and Status)."
+moduleLabel: Approvals
+routineType: Validation reference
+keywords: [approval entity, validation, required fields, name, status]
+tags: [tecnico, regras-de-validacao]
+order: 17
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+
+## Overview
+
+Rules the **Approval Entity** requires to save, derived from the system validator. The entity defines **what** can be submitted for approval (the basis for the Approval Rules).
+
+## Required
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Name', 'Required.'],
+    ['Status', 'Required.'],
+  ]}
+/>

@@ -1,0 +1,40 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/registros
+pageType: tecnico
+title: Regras de Validação - Registros (Regulatórios)
+description: "As regras de validação dos Registros regulatórios: obrigatório de País, limites de tamanho e as condicionais por país (FDA/EUA e Canadá)."
+moduleLabel: Regulatórios
+routineType: Referência de validação
+keywords: [registros, regulatórios, validação, país, número do registro, listing number fda, device id, canadá]
+tags: [tecnico, regras-de-validacao]
+order: 19
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+
+## Visão geral
+
+Regras que o cadastro de **Registros** (regulatórios) exige para salvar, derivadas do validador do sistema. Algumas dependem do **país** do registro.
+
+## Obrigatórios e limites
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['País', 'Obrigatório.'],
+    ['Número do Registro', 'Até 120 caracteres.'],
+    ['Device ID', 'Até 120 caracteres.'],
+  ]}
+/>
+
+## Condicionais por país
+
+<DocTable
+  headers={['País', 'Passa a exigir']}
+  rows={[
+    ['EUA (registro FDA)', 'Número do Registro e Listing Number FDA obrigatórios.'],
+    ['Canadá', 'Device ID obrigatório.'],
+  ]}
+/>

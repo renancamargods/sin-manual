@@ -124,6 +124,12 @@ export const tecnicoPages: TecnicoGroup[] = [
       { title: 'Empresa', slug: 'empresa', order: 12, description: 'Regras de validação do cadastro de Empresa (obrigatórios e limites de tamanho).' },
       { title: 'Lounge (Centro)', slug: 'lounge', order: 13, description: 'Regras de validação do cadastro de Lounge/Centro (obrigatórios, CNPJ e limites).' },
       { title: 'Mensagem Personalizada', slug: 'mensagem-personalizada', order: 14, description: 'Regras de validação da Mensagem Personalizada (Mensagem e Tipo de Mensagem obrigatórios).' },
+      { title: 'Usuário', slug: 'usuario', order: 15, description: 'Regras de validação do cadastro de Usuário (obrigatórios, senha inicial, autenticação AD e genérico, limites).' },
+      { title: 'Regra de Aprovação', slug: 'regra-de-aprovacao', order: 16, description: 'Regras de validação da Regra de Aprovação e das Etapas (nome, entidade, modo de execução, grupo, ordem).' },
+      { title: 'Entidade de Aprovação', slug: 'entidade-de-aprovacao', order: 17, description: 'Regras de validação da Entidade de Aprovação (Nome e Status obrigatórios).' },
+      { title: 'Refugo', slug: 'refugo', order: 18, description: 'Regras de validação do Refugo (Produto, Lote e Status obrigatórios).' },
+      { title: 'Registros (Regulatórios)', slug: 'registros', order: 19, description: 'Regras de validação dos Registros regulatórios (País, limites e condicionais por país).' },
+      { title: 'Cadastros Base', slug: 'cadastros-base', order: 20, description: 'Regras de validação dos cadastros base (País, Estado, Cidade e Incoterm).' },
     ],
   },
   {
@@ -307,7 +313,7 @@ export const modules: ModuleDef[] = [
     routines: [
       { title: 'Contagem Inventário', slug: 'contagem-inventario', description: 'Registro das contagens realizadas.' },
       { title: 'Inventário', slug: 'inventario', description: 'Cadastro e acompanhamento de inventários.' },
-      { title: 'Inventários Disponíveis', slug: 'inventarios-disponiveis', description: 'Lista de inventários abertos para contagem.', unavailable: true },
+      { title: 'Inventários Disponíveis', slug: 'inventarios-disponiveis', description: 'Lista de inventários disponíveis para contagem, com a ação de iniciar a contagem.' },
     ],
   },
   {
@@ -456,7 +462,7 @@ export const modules: ModuleDef[] = [
     description: 'Agendas, formulários e jornadas de atendimento em campo.',
     order: 19,
     routines: [
-      { title: 'Agenda', slug: 'agenda', description: 'Cadastro e acompanhamento de agendas.', unavailable: true },
+      { title: 'Agenda', slug: 'agenda', description: 'Agenda de Atendimentos: calendário dos atendimentos de campo por dia, semana ou mês.' },
       { title: 'Ausência', slug: 'ausencia', description: 'Registro de ausências que afetam a agenda.' },
       { title: 'Formulário', slug: 'formulario', description: 'Cadastro de formulários usados em campo.' },
       { title: 'Formulário Agenda', slug: 'formulario-agenda', description: 'Associação entre formulários e agendas.', unavailable: true },
@@ -755,6 +761,12 @@ export const tecnicoSubEn: Record<string, string> = {
   'regras-de-validacao/empresa': 'Validation Rules - Company',
   'regras-de-validacao/lounge': 'Validation Rules - Lounge (Center)',
   'regras-de-validacao/mensagem-personalizada': 'Validation Rules - Custom Message',
+  'regras-de-validacao/usuario': 'Validation Rules - User',
+  'regras-de-validacao/regra-de-aprovacao': 'Validation Rules - Approval Rule',
+  'regras-de-validacao/entidade-de-aprovacao': 'Validation Rules - Approval Entity',
+  'regras-de-validacao/refugo': 'Validation Rules - Scrap',
+  'regras-de-validacao/registros': 'Validation Rules - Records (Regulatory)',
+  'regras-de-validacao/cadastros-base': 'Validation Rules - Base Records',
 };
 
 // --- Ordenação alfabética (locale-aware) da navegação ---

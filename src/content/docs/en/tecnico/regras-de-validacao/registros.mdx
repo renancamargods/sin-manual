@@ -1,0 +1,41 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/registros
+pageType: tecnico
+lang: en
+title: Validation Rules - Records (Regulatory)
+description: "The regulatory Records validation rules: required Country, length limits and the per-country conditionals (FDA/USA and Canada)."
+moduleLabel: Regulatory
+routineType: Validation reference
+keywords: [records, regulatory, validation, country, registration number, listing number fda, device id, canada]
+tags: [tecnico, regras-de-validacao]
+order: 19
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+
+## Overview
+
+Rules the **Records** (regulatory) registration requires to save, derived from the system validator. Some depend on the record's **country**.
+
+## Required and limits
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Country', 'Required.'],
+    ['Registration Number', 'Up to 120 characters.'],
+    ['Device ID', 'Up to 120 characters.'],
+  ]}
+/>
+
+## Per-country conditionals
+
+<DocTable
+  headers={['Country', 'Also requires']}
+  rows={[
+    ['USA (FDA registration)', 'Registration Number and FDA Listing Number required.'],
+    ['Canada', 'Device ID required.'],
+  ]}
+/>

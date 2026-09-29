@@ -1,0 +1,58 @@
+---
+section: tecnico
+routeSlug: regras-de-validacao/cadastros-base
+pageType: tecnico
+title: Regras de Validação - Cadastros Base
+description: "As regras de validação dos cadastros base do Administrador (País, Estado, Cidade e Incoterm), reunidas em uma página."
+moduleLabel: Administrador
+routineType: Referência de validação
+keywords: [cadastros base, validação, país, estado, cidade, incoterm, campos obrigatórios]
+tags: [tecnico, regras-de-validacao]
+order: 20
+---
+
+import Callout from '../../../../components/Callout.astro';
+import DocTable from '../../../../components/DocTable.astro';
+
+## Visão geral
+
+Regras dos **cadastros base** do Administrador (tabelas de apoio), derivadas dos validadores do sistema. São cadastros simples, reunidos aqui para referência.
+
+## País
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Nome', 'Obrigatório; até 150 caracteres.'],
+  ]}
+/>
+
+## Estado
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Sigla', 'Obrigatória.'],
+    ['País', 'Obrigatório.'],
+  ]}
+/>
+
+## Cidade
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Nome', 'Obrigatório; até 150 caracteres.'],
+    ['Código de Município', 'Maior que 0.'],
+    ['Estado', 'Obrigatório.'],
+  ]}
+/>
+
+## Incoterm
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Código', 'Obrigatório; até 50 caracteres.'],
+  ]}
+/>

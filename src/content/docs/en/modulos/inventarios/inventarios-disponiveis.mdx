@@ -1,0 +1,133 @@
+---
+section: modulos
+routeSlug: inventarios/inventarios-disponiveis
+pageType: routine
+module: inventarios
+moduleLabel: Inventories
+lang: en
+title: Available Inventories
+description: Lists the inventories available for counting, by Lounge and date, with the actions to start the count, edit, view details and issue a report.
+routineType: Query and execution
+permission: Yes
+impact: Entry point to start counting an inventory
+keywords: [available inventories, count, start count, lounge, inventory, stock, report]
+tags: [modulo-inventarios, consulta]
+order: 3
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Available Inventories** screen shows the inventories that are **available for counting**, as cards. Each card shows the **inventory name**, the **Lounge**, the **Inventory Date**, the **Inventory Type** and the **System Status**, with the actions to **start the count** or consult the inventory. It is the day-to-day entry point for whoever will count.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Start the count', text: 'Gathers the available inventories and lets you start counting each one.' },
+    { label: 'Use', title: 'Counting routine', text: 'Used by the Lounge team to begin counting a created inventory.' },
+    { label: 'Caution', title: 'Check the inventory', text: 'Check the Lounge and date before starting the count of the correct inventory.' },
+  ]}
+/>
+
+## When to use this screen
+
+- See the inventories available for counting.
+- Start the count of an inventory.
+- Consult the details or issue the report of an inventory.
+
+## How to access
+
+Inventories → Available Inventories
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Card list', 'One card per available inventory, with name, Lounge, Inventory Date, Inventory Type and System Status.', 'Each card has its own actions.'],
+    ['Card actions', 'Start Count, Edit, Details and Report.', 'The count starts with "Start Count".'],
+  ]}
+/>
+
+## Card information
+
+<DocTable
+  headers={['Field', 'What it shows']}
+  rows={[
+    ['Name', 'Inventory name/description.'],
+    ['Lounge', 'Lounge to be inventoried.'],
+    ['Inventory Date', 'Inventory date.'],
+    ['Inventory Type', 'Inventory type (e.g., "General").'],
+    ['System Status', 'Indicates whether the record is "Active".'],
+  ]}
+/>
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Start Count', 'To begin counting the inventory.', 'Opens the counting flow (scanner reading).'],
+    ['Edit', 'To change the inventory data.', 'Click "Save" to confirm.'],
+    ['Details', 'To consult the inventory information.', 'Read-only.'],
+    ['Report', 'To issue the inventory report.', 'It is a query; does not change the record.'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Available Inventories', 'Screen access', 'Allows opening the screen and seeing the available inventories.'],
+    ['Count execution', 'Start Count', 'Allows starting the count of an inventory.'],
+  ]}
+/>
+
+## Relation to other processes
+
+- **Inventory** — the inventories created on the [Inventory](/en/modulos/inventarios/inventario) screen are the ones shown here as available.
+- **Inventory Count** — the count started here is recorded and tracked in the counting process.
+
+## What the screen does not do
+
+- It does not create the inventory — the registration is done on the **Inventory** screen.
+- It does not perform the count itself — the count happens after "Start Count", via scanning.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The inventory does not appear in the list', 'Not yet created or not available', 'Check whether the inventory was created on the "Inventory" screen.'],
+    ['I cannot start the count', 'Permission or inventory status', 'Check the permission with the administrator and the inventory status.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To see the available inventories and start counting each one.' },
+    { question: 'How do I start a count?', answer: 'Use the "Start Count" action on the desired inventory card.' },
+    { question: 'Where do the listed inventories come from?', answer: 'From the inventories created on the "Inventory" screen (Inventories module).' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '09/25/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '09/25/2026', author: 'Renan Camargo', description: 'Initial release of the Available Inventories screen documentation.' },
+  ]}
+/>
