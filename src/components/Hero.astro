@@ -17,7 +17,7 @@ const { eyebrow, title, description, badges = [] } = Astro.props;
 const hasMedia = Astro.slots.has('media');
 ---
 
-<header class="relative overflow-hidden bg-hero-gradient">
+<header class="relative bg-hero-gradient">
   <div class="pointer-events-none absolute inset-0 opacity-40" style="background-image: radial-gradient(circle at 85% 20%, rgba(241,136,0,0.25), transparent 45%);"></div>
   <div class="relative w-full px-4 py-10 sm:px-6 sm:py-14 lg:px-8 xl:px-10">
     <div class="mb-4">
