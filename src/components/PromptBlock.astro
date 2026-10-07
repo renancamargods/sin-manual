@@ -1,0 +1,46 @@
+---
+// Bloco de prompt com botão "Copiar". Envolve um bloco de código markdown
+// (```text) passado via slot; o botão copia o texto do <code> renderado.
+interface Props {
+  label?: string; // rótulo do botão (traduzível)
+  copied?: string; // rótulo após copiar
+}
+const { label = 'Copiar', copied = 'Copiado!' } = Astro.props;
+---
+
+<div class="relative my-4" data-prompt data-copied={copied}>
+  <button
+    type="button"
+    data-copy
+    class="absolute right-2 top-2 z-10 inline-flex items-center gap-1 rounded-md border border-brand-line bg-brand-surface px-2.5 py-1 text-xs font-medium text-brand-muted shadow-sm transition hover:border-brand-red/40 hover:text-brand-fg"
+  >
+    <span data-copy-label>{label}</span>
+  </button>
+  <slot />
+</div>
+
+<style>
+  [data-prompt] :global(pre) {
+    padding-top: 2.75rem;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-prompt]').forEach((wrap) => {
+    const btn = wrap.querySelector<HTMLButtonElement>('[data-copy]');
+    const label = wrap.querySelector<HTMLElement>('[data-copy-label]');
+    const code = wrap.querySelector('code');
+    if (!btn || !label || !code) return;
+    const original = label.textContent ?? 'Copiar';
+    const done = wrap.dataset.copied ?? 'Copiado!';
+    btn.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(code.textContent ?? '');
+        label.textContent = done;
+        setTimeout(() => (label.textContent = original), 1500);
+      } catch {
+        /* clipboard indisponível — ignora */
+      }
+    });
+  });
+</script>

@@ -15,6 +15,7 @@ order: 1
 import Callout from '../../../../components/Callout.astro';
 import DocTable from '../../../../components/DocTable.astro';
 import DocControl from '../../../../components/DocControl.astro';
+import PromptBlock from '../../../../components/PromptBlock.astro';
 
 ## Visão geral
 
@@ -32,6 +33,8 @@ A ideia é sempre a mesma: **preencha o prompt → gere o texto → cole o texto
 
 ## Modelo do prompt
 
+<PromptBlock>
+
 ```text
 Preciso que você crie um reporte de bug para o Azure DevOps referente ao seguinte problema: [descreva o problema].
 
@@ -47,6 +50,8 @@ Estruture o reporte exatamente nas seções abaixo:
 Escreva de forma clara e objetiva, pronto para colar no Azure DevOps.
 ```
 
+</PromptBlock>
+
 ## Como abrir no Azure DevOps
 
 O Bug é criado **a partir do Pedido**, como um item **filho**:
@@ -57,7 +62,7 @@ O Bug é criado **a partir do Pedido**, como um item **filho**:
     ['A partir de', 'O Pedido (ex.: "272 Pedido")'],
     ['Link type', 'Child (filho)'],
     ['Work Item Type', 'Bug'],
-    ['Title', 'Título do reporte (resumo do erro)'],
+    ['Title', 'Módulo > Submódulo > Resumo da descrição do erro (o BUG).'],
   ]}
 />
 

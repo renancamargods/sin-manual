@@ -15,6 +15,7 @@ order: 2
 import Callout from '../../../../components/Callout.astro';
 import DocTable from '../../../../components/DocTable.astro';
 import DocControl from '../../../../components/DocControl.astro';
+import PromptBlock from '../../../../components/PromptBlock.astro';
 
 ## Visão geral
 
@@ -31,6 +32,8 @@ A ideia é sempre a mesma: **preencha o prompt → gere a documentação → col
 5. Preencha os **campos obrigatórios** (seção abaixo) e **salve**.
 
 ## Modelo do prompt
+
+<PromptBlock>
 
 ```text
 Aja como um Product Owner (PO) / Analista de Requisitos sênior e escreva uma documentação de requisito de software detalhada, pronta para virar um PBI no Azure DevOps, para a funcionalidade abaixo.
@@ -50,6 +53,8 @@ Entregue a documentação com:
 - Observações Técnicas (se houver)
 ```
 
+</PromptBlock>
+
 ## Como abrir no Azure DevOps
 
 O PBI é criado **a partir do Pedido**, como um item **pai** (o Pedido fica como filho do PBI):
@@ -60,7 +65,7 @@ O PBI é criado **a partir do Pedido**, como um item **pai** (o Pedido fica como
     ['A partir de', 'O Pedido (ex.: "272 Pedido")'],
     ['Link type', 'Parent (pai)'],
     ['Work Item Type', 'Product Backlog Item'],
-    ['Title', 'Título do PBI (nome da melhoria/funcionalidade)'],
+    ['Title', 'Módulo > Submódulo > Resumo do desenvolvimento a ser feito (o PBI).'],
   ]}
 />
 

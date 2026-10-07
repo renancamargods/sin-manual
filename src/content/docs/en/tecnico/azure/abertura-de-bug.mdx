@@ -16,6 +16,7 @@ order: 1
 import Callout from '../../../../../components/Callout.astro';
 import DocTable from '../../../../../components/DocTable.astro';
 import DocControl from '../../../../../components/DocControl.astro';
+import PromptBlock from '../../../../../components/PromptBlock.astro';
 
 ## Overview
 
@@ -33,6 +34,8 @@ The idea is always the same: **fill in the prompt → generate the text → past
 
 ## Prompt template
 
+<PromptBlock label="Copy" copied="Copied!">
+
 ```text
 I need you to create a bug report for Azure DevOps regarding the following problem: [describe the problem].
 
@@ -48,6 +51,8 @@ Structure the report exactly in the sections below:
 Write it clearly and objectively, ready to paste into Azure DevOps.
 ```
 
+</PromptBlock>
+
 ## How to open it in Azure DevOps
 
 The Bug is created **from the Order**, as a **child** item:
@@ -58,7 +63,7 @@ The Bug is created **from the Order**, as a **child** item:
     ['From', 'The Order (e.g., "272 Pedido")'],
     ['Link type', 'Child'],
     ['Work Item Type', 'Bug'],
-    ['Title', 'Report title (summary of the error)'],
+    ['Title', 'Module > Submodule > Summary of the error description (the BUG).'],
   ]}
 />
 
