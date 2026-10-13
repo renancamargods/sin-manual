@@ -66,6 +66,18 @@ O Bug é criado **a partir do Pedido**, como um item **filho**:
   ]}
 />
 
+### Exemplos de Title
+
+O Title precisa **terminar com o resumo do erro** — não pare no nome da tela. Prefixos automáticos (nº do Bug, "Hotfix:") podem aparecer; o que importa é o resumo ao final.
+
+<DocTable
+  headers={['❌ Errado', '✅ Certo']}
+  rows={[
+    ['Bug 4615: Clientes > Cliente > Anexo de Documento', 'Clientes > Cliente > Anexo de Documento (Anexo inserido no cadastro de cliente não é apresentado em tela após inclusão)'],
+    ['Bug 4729: Hotfix: Clientes > Cliente > Cadastro de e-mail', 'Bug 4729: Hotfix: Clientes > Cliente > Cadastro de e-mail - Erro na validação do e-mail durante o cadastro de cliente via Verify'],
+  ]}
+/>
+
 ## Campos obrigatórios do Bug
 
 Preencha **todos** os campos abaixo antes de salvar (o Azure bloqueia o salvamento se faltar algum — ex.: *"Field 'Requesting User' cannot be empty"*):
