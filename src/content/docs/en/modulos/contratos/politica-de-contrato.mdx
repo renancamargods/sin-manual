@@ -101,6 +101,7 @@ The **"Partner Type"** filter ("Retail", "Course" or "Key Account") helps locate
   headers={['Field', 'What it is for']}
   rows={[
     ['Contract Title', 'Title of the policy (package).'],
+    ['Partner Type', 'Partner type of the policy ("Retail", "Course" or "Key Account"). Required.'],
     ['Contract Classification', 'Classification of the policy (e.g., "Partnership").'],
     ['Validity in months', 'Validity period of the policy, in months.'],
     ['Bonus burs?', 'Indicates whether there are bonus burs (Yes/No).'],
@@ -196,7 +197,7 @@ Grid of the loaned items (comodato) linked to the policy. Each row is added with
   headers={['Issue', 'Possible cause', 'What to check']}
   rows={[
     ['The policy does not appear in the search', 'Restrictive filters', 'Review "Contract Title", "Partner Type" and "System Status".'],
-    ['I cannot save the policy', 'Required fields blank', 'Fill in the title, the classification and the validity.'],
+    ['I cannot save the policy', 'Required fields blank', 'Fill in the title, the "Partner Type", the classification and the validity.'],
     ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
   ]}
 />
@@ -222,5 +223,6 @@ Grid of the loaned items (comodato) linked to the policy. Each row is added with
   ]}
   versions={[
     { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the Contract Policy screen documentation.' },
+    { version: '1.1', date: '10/21/2026', author: 'Renan Camargo', description: '"Partner Type" is now required when saving (Contract Policy and Course Contract Policy).' },
   ]}
 />

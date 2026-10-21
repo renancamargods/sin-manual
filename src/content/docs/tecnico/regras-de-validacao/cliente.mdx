@@ -60,7 +60,7 @@ Regras que o cadastro de **Cliente** exige para salvar/enviar, derivadas do vali
     ['Código do Cliente', 'Obrigatório (dispensado só para Estrangeiro); sem caracteres especiais.'],
     ['Nome Fantasia', 'Obrigatório (exceto Portugal); até 150 caracteres; sem caracteres especiais.'],
     ['Moeda', 'Uma moeda obrigatória (Estrangeiro usa múltiplas moedas — ver abaixo).'],
-    ['E-mail', 'Ao menos um e-mail e em formato válido.'],
+    ['E-mail', 'Formato de e-mail válido — vale para os e-mails da lista e para o e-mail auxiliar. PJ exige ao menos um e-mail.'],
     ['CRO', 'Obrigatório; até 20 caracteres.'],
     ['UF do CRO', 'Obrigatória.'],
     ['Tipo do CRO (Observação CRO)', 'Obrigatório.'],
@@ -103,6 +103,7 @@ Para clientes da empresa **Portugal**, várias regras nacionais (Nome Fantasia, 
   headers={['Campo', 'Regra']}
   rows={[
     ['Observação', 'Até 4000 caracteres.'],
+    ['Observação do Cliente (nota)', 'Cada nota de observação é obrigatória e aceita até 5000 caracteres.'],
     ['Suframa', 'Até 12 caracteres.'],
     ['Inscrição Estadual', 'Até 14 caracteres.'],
     ['Status Ignition / Ticket Ignition', 'Até 50 caracteres cada.'],

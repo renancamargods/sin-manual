@@ -79,6 +79,24 @@ Administrador → Controle de Funcionalidade
   ]}
 />
 
+### Regras de validação
+
+O sistema valida ao salvar:
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Chave Identificadora da Funcionalidade', 'Obrigatória.'],
+    ['Nome', 'Obrigatório; até 200 caracteres.'],
+    ['Descrição', 'Até 500 caracteres.'],
+    ['Habilitada', 'Obrigatória.'],
+    ['Valor', 'Obrigatório quando há "Tipo do Valor" definido.'],
+    ['Valor (Booleano)', 'Deve ser "true" ou "false".'],
+    ['Valor (Número)', 'Deve ser um número válido.'],
+    ['Valor (Json)', 'Deve ser um JSON válido (começando por "{" ou "[").'],
+  ]}
+/>
+
 ### Funcionalidades cadastradas (exemplos reais)
 
 As funcionalidades hoje cadastradas e o que cada uma faz. O que liga/desliga o comportamento é a coluna **Habilitada** (Sim/Não):
@@ -178,5 +196,6 @@ Hoje, em Homologação, as duas chaves estão **Habilitadas (Ativo)** — ou sej
   ]}
   versions={[
     { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Controle de Funcionalidade.' },
+    { version: '1.1', date: '21/10/2026', author: 'Renan Camargo', description: 'Inclusão das regras de validação (obrigatórios, limites de Nome/Descrição e Valor por tipo: Booleano, Número e Json).' },
   ]}
 />

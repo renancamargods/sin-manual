@@ -80,6 +80,24 @@ Administrator → Feature Control
   ]}
 />
 
+### Validation rules
+
+The system validates on save:
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Feature Identifier Key', 'Required.'],
+    ['Name', 'Required; up to 200 characters.'],
+    ['Description', 'Up to 500 characters.'],
+    ['Enabled', 'Required.'],
+    ['Value', 'Required when a "Value Type" is set.'],
+    ['Value (Boolean)', 'Must be "true" or "false".'],
+    ['Value (Number)', 'Must be a valid number.'],
+    ['Value (Json)', 'Must be valid JSON (starting with "{" or "[").'],
+  ]}
+/>
+
 ### Registered features (real examples)
 
 The features currently registered and what each one does. What turns the behavior on/off is the **Enabled** column (Yes/No):
@@ -179,5 +197,6 @@ Today, in Homologation, both keys are **Enabled (Active)** — that is, customer
   ]}
   versions={[
     { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Feature Control screen documentation.' },
+    { version: '1.1', date: '21/10/2026', author: 'Renan Camargo', description: 'Added validation rules (required fields, Name/Description limits and Value by type: Boolean, Number and Json).' },
   ]}
 />

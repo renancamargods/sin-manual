@@ -100,6 +100,7 @@ O filtro **"Tipo do Parceiro"** ("Varejo", "Curso" ou "Key Account") ajuda a loc
   headers={['Campo', 'Para que serve']}
   rows={[
     ['Título de Contrato', 'Título da política (pacote).'],
+    ['Tipo do Parceiro', 'Tipo do parceiro da política ("Varejo", "Curso" ou "Key Account"). Obrigatório.'],
     ['Classificação do Contrato', 'Classificação da política (ex.: "Parceria").'],
     ['Vigência em meses', 'Prazo de vigência da política, em meses.'],
     ['Fresas bonificadas?', 'Indica se há fresas bonificadas (Sim/Não).'],
@@ -195,7 +196,7 @@ Grade dos itens em comodato vinculados à política. Cada linha é adicionada pe
   headers={['Problema', 'Possível causa', 'O que verificar']}
   rows={[
     ['A política não aparece na busca', 'Filtros restritos', 'Revise "Título de Contrato", "Tipo do Parceiro" e "Status Sistema".'],
-    ['Não consigo salvar a política', 'Campos obrigatórios em branco', 'Preencha o título, a classificação e a vigência.'],
+    ['Não consigo salvar a política', 'Campos obrigatórios em branco', 'Preencha o título, o "Tipo do Parceiro", a classificação e a vigência.'],
     ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
   ]}
 />
@@ -221,5 +222,6 @@ Grade dos itens em comodato vinculados à política. Cada linha é adicionada pe
   ]}
   versions={[
     { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Política de Contrato.' },
+    { version: '1.1', date: '21/10/2026', author: 'Renan Camargo', description: 'Campo "Tipo do Parceiro" passou a ser obrigatório no cadastro (Política de Contrato e Política de Contrato Curso).' },
   ]}
 />
