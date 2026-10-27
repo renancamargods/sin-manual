@@ -32,6 +32,25 @@ Essas regras entram tanto na **montagem** (preço/desconto dos itens) quanto na 
   ]}
 />
 
+## Tipos de política aplicados ao pedido
+
+Visão consolidada das políticas que atuam sobre um pedido — as que mexem em **valores** (preço/desconto) e as de **pagamento**. O detalhe de cada uma está nesta Parte 5 e na [Parte 4 - Pagamento](/tecnico/fluxos/processo-do-pedido-pagamento).
+
+<DocTable
+  headers={['Política', 'O que afeta', 'Onde se cadastra', 'Onde atua no pedido']}
+  rows={[
+    ['Política Comercial', 'Preço e desconto do pedido/itens; valor exigido por item.', 'Políticas → Política Comercial', 'Montagem (preço/desconto) e envio (valida valor × quantidade).'],
+    ['Campanha', 'Itens de campanha e valor exigido por item.', 'Políticas → Parâmetro de Campanha', 'Item do tipo "Campanha"; valida valor × quantidade no envio.'],
+    ['Restrição de Venda', 'O que pode ser vendido por segmento.', 'Políticas → Restrição de Venda', 'Análise (ADM Vendas) barra produto de exceção.'],
+    ['Condição de Pagamento', 'Prazos/parcelas; traz a Forma de Pagamento.', 'Políticas → Condição de Pagamento', 'Pagamento (Parte 4); influencia a rota de aprovação.'],
+    ['Forma de Pagamento', 'Boleto, PIX ou cartão.', 'Políticas → Forma de Pagamento', 'Vem pela Condição; PIX/cartão aciona a etapa de Cobrança.'],
+  ]}
+/>
+
+<Callout type="info" title="Os dois tipos de Política Comercial">
+No cadastro, a Política Comercial tem o campo **"Tipo"** com dois valores: **"Política"** (regra comercial padrão) e **"Campanha"** (ação pontual/promocional). As duas primeiras linhas da tabela acima são exatamente esses dois tipos.
+</Callout>
+
 ## Quando usar
 
 - Entender por que um item veio com determinado preço/desconto.
@@ -45,7 +64,7 @@ A **Política Comercial** é uma regra comercial com vigência e segmentação. 
 <DocTable
   headers={['Campo da política', 'O que define']}
   rows={[
-    ['Tipo', 'O tipo da política comercial.'],
+    ['Tipo', 'O tipo da política comercial: "Política" (regra padrão) ou "Campanha" (ação promocional). São os dois únicos tipos.'],
     ['Vigência (Início / Término)', 'Período em que a política vale.'],
     ['Valor a Considerar', 'Qual valor do pedido a política considera.'],
     ['% Desconto de Cabeçalho', 'Desconto percentual aplicado no cabeçalho.'],
@@ -150,5 +169,6 @@ A Restrição de Venda é verificada na **análise** do pedido: a área **Admini
   ]}
   versions={[
     { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Emissão inicial — Parte 5 (políticas de compra) do processo do pedido.' },
+    { version: '1.1', date: '27/10/2026', author: 'Renan Camargo', description: 'Visão consolidada "Tipos de política aplicados ao pedido" e detalhamento do campo "Tipo" (Política / Campanha).' },
   ]}
 />

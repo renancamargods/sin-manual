@@ -33,6 +33,25 @@ These rules come in both during **building** (item price/discount) and during th
   ]}
 />
 
+## Policy types applied to the order
+
+A consolidated view of the policies acting on an order — those that change **values** (price/discount) and the **payment** ones. The detail of each is in this Part 5 and in [Part 4 - Payment](/en/tecnico/fluxos/processo-do-pedido-pagamento).
+
+<DocTable
+  headers={['Policy', 'What it affects', 'Where it is registered', 'Where it acts on the order']}
+  rows={[
+    ['Commercial Policy', 'Order/item price and discount; value required per item.', 'Policies → Commercial Policy', 'Assembly (price/discount) and submission (validates value × quantity).'],
+    ['Campaign', 'Campaign items and the value required per item.', 'Policies → Campaign Parameter', 'Item of type "Campanha"; validates value × quantity on submission.'],
+    ['Sales Restriction', 'What can be sold per segment.', 'Policies → Sales Restriction', 'Analysis (Sales Admin) blocks exception products.'],
+    ['Payment Condition', 'Terms/installments; carries the Payment Method.', 'Policies → Payment Condition', 'Payment (Part 4); influences the approval route.'],
+    ['Payment Method', 'Bank slip, PIX or card.', 'Policies → Payment Method', 'Comes via the Condition; PIX/card triggers the Collection step.'],
+  ]}
+/>
+
+<Callout type="info" title="The two Commercial Policy types">
+In the form, the Commercial Policy has a **"Type"** field with two values: **"Política"** (standard commercial rule) and **"Campanha"** (one-off/promotional action). The first two rows in the table above are exactly those two types.
+</Callout>
+
 ## When to use
 
 - Understand why an item came with a certain price/discount.
@@ -46,7 +65,7 @@ The **Commercial Policy** is a commercial rule with validity and segmentation. I
 <DocTable
   headers={['Policy field', 'What it defines']}
   rows={[
-    ['Type', 'The type of the commercial policy.'],
+    ['Type', 'The commercial policy type: "Política" (standard rule) or "Campanha" (promotional action). These are the only two types.'],
     ['Validity (Start / End)', 'Period in which the policy applies.'],
     ['Value to Consider', 'Which order value the policy considers.'],
     ['% Header Discount', 'Percentage discount applied to the header.'],
@@ -151,5 +170,6 @@ The Sales Restriction is checked in the order **review**: the **Sales Administra
   ]}
   versions={[
     { version: '1.0', date: '03/09/2026', author: 'Renan Camargo', description: 'Initial release — Part 5 (purchase policies) of the order process.' },
+    { version: '1.1', date: '10/27/2026', author: 'Renan Camargo', description: 'Consolidated "Policy types applied to the order" view and detail of the "Type" field (Política / Campanha).' },
   ]}
 />
