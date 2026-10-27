@@ -13,7 +13,8 @@ const PROTECTED = [
 ];
 
 // Modelo aberto do Workers AI (cota grátis). Grounded no manual, 8B basta.
-const AI_MODEL = '@cf/meta/llama-3.1-8b-instruct';
+// (llama-3.1-8b-instruct foi descontinuado em 2026-05; usar a variante fp8.)
+const AI_MODEL = '@cf/meta/llama-3.1-8b-instruct-fp8';
 const MAX_PERGUNTA = 1000; // limita abuso/custo
 const TOP_TRECHOS = 6;
 
