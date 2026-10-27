@@ -16,7 +16,7 @@ const PROTECTED = [
 // (llama-3.1-8b-instruct foi descontinuado em 2026-05; usar a variante fp8.)
 const AI_MODEL = '@cf/meta/llama-3.1-8b-instruct-fp8';
 const MAX_PERGUNTA = 1000; // limita abuso/custo
-const TOP_TRECHOS = 6;
+const TOP_TRECHOS = 8;
 
 function precisaAutenticar(pathname) {
   return PROTECTED.some((re) => re.test(pathname));
@@ -71,18 +71,55 @@ function normalizar(v) {
     .toLowerCase();
 }
 
-function pontuar(item, termos) {
+// Palavras-vazias: não ajudam a relevância e poluem (ex.: "que" casando dentro
+// de "etiQUEtas"). Ficam de fora dos termos de busca.
+const STOPWORDS = new Set([
+  // PT
+  'o','a','os','as','um','uma','uns','umas','de','do','da','dos','das','e','ou','que','qual','quais',
+  'como','onde','quando','quem','porque','por','pra','para','no','na','nos','nas','em','com','sem','ao',
+  'aos','se','sua','seu','suas','seus','meu','minha','isso','este','esta','esse','essa','aquele','aquela',
+  'eu','voce','vc','ele','ela','eles','elas','nos','tem','ter','ser','estar','quero','queria','gostaria',
+  'preciso','saber','sobre','fazer','faz','ver','dar','me','te','lhe','la','ali','aqui','mais','menos','ja',
+  // EN
+  'the','a','an','of','to','is','are','was','were','be','how','what','where','when','who','why','which',
+  'i','do','does','my','me','for','in','on','and','or','can','with','about','want','need','know','make',
+  'see','this','that','it','as','at','by','from','your','you',
+]);
+
+// Extrai termos úteis: normaliza, tira pontuação/stopwords, remove plural simples.
+function termosDaBusca(pergunta) {
+  const brutos = normalizar(pergunta).replace(/[^a-z0-9\s]/g, ' ').split(/\s+/);
+  const vistos = new Set();
+  const termos = [];
+  for (let t of brutos) {
+    if (t.length < 3 || STOPWORDS.has(t)) continue;
+    if (t.length > 3 && t.endsWith('s')) t = t.slice(0, -1); // plural → singular
+    if (t.length < 3 || vistos.has(t)) continue;
+    vistos.add(t);
+    termos.push(t);
+  }
+  return termos;
+}
+
+// Casa por INÍCIO de palavra (\b + prefixo): "pedido" casa "pedido"/"pedidos",
+// mas "que" não casa dentro de "etiquetas". Pesa título > meta > corpo e conta
+// termos DISTINTOS (uma página que cobre 2 termos ganha de outra que repete 1).
+function pontuar(item, matchers) {
   const titulo = normalizar(item.title);
   const meta = normalizar([item.description, item.module, ...(item.keywords ?? [])].join(' '));
   const corpo = normalizar(item.content ?? '');
   let score = 0;
-  for (const t of termos) {
-    if (!t) continue;
-    if (titulo.includes(t)) score += 4;
-    if (meta.includes(t)) score += 2;
-    if (corpo.includes(t)) score += 1;
+  let distintos = 0;
+  for (const re of matchers) {
+    let aqui = 0;
+    if (re.test(titulo)) aqui += 4;
+    if (re.test(meta)) aqui += 2;
+    if (re.test(corpo)) aqui += 1;
+    if (aqui > 0) distintos += 1;
+    score += aqui;
   }
-  return score;
+  // bônus por cobrir vários termos distintos da pergunta
+  return score + distintos * 2;
 }
 
 // Carrega um índice de busca servido como asset estático (contorna o Basic Auth
@@ -107,17 +144,18 @@ function escolher(arr) {
 
 function respostaSocial(perguntaNorm, nPalavras, lang) {
   if (nPalavras > 7) return null; // frases longas = pergunta de verdade
-  // Se parece pergunta, não trata como social (deixa ir pro RAG).
-  if (/\?|(\b(como|onde|qual|quais|quando|quem|porque|por que|o que|pra que|para que|posso|consigo|how|where|what|when|why|which|can i|do i)\b)/.test(perguntaNorm)) {
-    return null;
-  }
+
+  // Tem interrogativa de verdade? (bloqueia elogio/crítica, mas NÃO a saudação —
+  // "como vai?" e "tudo bem?" são saudações e são tratadas à parte, abaixo.)
+  const temPergunta = /\b(como|onde|qual|quais|quando|quem|porque|por que|o que|pra que|para que|posso|consigo|quanto|quantos|how|where|what|when|who|why|which|can i|do i)\b/.test(perguntaNorm);
 
   const critica = /(nao gostei|nao curti|ruim|pessim|horriv|precisa melhorar|nao ajud|nao serviu|nao resolveu|lixo|terriv|pior|odiei|detestei|que droga|bad|terrible|awful|useless|does ?n.?t help|not helpful|hate)/;
   const elogio = /(muito bom|otim|excelent|adorei|gostei|perfeit|maravilh|parabens|show|top|legal|bacana|incri|melhor|sensacional|great|awesome|amazing|nice|love|good job|well done|helpful)/;
   const agradece = /(obrigad|valeu|vlw|agradec|thanks|thank you|thx)/;
-  const saudacao = /(bom dia|boa tarde|boa noite|^oi\b|^oie|^ola|^opa|^eae|^e ai|^salve|^hey|^hi\b|^hello|tudo bem|tudo bom|como vai|td bem|beleza)/;
+  // Saudação ampla — qualquer cumprimento retorna um cumprimento.
+  const saudacao = /(bom dia|boa tarde|boa noite|boa madrugada|^oi|^oie|^oii|^ola|^opa|^eae|^e ai|^salve|^fala|^alo|^blz|hey|^hi\b|hello|hiya|tudo bem|tudo bom|tudo certo|como vai|como voce esta|td bem|td bom|beleza|suave|de boa|good morning|good afternoon|good evening|good night|how are you)/;
 
-  if (critica.test(perguntaNorm)) {
+  if (!temPergunta && critica.test(perguntaNorm)) {
     return lang === 'en'
       ? escolher([
           "Oh no, sorry about that! 😔 I'll note it and pass it to my supervisor, Mr. Tooth. If you'd like, formalize it using the feedback option in the page footer.",
@@ -131,7 +169,7 @@ function respostaSocial(perguntaNorm, nPalavras, lang) {
         ]);
   }
 
-  if (elogio.test(perguntaNorm)) {
+  if (!temPergunta && elogio.test(perguntaNorm)) {
     return lang === 'en'
       ? escolher([
           'So glad I could help! 😄', 'Aww, thank you! Happy to help. 🦷',
@@ -143,13 +181,23 @@ function respostaSocial(perguntaNorm, nPalavras, lang) {
         ]);
   }
 
-  if (agradece.test(perguntaNorm)) {
+  if (!temPergunta && agradece.test(perguntaNorm)) {
     return lang === 'en'
       ? escolher(['You got it! 😄 Anything else, just ask.', "You're welcome! I'm right here. 🦷"])
       : escolher(['Disponha! 😄 Qualquer coisa, é só chamar.', 'De nada! Precisando, tô aqui. 🦷', 'Por nada! Bora pra próxima dúvida?']);
   }
 
   if (saudacao.test(perguntaNorm)) {
+    // Tira as palavras de saudação/filler; se sobra uma pergunta de verdade,
+    // deixa ir pro manual (ex.: "bom dia, como crio cliente?" → RAG).
+    const resto = perguntaNorm
+      .replace(saudacao, ' ')
+      .replace(/\b(dentinho|dente|por favor|pfv|pf|tudo|bem|bom|boa|dia|tarde|noite|vai|voce|vc|ta|esta|certo|beleza|blz|suave|de|boa|e|ai|o|a|oi|ola|opa|how|are|you|good|morning|afternoon|evening|night)\b/g, ' ')
+      .replace(/[^a-z0-9]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+    if (resto.length >= 3) return null; // sobrou conteúdo → é pergunta
+
     let saud;
     if (lang === 'en') {
       saud = /bom dia|good morning/.test(perguntaNorm) ? 'Good morning!' :
@@ -213,9 +261,10 @@ async function tratarChat(request, env, url) {
   }
   const itens = indices.flat().filter((it) => (it.lang ?? 'pt') === lang);
 
-  const termos = normalizar(pergunta).split(/\s+/).filter((t) => t.length > 1);
-  const ranque = itens
-    .map((item) => ({ item, score: pontuar(item, termos) }))
+  const termos = termosDaBusca(pergunta);
+  const matchers = termos.map((t) => new RegExp('\\b' + t));
+  const ranque = (matchers.length ? itens : [])
+    .map((item) => ({ item, score: pontuar(item, matchers) }))
     .filter((r) => r.score > 0)
     .sort((a, b) => b.score - a.score)
     .slice(0, TOP_TRECHOS)
@@ -231,27 +280,27 @@ async function tratarChat(request, env, url) {
   }
 
   const contexto = ranque
-    .map((it, i) => `[${i + 1}] ${it.title} (${it.href})\n${(it.content ?? it.description ?? '').slice(0, 1200)}`)
+    .map((it, i) => `[${i + 1}] ${it.title} (${it.href})\n${(it.content ?? it.description ?? '').slice(0, 1500)}`)
     .join('\n\n');
 
   const sistema =
     lang === 'en'
-      ? `You are "Dentinho", the friendly assistant of the S.I.N Implant System user manual. Answer ONLY using the CONTEXT below (excerpts from the manual). If the answer is not in the context, say you did not find it in the manual and suggest using the search — never invent.
-Format your answer in Markdown:
-- Short paragraphs separated by a blank line.
-- Use **bold** for important screen/field names and key terms.
-- Use numbered or "-" lists when it helps.
-- Be direct and concise. Do NOT say "see the topics above/below" or "open the manual and read" — the page links already appear automatically below your answer.
+      ? `You are "Dentinho", the friendly assistant of the S.I.N Implant System user manual. Use the CONTEXT below (excerpts from the manual) to help as much as possible.
+How to answer:
+- Interpret the user's intent even if they are not specific. "What is X?" → explain what it is and on which **screen/module** it lives. "How do I do X / create X?" → give the step-by-step using the context (which screen, main fields, buttons).
+- If the exact answer is not spelled out but the context has RELATED info, still help: point to the most relevant screen and outline the general steps. Only say you did not find it if NOTHING in the context relates to the question — and even then, suggest the closest screen.
+- Never invent field or button names that are not in the context.
+Format in Markdown: short paragraphs (blank line between them), **bold** for screen/field names, numbered/"-" lists for steps. Be warm and concise. Do NOT say "see the topics above/below" or "open the manual and read" — the page links already appear automatically below your answer.
 Answer in English. Do not discuss topics outside the manual.
 
 CONTEXT:
 ${contexto}`
-      : `Você é o "Dentinho", assistente simpático do manual do usuário do S.I.N Implant System. Responda SOMENTE com base no CONTEXTO abaixo (trechos do manual). Se a resposta não estiver no contexto, diga que não encontrou no manual e sugira usar a busca — nunca invente.
-Formate a resposta em Markdown:
-- Parágrafos curtos, separados por uma linha em branco.
-- Use **negrito** nos nomes de tela/campo importantes e termos-chave.
-- Use listas numeradas ou com "-" quando ajudar.
-- Seja direto e conciso. NÃO diga "veja os tópicos acima/abaixo" nem "acesse o manual e leia" — os links das páginas já aparecem automaticamente abaixo da sua resposta.
+      : `Você é o "Dentinho", assistente simpático do manual do usuário do S.I.N Implant System. Use o CONTEXTO abaixo (trechos do manual) para ajudar o máximo possível.
+Como responder:
+- Interprete a intenção mesmo que a pessoa não seja específica. "O que é X?" → explique o que é e em qual **tela/módulo** fica. "Como faço / como criar X?" → dê o passo a passo com base no contexto (qual tela, campos principais, botões).
+- Se a resposta exata não estiver escrita, mas o contexto tiver algo RELACIONADO, ajude mesmo assim: aponte a tela mais relevante e descreva os passos gerais. Só diga que não encontrou se NADA no contexto tiver a ver com a pergunta — e, ainda assim, sugira a tela mais próxima.
+- Nunca invente nomes de campos ou botões que não estejam no contexto.
+Formate em Markdown: parágrafos curtos (linha em branco entre eles), **negrito** nos nomes de tela/campo, listas numeradas/"-" para passos. Seja simpático e conciso. NÃO diga "veja os tópicos acima/abaixo" nem "acesse o manual e leia" — os links das páginas já aparecem automaticamente abaixo da sua resposta.
 Responda em português. Não trate de assuntos fora do manual.
 
 CONTEXTO:
