@@ -98,6 +98,74 @@ async function carregarIndice(env, origin, caminho) {
   }
 }
 
+// --- Conversa social (saudação / elogio / crítica) ---------------------------
+// Responde de forma humana SEM chamar o modelo nem o RAG. Só para frases curtas
+// e claramente sociais; perguntas de verdade seguem para a busca no manual.
+function escolher(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function respostaSocial(perguntaNorm, nPalavras, lang) {
+  if (nPalavras > 7) return null; // frases longas = pergunta de verdade
+  // Se parece pergunta, não trata como social (deixa ir pro RAG).
+  if (/\?|(\b(como|onde|qual|quais|quando|quem|porque|por que|o que|pra que|para que|posso|consigo|how|where|what|when|why|which|can i|do i)\b)/.test(perguntaNorm)) {
+    return null;
+  }
+
+  const critica = /(nao gostei|nao curti|ruim|pessim|horriv|precisa melhorar|nao ajud|nao serviu|nao resolveu|lixo|terriv|pior|odiei|detestei|que droga|bad|terrible|awful|useless|does ?n.?t help|not helpful|hate)/;
+  const elogio = /(muito bom|otim|excelent|adorei|gostei|perfeit|maravilh|parabens|show|top|legal|bacana|incri|melhor|sensacional|great|awesome|amazing|nice|love|good job|well done|helpful)/;
+  const agradece = /(obrigad|valeu|vlw|agradec|thanks|thank you|thx)/;
+  const saudacao = /(bom dia|boa tarde|boa noite|^oi\b|^oie|^ola|^opa|^eae|^e ai|^salve|^hey|^hi\b|^hello|tudo bem|tudo bom|como vai|td bem|beleza)/;
+
+  if (critica.test(perguntaNorm)) {
+    return lang === 'en'
+      ? escolher([
+          "Oh no, sorry about that! 😔 I'll note it and pass it to my supervisor, Mr. Tooth. If you'd like, formalize it using the feedback option in the page footer.",
+          "Sorry I didn't help! I'll take this to Mr. Tooth (my supervisor). You can also log it in the suggestion/feedback link at the footer.",
+          "Got it, I'll do better! 🦷 Noted and forwarded to Mr. Tooth. To make it official, use the feedback option in the page footer.",
+        ])
+      : escolher([
+          'Poxa, foi mal! 😔 Vou anotar e passar pro meu supervisor, o Sr. Dente. Se quiser, pode formalizar no botão de sugestão no rodapé da página.',
+          'Desculpa não ter ajudado! Vou levar isso pro Sr. Dente (meu supervisor). Você também pode registrar na sugestão de melhoria lá no rodapé do site.',
+          'Entendido, vou melhorar! 🦷 Já anotei e encaminhei pro Sr. Dente. Pra formalizar, é só usar o "Sugerir melhoria" no rodapé da página.',
+        ]);
+  }
+
+  if (elogio.test(perguntaNorm)) {
+    return lang === 'en'
+      ? escolher([
+          'So glad I could help! 😄', 'Aww, thank you! Happy to help. 🦷',
+          'Thanks a lot! Call me whenever you need. 😁',
+        ])
+      : escolher([
+          'Que ótimo poder te ajudar! 😄', 'Aah, que bom! Fico feliz em ajudar. 🦷',
+          'Valeu! Tô aqui pro que precisar. 😁', 'Opa, obrigado! Precisando, é só chamar.',
+        ]);
+  }
+
+  if (agradece.test(perguntaNorm)) {
+    return lang === 'en'
+      ? escolher(['You got it! 😄 Anything else, just ask.', "You're welcome! I'm right here. 🦷"])
+      : escolher(['Disponha! 😄 Qualquer coisa, é só chamar.', 'De nada! Precisando, tô aqui. 🦷', 'Por nada! Bora pra próxima dúvida?']);
+  }
+
+  if (saudacao.test(perguntaNorm)) {
+    let saud;
+    if (lang === 'en') {
+      saud = /bom dia|good morning/.test(perguntaNorm) ? 'Good morning!' :
+             /boa tarde|good afternoon/.test(perguntaNorm) ? 'Good afternoon!' :
+             /boa noite|good evening|good night/.test(perguntaNorm) ? 'Good evening!' : 'Hi!';
+      return `${saud} ${escolher(['How can I help? Ask me anything about the system. 😄', 'What would you like to know? Just ask.', "Let's go — tell me your question about the manual."])}`;
+    }
+    saud = /bom dia/.test(perguntaNorm) ? 'Bom dia!' :
+           /boa tarde/.test(perguntaNorm) ? 'Boa tarde!' :
+           /boa noite/.test(perguntaNorm) ? 'Boa noite!' : 'Oi!';
+    return `${saud} ${escolher(['O que posso ajudar? Faça uma pergunta. 😄', 'Em que posso te ajudar? É só perguntar.', 'Bora! Me conta sua dúvida sobre o sistema. 🦷'])}`;
+  }
+
+  return null;
+}
+
 // Checador: GET /api/chat faz um "ping" no modelo e devolve o resultado/erro
 // cru. Serve só para diagnosticar (binding presente? modelo responde?).
 async function checarIA(env) {
@@ -129,6 +197,12 @@ async function tratarChat(request, env, url) {
   const pergunta = String(corpo?.message ?? '').trim().slice(0, MAX_PERGUNTA);
   const lang = corpo?.lang === 'en' ? 'en' : 'pt';
   if (!pergunta) return json({ error: 'Pergunta vazia.' }, 400);
+
+  // Conversa social (saudação/elogio/crítica): responde humano, sem RAG nem IA.
+  const pergNorm = normalizar(pergunta);
+  const nPalavras = pergNorm.split(/\s+/).filter(Boolean).length;
+  const social = respostaSocial(pergNorm, nPalavras, lang);
+  if (social) return json({ answer: social, sources: [] });
 
   // Índice público sempre; técnico só se a requisição estiver autenticada.
   const autenticado = credenciaisOk(request, env);

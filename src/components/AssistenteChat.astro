@@ -15,7 +15,14 @@ const t = isEn
       send: 'Send',
       sources: 'Sources',
       error: 'Something went wrong. Please try again.',
-      thinking: 'Dentinho is looking in the manual…',
+      thinking: [
+        'Hold on, let me think… 🤔',
+        'Hmm, let me dig in the manual…',
+        'One sec, searching my notes… 🦷',
+        'Let me take a look at the manual…',
+        'Thinking… be right back! 🤓',
+        'Hang on, checking my wisdom teeth…',
+      ],
     }
   : {
       open: 'Abrir assistente',
@@ -26,7 +33,15 @@ const t = isEn
       send: 'Enviar',
       sources: 'Fontes',
       error: 'Algo deu errado. Tente novamente.',
-      thinking: 'O Dentinho está procurando no manual…',
+      thinking: [
+        'Calma, deixa eu pensar… 🤔',
+        'Hmm, deixa eu procurar aqui no manual…',
+        'Peraí, tô garimpando a resposta… 🦷',
+        'Deixa eu dar uma olhadinha no manual…',
+        'Pensando… já já te respondo! 🤓',
+        'Só um segundinho, consultando meus dentes de sabedoria…',
+        'Calma que já acho isso pra você…',
+      ],
     };
 ---
 
@@ -269,7 +284,8 @@ const t = isEn
       input.value = '';
       input.style.height = 'auto';
       bubble(q, 'user');
-      const thinking = bubble(T.thinking, 'bot');
+      const frase = T.thinking[Math.floor(Math.random() * T.thinking.length)];
+      const thinking = bubble(frase, 'bot');
       thinking.classList.add('italic', 'text-brand-muted');
       try {
         const r = await fetch('/api/chat', {
