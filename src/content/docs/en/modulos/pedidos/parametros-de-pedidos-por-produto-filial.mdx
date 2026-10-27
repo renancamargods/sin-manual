@@ -1,0 +1,158 @@
+---
+section: modulos
+routeSlug: pedidos/parametros-de-pedidos-por-produto-filial
+pageType: routine
+module: pedidos
+moduleLabel: Orders
+lang: en
+title: Order Parameters by Product/Branch
+description: Segments by product, center/branch and geography (country, state, city) which parameters apply to the order, with a search order between records.
+routineType: Registration and query
+permission: Yes
+impact: Defines which order parameters apply by product, branch and location
+keywords: [order parameters, product, branch, center, country, state, city, product type, product group, product family, search order]
+tags: [modulo-pedidos, cadastro]
+order: 16
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Order Parameters by Product/Branch** screen defines, by **product**, **center/branch** and **location** (country, state, city), **which parameters** apply when assembling the order. Each record has a **Search Order**, which sets the priority when more than one record could apply.
+
+The segmentation is done through **collections**: one record can apply to several **countries**, **states**, **cities**, **types**, **groups**, **product families** and **products**.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Parameter by branch/product', text: 'Defines which parameters apply by product, center/branch and location.' },
+    { label: 'Use', title: 'Segmentation in collections', text: 'Country, state, city and product type/group/family make up the scope.' },
+    { label: 'Caution', title: 'Search order', text: 'The "Search Order" decides which record prevails when there is overlap.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Define order parameters specific to a center/branch.
+- Restrict parameters to certain products or locations.
+- Adjust the priority (search order) between overlapping records.
+
+## How to access
+
+Orders → Order Parameters by Product/Branch
+
+## Before you start
+
+- Have the target **Center/Branch**.
+- Define the **countries** (and, if applicable, states/cities) and the **product types/groups/families** the record covers.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Filters to locate the records, with the search, new and clear buttons.', '—'],
+    ['Results', 'List of records with per-row actions (logs, details, edit, delete).', '—'],
+    ['Registration / edit', 'Window with the center, the search order, the status and the links (country, state, city and product).', 'Links are added in collections.'],
+  ]}
+/>
+
+## Main fields
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Center', 'Center/branch the parameter applies to.'],
+    ['Search Order', 'Record priority when more than one could apply.'],
+    ['Status', 'Defines whether the record is active.'],
+    ['Countries', 'Countries covered by the record.'],
+    ['States', 'States covered by the record.'],
+    ['Cities', 'Cities covered by the record.'],
+    ['Product Types', 'Product types covered by the record.'],
+    ['Product Groups', 'Product groups covered (optional).'],
+    ['Product Families', 'Product families covered (optional).'],
+    ['Products', 'Specific products covered (optional).'],
+  ]}
+/>
+
+## Validation rules
+
+Geography is **hierarchical** — you cannot set a level without the level above it:
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Countries', 'Required — at least one country.'],
+    ['States', 'Can only be set if there is a country.'],
+    ['Cities', 'Can only be set if there is a state (and country).'],
+    ['Product Types', 'Required — at least one product type.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Query** — enter the filters and search the records.
+2. **Register** — click **"+ New"**, enter the **Center**, the **Search Order**, the **Status** and the links (**countries**, **states/cities** when applicable and **product types**) and **save**.
+3. **Edit / Delete** — use the row actions to change or remove a record.
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Order Parameters by Product/Branch', 'Access to the screen', 'Allows opening and using the screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Order', 'The parameters apply when assembling the order based on product, branch and location.', 'Check the search order in case of overlap.'],
+    ['Product / Center', 'The segmentation uses the product and center/branch registrations.', 'Register product and center before linking.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not create products or centers/branches — it only links those already registered to segment the parameters.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['I cannot save — it asks for the country', 'No country entered', 'Enter at least one country (required).'],
+    ['I cannot save — state/city rejected', 'State without country, or city without state', 'Enter the level above: state requires country; city requires state.'],
+    ['I cannot save — it asks for the product type', 'No product type entered', 'Enter at least one product type (required).'],
+    ['Two records apply to the same case', 'Overlapping scopes', 'Adjust the "Search Order" to set the priority.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To define which parameters apply on the order by product, center/branch and location (country/state/city).' },
+    { question: 'Can I enter a city without entering the state?', answer: 'No. Geography is hierarchical: city requires state, and state requires country.' },
+    { question: 'What does the "Search Order" do?', answer: 'It defines which record prevails when more than one could apply to the same case.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '10/27/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '10/27/2026', author: 'Renan Camargo', description: 'Initial release of the Order Parameters by Product/Branch screen documentation.' },
+  ]}
+/>

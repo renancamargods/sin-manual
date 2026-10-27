@@ -113,3 +113,92 @@ For customers of the **Portugal** company, several domestic rules (Trade Name, C
     ['Attachments', 'Attachments flagged as required (by person type) are enforced on submission for approval.'],
   ]}
 />
+
+## Customer collections
+
+Rules for the lists linked to the customer (each row added in the registration).
+
+### Contact
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Primary Contact', 'A primary contact must be indicated.'],
+    ['Name', 'Required; up to 150 characters.'],
+    ['Area Code (DDD)', 'Required; up to 3 characters.'],
+    ['Phone', 'Required; up to 9 characters.'],
+    ['Type', 'Required; up to 150 characters.'],
+    ['E-mail', 'Up to 150 characters.'],
+    ['Department / Role', 'Up to 100 characters each.'],
+  ]}
+/>
+
+### Phone
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Country Code', 'Required.'],
+    ['Phone', 'Required; up to 11 characters; digits only.'],
+    ['Primary Phone', 'Required; exactly one phone flagged as primary.'],
+    ['Type', 'Required.'],
+    ['Description', 'Up to 50 characters.'],
+  ]}
+/>
+
+### Address
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Primary Address', 'Exactly one address flagged as primary; the primary one cannot be deactivated.'],
+    ['Name', 'Required; up to 250 characters.'],
+    ['Number', 'Required.'],
+    ['Postal Code', 'Required for a Brazilian address; validated; up to 10 characters (foreign).'],
+    ['Country', 'Required.'],
+    ['Address Type', 'Required.'],
+    ['Recipient Type', 'Required.'],
+    ['Status', 'Required.'],
+    ['Complement / Reference', 'Up to 150 / 250 characters.'],
+  ]}
+/>
+
+### Partner (Sócio)
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Name', 'Required; up to 150 characters.'],
+    ['Document', 'Required.'],
+    ['Birth Date', 'Required.'],
+    ['Person Type', 'Required.'],
+  ]}
+/>
+
+### Financial Data
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Credit Limit', 'Required; greater than or equal to zero.'],
+    ['Limit Date', 'Required.'],
+    ['Validity Date', 'Required.'],
+    ['Blocked', 'Required.'],
+    ['Customer Credit Rating', 'Required.'],
+  ]}
+/>
+
+### Attachment
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['File', 'Required.'],
+    ['Name', 'Required; up to 150 characters.'],
+    ['Description', 'Required; up to 150 characters.'],
+    ['Extension', 'Required; up to 10 characters.'],
+    ['Content Type', 'Required; up to 100 characters.'],
+    ['Size', 'Required.'],
+    ['Keywords', 'Up to 250 characters.'],
+  ]}
+/>

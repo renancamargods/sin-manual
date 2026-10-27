@@ -112,3 +112,92 @@ Para clientes da empresa **Portugal**, várias regras nacionais (Nome Fantasia, 
     ['Anexos', 'Anexos marcados como obrigatórios (por tipo de pessoa) são exigidos ao enviar para aprovação.'],
   ]}
 />
+
+## Coleções do cliente
+
+Regras das listas vinculadas ao cliente (cada linha adicionada no cadastro).
+
+### Contato
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Contato Principal', 'Obrigatório indicar o contato principal.'],
+    ['Nome', 'Obrigatório; até 150 caracteres.'],
+    ['DDD', 'Obrigatório; até 3 caracteres.'],
+    ['Telefone', 'Obrigatório; até 9 caracteres.'],
+    ['Tipo', 'Obrigatório; até 150 caracteres.'],
+    ['E-mail', 'Até 150 caracteres.'],
+    ['Departamento / Função', 'Até 100 caracteres cada.'],
+  ]}
+/>
+
+### Telefone
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Código do País', 'Obrigatório.'],
+    ['Telefone', 'Obrigatório; até 11 caracteres; somente números.'],
+    ['Telefone Principal', 'Obrigatório; exatamente um telefone marcado como principal.'],
+    ['Tipo', 'Obrigatório.'],
+    ['Descrição', 'Até 50 caracteres.'],
+  ]}
+/>
+
+### Endereço
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Endereço Principal', 'Exatamente um endereço marcado como principal; o principal não pode ser inativado.'],
+    ['Nome', 'Obrigatório; até 250 caracteres.'],
+    ['Número', 'Obrigatório.'],
+    ['CEP', 'Obrigatório para endereço brasileiro; validado; até 10 caracteres (estrangeiro).'],
+    ['País', 'Obrigatório.'],
+    ['Tipo de Endereço', 'Obrigatório.'],
+    ['Tipo de Destinatário', 'Obrigatório.'],
+    ['Status', 'Obrigatório.'],
+    ['Complemento / Referência', 'Até 150 / 250 caracteres.'],
+  ]}
+/>
+
+### Sócio
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Nome', 'Obrigatório; até 150 caracteres.'],
+    ['Documento', 'Obrigatório.'],
+    ['Data de Nascimento', 'Obrigatória.'],
+    ['Tipo de Pessoa', 'Obrigatório.'],
+  ]}
+/>
+
+### Dado Financeiro
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Limite de Crédito', 'Obrigatório; maior ou igual a zero.'],
+    ['Data do Limite', 'Obrigatória.'],
+    ['Data de Validade', 'Obrigatória.'],
+    ['Bloqueado', 'Obrigatório.'],
+    ['Classificação de Crédito do Cliente', 'Obrigatória.'],
+  ]}
+/>
+
+### Anexo
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Arquivo', 'Obrigatório.'],
+    ['Nome', 'Obrigatório; até 150 caracteres.'],
+    ['Descrição', 'Obrigatória; até 150 caracteres.'],
+    ['Extensão', 'Obrigatória; até 10 caracteres.'],
+    ['Tipo de Conteúdo', 'Obrigatório; até 100 caracteres.'],
+    ['Tamanho', 'Obrigatório.'],
+    ['Palavras-chave', 'Até 250 caracteres.'],
+  ]}
+/>

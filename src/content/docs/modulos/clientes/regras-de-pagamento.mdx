@@ -1,0 +1,154 @@
+---
+section: modulos
+routeSlug: clientes/regras-de-pagamento
+pageType: routine
+module: clientes
+moduleLabel: Clientes
+title: Regras de Pagamento
+description: Habilita as formas e condições de pagamento permitidas por cliente, opcionalmente por empresa, centro e tipo de operação, com cadastro individual ou em lote.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Controla as formas e condições de pagamento liberadas para cada cliente
+keywords: [regras de pagamento, forma de pagamento, condição de pagamento, cliente, pulse credit, em lote, pré-visualização, empresa, centro]
+tags: [modulo-clientes, cadastro]
+order: 13
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Regras de Pagamento** define **quais formas e condições de pagamento** ficam liberadas para cada **cliente**. Cada regra liga um **Cliente** a uma **Forma de Pagamento** e, opcionalmente, a uma ou mais **Condições de Pagamento**, podendo ainda ser restringida por **Empresa**, **Centro**, **Operação Inteligente** e **Tipo de Operação**.
+
+É assim que o sistema limita, no pedido, as opções de pagamento àquilo que foi autorizado para o cliente.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Pagamento por cliente', text: 'Habilita as formas/condições de pagamento permitidas para cada cliente.' },
+    { label: 'Uso', title: 'Individual ou em lote', text: 'Cadastre uma regra por cliente ou aplique em lote a vários clientes.' },
+    { label: 'Cuidado', title: 'Reflete no pedido', text: 'O que não estiver liberado aqui não aparece como opção no pedido.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Liberar uma forma/condição de pagamento para um cliente.
+- Restringir o pagamento de um cliente a determinadas condições.
+- Aplicar a mesma regra de pagamento a vários clientes de uma vez.
+
+## Como acessar
+
+Clientes → Regras de Pagamento
+
+## Antes de começar
+
+- Saiba o **cliente** (ou a lista de clientes, para o cadastro em lote).
+- Tenha definida a **Forma de Pagamento** e, se for o caso, as **Condições de Pagamento** a liberar.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros para localizar as regras já cadastradas, com os botões de pesquisar, novo e limpar.', '—'],
+    ['Resultados', 'Lista das regras cadastradas, com as ações por linha (detalhes, editar, excluir).', '—'],
+    ['Cadastro', 'Janela da regra (cliente, forma, condições e os escopos opcionais).', 'Aberta por "+ Novo" (criar) ou por Editar (alterar).'],
+    ['Cadastro em lote', 'Assistente que aplica a mesma regra a vários clientes, com pré-visualização antes de confirmar.', 'Confira a pré-visualização antes de salvar.'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Cliente', 'Cliente ao qual a regra se aplica.'],
+    ['Forma de Pagamento', 'Forma de pagamento liberada (boleto, PIX, cartão…).'],
+    ['Condições de Pagamento', 'Uma ou mais condições (prazos/parcelas) liberadas para essa forma.'],
+    ['Empresa', 'Restringe a regra a uma empresa (opcional).'],
+    ['Centro', 'Restringe a regra a um centro/filial (opcional).'],
+    ['Operação Inteligente', 'Vincula a regra a uma operação inteligente (opcional).'],
+    ['Tipo de Operação', 'Restringe a regra a um tipo de operação do pedido (opcional).'],
+    ['Ativo', 'Define se a regra está ativa.'],
+  ]}
+/>
+
+## Regras de validação
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Cliente', 'Obrigatório.'],
+    ['Forma de Pagamento', 'Obrigatória.'],
+    ['Empresa', 'Opcional; quando informada, deve ser uma empresa válida.'],
+    ['Condições de Pagamento', 'Opcionais; quando informadas, todas devem ser condições válidas.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe os filtros e pesquise as regras já cadastradas.
+2. **Cadastrar (individual)** — clique em **"+ Novo"**, selecione o **Cliente**, a **Forma de Pagamento** e as **Condições**, ajuste os escopos opcionais e **salve**.
+3. **Cadastrar em lote** — escolha a lista de clientes e a regra, confira a **pré-visualização** e confirme.
+4. **Editar / Excluir** — use as ações da linha para alterar ou remover uma regra.
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Regras de Pagamento', 'Acesso à tela', 'Permite abrir e utilizar a tela de Regras de Pagamento.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Forma de Pagamento / Condição de Pagamento (Políticas)', 'A regra libera as formas/condições cadastradas nesses módulos.', 'Cadastre a forma/condição antes de liberá-la aqui.'],
+    ['Pedido', 'O pedido só oferece as formas/condições liberadas para o cliente.', 'Se faltar opção no pedido, revise a regra do cliente.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cria formas ou condições de pagamento — isso é feito no módulo Políticas; aqui apenas se **liberam** por cliente.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A forma/condição não aparece no pedido', 'Não há regra liberando-a para o cliente', 'Cadastre a regra para o cliente (e confira Empresa/Centro/Tipo de Operação).'],
+    ['Não consigo salvar a regra', 'Cliente ou Forma de Pagamento em branco', 'Preencha o Cliente e a Forma de Pagamento.'],
+    ['Não consigo acessar a tela', 'Falta de permissão', 'Verifique a permissão com o administrador.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para liberar, por cliente, quais formas e condições de pagamento podem ser usadas no pedido.' },
+    { question: 'Posso aplicar a mesma regra a vários clientes?', answer: 'Sim — use o cadastro em lote, que mostra uma pré-visualização antes de confirmar.' },
+    { question: 'Por que uma forma de pagamento não aparece no pedido do cliente?', answer: 'Porque não há regra liberando essa forma para ele (ou há um escopo de Empresa/Centro/Tipo de Operação que não bate).' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '27/10/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '27/10/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Regras de Pagamento.' },
+  ]}
+/>

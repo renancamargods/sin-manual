@@ -1,0 +1,191 @@
+---
+// "Dentinho" — assistente de IA do manual. Botão flutuante + painel lateral.
+// Fala com POST /api/chat (Worker + Workers AI). Em `astro dev` a rota não
+// existe (só no Worker) — testar com `wrangler dev` ou no site publicado.
+const path = Astro.url.pathname;
+const isEn = path === '/en' || path.startsWith('/en/');
+
+const t = isEn
+  ? {
+      open: 'Open assistant',
+      title: 'Dentinho',
+      subtitle: 'Manual assistant',
+      greeting: "Hi! I'm Dentinho 🦷 — your S.I.N manual assistant. Ask me anything about the system's screens and routines.",
+      placeholder: 'Ask about a screen, field or routine…',
+      send: 'Send',
+      sources: 'Sources',
+      error: 'Something went wrong. Please try again.',
+      thinking: 'Dentinho is looking in the manual…',
+    }
+  : {
+      open: 'Abrir assistente',
+      title: 'Dentinho',
+      subtitle: 'Assistente do manual',
+      greeting: 'Oi! Sou o Dentinho 🦷 — seu assistente do manual S.I.N. Pergunta o que quiser sobre as telas e rotinas do sistema.',
+      placeholder: 'Pergunte sobre uma tela, campo ou rotina…',
+      send: 'Enviar',
+      sources: 'Fontes',
+      error: 'Algo deu errado. Tente novamente.',
+      thinking: 'O Dentinho está procurando no manual…',
+    };
+---
+
+<div id="dentinho" data-lang={isEn ? 'en' : 'pt'}>
+  <!-- Botão flutuante -->
+  <button
+    type="button"
+    data-dentinho-launcher
+    aria-label={t.open}
+    class="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-brand-red text-white shadow-card-hover transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-brand-red/40"
+  >
+    <svg viewBox="0 0 24 24" fill="currentColor" class="h-7 w-7" aria-hidden="true">
+      <!-- dentinho sorridente -->
+      <path d="M12 2.2c-2.4 0-3.7 1.1-5.1 1.1-1.3 0-2.2-.7-3-.2-1 .7-1.1 2.4-1 4.2.1 1.7.5 3 1 4.8.4 1.5.6 3.1 1 4.9.3 1.4.6 3 1.6 3.6.9.6 1.6-.3 1.9-1.6.3-1.3.4-2.9 1.1-2.9s.8 1.6 1.1 2.9c.3 1.3 1 2.2 1.9 1.6 1-.6 1.3-2.2 1.6-3.6.4-1.8.6-3.4 1-4.9.5-1.8.9-3.1 1-4.8.1-1.8 0-3.5-1-4.2-.8-.5-1.7.2-3 .2-1.4 0-2.7-1.1-5.1-1.1z"/>
+      <circle cx="9.3" cy="8.2" r="0.9" fill="#fff"/>
+      <circle cx="14.7" cy="8.2" r="0.9" fill="#fff"/>
+      <path d="M9 10.6c.9.9 4.1.9 5 0" stroke="#fff" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <!-- Painel -->
+  <div
+    data-dentinho-panel
+    class="fixed bottom-0 right-0 z-50 hidden h-[80vh] w-full flex-col overflow-hidden rounded-t-xl2 border border-brand-line bg-brand-surface shadow-card-hover sm:bottom-5 sm:right-5 sm:h-[560px] sm:w-[380px] sm:rounded-xl2"
+    role="dialog"
+    aria-label={t.title}
+  >
+    <!-- Cabeçalho -->
+    <div class="flex items-center gap-3 border-b border-brand-line bg-brand-red px-4 py-3 text-white">
+      <span class="flex h-8 w-8 items-center justify-center rounded-full bg-white/15">
+        <svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5" aria-hidden="true">
+          <path d="M12 2.2c-2.4 0-3.7 1.1-5.1 1.1-1.3 0-2.2-.7-3-.2-1 .7-1.1 2.4-1 4.2.1 1.7.5 3 1 4.8.4 1.5.6 3.1 1 4.9.3 1.4.6 3 1.6 3.6.9.6 1.6-.3 1.9-1.6.3-1.3.4-2.9 1.1-2.9s.8 1.6 1.1 2.9c.3 1.3 1 2.2 1.9 1.6 1-.6 1.3-2.2 1.6-3.6.4-1.8.6-3.4 1-4.9.5-1.8.9-3.1 1-4.8.1-1.8 0-3.5-1-4.2-.8-.5-1.7.2-3 .2-1.4 0-2.7-1.1-5.1-1.1z"/>
+        </svg>
+      </span>
+      <div class="flex-1">
+        <p class="text-sm font-semibold leading-tight">{t.title}</p>
+        <p class="text-xs text-white/70 leading-tight">{t.subtitle}</p>
+      </div>
+      <button type="button" data-dentinho-close aria-label="Fechar" class="rounded p-1 text-white/80 hover:bg-white/10 hover:text-white">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="h-5 w-5"><path d="M6 6l12 12M18 6L6 18" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <!-- Mensagens -->
+    <div data-dentinho-messages class="flex-1 space-y-3 overflow-y-auto p-4 text-sm"></div>
+
+    <!-- Entrada -->
+    <form data-dentinho-form class="flex items-end gap-2 border-t border-brand-line p-3">
+      <textarea
+        data-dentinho-input
+        rows="1"
+        placeholder={t.placeholder}
+        class="max-h-28 flex-1 resize-none rounded-lg border border-brand-line bg-brand-bg px-3 py-2 text-sm text-brand-fg outline-none placeholder:text-brand-muted focus:border-brand-red/50 focus:ring-2 focus:ring-brand-red/15"
+      ></textarea>
+      <button type="submit" aria-label={t.send} class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-brand-red text-white transition hover:opacity-90 disabled:opacity-40">
+        <svg viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5"><path d="M3.4 20.4 21 12 3.4 3.6 3 10l12 2-12 2z"/></svg>
+      </button>
+    </form>
+  </div>
+</div>
+
+<script is:inline define:vars={{ T: t }}>
+  (() => {
+    const root = document.getElementById('dentinho');
+    if (!root) return;
+    const lang = root.dataset.lang === 'en' ? 'en' : 'pt';
+    const launcher = root.querySelector('[data-dentinho-launcher]');
+    const panel = root.querySelector('[data-dentinho-panel]');
+    const closeBtn = root.querySelector('[data-dentinho-close]');
+    const messages = root.querySelector('[data-dentinho-messages]');
+    const form = root.querySelector('[data-dentinho-form]');
+    const input = root.querySelector('[data-dentinho-input]');
+    let greeted = false;
+    let busy = false;
+
+    const scroll = () => { messages.scrollTop = messages.scrollHeight; };
+
+    function bubble(text, who) {
+      const wrap = document.createElement('div');
+      wrap.className = who === 'user' ? 'flex justify-end' : 'flex justify-start';
+      const b = document.createElement('div');
+      b.className =
+        who === 'user'
+          ? 'max-w-[85%] rounded-xl2 rounded-br-sm bg-brand-red px-3 py-2 text-white'
+          : 'max-w-[90%] rounded-xl2 rounded-bl-sm bg-brand-bg px-3 py-2 text-brand-fg';
+      b.textContent = text;
+      wrap.appendChild(b);
+      messages.appendChild(wrap);
+      scroll();
+      return b;
+    }
+
+    function sources(list) {
+      if (!list || !list.length) return;
+      const wrap = document.createElement('div');
+      wrap.className = 'pl-1 text-xs text-brand-muted';
+      const seen = new Set();
+      const links = list
+        .filter((s) => s && s.href && !seen.has(s.href) && seen.add(s.href))
+        .slice(0, 4)
+        .map((s) => `<a class="text-brand-red hover:underline" href="${s.href}">${s.title}</a>`)
+        .join(' · ');
+      wrap.innerHTML = `<span class="font-semibold">${T.sources}:</span> ${links}`;
+      messages.appendChild(wrap);
+      scroll();
+    }
+
+    function openPanel() {
+      panel.classList.remove('hidden');
+      panel.classList.add('flex');
+      launcher.classList.add('hidden');
+      if (!greeted) { bubble(T.greeting, 'bot'); greeted = true; }
+      input.focus();
+    }
+    function closePanel() {
+      panel.classList.add('hidden');
+      panel.classList.remove('flex');
+      launcher.classList.remove('hidden');
+    }
+
+    launcher.addEventListener('click', openPanel);
+    closeBtn.addEventListener('click', closePanel);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePanel(); });
+
+    input.addEventListener('input', () => {
+      input.style.height = 'auto';
+      input.style.height = Math.min(input.scrollHeight, 112) + 'px';
+    });
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); }
+    });
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const q = input.value.trim();
+      if (!q || busy) return;
+      busy = true;
+      input.value = '';
+      input.style.height = 'auto';
+      bubble(q, 'user');
+      const thinking = bubble(T.thinking, 'bot');
+      thinking.classList.add('italic', 'text-brand-muted');
+      try {
+        const r = await fetch('/api/chat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message: q, lang }),
+        });
+        const data = await r.json().catch(() => ({}));
+        thinking.remove();
+        if (!r.ok || data.error) { bubble(data.error || T.error, 'bot'); }
+        else { bubble(data.answer || T.error, 'bot'); sources(data.sources); }
+      } catch {
+        thinking.remove();
+        bubble(T.error, 'bot');
+      } finally {
+        busy = false;
+        input.focus();
+      }
+    });
+  })();
+</script>

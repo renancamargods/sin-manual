@@ -1,0 +1,157 @@
+---
+section: modulos
+routeSlug: pedidos/parametros-de-pedidos-por-produto-filial
+pageType: routine
+module: pedidos
+moduleLabel: Pedidos
+title: Parâmetros de Pedidos por Produto/Filial
+description: Segmenta por produto, centro/filial e geografia (país, estado, cidade) quais parâmetros se aplicam ao pedido, com uma ordem de busca entre os registros.
+routineType: Cadastro e consulta
+permission: Sim
+impact: Define quais parâmetros de pedido valem por produto, filial e localidade
+keywords: [parâmetros de pedidos, produto, filial, centro, país, estado, cidade, tipo de produto, grupo de produto, família de produto, ordem de busca]
+tags: [modulo-pedidos, cadastro]
+order: 16
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Parâmetros de Pedidos por Produto/Filial** define, por **produto**, **centro/filial** e **localidade** (país, estado, cidade), **quais parâmetros** valem na montagem do pedido. Cada registro tem uma **Ordem de Busca**, que determina a prioridade quando mais de um registro poderia se aplicar.
+
+A segmentação é feita por **coleções**: um registro pode valer para vários **países**, **estados**, **cidades**, **tipos**, **grupos**, **famílias de produto** e **produtos**.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Parâmetro por filial/produto', text: 'Define quais parâmetros valem por produto, centro/filial e localidade.' },
+    { label: 'Uso', title: 'Segmentação em coleções', text: 'País, estado, cidade e tipo/grupo/família de produto compõem o escopo.' },
+    { label: 'Cuidado', title: 'Ordem de busca', text: 'A "Ordem de Busca" decide qual registro prevalece quando há sobreposição.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Definir parâmetros de pedido específicos de um centro/filial.
+- Restringir parâmetros a determinados produtos ou localidades.
+- Ajustar a prioridade (ordem de busca) entre registros que se sobrepõem.
+
+## Como acessar
+
+Pedidos → Parâmetros de Pedidos por Produto/Filial
+
+## Antes de começar
+
+- Tenha o **Centro/Filial** de destino.
+- Defina os **países** (e, se for o caso, estados/cidades) e os **tipos/grupos/famílias de produto** que o registro cobre.
+
+## Estrutura da tela
+
+<DocTable
+  headers={['Área', 'Conteúdo', 'Cuidado']}
+  rows={[
+    ['Pesquisa (filtros)', 'Filtros para localizar os registros, com os botões de pesquisar, novo e limpar.', '—'],
+    ['Resultados', 'Lista dos registros com as ações por linha (logs, detalhes, editar, excluir).', '—'],
+    ['Cadastro / edição', 'Janela com o centro, a ordem de busca, o status e os vínculos (país, estado, cidade e produto).', 'Os vínculos são adicionados em coleções.'],
+  ]}
+/>
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Centro', 'Centro/filial ao qual o parâmetro se aplica.'],
+    ['Ordem de Busca', 'Prioridade do registro quando mais de um poderia se aplicar.'],
+    ['Status', 'Define se o registro está ativo.'],
+    ['Países', 'Países abrangidos pelo registro.'],
+    ['Estados', 'Estados (UF) abrangidos pelo registro.'],
+    ['Cidades', 'Cidades abrangidas pelo registro.'],
+    ['Tipos de Produto', 'Tipos de produto abrangidos pelo registro.'],
+    ['Grupos de Produto', 'Grupos de produto abrangidos (opcional).'],
+    ['Famílias de Produto', 'Famílias de produto abrangidas (opcional).'],
+    ['Produtos', 'Produtos específicos abrangidos (opcional).'],
+  ]}
+/>
+
+## Regras de validação
+
+A geografia é **hierárquica** — não dá para informar um nível sem o nível acima:
+
+<DocTable
+  headers={['Campo', 'Regra']}
+  rows={[
+    ['Países', 'Obrigatório — ao menos um país.'],
+    ['Estados', 'Só podem ser informados se houver país.'],
+    ['Cidades', 'Só podem ser informadas se houver estado (e país).'],
+    ['Tipos de Produto', 'Obrigatório — ao menos um tipo de produto.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe os filtros e pesquise os registros.
+2. **Cadastrar** — clique em **"+ Novo"**, informe o **Centro**, a **Ordem de Busca**, o **Status** e os vínculos (**países**, **estados/cidades** quando houver e **tipos de produto**) e **salve**.
+3. **Editar / Excluir** — use as ações da linha para alterar ou remover um registro.
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Parâmetros de Pedidos por Produto/Filial', 'Acesso à tela', 'Permite abrir e utilizar a tela.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Pedido', 'Os parâmetros valem na montagem do pedido conforme o produto, a filial e a localidade.', 'Confira a ordem de busca em caso de sobreposição.'],
+    ['Produto / Centro', 'A segmentação usa os cadastros de produto e de centro/filial.', 'Cadastre produto e centro antes de vincular.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não cria produtos nem centros/filiais — apenas vincula os já cadastrados para segmentar os parâmetros.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Não consigo salvar — pede o país', 'Nenhum país informado', 'Informe ao menos um país (obrigatório).'],
+    ['Não consigo salvar — estado/cidade recusado', 'Estado sem país, ou cidade sem estado', 'Informe o nível acima: estado exige país; cidade exige estado.'],
+    ['Não consigo salvar — pede o tipo de produto', 'Nenhum tipo de produto informado', 'Informe ao menos um tipo de produto (obrigatório).'],
+    ['Dois registros se aplicam ao mesmo caso', 'Escopos sobrepostos', 'Ajuste a "Ordem de Busca" para definir a prioridade.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para definir quais parâmetros valem no pedido por produto, centro/filial e localidade (país/estado/cidade).' },
+    { question: 'Posso informar cidade sem informar o estado?', answer: 'Não. A geografia é hierárquica: cidade exige estado, e estado exige país.' },
+    { question: 'O que faz a "Ordem de Busca"?', answer: 'Define qual registro prevalece quando mais de um poderia se aplicar ao mesmo caso.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '27/10/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '27/10/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Parâmetros de Pedidos por Produto/Filial.' },
+  ]}
+/>

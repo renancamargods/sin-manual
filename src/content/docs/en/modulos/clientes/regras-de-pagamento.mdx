@@ -1,0 +1,155 @@
+---
+section: modulos
+routeSlug: clientes/regras-de-pagamento
+pageType: routine
+module: clientes
+moduleLabel: Customers
+lang: en
+title: Payment Rules
+description: Enables the payment methods and conditions allowed per customer, optionally by company, center and operation type, with individual or batch registration.
+routineType: Registration and query
+permission: Yes
+impact: Controls the payment methods and conditions released for each customer
+keywords: [payment rules, payment method, payment condition, customer, pulse credit, batch, preview, company, center]
+tags: [modulo-clientes, cadastro]
+order: 13
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Payment Rules** screen defines **which payment methods and conditions** are released for each **customer**. Each rule links a **Customer** to a **Payment Method** and, optionally, to one or more **Payment Conditions**, and can further be scoped by **Company**, **Center**, **Smart Operation** and **Operation Type**.
+
+This is how the system limits, on the order, the payment options to what was authorized for the customer.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Payment per customer', text: 'Enables the payment methods/conditions allowed for each customer.' },
+    { label: 'Use', title: 'Individual or batch', text: 'Register one rule per customer or apply it in batch to several customers.' },
+    { label: 'Caution', title: 'Reflects on the order', text: 'Anything not released here does not appear as an option on the order.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Release a payment method/condition for a customer.
+- Restrict a customer's payment to specific conditions.
+- Apply the same payment rule to several customers at once.
+
+## How to access
+
+Customers → Payment Rules
+
+## Before you start
+
+- Know the **customer** (or the list of customers, for batch registration).
+- Have the **Payment Method** defined and, if applicable, the **Payment Conditions** to release.
+
+## Screen structure
+
+<DocTable
+  headers={['Area', 'Content', 'Caution']}
+  rows={[
+    ['Search (filters)', 'Filters to locate the rules already registered, with the search, new and clear buttons.', '—'],
+    ['Results', 'List of registered rules, with per-row actions (details, edit, delete).', '—'],
+    ['Registration', 'Rule window (customer, method, conditions and the optional scopes).', 'Opened by "+ New" (create) or by Edit (change).'],
+    ['Batch registration', 'Wizard that applies the same rule to several customers, with a preview before confirming.', 'Check the preview before saving.'],
+  ]}
+/>
+
+## Main fields
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Customer', 'Customer the rule applies to.'],
+    ['Payment Method', 'Released payment method (bank slip, PIX, card…).'],
+    ['Payment Conditions', 'One or more conditions (terms/installments) released for that method.'],
+    ['Company', 'Scopes the rule to a company (optional).'],
+    ['Center', 'Scopes the rule to a center/branch (optional).'],
+    ['Smart Operation', 'Links the rule to a smart operation (optional).'],
+    ['Operation Type', 'Scopes the rule to an order operation type (optional).'],
+    ['Active', 'Defines whether the rule is active.'],
+  ]}
+/>
+
+## Validation rules
+
+<DocTable
+  headers={['Field', 'Rule']}
+  rows={[
+    ['Customer', 'Required.'],
+    ['Payment Method', 'Required.'],
+    ['Company', 'Optional; when provided, must be a valid company.'],
+    ['Payment Conditions', 'Optional; when provided, all must be valid conditions.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Query** — enter the filters and search the registered rules.
+2. **Register (individual)** — click **"+ New"**, select the **Customer**, the **Payment Method** and the **Conditions**, adjust the optional scopes and **save**.
+3. **Register in batch** — choose the list of customers and the rule, check the **preview** and confirm.
+4. **Edit / Delete** — use the row actions to change or remove a rule.
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Payment Rules', 'Access to the screen', 'Allows opening and using the Payment Rules screen.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Payment Method / Payment Condition (Policies)', 'The rule releases the methods/conditions registered in those modules.', 'Register the method/condition before releasing it here.'],
+    ['Order', 'The order only offers the methods/conditions released for the customer.', 'If an option is missing on the order, review the customer rule.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It does not create payment methods or conditions — that is done in the Policies module; here they are only **released** per customer.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The method/condition does not appear on the order', 'There is no rule releasing it for the customer', 'Register the rule for the customer (and check Company/Center/Operation Type).'],
+    ['I cannot save the rule', 'Customer or Payment Method blank', 'Fill in the Customer and the Payment Method.'],
+    ['I cannot access the screen', 'Missing permission', 'Check the permission with the administrator.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To release, per customer, which payment methods and conditions can be used on the order.' },
+    { question: 'Can I apply the same rule to several customers?', answer: 'Yes — use batch registration, which shows a preview before confirming.' },
+    { question: 'Why does a payment method not appear on the customer order?', answer: 'Because there is no rule releasing that method for them (or a Company/Center/Operation Type scope does not match).' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '10/27/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '10/27/2026', author: 'Renan Camargo', description: 'Initial release of the Payment Rules screen documentation.' },
+  ]}
+/>

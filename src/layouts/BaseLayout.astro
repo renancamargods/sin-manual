@@ -1,6 +1,7 @@
 ---
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import AssistenteChat from '../components/AssistenteChat.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -28,5 +29,6 @@ const isEn = path === '/en' || path.startsWith('/en/');
     <SiteHeader showSidebarToggle={showSidebarToggle} />
     <slot />
     <SiteFooter />
+    <AssistenteChat />
   </body>
 </html>
