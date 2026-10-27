@@ -36,15 +36,25 @@ const t = isEn
     type="button"
     data-dentinho-launcher
     aria-label={t.open}
-    class="fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-brand-red text-white shadow-card-hover transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-brand-red/40"
+    class="dentinho-glow fixed bottom-5 right-5 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-brand-red transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-brand-red/40"
   >
-    <svg viewBox="0 0 24 24" fill="currentColor" class="h-7 w-7" aria-hidden="true">
-      <!-- dentinho sorridente -->
-      <path d="M12 2.2c-2.4 0-3.7 1.1-5.1 1.1-1.3 0-2.2-.7-3-.2-1 .7-1.1 2.4-1 4.2.1 1.7.5 3 1 4.8.4 1.5.6 3.1 1 4.9.3 1.4.6 3 1.6 3.6.9.6 1.6-.3 1.9-1.6.3-1.3.4-2.9 1.1-2.9s.8 1.6 1.1 2.9c.3 1.3 1 2.2 1.9 1.6 1-.6 1.3-2.2 1.6-3.6.4-1.8.6-3.4 1-4.9.5-1.8.9-3.1 1-4.8.1-1.8 0-3.5-1-4.2-.8-.5-1.7.2-3 .2-1.4 0-2.7-1.1-5.1-1.1z"/>
-      <circle cx="9.3" cy="8.2" r="0.9" fill="#fff"/>
-      <circle cx="14.7" cy="8.2" r="0.9" fill="#fff"/>
-      <path d="M9 10.6c.9.9 4.1.9 5 0" stroke="#fff" stroke-width="0.9" fill="none" stroke-linecap="round"/>
+    <svg viewBox="0 0 24 24" class="h-8 w-8" aria-hidden="true">
+      <!-- dente feliz -->
+      <path fill="#fff" d="M12 2.2c-2.4 0-3.7 1.1-5.1 1.1-1.3 0-2.2-.7-3-.2-1 .7-1.1 2.4-1 4.2.1 1.7.5 3 1 4.8.4 1.5.6 3.1 1 4.9.3 1.4.6 3 1.6 3.6.9.6 1.6-.3 1.9-1.6.3-1.3.4-2.9 1.1-2.9s.8 1.6 1.1 2.9c.3 1.3 1 2.2 1.9 1.6 1-.6 1.3-2.2 1.6-3.6.4-1.8.6-3.4 1-4.9.5-1.8.9-3.1 1-4.8.1-1.8 0-3.5-1-4.2-.8-.5-1.7.2-3 .2-1.4 0-2.7-1.1-5.1-1.1z"/>
+      <!-- bochechas -->
+      <circle cx="7.7" cy="10.4" r="1.1" fill="#ffb3b3"/>
+      <circle cx="16.3" cy="10.4" r="1.1" fill="#ffb3b3"/>
+      <!-- olhos felizes -->
+      <circle cx="9.4" cy="8.4" r="1.05" fill="#c81e2c"/>
+      <circle cx="14.6" cy="8.4" r="1.05" fill="#c81e2c"/>
+      <circle cx="9.0" cy="8.0" r="0.32" fill="#fff"/>
+      <circle cx="14.2" cy="8.0" r="0.32" fill="#fff"/>
+      <!-- sorrisão -->
+      <path d="M8.7 10.9c.9 1.5 5.7 1.5 6.6 0" stroke="#c81e2c" stroke-width="1.4" fill="none" stroke-linecap="round"/>
     </svg>
+    <!-- brilhos -->
+    <span class="dentinho-sparkle" style="top:-2px;right:0;animation-delay:0s">✨</span>
+    <span class="dentinho-sparkle" style="bottom:2px;left:-2px;animation-delay:.8s">✨</span>
   </button>
 
   <!-- Painel -->
@@ -87,6 +97,33 @@ const t = isEn
     </form>
   </div>
 </div>
+
+<style>
+  /* brilho pulsante do botão (laranja da marca) */
+  .dentinho-glow {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    animation: dentinho-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes dentinho-pulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(241, 136, 0, 0.45), 0 8px 20px rgba(0, 0, 0, 0.25); }
+    50% { box-shadow: 0 0 20px 7px rgba(241, 136, 0, 0.55), 0 8px 20px rgba(0, 0, 0, 0.25); }
+  }
+  .dentinho-sparkle {
+    position: absolute;
+    font-size: 11px;
+    line-height: 1;
+    pointer-events: none;
+    animation: dentinho-twinkle 1.8s ease-in-out infinite;
+  }
+  @keyframes dentinho-twinkle {
+    0%, 100% { opacity: 0.2; transform: scale(0.7); }
+    50% { opacity: 1; transform: scale(1); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dentinho-glow { animation: none; }
+    .dentinho-sparkle { animation: none; opacity: 0.9; }
+  }
+</style>
 
 <script is:inline define:vars={{ T: t }}>
   (() => {

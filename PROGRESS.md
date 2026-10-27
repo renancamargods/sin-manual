@@ -4,7 +4,7 @@ Manual do usuário do **S.I.N Implant System** — Astro + MDX + Tailwind. Este 
 resumo de estado para continuar em outra sessão sem reler todo o histórico.
 Ler junto: `CLAUDE.md` (padrões do projeto) e a memória `sin-manual-project.md`.
 
-_Última atualização: 2026-09-30._
+_Última atualização: 2026-10-27._
 
 ## Como rodar (Node portátil)
 ```
@@ -30,12 +30,20 @@ npm.cmd run dev -- --host 127.0.0.1 --port 4321 --strictPort
 - HML: `https://crmsinhml.sinimplantsystem.com/Web/<Modulo>/<Tela>` (login "renan", Homologação)
 
 ## Estado atual da cobertura
-- **Módulos:** 168 telas documentadas. Restam **9 indisponíveis** (não têm `@page` no sistema — dão "Página não encontrada"): Serviço Agendado, Execução de Serviço Agendado, Fila de Aprovações - Contratos, Buscar Remessa, Caixas do Pedido, Nova Fila de Aprovação - Pedidos (virou a mesma "Fila de Aprovações - Pedidos"), Log de Faturamento SAP, Pedido para Integração, Formulário Agenda. → nada a fazer até a dev publicá-las.
+- **Módulos:** 170 telas documentadas (últimas: Regras de Pagamento, Parâmetros de Pedidos por Produto/Filial). Restam **9 indisponíveis** (não têm `@page` no sistema — dão "Página não encontrada"): Serviço Agendado, Execução de Serviço Agendado, Fila de Aprovações - Contratos, Buscar Remessa, Caixas do Pedido, Nova Fila de Aprovação - Pedidos (virou a mesma "Fila de Aprovações - Pedidos"), Log de Faturamento SAP, Pedido para Integração, Formulário Agenda. → nada a fazer até a dev publicá-las.
 - **Doc. Técnicas e Configurações** (tudo atrás de senha, Basic Auth no Worker):
   Mapa de Fluxos · Fluxos (~23) · De Para (161 enums) · APIs · Migrations (945) · Parâmetros · Permissões · Templates · Banco de Dados · **AZURE** · **Regras de Validação (20 telas)**.
 
 ## Feito nas sessões recentes
-- **AZURE** (grupo técnico): Abertura de BUG, Abertura de Melhoria/PBI (modelo de prompt + campos obrigatórios do Azure DevOps).
+- **IA do manual "Dentinho"** (chat lateral, 100% grátis via **Cloudflare Workers AI** — modelo aberto `@cf/meta/llama-3.1-8b-instruct`, sem chave/cartão):
+  - `src/worker.js` → rota `POST /api/chat`: RAG-por-palavra sobre o índice de busca (mesmo scoring do SearchBox), top-6 trechos, respeita a senha (índice técnico só se autenticado), responde ancorado (não inventa) e devolve `{answer, sources}`.
+  - `src/components/AssistenteChat.astro` → botão flutuante 🦷 + painel lateral bilíngue; incluído no `BaseLayout.astro` (todas as páginas).
+  - `wrangler.jsonc` → binding `"ai": { "binding": "AI" }`.
+  - **Só funciona onde o Worker roda** (site publicado ou `wrangler dev`); no `astro dev` o botão aparece mas `/api/chat` dá 404.
+  - **Custo zero garantido:** manter conta no plano **grátis** do Workers — estourou a cota diária, a pergunta só falha, não cobra. Nunca ativar Workers Paid se não quiser gasto.
+- **Sync com o .NET (Validators):** e-mail do Cliente (formato lista+auxiliar; PJ ≥1), Observação do Cliente (obrig., 5000), Controle de Funcionalidade (regras de validação), Política de Contrato ("Tipo do Parceiro" obrigatório). Política Comercial: campo "Tipo" = Política/Campanha. Seção "Tipos de política aplicados ao pedido" no fluxo Parte 5.
+- **Telas novas (do .NET):** Clientes → **Regras de Pagamento** (Pulse Credit) e Pedidos → **Parâmetros de Pedidos por Produto/Filial**. Regras-de-validação do Cliente ganhou seção "Coleções do cliente" (Contato, Telefone, Endereço, Sócio, Dado Financeiro, Anexo).
+- **AZURE** (grupo técnico): Abertura de BUG, Abertura de Melhoria/PBI (modelo de prompt + campos obrigatórios do Azure DevOps). Prompt c/ botão "Copiar" (`PromptBlock.astro`); Title = Módulo > Submódulo > resumo, com exemplos Errado/Certo.
 - **Fluxos novos:** Simular Pagamentos em Homologação (QA), Motor de Crédito (R006), Verificar a Decisão do Motor de Crédito (QA).
 - **Regras de Validação** (grupo `tecnico/regras-de-validacao`, dos Validators reais): Cliente, Pedido, Lead, Contrato, Fechamento de Consignado, Produto, Orçamento, Trocas/Devoluções (TDC), Política Comercial, Condição de Pagamento, Ocorrência, Empresa, Lounge, Mensagem Personalizada, Usuário, Regra de Aprovação, Entidade de Aprovação, Refugo, Registros, Cadastros Base.
 - **Telas de módulo destravadas** (liam no HML, tiradas do "indisponível"): Inventários Disponíveis, Agenda.
@@ -48,7 +56,7 @@ npm.cmd run dev -- --host 127.0.0.1 --port 4321 --strictPort
 1. **Mais QA/HML** no estilo "Simular Pagamentos" (reprocessar SAP, gerar pedido pela Ocorrência PFCQ…) — **precisa do passo-a-passo/print do usuário** (não inventar).
 2. **Regras de Validação** para mais telas (baixo valor restante: sub-entidades como Contato/Endereço/Telefone do cliente, item de X, feature-flags Fiscal, etiquetas regulatórias; vários validators vazios).
 3. Revisar as 9 telas indisponíveis quando a dev publicá-las.
-4. Bot do manual (busca/dúvidas/sugestão) — estimativa dada; começar por form de sugestão → Worker; depois RAG sobre o índice respeitando a senha.
+4. IA "Dentinho" — MVP pronto (grátis). Fase 2 possível: streaming da resposta, memória da conversa na sessão, citações mais ricas. Fase 3 só se a busca-por-palavra ficar fraca: embeddings/Vectorize (também grátis).
 
 ## Pendências pontuais
 - Nada bloqueante. Tudo em 200 no último build; aguardando o usuário revisar no 4321 e commitar.

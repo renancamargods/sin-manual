@@ -97,7 +97,24 @@ async function carregarIndice(env, origin, caminho) {
   }
 }
 
+// Checador: GET /api/chat faz um "ping" no modelo e devolve o resultado/erro
+// cru. Serve só para diagnosticar (binding presente? modelo responde?).
+async function checarIA(env) {
+  const info = { aiBinding: !!env.AI, model: AI_MODEL };
+  if (!env.AI) return json({ ...info, ok: false, reason: 'env.AI ausente (binding não aplicado).' });
+  try {
+    const out = await env.AI.run(AI_MODEL, {
+      messages: [{ role: 'user', content: 'ping' }],
+      max_tokens: 8,
+    });
+    return json({ ...info, ok: true, sample: out?.response ?? out });
+  } catch (err) {
+    return json({ ...info, ok: false, error: String(err?.message || err) }, 502);
+  }
+}
+
 async function tratarChat(request, env, url) {
+  if (request.method === 'GET') return checarIA(env);
   if (request.method !== 'POST') return json({ error: 'Método não permitido.' }, 405);
   if (!env.AI) return json({ error: 'IA não configurada no Worker.' }, 503);
 
@@ -157,8 +174,12 @@ async function tratarChat(request, env, url) {
       max_tokens: 512,
     });
     resposta = (out?.response ?? '').trim();
-  } catch {
-    return json({ error: 'A IA está indisponível no momento. Tente novamente.' }, 502);
+  } catch (err) {
+    console.error('AI.run falhou:', err);
+    return json(
+      { error: 'A IA está indisponível no momento. Tente novamente.', detail: String(err?.message || err) },
+      502,
+    );
   }
 
   if (!resposta) {
