@@ -12,9 +12,12 @@ const PROTECTED = [
   /^\/en\/tecnico(\/|$)/,
 ];
 
-// Modelo aberto do Workers AI (cota grátis). Grounded no manual, 8B basta.
-// (llama-3.1-8b-instruct foi descontinuado em 2026-05; usar a variante fp8.)
-const AI_MODEL = '@cf/meta/llama-3.1-8b-instruct-fp8';
+// Modelos do Workers AI (cota grátis). Primário 70B (respostas melhores);
+// se ele falhar ou estourar a cota, cai automaticamente no 8B.
+const AI_MODELS = [
+  '@cf/meta/llama-3.3-70b-instruct-fp8-fast',
+  '@cf/meta/llama-3.1-8b-instruct-fp8',
+];
 const MAX_PERGUNTA = 1000; // limita abuso/custo
 const TOP_TRECHOS = 8;
 
@@ -214,24 +217,7 @@ function respostaSocial(perguntaNorm, nPalavras, lang) {
   return null;
 }
 
-// Checador: GET /api/chat faz um "ping" no modelo e devolve o resultado/erro
-// cru. Serve só para diagnosticar (binding presente? modelo responde?).
-async function checarIA(env) {
-  const info = { aiBinding: !!env.AI, model: AI_MODEL };
-  if (!env.AI) return json({ ...info, ok: false, reason: 'env.AI ausente (binding não aplicado).' });
-  try {
-    const out = await env.AI.run(AI_MODEL, {
-      messages: [{ role: 'user', content: 'ping' }],
-      max_tokens: 8,
-    });
-    return json({ ...info, ok: true, sample: out?.response ?? out });
-  } catch (err) {
-    return json({ ...info, ok: false, error: String(err?.message || err) }, 502);
-  }
-}
-
 async function tratarChat(request, env, url) {
-  if (request.method === 'GET') return checarIA(env);
   if (request.method !== 'POST') return json({ error: 'Método não permitido.' }, 405);
   if (!env.AI) return json({ error: 'IA não configurada no Worker.' }, 503);
 
@@ -306,29 +292,32 @@ Responda em português. Não trate de assuntos fora do manual.
 CONTEXTO:
 ${contexto}`;
 
-  let resposta;
-  try {
-    const out = await env.AI.run(AI_MODEL, {
-      messages: [
-        { role: 'system', content: sistema },
-        { role: 'user', content: pergunta },
-      ],
-      max_tokens: 512,
-    });
-    resposta = (out?.response ?? '').trim();
-  } catch (err) {
-    console.error('AI.run falhou:', err);
-    return json(
-      { error: 'A IA está indisponível no momento. Tente novamente.', detail: String(err?.message || err) },
-      502,
-    );
+  // Tenta o modelo primário (70B); se falhar ou vier vazio, cai pro próximo (8B).
+  const mensagens = [
+    { role: 'system', content: sistema },
+    { role: 'user', content: pergunta },
+  ];
+  let resposta = '';
+  let ultimoErro = null;
+  for (const modelo of AI_MODELS) {
+    try {
+      const out = await env.AI.run(modelo, { messages: mensagens, max_tokens: 512 });
+      resposta = (out?.response ?? '').trim();
+      if (resposta) break;
+    } catch (err) {
+      ultimoErro = err;
+      console.error(`AI.run falhou (${modelo}):`, err);
+    }
   }
 
   if (!resposta) {
-    resposta =
-      lang === 'en'
-        ? 'I could not generate an answer now. Please try again.'
-        : 'Não consegui gerar uma resposta agora. Tente novamente.';
+    return json(
+      {
+        error: 'A IA está indisponível no momento. Tente novamente.',
+        detail: String(ultimoErro?.message || ultimoErro || 'sem resposta'),
+      },
+      502,
+    );
   }
 
   const sources = ranque.map((it) => ({ title: it.title, href: it.href }));
