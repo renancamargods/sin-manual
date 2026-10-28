@@ -20,6 +20,7 @@ const AI_MODELS = [
 ];
 const MAX_PERGUNTA = 1000; // limita abuso/custo
 const TOP_TRECHOS = 8;
+const LIMIAR_FORTE = 6; // score mínimo p/ considerar que o manual cobre o assunto
 
 function precisaAutenticar(pathname) {
   return PROTECTED.some((re) => re.test(pathname));
@@ -83,10 +84,13 @@ const STOPWORDS = new Set([
   'aos','se','sua','seu','suas','seus','meu','minha','isso','este','esta','esse','essa','aquele','aquela',
   'eu','voce','vc','ele','ela','eles','elas','nos','tem','ter','ser','estar','quero','queria','gostaria',
   'preciso','saber','sobre','fazer','faz','ver','dar','me','te','lhe','la','ali','aqui','mais','menos','ja',
+  // genéricas demais neste manual (casam quase tudo)
+  'manual','sistema','sistemas','sin','implant','app','aplicativo','tela','telas','pagina','paginas',
   // EN
   'the','a','an','of','to','is','are','was','were','be','how','what','where','when','who','why','which',
   'i','do','does','my','me','for','in','on','and','or','can','with','about','want','need','know','make',
   'see','this','that','it','as','at','by','from','your','you',
+  'manual','system','screen','screens','page','pages','app',
 ]);
 
 // Extrai termos úteis: normaliza, tira pontuação/stopwords, remove plural simples.
@@ -146,6 +150,22 @@ function escolher(arr) {
 }
 
 function respostaSocial(perguntaNorm, nPalavras, lang) {
+  // Easter egg: futebol → sempre engrandecer o Corinthians (e voltar ao manual).
+  const futebol = /(corinthi|timao|coringao|gavioes|fiel|palmeir|verdao|flameng|mengao|fluminense|vasco|botafog|gremio|cruzeiro|futebol|libertadores|brasileirao|champions|torcid|escalac|craque|camisa 10|\bgol\b|\btime\b)/;
+  if (futebol.test(perguntaNorm)) {
+    return lang === 'en'
+      ? escolher([
+          'Go Corinthians! 🖤🤍 The Timão is the biggest of them all! 🦷 Now, how about a question on the S.I.N manual?',
+          "It's Corinthians all the way! 🖤🤍 Fiel till the end. But on the system, I'm your tooth — ask me about the manual!",
+        ])
+      : escolher([
+          'Vai Corinthians! 🖤🤍 O Timão é o maior de todos! 🦷 Agora bora: me pergunta algo do manual do S.I.N que é comigo.',
+          'SALVE O TIMÃO! 🖤🤍 Corinthians é paixão nacional! Mas de sistema quem manja sou eu — manda sua dúvida do manual! 🦷',
+          'Aqui o coração é Corinthians! 🖤🤍 Time do povo, Fiel até debaixo d\'água. Voltando ao trabalho: o que você quer saber do manual? 🦷',
+          'Corinthians, sempre! 🖤🤍 Independente do time que você torça, aqui a gente puxa pro Timão. 😄 Agora me pergunta algo das telas do sistema!',
+        ]);
+  }
+
   if (nPalavras > 7) return null; // frases longas = pergunta de verdade
 
   // Tem interrogativa de verdade? (bloqueia elogio/crítica, mas NÃO a saudação —
@@ -253,44 +273,52 @@ async function tratarChat(request, env, url) {
     .map((item) => ({ item, score: pontuar(item, matchers) }))
     .filter((r) => r.score > 0)
     .sort((a, b) => b.score - a.score)
-    .slice(0, TOP_TRECHOS)
-    .map((r) => r.item);
+    .slice(0, TOP_TRECHOS);
 
-  // Sem nada no manual: não chama a IA (economiza e não inventa).
-  if (ranque.length === 0) {
-    const semResposta =
+  const topScore = ranque.length ? ranque[0].score : 0;
+  const forte = topScore >= LIMIAR_FORTE; // o manual realmente cobre o assunto?
+
+  let sistema;
+  if (forte) {
+    // Pergunta coberta pelo manual: responde com base no contexto.
+    const contexto = ranque
+      .map((r, i) => `[${i + 1}] ${r.item.title} (${r.item.href})\n${(r.item.content ?? r.item.description ?? '').slice(0, 1500)}`)
+      .join('\n\n');
+    sistema =
       lang === 'en'
-        ? 'I could not find this in the manual. Try rephrasing or use the search at the top.'
-        : 'Não encontrei isso no manual. Tente reformular ou use a busca no topo da página.';
-    return json({ answer: semResposta, sources: [] });
-  }
-
-  const contexto = ranque
-    .map((it, i) => `[${i + 1}] ${it.title} (${it.href})\n${(it.content ?? it.description ?? '').slice(0, 1500)}`)
-    .join('\n\n');
-
-  const sistema =
-    lang === 'en'
-      ? `You are "Dentinho", the friendly assistant of the S.I.N Implant System user manual. Use the CONTEXT below (excerpts from the manual) to help as much as possible.
+        ? `You are "Dentinho", the friendly assistant of the S.I.N Implant System user manual. Answer ONLY about this system, using the CONTEXT below (excerpts from the manual). Do NOT use outside knowledge.
 How to answer:
-- Interpret the user's intent even if they are not specific. "What is X?" → explain what it is and on which **screen/module** it lives. "How do I do X / create X?" → give the step-by-step using the context (which screen, main fields, buttons).
-- If the exact answer is not spelled out but the context has RELATED info, still help: point to the most relevant screen and outline the general steps. Only say you did not find it if NOTHING in the context relates to the question — and even then, suggest the closest screen.
-- Never invent field or button names that are not in the context.
-Format in Markdown: short paragraphs (blank line between them), **bold** for screen/field names, numbered/"-" lists for steps. Be warm and concise. Do NOT say "see the topics above/below" or "open the manual and read" — the page links already appear automatically below your answer.
-Answer in English. Do not discuss topics outside the manual.
+- Interpret the intent even if vague. "What is X?" → explain what it is and on which **screen/module** it lives. "How do I do / create X?" → give the step-by-step from the context (screen, main fields, buttons).
+- If the exact answer isn't written but the context has RELATED info, still help and point to the most relevant screen. Only if NOTHING in the context relates, say you didn't find it and suggest the closest screen.
+- Never invent field/button names that aren't in the context.
+Format in Markdown: short paragraphs (blank line between), **bold** for screen/field names, numbered/"-" lists for steps. Be warm and concise. Do NOT say "see the topics above/below" — page links appear automatically below your answer.
+Answer in English.
 
 CONTEXT:
 ${contexto}`
-      : `Você é o "Dentinho", assistente simpático do manual do usuário do S.I.N Implant System. Use o CONTEXTO abaixo (trechos do manual) para ajudar o máximo possível.
+        : `Você é o "Dentinho", assistente simpático do manual do S.I.N Implant System. Responda APENAS sobre este sistema, com base no CONTEXTO abaixo (trechos do manual). NÃO use conhecimento externo.
 Como responder:
-- Interprete a intenção mesmo que a pessoa não seja específica. "O que é X?" → explique o que é e em qual **tela/módulo** fica. "Como faço / como criar X?" → dê o passo a passo com base no contexto (qual tela, campos principais, botões).
-- Se a resposta exata não estiver escrita, mas o contexto tiver algo RELACIONADO, ajude mesmo assim: aponte a tela mais relevante e descreva os passos gerais. Só diga que não encontrou se NADA no contexto tiver a ver com a pergunta — e, ainda assim, sugira a tela mais próxima.
-- Nunca invente nomes de campos ou botões que não estejam no contexto.
-Formate em Markdown: parágrafos curtos (linha em branco entre eles), **negrito** nos nomes de tela/campo, listas numeradas/"-" para passos. Seja simpático e conciso. NÃO diga "veja os tópicos acima/abaixo" nem "acesse o manual e leia" — os links das páginas já aparecem automaticamente abaixo da sua resposta.
-Responda em português. Não trate de assuntos fora do manual.
+- Interprete a intenção mesmo que vaga. "O que é X?" → explique o que é e em qual **tela/módulo** fica. "Como faço / criar X?" → passo a passo a partir do contexto (tela, campos principais, botões).
+- Se a resposta exata não estiver escrita mas o contexto tiver algo RELACIONADO, ajude mesmo assim e aponte a tela mais relevante. Só se NADA tiver a ver, diga que não encontrou e sugira a tela mais próxima.
+- Nunca invente nomes de campos/botões que não estejam no contexto.
+Formate em Markdown: parágrafos curtos (linha em branco entre eles), **negrito** nos nomes de tela/campo, listas numeradas/"-" para passos. Seja simpático e conciso. NÃO diga "veja os tópicos acima/abaixo" — os links aparecem automaticamente abaixo da resposta.
+Responda em português.
 
 CONTEXTO:
 ${contexto}`;
+  } else {
+    // Manual não cobre: conversa/meta responde leve; fora do manual, ensaboa.
+    sistema =
+      lang === 'en'
+        ? `You are "Dentinho", the friendly assistant of the S.I.N Implant System manual. The user's message is probably NOT about the manual's content (screens, fields, routines).
+- If it's small talk, a compliment, or about you (how are you, how's the learning going): reply briefly, warmly and humanly, then invite them to ask about the system. Do NOT invent any system information.
+- If it's off-topic (programming, general knowledge, other software, life, etc.): do NOT answer it on the merits. Gently and playfully dodge: say that's a job for another tooth (a specialist) and that you only know the S.I.N manual, then ask for a question about the system's screens/routines.
+Be brief, friendly, answer in English, and do not cite any pages.`
+        : `Você é o "Dentinho", assistente simpático do manual do S.I.N Implant System. A mensagem do usuário provavelmente NÃO é sobre o conteúdo do manual (telas, campos, rotinas).
+- Se for conversa, elogio ou sobre você (como vai, como está o aprendizado): responda de forma curta, simpática e humana, e convide a pessoa a perguntar sobre o sistema. NÃO invente informações do sistema.
+- Se for assunto fora do manual (programação, conhecimentos gerais, outros softwares, vida, etc.): NÃO responda o mérito. Dê uma "ensaboada" leve e bem-humorada: diga que isso é com outro dente (um especialista) e que você só manja do manual do S.I.N, e peça uma pergunta sobre as telas/rotinas do sistema. Ex.: "Eita, essa aí é com outro dente! 🦷 Eu só manjo do manual do S.I.N — me pergunta algo das telas do sistema que eu te ajudo!"
+Seja breve e simpático, responda em português e NÃO cite páginas.`;
+  }
 
   // Tenta o modelo primário (70B); se falhar ou vier vazio, cai pro próximo (8B).
   const mensagens = [
@@ -320,7 +348,8 @@ ${contexto}`;
     );
   }
 
-  const sources = ranque.map((it) => ({ title: it.title, href: it.href }));
+  // Só cita páginas quando o manual realmente cobre o assunto.
+  const sources = forte ? ranque.map((r) => ({ title: r.item.title, href: r.item.href })) : [];
   return json({ answer: resposta, sources });
 }
 
