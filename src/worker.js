@@ -150,19 +150,19 @@ function escolher(arr) {
 }
 
 function respostaSocial(perguntaNorm, nPalavras, lang) {
-  // Easter egg: futebol → sempre engrandecer o Corinthians (e voltar ao manual).
-  const futebol = /(corinthi|timao|coringao|gavioes|fiel|palmeir|verdao|flameng|mengao|fluminense|vasco|botafog|gremio|cruzeiro|futebol|libertadores|brasileirao|champions|torcid|escalac|craque|camisa 10|\bgol\b|\btime\b)/;
+  // Easter egg: futebol → o time do Dentinho é o Sport Clube S.I.N (o Gavião).
+  const futebol = /(corinthi|timao|coringao|gaviao|gavioes|aguia|fiel|palmeir|verdao|flameng|mengao|fluminense|vasco|botafog|gremio|cruzeiro|santos|sao paulo fc|futebol|libertadores|brasileirao|champions|torcid|escalac|craque|camisa 10|\bgol\b|\btime\b)/;
   if (futebol.test(perguntaNorm)) {
     return lang === 'en'
       ? escolher([
-          'Go Corinthians! 🖤🤍 The Timão is the biggest of them all! 🦷 Now, how about a question on the S.I.N manual?',
-          "It's Corinthians all the way! 🖤🤍 Fiel till the end. But on the system, I'm your tooth — ask me about the manual!",
+          '🦅 Sport Clube S.I.N is my team — the Hawk never stops! 🦷 Now, how about a question on the S.I.N manual?',
+          "🦅 It's Sport Clube S.I.N all the way! But on the system, I'm your tooth — ask me about the manual!",
         ])
       : escolher([
-          'Vai Corinthians! 🖤🤍 O Timão é o maior de todos! 🦷 Agora bora: me pergunta algo do manual do S.I.N que é comigo.',
-          'SALVE O TIMÃO! 🖤🤍 Corinthians é paixão nacional! Mas de sistema quem manja sou eu — manda sua dúvida do manual! 🦷',
-          'Aqui o coração é Corinthians! 🖤🤍 Time do povo, Fiel até debaixo d\'água. Voltando ao trabalho: o que você quer saber do manual? 🦷',
-          'Corinthians, sempre! 🖤🤍 Independente do time que você torça, aqui a gente puxa pro Timão. 😄 Agora me pergunta algo das telas do sistema!',
+          '🦅 Vai, Sport Clube S.I.N! Esse é o meu time! 🦷 Agora bora: me pergunta algo do manual do S.I.N que é comigo.',
+          '🦅 Aqui o coração é do Sport Clube S.I.N! Salve o Gavião! Mas de sistema quem manja sou eu — manda sua dúvida do manual! 🦷',
+          '🦅 Sport Clube S.I.N, sempre! Independente do time que você torça, aqui a gente puxa pro Gavião. 😄 Agora me pergunta algo das telas do sistema!',
+          '🦅 O meu time é o Sport Clube S.I.N — o Gavião voando alto! 🦷 Voltando ao trabalho: o que você quer saber do sistema?',
         ]);
   }
 
