@@ -215,7 +215,7 @@ function respostaSocial(perguntaNorm, nPalavras, lang) {
     // deixa ir pro manual (ex.: "bom dia, como crio cliente?" → RAG).
     const resto = perguntaNorm
       .replace(saudacao, ' ')
-      .replace(/\b(dentinho|dente|por favor|pfv|pf|tudo|bem|bom|boa|dia|tarde|noite|vai|voce|vc|ta|esta|certo|beleza|blz|suave|de|boa|e|ai|o|a|oi|ola|opa|how|are|you|good|morning|afternoon|evening|night)\b/g, ' ')
+      .replace(/\b(dentinho|dente|mano|cara|chefe|parceiro|truta|galera|amigo|amigao|por favor|pfv|pf|tudo|bem|bom|boa|dia|tarde|noite|vai|voce|vc|ta|esta|certo|beleza|blz|suave|de|boa|e|ai|o|a|oi|ola|opa|how|are|you|good|morning|afternoon|evening|night)\b/g, ' ')
       .replace(/[^a-z0-9]/g, ' ')
       .replace(/\s+/g, ' ')
       .trim();
