@@ -155,14 +155,14 @@ function respostaSocial(perguntaNorm, nPalavras, lang) {
   if (futebol.test(perguntaNorm)) {
     return lang === 'en'
       ? escolher([
-          '🦅 Sport Clube S.I.N is my team — the Hawk never stops! 🦷 Now, how about a question on the S.I.N manual?',
-          "🦅 It's Sport Clube S.I.N all the way! But on the system, I'm your tooth — ask me about the manual!",
+          '🦷 Go, Sport Clube S.I.N — the team of teeth! Now, how about a question on the S.I.N manual?',
+          "🦷 It's Sport Clube S.I.N all the way, the team of teeth! But on the system, I'm your tooth — ask me about the manual!",
         ])
       : escolher([
-          '🦅 Vai, Sport Clube S.I.N! Esse é o meu time! 🦷 Agora bora: me pergunta algo do manual do S.I.N que é comigo.',
-          '🦅 Aqui o coração é do Sport Clube S.I.N! Salve o Gavião! Mas de sistema quem manja sou eu — manda sua dúvida do manual! 🦷',
-          '🦅 Sport Clube S.I.N, sempre! Independente do time que você torça, aqui a gente puxa pro Gavião. 😄 Agora me pergunta algo das telas do sistema!',
-          '🦅 O meu time é o Sport Clube S.I.N — o Gavião voando alto! 🦷 Voltando ao trabalho: o que você quer saber do sistema?',
+          '🦷 Vai, Sport Clube S.I.N! Aqui é o time dos dentes! Agora bora: me pergunta algo do manual do S.I.N que é comigo.',
+          '🦷 Aqui o coração é do Sport Clube S.I.N — o time dos dentes! Mas de sistema quem manja sou eu, manda sua dúvida do manual!',
+          '🦷 Sport Clube S.I.N, o time dos dentes! Bola pra frente — me pergunta algo das telas do sistema que eu te ajudo!',
+          '🦷 O meu time é o Sport Clube S.I.N — aqui é o time dos dentes! Voltando ao trabalho: o que você quer saber do sistema?',
         ]);
   }
 
