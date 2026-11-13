@@ -1,0 +1,129 @@
+---
+section: modulos
+routeSlug: faturamentos/monitor-sap-consignado
+pageType: routine
+module: faturamentos
+moduleLabel: Billing
+lang: en
+title: SAP Consignment Monitor
+description: Tracks consignment submissions to SAP — attempt status, origin, job, period — with filters to show only what needs action or the latest attempt of each order.
+routineType: Query / Monitoring
+permission: Yes
+impact: Tracking and handling of consignment submissions to SAP
+keywords: [SAP consignment monitor, SAP, consignment, attempt status, SAP error, reprocessing, SAP job, needs action, submission]
+tags: [modulo-faturamentos, consulta]
+order: 7
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **SAP Consignment Monitor** screen tracks the **consignment submissions to SAP**: the **status of each attempt**, the **origin** of the submission, the **job** and the **period**. You can filter **only what needs action** and see **only the latest attempt** of each order — it is the screen to find and handle submissions with errors.
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Monitor submissions to SAP', text: 'Shows the status of each consignment submission attempt.' },
+    { label: 'Use', title: 'Filter by status/origin', text: 'See errors, pending items and what needs action.' },
+    { label: 'Caution', title: 'Errors need handling', text: 'Error statuses hold the consignment in SAP.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Find consignment submissions to SAP with an **error** or **no return**.
+- See **only what needs action**.
+- Track the **latest attempt** of each order.
+
+## How to access
+
+Billing → SAP Consignment Monitor
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Order', 'Filters by order.'],
+    ['Customer', 'Filters by customer.'],
+    ['Attempt status', 'Sent to SAP, Processing in SAP, Completed, SAP error, Submission error, No return from SAP, Closed without query, Reversed in SAP, or In queue (waiting for a previous part).'],
+    ['Origin', 'Single-order submission, KA orders submission, Order screen, Order TDC, Payment confirmation, Reprocessing, or Not informed.'],
+    ['Sent from / to', 'Submission period.'],
+    ['SAP Job', 'Filters by the SAP job.'],
+    ['Only what needs action', 'Yes/No — shows only submissions that require handling.'],
+    ['Only the latest attempt of each order', 'Yes/No — reduces the result to the most recent attempt per order.'],
+  ]}
+/>
+
+<Callout type="atencao" title="Error statuses">
+**SAP error**, **Submission error** and **No return from SAP** mean the consignment **was not completed** in SAP and needs **reprocessing/handling**. Use the **"Only what needs action"** filter to focus on these.
+</Callout>
+
+## Main flows
+
+1. **Query** — enter the filters (status, origin, period, order/customer) and click **"Search"**.
+2. **Focus on what matters** — check **"Only what needs action"** and **"Only the latest attempt"**.
+3. **Handle** — analyze the submissions with errors and arrange reprocessing.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the submission attempts per the filters.', '—'],
+    ['Clear Filters', 'To reset the filters and redo the search.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['SAP Consignment Monitor', 'Access to the screen', 'Allows opening and monitoring consignment submissions to SAP.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It is for **monitoring**: it shows the submission status; actual reprocessing depends on the consignment flow/integration.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['Submission with "SAP error"', 'SAP refused processing', 'Open the record, read the SAP message and reprocess.'],
+    ['"No return from SAP"', 'SAP did not respond in time', 'Check the SAP job and the latest attempt.'],
+    ['Too many records', 'Several attempts per order', 'Check "Only the latest attempt of each order".'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To monitor consignment submissions to SAP and find those that need action (errors/no return).' },
+    { question: 'How do I see only the problems?', answer: 'Check "Only what needs action" (and, if you want, "Only the latest attempt of each order").' },
+    { question: 'What is the "Origin"?', answer: 'Where the submission came from: single order, KA orders, order screen, Order TDC, payment confirmation or reprocessing.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '11/13/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '11/13/2026', author: 'Renan Camargo', description: 'Initial release of the SAP Consignment Monitor screen documentation.' },
+  ]}
+/>

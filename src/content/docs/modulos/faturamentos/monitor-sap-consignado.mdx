@@ -1,0 +1,128 @@
+---
+section: modulos
+routeSlug: faturamentos/monitor-sap-consignado
+pageType: routine
+module: faturamentos
+moduleLabel: Faturamentos
+title: Monitor SAP Consignado
+description: Acompanha os envios de consignado ao SAP — situação da tentativa, origem, job, período — com filtros para ver só o que precisa de ação ou a última tentativa de cada pedido.
+routineType: Consulta / Monitoramento
+permission: Sim
+impact: Acompanhamento e tratamento dos envios de consignado ao SAP
+keywords: [monitor SAP consignado, SAP, consignado, situação da tentativa, erro no SAP, reprocessamento, job SAP, precisa de ação, envio]
+tags: [modulo-faturamentos, consulta]
+order: 7
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Monitor SAP Consignado** acompanha os **envios de consignado ao SAP**: a **situação de cada tentativa**, a **origem** do envio, o **job** e o **período**. Dá para filtrar **só o que precisa de ação** e ver **só a última tentativa** de cada pedido — é a tela para achar e tratar envios com erro.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Monitorar envios ao SAP', text: 'Mostra a situação de cada tentativa de envio de consignado.' },
+    { label: 'Uso', title: 'Filtrar por situação/origem', text: 'Veja erros, pendências e o que precisa de ação.' },
+    { label: 'Cuidado', title: 'Erros exigem tratamento', text: 'Situações de erro travam o consignado no SAP.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Achar envios de consignado ao SAP com **erro** ou **sem retorno**.
+- Ver **só o que precisa de ação**.
+- Acompanhar a **última tentativa** de cada pedido.
+
+## Como acessar
+
+Faturamentos → Monitor SAP Consignado
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Pedido', 'Filtra pelo pedido.'],
+    ['Cliente', 'Filtra pelo cliente.'],
+    ['Situação da tentativa', 'Enviado ao SAP, Em processamento no SAP, Concluído, Erro no SAP, Erro no envio, Sem retorno do SAP, Encerrada sem consulta, Estornada no SAP ou Na fila (aguarda parte anterior).'],
+    ['Origem', 'Envio de pedido único, Envio de pedidos KA, Tela do pedido, Pedido TDC, Confirmação de pagamento, Reprocessamento ou Não informada.'],
+    ['Enviado de / até', 'Período do envio.'],
+    ['Job SAP', 'Filtra pelo job do SAP.'],
+    ['Somente o que precisa de ação', 'Sim/Não — mostra só os envios que exigem tratamento.'],
+    ['Somente a última tentativa de cada pedido', 'Sim/Não — reduz o resultado à tentativa mais recente por pedido.'],
+  ]}
+/>
+
+<Callout type="atencao" title="Situações de erro">
+**Erro no SAP**, **Erro no envio** e **Sem retorno do SAP** indicam que o consignado **não foi concluído** no SAP e precisa de **reprocessamento/tratamento**. Use o filtro **"Somente o que precisa de ação"** para focar nesses.
+</Callout>
+
+## Fluxos principais
+
+1. **Consultar** — informe os filtros (situação, origem, período, pedido/cliente) e clique em **"Pesquisar"**.
+2. **Focar no que importa** — marque **"Somente o que precisa de ação"** e **"Somente a última tentativa"**.
+3. **Tratar** — analise os envios com erro e providencie o reprocessamento.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as tentativas de envio conforme os filtros.', '—'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Monitor SAP Consignado', 'Acesso à tela', 'Permite abrir e monitorar os envios de consignado ao SAP.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- É de **monitoramento**: mostra a situação dos envios; o reprocessamento efetivo depende do fluxo/integração do consignado.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Envio com "Erro no SAP"', 'SAP recusou o processamento', 'Abra o registro, veja a mensagem do SAP e reprocessar.'],
+    ['"Sem retorno do SAP"', 'O SAP não respondeu a tempo', 'Verifique o job SAP e a última tentativa.'],
+    ['Muitos registros', 'Várias tentativas por pedido', 'Marque "Somente a última tentativa de cada pedido".'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para monitorar os envios de consignado ao SAP e achar os que precisam de ação (erros/sem retorno).' },
+    { question: 'Como vejo só os problemas?', answer: 'Marque "Somente o que precisa de ação" (e, se quiser, "Somente a última tentativa de cada pedido").' },
+    { question: 'O que é a "Origem"?', answer: 'De onde o envio partiu: pedido único, pedidos KA, tela do pedido, Pedido TDC, confirmação de pagamento ou reprocessamento.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '13/11/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '13/11/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Monitor SAP Consignado.' },
+  ]}
+/>

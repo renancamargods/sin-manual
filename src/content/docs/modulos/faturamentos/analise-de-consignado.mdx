@@ -1,0 +1,125 @@
+---
+section: modulos
+routeSlug: faturamentos/analise-de-consignado
+pageType: routine
+module: faturamentos
+moduleLabel: Faturamentos
+title: Análise de Consignado
+description: Lê direto no SAP o que foi consignado, faturado e devolvido ao cliente (com as notas) e compara com o saldo atual em consignação (MSKU). O SAP é a referência.
+routineType: Consulta
+permission: Sim
+impact: Conferência do saldo de consignação do cliente contra o SAP
+keywords: [análise de consignado, consignado, SAP, MSKU, saldo em consignação, faturado, devolvido, nota fiscal, cliente]
+tags: [modulo-faturamentos, consulta]
+order: 2
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Análise de Consignado** **lê direto no SAP** o que foi **consignado, faturado e devolvido** ao cliente (com as notas) e **compara com o saldo atual em consignação (MSKU)**. O **SAP é a referência** — serve para conferir a posição real do consignado do cliente.
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Conferir consignado no SAP', text: 'Compara consignado/faturado/devolvido com o saldo MSKU.' },
+    { label: 'Uso', title: 'Por cliente (SAP)', text: 'Informe o código do cliente e consulte direto no SAP.' },
+    { label: 'Cuidado', title: 'SAP é a referência', text: 'A posição vem do SAP em tempo real, não do CRM.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Conferir o saldo de consignação de um cliente contra o SAP.
+- Entender o que foi consignado, faturado e devolvido, com as notas.
+- Investigar divergência de saldo de consignado.
+
+## Como acessar
+
+Faturamentos → Análise de Consignado
+
+## Campos principais
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Código do cliente (SAP)', 'Cliente cuja posição de consignado será lida no SAP.'],
+  ]}
+/>
+
+<Callout type="info" title="O que a análise mostra">
+A consulta traz, a partir do SAP: o que foi **consignado**, o que foi **faturado**, o que foi **devolvido** (com as **notas**) e o **saldo atual em consignação (MSKU)** — para comparar.
+</Callout>
+
+## Fluxos principais
+
+1. **Consultar** — informe o **"Código do cliente (SAP)"** e clique em **"Consultar no SAP"**.
+2. **Analisar** — confira o consignado/faturado/devolvido e o saldo MSKU retornados pelo SAP.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Consultar no SAP', 'Para ler a posição de consignado do cliente no SAP.', 'A leitura é em tempo real no SAP.'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Análise de Consignado', 'Acesso à tela', 'Permite abrir e consultar a análise de consignado.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Fechamento de Consignado', 'A análise ajuda a conferir o saldo antes do fechamento.', 'O SAP é a referência do saldo.'],
+    ['SAP', 'A posição de consignação (MSKU) vem do SAP.', 'Depende da integração com o SAP.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não altera o consignado — apenas **lê e compara** a posição no SAP.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Saldo divergente', 'Consignado/faturado/devolvido não batem com o MSKU', 'Compare as notas; acione o faturamento/SAP.'],
+    ['Nada retorna', 'Cliente sem consignação ou código SAP incorreto', 'Confira o código do cliente no SAP.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para conferir, direto no SAP, o consignado/faturado/devolvido do cliente e comparar com o saldo MSKU.' },
+    { question: 'A posição vem do CRM ou do SAP?', answer: 'Do SAP — ele é a referência; a consulta lê em tempo real.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '13/11/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '13/11/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Análise de Consignado.' },
+  ]}
+/>

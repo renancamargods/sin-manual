@@ -1,0 +1,127 @@
+---
+section: modulos
+routeSlug: fiscal/memoria-de-calculo-fiscal
+pageType: routine
+module: fiscal
+moduleLabel: Fiscal
+title: Memória de Cálculo Fiscal
+description: Consulta a memória de cálculo fiscal dos pedidos — simulação, shadow ou ativo — e o resultado da comparação (não comparado, fechou, divergente ou erro).
+routineType: Consulta
+permission: Sim
+impact: Acompanhamento e auditoria do cálculo fiscal dos pedidos
+keywords: [memória de cálculo fiscal, cálculo fiscal, simulação, shadow, ativo, comparação, divergente, pedido, cliente SAP, ordem SAP, fiscal]
+tags: [modulo-fiscal, consulta]
+order: 4
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Memória de Cálculo Fiscal** consulta o **registro do cálculo fiscal** feito para os pedidos. O cálculo roda em segundo plano e guarda a "memória" (como o imposto foi apurado). Aqui dá para pesquisar esse registro por pedido/cliente, ver o **tipo de execução** (Simulação, Shadow ou Ativo) e o **resultado da comparação** (se fechou, divergiu ou deu erro).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Auditar o cálculo fiscal', text: 'Mostra como o imposto foi apurado em cada pedido.' },
+    { label: 'Uso', title: 'Consulta por filtros', text: 'Filtra por pedido, cliente, ordem SAP, tipo de execução e comparação.' },
+    { label: 'Cuidado', title: 'Divergência', text: 'Resultado "Divergente" ou "Erro" indica cálculo a investigar.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Conferir como o cálculo fiscal foi apurado em um pedido.
+- Localizar pedidos com cálculo **divergente** ou **com erro**.
+- Comparar execuções de simulação/shadow com o cálculo ativo.
+
+## Como acessar
+
+Fiscal → Memória de Cálculo Fiscal
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Pedido', 'Filtra pela memória de cálculo de um pedido.'],
+    ['Cliente (SAP)', 'Filtra pelo código do cliente no SAP.'],
+    ['Ordem SAP', 'Filtra pela ordem correspondente no SAP.'],
+    ['Tipo de execução', 'Simulação, Shadow ou Ativo.'],
+    ['Comparação', 'Resultado da comparação: Não comparado, Fechou, Divergente ou Erro.'],
+    ['Data do cálculo (de / até)', 'Período em que o cálculo foi feito.'],
+  ]}
+/>
+
+<Callout type="info" title="Tipos de execução e comparação">
+**Tipo de execução** — *Simulação* (cálculo de teste), *Shadow* (roda em paralelo, sem valer) e *Ativo* (o cálculo que vale).
+**Comparação** — *Fechou* (bateu), *Divergente* (diferença a investigar), *Erro* (falhou) e *Não comparado*.
+</Callout>
+
+## Fluxos principais
+
+1. **Consultar** — informe os filtros (pedido, cliente, tipo de execução, comparação, período) e clique em **"Pesquisar"**.
+2. **Analisar** — veja nos **Resultados** a memória de cálculo e o resultado da comparação.
+3. **Limpar** — use **"Limpar Filtros"** para refazer a busca.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as memórias de cálculo conforme os filtros.', '—'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Memória de Cálculo Fiscal', 'Acesso à tela', 'Permite abrir e consultar a memória de cálculo fiscal.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- Não recalcula o imposto — apenas **consulta** o registro do cálculo já feito.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['Comparação "Divergente"', 'Cálculo apurou valor diferente do esperado', 'Abra o registro e compare a memória com o esperado; acione o fiscal.'],
+    ['Comparação "Erro"', 'Falha no cálculo', 'Verifique o pedido/ordem SAP e reprocessamento.'],
+    ['Não encontro o registro', 'Filtros restritos ou cálculo ainda não rodou', 'Revise os filtros e o período; o cálculo roda em segundo plano.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para consultar e auditar como o cálculo fiscal foi apurado em cada pedido.' },
+    { question: 'O que é "Shadow"?', answer: 'Uma execução que roda em paralelo ao cálculo ativo, sem valer, para comparar resultados.' },
+    { question: 'O que significa "Divergente"?', answer: 'O cálculo apurou um valor diferente do comparado — precisa de análise do fiscal.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '13/11/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '13/11/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Memória de Cálculo Fiscal.' },
+  ]}
+/>

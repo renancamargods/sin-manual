@@ -4,7 +4,7 @@ Manual do usuário do **S.I.N Implant System** — Astro + MDX + Tailwind. Este 
 resumo de estado para continuar em outra sessão sem reler todo o histórico.
 Ler junto: `CLAUDE.md` (padrões do projeto) e a memória `sin-manual-project.md`.
 
-_Última atualização: 2026-10-27._
+_Última atualização: 2026-11-13._
 
 ## Como rodar (Node portátil)
 ```
@@ -30,11 +30,13 @@ npm.cmd run dev -- --host 127.0.0.1 --port 4321 --strictPort
 - HML: `https://crmsinhml.sinimplantsystem.com/Web/<Modulo>/<Tela>` (login "renan", Homologação)
 
 ## Estado atual da cobertura
-- **Módulos:** 170 telas documentadas (últimas: Regras de Pagamento, Parâmetros de Pedidos por Produto/Filial). Restam **9 indisponíveis** (não têm `@page` no sistema — dão "Página não encontrada"): Serviço Agendado, Execução de Serviço Agendado, Fila de Aprovações - Contratos, Buscar Remessa, Caixas do Pedido, Nova Fila de Aprovação - Pedidos (virou a mesma "Fila de Aprovações - Pedidos"), Log de Faturamento SAP, Pedido para Integração, Formulário Agenda. → nada a fazer até a dev publicá-las.
+- **Auditoria cruzada Manual × .NET (13/11):** `AUDITORIA-MANUAL-vs-NET.md` + `DE-PARA-ROTAS-NET-MANUAL.md`. **Grupo C fechado** — cobertura de telas de usuário **efetivamente 100%** (233 `@page` × manual; delta = nome-miss + sub-entidades).
+- **Módulos:** 174 telas documentadas (últimas: Memória de Cálculo Fiscal [Fiscal]; Análise de Consignado, Monitor SAP Consignado, Relatório de Remessas [Faturamentos] — confirmadas no HML). Restam **9 indisponíveis** (não têm `@page` no sistema — dão "Página não encontrada"): Serviço Agendado, Execução de Serviço Agendado, Fila de Aprovações - Contratos, Buscar Remessa, Caixas do Pedido, Nova Fila de Aprovação - Pedidos (virou a mesma "Fila de Aprovações - Pedidos"), Log de Faturamento SAP, Pedido para Integração, Formulário Agenda. → nada a fazer até a dev publicá-las.
 - **Doc. Técnicas e Configurações** (tudo atrás de senha, Basic Auth no Worker):
   Mapa de Fluxos · Fluxos (~23) · De Para (161 enums) · APIs · Migrations (945) · Parâmetros · Permissões · Templates · Banco de Dados · **AZURE** · **Regras de Validação (20 telas)**.
 
 ## Feito nas sessões recentes
+- **Grupo C (auditoria) documentado:** 4 telas reais tiradas do HML (logado, só leitura) — **Memória de Cálculo Fiscal**, **Análise de Consignado**, **Monitor SAP Consignado**, **Relatório de Remessas** (PT+EN, filtros reais, registradas no `modules.ts` + `routineTitleEn`). As 5 "filhas" (`Invoice`, `FresaDoConjunto`, `ImplanteDoConjunto`, `DadosPaciente`, `ResultadoAnalise`) ficam como sub-entidade. `RelatorioOPL` já existia.
 - **IA do manual "Dentinho"** (chat lateral, 100% grátis via **Cloudflare Workers AI** — modelo aberto `@cf/meta/llama-3.1-8b-instruct`, sem chave/cartão):
   - `src/worker.js` → rota `POST /api/chat`: RAG-por-palavra sobre o índice de busca (mesmo scoring do SearchBox), top-6 trechos, respeita a senha (índice técnico só se autenticado), responde ancorado (não inventa) e devolve `{answer, sources}`.
   - `src/components/AssistenteChat.astro` → botão flutuante 🦷 + painel lateral bilíngue; incluído no `BaseLayout.astro` (todas as páginas).

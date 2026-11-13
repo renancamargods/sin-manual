@@ -1,0 +1,129 @@
+---
+section: modulos
+routeSlug: faturamentos/relatorio-de-remessas
+pageType: routine
+module: faturamentos
+moduleLabel: Faturamentos
+title: Relatório de Remessas
+description: Consulta as remessas de faturamento por pedido, nº da remessa, cliente, lounge, período de criação e status (Iniciado, Concluído, Cancelado ou Excluído).
+routineType: Consulta / Relatório
+permission: Sim
+impact: Acompanhamento das remessas de faturamento
+keywords: [relatório de remessas, remessa, faturamento, pedido, cliente, lounge, status da remessa, iniciado, concluído, cancelado]
+tags: [modulo-faturamentos, consulta]
+order: 8
+---
+
+import Callout from '../../../../components/Callout.astro';
+import QuickCards from '../../../../components/QuickCards.astro';
+import DocTable from '../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../components/DocControl.astro';
+
+## Visão geral
+
+A tela **Relatório de Remessas** consulta as **remessas de faturamento** por **pedido**, **número da remessa**, **cliente**, **lounge**, **período de criação** e **status**. Serve para acompanhar a situação das remessas (iniciadas, concluídas, canceladas ou excluídas).
+
+<QuickCards
+  cards={[
+    { label: 'Finalidade', title: 'Acompanhar remessas', text: 'Lista as remessas de faturamento e seu status.' },
+    { label: 'Uso', title: 'Consulta por filtros', text: 'Filtra por pedido, remessa, cliente, lounge, período e status.' },
+    { label: 'Cuidado', title: 'Status', text: 'O status mostra se a remessa foi concluída, cancelada ou excluída.' },
+  ]}
+/>
+
+## Quando usar esta tela
+
+- Acompanhar as remessas de um pedido ou cliente.
+- Localizar remessas por status (ex.: só as **concluídas** ou **canceladas**).
+- Consultar remessas criadas em um período.
+
+## Como acessar
+
+Faturamentos → Relatório de Remessas
+
+## Campos principais
+
+### Filtros de pesquisa
+
+<DocTable
+  headers={['Campo', 'Para que serve']}
+  rows={[
+    ['Número do Pedido', 'Filtra pelas remessas de um pedido.'],
+    ['Nº Remessa', 'Filtra por uma remessa específica.'],
+    ['Cliente', 'Filtra pelo cliente.'],
+    ['Data Criação Remessa - De / Até', 'Período de criação da remessa.'],
+    ['Lounge', 'Filtra pelo lounge (centro).'],
+    ['Status da Remessa', 'Iniciado, Concluído, Cancelado ou Excluído.'],
+  ]}
+/>
+
+## Fluxos principais
+
+1. **Consultar** — informe os filtros (pedido, remessa, cliente, lounge, período, status) e clique em **"Pesquisar"**.
+2. **Analisar** — veja nos **Resultados** as remessas e seus status.
+3. **Limpar** — use **"Limpar Filtros"** para refazer a busca.
+
+## Ações principais
+
+<DocTable
+  headers={['Ação', 'Quando usar', 'Cuidado']}
+  rows={[
+    ['Pesquisar', 'Para listar as remessas conforme os filtros.', '—'],
+    ['Limpar Filtros', 'Para zerar os filtros e refazer a busca.', '—'],
+  ]}
+/>
+
+## Permissões principais
+
+<DocTable
+  headers={['Permissão', 'Onde impacta', 'Descrição']}
+  rows={[
+    ['Relatório de Remessas', 'Acesso à tela', 'Permite abrir e consultar o relatório de remessas.'],
+  ]}
+/>
+
+## Relação com outros processos
+
+<DocTable
+  headers={['Processo', 'Relação', 'Cuidado']}
+  rows={[
+    ['Fila de Remessas Aguardando Separação / Fila do Romaneio', 'As remessas passam por essas filas na separação/expedição.', 'O status reflete a etapa da remessa.'],
+  ]}
+/>
+
+## O que a tela não faz
+
+- É uma **consulta/relatório**: mostra as remessas; não cria nem altera remessa.
+
+## Problemas comuns
+
+<DocTable
+  headers={['Problema', 'Possível causa', 'O que verificar']}
+  rows={[
+    ['A remessa não aparece', 'Filtros restritos', 'Revise pedido, cliente, lounge, período e status.'],
+    ['Status inesperado', 'Remessa cancelada/excluída', 'Confira o status e o histórico da remessa.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'Para que serve esta tela?', answer: 'Para consultar e acompanhar as remessas de faturamento e seus status.' },
+    { question: 'Como vejo só as remessas concluídas?', answer: 'Filtre por "Status da Remessa" = Concluído.' },
+  ]}
+/>
+
+## Controle do documento
+
+<DocControl
+  signers={[
+    { role: 'Elaborado por', name: 'Renan Camargo', date: '13/11/2026' },
+    { role: 'Revisado por', name: 'A definir', date: 'A definir' },
+    { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
+  ]}
+  versions={[
+    { version: '1.0', date: '13/11/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Relatório de Remessas.' },
+  ]}
+/>

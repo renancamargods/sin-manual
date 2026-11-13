@@ -1,0 +1,130 @@
+---
+section: modulos
+routeSlug: faturamentos/relatorio-de-remessas
+pageType: routine
+module: faturamentos
+moduleLabel: Billing
+lang: en
+title: Shipments Report
+description: Queries billing shipments by order, shipment number, customer, lounge, creation period and status (Started, Completed, Cancelled or Deleted).
+routineType: Query / Report
+permission: Yes
+impact: Tracking of billing shipments
+keywords: [shipments report, shipment, billing, order, customer, lounge, shipment status, started, completed, cancelled]
+tags: [modulo-faturamentos, consulta]
+order: 8
+---
+
+import Callout from '../../../../../components/Callout.astro';
+import QuickCards from '../../../../../components/QuickCards.astro';
+import DocTable from '../../../../../components/DocTable.astro';
+import FaqAccordion from '../../../../../components/FaqAccordion.astro';
+import DocControl from '../../../../../components/DocControl.astro';
+
+## Overview
+
+The **Shipments Report** screen queries the **billing shipments** by **order**, **shipment number**, **customer**, **lounge**, **creation period** and **status**. It is used to track the status of shipments (started, completed, cancelled or deleted).
+
+<QuickCards
+  cards={[
+    { label: 'Purpose', title: 'Track shipments', text: 'Lists billing shipments and their status.' },
+    { label: 'Use', title: 'Query by filters', text: 'Filter by order, shipment, customer, lounge, period and status.' },
+    { label: 'Caution', title: 'Status', text: 'The status shows whether the shipment was completed, cancelled or deleted.' },
+  ]}
+/>
+
+## When to use this screen
+
+- Track the shipments of an order or customer.
+- Find shipments by status (e.g., only **completed** or **cancelled**).
+- Query shipments created within a period.
+
+## How to access
+
+Billing → Shipments Report
+
+## Main fields
+
+### Search filters
+
+<DocTable
+  headers={['Field', 'What it is for']}
+  rows={[
+    ['Order Number', 'Filters by the shipments of an order.'],
+    ['Shipment No.', 'Filters by a specific shipment.'],
+    ['Customer', 'Filters by customer.'],
+    ['Shipment Creation Date - From / To', 'Shipment creation period.'],
+    ['Lounge', 'Filters by lounge (center).'],
+    ['Shipment Status', 'Started, Completed, Cancelled or Deleted.'],
+  ]}
+/>
+
+## Main flows
+
+1. **Query** — enter the filters (order, shipment, customer, lounge, period, status) and click **"Search"**.
+2. **Analyze** — see the shipments and their statuses in the **Results**.
+3. **Clear** — use **"Clear Filters"** to redo the search.
+
+## Main actions
+
+<DocTable
+  headers={['Action', 'When to use', 'Caution']}
+  rows={[
+    ['Search', 'To list the shipments per the filters.', '—'],
+    ['Clear Filters', 'To reset the filters and redo the search.', '—'],
+  ]}
+/>
+
+## Main permissions
+
+<DocTable
+  headers={['Permission', 'Where it applies', 'Description']}
+  rows={[
+    ['Shipments Report', 'Access to the screen', 'Allows opening and querying the shipments report.'],
+  ]}
+/>
+
+## Relationship with other processes
+
+<DocTable
+  headers={['Process', 'Relationship', 'Caution']}
+  rows={[
+    ['Shipments Awaiting Picking Queue / Loading List Queue', 'Shipments go through these queues during picking/dispatch.', 'The status reflects the shipment stage.'],
+  ]}
+/>
+
+## What this screen does not do
+
+- It is a **query/report**: it shows shipments; it does not create or change a shipment.
+
+## Common problems
+
+<DocTable
+  headers={['Problem', 'Possible cause', 'What to check']}
+  rows={[
+    ['The shipment does not appear', 'Restrictive filters', 'Review order, customer, lounge, period and status.'],
+    ['Unexpected status', 'Shipment cancelled/deleted', 'Check the status and the shipment history.'],
+  ]}
+/>
+
+## FAQ
+
+<FaqAccordion
+  items={[
+    { question: 'What is this screen for?', answer: 'To query and track billing shipments and their statuses.' },
+    { question: 'How do I see only completed shipments?', answer: 'Filter by "Shipment Status" = Completed.' },
+  ]}
+/>
+
+## Document control
+
+<DocControl
+  signers={[
+    { role: 'Prepared by', name: 'Renan Camargo', date: '11/13/2026' },
+    { role: 'Reviewed by', name: 'To be defined', date: 'To be defined' },
+    { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
+  ]}
+  versions={[
+    { version: '1.0', date: '11/13/2026', author: 'Renan Camargo', description: 'Initial release of the Shipments Report screen documentation.' },
+  ]}
+/>
