@@ -48,12 +48,16 @@ export function makeCrud(cfg) {
         preenchido: en ? 'filled' : 'preenchido', vazio: en ? '— (empty)' : '— (vazio)',
       },
       trilha: { ABERTURA: en ? '+ New' : '+ Novo', DADOS: en ? 'Fill in' : 'Preencher' },
-      regras: [
-        intro,
-        en ? 'Required fields must be filled to save.' : 'Os campos obrigatórios precisam ser preenchidos para salvar.',
-        en ? 'You can Edit or Delete the record at any time (per your permission).'
-           : 'Dá para Editar ou Excluir o registro a qualquer momento (conforme a sua permissão).',
-      ],
+      regras: (cfg.regras && cfg.regras[lang] && cfg.regras[lang].length)
+        ? [...cfg.regras[lang],
+            en ? 'Required fields must be filled to save; you can Edit or Delete the record later.'
+               : 'Os campos obrigatórios precisam ser preenchidos para salvar; dá para Editar ou Excluir depois.']
+        : [
+            intro,
+            en ? 'Required fields must be filled to save.' : 'Os campos obrigatórios precisam ser preenchidos para salvar.',
+            en ? 'You can Edit or Delete the record at any time (per your permission).'
+               : 'Dá para Editar ou Excluir o registro a qualquer momento (conforme a sua permissão).',
+          ],
       quem: [permissao],
       etapas: {
         ABERTURA: {

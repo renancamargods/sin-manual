@@ -81,6 +81,8 @@ for (const c of CONFIGS) {
     obrigatorios: c.reais ? c.reais.map(([key, label]) => ({ key, label })) : undefined,
     filtros: c.filtros || undefined,
     campos: c.campos || undefined,
+    intro: c.intro || undefined,
+    regras: c.regras || undefined,
   };
   SPECS[c.slug] = c.tipo === 'consulta' ? makeConsulta(cfg) : makeCrud(cfg);
 }

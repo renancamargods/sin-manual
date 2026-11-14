@@ -26,11 +26,14 @@ export function makeConsulta(cfg) {
       statusLabel: {},
       painelLabels: { status: 'Status', tela: en ? 'Screen' : 'Tela', aberta: en ? 'Open' : 'Aberta', filtrada: en ? 'Filtered' : 'Filtrada', lida: en ? '✓ Results read' : '✓ Resultados lidos' },
       trilha: { ABERTURA: en ? 'Open' : 'Abrir', FILTROS: en ? 'Filter' : 'Filtrar' },
-      regras: [
-        intro,
-        en ? 'It is a query/report: it shows data; it does not create or change records.' : 'É consulta/relatório: mostra dados; não cria nem altera registros.',
-        en ? 'Restrictive filters may hide results — review them if nothing appears.' : 'Filtros muito restritos podem esconder resultados — revise se nada aparecer.',
-      ],
+      regras: (cfg.regras && cfg.regras[lang] && cfg.regras[lang].length)
+        ? [...cfg.regras[lang],
+            en ? 'It is a query/report: it shows data; it does not create or change records.' : 'É consulta/relatório: mostra dados; não cria nem altera registros.']
+        : [
+            intro,
+            en ? 'It is a query/report: it shows data; it does not create or change records.' : 'É consulta/relatório: mostra dados; não cria nem altera registros.',
+            en ? 'Restrictive filters may hide results — review them if nothing appears.' : 'Filtros muito restritos podem esconder resultados — revise se nada aparecer.',
+          ],
       quem: [permissao],
       etapas: {
         ABERTURA: {

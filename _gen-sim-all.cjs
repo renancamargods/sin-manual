@@ -81,11 +81,43 @@ function primeiraColuna(file) {
   const m = fs.readFileSync(file, 'utf8').match(/rows=\{\[([\s\S]*?)\]\}/);
   return m ? primeiraColDe(m[1]) : [];
 }
-// Extrai a 1ª coluna da DocTable cujo cabeçalho começa por "Campo"/"Field".
+// Extrai a 1ª coluna da DocTable cujo cabeçalho começa por "Campo"/"Field"/"Filtro"/"Filter".
 function tabelaCampo(file) {
   if (!fs.existsSync(file)) return [];
-  const m = fs.readFileSync(file, 'utf8').match(/headers=\{\[\s*['"](?:Campo|Field)['"][\s\S]*?rows=\{\[([\s\S]*?)\]\}/);
+  const m = fs.readFileSync(file, 'utf8').match(/headers=\{\[\s*['"](?:Campo|Field|Filtro|Filter)['"][\s\S]*?rows=\{\[([\s\S]*?)\]\}/);
   return m ? primeiraColDe(m[1]) : [];
+}
+const limpa = (s) => s.replace(/\*\*(.+?)\*\*/g, '$1').replace(/\[(.+?)\]\([^)]*\)/g, '$1').replace(/<[^>]*>/g, '').replace(/[`*_]/g, '').replace(/\s+/g, ' ').trim();
+// Extrai o 1º parágrafo da seção "Visão geral"/"Overview" (descrição real da tela).
+function visaoGeral(file) {
+  if (!fs.existsSync(file)) return null;
+  const m = fs.readFileSync(file, 'utf8').match(/##\s+(?:Vis[aã]o geral|Overview)\s*\r?\n\r?\n([^\n]+)/);
+  return m ? limpa(m[1]) : null;
+}
+// Extrai os bullets "- ..." de uma seção (por título).
+function secaoBullets(file, titulos) {
+  if (!fs.existsSync(file)) return [];
+  const raw = fs.readFileSync(file, 'utf8');
+  const m = raw.match(new RegExp(`##\\s+(?:${titulos})\\s*\\r?\\n([\\s\\S]*?)(?:\\r?\\n##\\s|\\r?\\n<[A-Z])`));
+  if (!m) return [];
+  const out = [];
+  for (const line of m[1].split(/\r?\n/)) {
+    const b = line.match(/^\s*[-*]\s+(.+)$/);
+    if (b) out.push(limpa(b[1]));
+  }
+  return out;
+}
+// Monta regras ricas da tela (descrição + quando usar + o que não faz).
+function regrasRicas(file, lang) {
+  const en = lang === 'en';
+  const vg = visaoGeral(file);
+  const quando = secaoBullets(file, en ? 'When to use this screen' : 'Quando usar esta tela');
+  const naoFaz = secaoBullets(file, en ? 'What this screen does not do' : 'O que (?:a|esta) tela não faz');
+  const r = [];
+  if (vg) r.push(vg);
+  if (quando.length) r.push((en ? 'When to use: ' : 'Quando usar: ') + quando.slice(0, 5).join('; '));
+  for (const nf of naoFaz.slice(0, 4)) r.push(nf);
+  return r;
 }
 
 const configs = [];
@@ -108,8 +140,8 @@ for (const modId of fs.readdirSync(DOCS)) {
     let filtros = null;
     let campos = null;
     if (tipo === 'consulta') {
-      const fpt = primeiraColuna(path.join(dir, f));
-      const fen = primeiraColuna(enPath);
+      const fpt = tabelaCampo(path.join(dir, f)); // só tabela com cabeçalho Campo/Filtro
+      const fen = tabelaCampo(enPath);
       if (fpt.length) filtros = { pt: fpt, en: fen.length === fpt.length ? fen : fpt };
     } else {
       const cpt = tabelaCampo(path.join(dir, f));
@@ -129,13 +161,18 @@ for (const modId of fs.readdirSync(DOCS)) {
     if (!reais && campos && /^(Nome|Códig|Codig|Descriç|Descric|Razã|Razao|SKU|Chave|Mensage|Títul|Titul|Sigla|Identific)/i.test(campos.pt[0])) {
       reais = [['principal', { pt: campos.pt[0], en: (campos.en[0] || campos.pt[0]) }]];
     }
+    // regras ricas reais da própria tela (descrição + quando usar + o que não faz)
+    const rPt = regrasRicas(path.join(dir, f), 'pt');
+    const rEn = regrasRicas(enPath, 'en');
+    const regras = rPt.length ? { pt: rPt, en: rEn.length ? rEn : rPt } : null;
+    const intro = rPt.length ? { pt: rPt[0], en: (rEn[0] || rPt[0]) } : null;
     configs.push({
       slug, tipo, modId,
       nomePt: pt.title || slug, nomeEn: en.title || pt.title || slug,
       modPt: pt.moduleLabel || modId, modEn: en.moduleLabel || pt.moduleLabel || modId,
       href: `/modulos/${modId}/${slug}`,
       reais,
-      filtros, campos,
+      filtros, campos, intro, regras,
     });
   }
 }
@@ -145,7 +182,8 @@ configs.sort((a, b) => a.slug.localeCompare(b.slug));
 const mjs = 'export const CONFIGS = [\n' + configs.map((c) => {
   const reais = c.reais ? '[' + c.reais.map(([k, l]) => `['${k}',{pt:'${esc(l.pt)}',en:'${esc(l.en)}'}]`).join(',') + ']' : 'null';
   const pack = (o) => o ? `{pt:[${o.pt.map((x) => `'${esc(x)}'`).join(',')}],en:[${o.en.map((x) => `'${esc(x)}'`).join(',')}]}` : 'null';
-  return `  { slug: '${c.slug}', tipo: '${c.tipo}', nomePt: '${esc(c.nomePt)}', nomeEn: '${esc(c.nomeEn)}', modPt: '${esc(c.modPt)}', modEn: '${esc(c.modEn)}', href: '${c.href}', reais: ${reais}, filtros: ${pack(c.filtros)}, campos: ${pack(c.campos)} },`;
+  const intro = c.intro ? `{pt:'${esc(c.intro.pt)}',en:'${esc(c.intro.en)}'}` : 'null';
+  return `  { slug: '${c.slug}', tipo: '${c.tipo}', nomePt: '${esc(c.nomePt)}', nomeEn: '${esc(c.nomeEn)}', modPt: '${esc(c.modPt)}', modEn: '${esc(c.modEn)}', href: '${c.href}', reais: ${reais}, filtros: ${pack(c.filtros)}, campos: ${pack(c.campos)}, intro: ${intro}, regras: ${pack(c.regras)} },`;
 }).join('\n') + '\n];\n';
 fs.writeFileSync(path.join(ROOT, 'src/lib/simuladores/_gerados.mjs'), mjs);
 
