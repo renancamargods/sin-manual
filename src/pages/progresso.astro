@@ -16,6 +16,7 @@ for (const [path, raw] of Object.entries(rawFiles)) {
   const file = parts[parts.length - 1];
   if (file === 'index.mdx') continue;
   const moduleId = parts[parts.length - 2];
+  if (moduleId === 'simulador') continue; // treino, não conta como tela de sistema
   const slug = file.replace('.mdx', '');
   const titleM = raw.match(/^title:\s*(.+)$/m);
   const title = titleM ? titleM[1].trim() : slug;
@@ -28,6 +29,7 @@ for (const [path, raw] of Object.entries(rawFiles)) {
 
 // --- Telas planejadas por módulo + % concluído ---
 const perModule = modules
+  .filter((m) => m.id !== 'simulador') // treino não entra no escopo de telas
   .map((m) => {
     const planned = m.routines?.length ?? 0;
     const d = done.filter((x) => x.moduleId === m.id).length;

@@ -479,6 +479,15 @@ export const modules: ModuleDef[] = [
       { title: 'Tipo de Agenda', slug: 'tipo-de-agenda', description: 'Classificação usada para tipos de agenda.' },
     ],
   },
+  {
+    id: 'simulador',
+    label: 'Simulador',
+    description: 'Treinos guiados passo a passo das telas, com o Dentinho. Nada é salvo no sistema.',
+    order: 20,
+    routines: [
+      { title: 'Cliente', slug: 'cliente', description: 'Treino guiado do cadastro de Cliente, do pré-cadastro ao envio para aprovação.' },
+    ],
+  },
 ];
 
 export function getModule(id: string): ModuleDef | undefined {
@@ -508,6 +517,7 @@ export const moduleEn: Record<string, { label: string; description: string }> = 
   qualidade: { label: 'Quality', description: 'Quality analysis and control routines.' },
   regulatorios: { label: 'Regulatory', description: 'Regulatory records, labels and traceability.' },
   roteirizador: { label: 'Field Routing', description: 'Schedules, forms and field service journeys.' },
+  simulador: { label: 'Simulator', description: 'Step-by-step guided training of the screens, with Dentinho. Nothing is saved in the system.' },
 };
 
 export const manualPageEn: Record<string, { title: string; description: string }> = {
@@ -720,6 +730,7 @@ export const routineTitleEn: Record<string, string> = {
   'roteirizador/jornada': 'Journey',
   'roteirizador/metricas': 'Metrics',
   'roteirizador/tipo-de-agenda': 'Schedule Type',
+  'simulador/cliente': 'Customer',
 };
 
 // Nomes das subpáginas técnicas (submenu) em inglês, por "groupSlug/slug".
