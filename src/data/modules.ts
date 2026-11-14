@@ -1,6 +1,8 @@
 // Registro central de navegação do manual: módulos, rotinas e páginas fixas.
 // Fonte única usada pelo menu lateral, pela home e pela busca.
 
+import { generatedRoutines, generatedTitlesEn } from './_simuladorGerados';
+
 export interface RoutineLink {
   title: string;
   slug: string;
@@ -485,7 +487,22 @@ export const modules: ModuleDef[] = [
     description: 'Treinos guiados passo a passo das telas, com o Dentinho. Nada é salvo no sistema.',
     order: 20,
     routines: [
+      { title: 'Pedido', slug: 'pedido', description: 'Treino guiado do pedido de venda, do cliente à integração no SAP, com permissão e parâmetro por etapa.' },
+      { title: 'Aprovação de Pedidos', slug: 'aprovacao-de-pedidos', description: 'Treino guiado da aprovação do pedido pelas alçadas (fila SEM Ignition), com permissão e parâmetro por etapa.' },
+      { title: 'Fechamento de Consignado', slug: 'fechamento-de-consignado', description: 'Treino guiado do fechamento de consignado: selecionar itens, equalizar desconto e gerar o pedido de faturamento.' },
+      { title: 'Contrato', slug: 'contrato', description: 'Treino guiado do cadastro de Contrato, da abertura à assinatura (ZapSign), com permissão e parâmetro por etapa.' },
+      { title: 'Lead', slug: 'lead', description: 'Treino guiado do Lead, do cadastro à pipeline (Kanban) e à conversão, com permissão e parâmetro por etapa.' },
+      { title: 'Ocorrência PFCQ', slug: 'ocorrencia-pfcq', description: 'Treino guiado da Ocorrência PFCQ, do recebimento ao encerramento, com permissão e parâmetro por etapa.' },
+      { title: 'Troca / Devolução (TDC)', slug: 'troca-devolucao-cancelamento', description: 'Treino guiado do Pedido TDC: triagem, itens, apuração de crédito/débito e geração do pedido.' },
+      { title: 'Orçamento', slug: 'orcamento', description: 'Treino guiado do Orçamento e da geração do pedido, com permissão e parâmetro por etapa.' },
+      { title: 'Produto', slug: 'produto', description: 'Treino guiado do cadastro de Produto (SKU, descrição, grupo, status e dimensões).' },
       { title: 'Cliente', slug: 'cliente', description: 'Treino guiado do cadastro de Cliente, do pré-cadastro ao envio para aprovação.' },
+      { title: 'Controle de Funcionalidade', slug: 'controle-de-funcionalidade', description: 'Treino guiado do cadastro de uma funcionalidade (feature flag), com permissão e parâmetro por etapa.' },
+      { title: 'Cidade', slug: 'cidade', description: 'Treino guiado do cadastro de Cidade.' },
+      { title: 'Estado', slug: 'estado', description: 'Treino guiado do cadastro de Estado.' },
+      { title: 'País', slug: 'pais', description: 'Treino guiado do cadastro de País.' },
+      { title: 'Incoterm', slug: 'incoterm', description: 'Treino guiado do cadastro de Incoterm.' },
+      ...generatedRoutines,
     ],
   },
 ];
@@ -547,6 +564,7 @@ export const tecnicoGroupEn: Record<string, { title: string; description: string
 
 // Nomes das rotinas (submenu) em inglês, por "moduleId/slug". Fallback = título PT.
 export const routineTitleEn: Record<string, string> = {
+  ...generatedTitlesEn,
   'administrador/amarracao-de-faturamento-por-lounge': 'Lounge Invoicing Binding',
   'administrador/anexos': 'Attachments',
   'administrador/atributo': 'Attribute',
@@ -730,7 +748,21 @@ export const routineTitleEn: Record<string, string> = {
   'roteirizador/jornada': 'Journey',
   'roteirizador/metricas': 'Metrics',
   'roteirizador/tipo-de-agenda': 'Schedule Type',
+  'simulador/pedido': 'Order',
+  'simulador/aprovacao-de-pedidos': 'Order Approval',
+  'simulador/fechamento-de-consignado': 'Consignment Closing',
+  'simulador/contrato': 'Contract',
+  'simulador/lead': 'Lead',
+  'simulador/ocorrencia-pfcq': 'PFCQ Occurrence',
+  'simulador/troca-devolucao-cancelamento': 'Exchange / Return (TDC)',
+  'simulador/orcamento': 'Quote',
+  'simulador/produto': 'Product',
   'simulador/cliente': 'Customer',
+  'simulador/controle-de-funcionalidade': 'Feature Control',
+  'simulador/cidade': 'City',
+  'simulador/estado': 'State',
+  'simulador/pais': 'Country',
+  'simulador/incoterm': 'Incoterm',
 };
 
 // Nomes das subpáginas técnicas (submenu) em inglês, por "groupSlug/slug".

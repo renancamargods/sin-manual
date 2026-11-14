@@ -5,15 +5,15 @@ pageType: routine
 module: simulador
 moduleLabel: Simulador
 title: Cliente
-description: Treino guiado do cadastro de Cliente, passo a passo, com o Dentinho — do pré-cadastro ao envio para aprovação. Nada é salvo no sistema.
+description: Treino guiado do cadastro de Cliente, passo a passo, com o Dentinho — do pré-cadastro ao envio para aprovação. Mostra a permissão e o parâmetro de cada etapa. Nada é salvo no sistema.
 routineType: Treino guiado
 permission: Não
 impact: Treino — nada é salvo no sistema
-keywords: [simulador, treino, treino guiado, cliente, cadastro de cliente, passo a passo, praticar, aprender, pré-cadastro, aprovação, alçada, sap, dentinho]
+keywords: [simulador, treino, treino guiado, cliente, cadastro de cliente, passo a passo, permissão, parâmetro, pré-cadastro, aprovação, alçada, sap, dentinho]
 tags: [modulo-simulador, treino]
 order: 1
 ---
 
-import TreinoCliente from '../../../../components/TreinoCliente.astro';
+import SimuladorTela from '../../../../components/SimuladorTela.astro';
 
-<TreinoCliente lang="pt" />
+<SimuladorTela slug="cliente" lang="pt" />

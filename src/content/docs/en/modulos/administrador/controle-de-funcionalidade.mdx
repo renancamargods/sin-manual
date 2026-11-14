@@ -98,19 +98,31 @@ The system validates on save:
   ]}
 />
 
-### Registered features (real examples)
+### Feature catalog (the ones the system reads today)
 
-The features currently registered and what each one does. What turns the behavior on/off is the **Enabled** column (Yes/No):
+These are the features the system **actually reads** to decide behavior (each one by a **Feature Identifier Key**). What turns it on/off is the **Enabled** column; some also use the **Value** field (e.g., a configuration JSON). The current state (on/off) is what shows on the screen itself, so it is not repeated here.
 
 <DocTable
-  headers={['Key', 'Name', 'Enabled (HML)', 'Effect']}
+  headers={['Key', 'What it configures', 'Value Type', 'What it does when Enabled']}
   rows={[
-    ['Gateway.Pagamento.PayGo', 'Definir Gateway Padrão CC - PayGo', 'Yes (Active)', 'Sets PayGo as the default credit-card gateway.'],
-    ['Fila.Pedidos.SemIgnition', 'Nova Fila de Pedidos - Sem Ignition', 'Yes (Active)', 'Enabled: orders use the NEW approval queue, WITHOUT Ignition. Disabled: they go back to the queue WITH Ignition.'],
-    ['Fila.Clientes.SemIgnition', 'Nova Fila de Clientes - Sem Ignition', 'Yes (Active)', 'Enabled: customer registration uses the NEW approval queue, WITHOUT Ignition. Disabled: it goes back to the queue WITH Ignition.'],
-    ['Contratos.Vigencia.Bloqueio.Manual', 'Contratos > Bloquear preenchimento manual Vigências', 'No (Inactive)', 'Enabled: blocks manual entry of contract validity periods.'],
+    ['Gateway.Pagamento.PayGo', 'Default card gateway — PayGo', 'Boolean', 'Generates the card payment links (order and mixed payment) through the PayGo gateway.'],
+    ['Fila.Pedidos.SemIgnition', 'New order queue — without Ignition', 'Boolean', 'Submitted orders use the NEW approval queue, WITHOUT Ignition. Disabled: they go back to the queue WITH Ignition.'],
+    ['Fila.Clientes.SemIgnition', 'New customer queue — without Ignition', 'Boolean', 'Customer registration uses the NEW approval queue, WITHOUT Ignition. Disabled: it goes back to the queue WITH Ignition.'],
+    ['Fila.SolicitacaoCadastralCliente', 'Registration Request queue (self-registration)', 'Boolean', 'A newly recorded registration request (self-registration) is routed to the approval queue. Disabled: it is applied immediately (legacy behavior).'],
+    ['Clientes.OnboardingDigital.Habilitado', 'Digital onboarding (public self-registration)', 'Boolean', 'Enables the public self-registration page (digital onboarding) for customers.'],
+    ['Clientes.OnboardingDigital.Validar.Email', 'Validate e-mail in digital onboarding', 'Boolean', 'Requires e-mail identity confirmation on the public self-registration page.'],
+    ['Pedidos.SinSolution.Listagem.Completa', 'SIN Solutions executives — full listing', 'Json', 'Executives of the configured groups also see, in the order listing, the SIN Solutions orders of their portfolio customers. The Value (JSON) defines the groups and the product type.'],
+    ['Contratos.Vigencia.Bloqueio.Manual', 'Block manual entry of validity periods (Contract)', 'Boolean', 'Blocks manual entry of the validity periods in the Contract registration.'],
   ]}
 />
+
+<Callout type="info" title="Enabled × Value">
+Most keys are a **switch** (**Enabled** = Yes/No). Some, like **Pedidos.SinSolution.Listagem.Completa**, also need the **Value** field filled (a configuration JSON) — if the Value is empty or invalid, the feature has no effect even when Enabled.
+</Callout>
+
+<Callout type="atencao" title="A key may exist with no effect">
+The screen lets you register **any** key. Only the keys the system actually reads (the ones in the catalog above) change behavior — a new key only takes effect once the code is adjusted to read it. So creating a stray key does not turn on any feature by itself.
+</Callout>
 
 <Callout type="info" title="How the key turns Ignition on/off">
 The **Fila.Clientes.SemIgnition** and **Fila.Pedidos.SemIgnition** keys decide which **approval queue** the system uses:
@@ -198,5 +210,6 @@ Today, in Homologation, both keys are **Enabled (Active)** — that is, customer
   versions={[
     { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Initial release of the Feature Control screen documentation.' },
     { version: '1.1', date: '21/10/2026', author: 'Renan Camargo', description: 'Added validation rules (required fields, Name/Description limits and Value by type: Boolean, Number and Json).' },
+    { version: '1.2', date: '11/14/2026', author: 'Renan Camargo', description: 'Full catalog of the 8 features the system reads today (key, value type and effect when enabled), verified against the code.' },
   ]}
 />

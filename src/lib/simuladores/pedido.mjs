@@ -1,0 +1,258 @@
+// Spec do simulador da tela PEDIDO (fluxo mais rico). Fiel a:
+//   modulos/pedidos/pedido.mdx
+//   tecnico/fluxos/processo-do-pedido.mdx (10 etapas, obrigatórios, status)
+//   tecnico/fluxos/processo-do-pedido-permissoes-parametros.mdx (permissões/parâmetros reais)
+//   tecnico/regras-de-validacao/pedido.mdx
+// Parâmetros via [[sin-controle-funcionalidade-flags]] + AppSettings do pedido.
+
+const etapasOrdem = ['CLIENTE', 'ESTRUTURA', 'ITENS', 'CONDICOES', 'ENVIADO', 'ANALISE', 'INTEGRADO'];
+const etapaTipo = { CLIENTE: 'ABRIR', ESTRUTURA: 'ABRIR', ITENS: 'ABRIR', CONDICOES: 'SALVAR', ENVIADO: 'ENVIAR', ANALISE: 'APROVAR', INTEGRADO: 'FIM' };
+
+export const spec = {
+  slug: 'pedido',
+  exigeAnexo: false,
+  codigoFinal: 'PED-0012345',
+  etapasOrdem,
+  etapaTipo,
+  variantes: [
+    { key: 'PF', label: { pt: 'Física (nacional)', en: 'Individual (domestic)' } },
+    { key: 'PJ', label: { pt: 'Jurídica (nacional)', en: 'Company (domestic)' } },
+    { key: 'EST', label: { pt: 'Estrangeiro (comex)', en: 'Foreign (comex)' } },
+  ],
+  obrigatorios: {
+    _: ['estrutura', 'tipoFrete', 'prioridade', 'previsaoEntrega', 'previsaoFaturamento', 'pedidoEspecial'],
+  },
+  pegadinha: { _: 'previsaoEntrega' },
+  alcada: { PF: ['administrativo', 'credito'], PJ: ['administrativo', 'credito'], EST: ['comex'] },
+
+  painel: (s, lang) => {
+    const t = spec.textos[lang];
+    const nac = s.variante === 'EST' ? t.painelLabels.internacional : t.painelLabels.nacional;
+    return [
+      { k: t.painelLabels.status, v: t.statusLabel[s.statusKey] },
+      { k: t.painelLabels.tipo, v: spec.variantes.find((v) => v.key === s.variante).label[lang] },
+      { k: t.painelLabels.abrangencia, v: nac },
+      { k: t.painelLabels.montado, v: s.salvo ? t.painelLabels.montSim : t.painelLabels.montNao },
+      { k: t.painelLabels.codigo, v: s.codigo || t.painelLabels.semCodigo },
+    ];
+  },
+
+  textos: {
+    pt: {
+      titulo: 'Montar um Pedido de venda, passo a passo',
+      sub: 'Do cliente à integração no SAP; cada etapa mostra a permissão e o parâmetro em jogo. Nada é salvo no sistema.',
+      campos: {
+        estrutura: 'Estrutura comercial (Consultor FVE/FVI, GD, GR, GNV)', tipoFrete: 'Tipo de Frete',
+        prioridade: 'Prioridade / Urgente', previsaoEntrega: 'Previsão de Entrega',
+        previsaoFaturamento: 'Previsão de Faturamento', pedidoEspecial: 'Pedido Especial',
+      },
+      statusLabel: { novo: 'Rascunho (montando)', emAnalise: 'Em Análise (alçadas)', ativo: 'Liberado / Integrado ao SAP' },
+      alcada: { administrativo: 'Administrativo', credito: 'Crédito', comex: 'Comex (Administrativo + Crédito Internacional)' },
+      painelLabels: {
+        status: 'Status', tipo: 'Cliente', abrangencia: 'Abrangência', montado: 'Pedido', codigo: 'Código',
+        nacional: 'Nacional', internacional: 'Internacional (comex)', montSim: '✓ Rascunho montado', montNao: '⏳ montando', semCodigo: '— (após liberação)',
+      },
+      trilha: { CLIENTE: 'Cliente', ESTRUTURA: 'Estrutura', ITENS: 'Itens', CONDICOES: 'Condições', ENVIADO: 'Enviar', ANALISE: 'Análise' },
+      regras: [
+        'O cliente define o Tipo de Pessoa, se o pedido é Nacional ou Internacional e a moeda.',
+        'Obrigatórios: cliente, estrutura comercial (FVE/FVI, GD, GR, GNV), Tipo de Frete, Prioridade/Urgente, Previsão de Entrega e de Faturamento, Pedido Especial. Desconto Total entre 0% e 100%.',
+        'Itens: produto precisa existir; sem produto + tipo de item duplicado; bonificado exige Operação Inteligente permitida; campanha precisa bater o valor da política.',
+        'Sem Lounge não há saldo de estoque; sem Lista de Preço os itens não têm preço.',
+        'Enviado, passa por Análise Administrativa e/ou de Crédito (Motor de Crédito + Serasa) até ser Liberado.',
+        'Liberado, o pedido é integrado ao SAP e segue para faturamento e separação (romaneio).',
+        'Cartão/PIX geram link de pagamento (PayGo) e passam por "Aguardando Pagamento"; boleto segue direto.',
+      ],
+      quem: [
+        'Acessar/criar/enviar: permissão da tela no Autenticador (Perfil/Grupo) — ex.: PEDIDO.VISUALIZAR, PEDIDO.EDITAR.',
+        'Aprovar: o aprovador de cada etapa vem da Regra de Aprovação (Aprovações) — não é permissão fixa.',
+        'Cancelar: permissão PEDIDO.CANCELAR, conforme a etapa em que o pedido está.',
+      ],
+      etapas: {
+        CLIENTE: {
+          ic: '👤', tit: 'Cliente', quem: 'Comercial (Consultor)',
+          tela: 'Pedidos → Pedido', href: '/modulos/pedidos/pedido',
+          txt: 'Selecione o cliente. É ele que define o Tipo de Pessoa, se o pedido é Nacional ou Internacional e a moeda.',
+          pratica: 'O cliente precisa estar ativo. O endereço + o parâmetro IdPaisBrasil definem nacional/internacional.',
+          fala: 'Bora montar um pedido! 🦷 Primeiro: pra qual cliente?',
+          acao: 'Selecionar cliente →',
+          permissao: 'Acesso à tela de Pedido (PEDIDO.VISUALIZAR / PEDIDO.EDITAR), liberado por Perfil/Grupo no Autenticador.',
+          parametro: { chave: 'IdPaisBrasil', efeito: 'define se o pedido é Nacional (país = Brasil) ou Internacional (comex).' },
+        },
+        ESTRUTURA: {
+          ic: '🧭', tit: 'Estrutura comercial, Lounge e Lista de Preço', quem: 'Comercial',
+          tela: 'Pedidos → Pedido', href: '/modulos/pedidos/pedido',
+          txt: 'O pedido carrega o responsável comercial (Consultor FVE/FVI, GD, GR, GNV) e precisa do Lounge (saldo de estoque) e da Lista de Preço (preço dos itens).',
+          pratica: 'Sem Lounge você não vê o saldo de estoque; sem Lista de Preço os itens não têm preço.',
+          fala: 'Agora quem cuida da venda e de onde sai o estoque. 😁',
+          acao: 'Definir estrutura e Lounge →',
+          permissao: 'PEDIDO.EDITAR (criar/alterar o pedido).',
+          parametro: { chave: 'Lounge', efeito: 'necessário para calcular o saldo de estoque dos itens.' },
+        },
+        ITENS: {
+          ic: '📦', tit: 'Itens do pedido', quem: 'Comercial',
+          tela: 'Pedidos → Pedido (Adicionar Item / Digitação Rápida)', href: '/modulos/pedidos/pedido',
+          txt: 'Adicione os itens (produto, tipo do item, quantidade, preço). O sistema valida produto existente, duplicidade (produto + tipo) e as regras por tipo de item.',
+          pratica: 'Item bonificado só passa se a Operação Inteligente estiver liberada para bonificação; item de campanha precisa bater o valor da política.',
+          fala: 'Hora dos produtos! 📦 Venda, bonificação, campanha…',
+          acao: 'Adicionar itens →',
+          permissao: 'PEDIDO.EDITAR.',
+          parametro: { chave: 'IdsOperacoesInteligentesDeBonificacao', efeito: 'define quais Operações Inteligentes aceitam itens bonificados.' },
+        },
+        CONDICOES: {
+          ic: '🚚', tit: 'Frete, previsões e pagamento', quem: 'Comercial',
+          tela: 'Pedidos → Pedido', href: '/modulos/pedidos/pedido',
+          txt: 'Defina Tipo de Frete, Prioridade/Urgente, Previsão de Entrega e de Faturamento, Pedido Especial e a forma de pagamento. Preencha os obrigatórios e o pedido fica montado (Rascunho).',
+          pratica: 'Previsões e estrutura são obrigatórias. Boleto segue direto; Cartão/PIX geram link e passam por "Aguardando Pagamento".',
+          fala: 'Fechando as condições! Preenche que eu confiro os obrigatórios. ✅',
+          acao: 'Preencher e montar',
+          permissao: 'PEDIDO.EDITAR.',
+          parametro: { chave: 'DiasEntregaPedidoPadrao · IdFormaPag* · Gateway.Pagamento.PayGo', efeito: 'prazos padrão das previsões, qual forma é boleto/PIX/cartão e o gateway que gera os links de cartão.' },
+        },
+        ENVIADO: {
+          ic: '📤', tit: 'Enviar o pedido', quem: 'Comercial',
+          tela: 'Pedidos → Pedido / Fila de Aprovação', href: '/tecnico/fluxos/aprovacao-de-pedidos-sem-ignition',
+          txt: 'Enviado, o pedido sai de Rascunho e entra na análise conforme a Regra de Aprovação. Daqui, a decisão é das alçadas.',
+          pratica: 'A fila usada depende do parâmetro Fila.Pedidos.SemIgnition (nova fila SEM Ignition ou a fila COM Ignition).',
+          fala: 'Pedido montado! 📤 Bora enviar pra análise?',
+          acao: 'Enviar pedido →',
+          permissao: 'Permissão de criar/enviar pedido (Perfil no Autenticador).',
+          parametro: { chave: 'Fila.Pedidos.SemIgnition', efeito: 'Habilitada → nova fila de aprovação SEM Ignition; desabilitada → fila COM Ignition.' },
+        },
+        ANALISE: {
+          ic: '🔎', tit: 'Análise e aprovação', quem: 'Alçadas (Administrativo / Crédito)',
+          tela: 'Fila de Aprovação / Motor de Crédito', href: '/tecnico/fluxos/aprovacao-de-pedidos-sem-ignition',
+          txt: 'O pedido passa por Análise Administrativa e/ou de Crédito. O Motor de Crédito pode avaliar automaticamente (e consultar o Serasa) e liberar, recusar ou mandar para a Mesa de Crédito.',
+          pratica: 'O aprovador de cada etapa NÃO é permissão fixa: vem da Regra de Aprovação. Cartão/PIX ainda passam pela cobrança/pagamento.',
+          fala: 'Agora é com as alçadas. 🔎 Vou te mostrar a liberação.',
+          acao: 'Aprovar (alçadas) →',
+          permissao: 'Aprovador definido pela Regra de Aprovação (Aprovações → Regra de Aprovação) — não é permissão fixa.',
+          parametro: { chave: 'PerfilCredito · Motor de Crédito (R006) · Serasa', efeito: 'perfis e regras que decidem aprovar automaticamente ou enviar à Mesa de Crédito.' },
+        },
+        INTEGRADO: {
+          ic: '✅', tit: 'Liberado e integrado ao SAP', quem: 'Sistema',
+          tela: 'Integração SAP → Faturamento / Separação', href: '/tecnico/fluxos/integracao-sap-visao-geral',
+          txt: 'Liberado! O pedido é integrado ao SAP e segue para faturamento e separação (romaneio). Ciclo de montagem concluído.',
+          pratica: 'Se a integração falhar, o status mostra "Erro Integração SAP" e dá para reprocessar.',
+          fala: 'Liberado e integrado! ✅ Pedido a caminho do faturamento. 🦷',
+          acao: null, permissao: null,
+          parametro: { chave: 'Integração SAP', efeito: 'envia o pedido liberado ao SAP para faturamento e separação.' },
+        },
+      },
+      outFalta: (l) => `Não dá pra montar/enviar: faltam campos obrigatórios — ${l}. Preencha e tente de novo.`,
+      outEnviou: (a) => `Pedido enviado! Vai para análise: ${a}. Status: "Em Análise".`,
+      out: {
+        salve_antes: 'Monte o pedido (preencha os obrigatórios) antes de enviar.',
+        salvou: 'Pedido montado (Rascunho). Obrigatórios ok — pronto para enviar.',
+        aprovou: 'Liberado pelas alçadas: pedido integrado ao SAP, a caminho do faturamento.',
+      },
+    },
+    en: {
+      titulo: 'Build a sales Order, step by step',
+      sub: 'From the customer to SAP integration; each step shows the permission and parameter in play. Nothing is saved in the system.',
+      campos: {
+        estrutura: 'Commercial structure (FVE/FVI Consultant, GD, GR, GNV)', tipoFrete: 'Freight Type',
+        prioridade: 'Priority / Urgent', previsaoEntrega: 'Delivery Forecast',
+        previsaoFaturamento: 'Invoicing Forecast', pedidoEspecial: 'Special Order',
+      },
+      statusLabel: { novo: 'Draft (building)', emAnalise: 'Under review (levels)', ativo: 'Released / Integrated with SAP' },
+      alcada: { administrativo: 'Administrative', credito: 'Credit', comex: 'Comex (Administrative + International Credit)' },
+      painelLabels: {
+        status: 'Status', tipo: 'Customer', abrangencia: 'Scope', montado: 'Order', codigo: 'Code',
+        nacional: 'Domestic', internacional: 'International (comex)', montSim: '✓ Draft built', montNao: '⏳ building', semCodigo: '— (after release)',
+      },
+      trilha: { CLIENTE: 'Customer', ESTRUTURA: 'Structure', ITENS: 'Items', CONDICOES: 'Terms', ENVIADO: 'Submit', ANALISE: 'Review' },
+      regras: [
+        'The customer defines the Person Type, whether the order is Domestic or International, and the currency.',
+        'Required: customer, commercial structure (FVE/FVI, GD, GR, GNV), Freight Type, Priority/Urgent, Delivery and Invoicing Forecast, Special Order. Total Discount between 0% and 100%.',
+        'Items: the product must exist; no duplicate product + item type; bonus items need a permitted Smart Operation; campaign items must match the policy value.',
+        'Without a Lounge there is no stock balance; without a Price List items have no price.',
+        'Once submitted, it goes through Administrative and/or Credit review (Credit Engine + Serasa) until it is Released.',
+        'Released, the order is integrated with SAP and moves on to invoicing and picking.',
+        'Card/PIX generate a payment link (PayGo) and go through "Awaiting Payment"; boleto proceeds directly.',
+      ],
+      quem: [
+        'Access/create/submit: screen permission in the Authenticator (Profile/Group) — e.g. PEDIDO.VISUALIZAR, PEDIDO.EDITAR.',
+        'Approve: each step\'s approver comes from the Approval Rule (Approvals) — not a fixed permission.',
+        'Cancel: PEDIDO.CANCELAR permission, depending on the stage the order is in.',
+      ],
+      etapas: {
+        CLIENTE: {
+          ic: '👤', tit: 'Customer', quem: 'Sales (Consultant)',
+          tela: 'Orders → Order', href: '/en/modulos/pedidos/pedido',
+          txt: 'Select the customer. It defines the Person Type, whether the order is Domestic or International, and the currency.',
+          pratica: 'The customer must be active. The address + the IdPaisBrasil parameter define domestic/international.',
+          fala: "Let's build an order! 🦷 First: which customer?",
+          acao: 'Select customer →',
+          permissao: 'Access to the Order screen (PEDIDO.VISUALIZAR / PEDIDO.EDITAR), granted by Profile/Group in the Authenticator.',
+          parametro: { chave: 'IdPaisBrasil', efeito: 'defines whether the order is Domestic (country = Brazil) or International (comex).' },
+        },
+        ESTRUTURA: {
+          ic: '🧭', tit: 'Commercial structure, Lounge and Price List', quem: 'Sales',
+          tela: 'Orders → Order', href: '/en/modulos/pedidos/pedido',
+          txt: 'The order carries the commercial owner (FVE/FVI Consultant, GD, GR, GNV) and needs the Lounge (stock balance) and the Price List (item prices).',
+          pratica: 'Without a Lounge you cannot see the stock balance; without a Price List items have no price.',
+          fala: "Now who owns the sale and where stock comes from. 😁",
+          acao: 'Set structure and Lounge →',
+          permissao: 'PEDIDO.EDITAR (create/edit the order).',
+          parametro: { chave: 'Lounge', efeito: 'required to compute the item stock balance.' },
+        },
+        ITENS: {
+          ic: '📦', tit: 'Order items', quem: 'Sales',
+          tela: 'Orders → Order (Add Item / Quick Entry)', href: '/en/modulos/pedidos/pedido',
+          txt: 'Add the items (product, item type, quantity, price). The system validates existing product, duplication (product + type) and the rules per item type.',
+          pratica: 'A bonus item only passes if the Smart Operation is enabled for bonus; a campaign item must match the policy value.',
+          fala: 'Time for products! 📦 Sale, bonus, campaign…',
+          acao: 'Add items →',
+          permissao: 'PEDIDO.EDITAR.',
+          parametro: { chave: 'IdsOperacoesInteligentesDeBonificacao', efeito: 'defines which Smart Operations accept bonus items.' },
+        },
+        CONDICOES: {
+          ic: '🚚', tit: 'Freight, forecasts and payment', quem: 'Sales',
+          tela: 'Orders → Order', href: '/en/modulos/pedidos/pedido',
+          txt: 'Set Freight Type, Priority/Urgent, Delivery and Invoicing Forecast, Special Order and the payment method. Fill the required fields and the order becomes a Draft.',
+          pratica: 'Forecasts and structure are required. Boleto proceeds directly; Card/PIX generate a link and go through "Awaiting Payment".',
+          fala: "Closing the terms! Fill them and I'll check the required fields. ✅",
+          acao: 'Fill and build',
+          permissao: 'PEDIDO.EDITAR.',
+          parametro: { chave: 'DiasEntregaPedidoPadrao · IdFormaPag* · Gateway.Pagamento.PayGo', efeito: 'default forecast terms, which method is boleto/PIX/card, and the gateway that generates card links.' },
+        },
+        ENVIADO: {
+          ic: '📤', tit: 'Submit the order', quem: 'Sales',
+          tela: 'Orders → Order / Approval Queue', href: '/en/tecnico/fluxos/aprovacao-de-pedidos-sem-ignition',
+          txt: 'Once submitted, the order leaves Draft and enters review per the Approval Rule. From here, the decision is the levels\'.',
+          pratica: 'The queue used depends on the Fila.Pedidos.SemIgnition parameter (new queue WITHOUT Ignition or the queue WITH Ignition).',
+          fala: 'Order built! 📤 Shall we submit for review?',
+          acao: 'Submit order →',
+          permissao: 'Create/submit order permission (Profile in the Authenticator).',
+          parametro: { chave: 'Fila.Pedidos.SemIgnition', efeito: 'Enabled → new approval queue WITHOUT Ignition; disabled → queue WITH Ignition.' },
+        },
+        ANALISE: {
+          ic: '🔎', tit: 'Review and approval', quem: 'Levels (Administrative / Credit)',
+          tela: 'Approval Queue / Credit Engine', href: '/en/tecnico/fluxos/aprovacao-de-pedidos-sem-ignition',
+          txt: 'The order goes through Administrative and/or Credit review. The Credit Engine may evaluate it automatically (and query Serasa) and release, reject, or send it to the Credit Desk.',
+          pratica: 'Each step\'s approver is NOT a fixed permission: it comes from the Approval Rule. Card/PIX still go through billing/payment.',
+          fala: "Now it's with the levels. 🔎 I'll show you the release.",
+          acao: 'Approve (levels) →',
+          permissao: 'Approver defined by the Approval Rule (Approvals → Approval Rule) — not a fixed permission.',
+          parametro: { chave: 'PerfilCredito · Credit Engine (R006) · Serasa', efeito: 'profiles and rules that decide to auto-approve or send to the Credit Desk.' },
+        },
+        INTEGRADO: {
+          ic: '✅', tit: 'Released and integrated with SAP', quem: 'System',
+          tela: 'SAP Integration → Invoicing / Picking', href: '/en/tecnico/fluxos/integracao-sap-visao-geral',
+          txt: 'Released! The order is integrated with SAP and moves on to invoicing and picking. Build cycle complete.',
+          pratica: 'If integration fails, the status shows "SAP Integration Error" and it can be reprocessed.',
+          fala: 'Released and integrated! ✅ Order on its way to invoicing. 🦷',
+          acao: null, permissao: null,
+          parametro: { chave: 'SAP integration', efeito: 'sends the released order to SAP for invoicing and picking.' },
+        },
+      },
+      outFalta: (l) => `Can't build/submit: required fields are missing — ${l}. Fill them and try again.`,
+      outEnviou: (a) => `Order submitted! Going to review: ${a}. Status: "Under review".`,
+      out: {
+        salve_antes: 'Build the order (fill the required fields) before submitting.',
+        salvou: 'Order built (Draft). Required fields ok — ready to submit.',
+        aprovou: 'Released by the levels: order integrated with SAP, on its way to invoicing.',
+      },
+    },
+  },
+};

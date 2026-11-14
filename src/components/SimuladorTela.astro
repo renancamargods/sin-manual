@@ -1,0 +1,272 @@
+---
+// Simulador guiado genérico. Tela "burra": desenha o spec de src/lib/simuladores/<slug>.mjs
+// pelo motor src/lib/simulador.mjs. Dentinho narra; cada passo mostra Permissão + Parâmetro.
+interface Props { slug: string; lang?: 'pt' | 'en' }
+const { slug, lang = 'pt' } = Astro.props;
+---
+
+<section data-sim data-slug={slug} data-lang={lang} class="not-prose mx-auto w-full max-w-5xl flex-1">
+  <noscript>
+    <p class="rounded-xl2 border border-brand-line bg-brand-surface p-4 text-sm text-brand-fg-2">
+      {lang === 'en' ? 'This guided training needs JavaScript enabled.' : 'Este treino guiado precisa de JavaScript ativado.'}
+    </p>
+  </noscript>
+
+  <header class="mb-6">
+    <p class="text-xs font-semibold uppercase tracking-wider text-brand-red-on-dark">{lang === 'en' ? 'Guided training' : 'Treino guiado'}</p>
+    <h1 data-ui="titulo" class="mt-2 text-2xl font-bold text-brand-fg sm:text-3xl"></h1>
+    <p data-ui="sub" class="mt-2 max-w-2xl text-sm leading-relaxed text-brand-fg-2"></p>
+    <div data-tipos-wrap class="mt-4 flex flex-wrap items-center gap-2">
+      <span data-ui="tiposLabel" class="mr-1 text-xs font-semibold uppercase tracking-wide text-brand-muted"></span>
+      <div data-tipos class="inline-flex flex-wrap rounded-lg border border-brand-line bg-brand-surface p-0.5"></div>
+    </div>
+  </header>
+
+  <ol data-trilha class="tr-trilha"></ol>
+
+  <div class="mt-5 grid gap-5 lg:grid-cols-5">
+    <div class="lg:col-span-3 rounded-xl2 border border-brand-line bg-brand-surface p-5 shadow-card sm:p-6">
+      <p data-cena="passo" class="text-xs font-semibold uppercase tracking-wide text-brand-muted"></p>
+
+      <div class="mt-3 flex items-start gap-3">
+        <span data-dentinho class="tr-dentinho flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-brand-red"></span>
+        <div class="relative flex-1 rounded-xl2 rounded-tl-sm border border-brand-line bg-brand-bg px-4 py-3 text-sm leading-relaxed text-brand-fg">
+          <span data-cena="fala"></span>
+        </div>
+      </div>
+
+      <h2 data-cena="titulo" class="mt-5 text-lg font-semibold text-brand-fg"></h2>
+      <div class="mt-2 flex flex-wrap gap-2 text-xs" data-cena="tags"></div>
+
+      <p data-cena="txt" class="mt-3 text-sm leading-relaxed text-brand-fg-2"></p>
+      <p data-cena="pratica" class="mt-3 rounded-lg bg-white/5 px-3 py-2 text-sm text-brand-fg-2"></p>
+
+      <!-- ficha: permissão + parâmetro deste passo -->
+      <div data-cena="ficha" class="mt-3 space-y-2"></div>
+
+      <div data-cena="resultado" class="mt-3 hidden rounded-lg px-3 py-2 text-sm"></div>
+
+      <div class="mt-5 flex flex-wrap items-center gap-2">
+        <button data-act="principal" type="button" class="rounded-lg bg-brand-red px-4 py-2 text-sm font-semibold text-white shadow-card transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"></button>
+        <button data-act="voltar" type="button" class="rounded-lg border border-brand-line px-3 py-2 text-sm text-brand-fg-2 transition hover:bg-white/5 disabled:opacity-30"></button>
+        <button data-act="reiniciar" type="button" class="rounded-lg border border-brand-line px-3 py-2 text-sm text-brand-fg-2 transition hover:bg-white/5"></button>
+      </div>
+
+      <div data-cena="ese" class="mt-5 hidden">
+        <p data-ui="ese" class="mb-2 text-xs font-semibold uppercase tracking-wide text-brand-muted"></p>
+        <div data-ese-botoes class="flex flex-wrap gap-2"></div>
+      </div>
+    </div>
+
+    <aside class="lg:col-span-2 rounded-xl2 border border-brand-line bg-brand-surface p-5 shadow-card sm:p-6">
+      <h3 data-ui="painel" class="mb-4 text-sm font-semibold uppercase tracking-wide text-brand-muted"></h3>
+      <dl data-painel class="space-y-3 text-sm"></dl>
+    </aside>
+  </div>
+
+  <div class="mt-6 space-y-2">
+    <details class="tr-det"><summary data-ui="regras"></summary><ul data-regras class="mt-2 list-disc space-y-1 pl-5 text-sm text-brand-fg-2"></ul></details>
+    <details class="tr-det"><summary data-ui="quemFaz"></summary><ul data-quem class="mt-2 list-disc space-y-1 pl-5 text-sm text-brand-fg-2"></ul></details>
+    <details class="tr-det"><summary data-ui="hist"></summary><ol data-hist class="mt-2 space-y-1 text-sm text-brand-fg-2"></ol></details>
+  </div>
+</section>
+
+<style>
+  .tr-trilha { display: flex; gap: 0; overflow-x: auto; overflow-y: hidden; padding-bottom: 4px; }
+  .tr-trilha li { position: relative; flex: 1 1 0; min-width: 92px; text-align: center; }
+  .tr-trilha li::before { content: ''; position: absolute; top: 18px; left: -50%; width: 100%; height: 2px; background: #2a313c; }
+  .tr-trilha li:first-child::before { display: none; }
+  .tr-dot { position: relative; z-index: 1; display: inline-flex; height: 38px; width: 38px; align-items: center; justify-content: center; border-radius: 9999px; border: 2px solid #2a313c; background: #161b22; font-size: 16px; cursor: default; }
+  .tr-dot.done { border-color: #1f9d63; background: rgba(31, 157, 99, 0.15); cursor: pointer; }
+  .tr-dot.cur { border-color: #cc093b; box-shadow: 0 0 0 4px rgba(204, 9, 59, 0.18); }
+  .tr-step-lbl { margin-top: 6px; display: block; font-size: 11px; color: #7d8590; }
+  .tr-dot.cur + .tr-step-lbl { color: #ff5c86; font-weight: 600; }
+  .tr-dentinho { animation: tr-pop 0.5s ease; }
+  @keyframes tr-pop { 0% { transform: scale(0.5) rotate(-12deg); } 55% { transform: scale(1.12) rotate(6deg); } 100% { transform: scale(1) rotate(0deg); } }
+  .tr-det { border: 1px solid #2a313c; border-radius: 0.75rem; background: #161b22; padding: 0.55rem 0.9rem; }
+  .tr-det > summary { cursor: pointer; font-size: 0.875rem; font-weight: 600; color: #aeb6c2; list-style: none; }
+  .tr-det > summary::-webkit-details-marker { display: none; }
+  .tr-ficha { display: flex; gap: 0.5rem; align-items: flex-start; border-radius: 0.5rem; padding: 0.45rem 0.7rem; font-size: 0.8rem; line-height: 1.35; }
+  .tr-ficha-perm { background: rgba(204, 9, 59, 0.08); border: 1px solid rgba(204, 9, 59, 0.25); }
+  .tr-ficha-param { background: rgba(241, 136, 0, 0.08); border: 1px solid rgba(241, 136, 0, 0.3); }
+  @media (prefers-reduced-motion: reduce) { .tr-dentinho { animation: none; } }
+</style>
+
+<script>
+  import { UI, estadoInicial, executar, proximaAcao, faltando, envioBloqueado, mensagem, etapaAtual, pegadinhaDe } from '../lib/simulador.mjs';
+  import { getSpec } from '../lib/simuladores/index.mjs';
+
+  const DENTE = `<svg viewBox="0 0 24 24" class="h-8 w-8" aria-hidden="true">
+    <path fill="#fff" d="M12 2.2c-2.4 0-3.7 1.1-5.1 1.1-1.3 0-2.2-.7-3-.2-1 .7-1.1 2.4-1 4.2.1 1.7.5 3 1 4.8.4 1.5.6 3.1 1 4.9.3 1.4.6 3 1.6 3.6.9.6 1.6-.3 1.9-1.6.3-1.3.4-2.9 1.1-2.9s.8 1.6 1.1 2.9c.3 1.3 1 2.2 1.9 1.6 1-.6 1.3-2.2 1.6-3.6.4-1.8.6-3.4 1-4.9.5-1.8.9-3.1 1-4.8.1-1.8 0-3.5-1-4.2-.8-.5-1.7.2-3 .2-1.4 0-2.7-1.1-5.1-1.1z"/>
+    <circle cx="7.7" cy="10.4" r="1.1" fill="#ffb3b3"/><circle cx="16.3" cy="10.4" r="1.1" fill="#ffb3b3"/>
+    <circle cx="9.4" cy="8.4" r="1.05" fill="#c81e2c"/><circle cx="14.6" cy="8.4" r="1.05" fill="#c81e2c"/>
+    <circle cx="9.0" cy="8.0" r="0.32" fill="#fff"/><circle cx="14.2" cy="8.0" r="0.32" fill="#fff"/>
+    <path d="M8.7 10.9c.9 1.5 5.7 1.5 6.6 0" stroke="#c81e2c" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+  </svg>`;
+
+  document.querySelectorAll('[data-sim]').forEach((root) => {
+    const lang = root.getAttribute('data-lang') === 'en' ? 'en' : 'pt';
+    const slug = root.getAttribute('data-slug');
+    const spec = getSpec(slug);
+    if (!spec) return;
+    const ui = UI[lang];
+    const m = spec.textos[lang];
+    const $ = (s) => root.querySelector(s);
+
+    const trilhaIds = spec.etapasOrdem.filter((id) => spec.etapaTipo[id] !== 'FIM');
+    const temEnviar = Object.values(spec.etapaTipo).includes('ENVIAR');
+
+    let cenario = {};
+    let hist = [estadoInicial(spec, cenario)];
+    let acoes = [];
+    let ultima = null;
+    const atual = () => hist[hist.length - 1];
+
+    // textos fixos
+    $('[data-ui="titulo"]').textContent = m.titulo;
+    $('[data-ui="sub"]').textContent = m.sub;
+    $('[data-ui="tiposLabel"]').textContent = ui.tiposLabel;
+    $('[data-ui="ese"]').textContent = ui.ese;
+    $('[data-ui="painel"]').textContent = ui.painel;
+    $('[data-ui="regras"]').textContent = ui.regras;
+    $('[data-ui="quemFaz"]').textContent = ui.quemFaz;
+    $('[data-ui="hist"]').textContent = ui.hist;
+    $('[data-regras]').innerHTML = (m.regras || []).map((r) => `<li>${r}</li>`).join('');
+    $('[data-quem]').innerHTML = (m.quem || []).map((r) => `<li>${r}</li>`).join('');
+
+    // seletor de variação (se houver)
+    if (spec.variantes) {
+      $('[data-tipos]').innerHTML = spec.variantes
+        .map((v) => `<button type="button" data-tipo="${v.key}" class="rounded-md px-3 py-1.5 text-sm font-medium transition">${v.label[lang]}</button>`)
+        .join('');
+    } else {
+      $('[data-tipos-wrap]').style.display = 'none';
+    }
+
+    function trocarTipo(t) { cenario = { variante: t }; hist = [estadoInicial(spec, cenario)]; acoes = []; ultima = null; render(); }
+
+    function aplicar(tipo) {
+      const antes = atual();
+      const r = executar(spec, antes, tipo);
+      ultima = mensagem(spec, lang, r.outcome, r.estado);
+      if (r.estado !== antes) hist.push(r.estado);
+      acoes.push({ texto: ultima.texto, ok: ultima.ok });
+      render(true);
+    }
+
+    function tentarSalvarSem() {
+      const cheio = executar(spec, atual(), 'PREENCHER').estado;
+      const semCampo = executar(spec, cheio, 'tirarPegadinha').estado;
+      const r = executar(spec, semCampo, 'SALVAR');
+      ultima = mensagem(spec, lang, r.outcome, r.estado);
+      acoes.push({ texto: ultima.texto, ok: false });
+      render(true);
+    }
+
+    function tentar(tipo) {
+      const r = executar(spec, atual(), tipo);
+      ultima = mensagem(spec, lang, r.outcome, r.estado);
+      acoes.push({ texto: ultima.texto, ok: ultima.ok });
+      render(true);
+    }
+
+    function render(pop = false) {
+      const s = atual();
+      const etId = etapaAtual(spec, s);
+      const et = m.etapas[etId];
+      const idxTrilha = trilhaIds.indexOf(etId);
+      const terminal = spec.etapaTipo[etId] === 'FIM';
+      const passoN = terminal ? trilhaIds.length : idxTrilha + 1;
+
+      // variação ativa
+      root.querySelectorAll('[data-tipo]').forEach((b) => {
+        const on = b.getAttribute('data-tipo') === s.variante;
+        b.style.background = on ? '#cc093b' : 'transparent';
+        b.style.color = on ? '#fff' : '#aeb6c2';
+      });
+
+      // trilha
+      $('[data-trilha]').innerHTML = trilhaIds.map((id, i) => {
+        const done = i < idxTrilha || terminal;
+        const cur = id === etId;
+        const cls = 'tr-dot' + (done ? ' done' : '') + (cur ? ' cur' : '');
+        return `<li><span class="${cls}" data-goto="${done ? id : ''}">${m.etapas[id].ic}</span><span class="tr-step-lbl">${(m.trilha && m.trilha[id]) || m.etapas[id].tit}</span></li>`;
+      }).join('');
+
+      $('[data-cena="passo"]').textContent = ui.passo(passoN, trilhaIds.length);
+      $('[data-dentinho]').innerHTML = DENTE;
+      if (pop) { const d = $('[data-dentinho]'); d.classList.remove('tr-dentinho'); void d.offsetWidth; d.classList.add('tr-dentinho'); }
+      $('[data-cena="fala"]').textContent = et.fala;
+      $('[data-cena="titulo"]').textContent = `${et.ic} ${et.tit}`;
+      $('[data-cena="tags"]').innerHTML =
+        `<span class="rounded-full bg-white/5 px-2 py-0.5 text-brand-fg-2">${ui.quem}: ${et.quem}</span>` +
+        `<a class="rounded-full bg-white/5 px-2 py-0.5 text-brand-red-on-dark hover:underline" href="${et.href}">${ui.tela}: ${et.tela} →</a>`;
+      $('[data-cena="txt"]').textContent = et.txt;
+      $('[data-cena="pratica"]').textContent = '💡 ' + et.pratica;
+
+      // ficha: permissão + parâmetro
+      let ficha = '';
+      if (et.permissao) ficha += `<div class="tr-ficha tr-ficha-perm"><span>🔑</span><span><strong class="text-brand-fg">${ui.permissao}:</strong> ${et.permissao}</span></div>`;
+      if (et.parametro) ficha += `<div class="tr-ficha tr-ficha-param"><span>⚙️</span><span><strong class="text-brand-fg">${ui.parametro}:</strong> <code class="text-brand-orange">${et.parametro.chave}</code> — ${et.parametro.efeito}</span></div>`;
+      $('[data-cena="ficha"]').innerHTML = ficha;
+
+      // resultado
+      const box = $('[data-cena="resultado"]');
+      if (ultima && ultima.texto) {
+        box.classList.remove('hidden');
+        box.textContent = (ultima.ok ? '✓ ' : '⚠ ') + ultima.texto;
+        box.style.background = ultima.ok ? 'rgba(31,157,99,0.12)' : 'rgba(204,9,59,0.12)';
+        box.style.color = ultima.ok ? '#6ee7a8' : '#ff8aa6';
+      } else box.classList.add('hidden');
+
+      // botões
+      const prox = proximaAcao(spec, s);
+      const btn = $('[data-act="principal"]');
+      if (prox) {
+        btn.classList.remove('hidden');
+        btn.textContent = et.acao || (prox === 'PREENCHER' ? (lang === 'en' ? 'Fill fields' : 'Preencher') : '→');
+        btn.disabled = prox === 'ENVIAR' && envioBloqueado(spec, s);
+      } else btn.classList.add('hidden');
+      $('[data-act="voltar"]').textContent = ui.voltar;
+      $('[data-act="voltar"]').disabled = hist.length <= 1;
+      $('[data-act="reiniciar"]').textContent = ui.reiniciar;
+
+      // E se…?
+      const ese = [];
+      const tipoAtual = spec.etapaTipo[etId];
+      if (tipoAtual === 'SALVAR' && pegadinhaDe(spec, s)) ese.push({ k: 'salvarSem', t: ui.eseSalvarSem(m.campos[pegadinhaDe(spec, s)]) });
+      if (temEnviar && !s.salvo) ese.push({ k: 'enviarAgora', t: ui.eseEnviarAgora });
+      if (spec.exigeAnexo && s.salvo && !s.anexado) ese.push({ k: 'enviarSemAnexo', t: ui.eseEnviarSemAnexo });
+      const eseWrap = $('[data-cena="ese"]');
+      if (ese.length) {
+        eseWrap.classList.remove('hidden');
+        $('[data-ese-botoes]').innerHTML = ese.map((e) => `<button type="button" data-ese="${e.k}" class="rounded-lg border border-dashed border-brand-line px-3 py-1.5 text-xs text-brand-fg-2 transition hover:bg-white/5">${e.t}</button>`).join('');
+      } else eseWrap.classList.add('hidden');
+
+      // painel
+      const linha = (k, v) => `<div class="flex justify-between gap-3"><dt class="text-brand-muted">${k}</dt><dd class="text-right font-medium text-brand-fg">${v}</dd></div>`;
+      $('[data-painel]').innerHTML = spec.painel(s, lang).map((r) => linha(r.k, r.v)).join('');
+
+      // histórico
+      const h = $('[data-hist]');
+      h.innerHTML = acoes.length
+        ? acoes.map((a, i) => `<li>${i + 1}. <span class="${a.ok ? 'text-emerald-400' : 'text-brand-red-on-dark'}">${a.ok ? '✓' : '⚠'}</span> ${a.texto}</li>`).join('')
+        : `<li class="text-brand-muted">${ui.histVazio}</li>`;
+    }
+
+    root.addEventListener('click', (e) => {
+      const el = e.target.closest('[data-tipo],[data-act],[data-ese],[data-goto]');
+      if (!el) return;
+      if (el.dataset.tipo) return trocarTipo(el.dataset.tipo);
+      if (el.dataset.act === 'principal') return aplicar(proximaAcao(spec, atual()));
+      if (el.dataset.act === 'voltar') { if (hist.length > 1) { hist.pop(); acoes.pop(); ultima = null; render(); } return; }
+      if (el.dataset.act === 'reiniciar') return trocarTipo(atual().variante);
+      if (el.dataset.ese === 'salvarSem') return tentarSalvarSem();
+      if (el.dataset.ese === 'enviarAgora') return tentar('ENVIAR');
+      if (el.dataset.ese === 'enviarSemAnexo') return tentar('ENVIAR');
+      if (el.dataset.goto) { const at = hist.map((x) => etapaAtual(spec, x)).lastIndexOf(el.dataset.goto); if (at >= 0) { hist = hist.slice(0, at + 1); ultima = null; render(); } }
+    });
+
+    render();
+  });
+</script>

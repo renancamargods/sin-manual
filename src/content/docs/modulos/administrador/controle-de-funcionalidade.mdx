@@ -97,19 +97,31 @@ O sistema valida ao salvar:
   ]}
 />
 
-### Funcionalidades cadastradas (exemplos reais)
+### Catálogo de funcionalidades (as que o sistema consulta hoje)
 
-As funcionalidades hoje cadastradas e o que cada uma faz. O que liga/desliga o comportamento é a coluna **Habilitada** (Sim/Não):
+Estas são as funcionalidades que o sistema **efetivamente lê** para decidir comportamento (cada uma por uma **Chave Identificadora**). O que liga/desliga é a coluna **Habilitada**; algumas usam também o campo **Valor** (ex.: um JSON de configuração). O estado atual (ligado/desligado) é o que aparece na própria tela — por isso não é repetido aqui.
 
 <DocTable
-  headers={['Chave', 'Nome', 'Habilitada (HML)', 'Efeito']}
+  headers={['Chave', 'O que configura', 'Tipo do Valor', 'O que faz quando Habilitada']}
   rows={[
-    ['Gateway.Pagamento.PayGo', 'Definir Gateway Padrão CC - PayGo', 'Sim (Ativo)', 'Define o PayGo como gateway padrão de cartão de crédito.'],
-    ['Fila.Pedidos.SemIgnition', 'Nova Fila de Pedidos - Sem Ignition', 'Sim (Ativo)', 'Habilitada: os pedidos usam a NOVA fila de aprovação, SEM Ignition. Desabilitada: voltam a usar a fila COM Ignition.'],
-    ['Fila.Clientes.SemIgnition', 'Nova Fila de Clientes - Sem Ignition', 'Sim (Ativo)', 'Habilitada: o cadastro de clientes usa a NOVA fila de aprovação, SEM Ignition. Desabilitada: volta a usar a fila COM Ignition.'],
-    ['Contratos.Vigencia.Bloqueio.Manual', 'Contratos > Bloquear preenchimento manual Vigências', 'Não (Inativo)', 'Habilitada: bloqueia o preenchimento manual das vigências de contrato.'],
+    ['Gateway.Pagamento.PayGo', 'Gateway padrão de cartão — PayGo', 'Booleano', 'Gera os links de pagamento de cartão (pedido e pagamento misto) pelo gateway PayGo.'],
+    ['Fila.Pedidos.SemIgnition', 'Nova fila de pedidos — sem Ignition', 'Booleano', 'Os pedidos enviados usam a NOVA fila de aprovação, SEM Ignition. Desabilitada: voltam à fila COM Ignition.'],
+    ['Fila.Clientes.SemIgnition', 'Nova fila de clientes — sem Ignition', 'Booleano', 'O cadastro de clientes usa a NOVA fila de aprovação, SEM Ignition. Desabilitada: volta à fila COM Ignition.'],
+    ['Fila.SolicitacaoCadastralCliente', 'Fila da Solicitação Cadastral (autocadastro)', 'Booleano', 'Uma solicitação cadastral (autocadastro) recém-registrada é encaminhada à fila de aprovação. Desabilitada: é efetivada na hora (comportamento legado).'],
+    ['Clientes.OnboardingDigital.Habilitado', 'Onboarding digital (autocadastro público)', 'Booleano', 'Libera a página pública de autocadastro (onboarding digital) do cliente.'],
+    ['Clientes.OnboardingDigital.Validar.Email', 'Validar e-mail no onboarding digital', 'Booleano', 'Exige a confirmação de identidade por e-mail na página pública de autocadastro.'],
+    ['Pedidos.SinSolution.Listagem.Completa', 'Executivos SIN Solutions — listagem completa', 'Json', 'Executivos dos grupos configurados passam a ver, na listagem de pedidos, também os pedidos SIN Solutions dos clientes da sua carteira. O Valor (JSON) define os grupos e o tipo de produto.'],
+    ['Contratos.Vigencia.Bloqueio.Manual', 'Bloquear preenchimento manual de vigências (Contrato)', 'Booleano', 'Bloqueia o preenchimento manual das vigências no cadastro de Contrato.'],
   ]}
 />
+
+<Callout type="info" title="Habilitada × Valor">
+A maioria das chaves é um **interruptor** (**Habilitada** = Sim/Não). Algumas, como **Pedidos.SinSolution.Listagem.Completa**, precisam também do campo **Valor** preenchido (um JSON de configuração) — se o Valor estiver vazio ou inválido, a funcionalidade não tem efeito mesmo Habilitada.
+</Callout>
+
+<Callout type="atencao" title="Pode existir chave sem efeito">
+A tela permite cadastrar **qualquer** chave. Só as chaves que o sistema realmente consulta (as do catálogo acima) mudam o comportamento — uma chave nova só passa a valer quando o código for ajustado para lê-la. Por isso, criar uma chave avulsa não liga nenhuma funcionalidade sozinha.
+</Callout>
 
 <Callout type="info" title="Como a chave liga/desliga o Ignition">
 As chaves **Fila.Clientes.SemIgnition** e **Fila.Pedidos.SemIgnition** decidem qual **fila de aprovação** o sistema usa:
@@ -197,5 +209,6 @@ Hoje, em Homologação, as duas chaves estão **Habilitadas (Ativo)** — ou sej
   versions={[
     { version: '1.0', date: '02/09/2026', author: 'Renan Camargo', description: 'Emissão inicial da documentação da tela de Controle de Funcionalidade.' },
     { version: '1.1', date: '21/10/2026', author: 'Renan Camargo', description: 'Inclusão das regras de validação (obrigatórios, limites de Nome/Descrição e Valor por tipo: Booleano, Número e Json).' },
+    { version: '1.2', date: '14/11/2026', author: 'Renan Camargo', description: 'Catálogo completo das 8 funcionalidades que o sistema consulta hoje (chave, tipo do valor e efeito quando habilitada), verificadas no código.' },
   ]}
 />
