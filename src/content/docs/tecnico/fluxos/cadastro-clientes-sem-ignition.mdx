@@ -7,7 +7,7 @@ description: Processo de cadastro e aprovação de clientes (PF, PJ e estrangeir
 moduleLabel: Módulo Cliente
 routineType: Fluxo de processo
 impact: Cadastro e aprovação de clientes pela fila SEM Ignition
-keywords: [cadastro de cliente, sem ignition, aprovação, regra de aprovação, etapa de aprovação, adm vendas, crédito, fiscal, comex, sub-status, código sap, pessoa física, pessoa jurídica, estrangeiro]
+keywords: [cadastro de cliente, sem ignition, aprovação, regra de aprovação, etapa de aprovação, crédito, fiscal, comex, sub-status, código sap, pessoa física, pessoa jurídica, estrangeiro]
 tags: [tecnico, fluxo, cliente]
 order: 4
 ---
@@ -52,7 +52,7 @@ Sempre que um cliente novo é cadastrado, ele passa por um **fluxo de aprovaçõ
   rows={[
     ['Ignition', 'Um tipo de fila de aprovação. Neste processo ela fica desativada, o que torna o caminho mais rápido e simples.'],
     ['Regra de Aprovação', 'Configuração que define quem precisa aprovar o cadastro e em qual ordem.'],
-    ['Etapa de Aprovação', 'Cada passo dentro da regra (ex.: "Aprovação ADM Vendas" ou "Aprovação Crédito").'],
+    ['Etapa de Aprovação', 'Cada passo dentro da regra (ex.: "Aprovação Crédito" ou "Aprovação Fiscal").'],
     ['Tipo de Pessoa', 'Classificação do cliente (Física, Jurídica ou Estrangeiro). Define quais etapas de aprovação serão aplicadas.'],
     ['Comex', 'Área responsável por operações com clientes estrangeiros (Crédito Comex e Fiscal Comex).'],
     ['Sub-status do ciclo de aprovação', 'Informação que mostra em que ponto da aprovação o cadastro está no momento.'],
@@ -148,11 +148,10 @@ As aprovações seguem exatamente o que foi configurado na **Regra de Aprovaçã
 <DocTable
   headers={['Ordem', 'Etapa', 'Grupo responsável', 'Aplicável a', 'Status']}
   rows={[
-    ['1', 'Aprovação ADM Vendas', 'ADM de Vendas', 'Física, Jurídica', 'Ativo'],
-    ['2', 'Aprovação Crédito', 'Crédito', 'Física, Jurídica', 'Ativo'],
-    ['3', 'Aprovação Fiscal', 'Fiscal', 'Jurídica', 'Ativo'],
-    ['4', 'Aprovação Crédito Comex', 'Crédito Comex', 'Estrangeiro', 'Ativo'],
-    ['5', 'Aprovação Fiscal Comex', 'Fiscal', 'Estrangeiro', 'Ativo'],
+    ['1', 'Aprovação Crédito', 'Crédito', 'Física, Jurídica', 'Ativo'],
+    ['2', 'Aprovação Fiscal', 'Fiscal', 'Jurídica', 'Ativo'],
+    ['3', 'Aprovação Crédito Comex', 'Crédito Comex', 'Estrangeiro', 'Ativo'],
+    ['4', 'Aprovação Fiscal Comex', 'Fiscal', 'Estrangeiro', 'Ativo'],
   ]}
 />
 
@@ -161,11 +160,15 @@ Na prática, cada tipo de cliente segue um caminho um pouco diferente até ser a
 <DocTable
   headers={['Tipo de cliente', 'Caminho de aprovação']}
   rows={[
-    ['Pessoa Física', 'Aprovação ADM Vendas → Aprovação Crédito.'],
-    ['Pessoa Jurídica', 'Aprovação ADM Vendas → Aprovação Crédito → Aprovação Fiscal (uma etapa a mais que a PF).'],
+    ['Pessoa Física', 'Aprovação Crédito.'],
+    ['Pessoa Jurídica', 'Aprovação Crédito → Aprovação Fiscal (uma etapa a mais que a PF).'],
     ['Estrangeiro', 'Aprovação Crédito Comex → Aprovação Fiscal Comex.'],
   ]}
 />
+
+<Callout type="atencao" title="Ajuste de 06/11/2026: a etapa ADM Vendas saiu do cadastro de cliente">
+A etapa de **ADM Vendas deixou de fazer parte do cadastro de cliente**. A primeira alçada passou a ser o próprio **Crédito** — a análise cadastral acontece junto da análise de crédito, no mesmo grupo. Não existe mais etapa "ADM" (nem "Cadastro" separada) no ciclo de aprovação de cliente.
+</Callout>
 
 <Callout type="info" title="A regra manda no fluxo">
 O caminho de aprovação de cada tipo de pessoa vem da Regra de Aprovação. Se as etapas ou a ordem mudarem na regra, o fluxo muda junto — sempre confira a configuração atual.
@@ -176,7 +179,7 @@ O caminho de aprovação de cada tipo de pessoa vem da Regra de Aprovação. Se 
 O diagrama abaixo mostra o caminho de aprovação conforme o **tipo de pessoa** (Física, Jurídica ou Estrangeiro) até a ativação e a geração do Código SAP.
 
 <div style="overflow-x:auto; margin: 1.25rem 0;">
-<svg viewBox="0 0 900 560" width="900" role="img" aria-label="Fluxograma de aprovação de clientes por tipo de pessoa" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+<svg viewBox="0 0 900 490" width="900" role="img" aria-label="Fluxograma de aprovação de clientes por tipo de pessoa (sem etapa ADM)" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
   <defs>
     <marker id="arwc" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
       <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
@@ -187,13 +190,11 @@ O diagrama abaixo mostra o caminho de aprovação conforme o **tipo de pessoa** 
     <path d="M300,150 L150,150 L150,230" />
     <path d="M450,190 L450,230" />
     <path d="M600,150 L760,150 L760,230" />
-    <path d="M150,278 L150,300" />
     <path d="M450,278 L450,300" />
-    <path d="M450,346 L450,368" />
     <path d="M760,278 L760,300" />
-    <path d="M150,346 L150,479 L314,479" />
-    <path d="M450,414 L450,450" />
-    <path d="M760,346 L760,479 L586,479" />
+    <path d="M150,278 L150,427 L314,427" />
+    <path d="M450,346 L450,398" />
+    <path d="M760,346 L760,427 L586,427" />
   </g>
   <g font-size="12.5" fill="#5c6b7a">
     <text x="222" y="142" text-anchor="middle">F&#237;sica</text>
@@ -207,28 +208,24 @@ O diagrama abaixo mostra o caminho de aprovação conforme o **tipo de pessoa** 
   <text x="450" y="155" text-anchor="middle" font-size="12.5" fill="#1a1417">Tipo de pessoa?</text>
   <g font-size="12.5" fill="#1a1417">
     <rect x="40" y="234" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
-    <text x="150" y="261" text-anchor="middle">Aprova&#231;&#227;o ADM Vendas</text>
-    <rect x="40" y="302" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
-    <text x="150" y="329" text-anchor="middle">Aprova&#231;&#227;o Cr&#233;dito</text>
+    <text x="150" y="261" text-anchor="middle">Aprova&#231;&#227;o Cr&#233;dito</text>
     <rect x="340" y="234" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
-    <text x="450" y="261" text-anchor="middle">Aprova&#231;&#227;o ADM Vendas</text>
+    <text x="450" y="261" text-anchor="middle">Aprova&#231;&#227;o Cr&#233;dito</text>
     <rect x="340" y="302" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
-    <text x="450" y="329" text-anchor="middle">Aprova&#231;&#227;o Cr&#233;dito</text>
-    <rect x="340" y="370" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
-    <text x="450" y="397" text-anchor="middle">Aprova&#231;&#227;o Fiscal</text>
-    <rect x="650" y="234" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
-    <text x="760" y="261" text-anchor="middle">Aprova&#231;&#227;o Cr&#233;dito Comex</text>
-    <rect x="650" y="302" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
-    <text x="760" y="329" text-anchor="middle">Aprova&#231;&#227;o Fiscal Comex</text>
+    <text x="450" y="329" text-anchor="middle">Aprova&#231;&#227;o Fiscal</text>
+    <rect x="640" y="234" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="750" y="261" text-anchor="middle">Aprova&#231;&#227;o Cr&#233;dito Comex</text>
+    <rect x="640" y="302" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="750" y="329" text-anchor="middle">Aprova&#231;&#227;o Fiscal Comex</text>
   </g>
-  <rect x="320" y="452" width="260" height="54" rx="10" fill="#e6f4ec" stroke="#1f9d63" stroke-width="1.8"/>
-  <text x="450" y="476" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1f7a4d">Cliente ATIVO</text>
-  <text x="450" y="494" text-anchor="middle" font-size="12" fill="#1f7a4d">+ C&#243;digo SAP</text>
+  <rect x="320" y="400" width="260" height="54" rx="10" fill="#e6f4ec" stroke="#1f9d63" stroke-width="1.8"/>
+  <text x="450" y="424" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1f7a4d">Cliente ATIVO</text>
+  <text x="450" y="442" text-anchor="middle" font-size="12" fill="#1f7a4d">+ C&#243;digo SAP</text>
 </svg>
 </div>
 
 <Callout type="dica" title="Como ler o fluxograma">
-O caminho depende do **tipo de pessoa**: <strong>Física</strong> passa por ADM Vendas e Crédito; <strong>Jurídica</strong> tem ainda a etapa Fiscal; <strong>Estrangeiro</strong> segue por Crédito Comex e Fiscal Comex. Ao final, o cliente é ativado e recebe o Código SAP.
+O caminho depende do **tipo de pessoa**: <strong>Física</strong> passa só por Crédito; <strong>Jurídica</strong> passa por Crédito e Fiscal; <strong>Estrangeiro</strong> segue por Crédito Comex e Fiscal Comex. Ao final, o cliente é ativado e recebe o Código SAP.
 </Callout>
 
 ## Ativação final do cadastro
@@ -279,8 +276,7 @@ Pessoa Física **nunca** passa pelo Fiscal. Cliente **Estrangeiro** (ou com ende
   rows={[
     ['Administrador', 'Preparação', 'Configura o Controle de Funcionalidade, a Regra de Aprovação e as etapas.'],
     ['Usuário de cadastro', 'Módulo Clientes', 'Cria e envia os clientes para aprovação.'],
-    ['ADM de Vendas', 'Etapa de aprovação', 'Aprovação ADM Vendas (PF e PJ).'],
-    ['Crédito', 'Etapa de aprovação', 'Aprovação de crédito (PF e PJ).'],
+    ['Crédito', 'Etapa de aprovação', 'Aprovação de crédito — 1ª alçada do cadastro (PF e PJ).'],
     ['Fiscal', 'Etapa de aprovação', 'Aprovação fiscal (PJ e estrangeiro).'],
     ['Crédito Comex', 'Etapa de aprovação', 'Aprovação de crédito internacional (estrangeiro).'],
   ]}
@@ -304,7 +300,7 @@ Pessoa Física **nunca** passa pelo Fiscal. Cliente **Estrangeiro** (ou com ende
   items={[
     { question: 'O que significa "SEM Ignition"?', answer: 'Significa que a fila do Ignition está desativada para este processo, deixando o caminho de aprovação mais rápido e simples.' },
     { question: 'Quem define o caminho de aprovação?', answer: 'A Regra de Aprovação, configurada no módulo Aprovações. As etapas ativas e os tipos de pessoa aplicáveis determinam o caminho.' },
-    { question: 'Qual a diferença entre PF, PJ e Estrangeiro?', answer: 'PF passa por ADM Vendas e Crédito; PJ passa por ADM Vendas, Crédito e Fiscal; Estrangeiro passa por Crédito Comex e Fiscal Comex.' },
+    { question: 'Qual a diferença entre PF, PJ e Estrangeiro?', answer: 'PF passa só por Crédito; PJ passa por Crédito e Fiscal; Estrangeiro passa por Crédito Comex e Fiscal Comex. A etapa de ADM Vendas não faz mais parte do cadastro de cliente (ajuste de 06/11/2026).' },
     { question: 'O que é o sub-status do ciclo de aprovação?', answer: 'É a informação que mostra em que ponto da aprovação o cadastro está no momento.' },
     { question: 'Quando o código SAP é gerado?', answer: 'Automaticamente, quando o sistema ativa o cadastro do cliente.' },
   ]}
@@ -319,6 +315,7 @@ Pessoa Física **nunca** passa pelo Fiscal. Cliente **Estrangeiro** (ou com ende
     { role: 'Aprovado por', name: 'A definir', date: 'A definir' },
   ]}
   versions={[
+    { version: '1.1', date: '16/11/2026', author: 'Renan Camargo', description: 'Ajuste de 06/11/2026: remoção da etapa ADM Vendas do cadastro de cliente (PF: Crédito; PJ: Crédito → Fiscal; Estrangeiro: Crédito Comex → Fiscal Comex). Tabelas, fluxograma e FAQ atualizados.' },
     { version: '1.0', date: '28/08/2026', author: 'Renan Camargo', description: 'Emissão inicial do fluxo de cadastro de clientes pela fila SEM Ignition.' },
   ]}
 />

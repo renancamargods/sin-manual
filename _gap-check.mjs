@@ -9,7 +9,7 @@ const slugsDe = (d) => fs.readdirSync(d).filter((f) => f.endsWith('.mdx') && f !
 
 const pt = new Set(slugsDe(PT));
 const en = new Set(slugsDe(EN));
-const HAND = ['pedido', 'aprovacao-de-pedidos', 'fechamento-de-consignado', 'contrato', 'lead', 'ocorrencia-pfcq', 'troca-devolucao-cancelamento', 'orcamento', 'cliente', 'controle-de-funcionalidade', 'produto', 'cidade', 'estado', 'pais', 'incoterm'];
+const HAND = ['pedido', 'aprovacao-de-pedidos', 'aprovacao-de-pedidos-com-ignition', 'aprovacao-de-cliente-sem-ignition', 'aprovacao-de-cliente-com-ignition', 'fechamento-de-consignado', 'contrato', 'lead', 'ocorrencia-pfcq', 'troca-devolucao-cancelamento', 'orcamento', 'cliente', 'controle-de-funcionalidade', 'produto', 'cidade', 'estado', 'pais', 'incoterm'];
 const nav = new Set([...HAND, ...CONFIGS.map((c) => c.slug)]);
 const gen = new Set(CONFIGS.map((c) => c.slug));
 

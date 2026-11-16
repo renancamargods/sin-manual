@@ -3,6 +3,9 @@ import { spec as cliente } from './cliente.mjs';
 import { spec as controleDeFuncionalidade } from './controle-de-funcionalidade.mjs';
 import { spec as pedido } from './pedido.mjs';
 import { spec as aprovacaoDePedidos } from './aprovacao-de-pedidos.mjs';
+import { spec as aprovacaoDePedidosComIgnition } from './aprovacao-de-pedidos-com-ignition.mjs';
+import { spec as aprovacaoDeClienteSemIgnition } from './aprovacao-de-cliente-sem-ignition.mjs';
+import { spec as aprovacaoDeClienteComIgnition } from './aprovacao-de-cliente-com-ignition.mjs';
 import { spec as fechamentoDeConsignado } from './fechamento-de-consignado.mjs';
 import { spec as contrato } from './contrato.mjs';
 import { spec as lead } from './lead.mjs';
@@ -49,6 +52,9 @@ export const SPECS = {
   // processo (sob medida)
   pedido,
   'aprovacao-de-pedidos': aprovacaoDePedidos,
+  'aprovacao-de-pedidos-com-ignition': aprovacaoDePedidosComIgnition,
+  'aprovacao-de-cliente-sem-ignition': aprovacaoDeClienteSemIgnition,
+  'aprovacao-de-cliente-com-ignition': aprovacaoDeClienteComIgnition,
   'fechamento-de-consignado': fechamentoDeConsignado,
   contrato,
   lead,

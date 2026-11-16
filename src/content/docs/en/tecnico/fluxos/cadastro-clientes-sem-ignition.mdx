@@ -8,7 +8,7 @@ description: Process of registering and approving customers (individual, company
 moduleLabel: Customer Module
 routineType: Process flow
 impact: Customer registration and approval through the queue WITHOUT Ignition
-keywords: [customer registration, without ignition, approval, approval rule, approval step, sales adm, credit, fiscal, comex, sub-status, sap code, individual, company, foreign]
+keywords: [customer registration, without ignition, approval, approval rule, approval step, credit, fiscal, comex, sub-status, sap code, individual, company, foreign]
 tags: [tecnico, fluxo, cliente]
 order: 4
 ---
@@ -53,7 +53,7 @@ Whenever a new customer is registered, it goes through an **approval flow** befo
   rows={[
     ['Ignition', 'A type of approval queue. In this process it is disabled, which makes the path faster and simpler.'],
     ['Approval Rule', 'A setting that defines who must approve the registration and in what order.'],
-    ['Approval Step', 'Each step within the rule (e.g., "Sales ADM Approval" or "Credit Approval").'],
+    ['Approval Step', 'Each step within the rule (e.g., "Credit Approval" or "Fiscal Approval").'],
     ['Person Type', 'Customer classification (Individual, Company or Foreign). Defines which approval steps apply.'],
     ['Comex', 'Area responsible for operations with foreign customers (Comex Credit and Comex Fiscal).'],
     ['Approval cycle sub-status', 'Information showing at which point of the approval the registration currently is.'],
@@ -149,11 +149,10 @@ Approvals follow exactly what was configured in the **Approval Rule**. Today, th
 <DocTable
   headers={['Order', 'Step', 'Responsible group', 'Applies to', 'Status']}
   rows={[
-    ['1', 'Sales ADM Approval', 'Sales ADM', 'Individual, Company', 'Active'],
-    ['2', 'Credit Approval', 'Credit', 'Individual, Company', 'Active'],
-    ['3', 'Fiscal Approval', 'Fiscal', 'Company', 'Active'],
-    ['4', 'Comex Credit Approval', 'Comex Credit', 'Foreign', 'Active'],
-    ['5', 'Comex Fiscal Approval', 'Fiscal', 'Foreign', 'Active'],
+    ['1', 'Credit Approval', 'Credit', 'Individual, Company', 'Active'],
+    ['2', 'Fiscal Approval', 'Fiscal', 'Company', 'Active'],
+    ['3', 'Comex Credit Approval', 'Comex Credit', 'Foreign', 'Active'],
+    ['4', 'Comex Fiscal Approval', 'Fiscal', 'Foreign', 'Active'],
   ]}
 />
 
@@ -162,11 +161,15 @@ In practice, each customer type follows a slightly different path until it is ac
 <DocTable
   headers={['Customer type', 'Approval path']}
   rows={[
-    ['Individual', 'Sales ADM Approval → Credit Approval.'],
-    ['Company', 'Sales ADM Approval → Credit Approval → Fiscal Approval (one step more than Individual).'],
+    ['Individual', 'Credit Approval.'],
+    ['Company', 'Credit Approval → Fiscal Approval (one step more than Individual).'],
     ['Foreign', 'Comex Credit Approval → Comex Fiscal Approval.'],
   ]}
 />
+
+<Callout type="atencao" title="Change of 11/06/2026: the Sales ADM step left customer registration">
+The **Sales ADM step no longer applies to customer registration**. The first level is now **Credit** itself — the registration review happens together with the credit review, in the same group. There is no longer an "ADM" step (nor a separate "Registration" step) in the customer approval cycle.
+</Callout>
 
 <Callout type="info" title="The rule drives the flow">
 The approval path of each person type comes from the Approval Rule. If the steps or the order change in the rule, the flow changes with them — always check the current configuration.
@@ -177,7 +180,7 @@ The approval path of each person type comes from the Approval Rule. If the steps
 The diagram below shows the approval path according to the **person type** (Individual, Company or Foreign) up to activation and the generation of the SAP Code.
 
 <div style="overflow-x:auto; margin: 1.25rem 0;">
-<svg viewBox="0 0 900 560" width="900" role="img" aria-label="Customer approval flowchart by person type" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
+<svg viewBox="0 0 900 490" width="900" role="img" aria-label="Customer approval flowchart by person type (without ADM step)" style="max-width:100%; height:auto; font-family: Inter, system-ui, sans-serif;">
   <defs>
     <marker id="arwc" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
       <path d="M0,0 L7,3 L0,6 Z" fill="#6b7280" />
@@ -188,13 +191,11 @@ The diagram below shows the approval path according to the **person type** (Indi
     <path d="M300,150 L150,150 L150,230" />
     <path d="M450,190 L450,230" />
     <path d="M600,150 L760,150 L760,230" />
-    <path d="M150,278 L150,300" />
     <path d="M450,278 L450,300" />
-    <path d="M450,346 L450,368" />
     <path d="M760,278 L760,300" />
-    <path d="M150,346 L150,479 L314,479" />
-    <path d="M450,414 L450,450" />
-    <path d="M760,346 L760,479 L586,479" />
+    <path d="M150,278 L150,427 L314,427" />
+    <path d="M450,346 L450,398" />
+    <path d="M760,346 L760,427 L586,427" />
   </g>
   <g font-size="12.5" fill="#5c6b7a">
     <text x="222" y="142" text-anchor="middle">Individual</text>
@@ -208,28 +209,24 @@ The diagram below shows the approval path according to the **person type** (Indi
   <text x="450" y="155" text-anchor="middle" font-size="12.5" fill="#1a1417">Person type?</text>
   <g font-size="12.5" fill="#1a1417">
     <rect x="40" y="234" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
-    <text x="150" y="261" text-anchor="middle">Sales ADM Approval</text>
-    <rect x="40" y="302" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
-    <text x="150" y="329" text-anchor="middle">Credit Approval</text>
+    <text x="150" y="261" text-anchor="middle">Credit Approval</text>
     <rect x="340" y="234" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
-    <text x="450" y="261" text-anchor="middle">Sales ADM Approval</text>
+    <text x="450" y="261" text-anchor="middle">Credit Approval</text>
     <rect x="340" y="302" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
-    <text x="450" y="329" text-anchor="middle">Credit Approval</text>
-    <rect x="340" y="370" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
-    <text x="450" y="397" text-anchor="middle">Tax Approval</text>
-    <rect x="650" y="234" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
-    <text x="760" y="261" text-anchor="middle">Comex Credit Approval</text>
-    <rect x="650" y="302" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
-    <text x="760" y="329" text-anchor="middle">Comex Tax Approval</text>
+    <text x="450" y="329" text-anchor="middle">Fiscal Approval</text>
+    <rect x="640" y="234" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="750" y="261" text-anchor="middle">Comex Credit Approval</text>
+    <rect x="640" y="302" width="220" height="44" rx="9" fill="#ffffff" stroke="#c8d1db" stroke-width="1.5"/>
+    <text x="750" y="329" text-anchor="middle">Comex Fiscal Approval</text>
   </g>
-  <rect x="320" y="452" width="260" height="54" rx="10" fill="#e6f4ec" stroke="#1f9d63" stroke-width="1.8"/>
-  <text x="450" y="476" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1f7a4d">Customer ACTIVE</text>
-  <text x="450" y="494" text-anchor="middle" font-size="12" fill="#1f7a4d">+ SAP Code</text>
+  <rect x="320" y="400" width="260" height="54" rx="10" fill="#e6f4ec" stroke="#1f9d63" stroke-width="1.8"/>
+  <text x="450" y="424" text-anchor="middle" font-size="13.5" font-weight="700" fill="#1f7a4d">Customer ACTIVE</text>
+  <text x="450" y="442" text-anchor="middle" font-size="12" fill="#1f7a4d">+ SAP Code</text>
 </svg>
 </div>
 
 <Callout type="dica" title="How to read the flowchart">
-The path depends on the **person type**: <strong>Individual</strong> goes through Sales ADM and Credit; <strong>Company</strong> also has the Tax step; <strong>Foreign</strong> goes through Comex Credit and Comex Tax. At the end, the customer is activated and receives the SAP Code.
+The path depends on the **person type**: <strong>Individual</strong> goes through Credit only; <strong>Company</strong> goes through Credit and Fiscal; <strong>Foreign</strong> goes through Comex Credit and Comex Fiscal. At the end, the customer is activated and receives the SAP Code.
 </Callout>
 
 ## Final activation of the registration
@@ -280,8 +277,7 @@ An individual (PF) **never** goes through Fiscal. A **Foreign** customer (or one
   rows={[
     ['Administrator', 'Preparation', 'Configures Feature Control, the Approval Rule and the steps.'],
     ['Registration user', 'Customers Module', 'Creates and sends the customers for approval.'],
-    ['Sales ADM', 'Approval step', 'Sales ADM Approval (Individual and Company).'],
-    ['Credit', 'Approval step', 'Credit approval (Individual and Company).'],
+    ['Credit', 'Approval step', 'Credit approval — first level of the registration (Individual and Company).'],
     ['Fiscal', 'Approval step', 'Fiscal approval (Company and Foreign).'],
     ['Comex Credit', 'Approval step', 'International credit approval (Foreign).'],
   ]}
@@ -305,7 +301,7 @@ An individual (PF) **never** goes through Fiscal. A **Foreign** customer (or one
   items={[
     { question: 'What does "WITHOUT Ignition" mean?', answer: 'It means the Ignition queue is disabled for this process, making the approval path faster and simpler.' },
     { question: 'Who defines the approval path?', answer: 'The Approval Rule, configured in the Approvals module. The active steps and the applicable person types determine the path.' },
-    { question: 'What is the difference between Individual, Company and Foreign?', answer: 'Individual goes through Sales ADM and Credit; Company goes through Sales ADM, Credit and Fiscal; Foreign goes through Comex Credit and Comex Fiscal.' },
+    { question: 'What is the difference between Individual, Company and Foreign?', answer: 'Individual goes through Credit only; Company goes through Credit and Fiscal; Foreign goes through Comex Credit and Comex Fiscal. The Sales ADM step is no longer part of customer registration (change of 11/06/2026).' },
     { question: 'What is the approval cycle sub-status?', answer: 'It is the information showing at which point of the approval the registration currently is.' },
     { question: 'When is the SAP code generated?', answer: 'Automatically, when the system activates the customer registration.' },
   ]}
@@ -320,6 +316,7 @@ An individual (PF) **never** goes through Fiscal. A **Foreign** customer (or one
     { role: 'Approved by', name: 'To be defined', date: 'To be defined' },
   ]}
   versions={[
+    { version: '1.1', date: '11/16/2026', author: 'Renan Camargo', description: 'Change of 11/06/2026: removal of the Sales ADM step from customer registration (Individual: Credit; Company: Credit → Fiscal; Foreign: Comex Credit → Comex Fiscal). Tables, flowchart and FAQ updated.' },
     { version: '1.0', date: '08/28/2026', author: 'Renan Camargo', description: 'Initial release of the customer registration flow through the queue WITHOUT Ignition.' },
   ]}
 />
