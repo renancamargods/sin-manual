@@ -76,8 +76,17 @@ export function estadoInicial(spec, cenario = {}) {
   };
 }
 
+// Ordem das etapas conforme a variante. Compatível: spec.etapasOrdem pode ser
+// um array (estático, como nos 181 atuais) OU uma função (variante) => string[]
+// para ramificação real por cenário (ex.: PF pula a etapa Fiscal).
+export function ordemDe(spec, variante) {
+  return typeof spec.etapasOrdem === 'function'
+    ? spec.etapasOrdem(variante)
+    : spec.etapasOrdem;
+}
+
 export function etapaAtual(spec, s) {
-  return spec.etapasOrdem[s.idx];
+  return ordemDe(spec, s.variante)[s.idx];
 }
 
 function obrigatoriosDe(spec, s) {

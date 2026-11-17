@@ -1,11 +1,14 @@
 ---
 // Simulador guiado genérico. Tela "burra": desenha o spec de src/lib/simuladores/<slug>.mjs
 // pelo motor src/lib/simulador.mjs. Dentinho narra; cada passo mostra Permissão + Parâmetro.
+// Regras ricas do .NET (quando existirem p/ a tela) vêm de _regras.json, embutidas só desta tela.
+import regrasData from '../lib/simuladores/_regras.json';
 interface Props { slug: string; lang?: 'pt' | 'en' }
 const { slug, lang = 'pt' } = Astro.props;
+const regrasTela = (regrasData as Record<string, any[]>)[slug] ?? [];
 ---
 
-<section data-sim data-slug={slug} data-lang={lang} class="not-prose mx-auto w-full max-w-5xl flex-1">
+<section data-sim data-slug={slug} data-lang={lang} data-regras={JSON.stringify(regrasTela)} class="not-prose mx-auto w-full max-w-5xl flex-1">
   <noscript>
     <p class="rounded-xl2 border border-brand-line bg-brand-surface p-4 text-sm text-brand-fg-2">
       {lang === 'en' ? 'This guided training needs JavaScript enabled.' : 'Este treino guiado precisa de JavaScript ativado.'}
@@ -44,6 +47,9 @@ const { slug, lang = 'pt' } = Astro.props;
       <!-- ficha: permissão + parâmetro deste passo -->
       <div data-cena="ficha" class="mt-3 space-y-2"></div>
 
+      <!-- Dentinho ATIVO: perguntas contextuais desta etapa -->
+      <div data-cena="dentinho-acoes" class="mt-3 flex flex-wrap gap-2"></div>
+
       <div data-cena="resultado" class="mt-3 hidden rounded-lg px-3 py-2 text-sm"></div>
 
       <div class="mt-5 flex flex-wrap items-center gap-2">
@@ -65,6 +71,7 @@ const { slug, lang = 'pt' } = Astro.props;
   </div>
 
   <div class="mt-6 space-y-2">
+    <details data-regras-wrap class="tr-det" hidden><summary data-ui="regrasSistema"></summary><ul data-regras-sistema class="mt-2 space-y-1.5 text-sm text-brand-fg-2"></ul></details>
     <details class="tr-det"><summary data-ui="regras"></summary><ul data-regras class="mt-2 list-disc space-y-1 pl-5 text-sm text-brand-fg-2"></ul></details>
     <details class="tr-det"><summary data-ui="quemFaz"></summary><ul data-quem class="mt-2 list-disc space-y-1 pl-5 text-sm text-brand-fg-2"></ul></details>
     <details class="tr-det"><summary data-ui="hist"></summary><ol data-hist class="mt-2 space-y-1 text-sm text-brand-fg-2"></ol></details>
@@ -89,11 +96,15 @@ const { slug, lang = 'pt' } = Astro.props;
   .tr-ficha { display: flex; gap: 0.5rem; align-items: flex-start; border-radius: 0.5rem; padding: 0.45rem 0.7rem; font-size: 0.8rem; line-height: 1.35; }
   .tr-ficha-perm { background: rgba(204, 9, 59, 0.08); border: 1px solid rgba(204, 9, 59, 0.25); }
   .tr-ficha-param { background: rgba(241, 136, 0, 0.08); border: 1px solid rgba(241, 136, 0, 0.3); }
+  .tr-dente-btn { display:inline-flex; align-items:center; gap:.3rem; border-radius:9999px;
+    border:1px solid rgba(204,9,59,0.3); background:rgba(204,9,59,0.07); color:#ff8aa6;
+    padding:.3rem .7rem; font-size:.78rem; font-weight:500; cursor:pointer; transition:background .15s; }
+  .tr-dente-btn:hover { background:rgba(204,9,59,0.15); }
   @media (prefers-reduced-motion: reduce) { .tr-dentinho { animation: none; } }
 </style>
 
 <script>
-  import { UI, estadoInicial, executar, proximaAcao, faltando, envioBloqueado, mensagem, etapaAtual, pegadinhaDe } from '../lib/simulador.mjs';
+  import { UI, estadoInicial, executar, proximaAcao, faltando, envioBloqueado, mensagem, etapaAtual, pegadinhaDe, ordemDe } from '../lib/simulador.mjs';
   import { getSpec } from '../lib/simuladores/index.mjs';
 
   const DENTE = `<svg viewBox="0 0 24 24" class="h-8 w-8" aria-hidden="true">
@@ -113,7 +124,6 @@ const { slug, lang = 'pt' } = Astro.props;
     const m = spec.textos[lang];
     const $ = (s) => root.querySelector(s);
 
-    const trilhaIds = spec.etapasOrdem.filter((id) => spec.etapaTipo[id] !== 'FIM');
     const temEnviar = Object.values(spec.etapaTipo).includes('ENVIAR');
 
     let cenario = {};
@@ -133,6 +143,32 @@ const { slug, lang = 'pt' } = Astro.props;
     $('[data-ui="hist"]').textContent = ui.hist;
     $('[data-regras]').innerHTML = (m.regras || []).map((r) => `<li>${r}</li>`).join('');
     $('[data-quem]').innerHTML = (m.quem || []).map((r) => `<li>${r}</li>`).join('');
+
+    // Painel de REGRAS DO SISTEMA (mineradas do .NET, via _regras.json) — só se houver.
+    let regrasTela = [];
+    try { regrasTela = JSON.parse(root.dataset.regras || '[]'); } catch {}
+    function fmtRegra(r) {
+      const p = [];
+      if (r.obrigatorio) p.push(lang === 'en' ? 'required' : 'obrigatório');
+      if (r.maxLength != null) p.push(lang === 'en' ? `up to ${r.maxLength} chars` : `até ${r.maxLength} caracteres`);
+      if (Array.isArray(r.faixa)) p.push(lang === 'en' ? `between ${r.faixa[0]} and ${r.faixa[1]}` : `entre ${r.faixa[0]} e ${r.faixa[1]}`);
+      else {
+        if (r.min != null) p.push((r.minInclusivo ? '≥ ' : '> ') + r.min);
+        if (r.max != null) p.push('≤ ' + r.max);
+      }
+      return p.join(' · ');
+    }
+    if (regrasTela.length) {
+      const comDesc = regrasTela.map((r) => ({ r, d: fmtRegra(r) })).filter((x) => x.d);
+      if (comDesc.length) {
+        $('[data-regras-wrap]').hidden = false;
+        $('[data-ui="regrasSistema"]').textContent =
+          (lang === 'en' ? '📏 System rules (from the code) · ' : '📏 Regras do sistema (do código) · ') + comDesc.length;
+        $('[data-regras-sistema]').innerHTML = comDesc
+          .map(({ r, d }) => `<li title="${(r.origem || '') + (r.msgKey ? ' · ' + r.msgKey : '')}"><strong class="text-brand-fg">${r.campo}</strong> — ${d}</li>`)
+          .join('');
+      }
+    }
 
     // seletor de variação (se houver)
     if (spec.variantes) {
@@ -172,6 +208,8 @@ const { slug, lang = 'pt' } = Astro.props;
 
     function render(pop = false) {
       const s = atual();
+      const ordem = ordemDe(spec, s.variante);
+      const trilhaIds = ordem.filter((id) => spec.etapaTipo[id] !== 'FIM');
       const etId = etapaAtual(spec, s);
       const et = m.etapas[etId];
       const idxTrilha = trilhaIds.indexOf(etId);
@@ -209,6 +247,28 @@ const { slug, lang = 'pt' } = Astro.props;
       if (et.permissao) ficha += `<div class="tr-ficha tr-ficha-perm"><span>🔑</span><span><strong class="text-brand-fg">${ui.permissao}:</strong> ${et.permissao}</span></div>`;
       if (et.parametro) ficha += `<div class="tr-ficha tr-ficha-param"><span>⚙️</span><span><strong class="text-brand-fg">${ui.parametro}:</strong> <code class="text-brand-orange">${et.parametro.chave}</code> — ${et.parametro.efeito}</span></div>`;
       $('[data-cena="ficha"]').innerHTML = ficha;
+
+      // Dentinho ATIVO: publica o contexto da etapa e monta perguntas contextuais.
+      const telaStep = et.tela || m.titulo;
+      window.__simCtx = {
+        slug, href: et.href, tela: telaStep, etapa: et.tit, variante: s.variante,
+        objetivo: m.sub, regra: et.permissao || '', parametro: (et.parametro && et.parametro.chave) || '',
+        passo: passoN, total: trilhaIds.length, lang,
+      };
+      const perguntas = lang === 'en'
+        ? [
+            { lbl: '🦷 Explain this step', q: `Explain the step "${et.tit}" of the ${telaStep} screen: what to do and why.` },
+            { lbl: 'Why do I need this?', q: `Why is the step "${et.tit}" needed on the ${telaStep} screen, and what happens if I skip it?` },
+            { lbl: 'What can go wrong?', q: `What can go wrong in the step "${et.tit}" of the ${telaStep} screen and how does the system respond?` },
+          ]
+        : [
+            { lbl: '🦷 Explicar esta etapa', q: `Explique a etapa "${et.tit}" da tela ${telaStep}: o que fazer e por quê.` },
+            { lbl: 'Por que preciso disso?', q: `Por que a etapa "${et.tit}" é necessária na tela ${telaStep} e o que acontece se eu não fizer?` },
+            { lbl: 'E se eu errar?', q: `O que pode dar errado na etapa "${et.tit}" da tela ${telaStep} e como o sistema responde?` },
+          ];
+      $('[data-cena="dentinho-acoes"]').innerHTML = perguntas
+        .map((p) => `<button type="button" data-pergunta="${encodeURIComponent(p.q)}" class="tr-dente-btn">${p.lbl}</button>`)
+        .join('');
 
       // resultado
       const box = $('[data-cena="resultado"]');
@@ -255,8 +315,9 @@ const { slug, lang = 'pt' } = Astro.props;
     }
 
     root.addEventListener('click', (e) => {
-      const el = e.target.closest('[data-tipo],[data-act],[data-ese],[data-goto]');
+      const el = e.target.closest('[data-tipo],[data-act],[data-ese],[data-goto],[data-pergunta]');
       if (!el) return;
+      if (el.dataset.pergunta) { window.dispatchEvent(new CustomEvent('dentinho:perguntar', { detail: { texto: decodeURIComponent(el.dataset.pergunta) } })); return; }
       if (el.dataset.tipo) return trocarTipo(el.dataset.tipo);
       if (el.dataset.act === 'principal') return aplicar(proximaAcao(spec, atual()));
       if (el.dataset.act === 'voltar') { if (hist.length > 1) { hist.pop(); acoes.pop(); ultima = null; render(); } return; }

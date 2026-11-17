@@ -276,9 +276,7 @@ const t = isEn
       if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); form.requestSubmit(); }
     });
 
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const q = input.value.trim();
+    async function enviar(q) {
       if (!q || busy) return;
       busy = true;
       input.value = '';
@@ -288,10 +286,13 @@ const t = isEn
       const thinking = bubble(frase, 'bot');
       thinking.classList.add('italic', 'text-brand-muted');
       try {
+        // Se o usuário está dentro de um simulador, o Dentinho recebe o contexto
+        // da etapa atual (tela, variante, objetivo, regra, parâmetro) e responde nele.
+        const contexto_sim = (window.__simCtx && window.__simCtx.lang === lang) ? window.__simCtx : null;
         const r = await fetch('/api/chat', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message: q, lang }),
+          body: JSON.stringify({ message: q, lang, contexto_sim }),
         });
         const data = await r.json().catch(() => ({}));
         thinking.remove();
@@ -304,6 +305,15 @@ const t = isEn
         busy = false;
         input.focus();
       }
+    }
+
+    form.addEventListener('submit', (e) => { e.preventDefault(); enviar(input.value.trim()); });
+
+    // Dentinho ATIVO: botões dentro do simulador abrem o painel já perguntando.
+    window.addEventListener('dentinho:perguntar', (e) => {
+      openPanel();
+      const texto = (e.detail && e.detail.texto || '').trim();
+      if (texto) enviar(texto);
     });
   })();
 </script>

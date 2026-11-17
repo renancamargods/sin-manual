@@ -33,9 +33,14 @@ for (const s of gen) if (!pt.has(s)) fail(`config sem página PT: ${s}`);
 for (const s of pt) {
   const sp = getSpec(s);
   if (!sp) continue;
-  if (!sp.etapasOrdem || !sp.etapasOrdem.length) fail(`spec sem etapas: ${s}`);
+  // etapasOrdem pode ser array OU função (variante)=>array (ramificação). Checa a união.
+  const ordens = typeof sp.etapasOrdem === 'function'
+    ? (sp.variantes || [{ key: '_' }]).map((v) => sp.etapasOrdem(v.key))
+    : [sp.etapasOrdem || []];
+  const ids = [...new Set(ordens.flat())];
+  if (!ids.length) fail(`spec sem etapas: ${s}`);
   if (!sp.textos || !sp.textos.pt || !sp.textos.en) fail(`spec sem textos PT/EN: ${s}`);
-  for (const id of sp.etapasOrdem) {
+  for (const id of ids) {
     if (!sp.textos.pt.etapas[id] || !sp.textos.en.etapas[id]) fail(`etapa ${id} sem texto PT/EN em ${s}`);
   }
 }

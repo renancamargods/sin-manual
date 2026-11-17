@@ -9,7 +9,10 @@
 //   Estrangeiro → Crédito Comex → Fiscal Comex
 // O motor anda toda a etapasOrdem; a variante muda o painel e o texto reconhece quando a etapa pula.
 
-const etapasOrdem = ['AGUARDANDO', 'CREDITO', 'FISCAL', 'ATIVO'];
+// Ramificação real por tipo de pessoa: Física pula a etapa Fiscal (só Crédito → Ativo).
+const etapasOrdem = (v) => v === 'PF'
+  ? ['AGUARDANDO', 'CREDITO', 'ATIVO']
+  : ['AGUARDANDO', 'CREDITO', 'FISCAL', 'ATIVO'];
 const etapaTipo = { AGUARDANDO: 'ABRIR', CREDITO: 'ABRIR', FISCAL: 'APROVAR', ATIVO: 'FIM' };
 
 export const spec = {
@@ -31,8 +34,10 @@ export const spec = {
     const t = spec.textos[lang];
     const comex = s.variante === 'PE';
     const temFiscal = s.variante !== 'PF';
+    const ordem = typeof spec.etapasOrdem === 'function' ? spec.etapasOrdem(s.variante) : spec.etapasOrdem;
+    const concluido = s.idx >= ordem.length - 1; // chegou na etapa terminal (Ativo)
     return [
-      { k: t.painelLabels.status, v: s.statusKey === 'ativo' ? t.statusLabel.ativo : t.statusLabel.aguardando },
+      { k: t.painelLabels.status, v: concluido ? t.statusLabel.ativo : t.statusLabel.aguardando },
       { k: t.painelLabels.cenario, v: spec.variantes.find((v) => v.key === s.variante).label[lang] },
       { k: t.painelLabels.caminho, v: comex ? t.painelLabels.comex : t.painelLabels.nacional },
       { k: t.painelLabels.fiscal, v: temFiscal ? t.painelLabels.sim : t.painelLabels.nao },

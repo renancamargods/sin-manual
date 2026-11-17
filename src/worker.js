@@ -75,6 +75,11 @@ function normalizar(v) {
     .toLowerCase();
 }
 
+// href comparável: sem barra final e sem o prefixo /en (índice já é por idioma).
+function normalizarHref(h) {
+  return String(h ?? '').replace(/\/$/, '').replace(/^\/en(?=\/)/, '');
+}
+
 // Palavras-vazias: não ajudam a relevância e poluem (ex.: "que" casando dentro
 // de "etiQUEtas"). Ficam de fora dos termos de busca.
 const STOPWORDS = new Set([
@@ -252,6 +257,9 @@ async function tratarChat(request, env, url) {
   const lang = corpo?.lang === 'en' ? 'en' : 'pt';
   if (!pergunta) return json({ error: 'Pergunta vazia.' }, 400);
 
+  // Contexto do simulador (Dentinho ativo): tela/etapa/variante em que o usuário treina.
+  const ctx = (corpo && typeof corpo.contexto_sim === 'object' && corpo.contexto_sim) ? corpo.contexto_sim : null;
+
   // Conversa social (saudação/elogio/crítica): responde humano, sem RAG nem IA.
   const pergNorm = normalizar(pergunta);
   const nPalavras = pergNorm.split(/\s+/).filter(Boolean).length;
@@ -276,7 +284,29 @@ async function tratarChat(request, env, url) {
     .slice(0, TOP_TRECHOS);
 
   const topScore = ranque.length ? ranque[0].score : 0;
-  const forte = topScore >= LIMIAR_FORTE; // o manual realmente cobre o assunto?
+  let forte = topScore >= LIMIAR_FORTE; // o manual realmente cobre o assunto?
+
+  // Dentinho ativo: se há contexto do simulador, garante a tela em foco no contexto
+  // (mesmo que a busca por palavra não a tenha trazido) e trata como coberto.
+  if (ctx && ctx.href) {
+    const alvo = normalizarHref(ctx.href);
+    if (alvo) {
+      const jaTem = ranque.some((r) => normalizarHref(r.item.href) === alvo);
+      if (!jaTem) {
+        const item = itens.find((it) => normalizarHref(it.href) === alvo);
+        if (item) ranque.unshift({ item, score: LIMIAR_FORTE });
+      }
+      if (ranque.length > TOP_TRECHOS) ranque.length = TOP_TRECHOS;
+      forte = ranque.length > 0;
+    }
+  }
+
+  // Preâmbulo de foco: o Dentinho responde ancorado na etapa atual do treino.
+  const foco = ctx
+    ? (lang === 'en'
+        ? `The user is TRAINING in the simulator of the "${ctx.tela}" screen, step "${ctx.etapa}", scenario "${ctx.variante}". Goal: ${ctx.objetivo}. In focus — permission: ${ctx.regra || '—'}; parameter: ${ctx.parametro || '—'}. Answer specifically about THIS step. If the context does not contain it, say what depends on configuration or permission and point to the screen; do not guess.\n\n`
+        : `O usuário está TREINANDO no simulador da tela "${ctx.tela}", etapa "${ctx.etapa}", cenário "${ctx.variante}". Objetivo: ${ctx.objetivo}. Em foco — permissão: ${ctx.regra || '—'}; parâmetro: ${ctx.parametro || '—'}. Responda especificamente sobre ESTA etapa. Se o contexto não trouxer, diga o que depende de configuração ou permissão e aponte a tela; não invente.\n\n`)
+    : '';
 
   let sistema;
   if (forte) {
@@ -319,6 +349,8 @@ Be brief, friendly, answer in English, and do not cite any pages.`
 - Se for assunto fora do manual (programação, conhecimentos gerais, outros softwares, vida, etc.): NÃO responda o mérito. Dê uma "ensaboada" leve e bem-humorada: diga que isso é com outro dente (um especialista) e que você só manja do manual do S.I.N, e peça uma pergunta sobre as telas/rotinas do sistema. Ex.: "Eita, essa aí é com outro dente! 🦷 Eu só manjo do manual do S.I.N — me pergunta algo das telas do sistema que eu te ajudo!"
 Seja breve e simpático, responda em português e NÃO cite páginas.`;
   }
+
+  if (foco) sistema = foco + sistema; // ancora a resposta na etapa do simulador
 
   // Tenta o modelo primário (70B); se falhar ou vier vazio, cai pro próximo (8B).
   const mensagens = [
