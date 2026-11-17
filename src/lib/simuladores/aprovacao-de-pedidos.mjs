@@ -3,7 +3,11 @@
 // Walkthrough das etapas de alçada. Variação = cenário (boleto / PIX-cartão / comex),
 // que muda se a Cobrança Nacional entra e se o caminho é Nacional ou Comex.
 
-const etapasOrdem = ['AGUARDANDO', 'ADM', 'CREDITO', 'COBRANCA', 'LIBERADO'];
+// Ramificação real: a etapa Cobrança Nacional só entra para PIX/Cartão.
+// Boleto e Comex pulam a Cobrança (ADM → Crédito → Liberado).
+const etapasOrdem = (v) => v === 'PIXCARD'
+  ? ['AGUARDANDO', 'ADM', 'CREDITO', 'COBRANCA', 'LIBERADO']
+  : ['AGUARDANDO', 'ADM', 'CREDITO', 'LIBERADO'];
 const etapaTipo = { AGUARDANDO: 'ABRIR', ADM: 'ABRIR', CREDITO: 'ABRIR', COBRANCA: 'APROVAR', LIBERADO: 'FIM' };
 
 export const spec = {
@@ -25,8 +29,10 @@ export const spec = {
     const t = spec.textos[lang];
     const caminho = s.variante === 'COMEX' ? t.painelLabels.comex : t.painelLabels.nacional;
     const cobranca = s.variante === 'PIXCARD' ? t.painelLabels.sim : t.painelLabels.nao;
+    const ordem = typeof spec.etapasOrdem === 'function' ? spec.etapasOrdem(s.variante) : spec.etapasOrdem;
+    const concluido = s.idx >= ordem.length - 1; // chegou na etapa Liberado (terminal)
     return [
-      { k: t.painelLabels.status, v: s.statusKey === 'ativo' ? t.statusLabel.ativo : t.statusLabel.aguardando },
+      { k: t.painelLabels.status, v: concluido ? t.statusLabel.ativo : t.statusLabel.aguardando },
       { k: t.painelLabels.cenario, v: spec.variantes.find((v) => v.key === s.variante).label[lang] },
       { k: t.painelLabels.caminho, v: caminho },
       { k: t.painelLabels.cobranca, v: cobranca },

@@ -23,6 +23,9 @@ const regrasTela = (regrasData as Record<string, any[]>)[slug] ?? [];
       <span data-ui="tiposLabel" class="mr-1 text-xs font-semibold uppercase tracking-wide text-brand-muted"></span>
       <div data-tipos class="inline-flex flex-wrap rounded-lg border border-brand-line bg-brand-surface p-0.5"></div>
     </div>
+    <div class="mt-3">
+      <button data-modo-toggle type="button" class="rounded-lg border border-brand-line px-3 py-1.5 text-xs font-medium text-brand-fg-2 transition hover:bg-white/5"></button>
+    </div>
   </header>
 
   <ol data-trilha class="tr-trilha"></ol>
@@ -52,6 +55,9 @@ const regrasTela = (regrasData as Record<string, any[]>)[slug] ?? [];
 
       <div data-cena="resultado" class="mt-3 hidden rounded-lg px-3 py-2 text-sm"></div>
 
+      <!-- Modo Desafio: escolhas e placar -->
+      <div data-desafio class="mt-4 hidden"></div>
+
       <div class="mt-5 flex flex-wrap items-center gap-2">
         <button data-act="principal" type="button" class="rounded-lg bg-brand-red px-4 py-2 text-sm font-semibold text-white shadow-card transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-40"></button>
         <button data-act="voltar" type="button" class="rounded-lg border border-brand-line px-3 py-2 text-sm text-brand-fg-2 transition hover:bg-white/5 disabled:opacity-30"></button>
@@ -66,6 +72,7 @@ const regrasTela = (regrasData as Record<string, any[]>)[slug] ?? [];
 
     <aside class="lg:col-span-2 rounded-xl2 border border-brand-line bg-brand-surface p-5 shadow-card sm:p-6">
       <h3 data-ui="painel" class="mb-4 text-sm font-semibold uppercase tracking-wide text-brand-muted"></h3>
+      <div data-estado class="mb-4 space-y-2"></div>
       <dl data-painel class="space-y-3 text-sm"></dl>
     </aside>
   </div>
@@ -107,13 +114,21 @@ const regrasTela = (regrasData as Record<string, any[]>)[slug] ?? [];
   import { UI, estadoInicial, executar, proximaAcao, faltando, envioBloqueado, mensagem, etapaAtual, pegadinhaDe, ordemDe } from '../lib/simulador.mjs';
   import { getSpec } from '../lib/simuladores/index.mjs';
 
-  const DENTE = `<svg viewBox="0 0 24 24" class="h-8 w-8" aria-hidden="true">
+  // Expressões do Dentinho: muda a boca (e, na dúvida, os olhos) conforme o contexto.
+  const BOCA = {
+    feliz: '<path d="M8.7 10.9c.9 1.5 5.7 1.5 6.6 0" stroke="#c81e2c" stroke-width="1.4" fill="none" stroke-linecap="round"/>',
+    comemora: '<path d="M8.3 10.6c.95 2.4 5.85 2.4 6.8 0z" fill="#c81e2c"/><path d="M9.3 11.5c.7.7 3.9.7 4.6 0" stroke="#fff" stroke-width=".7" fill="none" stroke-linecap="round"/>',
+    duvida: '<path d="M9 11.6c.7-.7 1.5-.7 2.1 0 .6.7 1.4.7 2.1 0" stroke="#c81e2c" stroke-width="1.3" fill="none" stroke-linecap="round"/>',
+  };
+  const dente = (expr = 'feliz') => `<svg viewBox="0 0 24 24" class="h-8 w-8" aria-hidden="true">
     <path fill="#fff" d="M12 2.2c-2.4 0-3.7 1.1-5.1 1.1-1.3 0-2.2-.7-3-.2-1 .7-1.1 2.4-1 4.2.1 1.7.5 3 1 4.8.4 1.5.6 3.1 1 4.9.3 1.4.6 3 1.6 3.6.9.6 1.6-.3 1.9-1.6.3-1.3.4-2.9 1.1-2.9s.8 1.6 1.1 2.9c.3 1.3 1 2.2 1.9 1.6 1-.6 1.3-2.2 1.6-3.6.4-1.8.6-3.4 1-4.9.5-1.8.9-3.1 1-4.8.1-1.8 0-3.5-1-4.2-.8-.5-1.7.2-3 .2-1.4 0-2.7-1.1-5.1-1.1z"/>
     <circle cx="7.7" cy="10.4" r="1.1" fill="#ffb3b3"/><circle cx="16.3" cy="10.4" r="1.1" fill="#ffb3b3"/>
-    <circle cx="9.4" cy="8.4" r="1.05" fill="#c81e2c"/><circle cx="14.6" cy="8.4" r="1.05" fill="#c81e2c"/>
+    <circle cx="9.4" cy="8.4" r="${expr === 'duvida' ? '0.7' : '1.05'}" fill="#c81e2c"/><circle cx="14.6" cy="8.4" r="1.05" fill="#c81e2c"/>
     <circle cx="9.0" cy="8.0" r="0.32" fill="#fff"/><circle cx="14.2" cy="8.0" r="0.32" fill="#fff"/>
-    <path d="M8.7 10.9c.9 1.5 5.7 1.5 6.6 0" stroke="#c81e2c" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+    ${expr === 'duvida' ? '<path d="M13.4 6.6c.6-.4 1.4-.4 2 0" stroke="#c81e2c" stroke-width=".8" fill="none" stroke-linecap="round"/>' : ''}
+    ${BOCA[expr] || BOCA.feliz}
   </svg>`;
+  const DENTE = dente('feliz');
 
   document.querySelectorAll('[data-sim]').forEach((root) => {
     const lang = root.getAttribute('data-lang') === 'en' ? 'en' : 'pt';
@@ -131,6 +146,12 @@ const regrasTela = (regrasData as Record<string, any[]>)[slug] ?? [];
     let acoes = [];
     let ultima = null;
     const atual = () => hist[hist.length - 1];
+
+    // Modo Desafio: usuário escolhe a ação certa sem a ajuda do Dentinho; pontua no fim.
+    let modo = 'guia';
+    let placar = { acertos: 0, erros: 0 };
+    const embaralhar = (a) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+    const decoys = (certo, n) => embaralhar([...new Set(Object.values(m.etapas).map((e) => e.acao).filter((a) => a && a !== certo))]).slice(0, n);
 
     // textos fixos
     $('[data-ui="titulo"]').textContent = m.titulo;
@@ -165,7 +186,10 @@ const regrasTela = (regrasData as Record<string, any[]>)[slug] ?? [];
         $('[data-ui="regrasSistema"]').textContent =
           (lang === 'en' ? '📏 System rules (from the code) · ' : '📏 Regras do sistema (do código) · ') + comDesc.length;
         $('[data-regras-sistema]').innerHTML = comDesc
-          .map(({ r, d }) => `<li title="${(r.origem || '') + (r.msgKey ? ' · ' + r.msgKey : '')}"><strong class="text-brand-fg">${r.campo}</strong> — ${d}</li>`)
+          .map(({ r, d }) => {
+            const campo = (r.campo && typeof r.campo === 'object') ? (r.campo[lang] || r.campo.pt) : r.campo;
+            return `<li title="${(r.origem || '') + (r.msgKey ? ' · ' + r.msgKey : '')}"><strong class="text-brand-fg">${campo}</strong> — ${d}</li>`;
+          })
           .join('');
       }
     }
@@ -179,7 +203,7 @@ const regrasTela = (regrasData as Record<string, any[]>)[slug] ?? [];
       $('[data-tipos-wrap]').style.display = 'none';
     }
 
-    function trocarTipo(t) { cenario = { variante: t }; hist = [estadoInicial(spec, cenario)]; acoes = []; ultima = null; render(); }
+    function trocarTipo(t) { cenario = { variante: t }; hist = [estadoInicial(spec, cenario)]; acoes = []; ultima = null; placar = { acertos: 0, erros: 0 }; render(); }
 
     function aplicar(tipo) {
       const antes = atual();
@@ -232,7 +256,8 @@ const regrasTela = (regrasData as Record<string, any[]>)[slug] ?? [];
       }).join('');
 
       $('[data-cena="passo"]').textContent = ui.passo(passoN, trilhaIds.length);
-      $('[data-dentinho]').innerHTML = DENTE;
+      const expr = terminal ? 'comemora' : (ultima && ultima.ok === false ? 'duvida' : 'feliz');
+      $('[data-dentinho]').innerHTML = dente(expr);
       if (pop) { const d = $('[data-dentinho]'); d.classList.remove('tr-dentinho'); void d.offsetWidth; d.classList.add('tr-dentinho'); }
       $('[data-cena="fala"]').textContent = et.fala;
       $('[data-cena="titulo"]').textContent = `${et.ic} ${et.tit}`;
@@ -291,6 +316,41 @@ const regrasTela = (regrasData as Record<string, any[]>)[slug] ?? [];
       $('[data-act="voltar"]').disabled = hist.length <= 1;
       $('[data-act="reiniciar"]').textContent = ui.reiniciar;
 
+      // Modo Desafio: rótulo do toggle, escolhas da etapa e placar final.
+      $('[data-modo-toggle]').textContent = modo === 'desafio'
+        ? (lang === 'en' ? '🎓 Guided mode' : '🎓 Modo Guiado')
+        : (lang === 'en' ? '🎯 Challenge mode' : '🎯 Modo Desafio');
+      const emDesafio = modo === 'desafio';
+      const balao = $('[data-cena="fala"]').closest('.mt-3');
+      if (balao) balao.style.display = emDesafio ? 'none' : '';
+      $('[data-cena="pratica"]').style.display = emDesafio ? 'none' : '';
+      $('[data-cena="dentinho-acoes"]').style.display = emDesafio ? 'none' : '';
+      $('[data-cena="ese"]').style.display = emDesafio ? 'none' : '';
+      const desafioWrap = $('[data-desafio]');
+      if (emDesafio && !terminal && prox) {
+        btn.classList.add('hidden');
+        const certo = et.acao || '—';
+        const opc = embaralhar([certo, ...decoys(certo, 2)]);
+        desafioWrap.classList.remove('hidden');
+        desafioWrap.innerHTML =
+          `<p class="mb-2 text-xs font-semibold uppercase tracking-wide text-brand-muted">${lang === 'en' ? 'Which action is correct?' : 'Qual é a ação correta?'}</p>` +
+          `<div class="flex flex-col gap-2">` +
+          opc.map((o) => `<button type="button" data-escolha="${o === certo}" class="rounded-lg border border-brand-line px-3 py-2 text-left text-sm text-brand-fg transition hover:bg-white/5">${o}</button>`).join('') +
+          `</div>`;
+      } else if (emDesafio && terminal) {
+        const tot = placar.acertos + placar.erros;
+        const nota = tot ? Math.round((placar.acertos / tot) * 100) : 100;
+        desafioWrap.classList.remove('hidden');
+        desafioWrap.innerHTML =
+          `<div class="rounded-xl2 border border-brand-line bg-brand-bg p-4 text-center">` +
+          `<p class="text-sm text-brand-fg-2">${lang === 'en' ? 'Your score' : 'Seu placar'}</p>` +
+          `<p class="mt-1 text-3xl font-bold ${nota >= 70 ? 'text-emerald-400' : 'text-brand-red-on-dark'}">${nota}%</p>` +
+          `<p class="mt-1 text-xs text-brand-muted">${placar.acertos} ✓ · ${placar.erros} ✗</p></div>`;
+      } else {
+        desafioWrap.classList.add('hidden');
+        desafioWrap.innerHTML = '';
+      }
+
       // E se…?
       const ese = [];
       const tipoAtual = spec.etapaTipo[etId];
@@ -302,6 +362,25 @@ const regrasTela = (regrasData as Record<string, any[]>)[slug] ?? [];
         eseWrap.classList.remove('hidden');
         $('[data-ese-botoes]').innerHTML = ese.map((e) => `<button type="button" data-ese="${e.k}" class="rounded-lg border border-dashed border-brand-line px-3 py-1.5 text-xs text-brand-fg-2 transition hover:bg-white/5">${e.t}</button>`).join('');
       } else eseWrap.classList.add('hidden');
+
+      // estado didático: progresso + próxima ação + pendências (genérico, do motor)
+      const feitas = terminal ? trilhaIds.length : idxTrilha;
+      const pct = trilhaIds.length ? Math.round((feitas / trilhaIds.length) * 100) : 0;
+      const proxAcao = proximaAcao(spec, s);
+      const faltaCampos = spec.etapaTipo[etId] === 'SALVAR' ? faltando(spec, s).map((k) => m.campos[k] || k) : [];
+      let estHtml =
+        `<div><div class="mb-1 flex justify-between text-xs text-brand-muted"><span>${lang === 'en' ? 'Progress' : 'Progresso'}</span><span>${feitas}/${trilhaIds.length}</span></div>` +
+        `<div class="h-1.5 overflow-hidden rounded bg-white/10"><div class="h-1.5 rounded bg-emerald-500 transition-all" style="width:${pct}%"></div></div></div>`;
+      if (terminal) {
+        estHtml += `<div class="rounded-lg bg-emerald-500/12 px-3 py-1.5 text-sm font-medium text-emerald-300">✓ ${lang === 'en' ? 'Completed' : 'Concluído'}</div>`;
+      } else {
+        const rotAcao = et.acao || (proxAcao === 'PREENCHER' ? (lang === 'en' ? 'Fill fields' : 'Preencher') : '—');
+        estHtml += `<div class="rounded-lg bg-brand-red/10 px-3 py-1.5 text-sm text-brand-red-on-dark">→ ${lang === 'en' ? 'Next' : 'Próxima'}: ${rotAcao}</div>`;
+      }
+      if (faltaCampos.length) {
+        estHtml += `<div class="rounded-lg bg-amber-500/12 px-3 py-1.5 text-xs text-amber-300">⏳ ${lang === 'en' ? 'Pending' : 'Pendente'}: ${faltaCampos.join(', ')}</div>`;
+      }
+      $('[data-estado]').innerHTML = estHtml;
 
       // painel
       const linha = (k, v) => `<div class="flex justify-between gap-3"><dt class="text-brand-muted">${k}</dt><dd class="text-right font-medium text-brand-fg">${v}</dd></div>`;
@@ -315,9 +394,15 @@ const regrasTela = (regrasData as Record<string, any[]>)[slug] ?? [];
     }
 
     root.addEventListener('click', (e) => {
-      const el = e.target.closest('[data-tipo],[data-act],[data-ese],[data-goto],[data-pergunta]');
+      const el = e.target.closest('[data-tipo],[data-act],[data-ese],[data-goto],[data-pergunta],[data-modo-toggle],[data-escolha]');
       if (!el) return;
       if (el.dataset.pergunta) { window.dispatchEvent(new CustomEvent('dentinho:perguntar', { detail: { texto: decodeURIComponent(el.dataset.pergunta) } })); return; }
+      if (el.hasAttribute('data-modo-toggle')) { modo = modo === 'guia' ? 'desafio' : 'guia'; placar = { acertos: 0, erros: 0 }; hist = [estadoInicial(spec, cenario)]; acoes = []; ultima = null; render(); return; }
+      if (el.hasAttribute('data-escolha')) {
+        if (el.dataset.escolha === 'true') { placar.acertos++; aplicar(proximaAcao(spec, atual())); }
+        else { placar.erros++; ultima = { ok: false, texto: lang === 'en' ? 'Not this one — try again.' : 'Não é essa — tente de novo.' }; render(true); }
+        return;
+      }
       if (el.dataset.tipo) return trocarTipo(el.dataset.tipo);
       if (el.dataset.act === 'principal') return aplicar(proximaAcao(spec, atual()));
       if (el.dataset.act === 'voltar') { if (hist.length > 1) { hist.pop(); acoes.pop(); ultima = null; render(); } return; }

@@ -24,8 +24,35 @@ function walk(dir, out = []) {
 }
 
 const kebab = (s) => s.replace(/([a-z0-9])([A-Z])/g, '$1-$2').replace(/([A-Z]+)([A-Z][a-z])/g, '$1-$2').toLowerCase();
-// "CodigoSku" -> "Código SKU"? não: humanização só separa camelCase (o label fino fica no spec).
-const humano = (prop) => prop.replace(/([a-z0-9])([A-Z])/g, '$1 $2').replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2');
+
+// Dicionário de termos p/ rótulo bilíngue a partir do nome da propriedade .NET.
+// Token desconhecido cai no próprio token (separado por camelCase). Sufixos viram unidade.
+const TERMO = {
+  codigo: ['Código', 'Code'], descricao: ['Descrição', 'Description'], sku: ['SKU', 'SKU'],
+  ean: ['EAN', 'EAN'], ncm: ['NCM', 'NCM'], ipi: ['IPI', 'IPI'], cfop: ['CFOP', 'CFOP'], gtin: ['GTIN', 'GTIN'],
+  peso: ['Peso', 'Weight'], bruto: ['Bruto', 'Gross'], liquido: ['Líquido', 'Net'],
+  aliquota: ['Alíquota', 'Rate'], porcentagem: ['(%)', '(%)'], kg: ['(kg)', '(kg)'],
+  unidade: ['Unidade', 'Unit'], medida: ['Medida', 'Measure'], padrao: ['Padrão', 'Default'], basica: ['Básica', 'Basic'],
+  grupo: ['Grupo', 'Group'], status: ['Status', 'Status'], serializado: ['Serializado', 'Serialized'],
+  cubagem: ['Cubagem', 'Cubage'], largura: ['Largura', 'Width'], altura: ['Altura', 'Height'],
+  complemento: ['Complemento', 'Complement'], barras: ['Barras', 'Bars'], de: ['de', 'of'],
+  nacional: ['Nacional', 'National'], internacional: ['Internacional', 'International'],
+  maximo: ['Máximo', 'Maximum'], minimo: ['Mínimo', 'Minimum'], desconto: ['Desconto', 'Discount'],
+  nome: ['Nome', 'Name'], fantasia: ['Fantasia', 'Trade'], razao: ['Razão', 'Corporate'], social: ['Social', 'Name'],
+  email: ['E-mail', 'Email'], telefone: ['Telefone', 'Phone'], documento: ['Documento', 'Document'],
+  tipo: ['Tipo', 'Type'], data: ['Data', 'Date'], valor: ['Valor', 'Value'], quantidade: ['Quantidade', 'Quantity'],
+  preco: ['Preço', 'Price'], observacao: ['Observação', 'Note'], ativo: ['Ativo', 'Active'],
+  empresa: ['Empresa', 'Company'], cliente: ['Cliente', 'Customer'], produto: ['Produto', 'Product'], pedido: ['Pedido', 'Order'],
+  endereco: ['Endereço', 'Address'], cidade: ['Cidade', 'City'], estado: ['Estado', 'State'], pais: ['País', 'Country'],
+  credencial: ['Credencial', 'Credential'], consultor: ['Consultor', 'Consultant'], responsavel: ['Responsável', 'Owner'],
+};
+const semAcento = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+function humanoBi(prop) {
+  let toks = prop.replace(/([a-z0-9])([A-Z])/g, '$1 $2').replace(/([A-Z]+)([A-Z][a-z])/g, '$1 $2').split(' ');
+  if (toks[0] === 'Id' && toks.length > 1) toks = toks.slice(1); // "IdGrupo" -> "Grupo"
+  const pick = (i) => toks.map((t) => (TERMO[semAcento(t)] ? TERMO[semAcento(t)][i] : t)).join(' ').replace(/\s+/g, ' ').trim();
+  return { pt: pick(0), en: pick(1) };
+}
 const semComentarios = (raw) => raw.replace(/\/\*[\s\S]*?\*\//g, ' ').replace(/(^|[^:])\/\/[^\n]*/g, '$1 ');
 const num = (v) => { const n = parseFloat(String(v).replace('F', '')); return Number.isFinite(n) ? n : undefined; };
 
@@ -48,7 +75,7 @@ for (const file of walk(DIRS[0]).concat(walk(DIRS[1]))) {
     const mp = seg.match(/^\s*\w+\s*=>\s*\w+\.(\w+)\s*\)/);
     if (!mp) continue;
     const prop = mp[1];
-    const r = porProp[prop] || (porProp[prop] = { prop, campo: humano(prop), origem });
+    const r = porProp[prop] || (porProp[prop] = { prop, campo: humanoBi(prop), origem });
 
     if (/\.\s*(NotNull|NotEmpty)\b/.test(seg)) r.obrigatorio = true;
     const ml = seg.match(/\.\s*MaximumLength\s*\(\s*(\d+)/);         if (ml) r.maxLength = +ml[1];
