@@ -83,22 +83,24 @@ O Title precisa **terminar com o resumo do desenvolvimento** — não pare no no
 
 ## Campos obrigatórios do PBI
 
-Preencha **todos** os campos abaixo antes de salvar (o Azure bloqueia o salvamento se faltar algum — ex.: *"Field 'Requesting User' cannot be empty"*):
+Preencha **todos** os campos abaixo antes de salvar (o Azure bloqueia o salvamento se faltar algum — ex.: *"Field 'Requesting User' cannot be empty"*).
+
+A coluna **Exemplo** mostra um caso real: o **PBI 5099** — Faturamentos > Fila de Remessa Aguardando Separação > Alerta de Pedidos Acima de 10k e Transportadora SEDEX.
 
 <DocTable
-  headers={['Campo', 'O que preencher']}
+  headers={['Campo', 'O que preencher', 'Exemplo (PBI 5099)']}
   rows={[
-    ['State', 'O estado do item — ver a tabela "Estados (State)" logo abaixo.'],
-    ['Area', 'Projetos Sin - Scrum.'],
-    ['Iteration', 'Projetos Sin - Scrum.'],
-    ['Description', 'A documentação de requisito gerada pelo prompt.'],
-    ['Demand', 'A demanda relacionada.'],
-    ['Request Date', 'A data da solicitação.'],
-    ['Requesting User', 'O usuário que está solicitando.'],
-    ['Ticket', 'Se houver ticket de suporte (Freshdesk/atendimento), o número do ticket; se não houver, o número da tarefa.'],
-    ['Department', 'O departamento responsável.'],
-    ['Board', 'O board/quadro de destino.'],
-    ['Priority / Severity', 'Prioridade e severidade da melhoria (ex.: 3 - Medium).'],
+    ['State', 'O estado do item — ver a tabela "Estados (State)" logo abaixo.', 'New'],
+    ['Area', 'Projetos Sin - Scrum.', 'Projetos Sin - Scrum'],
+    ['Iteration', 'Projetos Sin - Scrum.', 'Projetos Sin - Scrum'],
+    ['Description', 'A documentação de requisito gerada pelo prompt.', 'Doc de requisito: contexto, critérios de aceite e regras do alerta de pedidos acima de R$ 10k com transportadora SEDEX.'],
+    ['Demand', 'A demanda relacionada.', 'Melhoria'],
+    ['Request Date', 'A data da solicitação.', '12/11/2026'],
+    ['Requesting User', 'O usuário que está solicitando.', 'William Costa'],
+    ['Ticket', 'Se houver ticket de suporte (Freshdesk/atendimento), o número do ticket; se não houver, o número da tarefa.', '5099 (não veio de chamado externo → o número da própria tarefa)'],
+    ['Department', 'O departamento responsável.', 'Desenvolvimento'],
+    ['Board', 'O board/quadro de destino.', 'Tecnologia'],
+    ['Priority / Severity', 'Prioridade e severidade da melhoria (ex.: 3 - Medium).', '1 / 1 - Critical'],
   ]}
 />
 

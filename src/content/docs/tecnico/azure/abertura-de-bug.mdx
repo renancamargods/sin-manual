@@ -80,22 +80,24 @@ O Title precisa **terminar com o resumo do erro** — não pare no nome da tela.
 
 ## Campos obrigatórios do Bug
 
-Preencha **todos** os campos abaixo antes de salvar (o Azure bloqueia o salvamento se faltar algum — ex.: *"Field 'Requesting User' cannot be empty"*):
+Preencha **todos** os campos abaixo antes de salvar (o Azure bloqueia o salvamento se faltar algum — ex.: *"Field 'Requesting User' cannot be empty"*).
+
+A coluna **Exemplo** mostra um caso real: o **Bug 5079** — Administrador > Campo de Validação > acentuação: "Tipo de Análise".
 
 <DocTable
-  headers={['Campo', 'O que preencher']}
+  headers={['Campo', 'O que preencher', 'Exemplo (Bug 5079)']}
   rows={[
-    ['State', 'O estado do item — ver a tabela "Estados (State)" logo abaixo.'],
-    ['Area', 'Projetos Sin - Scrum.'],
-    ['Iteration', 'Projetos Sin - Scrum.'],
-    ['Repro Steps', 'O texto do reporte gerado pelo prompt (as 6 seções).'],
-    ['Demand', 'A demanda relacionada.'],
-    ['Request Date', 'A data da solicitação.'],
-    ['Requesting User', 'O usuário que está solicitando/reportando.'],
-    ['Ticket', 'Se houver ticket de suporte (Freshdesk/atendimento), o número do ticket; se não houver, o número da tarefa.'],
-    ['Department', 'O departamento responsável.'],
-    ['Board', 'O board/quadro de destino.'],
-    ['Priority / Severity', 'Prioridade e severidade do erro (ex.: 1 - Critical).'],
+    ['State', 'O estado do item — ver a tabela "Estados (State)" logo abaixo.', 'New'],
+    ['Area', 'Projetos Sin - Scrum.', 'Projetos Sin - Scrum'],
+    ['Iteration', 'Projetos Sin - Scrum.', 'Projetos Sin - Scrum'],
+    ['Repro Steps', 'O texto do reporte gerado pelo prompt (as 6 seções).', 'As 6 seções do reporte (título: Administrador > Campo de Validação > acentuação em "Tipo de Análise").'],
+    ['Demand', 'A demanda relacionada.', 'Correção'],
+    ['Request Date', 'A data da solicitação.', '12/11/2026'],
+    ['Requesting User', 'O usuário que está solicitando/reportando.', 'Renan Camargo'],
+    ['Ticket', 'Se houver ticket de suporte (Freshdesk/atendimento), o número do ticket; se não houver, o número da tarefa.', '5079 (não veio de chamado externo → o número da própria tarefa)'],
+    ['Department', 'O departamento responsável.', 'Desenvolvimento'],
+    ['Board', 'O board/quadro de destino.', 'Tecnologia'],
+    ['Priority / Severity', 'Prioridade e severidade do erro (ex.: 1 - Critical).', '3 / 4 - Low'],
   ]}
 />
 
